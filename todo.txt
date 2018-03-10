@@ -1,0 +1,50 @@
+optimise
+
+fix spawns layout
+
+bind delete key to delete spawns button
+
+arena shapes
+	prompt before replacing arena
+
+	default
+	default no randomness
+	void
+	full
+	presets
+		waves
+			min height
+			max height
+			direction
+		random
+			min height
+			max height
+
+shrink visualiser
+			
+multi select tiles with RMB
+
+buttons
+	clamp to int height
+	add randomness
+
+HELP
+browse spawnsets on internet
+	download/import from site
+	upload your spawnset
+about
+	made by me
+contact
+	hi
+help
+	arena
+		fallen after -1
+		from -1 to 63
+		25,25 is player spawn (center)
+		full arena can crash (pos 0,0?)
+		tile 0,1 invisible?
+		lower than -1 no tile (or death)
+		-1000 default void
+		0 normal height
+		tiny differences
+		player spawns on top of a tile (doesnt get stuck)

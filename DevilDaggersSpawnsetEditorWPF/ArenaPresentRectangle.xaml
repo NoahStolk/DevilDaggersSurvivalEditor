@@ -1,0 +1,27 @@
+﻿<Window x:Class="DevilDaggersSpawnsetEditorWPF.ArenaPresentRectangle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="ArenaPresentRectangle" Height="256" Width="256" ResizeMode="NoResize">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.Column="0">
+			<Label Padding="4,2,0,0">X1</Label>
+			<Label Padding="4,2,0,0">Y1</Label>
+			<Label Padding="4,2,0,0">X2</Label>
+			<Label Padding="4,2,0,0">Y2</Label>
+		</StackPanel>
+		<StackPanel Grid.Column="1">
+			<TextBox Name="TextBoxX1">0</TextBox>
+			<TextBox Name="TextBoxY1">0</TextBox>
+			<TextBox Name="TextBoxX2">51</TextBox>
+			<TextBox Name="TextBoxY2">51</TextBox>
+			<Button Content="OK" Click="OKButton_Click"/>
+		</StackPanel>
+	</Grid>
+</Window>

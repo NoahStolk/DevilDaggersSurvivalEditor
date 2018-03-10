@@ -16,7 +16,7 @@
 				<MenuItem Header="_File">
 					<MenuItem Header="_New" Click="FileNew_Click" />
 					<MenuItem Header="_Open" Click="FileOpen_Click" />
-					<MenuItem Header="_Save" />
+					<MenuItem Header="_Save" Click="FileSave_Click"/>
 					<Separator />
 					<MenuItem Header="_Exit" />
 				</MenuItem>
@@ -37,8 +37,12 @@
 					<RowDefinition Height="1*"/>
 				</Grid.RowDefinitions>
 				<Label FontSize="16" FontWeight="Bold" Grid.Row="0">Spawns</Label>
-				<ScrollViewer Grid.Row="1" Background="LightGray">
-					<Grid>
+				<Grid Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="20" />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid Grid.Row="0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition Width="2*"/>
@@ -47,24 +51,15 @@
 							<ColumnDefinition Width="2*"/>
 							<ColumnDefinition Width="2*"/>
 						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="20" />
-							<RowDefinition />
-						</Grid.RowDefinitions>
 						<Label Grid.Column="0" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">#</Label>
 						<Label Grid.Column="1" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Second</Label>
 						<Label Grid.Column="2" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Enemy</Label>
 						<Label Grid.Column="3" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Delay</Label>
 						<Label Grid.Column="4" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Gems</Label>
 						<Label Grid.Column="5" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Total gems</Label>
-						<StackPanel Grid.Column="0" Grid.Row="1" Name="StackPanelSpawnsIndex"></StackPanel>
-						<StackPanel Grid.Column="1" Grid.Row="1" Name="StackPanelSpawnsSeconds"></StackPanel>
-						<StackPanel Grid.Column="2" Grid.Row="1" Name="StackPanelSpawnsEnemy"></StackPanel>
-						<StackPanel Grid.Column="3" Grid.Row="1" Name="StackPanelSpawnsDelay"></StackPanel>
-						<StackPanel Grid.Column="4" Grid.Row="1" Name="StackPanelSpawnsGems"></StackPanel>
-						<StackPanel Grid.Column="5" Grid.Row="1" Name="StackPanelSpawnsTotalGems"></StackPanel>
 					</Grid>
-				</ScrollViewer>
+					<ListBox Grid.Row="1" Name="ListBoxSpawns" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible"></ListBox>
+				</Grid>
 				<Grid Grid.Row="2">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1*" />
@@ -91,6 +86,9 @@
 						</ComboBox>
 						<TextBox Margin="0,0,0,0" Height="20" Name="TextBoxDelay"></TextBox>
 						<Button Margin="0,0,0,0" Name="AddSpawnButton" Content="Add spawn" Click="AddSpawnButton_Click"></Button>
+						<Button Margin="0,0,0,0" Name="InsertSpawnButton" Content="Insert spawn" Click="InsertSpawnButton_Click"></Button>
+						<Button Margin="0,0,0,0" Name="EditSpawnButton" Content="Edit spawn(s)" Click="EditSpawnButton_Click"></Button>
+						<Button Margin="0,0,0,0" Name="DeleteSpawnButton" Content="Delete spawn(s)" Click="DeleteSpawnButton_Click"></Button>
 					</StackPanel>
 				</Grid>
 			</Grid>
@@ -109,7 +107,8 @@
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="1*" />
 							<ColumnDefinition Width="1*" />
-							<ColumnDefinition Width="3*" />
+							<ColumnDefinition Width="2*" />
+							<ColumnDefinition Width="1*" />
 						</Grid.ColumnDefinitions>
 						<StackPanel Grid.Column="0">
 							<Label>Tile</Label>
@@ -121,9 +120,20 @@
 						</StackPanel>
 						<StackPanel Grid.Column="2">
 							<Label>Height map</Label>
-							<Grid HorizontalAlignment="Left" Name="HeightMap" Width="136" Height="32">
+							<Grid HorizontalAlignment="Left" Name="HeightMap" Width="136" Height="40">
 
 							</Grid>
+						</StackPanel>
+						<StackPanel Grid.Column="3">
+							<ComboBox Name="ComboBoxArenaPreset" SelectedIndex="0">
+								<ComboBoxItem Content="Default"></ComboBoxItem>
+								<ComboBoxItem Content="Default flat"></ComboBoxItem>
+								<ComboBoxItem Content="Full"></ComboBoxItem>
+								<ComboBoxItem Content="Void"></ComboBoxItem>
+								<ComboBoxItem Content="Rectangle"></ComboBoxItem>
+								<ComboBoxItem Content="Waves"></ComboBoxItem>
+							</ComboBox>
+							<Button Name="ButtonArenaGenerate" Click="ButtonArenaGenerate_Click">Generate</Button>
 						</StackPanel>
 					</Grid>
 				</StackPanel>
