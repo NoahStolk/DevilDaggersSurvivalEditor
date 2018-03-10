@@ -3,10 +3,136 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DevilDaggersSpawnsetEditorWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Devil Daggers Spawnset Editor" Height="816" Width="816"
+		ResizeMode="NoResize">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="20"/>
+			<RowDefinition Height="1*"/>
+		</Grid.RowDefinitions>
+		<DockPanel Grid.Row="0">
+			<Menu DockPanel.Dock="Top">
+				<MenuItem Header="_File">
+					<MenuItem Header="_New" Click="FileNew_Click" />
+					<MenuItem Header="_Open" Click="FileOpen_Click" />
+					<MenuItem Header="_Save" />
+					<Separator />
+					<MenuItem Header="_Exit" />
+				</MenuItem>
+				<MenuItem Header="_About">
+					<MenuItem Header="_Info" />
+				</MenuItem>
+			</Menu>
+		</DockPanel>
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="1*"/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="32"/>
+					<RowDefinition Height="2*"/>
+					<RowDefinition Height="1*"/>
+				</Grid.RowDefinitions>
+				<Label FontSize="16" FontWeight="Bold" Grid.Row="0">Spawns</Label>
+				<ScrollViewer Grid.Row="1" Background="LightGray">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="2*"/>
+							<ColumnDefinition Width="2*"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="20" />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<Label Grid.Column="0" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">#</Label>
+						<Label Grid.Column="1" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Second</Label>
+						<Label Grid.Column="2" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Enemy</Label>
+						<Label Grid.Column="3" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Delay</Label>
+						<Label Grid.Column="4" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Gems</Label>
+						<Label Grid.Column="5" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Total gems</Label>
+						<StackPanel Grid.Column="0" Grid.Row="1" Name="StackPanelSpawnsIndex"></StackPanel>
+						<StackPanel Grid.Column="1" Grid.Row="1" Name="StackPanelSpawnsSeconds"></StackPanel>
+						<StackPanel Grid.Column="2" Grid.Row="1" Name="StackPanelSpawnsEnemy"></StackPanel>
+						<StackPanel Grid.Column="3" Grid.Row="1" Name="StackPanelSpawnsDelay"></StackPanel>
+						<StackPanel Grid.Column="4" Grid.Row="1" Name="StackPanelSpawnsGems"></StackPanel>
+						<StackPanel Grid.Column="5" Grid.Row="1" Name="StackPanelSpawnsTotalGems"></StackPanel>
+					</Grid>
+				</ScrollViewer>
+				<Grid Grid.Row="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="3*" />
+					</Grid.ColumnDefinitions>
+					<StackPanel Grid.Column="0">
+						<Label Padding="4,0,0,4">Enemy</Label>
+						<Label Padding="4,0,0,4">Delay</Label>
+					</StackPanel>
+					<StackPanel Grid.Column="1">
+						<ComboBox Name="ComboBoxEnemy" Height="20">
+							<ComboBoxItem Content="EMPTY" />
+							<ComboBoxItem Content="Squid I" />
+							<ComboBoxItem Content="Squid II" />
+							<ComboBoxItem Content="Centipede" />
+							<ComboBoxItem Content="Spider I" />
+							<ComboBoxItem Content="Leviathan" />
+							<ComboBoxItem Content="Gigapede" />
+							<ComboBoxItem Content="Squid III" />
+							<ComboBoxItem Content="Thorn" />
+							<ComboBoxItem Content="Spider II" />
+							<ComboBoxItem Content="Ghostpede" />
+						</ComboBox>
+						<TextBox Margin="0,0,0,0" Height="20" Name="TextBoxDelay"></TextBox>
+						<Button Margin="0,0,0,0" Name="AddSpawnButton" Content="Add spawn" Click="AddSpawnButton_Click"></Button>
+					</StackPanel>
+				</Grid>
+			</Grid>
+			<Grid Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="32"/>
+					<RowDefinition Height="2*"/>
+					<RowDefinition Height="1*"/>
+				</Grid.RowDefinitions>
+				<Label FontSize="16" FontWeight="Bold" Grid.Row="0">Arena</Label>
+				<StackPanel Grid.Row="1">
+					<Grid Name="ArenaTiles" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" Background="Black" Width="408" Height="408">
+
+					</Grid>
+					<Label Name="LabelTile">Tile</Label>
+					<Label Name="HeightTile">Height</Label>
+				</StackPanel>
+				<Grid Grid.Row="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="3*" />
+					</Grid.ColumnDefinitions>
+					<StackPanel Grid.Column="0">
+						<Label Padding="4,0,0,4">Shrink start</Label>
+						<Label Padding="4,0,0,4">Shrink end</Label>
+						<Label Padding="4,0,0,4">Shrink rate</Label>
+						<Label Padding="4,0,0,4">Brightness</Label>
+					</StackPanel>
+					<StackPanel Grid.Column="1">
+						<TextBox Visibility="Collapsed" Margin="0,0,0,0" Height="20" Name="TextBoxShrinkStart"></TextBox>
+						<TextBlock Height="20" Name="TextBlockShrinkStart"></TextBlock>
+						<TextBox Visibility="Collapsed" Margin="0,0,0,0" Height="20" Name="TextBoxShrinkEnd"></TextBox>
+						<TextBlock Height="20" Name="TextBlockShrinkEnd"></TextBlock>
+						<TextBox Visibility="Collapsed" Margin="0,0,0,0" Height="20" Name="TextBoxShrinkRate"></TextBox>
+						<TextBlock Height="20" Name="TextBlockShrinkRate"></TextBlock>
+						<TextBox Visibility="Collapsed" Margin="0,0,0,0" Height="20" Name="TextBoxBrightness"></TextBox>
+						<TextBlock Height="20" Name="TextBlockBrightness"></TextBlock>
+						<Button Margin="0,0,0,0" Name="SettingsEditApplyButton" Content="Edit" Click="SettingsEditApplyButton_Click"></Button>
+					</StackPanel>
+				</Grid>
+			</Grid>
+		</Grid>
+	</Grid>
 </Window>
