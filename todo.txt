@@ -7,10 +7,6 @@ bind delete key to delete spawns button
 arena shapes
 	prompt before replacing arena
 
-	default
-	default no randomness
-	void
-	full
 	presets
 		waves
 			min height
