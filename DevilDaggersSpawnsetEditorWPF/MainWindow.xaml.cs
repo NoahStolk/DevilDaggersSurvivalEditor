@@ -13,6 +13,9 @@ namespace DevilDaggersSpawnsetEditorWPF
 {
 	public partial class MainWindow : Window
 	{
+		private const int TILE_MIN = -2;
+		private const int TILE_MAX = 63;
+
 		private Spawnset spawnset;
 
 		public MainWindow()
@@ -27,6 +30,23 @@ namespace DevilDaggersSpawnsetEditorWPF
 				ArenaTiles.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 			for (int i = 0; i < spawnset.arenaTiles.GetLength(1); i++)
 				ArenaTiles.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+			for (int i = 0; i < 4; i++)
+				HeightMap.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+			for (int i = 0; i < 17; i++)
+				HeightMap.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 17; j++)
+				{
+					TextBlock textBlock = new TextBlock { Background = new SolidColorBrush(GetColorFromHeight(i * 17 + j - 2)) };
+
+					Grid.SetRow(textBlock, i);
+					Grid.SetColumn(textBlock, j);
+					HeightMap.Children.Add(textBlock);
+				}
+			}
 		}
 
 		private void CreateEmptySpawnset()
@@ -77,12 +97,12 @@ namespace DevilDaggersSpawnsetEditorWPF
 				seconds += kvp.Value.delay;
 				totalGems += kvp.Value.enemy.gems;
 
-				StackPanelSpawnsIndex.Children.Add(new Label { Padding = new Thickness(0), Content = kvp.Key });
-				StackPanelSpawnsSeconds.Children.Add(new Label { Padding = new Thickness(0), Content = seconds.ToString("0.00") });
-				StackPanelSpawnsEnemy.Children.Add(new Label { Padding = new Thickness(0), Content = kvp.Value.enemy.name, FontWeight = (kvp.Value.loop ? FontWeights.Bold : FontWeights.Normal) });
-				StackPanelSpawnsDelay.Children.Add(new Label { Padding = new Thickness(0), Content = kvp.Value.delay.ToString("0.00") });
-				StackPanelSpawnsGems.Children.Add(new Label { Padding = new Thickness(0), Content = kvp.Value.enemy.gems });
-				StackPanelSpawnsTotalGems.Children.Add(new Label { Padding = new Thickness(0), Content = totalGems });
+				StackPanelSpawnsIndex.Children.Add(new Label { Padding = new Thickness(4,0,0,0), Content = kvp.Key });
+				StackPanelSpawnsSeconds.Children.Add(new Label { Padding = new Thickness(4,0,0,0), Content = seconds.ToString("0.0000") });
+				StackPanelSpawnsEnemy.Children.Add(new Label { Padding = new Thickness(4,0,0,0), Content = kvp.Value.enemy.name, FontWeight = (kvp.Value.loop ? FontWeights.Bold : FontWeights.Normal) });
+				StackPanelSpawnsDelay.Children.Add(new Label { Padding = new Thickness(4,0,0,0), Content = kvp.Value.delay.ToString("0.0000") });
+				StackPanelSpawnsGems.Children.Add(new Label { Padding = new Thickness(4,0,0,0), Content = kvp.Value.enemy.gems });
+				StackPanelSpawnsTotalGems.Children.Add(new Label { Padding = new Thickness(4,0,0,0), Content = totalGems });
 			}
 		}
 
@@ -96,10 +116,10 @@ namespace DevilDaggersSpawnsetEditorWPF
 
 		private Color GetColorFromHeight(float height)
 		{
-			if (height < -4)
+			if (height < TILE_MIN)
 				return Color.FromRgb(0, 0, 0);
 
-			float colorVal = Math.Max(0, (float)Math.Round((height + 4) * 16 + 32));
+			float colorVal = Math.Max(0, (float)Math.Round((height - TILE_MIN) * 16 + 32));
 
 			return Color.FromRgb((byte)(colorVal), (byte)(colorVal / 2), (byte)(Math.Floor(height / 16) * 64));
 		}
@@ -229,7 +249,7 @@ namespace DevilDaggersSpawnsetEditorWPF
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
 		{
 			Point tile = Mouse.GetPosition((IInputElement)sender);
-			tile = new Point((int)tile.X / 8, (int)tile.Y / 8);
+			tile = new Point((int)Math.Min(50, tile.X / 8), (int)Math.Min(50, tile.Y / 8));
 
 			float height = spawnset.arenaTiles[(int)tile.Y, (int)tile.X];
 
@@ -242,7 +262,7 @@ namespace DevilDaggersSpawnsetEditorWPF
 			Point tile = Mouse.GetPosition((IInputElement)sender);
 			tile = new Point((int)tile.X / 8, (int)tile.Y / 8);
 
-			spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = Math.Max(Math.Min(spawnset.arenaTiles[(int)tile.Y, (int)tile.X] + e.Delta / 120, 63), -4);
+			spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = Math.Max(Math.Min(spawnset.arenaTiles[(int)tile.Y, (int)tile.X] + e.Delta / 120, TILE_MAX), TILE_MIN);
 
 			ArenaTiles.Children.Remove(ArenaTiles.Children
 			  .Cast<UIElement>()

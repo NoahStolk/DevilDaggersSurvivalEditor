@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Devil Daggers Spawnset Editor" Height="816" Width="816"
+        Title="Devil Daggers Spawnset Editor" Height="832" Width="832"
 		ResizeMode="NoResize">
 	<Grid>
 		<Grid.RowDefinitions>
@@ -76,7 +76,7 @@
 						<Label Padding="4,0,0,4">Delay</Label>
 					</StackPanel>
 					<StackPanel Grid.Column="1">
-						<ComboBox Name="ComboBoxEnemy" Height="20">
+						<ComboBox Name="ComboBoxEnemy" Height="20" SelectedIndex="0">
 							<ComboBoxItem Content="EMPTY" />
 							<ComboBoxItem Content="Squid I" />
 							<ComboBoxItem Content="Squid II" />
@@ -105,8 +105,27 @@
 					<Grid Name="ArenaTiles" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" Background="Black" Width="408" Height="408">
 
 					</Grid>
-					<Label Name="LabelTile">Tile</Label>
-					<Label Name="HeightTile">Height</Label>
+					<Grid Grid.Row="2">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*" />
+							<ColumnDefinition Width="1*" />
+							<ColumnDefinition Width="3*" />
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0">
+							<Label>Tile</Label>
+							<Label>Height</Label>
+						</StackPanel>
+						<StackPanel Grid.Column="1">
+							<Label Name="LabelTile">0,0</Label>
+							<Label Name="HeightTile">0</Label>
+						</StackPanel>
+						<StackPanel Grid.Column="2">
+							<Label>Height map</Label>
+							<Grid HorizontalAlignment="Left" Name="HeightMap" Width="136" Height="32">
+
+							</Grid>
+						</StackPanel>
+					</Grid>
 				</StackPanel>
 				<Grid Grid.Row="2">
 					<Grid.ColumnDefinitions>
