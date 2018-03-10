@@ -7,12 +7,6 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 {
 	public class Spawnset
 	{
-		public const int HEADER_BUFFER_SIZE = 36;
-		public const int ARENA_BUFFER_SIZE = 10404;
-
-		public const int ARENA_WIDTH = 51;
-		public const int ARENA_HEIGHT = 51;
-
 		public SortedDictionary<int, Spawn> spawns;
 		public float[,] arenaTiles;
 		public float shrinkStart;
@@ -23,7 +17,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 		public Spawnset()
 		{
 			spawns = new SortedDictionary<int, Spawn>();
-			arenaTiles = new float[ARENA_WIDTH, ARENA_HEIGHT];
+			arenaTiles = new float[Settings.ARENA_WIDTH, Settings.ARENA_HEIGHT];
 			shrinkStart = 50;
 			shrinkEnd = 20;
 			shrinkRate = 0.025f;
@@ -43,16 +37,16 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 		public byte[] GetBytes()
 		{
 			// Open the original spawnset file
-			FileStream fs = new FileStream("V3_Sorath", FileMode.Open, FileAccess.Read);
+			FileStream fs = new FileStream("Content/V3_Sorath", FileMode.Open, FileAccess.Read);
 
 			// Set the file values for reading V3 spawnsets
-			byte[] headerBuffer = new byte[HEADER_BUFFER_SIZE];
-			byte[] arenaBuffer = new byte[ARENA_BUFFER_SIZE];
+			byte[] headerBuffer = new byte[Settings.HEADER_BUFFER_SIZE];
+			byte[] arenaBuffer = new byte[Settings.ARENA_BUFFER_SIZE];
 			byte[] spawnBuffer = new byte[40 + spawns.Count * 28];
 
 			// Read the file and write the data into the buffers, then close the file since we do not need it anymore
-			fs.Read(headerBuffer, 0, HEADER_BUFFER_SIZE);
-			fs.Read(arenaBuffer, 0, ARENA_BUFFER_SIZE);
+			fs.Read(headerBuffer, 0, Settings.HEADER_BUFFER_SIZE);
+			fs.Read(arenaBuffer, 0, Settings.ARENA_BUFFER_SIZE);
 			fs.Read(spawnBuffer, 0, 40);
 
 			fs.Close();
@@ -75,8 +69,8 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 			// Get the arena bytes and copy them into the arena buffer
 			for (int i = 0; i < arenaBuffer.Length; i += 4)
 			{
-				int x = i / (ARENA_WIDTH * 4);
-				int y = (i / 4) % ARENA_HEIGHT;
+				int x = i / (Settings.ARENA_WIDTH * 4);
+				int y = (i / 4) % Settings.ARENA_HEIGHT;
 
 				byte[] tileBytes = BitConverter.GetBytes(arenaTiles[x, y]);
 
@@ -132,14 +126,14 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 				FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 
 				// Set the file values for reading V3 spawnsets
-				int spawnBufferSize = (int)fs.Length - (HEADER_BUFFER_SIZE + ARENA_BUFFER_SIZE);
-				byte[] headerBuffer = new byte[HEADER_BUFFER_SIZE];
-				byte[] arenaBuffer = new byte[ARENA_BUFFER_SIZE];
+				int spawnBufferSize = (int)fs.Length - (Settings.HEADER_BUFFER_SIZE + Settings.ARENA_BUFFER_SIZE);
+				byte[] headerBuffer = new byte[Settings.HEADER_BUFFER_SIZE];
+				byte[] arenaBuffer = new byte[Settings.ARENA_BUFFER_SIZE];
 				byte[] spawnBuffer = new byte[spawnBufferSize];
 
 				// Read the file and write the data into the buffers, then close the file since we do not need it anymore
-				fs.Read(headerBuffer, 0, HEADER_BUFFER_SIZE);
-				fs.Read(arenaBuffer, 0, ARENA_BUFFER_SIZE);
+				fs.Read(headerBuffer, 0, Settings.HEADER_BUFFER_SIZE);
+				fs.Read(arenaBuffer, 0, Settings.ARENA_BUFFER_SIZE);
 				fs.Read(spawnBuffer, 0, spawnBufferSize);
 
 				fs.Close();
@@ -151,11 +145,11 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 				float brightness = BitConverter.ToSingle(headerBuffer, 20);
 
 				// Set the arena values
-				float[,] arenaTiles = new float[ARENA_WIDTH, ARENA_HEIGHT];
+				float[,] arenaTiles = new float[Settings.ARENA_WIDTH, Settings.ARENA_HEIGHT];
 				for (int i = 0; i < arenaBuffer.Length; i += 4)
 				{
-					int x = i / (ARENA_WIDTH * 4);
-					int y = (i / 4) % ARENA_HEIGHT;
+					int x = i / (Settings.ARENA_WIDTH * 4);
+					int y = (i / 4) % Settings.ARENA_HEIGHT;
 					arenaTiles[x, y] = BitConverter.ToSingle(arenaBuffer, i);
 				}
 

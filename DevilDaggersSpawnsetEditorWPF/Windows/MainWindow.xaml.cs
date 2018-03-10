@@ -1,5 +1,6 @@
 ﻿using DevilDaggersSpawnsetEditorWPF.Helpers;
 using DevilDaggersSpawnsetEditorWPF.Models;
+using DevilDaggersSpawnsetEditorWPF.Presets;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace DevilDaggersSpawnsetEditorWPF
+namespace DevilDaggersSpawnsetEditorWPF.Windows
 {
 	public partial class MainWindow : Window
 	{
-		private const int TILE_MIN = -1;
-		private const int TILE_MAX = 63;
-		private const int TILE_DEFAULT = 0;
-		private const int TILE_VOID_DEFAULT = -1000;
-
 		private Spawnset spawnset;
 
 		public MainWindow()
@@ -141,12 +137,12 @@ namespace DevilDaggersSpawnsetEditorWPF
 
 		private Color GetColorFromHeight(float height)
 		{
-			if (height < TILE_MIN)
+			if (height < Settings.TILE_MIN)
 				return Color.FromRgb(0, 0, 0);
 
-			float colorVal = Math.Max(0, (float)Math.Round((height - TILE_MIN) * 12 + 32));
+			float colorVal = Math.Max(0, (float)Math.Round((height - Settings.TILE_MIN) * 12 + 32));
 
-			return Color.FromRgb((byte)(colorVal), (byte)(colorVal / 2), (byte)(Math.Floor((height - TILE_MIN) / 16) * 64));
+			return Color.FromRgb((byte)(colorVal), (byte)(colorVal / 2), (byte)(Math.Floor((height - Settings.TILE_MIN) / 16) * 64));
 		}
 
 		private void UpdateArenaGUI()
@@ -369,7 +365,7 @@ namespace DevilDaggersSpawnsetEditorWPF
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
 		{
 			Point tile = Mouse.GetPosition((IInputElement)sender);
-			tile = new Point((int)Math.Min(Spawnset.ARENA_WIDTH - 1, tile.X / 8), (int)Math.Min(Spawnset.ARENA_HEIGHT - 1, tile.Y / 8));
+			tile = new Point((int)Math.Min(Settings.ARENA_WIDTH - 1, tile.X / 8), (int)Math.Min(Settings.ARENA_HEIGHT - 1, tile.Y / 8));
 
 			float height = spawnset.arenaTiles[(int)tile.Y, (int)tile.X];
 
@@ -382,7 +378,7 @@ namespace DevilDaggersSpawnsetEditorWPF
 			Point tile = Mouse.GetPosition((IInputElement)sender);
 			tile = new Point((int)tile.X / 8, (int)tile.Y / 8);
 
-			spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = Math.Max(Math.Min(spawnset.arenaTiles[(int)tile.Y, (int)tile.X] + e.Delta / 120, TILE_MAX), TILE_MIN);
+			spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = Math.Max(Math.Min(spawnset.arenaTiles[(int)tile.Y, (int)tile.X] + e.Delta / 120, Settings.TILE_MAX), Settings.TILE_MIN);
 
 			ArenaTiles.Children.Remove(ArenaTiles.Children
 			  .Cast<UIElement>()
@@ -402,10 +398,10 @@ namespace DevilDaggersSpawnsetEditorWPF
 			Point tile = Mouse.GetPosition((IInputElement)sender);
 			tile = new Point((int)tile.X / 8, (int)tile.Y / 8);
 
-			if (spawnset.arenaTiles[(int)tile.Y, (int)tile.X] >= TILE_MIN)
-				spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = TILE_VOID_DEFAULT;
+			if (spawnset.arenaTiles[(int)tile.Y, (int)tile.X] >= Settings.TILE_MIN)
+				spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = Settings.TILE_VOID_DEFAULT;
 			else
-				spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = TILE_DEFAULT;
+				spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = Settings.TILE_DEFAULT;
 
 			ArenaTiles.Children.Remove(ArenaTiles.Children
 			  .Cast<UIElement>()
@@ -428,44 +424,51 @@ namespace DevilDaggersSpawnsetEditorWPF
 				case 0:
 				case 1:
 					// TODO: Skip the first 36 bytes...
-					byte[] arenaBuffer = new byte[Spawnset.HEADER_BUFFER_SIZE + Spawnset.ARENA_BUFFER_SIZE];
+					byte[] arenaBuffer = new byte[Settings.HEADER_BUFFER_SIZE + Settings.ARENA_BUFFER_SIZE];
 
-					FileStream fs = new FileStream("V3_Sorath", FileMode.Open, FileAccess.Read);
-					fs.Read(arenaBuffer, 0, Spawnset.HEADER_BUFFER_SIZE + Spawnset.ARENA_BUFFER_SIZE);
+					FileStream fs = new FileStream("Content/V3_Sorath", FileMode.Open, FileAccess.Read);
+					fs.Read(arenaBuffer, 0, Settings.HEADER_BUFFER_SIZE + Settings.ARENA_BUFFER_SIZE);
 					fs.Close();
 
-					for (int i = Spawnset.HEADER_BUFFER_SIZE; i < arenaBuffer.Length; i += 4)
+					for (int i = Settings.HEADER_BUFFER_SIZE; i < arenaBuffer.Length; i += 4)
 					{
-						int x = (i - Spawnset.HEADER_BUFFER_SIZE) / (Spawnset.ARENA_WIDTH * 4);
-						int y = ((i - Spawnset.HEADER_BUFFER_SIZE) / 4) % Spawnset.ARENA_HEIGHT;
+						int x = (i - Settings.HEADER_BUFFER_SIZE) / (Settings.ARENA_WIDTH * 4);
+						int y = ((i - Settings.HEADER_BUFFER_SIZE) / 4) % Settings.ARENA_HEIGHT;
 						spawnset.arenaTiles[x, y] = (type == 0) ? BitConverter.ToSingle(arenaBuffer, i) : (float)Math.Round(BitConverter.ToSingle(arenaBuffer, i));
 					}
 					break;
 				case 2:
-					for (int i = 0; i < Spawnset.ARENA_WIDTH; i++)
-						for (int j = 0; j < Spawnset.ARENA_HEIGHT; j++)
-							spawnset.arenaTiles[i, j] = TILE_DEFAULT;
+					for (int i = 0; i < Settings.ARENA_WIDTH; i++)
+						for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
+							spawnset.arenaTiles[i, j] = Settings.TILE_DEFAULT;
 					break;
 				case 3:
-					for (int i = 0; i < Spawnset.ARENA_WIDTH; i++)
-						for (int j = 0; j < Spawnset.ARENA_HEIGHT; j++)
-							spawnset.arenaTiles[i, j] = TILE_VOID_DEFAULT;
+					for (int i = 0; i < Settings.ARENA_WIDTH; i++)
+						for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
+							spawnset.arenaTiles[i, j] = Settings.TILE_VOID_DEFAULT;
 					break;
-				case 4:
-					ArenaPresentRectangle rectangleDialog = new ArenaPresentRectangle();
+				case 5:
+					WindowArenaRectangular rectangleDialog = new WindowArenaRectangular();
 					if (rectangleDialog.ShowDialog() == true)
 					{
-						// Set all tiles to void
-						for (int i = 0; i < Spawnset.ARENA_WIDTH; i++)
-							for (int j = 0; j < Spawnset.ARENA_HEIGHT; j++)
-								spawnset.arenaTiles[i, j] = TILE_VOID_DEFAULT;
-
-						// Set rectangular arena
-						Rect rect = rectangleDialog.rect;
-						for (int i = (int)rect.X; i < (int)(rect.X + rect.Width); i++)
-							for (int j = (int)rect.Y; j < (int)(rect.Y + rect.Height); j++)
-								spawnset.arenaTiles[i, j] = TILE_DEFAULT;
+						ArenaRectangular arena = rectangleDialog.arena;
+						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
+						{
+							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
+							{
+								spawnset.arenaTiles[i, j] = Settings.TILE_VOID_DEFAULT;
+							}
+						}
+						
+						for (int i = arena.x1; i < arena.x2; i++)
+							for (int j = arena.y1; j < arena.y2; j++)
+								spawnset.arenaTiles[i, j] = arena.height;
 					}
+					break;
+				case 6:
+					for (int i = 0; i < Settings.ARENA_WIDTH; i++)
+						for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
+							spawnset.arenaTiles[i, j] = Settings.TILE_DEFAULT + (25 - Math.Abs(i - 25)) / 3f - 4;
 					break;
 			}
 

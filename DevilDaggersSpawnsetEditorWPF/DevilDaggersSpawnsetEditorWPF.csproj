@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>dd.ico</ApplicationIcon>
+    <ApplicationIcon>Content\dd.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -58,14 +58,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\GameHelper.cs" />
+    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Models\Enemy.cs" />
     <Compile Include="Models\Spawn.cs" />
     <Compile Include="Models\Spawnset.cs" />
-    <Page Include="ArenaPresentRectangle.xaml">
+    <Page Include="Windows\WindowArenaRectangular.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -73,15 +74,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ArenaPresentRectangle.xaml.cs">
-      <DependentUpon>ArenaPresentRectangle.xaml</DependentUpon>
+    <Compile Include="Windows\WindowArenaRectangular.xaml.cs">
+      <DependentUpon>WindowArenaRectangular.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presets\ArenaRectangular.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -103,7 +105,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="V3_Sorath">
+    <EmbeddedResource Include="Content\V3_Sorath">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -111,7 +113,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="dd.ico" />
+    <Resource Include="Content\dd.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

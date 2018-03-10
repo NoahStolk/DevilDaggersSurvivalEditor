@@ -1,4 +1,4 @@
-﻿<Window x:Class="DevilDaggersSpawnsetEditorWPF.MainWindow"
+﻿<Window x:Class="DevilDaggersSpawnsetEditorWPF.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -130,8 +130,9 @@
 								<ComboBoxItem Content="Default flat"></ComboBoxItem>
 								<ComboBoxItem Content="Full"></ComboBoxItem>
 								<ComboBoxItem Content="Void"></ComboBoxItem>
-								<ComboBoxItem Content="Rectangle"></ComboBoxItem>
-								<ComboBoxItem Content="Waves"></ComboBoxItem>
+								<Separator />
+								<ComboBoxItem Content="Rectangular"></ComboBoxItem>
+								<ComboBoxItem Content="Test"></ComboBoxItem>
 							</ComboBox>
 							<Button Name="ButtonArenaGenerate" Click="ButtonArenaGenerate_Click">Generate</Button>
 						</StackPanel>
