@@ -132,7 +132,9 @@
 								<ComboBoxItem Content="Void"></ComboBoxItem>
 								<Separator />
 								<ComboBoxItem Content="Rectangular"></ComboBoxItem>
-								<ComboBoxItem Content="Test"></ComboBoxItem>
+								<ComboBoxItem Content="TestPyramid"></ComboBoxItem>
+								<ComboBoxItem Content="Cage"></ComboBoxItem>
+								<ComboBoxItem Content="Random"></ComboBoxItem>
 							</ComboBox>
 							<Button Name="ButtonArenaGenerate" Click="ButtonArenaGenerate_Click">Generate</Button>
 						</StackPanel>

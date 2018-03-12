@@ -419,22 +419,24 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 		private void ButtonArenaGenerate_Click(object sender, RoutedEventArgs e)
 		{
 			int type = ComboBoxArenaPreset.SelectedIndex;
+
+			byte[] defaultArenaBuffer = new byte[Settings.ARENA_BUFFER_SIZE];
+			FileStream fs = new FileStream("Content/V3_Sorath", FileMode.Open, FileAccess.Read)
+			{
+				Position = Settings.HEADER_BUFFER_SIZE
+			};
+			fs.Read(defaultArenaBuffer, 0, Settings.ARENA_BUFFER_SIZE);
+			fs.Close();
+
 			switch (type)
 			{
 				case 0:
 				case 1:
-					// TODO: Skip the first 36 bytes...
-					byte[] arenaBuffer = new byte[Settings.HEADER_BUFFER_SIZE + Settings.ARENA_BUFFER_SIZE];
-
-					FileStream fs = new FileStream("Content/V3_Sorath", FileMode.Open, FileAccess.Read);
-					fs.Read(arenaBuffer, 0, Settings.HEADER_BUFFER_SIZE + Settings.ARENA_BUFFER_SIZE);
-					fs.Close();
-
-					for (int i = Settings.HEADER_BUFFER_SIZE; i < arenaBuffer.Length; i += 4)
+					for (int i = 0; i < defaultArenaBuffer.Length; i += 4)
 					{
-						int x = (i - Settings.HEADER_BUFFER_SIZE) / (Settings.ARENA_WIDTH * 4);
-						int y = ((i - Settings.HEADER_BUFFER_SIZE) / 4) % Settings.ARENA_HEIGHT;
-						spawnset.arenaTiles[x, y] = (type == 0) ? BitConverter.ToSingle(arenaBuffer, i) : (float)Math.Round(BitConverter.ToSingle(arenaBuffer, i));
+						int x = (i) / (Settings.ARENA_WIDTH * 4);
+						int y = ((i) / 4) % Settings.ARENA_HEIGHT;
+						spawnset.arenaTiles[x, y] = (type == 0) ? BitConverter.ToSingle(defaultArenaBuffer, i) : (float)Math.Round(BitConverter.ToSingle(defaultArenaBuffer, i));
 					}
 					break;
 				case 2:
@@ -469,6 +471,35 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 					for (int i = 0; i < Settings.ARENA_WIDTH; i++)
 						for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
 							spawnset.arenaTiles[i, j] = Settings.TILE_DEFAULT + (25 - Math.Abs(i - 25)) / 3f - 4;
+					break;
+				case 7:
+					for (int i = 0; i < defaultArenaBuffer.Length; i += 4)
+					{
+						int x = (i) / (Settings.ARENA_WIDTH * 4);
+						int y = ((i) / 4) % Settings.ARENA_HEIGHT;
+						spawnset.arenaTiles[x, y] = (float)Math.Round(BitConverter.ToSingle(defaultArenaBuffer, i));
+					}
+
+					for (int i = 1; i < Settings.ARENA_WIDTH - 1; i++)
+						for (int j = 1; j < Settings.ARENA_HEIGHT - 1; j++)
+							if ((spawnset.arenaTiles[i - 1, j] < Settings.TILE_DEFAULT
+							 || spawnset.arenaTiles[i + 1, j] < Settings.TILE_DEFAULT
+							 || spawnset.arenaTiles[i, j - 1] < Settings.TILE_DEFAULT
+							 || spawnset.arenaTiles[i, j + 1] < Settings.TILE_DEFAULT)
+							 && spawnset.arenaTiles[i, j] == Settings.TILE_DEFAULT)
+								spawnset.arenaTiles[i, j] = 16;
+					break;
+				case 8:
+					float a = 0, b = 0;
+					for (int i = 0; i < Settings.ARENA_WIDTH; i++)
+					{
+						a += 0.05f;
+						for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
+						{
+							b += 0.05f;
+							spawnset.arenaTiles[i, j] = Utils.r.Next(-1, 1) + a + b - 60;
+						}
+					}
 					break;
 			}
 
