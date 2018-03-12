@@ -8,7 +8,7 @@
 		public int y2;
 		public float height;
 
-		public ArenaRectangular(int x1, int y1, int x2, int y2, int height)
+		public ArenaRectangular(int x1, int y1, int x2, int y2, float height)
 		{
 			this.x1 = x1;
 			this.y1 = y1;

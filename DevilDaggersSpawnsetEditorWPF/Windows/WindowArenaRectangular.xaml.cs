@@ -35,7 +35,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 				MessageBox.Show("Please enter a numeric value.", "Invalid Y2 value");
 				return;
 			}
-			if (!int.TryParse(TextBoxHeight.Text, out int height))
+			if (!float.TryParse(TextBoxHeight.Text, out float height))
 			{
 				MessageBox.Show("Please enter a numeric value.", "Invalid height value");
 				return;
