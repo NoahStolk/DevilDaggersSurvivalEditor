@@ -59,6 +59,7 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\GameHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Models\Enemy.cs" />
     <Compile Include="Models\Spawn.cs" />
     <Compile Include="Models\Spawnset.cs" />
