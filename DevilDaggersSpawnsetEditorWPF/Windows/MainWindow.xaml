@@ -33,7 +33,7 @@
 			<Grid Grid.Column="0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="32"/>
-					<RowDefinition Height="2*"/>
+					<RowDefinition Height="3*"/>
 					<RowDefinition Height="1*"/>
 				</Grid.RowDefinitions>
 				<Label FontSize="16" FontWeight="Bold" Grid.Row="0">Spawns</Label>
@@ -95,34 +95,50 @@
 			<Grid Grid.Column="1">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="32"/>
-					<RowDefinition Height="2*"/>
+					<RowDefinition Height="3*"/>
 					<RowDefinition Height="1*"/>
 				</Grid.RowDefinitions>
 				<Label FontSize="16" FontWeight="Bold" Grid.Row="0">Arena</Label>
 				<StackPanel Grid.Row="1">
-					<Grid Name="ArenaTiles" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" Background="Black" Width="408" Height="408">
-
-					</Grid>
+					<Canvas Name="ArenaTiles" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" Background="Black" Width="408" Height="408">
+					</Canvas>
+					<Path Stroke="Blue" Name="ShrinkStart">
+						<Path.Data>
+							<EllipseGeometry Center="204,-204" RadiusX="100" RadiusY="100" />
+						</Path.Data>
+					</Path>
+					<Path Stroke="Red" Name="ShrinkEnd">
+						<Path.Data>
+							<EllipseGeometry Center="204,-204" RadiusX="40" RadiusY="40" />
+						</Path.Data>
+					</Path>
+					<Path Stroke="Lime" Name="ShrinkCurrent">
+						<Path.Data>
+							<EllipseGeometry Center="204,-204" RadiusX="100" RadiusY="100" />
+						</Path.Data>
+					</Path>
 					<Grid Grid.Row="2">
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="1*" />
-							<ColumnDefinition Width="1*" />
 							<ColumnDefinition Width="2*" />
+							<ColumnDefinition Width="1*" />
+							<ColumnDefinition Width="1*" />
 							<ColumnDefinition Width="1*" />
 						</Grid.ColumnDefinitions>
 						<StackPanel Grid.Column="0">
-							<Label>Tile</Label>
-							<Label>Height</Label>
-						</StackPanel>
-						<StackPanel Grid.Column="1">
-							<Label Name="LabelTile">0,0</Label>
-							<Label Name="HeightTile">0</Label>
-						</StackPanel>
-						<StackPanel Grid.Column="2">
-							<Label>Height map</Label>
+							<Label Padding="4,0,0,0">Height map</Label>
 							<Grid HorizontalAlignment="Left" Name="HeightMap" Width="136" Height="40">
 
 							</Grid>
+							<Label Padding="4,0,0,0">Shrink preview</Label>
+							<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"></Slider>
+						</StackPanel>
+						<StackPanel Grid.Column="1">
+							<Label Padding="4,0,0,0">Tile</Label>
+							<Label Padding="4,0,0,0">Height</Label>
+						</StackPanel>
+						<StackPanel Grid.Column="2">
+							<Label Padding="4,0,0,0" Name="LabelTile">0,0</Label>
+							<Label Padding="4,0,0,0" Name="HeightTile">0</Label>
 						</StackPanel>
 						<StackPanel Grid.Column="3">
 							<ComboBox Name="ComboBoxArenaPreset" SelectedIndex="0">
