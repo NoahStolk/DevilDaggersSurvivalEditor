@@ -15,12 +15,13 @@ arena shapes
 		random
 			min height
 			max height
+		etc
 			
-multi select tiles with RMB
+multi select tiles with RMB (maybe)
 
 buttons
-	clamp to int height
-	add randomness
+	round height values
+	randomize height values
 
 HELP
 browse spawnsets on internet
