@@ -1,6 +1,6 @@
-optimise
+optimise (!!!!!!!!!)
 
-fix spawns layout
+button set spawnset to dd folder
 
 bind delete key to delete spawns button
 
