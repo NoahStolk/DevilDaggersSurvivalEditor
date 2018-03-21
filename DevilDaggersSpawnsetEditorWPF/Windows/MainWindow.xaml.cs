@@ -86,7 +86,12 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 				seconds += kvp.Value.delay;
 				totalGems += kvp.Value.enemy.gems;
 
-				Grid grid = new Grid();
+				Grid grid = new Grid
+				{
+					Width = 372,
+					HorizontalAlignment = HorizontalAlignment.Left,
+					Margin = new Thickness(0)
+				};
 				for (int i = 0; i < 6; i++)
 					grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength((i == 0) ? 1 : 2, GridUnitType.Star) });
 
@@ -130,7 +135,10 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			ellipseShrinkEnd.RadiusX = spawnset.shrinkEnd * 2;
 			ellipseShrinkEnd.RadiusY = spawnset.shrinkEnd * 2;
 
-			ShrinkCurrentSlider.Maximum = (spawnset.shrinkStart - spawnset.shrinkEnd) / spawnset.shrinkRate;
+			if (spawnset.shrinkRate > 0)
+				ShrinkCurrentSlider.Maximum = (spawnset.shrinkStart - spawnset.shrinkEnd) / spawnset.shrinkRate;
+			else
+				ShrinkCurrentSlider.Maximum = 1;
 
 			EllipseGeometry ellipseShrinkCurrent = (EllipseGeometry)ShrinkCurrent.Data;
 			ellipseShrinkCurrent.RadiusX = spawnset.shrinkStart * 2 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd) * 2);

@@ -42,7 +42,7 @@
 						<RowDefinition Height="20" />
 						<RowDefinition />
 					</Grid.RowDefinitions>
-					<Grid Grid.Row="0">
+					<Grid Margin="6,0,0,0" Grid.Row="0" Width="372" HorizontalAlignment="Left">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition Width="2*"/>
@@ -58,7 +58,9 @@
 						<Label Grid.Column="4" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Gems</Label>
 						<Label Grid.Column="5" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Total gems</Label>
 					</Grid>
-					<ListBox Grid.Row="1" Name="ListBoxSpawns" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible"></ListBox>
+					<ListBox Grid.Row="1" Name="ListBoxSpawns" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible">
+						
+					</ListBox>
 				</Grid>
 				<Grid Grid.Row="2">
 					<Grid.ColumnDefinitions>
@@ -126,8 +128,32 @@
 						</Grid.ColumnDefinitions>
 						<StackPanel Grid.Column="0">
 							<Label Padding="4,0,0,0">Height map</Label>
-							<Grid HorizontalAlignment="Left" Name="HeightMap" Width="136" Height="40">
-
+							<Grid HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40">
+								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition/>
+									<RowDefinition/>
+									<RowDefinition/>
+									<RowDefinition/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
 							</Grid>
 							<Label Padding="4,0,0,0">Shrink preview</Label>
 							<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"></Slider>

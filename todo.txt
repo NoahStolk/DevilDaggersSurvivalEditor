@@ -15,8 +15,6 @@ arena shapes
 		random
 			min height
 			max height
-
-shrink visualiser
 			
 multi select tiles with RMB
 
@@ -43,4 +41,4 @@ help
 		-1000 default void
 		0 normal height
 		tiny differences
-		player spawns on top of a tile (doesnt get stuck)
+		player spawns on top of a tile (doesnt get stuck but game will probably crash/do odd stuff)
