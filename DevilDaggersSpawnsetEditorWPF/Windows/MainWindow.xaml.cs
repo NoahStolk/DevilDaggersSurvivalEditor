@@ -41,6 +41,26 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 					HeightMap.Children.Add(textBlock);
 				}
 			}
+
+			// Add arena tiles
+			for (int i = 0; i < spawnset.arenaTiles.GetLength(0); i++)
+			{
+				for (int j = 0; j < spawnset.arenaTiles.GetLength(1); j++)
+				{
+					float height = spawnset.arenaTiles[i, j];
+
+					Rectangle rect = new Rectangle
+					{
+						Width = 8,
+						Height = 8
+					};
+					Canvas.SetLeft(rect, i * 8);
+					Canvas.SetTop(rect, j * 8);
+					SetTileColor(rect);
+
+					ArenaTiles.Children.Add(rect);
+				}
+			}
 		}
 
 		private void CreateEmptySpawnset()
@@ -127,54 +147,43 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			TextBlockShrinkRate.Text = spawnset.shrinkRate.ToString();
 			TextBlockBrightness.Text = spawnset.brightness.ToString();
 
-			EllipseGeometry ellipseShrinkStart = (EllipseGeometry)ShrinkStart.Data;
-			ellipseShrinkStart.RadiusX = spawnset.shrinkStart * 2;
-			ellipseShrinkStart.RadiusY = spawnset.shrinkStart * 2;
+			ShrinkStart.Width = spawnset.shrinkStart * 4;
+			ShrinkStart.Height = spawnset.shrinkStart * 4;
+			Canvas.SetLeft(ShrinkStart, ArenaTiles.Width / 2 - ShrinkStart.Width / 2);
+			Canvas.SetTop(ShrinkStart, ArenaTiles.Height / 2 - ShrinkStart.Height / 2);
 
-			EllipseGeometry ellipseShrinkEnd = (EllipseGeometry)ShrinkEnd.Data;
-			ellipseShrinkEnd.RadiusX = spawnset.shrinkEnd * 2;
-			ellipseShrinkEnd.RadiusY = spawnset.shrinkEnd * 2;
+			ShrinkEnd.Width = spawnset.shrinkEnd * 4;
+			ShrinkEnd.Height = spawnset.shrinkEnd * 4;
+			Canvas.SetLeft(ShrinkEnd, ArenaTiles.Width / 2 - ShrinkEnd.Width / 2);
+			Canvas.SetTop(ShrinkEnd, ArenaTiles.Height / 2 - ShrinkEnd.Height / 2);
 
 			if (spawnset.shrinkRate > 0)
+			{
 				ShrinkCurrentSlider.Maximum = (spawnset.shrinkStart - spawnset.shrinkEnd) / spawnset.shrinkRate;
+				ShrinkCurrentSlider.IsEnabled = true;
+			}
 			else
+			{
+				ShrinkCurrentSlider.Value = 0;
 				ShrinkCurrentSlider.Maximum = 1;
+				ShrinkCurrentSlider.IsEnabled = false;
+			}
+			
+			ShrinkCurrent.Width = spawnset.shrinkStart * 4 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd) * 4);
+			ShrinkCurrent.Height = spawnset.shrinkStart * 4 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd) * 4);
+			Canvas.SetLeft(ShrinkCurrent, ArenaTiles.Width / 2 - ShrinkCurrent.Width / 2);
+			Canvas.SetTop(ShrinkCurrent, ArenaTiles.Height / 2 - ShrinkCurrent.Height / 2);
 
-			EllipseGeometry ellipseShrinkCurrent = (EllipseGeometry)ShrinkCurrent.Data;
-			ellipseShrinkCurrent.RadiusX = spawnset.shrinkStart * 2 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd) * 2);
-			ellipseShrinkCurrent.RadiusY = spawnset.shrinkStart * 2 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd) * 2);
-		}
-
-		private Color GetColorFromHeight(float height)
-		{
-			if (height < Settings.TILE_MIN)
-				return Color.FromRgb(0, 0, 0);
-
-			float colorVal = Math.Max(0, (float)Math.Round((height - Settings.TILE_MIN) * 12 + 32));
-
-			return Color.FromRgb((byte)(colorVal), (byte)(colorVal / 2), (byte)(Math.Floor((height - Settings.TILE_MIN) / 16) * 64));
+			UpdateArenaGUI();
 		}
 
 		private void UpdateArenaGUI()
 		{
-			ArenaTiles.Children.Clear();
-
-			for (int i = 0; i < spawnset.arenaTiles.GetLength(0); i++)
+			foreach (UIElement elem in ArenaTiles.Children)
 			{
-				for (int j = 0; j < spawnset.arenaTiles.GetLength(1); j++)
+				if (elem is Rectangle rect)
 				{
-					float height = spawnset.arenaTiles[i, j];
-
-					Rectangle rect = new Rectangle
-					{
-						Width = 8,
-						Height = 8
-					};
-					Canvas.SetLeft(rect, i * 8);
-					Canvas.SetTop(rect, j * 8);
 					SetTileColor(rect);
-
-					ArenaTiles.Children.Add(rect);
 				}
 			}
 		}
@@ -186,29 +195,50 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			int i = (int)Canvas.GetLeft(rect) / 8;
 			int j = (int)Canvas.GetTop(rect) / 8;
 			float height = spawnset.arenaTiles[i, j];
-			if (height < Settings.TILE_MIN)
-				return;
 
 			int x, y;
 			if (i > 25)
-				x = i * 8 + 7;
+				x = i * 8 + 8;
 			else
-				x = i * 8 + 1;
+				x = i * 8;
 
 			if (j > 25)
-				y = j * 8 + 7;
+				y = j * 8 + 8;
 			else
-				y = j * 8 + 1;
+				y = j * 8;
 
 			double distance = Math.Sqrt(Math.Pow(x - arenaCenter.X, 2) + Math.Pow(y - arenaCenter.Y, 2)) / 8;
 
-			EllipseGeometry e = (EllipseGeometry)ShrinkCurrent.Data;
-
 			SolidColorBrush color = new SolidColorBrush(GetColorFromHeight(height));
-			if (Math.Abs(distance) <= (e.RadiusX + 4) / 8)
-				rect.Fill = color;
+			rect.Fill = color;
+
+			if (Math.Abs(distance) <= (ShrinkCurrent.Width) / 16)
+			{
+				rect.Width = 8;
+				rect.Height = 8;
+				if (Canvas.GetLeft(rect) % 8 != 0 || Canvas.GetTop(rect) % 8 != 0)
+				{
+					Canvas.SetLeft(rect, i * 8);
+					Canvas.SetTop(rect, j * 8);
+				}
+			}
 			else
-				rect.Fill = new SolidColorBrush(Color.FromArgb(color.Color.A, (byte)(color.Color.R), (byte)(color.Color.G / 4), (byte)(color.Color.B / 4)));
+			{
+				rect.Width = 4;
+				rect.Height = 4;
+				Canvas.SetLeft(rect, i * 8 + 2);
+				Canvas.SetTop(rect, j * 8 + 2);
+			}
+		}
+
+		private Color GetColorFromHeight(float height)
+		{
+			if (height < Settings.TILE_MIN)
+				return Color.FromRgb(0, 0, 0);
+
+			float colorVal = Math.Max(0, (float)Math.Round((height - Settings.TILE_MIN) * 12 + 32));
+
+			return Color.FromRgb((byte)(colorVal), (byte)(colorVal / 2), (byte)(Math.Floor((height - Settings.TILE_MIN) / 16) * 64));
 		}
 
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -369,8 +399,14 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 					return;
 				}
 
-				spawnset.shrinkStart = shrinkStart;
-				spawnset.shrinkEnd = shrinkEnd;
+				if (shrinkStart <= shrinkEnd)
+				{
+					MessageBox.Show("Shrink end value must be smaller than shrink start value.", "Invalid shrink values");
+					return;
+				}
+
+				spawnset.shrinkStart = Math.Min(100, shrinkStart);
+				spawnset.shrinkEnd = Math.Max(1, shrinkEnd);
 				spawnset.shrinkRate = shrinkRate;
 				spawnset.brightness = brightness;
 
@@ -414,7 +450,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			Point tile = Mouse.GetPosition((IInputElement)sender);
 			tile = new Point((int)Math.Min(Settings.ARENA_WIDTH - 1, tile.X / 8), (int)Math.Min(Settings.ARENA_HEIGHT - 1, tile.Y / 8));
 
-			float height = spawnset.arenaTiles[(int)tile.Y, (int)tile.X];
+			float height = spawnset.arenaTiles[(int)tile.X, (int)tile.Y];
 
 			LabelTile.Content = tile.ToString();
 			HeightTile.Content = height.ToString();
@@ -425,10 +461,11 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			Point tile = Mouse.GetPosition((IInputElement)sender);
 			tile = new Point((int)tile.X / 8, (int)tile.Y / 8);
 
-			spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = Math.Max(Math.Min(spawnset.arenaTiles[(int)tile.Y, (int)tile.X] + e.Delta / 120, Settings.TILE_MAX), Settings.TILE_MIN);
+			spawnset.arenaTiles[(int)tile.X, (int)tile.Y] = Math.Max(Math.Min(spawnset.arenaTiles[(int)tile.X, (int)tile.Y] + e.Delta / 120, Settings.TILE_MAX), Settings.TILE_MIN);
 
-			Rectangle rect = (Rectangle)ArenaTiles.Children.Cast<UIElement>().First(ee => Canvas.GetTop(ee) == tile.Y * 8 && Canvas.GetLeft(ee) == tile.X * 8);
-			rect.Fill = new SolidColorBrush(GetColorFromHeight(spawnset.arenaTiles[(int)tile.Y, (int)tile.X]));
+			HeightTile.Content = spawnset.arenaTiles[(int)tile.X, (int)tile.Y].ToString();
+
+			UpdateArenaGUI();
 		}
 
 		private void ArenaTiles_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -436,13 +473,14 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			Point tile = Mouse.GetPosition((IInputElement)sender);
 			tile = new Point((int)tile.X / 8, (int)tile.Y / 8);
 
-			if (spawnset.arenaTiles[(int)tile.Y, (int)tile.X] >= Settings.TILE_MIN)
-				spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = Settings.TILE_VOID_DEFAULT;
+			if (spawnset.arenaTiles[(int)tile.X, (int)tile.Y] >= Settings.TILE_MIN)
+				spawnset.arenaTiles[(int)tile.X, (int)tile.Y] = Settings.TILE_VOID_DEFAULT;
 			else
-				spawnset.arenaTiles[(int)tile.Y, (int)tile.X] = Settings.TILE_DEFAULT;
+				spawnset.arenaTiles[(int)tile.X, (int)tile.Y] = Settings.TILE_DEFAULT;
 
-			Rectangle rect = (Rectangle)ArenaTiles.Children.Cast<UIElement>().First(ee => Canvas.GetTop(ee) == tile.Y * 8 && Canvas.GetLeft(ee) == tile.X * 8);
-			rect.Fill = new SolidColorBrush(GetColorFromHeight(spawnset.arenaTiles[(int)tile.Y, (int)tile.X]));
+			HeightTile.Content = spawnset.arenaTiles[(int)tile.X, (int)tile.Y].ToString();
+
+			UpdateArenaGUI();
 		}
 
 		private void ButtonArenaGenerate_Click(object sender, RoutedEventArgs e)
@@ -537,19 +575,12 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 
 		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
-			EllipseGeometry ellipseShrinkCurrent = (EllipseGeometry)ShrinkCurrent.Data;
-			ellipseShrinkCurrent.RadiusX = (spawnset.shrinkStart - (e.NewValue / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd))) * 2;
-			ellipseShrinkCurrent.RadiusY = (spawnset.shrinkStart - (e.NewValue / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd))) * 2;
+			ShrinkCurrent.Width = spawnset.shrinkStart * 4 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd) * 4);
+			ShrinkCurrent.Height = spawnset.shrinkStart * 4 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd) * 4);
+			Canvas.SetLeft(ShrinkCurrent, ArenaTiles.Width / 2 - ShrinkCurrent.Width / 2);
+			Canvas.SetTop(ShrinkCurrent, ArenaTiles.Height / 2 - ShrinkCurrent.Height / 2);
 
-			for (int i = 0; i < spawnset.arenaTiles.GetLength(0); i++)
-			{
-				for (int j = 0; j < spawnset.arenaTiles.GetLength(1); j++)
-				{
-					Rectangle rect = (Rectangle)ArenaTiles.Children.Cast<UIElement>().First(ee => Canvas.GetTop(ee) == j * 8 && Canvas.GetLeft(ee) == i * 8);
-
-					SetTileColor(rect);
-				}
-			}
+			UpdateArenaGUI();
 		}
 	}
 }
