@@ -22,6 +22,21 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 			shrinkEnd = 20;
 			shrinkRate = 0.025f;
 			brightness = 60;
+
+			byte[] defaultArenaBuffer = new byte[Settings.ARENA_BUFFER_SIZE];
+			FileStream fs = new FileStream("Content/V3_Sorath", FileMode.Open, FileAccess.Read)
+			{
+				Position = Settings.HEADER_BUFFER_SIZE
+			};
+			fs.Read(defaultArenaBuffer, 0, Settings.ARENA_BUFFER_SIZE);
+			fs.Close();
+
+			for (int i = 0; i < defaultArenaBuffer.Length; i += 4)
+			{
+				int x = (i) / (Settings.ARENA_WIDTH * 4);
+				int y = ((i) / 4) % Settings.ARENA_HEIGHT;
+				arenaTiles[x, y] = BitConverter.ToSingle(defaultArenaBuffer, i);
+			}
 		}
 
 		public Spawnset(SortedDictionary<int, Spawn> spawns, float[,] arenaTiles, float shrinkStart, float shrinkEnd, float shrinkRate, float brightness)
