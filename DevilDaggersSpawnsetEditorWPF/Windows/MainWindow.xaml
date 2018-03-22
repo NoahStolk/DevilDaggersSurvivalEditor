@@ -59,7 +59,7 @@
 						<Label Grid.Column="5" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Total gems</Label>
 					</Grid>
 					<ListBox Grid.Row="1" Name="ListBoxSpawns" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible">
-						
+
 					</ListBox>
 				</Grid>
 				<Grid Grid.Row="2">
@@ -103,22 +103,16 @@
 				<Label FontSize="16" FontWeight="Bold" Grid.Row="0">Arena</Label>
 				<StackPanel Grid.Row="1">
 					<Canvas Name="ArenaTiles" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" Background="Black" Width="408" Height="408">
+						<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1">
+
+						</Ellipse>
+						<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1">
+
+						</Ellipse>
+						<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1">
+
+						</Ellipse>
 					</Canvas>
-					<Path Stroke="Blue" Name="ShrinkStart">
-						<Path.Data>
-							<EllipseGeometry Center="204,-204" RadiusX="100" RadiusY="100" />
-						</Path.Data>
-					</Path>
-					<Path Stroke="Red" Name="ShrinkEnd">
-						<Path.Data>
-							<EllipseGeometry Center="204,-204" RadiusX="40" RadiusY="40" />
-						</Path.Data>
-					</Path>
-					<Path Stroke="Lime" Name="ShrinkCurrent">
-						<Path.Data>
-							<EllipseGeometry Center="204,-204" RadiusX="100" RadiusY="100" />
-						</Path.Data>
-					</Path>
 					<Grid Grid.Row="2">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="2*" />
