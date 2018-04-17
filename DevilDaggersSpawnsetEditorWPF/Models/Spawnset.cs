@@ -93,6 +93,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 					arenaBuffer[i + j] = tileBytes[j];
 			}
 
+			// Get the spawn bytes and copy them into the spawn buffer
 			byte[] spawnCountBytes = BitConverter.GetBytes(spawns.Count);
 
 			for (int i = 0; i < spawnCountBytes.Length; i++)
@@ -118,6 +119,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 					spawnBuffer[40 + kvp.Key * 28 + 4 + i] = delayBytes[i];
 			}
 
+			// Create the file buffer and return it
 			byte[] fileBuffer = new byte[headerBuffer.Length + arenaBuffer.Length + spawnBuffer.Length];
 
 			Buffer.BlockCopy(headerBuffer, 0, fileBuffer, 0, headerBuffer.Length);
