@@ -80,7 +80,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 				headerBuffer[16 + i] = shrinkRateBytes[i];
 			for (int i = 0; i < brightnessBytes.Length; i++)
 				headerBuffer[20 + i] = brightnessBytes[i];
-			
+
 			// Get the arena bytes and copy them into the arena buffer
 			for (int i = 0; i < arenaBuffer.Length; i += 4)
 			{
@@ -102,7 +102,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 			foreach (KeyValuePair<int, Spawn> kvp in spawns)
 			{
 				int enemyType = -1;
-				for (int i = 0; i < GameHelper.enemies.Count-1; i++)
+				for (int i = 0; i < GameHelper.enemies.Count - 1; i++)
 				{
 					if (kvp.Value.enemy == GameHelper.enemies[i])
 					{
@@ -128,7 +128,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 
 			return fileBuffer;
 		}
-		
+
 		/// <summary>
 		/// Tries to parse the contents of a spawnset file into a Spawnset instance.
 		/// This only works for V3 spawnsets.

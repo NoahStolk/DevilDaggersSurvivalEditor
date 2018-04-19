@@ -1,11 +1,7 @@
-optimise (!!!!!!!!!)
-
-button set spawnset to dd folder
-
 bind delete key to delete spawns button
 
 arena shapes
-	prompt before replacing arena
+	prompt before replacing arena (if no extra window appears)
 
 	presets
 		waves
@@ -15,7 +11,15 @@ arena shapes
 		random
 			min height
 			max height
-		etc
+		cage
+			square/circle
+			inside height
+			outside height
+			x1 x2 y1 y2
+		pyramid
+			x1 x2 y1 y2
+			start height
+			end height
 			
 multi select tiles with RMB (maybe)
 
@@ -23,15 +27,15 @@ buttons
 	round height values
 	randomize height values
 
+FILE
+	replace survival file
+
+COMMUNITY
+download/import from site
+upload your spawnset
+
 HELP
-browse spawnsets on internet
-	download/import from site
-	upload your spawnset
-about
-	made by me
-contact
-	hi
-help
+how to use
 	arena
 		fallen after -1
 		from -1 to 63
@@ -43,3 +47,12 @@ help
 		0 normal height
 		tiny differences
 		player spawns on top of a tile (doesnt get stuck but game will probably crash/do odd stuff)
+check for new version
+about
+	current version
+	version history
+	made by me
+contact
+	hi
+	website etc
+	link to source
