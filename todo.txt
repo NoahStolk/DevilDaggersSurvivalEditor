@@ -1,3 +1,32 @@
+FILE
+	replace survival file
+
+COMMUNITY
+	download/import from site
+	upload your spawnset
+
+HELP
+how to use
+	arena
+		fallen after -1
+		from -1 to 63
+		25,25 is player spawn (center)
+		full arena can crash (pos 0,0?)
+		tile 0,1 invisible?
+		lower than -1 no tile (or death)
+		-1000 default void
+		0 normal height
+		tiny differences
+		player spawns on top of a tile (doesnt get stuck but game will probably crash/do odd stuff)
+contact
+	hi
+	website etc
+	link to source
+
+open source bitbucket
+
+discord channel
+	
 bind delete key to delete spawns button
 
 arena shapes
@@ -26,28 +55,3 @@ multi select tiles with RMB (maybe)
 buttons
 	round height values
 	randomize height values
-
-FILE
-	replace survival file
-
-COMMUNITY
-	download/import from site
-	upload your spawnset
-
-HELP
-how to use
-	arena
-		fallen after -1
-		from -1 to 63
-		25,25 is player spawn (center)
-		full arena can crash (pos 0,0?)
-		tile 0,1 invisible?
-		lower than -1 no tile (or death)
-		-1000 default void
-		0 normal height
-		tiny differences
-		player spawns on top of a tile (doesnt get stuck but game will probably crash/do odd stuff)
-contact
-	hi
-	website etc
-	link to source
