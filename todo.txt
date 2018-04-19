@@ -31,8 +31,8 @@ FILE
 	replace survival file
 
 COMMUNITY
-download/import from site
-upload your spawnset
+	download/import from site
+	upload your spawnset
 
 HELP
 how to use
@@ -47,11 +47,6 @@ how to use
 		0 normal height
 		tiny differences
 		player spawns on top of a tile (doesnt get stuck but game will probably crash/do odd stuff)
-check for new version
-about
-	current version
-	version history
-	made by me
 contact
 	hi
 	website etc

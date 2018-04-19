@@ -390,6 +390,16 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			}
 		}
 
+		private void ReplaceSurvival_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void Exit_Click(object sender, RoutedEventArgs e)
+		{
+			Environment.Exit(0);
+		}
+
 		private void Settings_Click(object sender, RoutedEventArgs e)
 		{
 			WindowSettings settingsDialog = new WindowSettings();
@@ -402,9 +412,15 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			}
 		}
 
-		private void ReplaceSurvival_Click(object sender, RoutedEventArgs e)
+		private void About_Click(object sender, RoutedEventArgs e)
 		{
+			WindowAbout windowAbout = new WindowAbout();
+			windowAbout.Show();
+		}
 
+		private void Contact_Click(object sender, RoutedEventArgs e)
+		{
+			MessageBox.Show("", "Contact");
 		}
 
 		private void SettingsEditApplyButton_Click(object sender, RoutedEventArgs e)

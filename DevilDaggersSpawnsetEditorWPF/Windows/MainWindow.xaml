@@ -19,7 +19,7 @@
 					<MenuItem Header="_Save" Click="FileSave_Click" />
 					<MenuItem Header="_Replace 'survival' file" Click="ReplaceSurvival_Click" />
 					<Separator />
-					<MenuItem Header="_Exit" />
+					<MenuItem Header="_Exit" Click="Exit_Click" />
 				</MenuItem>
 				<MenuItem Header="_Options">
 					<MenuItem Header="_Settings" Click="Settings_Click" />
@@ -29,8 +29,8 @@
 				</MenuItem>
 				<MenuItem Header="_Help">
 					<MenuItem Header="_How to use" />
-					<MenuItem Header="_About" />
-					<MenuItem Header="_Contact" />
+					<MenuItem Header="_About" Click="About_Click" />
+					<MenuItem Header="_Contact" Click="Contact_Click" />
 				</MenuItem>
 			</Menu>
 		</DockPanel>
