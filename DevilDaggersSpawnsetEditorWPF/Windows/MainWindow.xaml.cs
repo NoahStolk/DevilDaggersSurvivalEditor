@@ -2,6 +2,7 @@
 using DevilDaggersSpawnsetEditorWPF.Models;
 using DevilDaggersSpawnsetEditorWPF.Presets;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,8 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 {
 	public partial class MainWindow : Window
 	{
-		private Spawnset spawnset;
+		public static UserSettings userSettings;
+		public static Spawnset spawnset;
 
 		public MainWindow()
 		{
@@ -61,6 +63,21 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 					ArenaTiles.Children.Add(rect);
 				}
 			}
+
+			InitializeUserSettings();
+		}
+
+		private void InitializeUserSettings()
+		{
+			userSettings = new UserSettings();
+
+			if (File.Exists(Settings.USER_SETTINGS_FILENAME))
+			{
+				using (StreamReader sr = new StreamReader(File.OpenRead(Settings.USER_SETTINGS_FILENAME)))
+				{
+					userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+				}
+			}
 		}
 
 		private void CreateEmptySpawnset()
@@ -75,7 +92,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 		}
 
 		/// <summary>
-		/// Updates the internal end loop.
+		/// Updates the internal end loop (not GUI).
 		/// Only call this when the spawns in the spawnset have been modified.
 		/// </summary>
 		private void UpdateEndLoop()
@@ -115,12 +132,12 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 				for (int i = 0; i < 6; i++)
 					grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength((i == 0) ? 1 : 2, GridUnitType.Star) });
 
-				Label l1 = new Label { Padding = new Thickness(4,0,0,0), Content = kvp.Key };
-				Label l2 = new Label { Padding = new Thickness(4,0,0,0), Content = seconds.ToString("0.0000") };
-				Label l3 = new Label { Padding = new Thickness(4,0,0,0), Content = kvp.Value.enemy.name, FontWeight = (kvp.Value.loop ? FontWeights.Bold : FontWeights.Normal) };
-				Label l4 = new Label { Padding = new Thickness(4,0,0,0), Content = kvp.Value.delay.ToString("0.0000") };
-				Label l5 = new Label { Padding = new Thickness(4,0,0,0), Content = kvp.Value.enemy.gems };
-				Label l6 = new Label { Padding = new Thickness(4,0,0,0), Content = totalGems };
+				Label l1 = new Label { Padding = new Thickness(4, 0, 0, 0), Content = kvp.Key };
+				Label l2 = new Label { Padding = new Thickness(4, 0, 0, 0), Content = seconds.ToString("0.0000") };
+				Label l3 = new Label { Padding = new Thickness(4, 0, 0, 0), Content = kvp.Value.enemy.name, FontWeight = (kvp.Value.loop ? FontWeights.Bold : FontWeights.Normal) };
+				Label l4 = new Label { Padding = new Thickness(4, 0, 0, 0), Content = kvp.Value.delay.ToString("0.0000") };
+				Label l5 = new Label { Padding = new Thickness(4, 0, 0, 0), Content = kvp.Value.enemy.gems };
+				Label l6 = new Label { Padding = new Thickness(4, 0, 0, 0), Content = totalGems };
 
 				Grid.SetColumn(l1, 0);
 				Grid.SetColumn(l2, 1);
@@ -168,7 +185,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 				ShrinkCurrentSlider.Maximum = 1;
 				ShrinkCurrentSlider.IsEnabled = false;
 			}
-			
+
 			ShrinkCurrent.Width = spawnset.shrinkStart * 4 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd) * 4);
 			ShrinkCurrent.Height = spawnset.shrinkStart * 4 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (spawnset.shrinkStart - spawnset.shrinkEnd) * 4);
 			Canvas.SetLeft(ShrinkCurrent, ArenaTiles.Width / 2 - ShrinkCurrent.Width / 2);
@@ -373,6 +390,23 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			}
 		}
 
+		private void Settings_Click(object sender, RoutedEventArgs e)
+		{
+			WindowSettings settingsDialog = new WindowSettings();
+			if (settingsDialog.ShowDialog() == true)
+			{
+				using (StreamWriter sw = new StreamWriter(File.Create(Settings.USER_SETTINGS_FILENAME)))
+				{
+					sw.Write(JsonConvert.SerializeObject(userSettings, Formatting.Indented));
+				}
+			}
+		}
+
+		private void ReplaceSurvival_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
 		private void SettingsEditApplyButton_Click(object sender, RoutedEventArgs e)
 		{
 			Button b = (Button)sender;
@@ -528,7 +562,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 								spawnset.arenaTiles[i, j] = Settings.TILE_VOID_DEFAULT;
 							}
 						}
-						
+
 						for (int i = arena.x1; i < arena.x2; i++)
 							for (int j = arena.y1; j < arena.y2; j++)
 								spawnset.arenaTiles[i, j] = arena.height;

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Devil Daggers Spawnset Editor" Height="832" Width="832"
+        Title="Devil Daggers Spawnset Editor by Noah Stolk" Height="832" Width="832"
 		ResizeMode="NoResize">
 	<Grid>
 		<Grid.RowDefinitions>
@@ -16,12 +16,21 @@
 				<MenuItem Header="_File">
 					<MenuItem Header="_New" Click="FileNew_Click" />
 					<MenuItem Header="_Open" Click="FileOpen_Click" />
-					<MenuItem Header="_Save" Click="FileSave_Click"/>
+					<MenuItem Header="_Save" Click="FileSave_Click" />
+					<MenuItem Header="_Replace 'survival' file" Click="ReplaceSurvival_Click" />
 					<Separator />
 					<MenuItem Header="_Exit" />
 				</MenuItem>
-				<MenuItem Header="_About">
-					<MenuItem Header="_Info" />
+				<MenuItem Header="_Options">
+					<MenuItem Header="_Settings" Click="Settings_Click" />
+				</MenuItem>
+				<MenuItem Header="_Community">
+					<MenuItem Header="_Browse spawnsets online" />
+				</MenuItem>
+				<MenuItem Header="_Help">
+					<MenuItem Header="_How to use" />
+					<MenuItem Header="_About" />
+					<MenuItem Header="_Contact" />
 				</MenuItem>
 			</Menu>
 		</DockPanel>

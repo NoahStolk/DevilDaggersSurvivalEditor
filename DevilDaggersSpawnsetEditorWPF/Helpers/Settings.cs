@@ -12,5 +12,11 @@
 
 		public const int ARENA_WIDTH = 51;
 		public const int ARENA_HEIGHT = 51;
+
+		public const string DD_LOCATION_DEFAULT = @"C:\Program Files (x86)\Steam\steamapps\common\devildaggers\dd";
+
+		public const string USER_SETTINGS_FILENAME = "user.json";
+
+		public const string VERSION = "0";
 	}
 }
