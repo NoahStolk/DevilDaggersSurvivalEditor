@@ -25,7 +25,7 @@ contact
 
 open source bitbucket
 
-discord channel
+discord text channel "editor"
 	
 bind delete key to delete spawns button
 
