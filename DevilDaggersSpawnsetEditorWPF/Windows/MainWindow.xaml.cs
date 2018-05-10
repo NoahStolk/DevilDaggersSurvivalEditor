@@ -420,6 +420,16 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			}
 		}
 
+		private void Browse_Click(object sender, RoutedEventArgs e)
+		{
+			Process.Start("http://devildaggers.info/Home/Spawnsets");
+		}
+
+		private void Discord_Click(object sender, RoutedEventArgs e)
+		{
+			Process.Start("https://discord.gg/NF32j8S");
+		}
+
 		private void About_Click(object sender, RoutedEventArgs e)
 		{
 			WindowAbout windowAbout = new WindowAbout();
