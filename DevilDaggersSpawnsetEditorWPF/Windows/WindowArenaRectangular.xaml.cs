@@ -55,7 +55,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 
 			if (height < Settings.TILE_MIN || height > Settings.TILE_MAX)
 			{
-				MessageBox.Show(string.Format("The height must be between {0} and {1}.", Settings.TILE_MIN, Settings.TILE_MAX), "Invalid value(s)");
+				MessageBox.Show(string.Format("The height must be between {0} and {1}.", Settings.TILE_MIN, Settings.TILE_MAX), "Invalid height value");
 				return;
 			}
 
