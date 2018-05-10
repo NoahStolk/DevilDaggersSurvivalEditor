@@ -521,7 +521,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			float height = spawnset.arenaTiles[(int)tile.X, (int)tile.Y];
 
 			LabelTile.Content = tile.ToString();
-			HeightTile.Content = height.ToString();
+			HeightTile.Content = height.ToString("0.00");
 		}
 
 		private void ArenaTiles_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -531,7 +531,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 
 			spawnset.arenaTiles[(int)tile.X, (int)tile.Y] = Math.Max(Math.Min(spawnset.arenaTiles[(int)tile.X, (int)tile.Y] + e.Delta / 120, Settings.TILE_MAX), Settings.TILE_MIN);
 
-			HeightTile.Content = spawnset.arenaTiles[(int)tile.X, (int)tile.Y].ToString();
+			HeightTile.Content = spawnset.arenaTiles[(int)tile.X, (int)tile.Y].ToString("0.00");
 
 			UpdateArenaGUI();
 		}
@@ -546,7 +546,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			else
 				spawnset.arenaTiles[(int)tile.X, (int)tile.Y] = Settings.TILE_DEFAULT;
 
-			HeightTile.Content = spawnset.arenaTiles[(int)tile.X, (int)tile.Y].ToString();
+			HeightTile.Content = spawnset.arenaTiles[(int)tile.X, (int)tile.Y].ToString("0.00");
 
 			UpdateArenaGUI();
 		}
