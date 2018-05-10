@@ -355,9 +355,11 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 
 		private void FileNew_Click(object sender, RoutedEventArgs e)
 		{
-			// TODO: Prompt
-
-			CreateEmptySpawnset();
+			MessageBoxResult result = MessageBox.Show("Are you sure you want create an empty spawnset? The current spawnset will be lost if you haven't saved it.", "New", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			if (result == MessageBoxResult.Yes)
+			{
+				CreateEmptySpawnset();
+			}
 		}
 
 		private void FileOpen_Click(object sender, RoutedEventArgs e)
@@ -393,20 +395,28 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 
 		private void ReplaceSurvival_Click(object sender, RoutedEventArgs e)
 		{
-			try
+			MessageBoxResult result = MessageBox.Show(string.Format("Are you sure you want to replace the current 'survival' file in {0} with this spawnset?", userSettings.ddLocation), "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			if (result == MessageBoxResult.Yes)
 			{
-				File.WriteAllBytes(System.IO.Path.Combine(userSettings.ddLocation, "survival"), spawnset.GetBytes());
-				MessageBox.Show("Survival file replaced!");
-			}
-			catch
-			{
-				MessageBox.Show("Error replacing file.");
+				try
+				{
+					File.WriteAllBytes(System.IO.Path.Combine(userSettings.ddLocation, "survival"), spawnset.GetBytes());
+					MessageBox.Show("'Survival' file replaced!");
+				}
+				catch
+				{
+					MessageBox.Show("Error replacing file.");
+				}
 			}
 		}
 
 		private void Exit_Click(object sender, RoutedEventArgs e)
 		{
-			Environment.Exit(0);
+			MessageBoxResult result = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			if (result == MessageBoxResult.Yes)
+			{
+				Application.Current.Shutdown();
+			}
 		}
 
 		private void Settings_Click(object sender, RoutedEventArgs e)
@@ -555,6 +565,15 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 		private void ButtonArenaGenerate_Click(object sender, RoutedEventArgs e)
 		{
 			int type = ComboBoxArenaPreset.SelectedIndex;
+
+			if (type != 5 && type != 6) // Don't prompt if type has its own window
+			{
+				MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the current arena with this preset?", "Generate arena", MessageBoxButton.YesNo, MessageBoxImage.Question);
+				if (result != MessageBoxResult.Yes)
+				{
+					return;
+				}
+			}
 
 			byte[] defaultArenaBuffer = new byte[Settings.ARENA_BUFFER_SIZE];
 			FileStream fs = new FileStream("Content/V3_Sorath", FileMode.Open, FileAccess.Read)
