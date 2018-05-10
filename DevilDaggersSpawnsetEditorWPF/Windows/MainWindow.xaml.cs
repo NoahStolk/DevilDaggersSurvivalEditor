@@ -392,7 +392,15 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 
 		private void ReplaceSurvival_Click(object sender, RoutedEventArgs e)
 		{
-
+			try
+			{
+				File.WriteAllBytes(System.IO.Path.Combine(userSettings.ddLocation, "survival"), spawnset.GetBytes());
+				MessageBox.Show("Survival file replaced!");
+			}
+			catch
+			{
+				MessageBox.Show("Error replacing file.");
+			}
 		}
 
 		private void Exit_Click(object sender, RoutedEventArgs e)
