@@ -14,6 +14,11 @@
 					www.noahstolk.com
 				</Hyperlink>
 			</Label>
+			<Label FontSize="16" HorizontalAlignment="Center">
+				<Hyperlink NavigateUri="https://bitbucket.org/NoahStolk/devildaggersspawnseteditorwpf/src" RequestNavigate="Hyperlink_RequestNavigate">
+					View source online
+				</Hyperlink>
+			</Label>
 		</StackPanel>
 	</Grid>
 </Window>
