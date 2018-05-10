@@ -660,14 +660,11 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 								spawnset.arenaTiles[i, j] = 16;
 					break;
 				case 8:
-					float a = 0, b = 0;
 					for (int i = 0; i < Settings.ARENA_WIDTH; i++)
 					{
-						a += 0.05f;
 						for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
 						{
-							b += 0.05f;
-							spawnset.arenaTiles[i, j] = Utils.r.Next(-1, 1) + a + b - 60;
+							spawnset.arenaTiles[i, j] = Utils.r.Next(-1, 63);
 						}
 					}
 					break;
