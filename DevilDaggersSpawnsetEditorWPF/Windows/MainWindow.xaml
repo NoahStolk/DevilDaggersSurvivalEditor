@@ -177,8 +177,8 @@
 								<ComboBoxItem Content="Full"></ComboBoxItem>
 								<ComboBoxItem Content="Void"></ComboBoxItem>
 								<Separator />
-								<ComboBoxItem Content="Rectangular"></ComboBoxItem>
-								<ComboBoxItem Content="Pyramid"></ComboBoxItem>
+								<ComboBoxItem Content="Rectangular..."></ComboBoxItem>
+								<ComboBoxItem Content="Pyramid..."></ComboBoxItem>
 								<ComboBoxItem Content="Cage"></ComboBoxItem>
 								<ComboBoxItem Content="Random"></ComboBoxItem>
 							</ComboBox>
