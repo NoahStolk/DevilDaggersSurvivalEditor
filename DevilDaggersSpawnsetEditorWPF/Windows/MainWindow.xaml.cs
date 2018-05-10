@@ -593,9 +593,24 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 					}
 					break;
 				case 6:
-					for (int i = 0; i < Settings.ARENA_WIDTH; i++)
-						for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
-							spawnset.arenaTiles[i, j] = Settings.TILE_DEFAULT + (25 - Math.Abs(i - 25)) / 3f - 4;
+					WindowArenaPyramid pyramidDialog = new WindowArenaPyramid();
+					if (pyramidDialog.ShowDialog() == true)
+					{
+						ArenaPyramid arena = pyramidDialog.arena;
+						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
+						{
+							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
+							{
+								spawnset.arenaTiles[i, j] = Settings.TILE_VOID_DEFAULT;
+							}
+						}
+
+						float stepX = (arena.startHeight - arena.endHeight) / (arena.x2 - arena.x1 - 1);
+						float stepY = (arena.startHeight - arena.endHeight) / (arena.y2 - arena.y1 - 1);
+						for (int i = arena.x1; i < arena.x2; i++)
+							for (int j = arena.y1; j < arena.y2; j++)
+								spawnset.arenaTiles[i, j] = arena.endHeight + (Math.Abs(i - 25) * stepX + Math.Abs(j - 25) * stepY);
+					}
 					break;
 				case 7:
 					for (int i = 0; i < defaultArenaBuffer.Length; i += 4)

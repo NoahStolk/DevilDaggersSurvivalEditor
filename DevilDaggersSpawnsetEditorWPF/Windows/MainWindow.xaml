@@ -177,7 +177,7 @@
 								<ComboBoxItem Content="Void"></ComboBoxItem>
 								<Separator />
 								<ComboBoxItem Content="Rectangular"></ComboBoxItem>
-								<ComboBoxItem Content="TestPyramid"></ComboBoxItem>
+								<ComboBoxItem Content="Pyramid"></ComboBoxItem>
 								<ComboBoxItem Content="Cage"></ComboBoxItem>
 								<ComboBoxItem Content="Random"></ComboBoxItem>
 							</ComboBox>

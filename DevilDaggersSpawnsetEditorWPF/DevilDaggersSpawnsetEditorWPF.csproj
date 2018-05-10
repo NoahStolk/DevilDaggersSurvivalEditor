@@ -78,6 +78,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\WindowArenaPyramid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\WindowSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,8 +98,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Presets\ArenaPyramid.cs" />
     <Compile Include="Windows\WindowAbout.xaml.cs">
       <DependentUpon>WindowAbout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowArenaPyramid.xaml.cs">
+      <DependentUpon>WindowArenaPyramid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WindowSettings.xaml.cs">
       <DependentUpon>WindowSettings.xaml</DependentUpon>
