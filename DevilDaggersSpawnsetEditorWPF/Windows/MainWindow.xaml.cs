@@ -410,6 +410,23 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			}
 		}
 
+		private void RestoreSurvival_Click(object sender, RoutedEventArgs e)
+		{
+			MessageBoxResult result = MessageBox.Show(string.Format("Are you sure you want to restore the current 'survival' file in {0} with the original Devil Daggers V3 spawnset?", userSettings.ddLocation), "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			if (result == MessageBoxResult.Yes)
+			{
+				try
+				{
+					File.Replace("Content/survival", System.IO.Path.Combine(userSettings.ddLocation, "survival"), null);
+					MessageBox.Show("'Survival' file restored!");
+				}
+				catch
+				{
+					MessageBox.Show("Error restoring file.");
+				}
+			}
+		}
+
 		private void Exit_Click(object sender, RoutedEventArgs e)
 		{
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
