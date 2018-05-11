@@ -24,7 +24,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 			brightness = 60;
 
 			byte[] defaultArenaBuffer = new byte[Settings.ARENA_BUFFER_SIZE];
-			FileStream fs = new FileStream("Content/V3_Sorath", FileMode.Open, FileAccess.Read)
+			FileStream fs = new FileStream("Content/survival", FileMode.Open, FileAccess.Read)
 			{
 				Position = Settings.HEADER_BUFFER_SIZE
 			};
@@ -52,7 +52,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Models
 		public byte[] GetBytes()
 		{
 			// Open the original spawnset file
-			FileStream fs = new FileStream("Content/V3_Sorath", FileMode.Open, FileAccess.Read);
+			FileStream fs = new FileStream("Content/survival", FileMode.Open, FileAccess.Read);
 
 			// Set the file values for reading V3 spawnsets
 			byte[] headerBuffer = new byte[Settings.HEADER_BUFFER_SIZE];

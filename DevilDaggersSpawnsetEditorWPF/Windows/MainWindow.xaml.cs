@@ -576,7 +576,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			}
 
 			byte[] defaultArenaBuffer = new byte[Settings.ARENA_BUFFER_SIZE];
-			FileStream fs = new FileStream("Content/V3_Sorath", FileMode.Open, FileAccess.Read)
+			FileStream fs = new FileStream("Content/survival", FileMode.Open, FileAccess.Read)
 			{
 				Position = Settings.HEADER_BUFFER_SIZE
 			};
