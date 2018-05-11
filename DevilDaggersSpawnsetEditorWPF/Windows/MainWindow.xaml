@@ -30,9 +30,8 @@
 					<MenuItem Header="_Discord server" Click="Discord_Click"/>
 				</MenuItem>
 				<MenuItem Header="_Help">
-					<!--<MenuItem Header="_How to use" />-->
+					<!--<MenuItem Header="_Manual" Click="Manual_Click" />-->
 					<MenuItem Header="_About" Click="About_Click" />
-					<!--<MenuItem Header="_Contact" Click="Contact_Click" />-->
 				</MenuItem>
 			</Menu>
 		</DockPanel>

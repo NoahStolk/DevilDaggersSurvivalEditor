@@ -458,15 +458,15 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			Process.Start("https://discord.gg/NF32j8S");
 		}
 
+		private void Manual_Click(object sender, RoutedEventArgs e)
+		{
+			// TODO
+		}
+
 		private void About_Click(object sender, RoutedEventArgs e)
 		{
 			WindowAbout windowAbout = new WindowAbout();
 			windowAbout.Show();
-		}
-
-		private void Contact_Click(object sender, RoutedEventArgs e)
-		{
-			MessageBox.Show("", "Contact");
 		}
 
 		private void SettingsEditApplyButton_Click(object sender, RoutedEventArgs e)
