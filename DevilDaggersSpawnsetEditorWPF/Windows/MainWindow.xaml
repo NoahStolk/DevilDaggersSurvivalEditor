@@ -76,7 +76,7 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1*" />
 						<ColumnDefinition Width="1*" />
-						<ColumnDefinition Width="3*" />
+						<ColumnDefinition Width="2*" />
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
 						<Label Padding="4,0,0,4">Enemy</Label>
@@ -126,8 +126,8 @@
 					<Grid Grid.Row="2">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="2*" />
-							<ColumnDefinition Width="1*" />
-							<ColumnDefinition Width="1*" />
+							<ColumnDefinition Width="0.5*" />
+							<ColumnDefinition Width="0.5*" />
 							<ColumnDefinition Width="1*" />
 						</Grid.ColumnDefinitions>
 						<StackPanel Grid.Column="0">
@@ -190,7 +190,7 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1*" />
 						<ColumnDefinition Width="1*" />
-						<ColumnDefinition Width="3*" />
+						<ColumnDefinition Width="2*" />
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
 						<Label Padding="4,0,0,4">Shrink start</Label>
