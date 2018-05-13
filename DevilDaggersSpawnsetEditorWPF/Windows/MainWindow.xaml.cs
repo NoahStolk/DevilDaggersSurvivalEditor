@@ -587,15 +587,21 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			switch (ComboBoxArenaPreset.SelectedIndex)
 			{
 				case 5:
-					SetRectangularPresetControls();
+					SetPresetControls(new string[] { "X1", "Y1", "X2", "Y2", "Height" }, new string[] { "14", "14", "37", "37", "0" });
 					break;
 				case 6:
-					SetPyramidPresetControls();
+					SetPresetControls(new string[] { "X1", "Y1", "X2", "Y2", "StartHeight", "EndHeight" }, new string[] { "14", "14", "37", "37", "0", "4" });
+					break;
+				case 7:
+					SetPresetControls(new string[] { "X1", "Y1", "X2", "Y2", "InsideHeight", "WallHeight" }, new string[] { "14", "14", "37", "37", "0", "2" });
+					break;
+				case 8:
+					SetPresetControls(new string[] { "X1", "Y1", "X2", "Y2", "MinHeight", "MaxHeight" }, new string[] { "14", "14", "37", "37", "0", "3" });
 					break;
 			}
 		}
 
-		private void SetRectangularPresetControls()
+		private void SetPresetControls(string[] labelContents, string[] textBoxValues)
 		{
 			StackPanel stackPanelLeft = new StackPanel
 			{
@@ -608,44 +614,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 				Name = "StackPanelRight"
 			};
 			Grid.SetColumn(stackPanelRight, 1);
-
-			string[] labelContents = new string[] { "X1", "Y1", "X2", "Y2", "Height" };
-			string[] textBoxValues = new string[] { "14", "14", "37", "37", "0" };
-			for (int i = 0; i < labelContents.Length; i++)
-			{
-				stackPanelLeft.Children.Add(new Label
-				{
-					Content = labelContents[i],
-					Padding = new Thickness(4, 2, 0, 0)
-				});
-
-				stackPanelRight.Children.Add(new TextBox
-				{
-					Name = string.Format("TextBox{0}", labelContents[i]),
-					Text = textBoxValues[i]
-				});
-			}
-
-			GridPreset.Children.Add(stackPanelLeft);
-			GridPreset.Children.Add(stackPanelRight);
-		}
-
-		private void SetPyramidPresetControls()
-		{
-			StackPanel stackPanelLeft = new StackPanel
-			{
-				Name = "StackPanelLeft"
-			};
-			Grid.SetColumn(stackPanelLeft, 0);
-
-			StackPanel stackPanelRight = new StackPanel
-			{
-				Name = "StackPanelRight"
-			};
-			Grid.SetColumn(stackPanelRight, 1);
-
-			string[] labelContents = new string[] { "X1", "Y1", "X2", "Y2", "StartHeight", "EndHeight" };
-			string[] textBoxValues = new string[] { "14", "14", "37", "37", "0", "0" };
+			
 			for (int i = 0; i < labelContents.Length; i++)
 			{
 				stackPanelLeft.Children.Add(new Label
@@ -818,6 +787,172 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			return new ArenaPyramid(x1, y1, x2, y2, startHeight, endHeight);
 		}
 
+		private Arena GetArenaCageFromGUI()
+		{
+			TextBox TextBoxX1 = null;
+			TextBox TextBoxX2 = null;
+			TextBox TextBoxY1 = null;
+			TextBox TextBoxY2 = null;
+			TextBox TextBoxInsideHeight = null;
+			TextBox TextBoxWallHeight = null;
+			foreach (UIElement elem1 in GridPreset.Children)
+				if (elem1 is StackPanel stackPanel)
+					if (stackPanel.Name == "StackPanelRight")
+						foreach (UIElement elem2 in stackPanel.Children)
+							if (elem2 is TextBox textBox)
+							{
+								switch (textBox.Name)
+								{
+									case "TextBoxX1": TextBoxX1 = textBox; break;
+									case "TextBoxX2": TextBoxX2 = textBox; break;
+									case "TextBoxY1": TextBoxY1 = textBox; break;
+									case "TextBoxY2": TextBoxY2 = textBox; break;
+									case "TextBoxInsideHeight": TextBoxInsideHeight = textBox; break;
+									case "TextBoxWallHeight": TextBoxWallHeight = textBox; break;
+								}
+							}
+
+			if (!int.TryParse(TextBoxX1.Text, out int x1))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid X1 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxY1.Text, out int y1))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid Y1 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxX2.Text, out int x2))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid X2 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxY2.Text, out int y2))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid Y2 value");
+				return null;
+			}
+			if (!float.TryParse(TextBoxInsideHeight.Text, out float insideHeight))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid inside height value");
+				return null;
+			}
+			if (!float.TryParse(TextBoxWallHeight.Text, out float wallHeight))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid wall height value");
+				return null;
+			}
+
+			if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 || x1 > Settings.ARENA_WIDTH || y1 > Settings.ARENA_HEIGHT || x2 > Settings.ARENA_WIDTH || y2 > Settings.ARENA_HEIGHT)
+			{
+				MessageBox.Show(string.Format("X and Y values must be between 0 and {0}.", Settings.ARENA_WIDTH), "Invalid value(s)");
+				return null;
+			}
+
+			if (x1 >= x2 || y1 >= y2)
+			{
+				MessageBox.Show("The first position's X and Y must be smaller than the second position's X and Y.", "Invalid value(s)");
+				return null;
+			}
+
+			if (insideHeight < Settings.TILE_MIN || insideHeight > Settings.TILE_MAX)
+			{
+				MessageBox.Show(string.Format("The inside height must be between {0} and {1}.", Settings.TILE_MIN, Settings.TILE_MAX), "Invalid inside height value");
+				return null;
+			}
+
+			if (wallHeight < Settings.TILE_MIN || wallHeight > Settings.TILE_MAX)
+			{
+				MessageBox.Show(string.Format("The wall height must be between {0} and {1}.", Settings.TILE_MIN, Settings.TILE_MAX), "Invalid wall height value");
+				return null;
+			}
+
+			return new ArenaCage(x1, y1, x2, y2, insideHeight, wallHeight);
+		}
+
+		private Arena GetArenaRandomFromGUI()
+		{
+			TextBox TextBoxX1 = null;
+			TextBox TextBoxX2 = null;
+			TextBox TextBoxY1 = null;
+			TextBox TextBoxY2 = null;
+			TextBox TextBoxMinHeight = null;
+			TextBox TextBoxMaxHeight = null;
+			foreach (UIElement elem1 in GridPreset.Children)
+				if (elem1 is StackPanel stackPanel)
+					if (stackPanel.Name == "StackPanelRight")
+						foreach (UIElement elem2 in stackPanel.Children)
+							if (elem2 is TextBox textBox)
+							{
+								switch (textBox.Name)
+								{
+									case "TextBoxX1": TextBoxX1 = textBox; break;
+									case "TextBoxX2": TextBoxX2 = textBox; break;
+									case "TextBoxY1": TextBoxY1 = textBox; break;
+									case "TextBoxY2": TextBoxY2 = textBox; break;
+									case "TextBoxMinHeight": TextBoxMinHeight = textBox; break;
+									case "TextBoxMaxHeight": TextBoxMaxHeight = textBox; break;
+								}
+							}
+
+			if (!int.TryParse(TextBoxX1.Text, out int x1))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid X1 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxY1.Text, out int y1))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid Y1 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxX2.Text, out int x2))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid X2 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxY2.Text, out int y2))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid Y2 value");
+				return null;
+			}
+			if (!float.TryParse(TextBoxMinHeight.Text, out float minHeight))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid min height value");
+				return null;
+			}
+			if (!float.TryParse(TextBoxMaxHeight.Text, out float maxHeight))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid max height value");
+				return null;
+			}
+
+			if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 || x1 > Settings.ARENA_WIDTH || y1 > Settings.ARENA_HEIGHT || x2 > Settings.ARENA_WIDTH || y2 > Settings.ARENA_HEIGHT)
+			{
+				MessageBox.Show(string.Format("X and Y values must be between 0 and {0}.", Settings.ARENA_WIDTH), "Invalid value(s)");
+				return null;
+			}
+
+			if (x1 >= x2 || y1 >= y2)
+			{
+				MessageBox.Show("The first position's X and Y must be smaller than the second position's X and Y.", "Invalid value(s)");
+				return null;
+			}
+
+			if (minHeight < Settings.TILE_MIN || minHeight > Settings.TILE_MAX)
+			{
+				MessageBox.Show(string.Format("The min height must be between {0} and {1}.", Settings.TILE_MIN, Settings.TILE_MAX), "Invalid min height value");
+				return null;
+			}
+
+			if (maxHeight < Settings.TILE_MIN || maxHeight > Settings.TILE_MAX)
+			{
+				MessageBox.Show(string.Format("The max height must be between {0} and {1}.", Settings.TILE_MIN, Settings.TILE_MAX), "Invalid max height value");
+				return null;
+			}
+
+			return new ArenaRandom(x1, y1, x2, y2, minHeight, maxHeight);
+		}
+
 		private void ButtonArenaGenerate_Click(object sender, RoutedEventArgs e)
 		{
 			Arena arena = null;
@@ -832,6 +967,16 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 					break;
 				case 6:
 					arena = GetArenaPyramidFromGUI();
+					if (arena == null)
+						return;
+					break;
+				case 7:
+					arena = GetArenaCageFromGUI();
+					if (arena == null)
+						return;
+					break;
+				case 8:
+					arena = GetArenaRandomFromGUI();
 					if (arena == null)
 						return;
 					break;
@@ -901,32 +1046,57 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 						float stepY = (arenaPyramid.startHeight - arenaPyramid.endHeight) / (arenaPyramid.y2 - arenaPyramid.y1 - 1);
 						for (int i = arenaPyramid.x1; i < arenaPyramid.x2; i++)
 							for (int j = arenaPyramid.y1; j < arenaPyramid.y2; j++)
-								spawnset.arenaTiles[i, j] = arenaPyramid.endHeight + (Math.Abs(i - 25) * stepX + Math.Abs(j - 25) * stepY);
+								spawnset.arenaTiles[i, j] = arenaPyramid.endHeight + (Math.Abs(i - Settings.ARENA_WIDTH / 2) * stepX + Math.Abs(j - Settings.ARENA_HEIGHT / 2) * stepY);
 					}
 					break;
 				case 7:
-					for (int i = 0; i < defaultArenaBuffer.Length; i += 4)
-					{
-						int x = (i) / (Settings.ARENA_WIDTH * 4);
-						int y = ((i) / 4) % Settings.ARENA_HEIGHT;
-						spawnset.arenaTiles[x, y] = (float)Math.Round(BitConverter.ToSingle(defaultArenaBuffer, i));
-					}
+					////Cage around default arena
+					//if (arena is ArenaCage arenaCage)
+					//{
+					//	for (int i = 0; i < defaultArenaBuffer.Length; i += 4)
+					//	{
+					//		int x = (i) / (Settings.ARENA_WIDTH * 4);
+					//		int y = ((i) / 4) % Settings.ARENA_HEIGHT;
+					//		spawnset.arenaTiles[x, y] = (BitConverter.ToSingle(defaultArenaBuffer, i) >= Settings.TILE_DEFAULT ? arenaCage.insideHeight : (float)Math.Round(BitConverter.ToSingle(defaultArenaBuffer, i)));
+					//	}
 
-					for (int i = 1; i < Settings.ARENA_WIDTH - 1; i++)
-						for (int j = 1; j < Settings.ARENA_HEIGHT - 1; j++)
-							if ((spawnset.arenaTiles[i - 1, j] < Settings.TILE_DEFAULT
-							 || spawnset.arenaTiles[i + 1, j] < Settings.TILE_DEFAULT
-							 || spawnset.arenaTiles[i, j - 1] < Settings.TILE_DEFAULT
-							 || spawnset.arenaTiles[i, j + 1] < Settings.TILE_DEFAULT)
-							 && spawnset.arenaTiles[i, j] == Settings.TILE_DEFAULT)
-								spawnset.arenaTiles[i, j] = 16;
+					//	for (int i = 1; i < Settings.ARENA_WIDTH - 1; i++)
+					//		for (int j = 1; j < Settings.ARENA_HEIGHT - 1; j++)
+					//			if ((spawnset.arenaTiles[i - 1, j] < arenaCage.insideHeight
+					//			 || spawnset.arenaTiles[i + 1, j] < arenaCage.insideHeight
+					//			 || spawnset.arenaTiles[i, j - 1] < arenaCage.insideHeight
+					//			 || spawnset.arenaTiles[i, j + 1] < arenaCage.insideHeight)
+					//			 && spawnset.arenaTiles[i, j] == arenaCage.insideHeight)
+					//				spawnset.arenaTiles[i, j] = arenaCage.wallHeight;
+					//}
+					if (arena is ArenaCage arenaCage)
+					{
+						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
+						{
+							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
+							{
+								spawnset.arenaTiles[i, j] = ((i == arenaCage.x1 || i == arenaCage.x2 - 1) && j >= arenaCage.y1 && j <= arenaCage.y2 - 1) || ((j == arenaCage.y1 || j == arenaCage.y2 - 1) && i >= arenaCage.x1 && i <= arenaCage.x2 - 1) ? arenaCage.wallHeight : i >= arenaCage.x1 && i <= arenaCage.x2 - 1 && j >= arenaCage.y1 && j <= arenaCage.y2 - 1 ? arenaCage.insideHeight : Settings.TILE_VOID_DEFAULT;
+							}
+						}
+					}
 					break;
 				case 8:
-					for (int i = 0; i < Settings.ARENA_WIDTH; i++)
+					if (arena is ArenaRandom arenaRandom)
 					{
-						for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
+						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
 						{
-							spawnset.arenaTiles[i, j] = Utils.r.Next(-1, 63);
+							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
+							{
+								spawnset.arenaTiles[i, j] = Settings.TILE_VOID_DEFAULT;
+							}
+						}
+
+						for (int i = arenaRandom.x1; i < arenaRandom.x2; i++)
+						{
+							for (int j = arenaRandom.y1; j < arenaRandom.y2; j++)
+							{
+								spawnset.arenaTiles[i, j] = Utils.NextFloat(arenaRandom.minHeight, arenaRandom.maxHeight);
+							}
 						}
 					}
 					break;

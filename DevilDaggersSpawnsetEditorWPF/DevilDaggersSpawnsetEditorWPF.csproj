@@ -91,6 +91,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Presets\Arena.cs" />
+    <Compile Include="Presets\ArenaRandom.cs" />
+    <Compile Include="Presets\ArenaCage.cs" />
     <Compile Include="Presets\ArenaPyramid.cs" />
     <Compile Include="Windows\WindowAbout.xaml.cs">
       <DependentUpon>WindowAbout.xaml</DependentUpon>

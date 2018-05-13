@@ -25,23 +25,19 @@ discord text channel "editor"
 
 arena shapes
 	presets
+		all
+			rectangle/ellipse/other shapes
 		waves
 			min height
 			max height
 			direction
-		random
-			min height
-			max height
-		cage
-			square/circle
-			inside height
-			outside height
-			x1 x2 y1 y2
+			frequency
 
 version number
 
 postponed indefinitely:
 	bind delete key to delete spawns button
+	manually set tile height
 	multi select tiles with RMB (maybe)
 	buttons
 		round height values
