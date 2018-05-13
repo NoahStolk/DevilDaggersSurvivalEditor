@@ -579,18 +579,267 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			UpdateArenaGUI();
 		}
 
+		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (GridPreset != null)
+				GridPreset.Children.Clear();
+
+			switch (ComboBoxArenaPreset.SelectedIndex)
+			{
+				case 5:
+					SetRectangularPresetControls();
+					break;
+				case 6:
+					SetPyramidPresetControls();
+					break;
+			}
+		}
+
+		private void SetRectangularPresetControls()
+		{
+			StackPanel stackPanelLeft = new StackPanel
+			{
+				Name = "StackPanelLeft"
+			};
+			Grid.SetColumn(stackPanelLeft, 0);
+
+			StackPanel stackPanelRight = new StackPanel
+			{
+				Name = "StackPanelRight"
+			};
+			Grid.SetColumn(stackPanelRight, 1);
+
+			string[] labelContents = new string[] { "X1", "Y1", "X2", "Y2", "Height" };
+			string[] textBoxValues = new string[] { "0", "0", "51", "51", "0" };
+			for (int i = 0; i < labelContents.Length; i++)
+			{
+				stackPanelLeft.Children.Add(new Label
+				{
+					Content = labelContents[i],
+					Padding = new Thickness(4, 2, 0, 0)
+				});
+
+				stackPanelRight.Children.Add(new TextBox
+				{
+					Name = string.Format("TextBox{0}", labelContents[i]),
+					Text = textBoxValues[i]
+				});
+			}
+
+			GridPreset.Children.Add(stackPanelLeft);
+			GridPreset.Children.Add(stackPanelRight);
+		}
+
+		private void SetPyramidPresetControls()
+		{
+			StackPanel stackPanelLeft = new StackPanel
+			{
+				Name = "StackPanelLeft"
+			};
+			Grid.SetColumn(stackPanelLeft, 0);
+
+			StackPanel stackPanelRight = new StackPanel
+			{
+				Name = "StackPanelRight"
+			};
+			Grid.SetColumn(stackPanelRight, 1);
+
+			string[] labelContents = new string[] { "X1", "Y1", "X2", "Y2", "StartHeight", "EndHeight" };
+			string[] textBoxValues = new string[] { "0", "0", "51", "51", "0", "0" };
+			for (int i = 0; i < labelContents.Length; i++)
+			{
+				stackPanelLeft.Children.Add(new Label
+				{
+					Content = labelContents[i],
+					Padding = new Thickness(4, 2, 0, 0)
+				});
+
+				stackPanelRight.Children.Add(new TextBox
+				{
+					Name = string.Format("TextBox{0}", labelContents[i]),
+					Text = textBoxValues[i]
+				});
+			}
+
+			GridPreset.Children.Add(stackPanelLeft);
+			GridPreset.Children.Add(stackPanelRight);
+		}
+
+		private ArenaRectangular GetArenaRectangularFromGUI()
+		{
+			TextBox TextBoxX1 = null;
+			TextBox TextBoxX2 = null;
+			TextBox TextBoxY1 = null;
+			TextBox TextBoxY2 = null;
+			TextBox TextBoxHeight = null;
+			foreach (UIElement elem1 in GridPreset.Children)
+				if (elem1 is StackPanel stackPanel)
+					if (stackPanel.Name == "StackPanelRight")
+						foreach (UIElement elem2 in stackPanel.Children)
+							if (elem2 is TextBox textBox)
+							{
+								switch (textBox.Name)
+								{
+									case "TextBoxX1": TextBoxX1 = textBox; break;
+									case "TextBoxX2": TextBoxX2 = textBox; break;
+									case "TextBoxY1": TextBoxY1 = textBox; break;
+									case "TextBoxY2": TextBoxY2 = textBox; break;
+									case "TextBoxHeight": TextBoxHeight = textBox; break;
+								}
+							}
+
+			if (!int.TryParse(TextBoxX1.Text, out int x1))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid X1 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxY1.Text, out int y1))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid Y1 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxX2.Text, out int x2))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid X2 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxY2.Text, out int y2))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid Y2 value");
+				return null;
+			}
+			if (!float.TryParse(TextBoxHeight.Text, out float height))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid height value");
+				return null;
+			}
+
+			if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 || x1 > Settings.ARENA_WIDTH || y1 > Settings.ARENA_HEIGHT || x2 > Settings.ARENA_WIDTH || y2 > Settings.ARENA_HEIGHT)
+			{
+				MessageBox.Show(string.Format("X and Y values must be between 0 and {0}.", Settings.ARENA_WIDTH), "Invalid value(s)");
+				return null;
+			}
+
+			if (x1 >= x2 || y1 >= y2)
+			{
+				MessageBox.Show("The first position's X and Y must be smaller than the second position's X and Y.", "Invalid value(s)");
+				return null;
+			}
+
+			if (height < Settings.TILE_MIN || height > Settings.TILE_MAX)
+			{
+				MessageBox.Show(string.Format("The height must be between {0} and {1}.", Settings.TILE_MIN, Settings.TILE_MAX), "Invalid height value");
+				return null;
+			}
+
+			return new ArenaRectangular(x1, y1, x2, y2, height);
+		}
+
+		private Arena GetArenaPyramidFromGUI()
+		{
+			TextBox TextBoxX1 = null;
+			TextBox TextBoxX2 = null;
+			TextBox TextBoxY1 = null;
+			TextBox TextBoxY2 = null;
+			TextBox TextBoxStartHeight = null;
+			TextBox TextBoxEndHeight = null;
+			foreach (UIElement elem1 in GridPreset.Children)
+				if (elem1 is StackPanel stackPanel)
+					if (stackPanel.Name == "StackPanelRight")
+						foreach (UIElement elem2 in stackPanel.Children)
+							if (elem2 is TextBox textBox)
+							{
+								switch (textBox.Name)
+								{
+									case "TextBoxX1": TextBoxX1 = textBox; break;
+									case "TextBoxX2": TextBoxX2 = textBox; break;
+									case "TextBoxY1": TextBoxY1 = textBox; break;
+									case "TextBoxY2": TextBoxY2 = textBox; break;
+									case "TextBoxStartHeight": TextBoxStartHeight = textBox; break;
+									case "TextBoxEndHeight": TextBoxEndHeight = textBox; break;
+								}
+							}
+
+			if (!int.TryParse(TextBoxX1.Text, out int x1))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid X1 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxY1.Text, out int y1))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid Y1 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxX2.Text, out int x2))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid X2 value");
+				return null;
+			}
+			if (!int.TryParse(TextBoxY2.Text, out int y2))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid Y2 value");
+				return null;
+			}
+			if (!float.TryParse(TextBoxStartHeight.Text, out float startHeight))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid start height value");
+				return null;
+			}
+			if (!float.TryParse(TextBoxEndHeight.Text, out float endHeight))
+			{
+				MessageBox.Show("Please enter a numeric value.", "Invalid end height value");
+				return null;
+			}
+
+			if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 || x1 > Settings.ARENA_WIDTH || y1 > Settings.ARENA_HEIGHT || x2 > Settings.ARENA_WIDTH || y2 > Settings.ARENA_HEIGHT)
+			{
+				MessageBox.Show(string.Format("X and Y values must be between 0 and {0}.", Settings.ARENA_WIDTH), "Invalid value(s)");
+				return null;
+			}
+
+			if (x1 >= x2 || y1 >= y2)
+			{
+				MessageBox.Show("The first position's X and Y must be smaller than the second position's X and Y.", "Invalid value(s)");
+				return null;
+			}
+
+			if (startHeight < Settings.TILE_MIN || startHeight > Settings.TILE_MAX)
+			{
+				MessageBox.Show(string.Format("The start height must be between {0} and {1}.", Settings.TILE_MIN, Settings.TILE_MAX), "Invalid start height value");
+				return null;
+			}
+
+			if (endHeight < Settings.TILE_MIN || endHeight > Settings.TILE_MAX)
+			{
+				MessageBox.Show(string.Format("The end height must be between {0} and {1}.", Settings.TILE_MIN, Settings.TILE_MAX), "Invalid end height value");
+				return null;
+			}
+
+			return new ArenaPyramid(x1, y1, x2, y2, startHeight, endHeight);
+		}
+
 		private void ButtonArenaGenerate_Click(object sender, RoutedEventArgs e)
 		{
-			int type = ComboBoxArenaPreset.SelectedIndex;
+			Arena arena = null;
 
-			if (type != 5 && type != 6) // Don't prompt if type has its own window
+			int type = ComboBoxArenaPreset.SelectedIndex;
+			switch (type)
 			{
-				MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the current arena with this preset?", "Generate arena", MessageBoxButton.YesNo, MessageBoxImage.Question);
-				if (result != MessageBoxResult.Yes)
-				{
-					return;
-				}
+				case 5:
+					arena = GetArenaRectangularFromGUI();
+					if (arena == null)
+						return;
+					break;
+				case 6:
+					arena = GetArenaPyramidFromGUI();
+					if (arena == null)
+						return;
+					break;
 			}
+			
+			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the current arena with this preset?", "Generate arena", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			if (result != MessageBoxResult.Yes)
+				return;
 
 			byte[] defaultArenaBuffer = new byte[Settings.ARENA_BUFFER_SIZE];
 			FileStream fs = new FileStream("Content/survival", FileMode.Open, FileAccess.Read)
@@ -622,10 +871,8 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 							spawnset.arenaTiles[i, j] = Settings.TILE_VOID_DEFAULT;
 					break;
 				case 5:
-					WindowArenaRectangular rectangleDialog = new WindowArenaRectangular();
-					if (rectangleDialog.ShowDialog() == true)
+					if (arena is ArenaRectangular arenaRectangular)
 					{
-						ArenaRectangular arena = rectangleDialog.arena;
 						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
 						{
 							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
@@ -634,16 +881,14 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 							}
 						}
 
-						for (int i = arena.x1; i < arena.x2; i++)
-							for (int j = arena.y1; j < arena.y2; j++)
-								spawnset.arenaTiles[i, j] = arena.height;
+						for (int i = arenaRectangular.x1; i < arenaRectangular.x2; i++)
+							for (int j = arenaRectangular.y1; j < arenaRectangular.y2; j++)
+								spawnset.arenaTiles[i, j] = arenaRectangular.height;
 					}
 					break;
 				case 6:
-					WindowArenaPyramid pyramidDialog = new WindowArenaPyramid();
-					if (pyramidDialog.ShowDialog() == true)
+					if (arena is ArenaPyramid arenaPyramid)
 					{
-						ArenaPyramid arena = pyramidDialog.arena;
 						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
 						{
 							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
@@ -652,11 +897,11 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 							}
 						}
 
-						float stepX = (arena.startHeight - arena.endHeight) / (arena.x2 - arena.x1 - 1);
-						float stepY = (arena.startHeight - arena.endHeight) / (arena.y2 - arena.y1 - 1);
-						for (int i = arena.x1; i < arena.x2; i++)
-							for (int j = arena.y1; j < arena.y2; j++)
-								spawnset.arenaTiles[i, j] = arena.endHeight + (Math.Abs(i - 25) * stepX + Math.Abs(j - 25) * stepY);
+						float stepX = (arenaPyramid.startHeight - arenaPyramid.endHeight) / (arenaPyramid.x2 - arenaPyramid.x1 - 1);
+						float stepY = (arenaPyramid.startHeight - arenaPyramid.endHeight) / (arenaPyramid.y2 - arenaPyramid.y1 - 1);
+						for (int i = arenaPyramid.x1; i < arenaPyramid.x2; i++)
+							for (int j = arenaPyramid.y1; j < arenaPyramid.y2; j++)
+								spawnset.arenaTiles[i, j] = arenaPyramid.endHeight + (Math.Abs(i - 25) * stepX + Math.Abs(j - 25) * stepY);
 					}
 					break;
 				case 7:

@@ -171,17 +171,23 @@
 							<Label Padding="4,0,0,0" Name="HeightTile">0</Label>
 						</StackPanel>
 						<StackPanel Grid.Column="3">
-							<ComboBox Name="ComboBoxArenaPreset" SelectedIndex="0">
-								<ComboBoxItem Content="Default"></ComboBoxItem>
-								<ComboBoxItem Content="Default flat"></ComboBoxItem>
-								<ComboBoxItem Content="Full"></ComboBoxItem>
-								<ComboBoxItem Content="Void"></ComboBoxItem>
+							<ComboBox Name="ComboBoxArenaPreset" SelectedIndex="0" SelectionChanged="ComboBoxArenaPreset_SelectionChanged">
+								<ComboBoxItem Content="Default" />
+								<ComboBoxItem Content="Default flat" />
+								<ComboBoxItem Content="Full" />
+								<ComboBoxItem Content="Void" />
 								<Separator />
-								<ComboBoxItem Content="Rectangular..."></ComboBoxItem>
-								<ComboBoxItem Content="Pyramid..."></ComboBoxItem>
-								<ComboBoxItem Content="Cage"></ComboBoxItem>
-								<ComboBoxItem Content="Random"></ComboBoxItem>
+								<ComboBoxItem Content="Rectangular" />
+								<ComboBoxItem Content="Pyramid" />
+								<ComboBoxItem Content="Cage" />
+								<ComboBoxItem Content="Random" />
 							</ComboBox>
+							<Grid Name="GridPreset">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+							</Grid>
 							<Button Name="ButtonArenaGenerate" Click="ButtonArenaGenerate_Click">Generate</Button>
 						</StackPanel>
 					</Grid>
