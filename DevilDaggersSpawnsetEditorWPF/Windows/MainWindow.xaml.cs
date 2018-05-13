@@ -610,7 +610,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			Grid.SetColumn(stackPanelRight, 1);
 
 			string[] labelContents = new string[] { "X1", "Y1", "X2", "Y2", "Height" };
-			string[] textBoxValues = new string[] { "0", "0", "51", "51", "0" };
+			string[] textBoxValues = new string[] { "14", "14", "37", "37", "0" };
 			for (int i = 0; i < labelContents.Length; i++)
 			{
 				stackPanelLeft.Children.Add(new Label
@@ -645,7 +645,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Windows
 			Grid.SetColumn(stackPanelRight, 1);
 
 			string[] labelContents = new string[] { "X1", "Y1", "X2", "Y2", "StartHeight", "EndHeight" };
-			string[] textBoxValues = new string[] { "0", "0", "51", "51", "0", "0" };
+			string[] textBoxValues = new string[] { "14", "14", "37", "37", "0", "0" };
 			for (int i = 0; i < labelContents.Length; i++)
 			{
 				stackPanelLeft.Children.Add(new Label
