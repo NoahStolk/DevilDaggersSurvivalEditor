@@ -2,7 +2,6 @@
 
 Devil Daggers Survival Editor is a tool that lets you create, view, edit, and switch 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
-Features:
 - Spawnset editor
 - Arena editor with the ability to change tile heights
 - Arena presets (WIP)
