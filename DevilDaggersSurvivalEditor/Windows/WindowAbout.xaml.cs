@@ -1,9 +1,9 @@
-﻿using DevilDaggersSpawnsetEditorWPF.Helpers;
+﻿using DevilDaggersSurvivalEditor.Helpers;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
 
-namespace DevilDaggersSpawnsetEditorWPF.Windows
+namespace DevilDaggersSurvivalEditor.Windows
 {
 	public partial class WindowAbout : Window
 	{

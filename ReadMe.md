@@ -1,6 +1,6 @@
-## Devil Daggers Spawnset Editor WPF
+## Devil Daggers Survival Editor
 
-Devil Daggers Spawnset Editor WPF is a tool that lets you create, view, edit, and switch spawnsets for the game Devil Daggers.
+Devil Daggers Survival Editor is a tool that lets you create, view, edit, and switch 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
 ## System requirements
 
@@ -9,8 +9,8 @@ Devil Daggers Spawnset Editor WPF is a tool that lets you create, view, edit, an
 
 ## Installation
 
-1. Unzip the contents of DDSEWPF.zip.
-2. Run DDSEWPF.exe.
+1. Unzip the contents of Devil Daggers Survival Editor.zip.
+2. Run Devil Daggers Survival Editor.exe.
 
 Note: You will almost certainly get an automatic warning from Windows saying that you should not run this application because "it has only been downloaded very few times and has an unknown publisher", or something.
 Just take a look at the source code if you do not trust the application.

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevilDaggersSpawnsetEditorWPF", "DevilDaggersSpawnsetEditorWPF\DevilDaggersSpawnsetEditorWPF.csproj", "{1F1E41AC-3DB2-4C00-B68D-692421DAE241}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevilDaggersSurvivalEditor", "DevilDaggersSurvivalEditor\DevilDaggersSurvivalEditor.csproj", "{1F1E41AC-3DB2-4C00-B68D-692421DAE241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

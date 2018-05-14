@@ -1,23 +1,25 @@
 HELP
 manual
-	warning
-		spawnsets with modified arenas are likely to crash the game
-			full arena crashes when you go to tile 0,0 (i think)
-			spawning the player on a higher tile might crash the game (needs more research)
-			high tiles make the game potentially unstable and might crash
-	basics
-		arena
-			arena size is 50x50
-			tile 25,25 is player spawn (center)
-			0 normal height
-			-1 and below is fallen height
-			tile 0,1 is invisible for some reason but you can still walk on it
-			default arena in the game has tiny differences in tile heights
-			you can make the player spawn on a higher tile (though not recommended because enemies will go through the floor, the game might crash, etc)
-	gui
-		arena
-			editor supports from -1 to 63, under -1 is void (no difference in the game even though it supports it)
-			editor default void is -1000
+    warning
+        spawnsets with modified arenas are likely to crash the game
+            full arena crashes when you go to tile 0,0 (i think)
+            spawning the player on a higher tile might crash the game (needs more research)
+            high tiles make the game potentially unstable and might crash
+    basics
+        arena
+            arena size is 50x50
+            tile 25,25 is player spawn (center)
+            0 normal height
+            -1 and below is fallen height
+            tile 0,1 is invisible for some reason but you can still walk on it
+            default arena in the game has tiny differences in tile heights
+            you can make the player spawn on a higher tile (though not recommended because enemies will go through the floor, the game might crash, etc)
+    gui
+        arena
+            editor supports from -1 to 63, under -1 is void (no difference in the game even though it supports it)
+            editor default void is -1000
+		shrink preview
+			a rough approximation of what the arena will be like at which second
 
 open source bitbucket
 
@@ -26,18 +28,18 @@ discord text channel "editor"
 version number
 
 postponed indefinitely:
-	arena shapes
-		presets
-			all
-				rectangle/ellipse/other shapes
-			waves
-				min height
-				max height
-				direction
-				frequency
-	bind delete key to delete spawns button
-	manually set tile height
-	multi select tiles with RMB (maybe)
-	buttons
-		round height values
-		randomize height values
+    arena shapes
+        presets
+            all
+                rectangle/ellipse/other shapes
+            waves
+                min height
+                max height
+                direction
+                frequency
+    bind delete key to delete spawns button
+    manually set tile height
+    multi select tiles with RMB (maybe)
+    buttons
+        round height values
+        randomize height values

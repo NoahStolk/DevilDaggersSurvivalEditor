@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DevilDaggersSpawnsetEditorWPF.Properties
+namespace DevilDaggersSurvivalEditor.Properties
 {
 
 

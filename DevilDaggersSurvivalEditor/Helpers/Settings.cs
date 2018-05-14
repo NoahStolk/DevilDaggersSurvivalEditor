@@ -1,4 +1,4 @@
-﻿namespace DevilDaggersSpawnsetEditorWPF.Helpers
+﻿namespace DevilDaggersSurvivalEditor.Helpers
 {
 	public static class Settings
 	{

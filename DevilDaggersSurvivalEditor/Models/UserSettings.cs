@@ -1,6 +1,6 @@
-﻿using DevilDaggersSpawnsetEditorWPF.Helpers;
+﻿using DevilDaggersSurvivalEditor.Helpers;
 
-namespace DevilDaggersSpawnsetEditorWPF.Models
+namespace DevilDaggersSurvivalEditor.Models
 {
 	public class UserSettings
 	{

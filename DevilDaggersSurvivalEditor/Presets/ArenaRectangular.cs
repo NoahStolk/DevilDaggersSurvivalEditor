@@ -1,4 +1,4 @@
-﻿namespace DevilDaggersSpawnsetEditorWPF.Presets
+﻿namespace DevilDaggersSurvivalEditor.Presets
 {
 	public class ArenaRectangular : Arena
 	{

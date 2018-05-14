@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DevilDaggersSpawnsetEditorWPF
+namespace DevilDaggersSurvivalEditor
 {
 	public partial class App : Application
 	{

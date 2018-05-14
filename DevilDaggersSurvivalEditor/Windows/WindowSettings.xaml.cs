@@ -1,8 +1,8 @@
-﻿using DevilDaggersSpawnsetEditorWPF.Models;
+﻿using DevilDaggersSurvivalEditor.Models;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
 
-namespace DevilDaggersSpawnsetEditorWPF.Windows
+namespace DevilDaggersSurvivalEditor.Windows
 {
 	public partial class WindowSettings : Window
 	{

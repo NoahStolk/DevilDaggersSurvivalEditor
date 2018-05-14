@@ -1,4 +1,4 @@
-﻿namespace DevilDaggersSpawnsetEditorWPF.Models
+﻿namespace DevilDaggersSurvivalEditor.Models
 {
 	public class Spawn
 	{

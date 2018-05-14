@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DevilDaggersSpawnsetEditorWPF.Properties
+namespace DevilDaggersSurvivalEditor.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace DevilDaggersSpawnsetEditorWPF.Properties
 			{
 				if ((resourceMan == null))
 				{
-					global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DevilDaggersSpawnsetEditorWPF.Properties.Resources", typeof(Resources).Assembly);
+					global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DevilDaggersSurvivalEditor.Properties.Resources", typeof(Resources).Assembly);
 					resourceMan = temp;
 				}
 				return resourceMan;

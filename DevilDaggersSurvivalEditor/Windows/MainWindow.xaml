@@ -1,10 +1,10 @@
-﻿<Window x:Class="DevilDaggersSpawnsetEditorWPF.Windows.MainWindow"
+﻿<Window x:Class="DevilDaggersSurvivalEditor.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Devil Daggers Spawnset Editor by Noah Stolk" Height="832" Width="1036"
+        Title="Devil Daggers Survival Editor" Height="832" Width="1036"
 		ResizeMode="NoResize">
 	<Grid>
 		<Grid.RowDefinitions>

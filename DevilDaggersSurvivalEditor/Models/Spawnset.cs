@@ -1,9 +1,9 @@
-﻿using DevilDaggersSpawnsetEditorWPF.Helpers;
+﻿using DevilDaggersSurvivalEditor.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace DevilDaggersSpawnsetEditorWPF.Models
+namespace DevilDaggersSurvivalEditor.Models
 {
 	public class Spawnset
 	{

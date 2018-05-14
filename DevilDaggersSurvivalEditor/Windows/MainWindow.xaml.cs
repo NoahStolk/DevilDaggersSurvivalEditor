@@ -1,6 +1,6 @@
-﻿using DevilDaggersSpawnsetEditorWPF.Helpers;
-using DevilDaggersSpawnsetEditorWPF.Models;
-using DevilDaggersSpawnsetEditorWPF.Presets;
+﻿using DevilDaggersSurvivalEditor.Helpers;
+using DevilDaggersSurvivalEditor.Models;
+using DevilDaggersSurvivalEditor.Presets;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace DevilDaggersSpawnsetEditorWPF.Windows
+namespace DevilDaggersSurvivalEditor.Windows
 {
 	public partial class MainWindow : Window
 	{
