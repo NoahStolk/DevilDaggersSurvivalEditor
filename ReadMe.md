@@ -4,8 +4,8 @@ Devil Daggers Spawnset Editor WPF is a tool that lets you create, view, edit, an
 
 ## System requirements
 
-Microsoft Windows
-.NET 3.0 or above
+- Microsoft Windows
+- .NET 3.0 or above
 
 ## Installation
 
