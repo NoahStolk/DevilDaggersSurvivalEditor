@@ -27,7 +27,7 @@
 				</MenuItem>
 				<MenuItem Header="_Community">
 					<MenuItem Header="_Browse spawnsets online" Click="Browse_Click"/>
-					<MenuItem Header="_Discord server" Click="Discord_Click"/>
+					<MenuItem Header="Open _Discord server" Click="Discord_Click"/>
 				</MenuItem>
 				<MenuItem Header="_Help">
 					<!--<MenuItem Header="_Manual" Click="Manual_Click" />-->
