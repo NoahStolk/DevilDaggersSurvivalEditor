@@ -13,7 +13,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, edit, and sw
 2. Unzip the contents of DevilDaggersSurvivalEditor.zip.
 3. Run DevilDaggersSurvivalEditor.exe inside the folder.
 
-Note: You will almost certainly get an automatic warning from Windows saying that you should not run this application because "it has only been downloaded very few times and has an unknown publisher", or something.
+**Note:** You will almost certainly get an automatic warning from Windows saying that you should not run this application because "it has only been downloaded very few times and has an unknown publisher", or something.
 Just take a look at the source code if you do not trust the application.
 
 ## License
