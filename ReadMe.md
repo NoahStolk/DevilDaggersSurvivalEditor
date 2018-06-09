@@ -100,7 +100,7 @@ Thanks to Bintr for figuring this out.
 #### The arena
 - Click on a tile to disable/enable.
 - Scroll on a tile to change its height.
-- The shrink slider/preview indicate a rough approximation of what the arena will be like at which second. This isn't entirely accurate because I only have 8x8 pixels per tile.
+- The shrink preview indicates a rough approximation of what the arena will be like at which second. This isn't entirely accurate because I only have 8x8 pixels per tile.
 
 #### The spawns list
 - The end loop is made bold.
