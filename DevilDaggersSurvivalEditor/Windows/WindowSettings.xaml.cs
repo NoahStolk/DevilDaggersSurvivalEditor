@@ -39,7 +39,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			Focus();
 		}
 
-		private void OKButton_Click(object sender, RoutedEventArgs e)
+		private void ApplyButton_Click(object sender, RoutedEventArgs e)
 		{
 			DialogResult = true;
 		}

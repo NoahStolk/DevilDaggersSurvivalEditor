@@ -18,8 +18,8 @@
 			<TextBlock TextWrapping="WrapWithOverflow" Name="LabelDDLocation" Padding="4,2,0,0"></TextBlock>
 		</StackPanel>
 		<StackPanel Grid.Column="2">
-			<Button Content="Browse" Click="BrowseButton_Click" />
-			<Button Content="OK" Click="OKButton_Click"/>
+			<Button Margin="4,4,4,4" Content="Browse" Click="BrowseButton_Click" />
+			<Button Margin="4,4,4,4" Content="Apply" Click="ApplyButton_Click"/>
 		</StackPanel>
 	</Grid>
 </Window>
