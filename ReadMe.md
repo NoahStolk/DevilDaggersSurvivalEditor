@@ -42,7 +42,7 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 ### Advanced information
 
 #### The end loop
-- This C# console application shows all the end game seconds for the first 20 waves:
+- This C# console application shows all the end game seconds for the first 20 waves: (Someone please translate this to human language.)
 ```
 using System;
 using System.Collections.Generic;
@@ -77,7 +77,6 @@ namespace DevilDaggersEndGame
 }
 ```
 Thanks to Bintr for figuring this out.
-(Someone please translate this to human language.)
 
 #### The arena
 - The default arena size is 23 by 23 tiles at the start. This is equivalent to shrink radius 50 (technically the arena would be 25 by 25 but because of shrinking controls the outer tiles are already shrunk at the very beginning).
@@ -99,12 +98,12 @@ Thanks to Bintr for figuring this out.
 ### Devil Daggers Survival Editor GUI explanation
 
 #### The arena
-	Click on a tile to disable/enable.
-	Scroll on a tile to change its height.
-	The shrink slider/preview indicate a rough approximation of what the arena will be like at which second. This isn't entirely accurate because I only have 8x8 pixels per tile.
+- Click on a tile to disable/enable.
+- Scroll on a tile to change its height.
+- The shrink slider/preview indicate a rough approximation of what the arena will be like at which second. This isn't entirely accurate because I only have 8x8 pixels per tile.
 
 #### The spawns list
-	The end loop is made bold.
+- The end loop is made bold.
 
 ## Credits
 
