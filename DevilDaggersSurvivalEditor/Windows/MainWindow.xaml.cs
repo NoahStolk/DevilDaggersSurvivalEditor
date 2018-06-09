@@ -438,8 +438,8 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private void Settings_Click(object sender, RoutedEventArgs e)
 		{
-			WindowSettings settingsDialog = new WindowSettings();
-			if (settingsDialog.ShowDialog() == true)
+			WindowSettings windowSettings = new WindowSettings();
+			if (windowSettings.ShowDialog() == true)
 			{
 				using (StreamWriter sw = new StreamWriter(File.Create(Settings.USER_SETTINGS_FILENAME)))
 				{
@@ -460,13 +460,16 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private void Manual_Click(object sender, RoutedEventArgs e)
 		{
-			// TODO
+			WindowManual windowManual = new WindowManual();
+			if (windowManual.ShowDialog() == true)
+				windowManual.Show();
 		}
 
 		private void About_Click(object sender, RoutedEventArgs e)
 		{
 			WindowAbout windowAbout = new WindowAbout();
-			windowAbout.Show();
+			if (windowAbout.ShowDialog() == true)
+				windowAbout.Show();
 		}
 
 		private void SettingsEditApplyButton_Click(object sender, RoutedEventArgs e)
