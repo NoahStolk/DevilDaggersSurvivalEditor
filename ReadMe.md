@@ -37,7 +37,7 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 - The delay value supports decimal values, even though the game doesn't use this. This means you can spawn an enemy, for example every 4.5 seconds.
 
 #### Enemies and hand upgrades
-- Visit devildaggers.info
+- Visit [devildaggers.info](http://devildaggers.info)
 
 ### Advanced information
 
