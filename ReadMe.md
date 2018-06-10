@@ -87,7 +87,7 @@ Thanks to Bintr for figuring this out.
 - The player can stand on tiles with height -1, but anything lower than that will result in dying (FALLEN). The default "void" height in the original game is around -1007.57, but for convenience I use the number -1000 because it doesn't matter. All tiles below -1 are essentially the same because you cannot see or stand on them without dying.
 - The tile at coordinate 0,1 is invisible for some reason, but you can still walk on it.
 - The player can be spawned on different tile heights, though this is not recommended because some enemies will go through the floor, you won't be able to pick up any gems (they only fly towards height 0), and some really odd stuff can happen (audio glitches, no hand appearing, crashes...).
-- I set the maximum tile height of the editor to -63 because odd stuff happens when the player reaches a certain height...
+- I set the maximum tile height of the editor to 63 because odd stuff happens when the player reaches a certain height...
 - The game crashes when you get too near the edge of a full arena (below x/y 0 or above x/y 50, and I think at/around coordinate 0,0 but I am not sure).
 - The tiles have infinitely long hitboxes but the texture only covers the top of it.
 - You can only have 1 tile per coordinate.
