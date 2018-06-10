@@ -42,7 +42,7 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 ### Advanced information
 
 #### The end loop
-- This C# console application shows all the end game seconds for the first 20 waves: (Someone please translate this to human language.)
+- This C# console application shows all the end loop seconds for the first 20 waves: (Someone please translate this to human language.)
 ```
 using System;
 using System.Collections.Generic;
@@ -81,15 +81,15 @@ Thanks to Bintr for figuring this out.
 #### The arena
 - The default arena size is 23 by 23 tiles at the start. This is equivalent to shrink radius 50 (technically the arena would be 25 by 25 but because of shrinking controls the outer tiles are already shrunk at the very beginning).
 - The arena shrinks in size as time goes on. The default shrink start radius is 50 and the default shrink end radius is 20. The default shrink rate is 0.025. So the default arena reaches the end radius at 1200 seconds because (50-20)/0.025 = 1200. (Although not exactly because the shrinking radius will not hit the next tiles exactly at 1200, I haven't bothered with the math behind this, but the last tiles shrink around 1187 seconds. The shrinking technically continues for about 13 seconds but no tiles are affected by it.)
-- The arena size is 50 by 50.
+- The maximum arena size is 50 by 50.
 - The player always spawns at coordinate 25,25.
 - The original game doesn't use different tile heights, all the tiles are around height 0 (there are some tiny differences that are barely noticable, but for convenience we could say that all the tiles are at height 0 and that 0 is the default height).
-- The player can stand on tiles with height -1, but anything lower than that will result in dying (FALLEN). The default "void" height in the original game is around -1007.57, but for convenience I use the number -1000 because it doesn't matter. All tiles below -1 are essentially the same.
+- The player can stand on tiles with height -1, but anything lower than that will result in dying (FALLEN). The default "void" height in the original game is around -1007.57, but for convenience I use the number -1000 because it doesn't matter. All tiles below -1 are essentially the same because you cannot see or stand on them without dying.
 - The tile at coordinate 0,1 is invisible for some reason, but you can still walk on it.
 - The player can be spawned on different tile heights, though this is not recommended because some enemies will go through the floor, you won't be able to pick up any gems (they only fly towards height 0), and some really odd stuff can happen (audio glitches, no hand appearing, crashes...).
-- I set the limit to the tile height to -63 because odd stuff happens when you reach a certain height...
+- I set the maximum tile height of the editor to -63 because odd stuff happens when the player reaches a certain height...
 - The game crashes when you get too near the edge of a full arena (below x/y 0 or above x/y 50, and I think at/around coordinate 0,0 but I am not sure).
-- The tiles have infinitely long hitboxes but the texture only covers a cube of it (with the bottom being invisible).
+- The tiles have infinitely long hitboxes but the texture only covers the top of it.
 - You can only have 1 tile per coordinate.
 - 1 tile height is equivalent to 1/4 of a tile (let's say it is a cube). So if you could stack tiles on top of each other, the first tile would be at height 0, the second at height 4, the third at height 8, and so on.
 - The player's jump height is equivalent to 1 tile height (1/4 of a tile).
