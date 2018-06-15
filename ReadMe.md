@@ -1,10 +1,10 @@
-# Devil Daggers Survival Editor 0.9 (beta)
+# Devil Daggers Survival Editor 1.0
 
 Devil Daggers Survival Editor is a tool that lets you create, view, edit, and switch 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
 - Spawnset editor
 - Arena editor with the ability to change tile heights
-- Arena presets (WIP)
+- Arena presets
 - Shrink preview that shows a rough approximation of what the arena will be like at what time during the spawnset
 - Easily replacing the currently active spawnset in the game
 
@@ -101,6 +101,7 @@ Thanks to Bintr for figuring this out.
 #### The arena
 - Left click on a tile to disable/enable.
 - Scroll on a tile to change its height.
+- Right click on a tile to manually set its height.
 - The shrink preview shows a rough approximation of what the arena will be like at which second. This isn't entirely accurate because the application only uses 8x8 pixels per tile.
 
 #### The spawns list

@@ -17,6 +17,6 @@
 
 		public const string USER_SETTINGS_FILENAME = "user.json";
 
-		public const string VERSION = "0.9 (Beta)";
+		public const string VERSION = "1.0";
 	}
 }
