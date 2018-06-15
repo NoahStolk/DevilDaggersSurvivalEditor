@@ -42,7 +42,7 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 ### Advanced information
 
 #### The end loop
-- This C# console application shows all the end loop seconds for the first 20 waves: (Someone please translate this to human language.)
+- This C# console application shows all the end loop seconds for the first 20 waves:
 ```
 using System;
 using System.Collections.Generic;
@@ -70,7 +70,8 @@ namespace DevilDaggersEndLoop
 					}
 					Console.WriteLine(seconds.ToString("0.0000"));
 				}
-				waveModifier += 0.00208333; // hardcoded value in the game
+				waveModifier += 1.0 / 60.0 / 8.0; // 1 physics tick = 1/60 seconds
+												  // After every end wave, each enemy spawns an added 12.5% (100% / 8) faster
 			}
 		}
 	}
