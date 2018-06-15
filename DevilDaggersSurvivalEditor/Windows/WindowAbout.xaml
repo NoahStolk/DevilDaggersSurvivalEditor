@@ -17,7 +17,7 @@
 			</Label>
 			<Label FontSize="16" HorizontalAlignment="Center">
 				<Hyperlink NavigateUri="https://bitbucket.org/NoahStolk/DevilDaggersSurvivalEditor/src" RequestNavigate="Hyperlink_RequestNavigate">
-					View source online
+					View source code and manual
 				</Hyperlink>
 			</Label>
 		</StackPanel>

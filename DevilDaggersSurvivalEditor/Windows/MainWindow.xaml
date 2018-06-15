@@ -196,6 +196,7 @@
 						<Button Margin="0,0,0,0" Name="SettingsEditApplyButton" Content="Edit" Click="SettingsEditApplyButton_Click"></Button>
 					</StackPanel>
 				</Grid>
+				<Label FontSize="16" FontWeight="Bold" Grid.Column="1">Arena presets</Label>
 				<Grid Grid.Column="1" Grid.Row="1">
 					<StackPanel>
 						<ComboBox Name="ComboBoxArenaPreset" SelectedIndex="0" SelectionChanged="ComboBoxArenaPreset_SelectionChanged">
