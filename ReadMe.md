@@ -99,7 +99,7 @@ Thanks to Bintr for figuring this out.
 ### GUI explanation
 
 #### The arena
-- Left click on a tile to disable/enable.
+- Left click on a tile to enable or disable it.
 - Scroll on a tile to change its height.
 - Right click on a tile to manually set its height.
 - The shrink preview shows a rough approximation of what the arena will be like at which second. This isn't entirely accurate because the application only uses 8x8 pixels per tile.
