@@ -113,7 +113,7 @@
 				</Grid.RowDefinitions>
 				<Label FontSize="16" FontWeight="Bold" Grid.Row="0">Arena</Label>
 				<StackPanel Grid.Row="1">
-					<Canvas Name="ArenaTiles" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" Background="Black" Width="408" Height="408">
+					<Canvas Name="ArenaTiles" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408">
 						<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1">
 
 						</Ellipse>

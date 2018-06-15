@@ -575,6 +575,20 @@ namespace DevilDaggersSurvivalEditor.Windows
 			UpdateArenaGUI();
 		}
 
+		private void ArenaTiles_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			Point tile = Mouse.GetPosition((IInputElement)sender);
+			tile = new Point((int)tile.X / 8, (int)tile.Y / 8);
+			
+			WindowTileHeight windowTileHeight = new WindowTileHeight(spawnset.arenaTiles[(int)tile.X, (int)tile.Y]);
+			if (windowTileHeight.ShowDialog() == true)
+				spawnset.arenaTiles[(int)tile.X, (int)tile.Y] = windowTileHeight.tileHeight;
+
+			HeightTile.Content = spawnset.arenaTiles[(int)tile.X, (int)tile.Y].ToString("0.00");
+
+			UpdateArenaGUI();
+		}
+
 		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (GridPreset != null)
