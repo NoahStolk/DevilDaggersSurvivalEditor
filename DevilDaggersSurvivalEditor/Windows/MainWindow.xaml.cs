@@ -458,13 +458,6 @@ namespace DevilDaggersSurvivalEditor.Windows
 			Process.Start("https://discord.gg/NF32j8S");
 		}
 
-		private void Manual_Click(object sender, RoutedEventArgs e)
-		{
-			WindowManual windowManual = new WindowManual();
-			if (windowManual.ShowDialog() == true)
-				windowManual.Show();
-		}
-
 		private void About_Click(object sender, RoutedEventArgs e)
 		{
 			WindowAbout windowAbout = new WindowAbout();
