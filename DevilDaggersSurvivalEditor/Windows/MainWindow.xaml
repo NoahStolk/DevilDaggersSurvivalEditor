@@ -179,21 +179,21 @@
 						<ColumnDefinition Width="2*" />
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
-						<Label Padding="4,0,0,4">Shrink start</Label>
-						<Label Padding="4,0,0,4">Shrink end</Label>
-						<Label Padding="4,0,0,4">Shrink rate</Label>
-						<Label Padding="4,0,0,4">Brightness</Label>
+						<Label Padding="4,4,0,4">Shrink start</Label>
+						<Label Padding="4,4,0,4">Shrink end</Label>
+						<Label Padding="4,4,0,4">Shrink rate</Label>
+						<Label Padding="4,4,0,4">Brightness</Label>
 					</StackPanel>
 					<StackPanel Grid.Column="1">
-						<TextBox Visibility="Collapsed" Margin="0,0,0,0" Height="20" Name="TextBoxShrinkStart"></TextBox>
-						<TextBlock Height="20" Name="TextBlockShrinkStart"></TextBlock>
-						<TextBox Visibility="Collapsed" Margin="0,0,0,0" Height="20" Name="TextBoxShrinkEnd"></TextBox>
-						<TextBlock Height="20" Name="TextBlockShrinkEnd"></TextBlock>
-						<TextBox Visibility="Collapsed" Margin="0,0,0,0" Height="20" Name="TextBoxShrinkRate"></TextBox>
-						<TextBlock Height="20" Name="TextBlockShrinkRate"></TextBlock>
-						<TextBox Visibility="Collapsed" Margin="0,0,0,0" Height="20" Name="TextBoxBrightness"></TextBox>
-						<TextBlock Height="20" Name="TextBlockBrightness"></TextBlock>
-						<Button Margin="0,0,0,0" Name="SettingsEditApplyButton" Content="Edit" Click="SettingsEditApplyButton_Click"></Button>
+						<TextBox Visibility="Collapsed" Margin="0,4,0,0" Height="20" Name="TextBoxShrinkStart"></TextBox>
+						<TextBlock Margin="0,4,0,0" Height="20" Name="TextBlockShrinkStart"></TextBlock>
+						<TextBox Visibility="Collapsed" Margin="0,4,0,0" Height="20" Name="TextBoxShrinkEnd"></TextBox>
+						<TextBlock Margin="0,4,0,0" Height="20" Name="TextBlockShrinkEnd"></TextBlock>
+						<TextBox Visibility="Collapsed" Margin="0,4,0,0" Height="20" Name="TextBoxShrinkRate"></TextBox>
+						<TextBlock Margin="0,4,0,0" Height="20" Name="TextBlockShrinkRate"></TextBlock>
+						<TextBox Visibility="Collapsed" Margin="0,4,0,0" Height="20" Name="TextBoxBrightness"></TextBox>
+						<TextBlock Margin="0,4,0,0" Height="20" Name="TextBlockBrightness"></TextBlock>
+						<Button Margin="0,4,0,0" Name="SettingsEditApplyButton" Content="Edit" Click="SettingsEditApplyButton_Click"></Button>
 					</StackPanel>
 				</Grid>
 				<Label FontSize="16" FontWeight="Bold" Grid.Column="1">Arena presets</Label>
