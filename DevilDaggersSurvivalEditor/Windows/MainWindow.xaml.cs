@@ -28,7 +28,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			CreateEmptySpawnset();
 
 			// Add height map
-			TextBlock textBlock = new TextBlock { Background = new SolidColorBrush(GetColorFromHeight(-1)) };
+			TextBlock textBlock = new TextBlock { Background = new SolidColorBrush(GetColorFromHeight(-1)), ToolTip = "-1" };
 			Grid.SetRow(textBlock, 0);
 			Grid.SetColumn(textBlock, 0);
 			HeightMap.Children.Add(textBlock);
@@ -37,7 +37,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			{
 				for (int j = 0; j < 16; j++)
 				{
-					textBlock = new TextBlock { Background = new SolidColorBrush(GetColorFromHeight(i * 16 + j)) };
+					textBlock = new TextBlock { Background = new SolidColorBrush(GetColorFromHeight(i * 16 + j)), ToolTip = (i * 16 + j).ToString() };
 
 					Grid.SetRow(textBlock, i + 1);
 					Grid.SetColumn(textBlock, j);
