@@ -76,11 +76,11 @@
 						<ColumnDefinition Width="2*" />
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
-						<Label Padding="4,0,0,4">Enemy</Label>
-						<Label Padding="4,0,0,4">Delay</Label>
+						<Label Padding="4,4,0,4">Enemy</Label>
+						<Label Padding="4,4,0,4">Delay</Label>
 					</StackPanel>
 					<StackPanel Grid.Column="1">
-						<ComboBox Name="ComboBoxEnemy" Height="20" SelectedIndex="0">
+						<ComboBox Margin="0,4,0,0" Name="ComboBoxEnemy" Height="20" SelectedIndex="0">
 							<ComboBoxItem Content="EMPTY" />
 							<ComboBoxItem Content="Squid I" />
 							<ComboBoxItem Content="Squid II" />
@@ -93,11 +93,11 @@
 							<ComboBoxItem Content="Spider II" />
 							<ComboBoxItem Content="Ghostpede" />
 						</ComboBox>
-						<TextBox Margin="0,0,0,0" Height="20" Name="TextBoxDelay"></TextBox>
-						<Button Margin="0,0,0,0" Name="AddSpawnButton" Content="Add spawn" Click="AddSpawnButton_Click"></Button>
-						<Button Margin="0,0,0,0" Name="InsertSpawnButton" Content="Insert spawn" Click="InsertSpawnButton_Click"></Button>
-						<Button Margin="0,0,0,0" Name="EditSpawnButton" Content="Edit spawn(s)" Click="EditSpawnButton_Click"></Button>
-						<Button Margin="0,0,0,0" Name="DeleteSpawnButton" Content="Delete spawn(s)" Click="DeleteSpawnButton_Click"></Button>
+						<TextBox Margin="0,4,0,0" Height="20" Name="TextBoxDelay"></TextBox>
+						<Button Margin="0,4,0,0" Name="AddSpawnButton" Content="Add spawn" Click="AddSpawnButton_Click"></Button>
+						<Button Margin="0,4,0,0" Name="InsertSpawnButton" Content="Insert spawn" Click="InsertSpawnButton_Click"></Button>
+						<Button Margin="0,4,0,0" Name="EditSpawnButton" Content="Edit spawn(s)" Click="EditSpawnButton_Click"></Button>
+						<Button Margin="0,4,0,0" Name="DeleteSpawnButton" Content="Delete spawn(s)" Click="DeleteSpawnButton_Click"></Button>
 					</StackPanel>
 				</Grid>
 			</Grid>

@@ -12,10 +12,10 @@
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 		<StackPanel Grid.Column="0">
-			<Label Padding="4,2,0,0">DD Location</Label>
+			<Label Padding="4,4,0,0">DD Location</Label>
 		</StackPanel>
 		<StackPanel Grid.Column="1">
-			<TextBlock TextWrapping="WrapWithOverflow" Name="LabelDDLocation" Padding="4,2,0,0"></TextBlock>
+			<TextBlock TextWrapping="WrapWithOverflow" Name="LabelDDLocation" Padding="4,4,0,0"></TextBlock>
 		</StackPanel>
 		<StackPanel Grid.Column="2">
 			<Button Margin="4,4,4,4" Content="Browse" Click="BrowseButton_Click" />
