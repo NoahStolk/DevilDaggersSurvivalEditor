@@ -630,13 +630,14 @@ namespace DevilDaggersSurvivalEditor.Windows
 				stackPanelLeft.Children.Add(new Label
 				{
 					Content = labelContents[i],
-					Padding = new Thickness(4, 2, 0, 0)
+					Padding = new Thickness(4, 4, 4, 2)
 				});
 
 				stackPanelRight.Children.Add(new TextBox
 				{
 					Name = string.Format("TextBox{0}", labelContents[i]),
-					Text = textBoxValues[i]
+					Text = textBoxValues[i],
+					Margin = new Thickness(4, 2, 4, 2)
 				});
 			}
 
