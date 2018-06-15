@@ -132,7 +132,7 @@
 						</Grid.ColumnDefinitions>
 						<StackPanel Grid.Column="0">
 							<Label Padding="4,0,0,0">Height map</Label>
-							<Grid HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40">
+							<Grid Margin="4,0,0,0" HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40">
 								<Grid.RowDefinitions>
 									<RowDefinition/>
 									<RowDefinition/>
@@ -160,7 +160,7 @@
 								</Grid.ColumnDefinitions>
 							</Grid>
 							<Label Padding="4,0,0,0">Shrink preview</Label>
-							<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"></Slider>
+							<Slider Margin="4,0,0,0" Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"></Slider>
 						</StackPanel>
 						<StackPanel Grid.Column="1">
 							<Label Padding="4,0,0,0">Tile</Label>
