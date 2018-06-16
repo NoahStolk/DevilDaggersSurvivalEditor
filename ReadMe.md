@@ -53,25 +53,26 @@ namespace DevilDaggersEndLoop
 	{
 		public static void Main(string[] args)
 		{
+			const double physicsTick = 1f / 60f;
+
 			List<int> loopSeconds = new List<int> { 5, 8, 11, 16, 21, 22, 23, 33, 34, 35, 40, 41, 46, 51, 56 };
 
-			double waveModifier = 0.0;
-			double seconds = 451.0; // loop start
+			double waveModifier = 0f;
+			double seconds = 451f; // loop start
 
 			for (int i = 0; i < 20; i++) // wave index
 			{
-				double enemyTimer = 0.0;
+				double enemyTimer = 0f;
 				for (int j = 0; j < loopSeconds.Count; j++)
 				{
 					while (enemyTimer < loopSeconds[j])
 					{
-						seconds += 1.0 / 60.0;
-						enemyTimer += 1.0 / 60.0 + waveModifier;
+						seconds += physicsTick;
+						enemyTimer += physicsTick + waveModifier;
 					}
-					Console.WriteLine(seconds.ToString("0.0000"));
+					Console.WriteLine((Math.Floor(seconds * 60) / 60).ToString("0.0000"));
 				}
-				waveModifier += 1.0 / 60.0 / 8.0; // 1 physics tick = 1/60 seconds
-												  // After every end wave, each enemy spawns an added 12.5% (100% / 8) faster.
+				waveModifier += physicsTick / 8f; // After every end wave, each enemy spawns an added 12.5% (100% / 8) faster.
 			}
 		}
 	}
