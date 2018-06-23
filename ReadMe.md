@@ -8,6 +8,8 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Shrink preview that shows a rough approximation of what the arena will be like at what time during the spawnset
 - Easily replacing the currently active spawnset in the game
 
+Devil Daggers Survival Editor is a .NET WPF application built using Visual Studio 2017.
+
 ## System requirements
 
 - Microsoft Windows
