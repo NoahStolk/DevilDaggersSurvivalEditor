@@ -34,12 +34,23 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 - 10 enemies can be spawned in the game: Squid I, Squid II, Centipede, Spider I, Leviathan, Gigapede, Squid III, Thorn, Spider II, Ghostpede. (Order is defined by the survival file structure, all enemies have a one-digit ID.)
 - Additionally there's an EMPTY spawn with ID -1. This has no purpose except that the end loop starts after the last EMPTY spawn.
 - The end loop is basically the same set of spawns over and over again, faster every time.
-- Every third wave all Gigapedes are changed into Ghostpedes.
+- Every third wave of the end loop, all Gigapedes are changed into Ghostpedes.
 - Every spawn contains one enemy and a delay value, the delay value represents the amount of seconds between the current spawn and the previous spawn.
-- The delay value supports decimal values, even though the game doesn't use this. This means you can spawn an enemy, for example every 4.5 seconds.
+- The delay value supports decimal values, even though the game doesn't use this. This means you can spawn an enemy, for example at 4.5 seconds.
 
 #### Enemies and hand upgrades
 - Visit [devildaggers.info](http://devildaggers.info).
+
+### GUI explanation
+
+#### The arena
+- Left click on a tile to enable or disable it.
+- Scroll on a tile to change its height.
+- Right click on a tile to manually set its height.
+- The shrink preview shows a rough approximation of what the arena will be like at which second. This isn't entirely accurate because the application only uses 8x8 pixels per tile.
+
+#### The spawns list
+- The end loop is made bold.
 
 ### Advanced information
 
@@ -99,17 +110,6 @@ Thanks to Bintr for figuring this out.
 - The player's jump height is equivalent to 1 tile height (1/4 of a tile).
 - The player's dagger jump height is just below 5 tile heights. So, from tile height 0, you can dagger jump on a tile with height 4, but not 5.
 - The player's double dagger jump height is just below 8 tile heights. So, from tile height 0, you can double dagger jump on a tile with height 7, but not 8.
-
-### GUI explanation
-
-#### The arena
-- Left click on a tile to enable or disable it.
-- Scroll on a tile to change its height.
-- Right click on a tile to manually set its height.
-- The shrink preview shows a rough approximation of what the arena will be like at which second. This isn't entirely accurate because the application only uses 8x8 pixels per tile.
-
-#### The spawns list
-- The end loop is made bold.
 
 ## Credits
 
