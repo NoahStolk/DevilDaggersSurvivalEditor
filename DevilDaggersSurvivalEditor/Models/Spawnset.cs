@@ -182,6 +182,9 @@ namespace DevilDaggersSurvivalEditor.Models
 					float delay = BitConverter.ToSingle(spawnBuffer, bytePosition);
 					bytePosition += 24;
 
+					if (enemyType > 9)
+						enemyType = -1;
+
 					// Disable the loop for all previous spawns when we reach an empty spawn
 					// The empty spawn is part of the new loop (until we find another empty spawn)
 					if (enemyType == -1)
