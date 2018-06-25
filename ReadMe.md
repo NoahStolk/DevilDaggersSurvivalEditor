@@ -1,4 +1,4 @@
-# Devil Daggers Survival Editor 1.0
+# Devil Daggers Survival Editor 1.0.0.1
 
 Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
