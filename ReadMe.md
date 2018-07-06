@@ -94,7 +94,7 @@ namespace DevilDaggersEndLoop
 Thanks to Bintr for figuring this out.
 
 #### The arena
-- The default arena size is 23 by 23 tiles at the start. This is equivalent to shrink radius 50 (technically the arena would be 25 by 25 but because of shrinking controls the outer tiles are already shrunk at the very beginning).
+- The default arena size is 23 by 23 tiles at the start. This is equivalent to shrink radius 50 (technically the arena would be 25 by 25 but, because of shrinking controls, the outer tiles are already shrunk at the very beginning).
 - The arena shrinks in size as time goes on. The default shrink start radius is 50 and the default shrink end radius is 20. The default shrink rate is 0.025. So the default arena reaches the end radius at 1200 seconds because (50-20)/0.025 = 1200. (Although not exactly because the shrinking radius will not hit the next tiles exactly at 1200, I haven't bothered with the math behind this, but the last tiles shrink around 1187 seconds. The shrinking technically continues for about 13 seconds but no tiles are affected by it.)
 - The maximum arena size is 50 by 50.
 - The player always spawns at coordinate 25,25.
@@ -113,7 +113,7 @@ Thanks to Bintr for figuring this out.
 
 ## Credits
 
-While I've made this application myself, I'd like to thank everyone that has put effort into figuring out how the survival file actually works.
+While I've built this application myself, I'd like to thank everyone that has put effort into figuring out how the survival file actually works.
 [This thread](https://steamcommunity.com/sharedfiles/filedetails/?id=797571917) posted by ThePassiveDada has helped me a lot.
 And also [these two editors](https://steamcommunity.com/app/422970/discussions/0/1483232961033779525/) created by bowsr and Sojk.
 
