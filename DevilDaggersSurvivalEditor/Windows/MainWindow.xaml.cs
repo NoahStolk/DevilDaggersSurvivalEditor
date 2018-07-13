@@ -230,7 +230,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			SolidColorBrush color = new SolidColorBrush(GetColorFromHeight(height));
 			rect.Fill = color;
 
-			if (Math.Abs(distance) <= (ShrinkCurrent.Width) / 16)
+			if (Math.Abs(distance) <= ShrinkCurrent.Width / 16)
 			{
 				rect.Width = 8;
 				rect.Height = 8;
