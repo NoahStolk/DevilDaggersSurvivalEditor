@@ -36,7 +36,7 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 - The end loop is basically the same set of spawns over and over again, faster every time.
 - Every third wave of the end loop, all Gigapedes are changed into Ghostpedes.
 - Every spawn contains one enemy and a delay value, the delay value represents the amount of seconds between the current spawn and the previous spawn.
-- The delay value supports decimal values, even though the game doesn't use this. This means you can spawn an enemy, for example at 4.5 seconds.
+- The delay value supports decimal values, even though the original spawnset in the game doesn't use this. This means you can spawn an enemy, for example at 4.5 seconds.
 
 #### Enemies and hand upgrades
 - Visit [devildaggers.info](http://devildaggers.info).
