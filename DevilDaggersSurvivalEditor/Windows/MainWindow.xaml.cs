@@ -6,11 +6,14 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -66,6 +69,8 @@ namespace DevilDaggersSurvivalEditor.Windows
 			}
 
 			InitializeUserSettings();
+
+			InitializeCultures();
 		}
 
 		private void InitializeUserSettings()
@@ -79,6 +84,14 @@ namespace DevilDaggersSurvivalEditor.Windows
 					userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
 				}
 			}
+		}
+
+		private void InitializeCultures()
+		{
+			Thread.CurrentThread.CurrentCulture = new CultureInfo(Settings.CULTURE_DEFAULT);
+			Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.CULTURE_DEFAULT);
+
+			LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 		}
 
 		private void CreateEmptySpawnset()

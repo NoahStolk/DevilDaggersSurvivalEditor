@@ -14,6 +14,7 @@
 		public const int ARENA_HEIGHT = 51;
 
 		public const string DD_LOCATION_DEFAULT = @"C:\Program Files (x86)\Steam\steamapps\common\devildaggers\dd";
+		public const string CULTURE_DEFAULT = "en-US";
 
 		public const string USER_SETTINGS_FILENAME = "user.json";
 
