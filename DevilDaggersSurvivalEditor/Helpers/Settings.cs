@@ -18,6 +18,6 @@
 
 		public const string USER_SETTINGS_FILENAME = "user.json";
 
-		public const string VERSION = "1.0.0.1";
+		public const string VERSION = "1.0.2.0";
 	}
 }

@@ -1,4 +1,4 @@
-# Devil Daggers Survival Editor 1.0.0.1 ([Download](https://devildaggers.info/tools/DevilDaggersSurvivalEditor.zip))
+# Devil Daggers Survival Editor 1.0.2.0 ([Download](https://devildaggers.info/tools/DevilDaggersSurvivalEditor.zip))
 
 Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
@@ -24,6 +24,25 @@ Devil Daggers Survival Editor is a .NET WPF application built using Visual Studi
 **Note:** You will almost certainly get an automatic warning from Windows saying that you should not run this application because "it has only been downloaded very few times and has an unknown publisher", or something.
 Just take a look at the source code if you do not trust the application.
 
+## Links
+
+[DevilDaggers.info website](https://devildaggers.info)
+[Discord server](https://discord.gg/NF32j8S)
+
+## Changelog
+
+**1.0.2.0 - July 26, 2018**
+
+- Force en-US globalization.
+
+**1.0.1.0 - June 25, 2018**
+
+- Fixed not being able to read some spawnsets made using a hex editor when reading an undefined enemy type.
+
+**1.0.0.0 - June 16, 2018**
+
+- Initial release.
+
 ## How to use
 
 ### The basics
@@ -39,7 +58,7 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 - The delay value supports decimal values, even though the original spawnset in the game doesn't use this. This means you can spawn an enemy, for example at 4.5 seconds.
 
 #### Enemies and hand upgrades
-- Visit [devildaggers.info](http://devildaggers.info).
+- Visit [devildaggers.info](https://devildaggers.info).
 
 ### GUI explanation
 
