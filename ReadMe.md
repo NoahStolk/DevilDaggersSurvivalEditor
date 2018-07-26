@@ -26,8 +26,8 @@ Just take a look at the source code if you do not trust the application.
 
 ## Links
 
-[DevilDaggers.info website](https://devildaggers.info)
-[Discord server](https://discord.gg/NF32j8S)
+- [DevilDaggers.info website](https://devildaggers.info)
+- [Discord server](https://discord.gg/NF32j8S)
 
 ## Changelog
 
