@@ -33,7 +33,7 @@ Just take a look at the source code if you do not trust the application.
 
 **1.0.2.0 - July 26, 2018**
 
-- Force en-US globalization.
+- Enforced en-US globalization.
 
 **1.0.1.0 - June 25, 2018**
 
