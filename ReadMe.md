@@ -17,7 +17,7 @@ Devil Daggers Survival Editor is a .NET WPF application built using Visual Studi
 
 ## Installation
 
-1. Download DevilDaggersSurvivalEditor.zip.
+1. Download [DevilDaggersSurvivalEditor.zip](https://devildaggers.info/tools/DevilDaggersSurvivalEditor.zip).
 2. Unzip the contents of DevilDaggersSurvivalEditor.zip.
 3. Run DevilDaggersSurvivalEditor.exe inside the folder.
 
