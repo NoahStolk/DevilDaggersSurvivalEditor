@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -71,6 +72,127 @@ namespace DevilDaggersSurvivalEditor.Windows
 			InitializeUserSettings();
 
 			InitializeCultures();
+
+			InitializeOnlineSpawnsetList();
+		}
+
+		private void InitializeOnlineSpawnsetList()
+		{
+			MenuItem loading = new MenuItem
+			{
+				Header = "Loading...",
+				IsEnabled = false
+			};
+
+			FileOnlineMenuItem.Items.Add(loading);
+
+			List<SpawnsetFile> spawnsetFiles = new List<SpawnsetFile>();
+			string url = "https://devildaggers.info/GetSpawnsets";
+
+			try
+			{
+				string downloadString = string.Empty;
+				using (WebClient client = new WebClient())
+				{
+					downloadString = client.DownloadString(url);
+				}
+				spawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
+			}
+			catch (WebException)
+			{
+				MessageBox.Show("Error downloading file.", $"Could not connect to {url}");
+				return;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("An error occurred.", $"{ex.Message}");
+				return;
+			}
+
+			List<string> authors = new List<string>();
+			foreach (SpawnsetFile s in spawnsetFiles)
+				if (!authors.Contains(s.Author))
+					authors.Add(s.Author);
+			authors.Sort();
+
+			List<MenuItem> authorMenuItems = new List<MenuItem>();
+			foreach (string author in authors)
+			{
+				MenuItem authorItem = new MenuItem
+				{
+					Header = author.Replace("_", "__")
+				};
+
+				foreach (SpawnsetFile s in spawnsetFiles)
+				{
+					if (s.Author == author)
+					{
+						string name = s.Name;
+						MenuItem nameItem = new MenuItem
+						{
+							Header = name.Replace("_", "__")
+						};
+						nameItem.Click += (sender, e) => SpawnsetItem_Click(sender, e, $"{name}_{author}");
+						authorItem.Items.Add(nameItem);
+					}
+				}
+
+				authorMenuItems.Add(authorItem);
+			}
+			
+			foreach (MenuItem item in authorMenuItems)
+				FileOnlineMenuItem.Items.Add(item);
+			FileOnlineMenuItem.Items.Remove(loading);
+		}
+
+		private void SpawnsetItem_Click(object sender, RoutedEventArgs e, string fileName)
+		{
+			string url = "https://devildaggers.info/DownloadSpawnset?file=" + fileName;
+
+			try
+			{
+				using (WebClient client = new WebClient())
+				{
+					using (Stream stream = new MemoryStream(client.DownloadData(url)))
+					{
+						if (!Spawnset.TryParse(stream, out spawnset))
+						{
+							MessageBox.Show("Error parsing file.", "Could not parse file");
+							return;
+						}
+					}
+				}
+			}
+			catch (WebException)
+			{
+				MessageBox.Show("Error downloading file.", $"Could not connect to {url}");
+				return;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("An error occurred.", $"{ex.Message}");
+				return;
+			}
+
+			UpdateSpawnsGUI();
+
+			UpdateSettingsGUI();
+
+			UpdateArenaGUI();
+
+			MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			if (result == MessageBoxResult.Yes)
+			{
+				try
+				{
+					File.WriteAllBytes(System.IO.Path.Combine(userSettings.ddLocation, "survival"), spawnset.GetBytes());
+					MessageBox.Show("'Survival' file replaced!");
+				}
+				catch
+				{
+					MessageBox.Show("Error replacing file.");
+				}
+			}
 		}
 
 		private void InitializeUserSettings()
