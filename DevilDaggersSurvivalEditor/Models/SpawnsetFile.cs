@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace DevilDaggersSurvivalEditor.Models
+﻿namespace DevilDaggersSurvivalEditor.Models
 {
 	public class SpawnsetFile
 	{

@@ -139,7 +139,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 				authorMenuItems.Add(authorItem);
 			}
-			
+
 			foreach (MenuItem item in authorMenuItems)
 				FileOnlineMenuItem.Items.Add(item);
 			FileOnlineMenuItem.Items.Remove(loading);
@@ -516,7 +516,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 			UpdateArenaGUI();
 		}
-		
+
 		private void FileSave_Click(object sender, RoutedEventArgs e)
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
@@ -714,7 +714,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 		{
 			Point tile = Mouse.GetPosition((IInputElement)sender);
 			tile = new Point((int)tile.X / 8, (int)tile.Y / 8);
-			
+
 			WindowTileHeight windowTileHeight = new WindowTileHeight(spawnset.arenaTiles[(int)tile.X, (int)tile.Y]);
 			if (windowTileHeight.ShowDialog() == true)
 				spawnset.arenaTiles[(int)tile.X, (int)tile.Y] = windowTileHeight.tileHeight;
@@ -759,7 +759,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 				Name = "StackPanelRight"
 			};
 			Grid.SetColumn(stackPanelRight, 1);
-			
+
 			for (int i = 0; i < labelContents.Length; i++)
 			{
 				stackPanelLeft.Children.Add(new Label
@@ -1127,7 +1127,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 						return;
 					break;
 			}
-			
+
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the current arena with this preset?", "Generate arena", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result != MessageBoxResult.Yes)
 				return;

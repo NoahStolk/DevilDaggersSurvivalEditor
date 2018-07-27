@@ -4,12 +4,12 @@ using System.Windows;
 namespace DevilDaggersSurvivalEditor.Windows
 {
 	public partial class WindowTileHeight : Window
-    {
+	{
 		public float tileHeight;
 
-        public WindowTileHeight(float tileHeight)
-        {
-            InitializeComponent();
+		public WindowTileHeight(float tileHeight)
+		{
+			InitializeComponent();
 
 			TileHeightTextBox.Text = tileHeight.ToString();
 			TileHeightTextBox.Focus();
