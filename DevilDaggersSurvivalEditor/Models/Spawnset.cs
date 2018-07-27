@@ -135,25 +135,25 @@ namespace DevilDaggersSurvivalEditor.Models
 		/// </summary>
 		/// <param name="filePath">The path to the spawnset file.</param>
 		/// <returns>The <see cref="Spawnset">Spawnset</see>.</returns>
-		public static bool TryParse(string filePath, out Spawnset spawnset)
+		public static bool TryParse(Stream stream, out Spawnset spawnset)
 		{
 			try
 			{
 				// Open the spawnset file
-				FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+				//FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 
 				// Set the file values for reading V3 spawnsets
-				int spawnBufferSize = (int)fs.Length - (Settings.HEADER_BUFFER_SIZE + Settings.ARENA_BUFFER_SIZE);
+				int spawnBufferSize = (int)stream.Length - (Settings.HEADER_BUFFER_SIZE + Settings.ARENA_BUFFER_SIZE);
 				byte[] headerBuffer = new byte[Settings.HEADER_BUFFER_SIZE];
 				byte[] arenaBuffer = new byte[Settings.ARENA_BUFFER_SIZE];
 				byte[] spawnBuffer = new byte[spawnBufferSize];
 
 				// Read the file and write the data into the buffers, then close the file since we do not need it anymore
-				fs.Read(headerBuffer, 0, Settings.HEADER_BUFFER_SIZE);
-				fs.Read(arenaBuffer, 0, Settings.ARENA_BUFFER_SIZE);
-				fs.Read(spawnBuffer, 0, spawnBufferSize);
+				stream.Read(headerBuffer, 0, Settings.HEADER_BUFFER_SIZE);
+				stream.Read(arenaBuffer, 0, Settings.ARENA_BUFFER_SIZE);
+				stream.Read(spawnBuffer, 0, spawnBufferSize);
 
-				fs.Close();
+				stream.Close();
 
 				// Set the header values
 				float shrinkEnd = BitConverter.ToSingle(headerBuffer, 8);

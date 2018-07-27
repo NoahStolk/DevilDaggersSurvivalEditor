@@ -382,7 +382,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 			if (result.HasValue && result.Value)
 			{
-				if (!Spawnset.TryParse(dialog.FileName, out spawnset))
+				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out spawnset))
 				{
 					MessageBox.Show("Please open a valid Devil Daggers V3 spawnset file.", "Could not parse file");
 				}
