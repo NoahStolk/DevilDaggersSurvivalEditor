@@ -394,7 +394,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 			UpdateArenaGUI();
 		}
-
+		
 		private void FileSave_Click(object sender, RoutedEventArgs e)
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
@@ -408,7 +408,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private void ReplaceSurvival_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult result = MessageBox.Show(string.Format("Are you sure you want to replace the current 'survival' file in {0} with this spawnset?", userSettings.ddLocation), "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
 				try
