@@ -1,4 +1,4 @@
-# Devil Daggers Survival Editor 1.0.2.0 ([Download](https://devildaggers.info/tools/DevilDaggersSurvivalEditor1.0.2.0.zip))
+# Devil Daggers Survival Editor 1.1.2.0 ([Download](https://devildaggers.info/tools/DevilDaggersSurvivalEditor1.1.2.0.zip))
 
 Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
@@ -31,7 +31,11 @@ Just take a look at the source code if you do not trust the application.
 
 ## Changelog
 
-**1.0.2.0 - July 26, 2018**
+**1.1.2.0 - July 27, 2018**
+
+- Added functionality to download spawnsets directly from https://devildaggers.info/Spawnsets within the menu.
+
+**1.1.2.0 - July 26, 2018**
 
 - Enforced en-US globalization.
 
