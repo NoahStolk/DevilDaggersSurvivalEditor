@@ -35,7 +35,7 @@ Just take a look at the source code if you do not trust the application.
 
 - Added functionality to download spawnsets directly from https://devildaggers.info/Spawnsets within the menu.
 
-**1.1.2.0 - July 26, 2018**
+**1.0.2.0 - July 26, 2018**
 
 - Enforced en-US globalization.
 
