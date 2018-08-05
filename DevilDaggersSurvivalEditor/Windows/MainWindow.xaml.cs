@@ -112,11 +112,11 @@ namespace DevilDaggersSurvivalEditor.Windows
 				}
 				catch (WebException)
 				{
-					MessageBox.Show("Error retrieving spawnset list.", $"Could not connect to {url}");
+					MessageBox.Show($"Could not connect to {url}.", "Error retrieving spawnset list");
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show("An error occurred.", $"{ex.Message}");
+					MessageBox.Show($"{ex.Message}", "An error occurred");
 				}
 
 				Dispatcher.Invoke(() =>
@@ -201,7 +201,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 						{
 							if (!Spawnset.TryParse(stream, out spawnset))
 							{
-								MessageBox.Show("Error parsing file.", "Could not parse file");
+								MessageBox.Show("Could not parse file.", "Error parsing file");
 								return;
 							}
 						}
@@ -209,12 +209,12 @@ namespace DevilDaggersSurvivalEditor.Windows
 				}
 				catch (WebException)
 				{
-					MessageBox.Show("Error downloading file.", $"Could not connect to {url}");
+					MessageBox.Show($"Could not connect to {url}.", "Error downloading file");
 					return;
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show("An error occurred.", $"{ex.Message}");
+					MessageBox.Show($"{ex.Message}", "An error occurred");
 					return;
 				}
 
@@ -232,11 +232,11 @@ namespace DevilDaggersSurvivalEditor.Windows
 						try
 						{
 							File.WriteAllBytes(System.IO.Path.Combine(userSettings.ddLocation, "survival"), spawnset.GetBytes());
-							MessageBox.Show("'Survival' file replaced!");
+							MessageBox.Show("File replaced!", "Success");
 						}
 						catch
 						{
-							MessageBox.Show("Error replacing file.");
+							MessageBox.Show("Error replacing file.", "Failure");
 						}
 					}
 				});
@@ -585,39 +585,35 @@ namespace DevilDaggersSurvivalEditor.Windows
 				try
 				{
 					File.WriteAllBytes(System.IO.Path.Combine(userSettings.ddLocation, "survival"), spawnset.GetBytes());
-					MessageBox.Show("'Survival' file replaced!");
+					MessageBox.Show("File replaced!", "Success");
 				}
 				catch
 				{
-					MessageBox.Show("Error replacing file.");
+					MessageBox.Show("Error replacing file.", "Failure");
 				}
 			}
 		}
 
 		private void RestoreSurvival_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult result = MessageBox.Show("Are you sure you want to restore the current 'survival' file with the original Devil Daggers V3 spawnset?", "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
 				try
 				{
 					File.Replace("Content/survival", System.IO.Path.Combine(userSettings.ddLocation, "survival"), null);
-					MessageBox.Show("'Survival' file restored!");
+					MessageBox.Show("File restored!", "Success");
 				}
 				catch
 				{
-					MessageBox.Show("Error restoring file.");
+					MessageBox.Show("Error restoring file.", "Failure");
 				}
 			}
 		}
 
 		private void Exit_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult result = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
-			if (result == MessageBoxResult.Yes)
-			{
-				Application.Current.Shutdown();
-			}
+			Application.Current.Shutdown();
 		}
 
 		private void Settings_Click(object sender, RoutedEventArgs e)
