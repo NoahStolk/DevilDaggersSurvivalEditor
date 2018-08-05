@@ -671,14 +671,19 @@ namespace DevilDaggersSurvivalEditor.Windows
 					return;
 				}
 
+				shrinkStart = shrinkStart.Clamp(1, 100);
+				shrinkEnd = shrinkEnd.Clamp(1, 100);
+				TextBoxShrinkStart.Text = shrinkStart.ToString();
+				TextBoxShrinkEnd.Text = shrinkEnd.ToString();
+
 				if (shrinkStart <= shrinkEnd)
 				{
 					MessageBox.Show("Shrink end value must be smaller than shrink start value.", "Invalid shrink values");
 					return;
 				}
 
-				spawnset.shrinkStart = Math.Min(100, shrinkStart);
-				spawnset.shrinkEnd = Math.Max(1, shrinkEnd);
+				spawnset.shrinkStart = shrinkStart;
+				spawnset.shrinkEnd = shrinkEnd;
 				spawnset.shrinkRate = shrinkRate;
 				spawnset.brightness = brightness;
 
