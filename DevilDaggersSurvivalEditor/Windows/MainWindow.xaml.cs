@@ -23,7 +23,9 @@ namespace DevilDaggersSurvivalEditor.Windows
 	public partial class MainWindow : Window
 	{
 		public static UserSettings userSettings;
-		public static Spawnset spawnset;
+
+		private Spawnset spawnset;
+		private List<SpawnsetFile> spawnsetFiles = new List<SpawnsetFile>();
 
 		public MainWindow()
 		{
@@ -73,42 +75,67 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 			InitializeCultures();
 
-			InitializeOnlineSpawnsetList();
+			RetrieveSpawnsetList();
+		}
+
+		private void Reload_Click(object sender, RoutedEventArgs e)
+		{
+			spawnsetFiles.Clear();
+			List<MenuItem> toRemove = new List<MenuItem>();
+			foreach (MenuItem item in FileOnlineMenuItem.Items)
+				if (item != FileOnlineLoading)
+					toRemove.Add(item);
+			foreach (MenuItem item in toRemove)
+				FileOnlineMenuItem.Items.Remove(item);
+
+			EnableReloadButton(false);
+
+			RetrieveSpawnsetList();
+		}
+
+		private void RetrieveSpawnsetList()
+		{
+			Thread thread = new Thread(() =>
+			{
+				bool success = false;
+				string url = "https://devildaggers.info/GetSpawnsets";
+
+				try
+				{
+					string downloadString = string.Empty;
+					using (WebClient client = new WebClient())
+					{
+						downloadString = client.DownloadString(url);
+					}
+					spawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
+					success = true;
+				}
+				catch (WebException)
+				{
+					MessageBox.Show("Error retrieving spawnset list.", $"Could not connect to {url}");
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("An error occurred.", $"{ex.Message}");
+				}
+
+				Dispatcher.Invoke(() =>
+				{
+					if (success)
+					{
+						InitializeOnlineSpawnsetList();
+					}
+					else
+					{
+						EnableReloadButton(true);
+					}
+				});
+			});
+			thread.Start();
 		}
 
 		private void InitializeOnlineSpawnsetList()
 		{
-			MenuItem loading = new MenuItem
-			{
-				Header = "Loading...",
-				IsEnabled = false
-			};
-
-			FileOnlineMenuItem.Items.Add(loading);
-
-			List<SpawnsetFile> spawnsetFiles = new List<SpawnsetFile>();
-			string url = "https://devildaggers.info/GetSpawnsets";
-
-			try
-			{
-				string downloadString = string.Empty;
-				using (WebClient client = new WebClient())
-				{
-					downloadString = client.DownloadString(url);
-				}
-				spawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
-			}
-			catch (WebException)
-			{
-				MessageBox.Show("Error downloading file.", $"Could not connect to {url}");
-				return;
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("An error occurred.", $"{ex.Message}");
-				return;
-			}
-
 			List<string> authors = new List<string>();
 			foreach (SpawnsetFile s in spawnsetFiles)
 				if (!authors.Contains(s.Author))
@@ -142,57 +169,79 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 			foreach (MenuItem item in authorMenuItems)
 				FileOnlineMenuItem.Items.Add(item);
-			FileOnlineMenuItem.Items.Remove(loading);
+
+			EnableReloadButton(true);
+		}
+
+		private void EnableReloadButton(bool reload)
+		{
+			if (reload)
+			{
+				FileOnlineLoading.IsEnabled = true;
+				FileOnlineLoading.Header = "Reload";
+			}
+			else
+			{
+				FileOnlineLoading.IsEnabled = false;
+				FileOnlineLoading.Header = "Loading...";
+			}
 		}
 
 		private void SpawnsetItem_Click(object sender, RoutedEventArgs e, string fileName)
 		{
-			string url = "https://devildaggers.info/DownloadSpawnset?file=" + fileName;
-
-			try
+			Thread thread = new Thread(() =>
 			{
-				using (WebClient client = new WebClient())
+				string url = "https://devildaggers.info/DownloadSpawnset?file=" + fileName;
+
+				try
 				{
-					using (Stream stream = new MemoryStream(client.DownloadData(url)))
+					using (WebClient client = new WebClient())
 					{
-						if (!Spawnset.TryParse(stream, out spawnset))
+						using (Stream stream = new MemoryStream(client.DownloadData(url)))
 						{
-							MessageBox.Show("Error parsing file.", "Could not parse file");
-							return;
+							if (!Spawnset.TryParse(stream, out spawnset))
+							{
+								MessageBox.Show("Error parsing file.", "Could not parse file");
+								return;
+							}
 						}
 					}
 				}
-			}
-			catch (WebException)
-			{
-				MessageBox.Show("Error downloading file.", $"Could not connect to {url}");
-				return;
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("An error occurred.", $"{ex.Message}");
-				return;
-			}
-
-			UpdateSpawnsGUI();
-
-			UpdateSettingsGUI();
-
-			UpdateArenaGUI();
-
-			MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
-			if (result == MessageBoxResult.Yes)
-			{
-				try
+				catch (WebException)
 				{
-					File.WriteAllBytes(System.IO.Path.Combine(userSettings.ddLocation, "survival"), spawnset.GetBytes());
-					MessageBox.Show("'Survival' file replaced!");
+					MessageBox.Show("Error downloading file.", $"Could not connect to {url}");
+					return;
 				}
-				catch
+				catch (Exception ex)
 				{
-					MessageBox.Show("Error replacing file.");
+					MessageBox.Show("An error occurred.", $"{ex.Message}");
+					return;
 				}
-			}
+
+				Dispatcher.Invoke(() =>
+				{
+					UpdateSpawnsGUI();
+
+					UpdateSettingsGUI();
+
+					UpdateArenaGUI();
+
+					MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
+					if (result == MessageBoxResult.Yes)
+					{
+						try
+						{
+							File.WriteAllBytes(System.IO.Path.Combine(userSettings.ddLocation, "survival"), spawnset.GetBytes());
+							MessageBox.Show("'Survival' file replaced!");
+						}
+						catch
+						{
+							MessageBox.Show("Error replacing file.");
+						}
+					}
+				});
+			});
+			thread.Start();
 		}
 
 		private void InitializeUserSettings()
@@ -547,7 +596,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private void RestoreSurvival_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult result = MessageBox.Show(string.Format("Are you sure you want to restore the current 'survival' file in {0} with the original Devil Daggers V3 spawnset?", userSettings.ddLocation), "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			MessageBoxResult result = MessageBox.Show("Are you sure you want to restore the current 'survival' file with the original Devil Daggers V3 spawnset?", "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
 				try

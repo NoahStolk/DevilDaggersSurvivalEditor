@@ -16,7 +16,9 @@
 				<MenuItem Header="_File">
 					<MenuItem Header="_New" Click="FileNew_Click" />
 					<MenuItem Header="_Open" Click="FileOpen_Click" />
-					<MenuItem Name="FileOnlineMenuItem" Header="_Open from DevilDaggers.info" />
+					<MenuItem Name="FileOnlineMenuItem" Header="_Open from DevilDaggers.info">
+						<MenuItem StaysOpenOnClick="True" Name="FileOnlineLoading" Header="Loading..." IsEnabled="False" Click="Reload_Click" />
+					</MenuItem>
 					<MenuItem Header="_Save" Click="FileSave_Click" />
 					<Separator />
 					<MenuItem Header="_Replace 'survival' file" Click="ReplaceSurvival_Click" />
