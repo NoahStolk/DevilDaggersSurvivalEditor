@@ -1,6 +1,8 @@
 # Devil Daggers Survival Editor 1.1.4.0 ([Download](https://devildaggers.info/tools/DevilDaggersSurvivalEditor1.1.4.0.zip))
 
-Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.
+Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers. It is a .NET WPF application built using Visual Studio 2017.
+
+## Main features
 
 - Spawnset editor
 - Arena editor with the ability to change tile heights
@@ -8,8 +10,6 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Shrink preview that shows a rough approximation of what the arena will be like at what time during the spawnset
 - Easily replacing the currently active spawnset in the game
 - Downloading and importing spawnsets directly from https://devildaggers.info
-
-Devil Daggers Survival Editor is a .NET WPF application built using Visual Studio 2017.
 
 ## System requirements
 
