@@ -630,7 +630,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private void Browse_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start("http://devildaggers.info/Home/Spawnsets");
+			Process.Start("https://devildaggers.info/Spawnsets");
 		}
 
 		private void Discord_Click(object sender, RoutedEventArgs e)
