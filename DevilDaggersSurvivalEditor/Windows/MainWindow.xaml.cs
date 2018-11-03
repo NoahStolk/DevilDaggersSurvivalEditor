@@ -11,11 +11,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace DevilDaggersSurvivalEditor.Windows
@@ -76,6 +78,8 @@ namespace DevilDaggersSurvivalEditor.Windows
 			InitializeCultures();
 
 			RetrieveSpawnsetList();
+
+			InitializeCheckForUpdates();
 		}
 
 		private void Reload_Click(object sender, RoutedEventArgs e)
@@ -91,6 +95,22 @@ namespace DevilDaggersSurvivalEditor.Windows
 			EnableReloadButton(false);
 
 			RetrieveSpawnsetList();
+		}
+
+		private async void InitializeCheckForUpdates()
+		{
+			string version = await Utils.GetLatestVersionNumber();
+			if (version != Settings.VERSION)
+			{
+				HelpItem.Header += " (Update available)";
+				HelpItem.FontWeight = FontWeights.Bold;
+
+				foreach (MenuItem menuItem in HelpItem.Items)
+					menuItem.FontWeight = FontWeights.Normal;
+
+				UpdateItem.Header = "Update available";
+				UpdateItem.FontWeight = FontWeights.Bold;
+			}
 		}
 
 		private void RetrieveSpawnsetList()
@@ -643,6 +663,20 @@ namespace DevilDaggersSurvivalEditor.Windows
 			WindowAbout windowAbout = new WindowAbout();
 			if (windowAbout.ShowDialog() == true)
 				windowAbout.Show();
+		}
+
+		private async void Update_Click(object sender, RoutedEventArgs e)
+		{
+			string version = await Utils.GetLatestVersionNumber();
+			if (version != Settings.VERSION)
+			{
+				MessageBox.Show($"Devil Daggers Survival Editor {version} is available. The current version is {Settings.VERSION}.", "Update recommended");
+				Process.Start("https://devildaggers.info/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor" + version + ".zip");
+			}
+			else
+			{
+				MessageBox.Show($"Devil Daggers Survival Editor {Settings.VERSION} is up to date.", "Up to date");
+			}
 		}
 
 		private void SettingsEditApplyButton_Click(object sender, RoutedEventArgs e)

@@ -33,8 +33,9 @@
 					<MenuItem Header="_Browse spawnsets online" Click="Browse_Click"/>
 					<MenuItem Header="Open _Discord server" Click="Discord_Click"/>
 				</MenuItem>
-				<MenuItem Header="_Help">
+				<MenuItem Name="HelpItem" Header="_Help">
 					<MenuItem Header="_About" Click="About_Click" />
+					<MenuItem Name="UpdateItem" Header="_Check for updates" Click="Update_Click" />
 				</MenuItem>
 			</Menu>
 		</DockPanel>
