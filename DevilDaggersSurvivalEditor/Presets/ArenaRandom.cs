@@ -1,6 +1,6 @@
 ﻿namespace DevilDaggersSurvivalEditor.Presets
 {
-	public class ArenaRandom : Arena
+	public class ArenaRandom : ArenaAbstract
 	{
 		public float minHeight;
 		public float maxHeight;

@@ -5,7 +5,7 @@ namespace DevilDaggersSurvivalEditor.Helpers
 {
 	public static class GameHelper
 	{
-		public static Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>
+		public readonly static Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>
 		{
 			{ -1, new Enemy("EMPTY", 0) },
 			{ 0, new Enemy("Squid I", 2) },

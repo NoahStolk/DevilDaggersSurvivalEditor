@@ -1,6 +1,6 @@
 ﻿namespace DevilDaggersSurvivalEditor.Presets
 {
-	public class ArenaRectangular : Arena
+	public class ArenaRectangular : ArenaAbstract
 	{
 		public float height;
 

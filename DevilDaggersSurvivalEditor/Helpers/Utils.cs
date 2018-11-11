@@ -10,14 +10,14 @@ namespace DevilDaggersSurvivalEditor.Helpers
 {
 	public static class Utils
 	{
-		public static Random r = new Random();
+		private readonly static Random random = new Random();
 
-		public static float NextFloat(float min, float max)
+		public static float RandomFloat(float min, float max)
 		{
-			return (float)(r.NextDouble() * (max - (double)min)) + min;
+			return (float)random.NextDouble() * (max - min) + min;
 		}
 
-		public static float Clamp(this float value, float min, float max)
+		public static float Clamp(float value, float min, float max)
 		{
 			return (value < min) ? min : (value > max) ? max : value;
 		}

@@ -94,7 +94,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Presets\Arena.cs" />
+    <Compile Include="Presets\ArenaAbstract.cs" />
     <Compile Include="Presets\ArenaRandom.cs" />
     <Compile Include="Presets\ArenaCage.cs" />
     <Compile Include="Presets\ArenaPyramid.cs" />

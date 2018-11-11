@@ -11,13 +11,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace DevilDaggersSurvivalEditor.Windows
@@ -705,8 +703,8 @@ namespace DevilDaggersSurvivalEditor.Windows
 					return;
 				}
 
-				shrinkStart = shrinkStart.Clamp(1, 100);
-				shrinkEnd = shrinkEnd.Clamp(1, 100);
+				shrinkStart = Utils.Clamp(shrinkStart, 1, 100);
+				shrinkEnd = Utils.Clamp(shrinkEnd, 1, 100);
 				TextBoxShrinkStart.Text = shrinkStart.ToString();
 				TextBoxShrinkEnd.Text = shrinkEnd.ToString();
 
@@ -934,7 +932,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			return new ArenaRectangular(x1, y1, x2, y2, height);
 		}
 
-		private Arena GetArenaPyramidFromGUI()
+		private ArenaPyramid GetArenaPyramidFromGUI()
 		{
 			TextBox TextBoxX1 = null;
 			TextBox TextBoxX2 = null;
@@ -1017,7 +1015,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			return new ArenaPyramid(x1, y1, x2, y2, startHeight, endHeight);
 		}
 
-		private Arena GetArenaCageFromGUI()
+		private ArenaCage GetArenaCageFromGUI()
 		{
 			TextBox TextBoxX1 = null;
 			TextBox TextBoxX2 = null;
@@ -1100,7 +1098,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			return new ArenaCage(x1, y1, x2, y2, insideHeight, wallHeight);
 		}
 
-		private Arena GetArenaRandomFromGUI()
+		private ArenaRandom GetArenaRandomFromGUI()
 		{
 			TextBox TextBoxX1 = null;
 			TextBox TextBoxX2 = null;
@@ -1185,7 +1183,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private void ButtonArenaGenerate_Click(object sender, RoutedEventArgs e)
 		{
-			Arena arena = null;
+			ArenaAbstract arena = null;
 
 			int type = ComboBoxArenaPreset.SelectedIndex;
 			switch (type)
@@ -1249,12 +1247,8 @@ namespace DevilDaggersSurvivalEditor.Windows
 					if (arena is ArenaRectangular arenaRectangular)
 					{
 						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
-						{
 							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
-							{
 								spawnset.arenaTiles[i, j] = Settings.TILE_VOID_DEFAULT;
-							}
-						}
 
 						for (int i = arenaRectangular.x1; i < arenaRectangular.x2; i++)
 							for (int j = arenaRectangular.y1; j < arenaRectangular.y2; j++)
@@ -1265,12 +1259,8 @@ namespace DevilDaggersSurvivalEditor.Windows
 					if (arena is ArenaPyramid arenaPyramid)
 					{
 						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
-						{
 							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
-							{
 								spawnset.arenaTiles[i, j] = Settings.TILE_VOID_DEFAULT;
-							}
-						}
 
 						float stepX = (arenaPyramid.startHeight - arenaPyramid.endHeight) / (arenaPyramid.x2 - arenaPyramid.x1 - 1);
 						float stepY = (arenaPyramid.startHeight - arenaPyramid.endHeight) / (arenaPyramid.y2 - arenaPyramid.y1 - 1);
@@ -1302,32 +1292,20 @@ namespace DevilDaggersSurvivalEditor.Windows
 					if (arena is ArenaCage arenaCage)
 					{
 						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
-						{
 							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
-							{
 								spawnset.arenaTiles[i, j] = ((i == arenaCage.x1 || i == arenaCage.x2 - 1) && j >= arenaCage.y1 && j <= arenaCage.y2 - 1) || ((j == arenaCage.y1 || j == arenaCage.y2 - 1) && i >= arenaCage.x1 && i <= arenaCage.x2 - 1) ? arenaCage.wallHeight : i >= arenaCage.x1 && i <= arenaCage.x2 - 1 && j >= arenaCage.y1 && j <= arenaCage.y2 - 1 ? arenaCage.insideHeight : Settings.TILE_VOID_DEFAULT;
-							}
-						}
 					}
 					break;
 				case 8:
 					if (arena is ArenaRandom arenaRandom)
 					{
 						for (int i = 0; i < Settings.ARENA_WIDTH; i++)
-						{
 							for (int j = 0; j < Settings.ARENA_HEIGHT; j++)
-							{
 								spawnset.arenaTiles[i, j] = Settings.TILE_VOID_DEFAULT;
-							}
-						}
 
 						for (int i = arenaRandom.x1; i < arenaRandom.x2; i++)
-						{
 							for (int j = arenaRandom.y1; j < arenaRandom.y2; j++)
-							{
-								spawnset.arenaTiles[i, j] = Utils.NextFloat(arenaRandom.minHeight, arenaRandom.maxHeight);
-							}
-						}
+								spawnset.arenaTiles[i, j] = Utils.RandomFloat(arenaRandom.minHeight, arenaRandom.maxHeight);
 					}
 					break;
 			}

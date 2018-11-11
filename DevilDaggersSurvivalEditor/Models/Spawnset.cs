@@ -33,8 +33,8 @@ namespace DevilDaggersSurvivalEditor.Models
 
 			for (int i = 0; i < defaultArenaBuffer.Length; i += 4)
 			{
-				int x = (i) / (Settings.ARENA_WIDTH * 4);
-				int y = ((i) / 4) % Settings.ARENA_HEIGHT;
+				int x = i / (Settings.ARENA_WIDTH * 4);
+				int y = i / 4 % Settings.ARENA_HEIGHT;
 				arenaTiles[x, y] = BitConverter.ToSingle(defaultArenaBuffer, i);
 			}
 		}
@@ -85,7 +85,7 @@ namespace DevilDaggersSurvivalEditor.Models
 			for (int i = 0; i < arenaBuffer.Length; i += 4)
 			{
 				int x = i / (Settings.ARENA_WIDTH * 4);
-				int y = (i / 4) % Settings.ARENA_HEIGHT;
+				int y = i / 4 % Settings.ARENA_HEIGHT;
 
 				byte[] tileBytes = BitConverter.GetBytes(arenaTiles[x, y]);
 
@@ -139,9 +139,6 @@ namespace DevilDaggersSurvivalEditor.Models
 		{
 			try
 			{
-				// Open the spawnset file
-				//FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-
 				// Set the file values for reading V3 spawnsets
 				int spawnBufferSize = (int)stream.Length - (Settings.HEADER_BUFFER_SIZE + Settings.ARENA_BUFFER_SIZE);
 				byte[] headerBuffer = new byte[Settings.HEADER_BUFFER_SIZE];
@@ -203,7 +200,7 @@ namespace DevilDaggersSurvivalEditor.Models
 				// Success
 				return true;
 			}
-			catch (Exception)
+			catch
 			{
 				// Set an empty spawnset
 				spawnset = new Spawnset();

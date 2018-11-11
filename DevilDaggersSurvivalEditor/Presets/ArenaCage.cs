@@ -1,6 +1,6 @@
 ﻿namespace DevilDaggersSurvivalEditor.Presets
 {
-	public class ArenaCage : Arena
+	public class ArenaCage : ArenaAbstract
 	{
 		public float insideHeight;
 		public float wallHeight;
