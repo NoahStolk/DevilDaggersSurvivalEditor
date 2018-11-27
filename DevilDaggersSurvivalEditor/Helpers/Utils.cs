@@ -10,7 +10,7 @@ namespace DevilDaggersSurvivalEditor.Helpers
 {
 	public static class Utils
 	{
-		public static string BaseURL { get; set; } = "https://devildaggers.info";
+		public static string BaseUrl { get; set; } = "https://devildaggers.info";
 
 		private readonly static Random random = new Random();
 
@@ -28,7 +28,7 @@ namespace DevilDaggersSurvivalEditor.Helpers
 		{
 			string version = string.Empty;
 
-			string url = $"{BaseURL}/API/GetToolVersions";
+			string url = $"{BaseUrl}/API/GetToolVersions";
 
 			try
 			{

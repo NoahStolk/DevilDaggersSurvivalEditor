@@ -116,7 +116,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			Thread thread = new Thread(() =>
 			{
 				bool success = false;
-				string url = $"{Utils.BaseURL}/API/GetSpawnsets";
+				string url = $"{Utils.BaseUrl}/API/GetSpawnsets";
 
 				try
 				{
@@ -209,7 +209,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 		{
 			Thread thread = new Thread(() =>
 			{
-				string url = $"{Utils.BaseURL}/API/DownloadSpawnset?file={fileName}";
+				string url = $"{Utils.BaseUrl}/API/DownloadSpawnset?file={fileName}";
 
 				try
 				{
@@ -648,7 +648,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private void Browse_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start($"{Utils.BaseURL}/Spawnsets");
+			Process.Start($"{Utils.BaseUrl}/Spawnsets");
 		}
 
 		private void Discord_Click(object sender, RoutedEventArgs e)
@@ -669,7 +669,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			if (version != Settings.VERSION)
 			{
 				MessageBox.Show($"Devil Daggers Survival Editor {version} is available. The current version is {Settings.VERSION}.", "Update recommended");
-				Process.Start($"{Utils.BaseURL}/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor{version}.zip");
+				Process.Start($"{Utils.BaseUrl}/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor{version}.zip");
 			}
 			else
 			{
