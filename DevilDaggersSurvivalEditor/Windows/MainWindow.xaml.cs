@@ -209,7 +209,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 		{
 			Thread thread = new Thread(() =>
 			{
-				string url = $"{Utils.BaseUrl}/API/DownloadSpawnset?file={fileName}";
+				string url = $"{Utils.BaseUrl}/API/GetSpawnset?fileName={fileName}";
 
 				try
 				{
