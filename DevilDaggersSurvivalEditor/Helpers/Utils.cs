@@ -10,7 +10,7 @@ namespace DevilDaggersSurvivalEditor.Helpers
 {
 	public static class Utils
 	{
-		public static string BaseUrl { get; set; } = "https://devildaggers.info";
+		public static string DevilDaggersWebsiteBaseUrl { get; set; } = "https://devildaggers.info";
 
 		private readonly static Random random = new Random();
 
@@ -28,7 +28,7 @@ namespace DevilDaggersSurvivalEditor.Helpers
 		{
 			string version = string.Empty;
 
-			string url = $"{BaseUrl}/API/GetToolVersions";
+			string url = $"{DevilDaggersWebsiteBaseUrl}/API/GetToolVersions";
 
 			try
 			{
@@ -61,6 +61,16 @@ namespace DevilDaggersSurvivalEditor.Helpers
 			}
 
 			return version;
+		}
+
+		public static async Task<bool> IsUpToDate()
+		{
+			string version = await GetLatestVersionNumber();
+
+			int versionNumberOnline = int.Parse(version.Replace(".", ""));
+			int versionNumberCurrent = int.Parse(Settings.VERSION.Replace(".", ""));
+
+			return versionNumberOnline > versionNumberCurrent;
 		}
 	}
 }

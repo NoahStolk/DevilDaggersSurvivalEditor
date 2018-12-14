@@ -97,8 +97,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private async void InitializeCheckForUpdates()
 		{
-			string version = await Utils.GetLatestVersionNumber();
-			if (version != Settings.VERSION)
+			if (await Utils.IsUpToDate())
 			{
 				HelpItem.Header += " (Update available)";
 				HelpItem.FontWeight = FontWeights.Bold;
@@ -116,7 +115,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 			Thread thread = new Thread(() =>
 			{
 				bool success = false;
-				string url = $"{Utils.BaseUrl}/API/GetSpawnsets";
+				string url = $"{Utils.DevilDaggersWebsiteBaseUrl}/API/GetSpawnsets";
 
 				try
 				{
@@ -209,7 +208,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 		{
 			Thread thread = new Thread(() =>
 			{
-				string url = $"{Utils.BaseUrl}/API/GetSpawnset?fileName={fileName}";
+				string url = $"{Utils.DevilDaggersWebsiteBaseUrl}/API/GetSpawnset?fileName={fileName}";
 
 				try
 				{
@@ -648,7 +647,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private void Browse_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start($"{Utils.BaseUrl}/Spawnsets");
+			Process.Start($"{Utils.DevilDaggersWebsiteBaseUrl}/Spawnsets");
 		}
 
 		private void Discord_Click(object sender, RoutedEventArgs e)
@@ -665,11 +664,11 @@ namespace DevilDaggersSurvivalEditor.Windows
 
 		private async void Update_Click(object sender, RoutedEventArgs e)
 		{
-			string version = await Utils.GetLatestVersionNumber();
-			if (version != Settings.VERSION)
+			string versionOnline = await Utils.GetLatestVersionNumber();
+			if (await Utils.IsUpToDate())
 			{
-				MessageBox.Show($"Devil Daggers Survival Editor {version} is available. The current version is {Settings.VERSION}.", "Update recommended");
-				Process.Start($"{Utils.BaseUrl}/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor{version}.zip");
+				MessageBox.Show($"Devil Daggers Survival Editor {versionOnline} is available. The current version is {Settings.VERSION}.", "Update recommended");
+				Process.Start($"{Utils.DevilDaggersWebsiteBaseUrl}/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor{versionOnline}.zip");
 			}
 			else
 			{
