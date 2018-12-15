@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Helpers;
+﻿using DevilDaggersSurvivalEditor.Utils.Editor;
 using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.Windows
@@ -27,9 +27,9 @@ namespace DevilDaggersSurvivalEditor.Windows
 				return;
 			}
 
-			if (tileHeight < Settings.TILE_MIN || tileHeight > Settings.TILE_MAX)
+			if (tileHeight < ArenaUtils.TileMin || tileHeight > ArenaUtils.TileMax)
 			{
-				MessageBox.Show($"Please enter a number between {Settings.TILE_MIN} and {Settings.TILE_MAX}.", "Invalid tile height value");
+				MessageBox.Show($"Please enter a number between {ArenaUtils.TileMin} and {ArenaUtils.TileMax}.", "Invalid tile height value");
 				return;
 			}
 

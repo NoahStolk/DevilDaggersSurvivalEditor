@@ -35,7 +35,7 @@ namespace DevilDaggersSurvivalEditor.Windows
 				UpdateGUI();
 			}
 
-			// Make sure this window keeps being focussed rather than the MainWindow
+			// Make sure this window keeps being focused rather than the MainWindow
 			Focus();
 		}
 

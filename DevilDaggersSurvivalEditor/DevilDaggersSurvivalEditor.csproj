@@ -77,18 +77,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helpers\GameHelper.cs" />
-    <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Models\VersionResult.cs" />
+    <Compile Include="Utils\Editor\ArenaUtils.cs" />
+    <Compile Include="Utils\MathUtils.cs" />
+    <Compile Include="Utils\UrlUtils.cs" />
     <Compile Include="Models\SpawnsetFile.cs" />
     <Compile Include="Models\UserSettings.cs" />
-    <Compile Include="Helpers\Utils.cs" />
-    <Compile Include="Models\Enemy.cs" />
-    <Compile Include="Models\Spawn.cs" />
-    <Compile Include="Models\Spawnset.cs" />
+    <Compile Include="Utils\ApplicationUtils.cs" />
+    <Compile Include="Utils\UserSettingsUtils.cs" />
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\WindowTileHeight.xaml.cs">
       <DependentUpon>WindowTileHeight.xaml</DependentUpon>
     </Compile>
-    <Page Include="Windows\WindowAbout.xaml">
     <Page Include="Themes\MetroDark\MetroDark.MSControls.Core.Implicit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,7 +103,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\WindowSettings.xaml">
     <Page Include="Themes\MetroDark\Styles.WPF.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,6 +112,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\WindowAbout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -127,10 +136,6 @@
     </Compile>
     <Compile Include="Windows\WindowSettings.xaml.cs">
       <DependentUpon>WindowSettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\WindowTileHeight.xaml">
       <SubType>Designer</SubType>
