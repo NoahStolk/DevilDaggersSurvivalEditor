@@ -4,11 +4,10 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
-        Title="Devil Daggers Survival Editor" Height="832" Width="1036"
-		ResizeMode="NoResize">
+        Title="Devil Daggers Survival Editor" MinHeight="832" MinWidth="1036" Background="Black">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="20"/>
+			<RowDefinition Height="18"/>
 			<RowDefinition Height="1*"/>
 		</Grid.RowDefinitions>
 		<DockPanel Grid.Row="0">
@@ -39,195 +38,39 @@
 				</MenuItem>
 			</Menu>
 		</DockPanel>
-		<Grid Grid.Row="1">
+		<Grid Grid.Row="1" Height="832" Width="1036" Background="#111">
 			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
 				<ColumnDefinition Width="2*"/>
 				<ColumnDefinition Width="3*"/>
 			</Grid.ColumnDefinitions>
-			<Grid Grid.Column="0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="32"/>
-					<RowDefinition Height="3*"/>
-					<RowDefinition Height="1*"/>
-				</Grid.RowDefinitions>
-				<Label FontSize="16" FontWeight="Bold" Grid.Row="0">Spawns</Label>
-				<Grid Grid.Row="1">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="20" />
-						<RowDefinition />
-					</Grid.RowDefinitions>
-					<Grid Margin="6,0,0,0" Grid.Row="0" Width="372" HorizontalAlignment="Left">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition Width="2*"/>
-							<ColumnDefinition Width="2*"/>
-							<ColumnDefinition Width="2*"/>
-							<ColumnDefinition Width="2*"/>
-							<ColumnDefinition Width="2*"/>
-						</Grid.ColumnDefinitions>
-						<Label Grid.Column="0" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">#</Label>
-						<Label Grid.Column="1" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Second</Label>
-						<Label Grid.Column="2" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Enemy</Label>
-						<Label Grid.Column="3" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Delay</Label>
-						<Label Grid.Column="4" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Gems</Label>
-						<Label Grid.Column="5" Grid.Row="0" Padding="4,0,0,0" FontWeight="Bold">Total gems</Label>
-					</Grid>
-					<ListBox Grid.Row="1" Name="ListBoxSpawns" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible"></ListBox>
-				</Grid>
-				<Grid Grid.Row="2">
+			<StackPanel Grid.Column="0" x:Name="SpawnsetSettings">
+				<Label FontSize="20" Margin="0,0,0,20">Spawnset settings</Label>
+				<Grid>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="1*" />
-						<ColumnDefinition Width="1*" />
-						<ColumnDefinition Width="2*" />
+						<ColumnDefinition/>
+						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
-						<Label Padding="4,4,0,4">Enemy</Label>
-						<Label Padding="4,4,0,4">Delay</Label>
+						<Label Height="30">Shrink start</Label>
+						<Label Height="30">Shrink end</Label>
+						<Label Height="30">Shrink rate</Label>
+						<Label Height="30">Brightness</Label>
 					</StackPanel>
 					<StackPanel Grid.Column="1">
-						<ComboBox Margin="0,4,0,0" Name="ComboBoxEnemy" Height="20" SelectedIndex="0">
-							<ComboBoxItem Content="EMPTY" />
-							<ComboBoxItem Content="Squid I" />
-							<ComboBoxItem Content="Squid II" />
-							<ComboBoxItem Content="Centipede" />
-							<ComboBoxItem Content="Spider I" />
-							<ComboBoxItem Content="Leviathan" />
-							<ComboBoxItem Content="Gigapede" />
-							<ComboBoxItem Content="Squid III" />
-							<ComboBoxItem Content="Thorn" />
-							<ComboBoxItem Content="Spider II" />
-							<ComboBoxItem Content="Ghostpede" />
-						</ComboBox>
-						<TextBox Margin="0,4,0,0" Height="20" Name="TextBoxDelay"></TextBox>
-						<Button Margin="0,4,0,0" Name="AddSpawnButton" Content="Add spawn" Click="AddSpawnButton_Click"></Button>
-						<Button Margin="0,4,0,0" Name="InsertSpawnButton" Content="Insert spawn" Click="InsertSpawnButton_Click"></Button>
-						<Button Margin="0,4,0,0" Name="EditSpawnButton" Content="Edit spawn(s)" Click="EditSpawnButton_Click"></Button>
-						<Button Margin="0,4,0,0" Name="DeleteSpawnButton" Content="Delete spawn(s)" Click="DeleteSpawnButton_Click"></Button>
+						<TextBox Text="{Binding ShrinkStart}"></TextBox>
+						<TextBox Text="{Binding ShrinkEnd}"></TextBox>
+						<TextBox Text="{Binding ShrinkRate}"></TextBox>
+						<TextBox Text="{Binding Brightness}"></TextBox>
 					</StackPanel>
 				</Grid>
-			</Grid>
-			<Grid Grid.Column="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="2*"/>
-					<ColumnDefinition Width="1*"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="32"/>
-					<RowDefinition Height="3*"/>
-					<RowDefinition Height="1*"/>
-				</Grid.RowDefinitions>
-				<Label FontSize="16" FontWeight="Bold" Grid.Row="0">Arena</Label>
-				<StackPanel Grid.Row="1">
-					<Canvas Name="ArenaTiles" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408">
-						<!--<Canvas.RenderTransform>
-							<RotateTransform CenterX="204" CenterY="204" Angle="90" />
-						</Canvas.RenderTransform>-->
-						<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1">
-
-						</Ellipse>
-						<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1">
-
-						</Ellipse>
-						<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1">
-
-						</Ellipse>
-					</Canvas>
-					<Grid Grid.Row="2">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="2*" />
-							<ColumnDefinition Width="1*" />
-							<ColumnDefinition Width="1*" />
-						</Grid.ColumnDefinitions>
-						<StackPanel Grid.Column="0">
-							<Label Padding="4,0,0,0">Height map</Label>
-							<Grid Margin="4,0,0,0" HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40">
-								<Grid.RowDefinitions>
-									<RowDefinition/>
-									<RowDefinition/>
-									<RowDefinition/>
-									<RowDefinition/>
-									<RowDefinition/>
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-								</Grid.ColumnDefinitions>
-							</Grid>
-							<Label Padding="4,0,0,0">Shrink preview</Label>
-							<Slider Margin="4,0,0,0" Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"></Slider>
-						</StackPanel>
-						<StackPanel Grid.Column="1">
-							<Label Padding="4,0,0,0">Tile</Label>
-							<Label Padding="4,0,0,0">Height</Label>
-						</StackPanel>
-						<StackPanel Grid.Column="2">
-							<Label Padding="4,0,0,0" Name="LabelTile">0,0</Label>
-							<Label Padding="4,0,0,0" Name="HeightTile">0</Label>
-						</StackPanel>
-					</Grid>
-				</StackPanel>
-				<Grid Grid.Row="2">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="1*" />
-						<ColumnDefinition Width="1*" />
-						<ColumnDefinition Width="2*" />
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0">
-						<Label Padding="4,4,0,4">Shrink start</Label>
-						<Label Padding="4,4,0,4">Shrink end</Label>
-						<Label Padding="4,4,0,4">Shrink rate</Label>
-						<Label Padding="4,4,0,4">Brightness</Label>
-					</StackPanel>
-					<StackPanel Grid.Column="1">
-						<TextBox Visibility="Collapsed" Margin="0,4,0,0" Height="20" Name="TextBoxShrinkStart"></TextBox>
-						<TextBlock Margin="0,4,0,0" Height="20" Name="TextBlockShrinkStart"></TextBlock>
-						<TextBox Visibility="Collapsed" Margin="0,4,0,0" Height="20" Name="TextBoxShrinkEnd"></TextBox>
-						<TextBlock Margin="0,4,0,0" Height="20" Name="TextBlockShrinkEnd"></TextBlock>
-						<TextBox Visibility="Collapsed" Margin="0,4,0,0" Height="20" Name="TextBoxShrinkRate"></TextBox>
-						<TextBlock Margin="0,4,0,0" Height="20" Name="TextBlockShrinkRate"></TextBlock>
-						<TextBox Visibility="Collapsed" Margin="0,4,0,0" Height="20" Name="TextBoxBrightness"></TextBox>
-						<TextBlock Margin="0,4,0,0" Height="20" Name="TextBlockBrightness"></TextBlock>
-						<Button Margin="0,4,0,0" Name="SettingsEditApplyButton" Content="Edit" Click="SettingsEditApplyButton_Click"></Button>
-					</StackPanel>
-				</Grid>
-				<Label FontSize="16" FontWeight="Bold" Grid.Column="1">Arena presets</Label>
-				<Grid Grid.Column="1" Grid.Row="1">
-					<StackPanel>
-						<ComboBox Margin="4,4,4,4" Name="ComboBoxArenaPreset" SelectedIndex="0" SelectionChanged="ComboBoxArenaPreset_SelectionChanged">
-							<ComboBoxItem Content="Default" />
-							<ComboBoxItem Content="Default flat" />
-							<ComboBoxItem Content="Full" />
-							<ComboBoxItem Content="Void" />
-							<Separator />
-							<ComboBoxItem Content="Rectangular" />
-							<ComboBoxItem Content="Pyramid" />
-							<ComboBoxItem Content="Cage" />
-							<ComboBoxItem Content="Random" />
-						</ComboBox>
-						<Grid Name="GridPreset">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-							</Grid.ColumnDefinitions>
-						</Grid>
-						<Button Margin="4,4,4,4" Name="ButtonArenaGenerate" Click="ButtonArenaGenerate_Click">Generate</Button>
-					</StackPanel>
-				</Grid>
-			</Grid>
+			</StackPanel>
+			<StackPanel Grid.Column="1">
+				<Label FontSize="20" Margin="0,0,0,20">Spawns</Label>
+			</StackPanel>
+			<StackPanel Grid.Column="2">
+				<Label FontSize="20" Margin="0,0,0,20">Arena</Label>
+			</StackPanel>
 		</Grid>
 	</Grid>
 </Window>
