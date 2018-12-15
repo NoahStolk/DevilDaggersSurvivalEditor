@@ -171,5 +171,11 @@
   <ItemGroup>
     <Resource Include="Content\dd.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DevilDaggersCore\DevilDaggersCore\DevilDaggersCore.csproj">
+      <Project>{5593879a-1411-4e62-a682-9431da03898f}</Project>
+      <Name>DevilDaggersCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
