@@ -2,13 +2,13 @@
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
 
-namespace DevilDaggersSurvivalEditor.Windows
+namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
-	public partial class WindowSettings : Window
+	public partial class SettingsWindow : Window
 	{
 		public UserSettings userSettings;
 
-		public WindowSettings()
+		public SettingsWindow()
 		{
 			InitializeComponent();
 			userSettings = MainWindow.userSettings;

@@ -1,0 +1,34 @@
+﻿using System;
+using System.Windows;
+
+namespace DevilDaggersSurvivalEditor.GUI.Windows
+{
+	public partial class ErrorWindow : Window
+	{
+		public string ErrorTitle { get; set; }
+		public string ErrorMessage { get; set; }
+		public Exception Exception { get; set; }
+
+		public ErrorWindow(string errorTitle, string errorMessage, Exception exception)
+		{
+			InitializeComponent();
+
+			ErrorTitle = errorTitle;
+			ErrorMessage = errorMessage;
+			Exception = exception;
+
+			if (exception != null)
+			{
+				ExceptionStackPanel.DataContext = exception;
+				ExceptionStackPanel.Visibility = Visibility.Visible;
+			}
+
+			Error.DataContext = this;
+		}
+
+		private void OKButton_Click(object sender, RoutedEventArgs e)
+		{
+			DialogResult = true;
+		}
+	}
+}

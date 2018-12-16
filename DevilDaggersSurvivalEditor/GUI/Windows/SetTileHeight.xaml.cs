@@ -1,13 +1,13 @@
 ﻿using DevilDaggersSurvivalEditor.Utils.Editor;
 using System.Windows;
 
-namespace DevilDaggersSurvivalEditor.Windows
+namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
-	public partial class WindowTileHeight : Window
+	public partial class SetTileHeightWindow : Window
 	{
 		public float tileHeight;
 
-		public WindowTileHeight(float tileHeight)
+		public SetTileHeightWindow(float tileHeight)
 		{
 			InitializeComponent();
 

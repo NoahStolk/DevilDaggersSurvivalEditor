@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="DevilDaggersSurvivalEditor.GUI.UserControls.MenuBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File">
+				<MenuItem Header="_New" Click="FileNew_Click" />
+				<MenuItem Header="_Open" Click="FileOpen_Click" />
+				<MenuItem Name="FileOnlineMenuItem" Header="_Open from DevilDaggers.info">
+					<MenuItem StaysOpenOnClick="True" Name="FileOnlineLoading" Header="Loading..." IsEnabled="False" Click="Reload_Click" />
+				</MenuItem>
+				<MenuItem Header="_Save" Click="FileSave_Click" />
+				<Separator />
+				<MenuItem Header="_Replace 'survival' file" Click="ReplaceSurvival_Click" />
+				<MenuItem Header="Res_tore 'survival' file (V3)" Click="RestoreSurvival_Click" />
+				<Separator />
+				<MenuItem Header="_Exit" Click="Exit_Click" />
+			</MenuItem>
+			<MenuItem Header="_Options">
+				<MenuItem Header="_Settings" Click="Settings_Click" />
+			</MenuItem>
+			<MenuItem Header="_Community">
+				<MenuItem Header="_Browse spawnsets online" Click="Browse_Click"/>
+				<MenuItem Header="Open _Discord server" Click="Discord_Click"/>
+			</MenuItem>
+			<MenuItem Name="HelpItem" Header="_Help">
+				<MenuItem Header="_About" Click="About_Click" />
+				<MenuItem Name="UpdateItem" Header="_Check for updates" Click="Update_Click" />
+			</MenuItem>
+		</Menu>
+	</Grid>
+</UserControl>

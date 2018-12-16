@@ -3,11 +3,11 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
 
-namespace DevilDaggersSurvivalEditor.Windows
+namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
-	public partial class WindowAbout : Window
+	public partial class AboutWindow : Window
 	{
-		public WindowAbout()
+		public AboutWindow()
 		{
 			InitializeComponent();
 
