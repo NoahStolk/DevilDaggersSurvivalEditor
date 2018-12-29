@@ -28,12 +28,21 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			RetrieveSpawnsetList();
 		}
 
-		private void ShowError(string errorTitle, string errorMessage, Exception ex)
+		private void ShowError(string title, string message, Exception ex)
 		{
 			Dispatcher.Invoke(() =>
 			{
-				ErrorWindow error = new ErrorWindow(errorTitle, errorMessage, ex);
-				error.ShowDialog();
+				ErrorWindow errorWindow = new ErrorWindow(title, message, ex);
+				errorWindow.ShowDialog();
+			});
+		}
+
+		public void ShowMessage(string title, string message)
+		{
+			Dispatcher.Invoke(() =>
+			{
+				MessageWindow messageWindow = new MessageWindow(title, message);
+				messageWindow.ShowDialog();
 			});
 		}
 
@@ -70,7 +79,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					}
 					spawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
 					success = true;
-					throw new Exception("test");
 				}
 				catch (WebException ex)
 				{
@@ -316,12 +324,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (versionResult.IsUpToDate.HasValue && !versionResult.IsUpToDate.Value)
 			{
-				MessageBox.Show($"Devil Daggers Survival Editor {versionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.", "Update recommended");
+				ShowMessage("Update recommended", $"Devil Daggers Survival Editor {versionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
 				Process.Start(UrlUtils.DownloadUrl(versionResult.VersionNumberOnline));
 			}
 			else
 			{
-				MessageBox.Show($"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.", "Up to date");
+				ShowMessage("Up to date", $"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.");
 			}
 		}
 	}

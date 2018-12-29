@@ -11,7 +11,7 @@ namespace DevilDaggersSurvivalEditor.Utils
 	public static class ApplicationUtils
 	{
 		public const string ApplicationName = "DevilDaggersSurvivalEditor";
-		public const string ApplicationVersionNumber = "1.1.5.1";
+		public const string ApplicationVersionNumber = "2.0.0.0 WIP";
 
 		/// <summary>
 		/// Gets the latest version number from the website.
@@ -44,6 +44,7 @@ namespace DevilDaggersSurvivalEditor.Utils
 					}
 				}
 			}
+			// TODO: Not here...
 			catch (WebException)
 			{
 				MessageBox.Show($"Could not connect to {url}.", "Error checking for updates");

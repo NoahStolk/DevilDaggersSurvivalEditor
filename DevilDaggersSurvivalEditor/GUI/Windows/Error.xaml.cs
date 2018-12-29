@@ -5,7 +5,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
 	public partial class ErrorWindow : Window
 	{
-		public string ErrorTitle { get; set; }
 		public string ErrorMessage { get; set; }
 		public Exception Exception { get; set; }
 
@@ -13,7 +12,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			ErrorTitle = errorTitle;
+			Title = errorTitle;
 			ErrorMessage = errorMessage;
 			Exception = exception;
 
