@@ -27,6 +27,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			UpdateBindings();
 			InitializeUserSettings();
 			InitializeCultures();
+
+			Closed += MainWindow_Closed;
+		}
+
+		private void MainWindow_Closed(object sender, EventArgs e)
+		{
+			Application.Current.Shutdown();
 		}
 
 		private void UpdateBindings()

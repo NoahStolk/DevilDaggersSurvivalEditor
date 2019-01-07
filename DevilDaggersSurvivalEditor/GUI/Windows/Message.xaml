@@ -4,11 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="" Height="200" Width="300" ResizeMode="NoResize" Background="Black" WindowStartupLocation="CenterScreen">
-	<Grid>
-		<StackPanel Margin="10">
-			<TextBlock TextWrapping="WrapWithOverflow" Foreground="White" Name="Message"></TextBlock>
-			<Button Margin="10" Name="OKButton" Content="OK" Click="OKButton_Click"/>
+        Title="" Height="200" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<Grid x:Name="Grid">
+		<StackPanel>
+			<TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Message}"></TextBlock>
+			<Button Name="OKButton" Content="OK" Click="OKButton_Click"/>
 		</StackPanel>
 	</Grid>
 </Window>

@@ -7,24 +7,25 @@
              d:DesignHeight="450" d:DesignWidth="800">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="20" />
-			<RowDefinition />
+			<RowDefinition Height="30" />
+			<RowDefinition Height="1*" />
+			<RowDefinition Height="1*" />
 		</Grid.RowDefinitions>
-		<Grid Margin="6,0,0,0" Grid.Row="0" HorizontalAlignment="Left">
+		<Grid Grid.Row="0" HorizontalAlignment="Stretch">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition Width="2*"/>
-				<ColumnDefinition Width="2*"/>
-				<ColumnDefinition Width="2*"/>
-				<ColumnDefinition Width="2*"/>
-				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="2*" />
+				<ColumnDefinition Width="2*" />
+				<ColumnDefinition Width="2*" />
+				<ColumnDefinition Width="3*" />
+				<ColumnDefinition Width="3*" />
 			</Grid.ColumnDefinitions>
-			<Label Grid.Column="0" Padding="4,0,0,0" FontWeight="Bold">#</Label>
-			<Label Grid.Column="1" Padding="4,0,0,0" FontWeight="Bold">Second</Label>
-			<Label Grid.Column="2" Padding="4,0,0,0" FontWeight="Bold">Enemy</Label>
-			<Label Grid.Column="3" Padding="4,0,0,0" FontWeight="Bold">Delay</Label>
-			<Label Grid.Column="4" Padding="4,0,0,0" FontWeight="Bold">Gems</Label>
-			<Label Grid.Column="5" Padding="4,0,0,0" FontWeight="Bold">Total gems</Label>
+			<Label Grid.Column="0" FontWeight="Bold">#</Label>
+			<Label Grid.Column="1" FontWeight="Bold">Second</Label>
+			<Label Grid.Column="2" FontWeight="Bold">Enemy</Label>
+			<Label Grid.Column="3" FontWeight="Bold">Delay</Label>
+			<Label Grid.Column="4" FontWeight="Bold">No farm gems</Label>
+			<Label Grid.Column="5" FontWeight="Bold">Total gems</Label>
 		</Grid>
 		<ListBox Grid.Row="1" Name="ListBoxSpawns" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible"></ListBox>
 		<Grid Grid.Row="2">
@@ -34,11 +35,11 @@
 				<ColumnDefinition Width="2*" />
 			</Grid.ColumnDefinitions>
 			<StackPanel Grid.Column="0">
-				<Label Padding="4,4,0,4">Enemy</Label>
-				<Label Padding="4,4,0,4">Delay</Label>
+				<Label>Enemy</Label>
+				<Label>Delay</Label>
 			</StackPanel>
 			<StackPanel Grid.Column="1">
-				<ComboBox Margin="0,4,0,0" Name="ComboBoxEnemy" Height="20" SelectedIndex="0">
+				<ComboBox Name="ComboBoxEnemy" Height="20" SelectedIndex="0">
 					<ComboBoxItem Content="EMPTY" />
 					<ComboBoxItem Content="Squid I" />
 					<ComboBoxItem Content="Squid II" />
@@ -51,11 +52,14 @@
 					<ComboBoxItem Content="Spider II" />
 					<ComboBoxItem Content="Ghostpede" />
 				</ComboBox>
-				<TextBox Margin="0,4,0,0" Height="20" Name="TextBoxDelay"></TextBox>
-				<!--<Button Margin="0,4,0,0" Name="AddSpawnButton" Content="Add spawn" Click="AddSpawnButton_Click"></Button>
-				<Button Margin="0,4,0,0" Name="InsertSpawnButton" Content="Insert spawn" Click="InsertSpawnButton_Click"></Button>
-				<Button Margin="0,4,0,0" Name="EditSpawnButton" Content="Edit spawn(s)" Click="EditSpawnButton_Click"></Button>
-				<Button Margin="0,4,0,0" Name="DeleteSpawnButton" Content="Delete spawn(s)" Click="DeleteSpawnButton_Click"></Button>-->
+				<TextBox Height="20" Name="TextBoxDelay"></TextBox>
+				<Button Name="AddSpawnButton" Content="Add spawn" Click="AddSpawnButton_Click"></Button>
+				<Button Name="InsertSpawnButton" Content="Insert spawn" Click="InsertSpawnButton_Click"></Button>
+			</StackPanel>
+			<StackPanel Grid.Column="2">
+				<Button Name="EditSpawnButton" Content="Edit selected spawn(s)" Click="EditSpawnButton_Click"></Button>
+				<Button Name="DeleteSpawnButton" Content="Delete selected spawn(s)" Click="DeleteSpawnButton_Click"></Button>
+				<Button Name="ModifyDelaysButton" Content="Modify delays for selected spawn(s)" Click="ModifyDelaysButton_Click"></Button>
 			</StackPanel>
 		</Grid>
 	</Grid>

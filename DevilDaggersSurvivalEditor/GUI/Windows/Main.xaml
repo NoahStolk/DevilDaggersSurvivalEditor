@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.GUI.UserControls"
 		mc:Ignorable="d"
-        Title="Devil Daggers Survival Editor" MinHeight="768" MinWidth="1366" Background="Black">
+        Title="Devil Daggers Survival Editor" MinHeight="768" MinWidth="1366" WindowStartupLocation="CenterScreen">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="18"/>
@@ -14,10 +14,10 @@
 		<DockPanel Grid.Row="0">
 			<usercontrols:MenuBar/>
 		</DockPanel>
-		<Grid Grid.Row="1" Height="768" Width="1366" Background="#111">
+		<Grid Grid.Row="1" Height="768" Width="1366" Background="#eee">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*"/>
-				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition Width="4*"/>
 				<ColumnDefinition Width="3*"/>
 			</Grid.ColumnDefinitions>
 			<StackPanel Grid.Column="0" x:Name="SpawnsetSettings">

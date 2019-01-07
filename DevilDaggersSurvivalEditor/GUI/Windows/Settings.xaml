@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Settings" Height="256" Width="512" ResizeMode="NoResize" Background="Black">
+        Title="Settings" Height="256" Width="512" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition/>
@@ -12,14 +12,14 @@
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 		<StackPanel Grid.Column="0">
-			<Label Padding="4,4,0,0">DD Location</Label>
+			<Label>DD Location</Label>
 		</StackPanel>
 		<StackPanel Grid.Column="1">
-			<TextBlock TextWrapping="WrapWithOverflow" Name="LabelDDLocation" Padding="4,4,0,0"></TextBlock>
+			<TextBlock TextWrapping="WrapWithOverflow" Name="LabelDDLocation"></TextBlock>
 		</StackPanel>
 		<StackPanel Grid.Column="2">
-			<Button Margin="4,4,4,4" Content="Browse" Click="BrowseButton_Click" />
-			<Button Margin="4,4,4,4" Content="Apply" Click="ApplyButton_Click"/>
+			<Button Content="Browse" Click="BrowseButton_Click" />
+			<Button Content="Apply" Click="ApplyButton_Click"/>
 		</StackPanel>
 	</Grid>
 </Window>

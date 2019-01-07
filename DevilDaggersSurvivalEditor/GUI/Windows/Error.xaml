@@ -4,15 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="" Height="450" Width="600" ResizeMode="NoResize" Background="Black" WindowStartupLocation="CenterScreen">
-	<Grid>
-		<StackPanel x:Name="Error" Margin="10">
-			<Label FontSize="20" Content="{Binding ErrorMessage}"></Label>
+        Title="" Height="450" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<Grid x:Name="Error">
+		<StackPanel>
+			<TextBlock Text="{Binding ErrorMessage}" TextWrapping="WrapWithOverflow"></TextBlock>
 			<StackPanel x:Name="ExceptionStackPanel" Visibility="Hidden">
-				<Label FontSize="24">Technical information</Label>
-				<Label Content="{Binding Message}"></Label>
+				<Label>Technical information</Label>
+				<TextBlock Text="{Binding Message}" TextWrapping="WrapWithOverflow"></TextBlock>
 			</StackPanel>
-			<Button Margin="10" Name="OKButton" Content="OK" Click="OKButton_Click"/>
+			<Button Name="OKButton" Content="OK" Click="OKButton_Click"/>
 		</StackPanel>
 	</Grid>
 </Window>

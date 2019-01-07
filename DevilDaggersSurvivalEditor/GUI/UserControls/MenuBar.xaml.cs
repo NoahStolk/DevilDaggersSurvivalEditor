@@ -46,20 +46,30 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			});
 		}
 
-		private async void ChangeMenuIfUpdateAvailable()
+		private void ChangeMenuIfUpdateAvailable()
 		{
-			VersionResult versionResult = await ApplicationUtils.IsUpToDate();
+			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
+			window.ShowDialog();
 
-			if (versionResult.IsUpToDate.HasValue && !versionResult.IsUpToDate.Value)
+			VersionResult versionResult = window.VersionResult;
+
+			if (versionResult.IsUpToDate.HasValue)
 			{
-				HelpItem.Header += " (Update available)";
-				HelpItem.FontWeight = FontWeights.Bold;
+				if (!versionResult.IsUpToDate.Value)
+				{
+					HelpItem.Header += " (Update available)";
+					HelpItem.FontWeight = FontWeights.Bold;
 
-				foreach (MenuItem menuItem in HelpItem.Items)
-					menuItem.FontWeight = FontWeights.Normal;
+					foreach (MenuItem menuItem in HelpItem.Items)
+						menuItem.FontWeight = FontWeights.Normal;
 
-				UpdateItem.Header = "Update available";
-				UpdateItem.FontWeight = FontWeights.Bold;
+					UpdateItem.Header = "Update available";
+					UpdateItem.FontWeight = FontWeights.Bold;
+				}
+			}
+			else
+			{
+				ShowMessage("Error checking for updates", versionResult.ErrorMessage);
 			}
 		}
 
@@ -318,18 +328,28 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			aboutWindow.ShowDialog();
 		}
 
-		private async void Update_Click(object sender, RoutedEventArgs e)
+		private void Update_Click(object sender, RoutedEventArgs e)
 		{
-			VersionResult versionResult = await ApplicationUtils.IsUpToDate();
+			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
+			bool? result = window.ShowDialog();
 
-			if (versionResult.IsUpToDate.HasValue && !versionResult.IsUpToDate.Value)
+			VersionResult versionResult = window.VersionResult;
+
+			if (versionResult.IsUpToDate.HasValue)
 			{
-				ShowMessage("Update recommended", $"Devil Daggers Survival Editor {versionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
-				Process.Start(UrlUtils.DownloadUrl(versionResult.VersionNumberOnline));
+				if (!versionResult.IsUpToDate.Value)
+				{
+					ShowMessage("Update recommended", $"Devil Daggers Survival Editor {versionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
+					Process.Start(UrlUtils.DownloadUrl(versionResult.VersionNumberOnline));
+				}
+				else
+				{
+					ShowMessage("Up to date", $"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.");
+				}
 			}
 			else
 			{
-				ShowMessage("Up to date", $"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.");
+				ShowMessage("Error checking for updates", versionResult.ErrorMessage);
 			}
 		}
 	}

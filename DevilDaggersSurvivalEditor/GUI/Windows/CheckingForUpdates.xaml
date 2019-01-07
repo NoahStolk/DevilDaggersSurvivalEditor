@@ -1,14 +1,14 @@
-﻿<Window x:Class="DevilDaggersSurvivalEditor.GUI.Windows.SetTileHeightWindow"
+﻿<Window x:Class="DevilDaggersSurvivalEditor.GUI.Windows.CheckingForUpdatesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Set tile height" Height="200" Width="200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<Grid Margin="10">
+        Title="Checking for updates" Height="200" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<Grid>
 		<StackPanel>
-			<TextBox Name="TileHeightTextBox"></TextBox>
-			<Button Name="OKButton" Content="OK" Click="OKButton_Click"/>
+			<TextBlock>Loading...</TextBlock>
+			<Button Name="CancelButton" Content="Cancel" Click="CancelButton_Click"/>
 		</StackPanel>
 	</Grid>
 </Window>
