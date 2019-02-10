@@ -39,9 +39,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			foreach (KeyValuePair<int, Spawn> kvp in MainWindow.spawnset.Spawns)
 			{
 				seconds += kvp.Value.Delay;
-				totalGems += kvp.Value.Enemy.NoFarmGems;
+				totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
 
-				SpawnControl spawnControl = new SpawnControl(kvp.Key, seconds, kvp.Value.Enemy.Name, kvp.Value.Delay, kvp.Value.Enemy.NoFarmGems, totalGems);
+				SpawnControl spawnControl = new SpawnControl(kvp.Key, seconds, kvp.Value.SpawnsetEnemy.Name, kvp.Value.Delay, kvp.Value.SpawnsetEnemy.NoFarmGems, totalGems);
 
 				ListBoxSpawns.Items.Add(spawnControl);
 			}
