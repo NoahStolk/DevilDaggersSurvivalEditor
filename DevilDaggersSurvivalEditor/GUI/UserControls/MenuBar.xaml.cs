@@ -199,6 +199,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 								ShowError("Error parsing file", "Could not parse file.", null);
 								return;
 							}
+							//else
+							//{
+							//	UpdateArenaGUI();
+							//	UpdateSpawnsGUI();
+							//}
 						}
 					}
 
