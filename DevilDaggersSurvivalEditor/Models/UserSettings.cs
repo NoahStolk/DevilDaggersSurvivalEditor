@@ -4,7 +4,7 @@ namespace DevilDaggersSurvivalEditor.Models
 {
 	public class UserSettings
 	{
-		public string ddLocation = UserSettingsUtils.DefaultDDLocation;
+		public string SurvivalFileLocation = UserSettingsUtils.SurvivalFileLocationDefault;
 		public string culture = UserSettingsUtils.DefaultCulture;
 	}
 }

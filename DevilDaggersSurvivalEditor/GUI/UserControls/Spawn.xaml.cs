@@ -23,8 +23,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Delay = delay;
 			NoFarmGems = noFarmGems;
 			TotalGems = totalGems;
-
-			//FontWeight = kvp.Value.IsInLoop ? FontWeights.Bold : FontWeights.Normal
 		}
 	}
 }

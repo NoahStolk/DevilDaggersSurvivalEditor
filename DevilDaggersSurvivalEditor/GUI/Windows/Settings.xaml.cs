@@ -1,23 +1,19 @@
-﻿using DevilDaggersSurvivalEditor.Models;
-using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
 	public partial class SettingsWindow : Window
 	{
-		public UserSettings userSettings;
-
 		public SettingsWindow()
 		{
 			InitializeComponent();
-			userSettings = MainWindow.userSettings;
 			UpdateGUI();
 		}
 
 		private void UpdateGUI()
 		{
-			LabelDDLocation.Text = userSettings.ddLocation;
+			LabelDDLocation.Text = Logic.UserSettings.SurvivalFileLocation;
 		}
 
 		private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -25,13 +21,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			CommonOpenFileDialog dialog = new CommonOpenFileDialog
 			{
 				IsFolderPicker = true,
-				InitialDirectory = userSettings.ddLocation
+				InitialDirectory = Logic.UserSettings.SurvivalFileLocation
 			};
 			CommonFileDialogResult result = dialog.ShowDialog();
 
 			if (result == CommonFileDialogResult.Ok)
 			{
-				userSettings.ddLocation = dialog.FileName;
+				Logic.UserSettings.SurvivalFileLocation = dialog.FileName;
 				UpdateGUI();
 			}
 

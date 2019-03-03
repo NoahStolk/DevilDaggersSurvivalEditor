@@ -98,6 +98,7 @@
     <Compile Include="GUI\Windows\Message.xaml.cs">
       <DependentUpon>Message.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic.cs" />
     <Compile Include="Models\VersionResult.cs" />
     <Compile Include="Utils\Editor\ArenaUtils.cs" />
     <Compile Include="Utils\MathUtils.cs" />
