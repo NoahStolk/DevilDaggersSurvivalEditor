@@ -163,7 +163,7 @@ namespace DevilDaggersSurvivalEditor.Models
 				for (int i = 0; i < arenaBuffer.Length; i += 4)
 				{
 					int x = i / (Settings.ARENA_WIDTH * 4);
-					int y = (i / 4) % Settings.ARENA_HEIGHT;
+					int y = i / 4 % Settings.ARENA_HEIGHT;
 					arenaTiles[x, y] = BitConverter.ToSingle(arenaBuffer, i);
 				}
 

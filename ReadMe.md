@@ -14,7 +14,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 ## System requirements
 
 - Microsoft Windows
-- .NET 3.0 or above
+- .NET Framework 4.6.1
 
 ## Installation
 
@@ -32,7 +32,7 @@ Just take a look at the source code if you do not trust the application.
 
 ## Changelog
 
-**NOTE:** Version 1 is discontinued. I've set up version 2 ([2.0 branch](https://bitbucket.org/NoahStolk/devildaggerssurvivaleditor/src/e54995113d8d884188fd8967af3deb0f0e440be1?at=2.0)), but it is still a work in progress. Version 2 is basically a complete rewrite of the program, and will include plenty of new features.
+**NOTE:** Version 1 is discontinued. I've set up version 2 ([2.0 branch](https://bitbucket.org/NoahStolk/devildaggerssurvivaleditor/src/e54995113d8d884188fd8967af3deb0f0e440be1?at=2.0)), but it is still a work in progress. Version 2 is basically a complete rewrite of the program, and will include plenty of new features (eventually).
 
 **1.1.5.0 - November 3, 2018**
 
