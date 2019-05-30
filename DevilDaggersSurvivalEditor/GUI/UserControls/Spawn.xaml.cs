@@ -2,7 +2,7 @@
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnControl : AbstractUserControl
+	public partial class SpawnControl : UserControl
 	{
 		public int ID { get; set; }
 		public double Seconds { get; set; }

@@ -15,7 +15,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			UpdateBindings();
 			InitializeUserSettings();
 			InitializeCultures();
 
@@ -25,11 +24,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void MainWindow_Closed(object sender, EventArgs e)
 		{
 			Application.Current.Shutdown();
-		}
-
-		private void UpdateBindings()
-		{
-			SpawnsetSettings.DataContext = Logic.Instance.spawnset;
 		}
 
 		private void InitializeUserSettings()

@@ -15,7 +15,7 @@ using System.Windows.Controls;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class MenuBar : AbstractUserControl
+	public partial class MenuBar : UserControl
 	{
 		private List<SpawnsetFile> spawnsetFiles = new List<SpawnsetFile>();
 
@@ -46,6 +46,19 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				MessageWindow messageWindow = new MessageWindow(title, message);
 				messageWindow.ShowDialog();
 			});
+		}
+
+		private void WriteSpawnsetToFile(string path)
+		{
+			if (Logic.Instance.spawnset.TryGetBytes(out byte[] bytes))
+			{
+				File.WriteAllBytes(path, bytes);
+				MessageBox.Show($"Successfully wrote the spawnset to {path}.", "Success");
+			}
+			else
+			{
+				ShowError("An unexpected error occurred", $"Error while writing file to {path}.", null);
+			}
 		}
 
 		private void ChangeMenuIfUpdateAvailable()
@@ -196,16 +209,19 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					{
 						using (Stream stream = new MemoryStream(client.DownloadData(url)))
 						{
-							if (!Spawnset.TryParse(stream, out spawnset))
+							if (Spawnset.TryParse(stream, out Logic.Instance.spawnset))
+							{
+								Logic.Instance.UserControlSpawns.UpdateEndLoopInternally();
+
+								Logic.Instance.UserControlArena.UpdateGUI();
+								Logic.Instance.UserControlSettings.UpdateGUI();
+								Logic.Instance.UserControlSpawns.UpdateGUI();
+							}
+							else
 							{
 								ShowError("Error parsing file", "Could not parse file.", null);
 								return;
 							}
-							//else
-							//{
-							//	UpdateArenaGUI();
-							//	UpdateSpawnsGUI();
-							//}
 						}
 					}
 
@@ -214,7 +230,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 						if (result == MessageBoxResult.Yes)
 						{
-							WriteSpawnsetToFile(Path.Combine(userSettings.survivalFileLocation, "survival"));
+							WriteSpawnsetToFile(Path.Combine(Logic.Instance.userSettings.survivalFileLocation, "survival"));
 						}
 					});
 				}
@@ -235,7 +251,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want create an empty spawnset? The current spawnset will be lost if you haven't saved it.", "New", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				spawnset = new Spawnset();
+				Logic.Instance.spawnset = new Spawnset();
+
+				Logic.Instance.UserControlSpawns.UpdateEndLoopInternally();
+
+				Logic.Instance.UserControlArena.UpdateGUI();
+				Logic.Instance.UserControlSettings.UpdateGUI();
+				Logic.Instance.UserControlSpawns.UpdateGUI();
 			}
 		}
 
@@ -246,11 +268,18 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (result.HasValue && result.Value)
 			{
-				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out spawnset))
+				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out Logic.Instance.spawnset))
 				{
 					ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.", null);
+					return;
 				}
 			}
+
+			Logic.Instance.UserControlSpawns.UpdateEndLoopInternally();
+
+			Logic.Instance.UserControlArena.UpdateGUI();
+			Logic.Instance.UserControlSettings.UpdateGUI();
+			Logic.Instance.UserControlSpawns.UpdateGUI();
 		}
 
 		private void FileSave_Click(object sender, RoutedEventArgs e)
@@ -268,7 +297,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				WriteSpawnsetToFile(Path.Combine(userSettings.survivalFileLocation, "survival"));
+				WriteSpawnsetToFile(Path.Combine(Logic.Instance.userSettings.survivalFileLocation, "survival"));
 			}
 		}
 
@@ -279,26 +308,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				try
 				{
-					File.Replace(Path.Combine("Content", "survival"), Path.Combine(userSettings.survivalFileLocation, "survival"), null);
+					File.Replace(Path.Combine("Content", "survival"), Path.Combine(Logic.Instance.userSettings.survivalFileLocation, "survival"), null);
 					MessageBox.Show("Successfully restored original file.", "Success");
 				}
 				catch (Exception ex)
 				{
 					ShowError("An unexpected error occurred", "An unexpected error occurred while trying to restore the original file.", ex);
 				}
-			}
-		}
-
-		private void WriteSpawnsetToFile(string path)
-		{
-			if (spawnset.TryGetBytes(out byte[] bytes))
-			{
-				File.WriteAllBytes(path, bytes);
-				MessageBox.Show($"Successfully wrote the spawnset to {path}.", "Success");
-			}
-			else
-			{
-				ShowError("An unexpected error occurred", $"Error while writing file to {path}.", null);
 			}
 		}
 
@@ -314,7 +330,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				using (StreamWriter sw = new StreamWriter(File.Create(UserSettings.FileName)))
 				{
-					sw.Write(JsonConvert.SerializeObject(userSettings, Formatting.Indented));
+					sw.Write(JsonConvert.SerializeObject(Logic.Instance.userSettings, Formatting.Indented));
 				}
 			}
 		}

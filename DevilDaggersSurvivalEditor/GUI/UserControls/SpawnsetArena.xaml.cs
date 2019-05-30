@@ -1,4 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code.Utils.Editor;
+﻿using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Utils.Editor;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,10 +9,12 @@ using System.Windows.Shapes;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnsetArena : AbstractUserControl
+	public partial class SpawnsetArena : AbstractSpawnsetUserControl
 	{
 		public SpawnsetArena()
 		{
+			Logic.Instance.UserControlArena = this;
+
 			InitializeComponent();
 
 			// Add height map
@@ -33,9 +36,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 			// Add arena tiles
-			for (int i = 0; i < spawnset.ArenaTiles.GetLength(0); i++)
+			for (int i = 0; i < Logic.Instance.spawnset.ArenaTiles.GetLength(0); i++)
 			{
-				for (int j = 0; j < spawnset.ArenaTiles.GetLength(1); j++)
+				for (int j = 0; j < Logic.Instance.spawnset.ArenaTiles.GetLength(1); j++)
 				{
 					Rectangle rect = new Rectangle
 					{
@@ -50,7 +53,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 			}
 
-			UpdateArenaGUI();
+			UpdateGUI();
 		}
 
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
@@ -78,11 +81,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		}
 
-		public void UpdateArenaGUI()
+		public override void UpdateGUI()
 		{
-			foreach (UIElement elem in ArenaTiles.Children)
-				if (elem is Rectangle rect)
-					SetTileColor(rect);
+			Dispatcher.Invoke(() =>
+			{
+				foreach (UIElement elem in ArenaTiles.Children)
+					if (elem is Rectangle rect)
+						SetTileColor(rect);
+			});
 		}
 
 		private void SetTileColor(Rectangle rect)
@@ -91,7 +97,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			int i = (int)Canvas.GetLeft(rect) / 8;
 			int j = (int)Canvas.GetTop(rect) / 8;
-			float height = spawnset.ArenaTiles[i, j];
+			float height = Logic.Instance.spawnset.ArenaTiles[i, j];
 
 			int x, y;
 			if (i > 25)

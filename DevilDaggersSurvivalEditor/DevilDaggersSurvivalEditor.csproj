@@ -81,7 +81,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Code\Logging.cs" />
-    <Compile Include="GUI\UserControls\AbstractUserControl.cs" />
+    <Compile Include="GUI\UserControls\AbstractSpawnsetUserControl.cs" />
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
       <DependentUpon>MenuBar.xaml</DependentUpon>
     </Compile>
