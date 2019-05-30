@@ -31,6 +31,7 @@
 			<MenuItem Name="HelpItem" Header="_Help">
 				<MenuItem Header="_About" Click="About_Click" />
 				<MenuItem Name="UpdateItem" Header="_Check for updates" Click="Update_Click" />
+				<MenuItem Header="Show log" Click="ShowLog_Click" />
 			</MenuItem>
 		</Menu>
 	</Grid>

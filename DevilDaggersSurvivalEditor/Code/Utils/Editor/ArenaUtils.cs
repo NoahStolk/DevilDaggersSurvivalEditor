@@ -15,9 +15,9 @@ namespace DevilDaggersSurvivalEditor.Code.Utils.Editor
 			if (height < TileMin)
 				return Color.FromRgb(0, 0, 0);
 
-			float colorVal = Math.Max(0, (float)Math.Round((height - TileMin) * 12 + 32));
+			float colorValue = Math.Max(0, (float)Math.Round((height - TileMin) * 12 + 32));
 
-			return Color.FromRgb((byte)colorVal, (byte)(colorVal / 2), (byte)(Math.Floor((height - TileMin) / 16) * 64));
+			return Color.FromRgb((byte)colorValue, (byte)(colorValue / 2), (byte)(Math.Floor((height - TileMin) / 16) * 64));
 		}
 	}
 }

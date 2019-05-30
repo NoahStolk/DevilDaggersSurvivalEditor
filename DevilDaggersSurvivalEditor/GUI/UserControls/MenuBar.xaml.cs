@@ -347,7 +347,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				if (!versionResult.IsUpToDate.Value)
 				{
 					ShowMessage("Update recommended", $"Devil Daggers Survival Editor {versionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
-					Process.Start(UrlUtils.DownloadUrl(versionResult.VersionNumberOnline));
+					Process.Start(UrlUtils.ApplicationDownloadUrl(versionResult.VersionNumberOnline));
 				}
 				else
 				{
@@ -358,6 +358,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				ShowMessage("Error checking for updates", versionResult.ErrorMessage);
 			}
+		}
+
+		private void ShowLog_Click(object sender, RoutedEventArgs e)
+		{
+			Process.Start("DDSE.log");
 		}
 	}
 }

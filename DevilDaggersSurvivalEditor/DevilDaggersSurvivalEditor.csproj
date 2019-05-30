@@ -106,7 +106,6 @@
     <Compile Include="Code\Logic.cs" />
     <Compile Include="Code\VersionResult.cs" />
     <Compile Include="Code\Utils\Editor\ArenaUtils.cs" />
-    <Compile Include="Code\Utils\MathUtils.cs" />
     <Compile Include="Code\Utils\UrlUtils.cs" />
     <Compile Include="Code\SpawnsetFile.cs" />
     <Compile Include="Code\UserSettings.cs" />
