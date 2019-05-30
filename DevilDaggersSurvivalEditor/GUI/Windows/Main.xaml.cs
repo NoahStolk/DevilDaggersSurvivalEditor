@@ -1,5 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Models;
-using DevilDaggersSurvivalEditor.Utils;
+﻿using DevilDaggersSurvivalEditor.Code;
 using Newtonsoft.Json;
 using System;
 using System.Globalization;
@@ -35,13 +34,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void InitializeUserSettings()
 		{
-			if (File.Exists(UserSettingsUtils.UserSettingsFileName))
-			{
-				using (StreamReader sr = new StreamReader(File.OpenRead(UserSettingsUtils.UserSettingsFileName)))
-				{
+			if (File.Exists(UserSettings.FileName))
+				using (StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName)))
 					Logic.Instance.userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
-				}
-			}
 		}
 
 		private void InitializeCultures()

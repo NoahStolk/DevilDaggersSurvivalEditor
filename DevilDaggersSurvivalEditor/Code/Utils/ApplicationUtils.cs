@@ -1,11 +1,10 @@
-﻿using DevilDaggersSurvivalEditor.Models;
-using NetBase.Extensions;
+﻿using NetBase.Extensions;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net;
 using System.Text;
 
-namespace DevilDaggersSurvivalEditor.Utils
+namespace DevilDaggersSurvivalEditor.Code.Utils
 {
 	public static class ApplicationUtils
 	{

@@ -1,7 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Utils;
 using DevilDaggersSurvivalEditor.GUI.Windows;
-using DevilDaggersSurvivalEditor.Models;
-using DevilDaggersSurvivalEditor.Utils;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -310,7 +310,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			SettingsWindow settingsWindow = new SettingsWindow();
 			if (settingsWindow.ShowDialog() == true)
 			{
-				using (StreamWriter sw = new StreamWriter(File.Create(UserSettingsUtils.UserSettingsFileName)))
+				using (StreamWriter sw = new StreamWriter(File.Create(UserSettings.FileName)))
 				{
 					sw.Write(JsonConvert.SerializeObject(userSettings, Formatting.Indented));
 				}

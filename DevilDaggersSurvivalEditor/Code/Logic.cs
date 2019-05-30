@@ -1,8 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
-using DevilDaggersSurvivalEditor.Models;
 using System;
 
-namespace DevilDaggersSurvivalEditor
+namespace DevilDaggersSurvivalEditor.Code
 {
 	public sealed class Logic
 	{

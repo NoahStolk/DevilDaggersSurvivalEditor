@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Utils.Editor;
+﻿using DevilDaggersSurvivalEditor.Code.Utils.Editor;
 using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows

@@ -1,5 +1,5 @@
 ﻿using DevilDaggersCore.Spawnset;
-using DevilDaggersSurvivalEditor.Models;
+using DevilDaggersSurvivalEditor.Code;
 using System.Windows.Controls;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls

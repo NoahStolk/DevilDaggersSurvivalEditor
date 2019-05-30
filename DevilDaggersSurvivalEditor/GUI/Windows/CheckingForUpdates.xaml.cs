@@ -1,5 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Models;
-using DevilDaggersSurvivalEditor.Utils;
+﻿using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Utils;
 using System.ComponentModel;
 using System.Windows;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DevilDaggersSurvivalEditor.Utils
+namespace DevilDaggersSurvivalEditor.Code.Utils
 {
 	public static class MathUtils
 	{

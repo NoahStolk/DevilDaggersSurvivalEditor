@@ -1,9 +1,9 @@
-﻿namespace DevilDaggersSurvivalEditor.Utils
+﻿namespace DevilDaggersSurvivalEditor.Code.Utils
 {
 	public static class UrlUtils
 	{
 		public static string Discord { get { return "https://discord.gg/NF32j8S"; } }
-		
+
 		private static readonly string devilDaggersWebsiteBaseUrl = "https://devildaggers.info";
 
 		public static string GetToolVersions { get { return $"{devilDaggersWebsiteBaseUrl}/API/GetToolVersions"; } }

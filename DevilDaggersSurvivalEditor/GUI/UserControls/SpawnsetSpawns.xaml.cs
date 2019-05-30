@@ -1,7 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
 using System.Collections.Generic;
-using System.Windows;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls

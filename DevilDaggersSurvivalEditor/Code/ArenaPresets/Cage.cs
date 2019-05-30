@@ -1,11 +1,11 @@
-﻿namespace DevilDaggersSurvivalEditor.Presets
+﻿namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
-	public class ArenaCage : ArenaAbstract
+	public class Cage : AbstractArena
 	{
 		public float InsideHeight { get; set; }
 		public float WallHeight { get; set; }
 
-		public ArenaCage(int x1, int y1, int x2, int y2, float insideHeight, float wallHeight)
+		public Cage(int x1, int y1, int x2, int y2, float insideHeight, float wallHeight)
 			: base(x1, y1, x2, y2)
 		{
 			InsideHeight = insideHeight;

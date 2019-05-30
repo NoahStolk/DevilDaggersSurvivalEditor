@@ -99,15 +99,14 @@
     <Compile Include="GUI\Windows\Message.xaml.cs">
       <DependentUpon>Message.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logic.cs" />
-    <Compile Include="Models\VersionResult.cs" />
-    <Compile Include="Utils\Editor\ArenaUtils.cs" />
-    <Compile Include="Utils\MathUtils.cs" />
-    <Compile Include="Utils\UrlUtils.cs" />
-    <Compile Include="Models\SpawnsetFile.cs" />
-    <Compile Include="Models\UserSettings.cs" />
-    <Compile Include="Utils\ApplicationUtils.cs" />
-    <Compile Include="Utils\UserSettingsUtils.cs" />
+    <Compile Include="Code\Logic.cs" />
+    <Compile Include="Code\VersionResult.cs" />
+    <Compile Include="Code\Utils\Editor\ArenaUtils.cs" />
+    <Compile Include="Code\Utils\MathUtils.cs" />
+    <Compile Include="Code\Utils\UrlUtils.cs" />
+    <Compile Include="Code\SpawnsetFile.cs" />
+    <Compile Include="Code\UserSettings.cs" />
+    <Compile Include="Code\Utils\ApplicationUtils.cs" />
     <Compile Include="GUI\Windows\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
@@ -117,7 +116,7 @@
     <Compile Include="GUI\Windows\SetTileHeight.xaml.cs">
       <DependentUpon>SetTileHeight.xaml</DependentUpon>
     </Compile>
-    <Page Include="Themes\DevilDaggersSurvivalEditor.xaml">
+    <Page Include="GUI\Themes\DevilDaggersSurvivalEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,10 +168,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Presets\ArenaAbstract.cs" />
-    <Compile Include="Presets\ArenaRandom.cs" />
-    <Compile Include="Presets\ArenaCage.cs" />
-    <Compile Include="Presets\ArenaPyramid.cs" />
+    <Compile Include="Code\ArenaPresets\AbstractArena.cs" />
+    <Compile Include="Code\ArenaPresets\Random.cs" />
+    <Compile Include="Code\ArenaPresets\Cage.cs" />
+    <Compile Include="Code\ArenaPresets\Pyramid.cs" />
     <Compile Include="GUI\Windows\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -185,7 +184,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Presets\ArenaRectangular.cs" />
+    <Compile Include="Code\ArenaPresets\Rectangular.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

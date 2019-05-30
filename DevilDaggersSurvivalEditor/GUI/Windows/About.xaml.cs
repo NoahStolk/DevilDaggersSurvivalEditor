@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Utils;
+﻿using DevilDaggersSurvivalEditor.Code.Utils;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;

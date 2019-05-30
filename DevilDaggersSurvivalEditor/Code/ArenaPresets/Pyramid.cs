@@ -1,11 +1,11 @@
-﻿namespace DevilDaggersSurvivalEditor.Presets
+﻿namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
-	public class ArenaPyramid : ArenaAbstract
+	public class Pyramid : AbstractArena
 	{
 		public float StartHeight { get; set; }
 		public float EndHeight { get; set; }
 
-		public ArenaPyramid(int x1, int y1, int x2, int y2, float startHeight, float endHeight)
+		public Pyramid(int x1, int y1, int x2, int y2, float startHeight, float endHeight)
 			: base(x1, y1, x2, y2)
 		{
 			StartHeight = startHeight;
