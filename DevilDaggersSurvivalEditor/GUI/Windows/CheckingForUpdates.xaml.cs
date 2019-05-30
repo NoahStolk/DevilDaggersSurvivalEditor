@@ -32,7 +32,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void CancelButton_Click(object sender, RoutedEventArgs e)
 		{
-			VersionResult = new VersionResult(null, string.Empty, "Cancelled by user");
+			VersionResult = new VersionResult(null, string.Empty, "Canceled by user");
 			Close();
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using NetBase.Extensions;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -39,13 +40,15 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 					}
 				}
 			}
-			catch (WebException)
+			catch (WebException ex)
 			{
 				errorMessage = $"Could not connect to {url}.";
+				Logging.Log.Error($"Could not connect to {url}.", ex);
 			}
-			catch
+			catch (Exception ex)
 			{
-				errorMessage = $"An unexpected error occured while trying to retrieve the latest version number.";
+				errorMessage = "An unexpected error occured while trying to retrieve the latest version number.";
+				Logging.Log.Error("An unexpected error occured while trying to retrieve the latest version number.", ex);
 			}
 
 			return new VersionResult(errorMessage != null ? null : (bool?)(int.Parse(version.Numeric()) <= int.Parse(ApplicationVersionNumber.Numeric())), version, errorMessage);

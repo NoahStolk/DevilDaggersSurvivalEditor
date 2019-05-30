@@ -30,6 +30,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ShowError(string title, string message, Exception ex)
 		{
+			Logging.Log.Error(message, ex);
+
 			Dispatcher.Invoke(() =>
 			{
 				ErrorWindow errorWindow = new ErrorWindow(title, message, ex);
@@ -96,7 +98,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 				catch (Exception ex)
 				{
-					ShowError("An unexpected error occurred", "An unexpected error occurred", ex);
+					ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
 				}
 
 				Dispatcher.Invoke(() =>
@@ -222,7 +224,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 				catch (Exception ex)
 				{
-					ShowError("An unexpected error occurred", "An unexpected error occurred", ex);
+					ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
 				}
 			});
 			thread.Start();
@@ -282,7 +284,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show($"Technical information:\n\n{ex.Message}", "An unexpected error occurred");
+					ShowError("An unexpected error occurred", "An unexpected error occurred while trying to restore the original file.", ex);
 				}
 			}
 		}
@@ -296,7 +298,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 			else
 			{
-				MessageBox.Show("Error writing file.", "Failure");
+				ShowError("An unexpected error occurred", $"Error while writing file to {path}.", null);
 			}
 		}
 
