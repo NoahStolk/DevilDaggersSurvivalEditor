@@ -13,7 +13,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void UpdateGUI()
 		{
-			LabelDDLocation.Text = Logic.UserSettings.SurvivalFileLocation;
+			LabelDDLocation.Text = Logic.Instance.userSettings.survivalFileLocation;
 		}
 
 		private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -21,13 +21,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			CommonOpenFileDialog dialog = new CommonOpenFileDialog
 			{
 				IsFolderPicker = true,
-				InitialDirectory = Logic.UserSettings.SurvivalFileLocation
+				InitialDirectory = Logic.Instance.userSettings.survivalFileLocation
 			};
 			CommonFileDialogResult result = dialog.ShowDialog();
 
 			if (result == CommonFileDialogResult.Ok)
 			{
-				Logic.UserSettings.SurvivalFileLocation = dialog.FileName;
+				Logic.Instance.userSettings.survivalFileLocation = dialog.FileName;
 				UpdateGUI();
 			}
 

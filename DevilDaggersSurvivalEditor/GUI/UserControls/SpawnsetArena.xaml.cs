@@ -8,7 +8,7 @@ using System.Windows.Shapes;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnsetArena : UserControl
+	public partial class SpawnsetArena : AbstractUserControl
 	{
 		public SpawnsetArena()
 		{
@@ -33,9 +33,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 			// Add arena tiles
-			for (int i = 0; i < Logic.Spawnset.ArenaTiles.GetLength(0); i++)
+			for (int i = 0; i < spawnset.ArenaTiles.GetLength(0); i++)
 			{
-				for (int j = 0; j < Logic.Spawnset.ArenaTiles.GetLength(1); j++)
+				for (int j = 0; j < spawnset.ArenaTiles.GetLength(1); j++)
 				{
 					Rectangle rect = new Rectangle
 					{
@@ -91,7 +91,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			int i = (int)Canvas.GetLeft(rect) / 8;
 			int j = (int)Canvas.GetTop(rect) / 8;
-			float height = Logic.Spawnset.ArenaTiles[i, j];
+			float height = spawnset.ArenaTiles[i, j];
 
 			int x, y;
 			if (i > 25)

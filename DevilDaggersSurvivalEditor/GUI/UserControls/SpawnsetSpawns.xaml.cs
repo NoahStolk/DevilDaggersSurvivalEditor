@@ -1,15 +1,15 @@
 ﻿using DevilDaggersCore.Spawnset;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Linq;
 using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnsetSpawns : UserControl
+	public partial class SpawnsetSpawns : AbstractUserControl
 	{
 		public SpawnsetSpawns()
+			: base()
 		{
 			InitializeComponent();
 		}
@@ -20,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			double seconds = 0;
 			int totalGems = 0;
-			foreach (KeyValuePair<int, Spawn> kvp in Logic.Spawnset.Spawns)
+			foreach (KeyValuePair<int, Spawn> kvp in spawnset.Spawns)
 			{
 				seconds += kvp.Value.Delay;
 				totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
@@ -38,12 +38,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		/// </summary>
 		private void UpdateEndLoopInternally()
 		{
-			for (int i = 0; i < Logic.Spawnset.Spawns.Count; i++)
+			for (int i = 0; i < spawnset.Spawns.Count; i++)
 			{
-				Logic.Spawnset.Spawns[i].IsInLoop = true;
-				if (Logic.Spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1])
+				spawnset.Spawns[i].IsInLoop = true;
+				if (spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1])
 					for (int j = 0; j < i; j++)
-						Logic.Spawnset.Spawns[j].IsInLoop = false;
+						spawnset.Spawns[j].IsInLoop = false;
 			}
 		}
 
@@ -55,7 +55,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				return;
 			}
 
-			Logic.Spawnset.Spawns.Add(Logic.Spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], delay, true));
+			spawnset.Spawns.Add(spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], delay, true));
 
 			UpdateEndLoopInternally();
 
@@ -75,18 +75,18 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				return; // Nothing selected
 
 			List<Spawn> shift = new List<Spawn>();
-			int originalCount = Logic.Spawnset.Spawns.Count;
+			int originalCount = spawnset.Spawns.Count;
 			for (int i = index; i < originalCount; i++)
 			{
-				shift.Add(Logic.Spawnset.Spawns[i]);
-				Logic.Spawnset.Spawns.Remove(i);
+				shift.Add(spawnset.Spawns[i]);
+				spawnset.Spawns.Remove(i);
 			}
 
-			Logic.Spawnset.Spawns.Add(index, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], delay, true));
+			spawnset.Spawns.Add(index, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], delay, true));
 
-			int max = Logic.Spawnset.Spawns.Count;
+			int max = spawnset.Spawns.Count;
 			for (int i = 0; i < shift.Count; i++)
-				Logic.Spawnset.Spawns.Add(max + i, shift[i]);
+				spawnset.Spawns.Add(max + i, shift[i]);
 
 			UpdateEndLoopInternally();
 
@@ -106,8 +106,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			foreach (int i in indices)
 			{
-				Logic.Spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1];
-				Logic.Spawnset.Spawns[i].Delay = delay;
+				spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1];
+				spawnset.Spawns[i].Delay = delay;
 			}
 
 			UpdateEndLoopInternally();
@@ -121,18 +121,18 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 								 select ListBoxSpawns.Items.IndexOf(obj)).ToList();
 
 			foreach (int i in indices)
-				Logic.Spawnset.Spawns.Remove(i);
+				spawnset.Spawns.Remove(i);
 
 			// Reset the keys (we don't want gaps in the sorted dictionary)
 			SortedDictionary<int, Spawn> newSpawns = new SortedDictionary<int, Spawn>();
 			int j = 0;
-			foreach (KeyValuePair<int, Spawn> kvp in Logic.Spawnset.Spawns)
+			foreach (KeyValuePair<int, Spawn> kvp in spawnset.Spawns)
 			{
 				newSpawns.Add(j, kvp.Value);
 				j++;
 			}
 
-			Logic.Spawnset.Spawns = newSpawns;
+			spawnset.Spawns = newSpawns;
 
 			UpdateEndLoopInternally();
 

@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
-
-namespace DevilDaggersSurvivalEditor.GUI.UserControls
+﻿namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnsetSettings : UserControl
+	public partial class SpawnsetSettings : AbstractUserControl
 	{
 		public SpawnsetSettings()
 		{

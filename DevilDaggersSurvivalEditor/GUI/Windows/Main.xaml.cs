@@ -30,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void UpdateBindings()
 		{
-			SpawnsetSettings.DataContext = Logic.Spawnset;
+			SpawnsetSettings.DataContext = Logic.Instance.spawnset;
 		}
 
 		private void InitializeUserSettings()
@@ -39,15 +39,15 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				using (StreamReader sr = new StreamReader(File.OpenRead(UserSettingsUtils.UserSettingsFileName)))
 				{
-					Logic.UserSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+					Logic.Instance.userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
 				}
 			}
 		}
 
 		private void InitializeCultures()
 		{
-			Thread.CurrentThread.CurrentCulture = new CultureInfo(Logic.UserSettings.culture);
-			Thread.CurrentThread.CurrentUICulture = new CultureInfo(Logic.UserSettings.culture);
+			Thread.CurrentThread.CurrentCulture = new CultureInfo(Logic.Instance.userSettings.culture);
+			Thread.CurrentThread.CurrentUICulture = new CultureInfo(Logic.Instance.userSettings.culture);
 
 			LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 		}

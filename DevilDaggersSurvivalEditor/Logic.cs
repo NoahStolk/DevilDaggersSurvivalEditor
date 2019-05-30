@@ -1,11 +1,19 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Models;
+using System;
 
 namespace DevilDaggersSurvivalEditor
 {
-	public static class Logic
+	public sealed class Logic
 	{
-		public static UserSettings UserSettings = new UserSettings();
-		public static Spawnset Spawnset = new Spawnset();
+		public UserSettings userSettings = new UserSettings();
+		public Spawnset spawnset = new Spawnset();
+
+		private static readonly Lazy<Logic> lazy = new Lazy<Logic>(() => new Logic());
+		public static Logic Instance => lazy.Value;
+
+		private Logic()
+		{
+		}
 	}
 }

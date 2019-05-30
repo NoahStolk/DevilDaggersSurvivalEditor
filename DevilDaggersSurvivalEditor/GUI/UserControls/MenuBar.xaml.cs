@@ -15,7 +15,7 @@ using System.Windows.Controls;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class MenuBar : UserControl
+	public partial class MenuBar : AbstractUserControl
 	{
 		private List<SpawnsetFile> spawnsetFiles = new List<SpawnsetFile>();
 
@@ -194,7 +194,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					{
 						using (Stream stream = new MemoryStream(client.DownloadData(url)))
 						{
-							if (!Spawnset.TryParse(stream, out Logic.Spawnset))
+							if (!Spawnset.TryParse(stream, out spawnset))
 							{
 								ShowError("Error parsing file", "Could not parse file.", null);
 								return;
@@ -212,7 +212,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 						if (result == MessageBoxResult.Yes)
 						{
-							WriteSpawnsetToFile(Path.Combine(Logic.UserSettings.SurvivalFileLocation, "survival"));
+							WriteSpawnsetToFile(Path.Combine(userSettings.survivalFileLocation, "survival"));
 						}
 					});
 				}
@@ -233,7 +233,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want create an empty spawnset? The current spawnset will be lost if you haven't saved it.", "New", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				Logic.Spawnset = new Spawnset();
+				spawnset = new Spawnset();
 			}
 		}
 
@@ -244,7 +244,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (result.HasValue && result.Value)
 			{
-				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out Logic.Spawnset))
+				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out spawnset))
 				{
 					ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.", null);
 				}
@@ -266,7 +266,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				WriteSpawnsetToFile(Path.Combine(Logic.UserSettings.SurvivalFileLocation, "survival"));
+				WriteSpawnsetToFile(Path.Combine(userSettings.survivalFileLocation, "survival"));
 			}
 		}
 
@@ -277,7 +277,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				try
 				{
-					File.Replace(Path.Combine("Content", "survival"), Path.Combine(Logic.UserSettings.SurvivalFileLocation, "survival"), null);
+					File.Replace(Path.Combine("Content", "survival"), Path.Combine(userSettings.survivalFileLocation, "survival"), null);
 					MessageBox.Show("Successfully restored original file.", "Success");
 				}
 				catch (Exception ex)
@@ -289,7 +289,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void WriteSpawnsetToFile(string path)
 		{
-			if (Logic.Spawnset.TryGetBytes(out byte[] bytes))
+			if (spawnset.TryGetBytes(out byte[] bytes))
 			{
 				File.WriteAllBytes(path, bytes);
 				MessageBox.Show($"Successfully wrote the spawnset to {path}.", "Success");
@@ -312,7 +312,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				using (StreamWriter sw = new StreamWriter(File.Create(UserSettingsUtils.UserSettingsFileName)))
 				{
-					sw.Write(JsonConvert.SerializeObject(Logic.UserSettings, Formatting.Indented));
+					sw.Write(JsonConvert.SerializeObject(userSettings, Formatting.Indented));
 				}
 			}
 		}
@@ -336,7 +336,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void Update_Click(object sender, RoutedEventArgs e)
 		{
 			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
-			bool? result = window.ShowDialog();
+			_ = window.ShowDialog();
 
 			VersionResult versionResult = window.VersionResult;
 
