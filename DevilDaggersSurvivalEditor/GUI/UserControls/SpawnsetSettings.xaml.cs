@@ -6,8 +6,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 	{
 		public SpawnsetSettings()
 		{
-			Logic.Instance.UserControlSettings = this;
-
 			InitializeComponent();
 		}
 

@@ -211,11 +211,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						{
 							if (Spawnset.TryParse(stream, out Logic.Instance.spawnset))
 							{
-								Logic.Instance.UserControlSpawns.UpdateEndLoopInternally();
+								Logic.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
 
-								Logic.Instance.UserControlArena.UpdateGUI();
-								Logic.Instance.UserControlSettings.UpdateGUI();
-								Logic.Instance.UserControlSpawns.UpdateGUI();
+								Logic.Instance.MainWindow.SpawnsetArena.UpdateGUI();
+								Logic.Instance.MainWindow.SpawnsetSettings.UpdateGUI();
+								Logic.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
 							}
 							else
 							{
@@ -253,11 +253,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				Logic.Instance.spawnset = new Spawnset();
 
-				Logic.Instance.UserControlSpawns.UpdateEndLoopInternally();
+				Logic.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
 
-				Logic.Instance.UserControlArena.UpdateGUI();
-				Logic.Instance.UserControlSettings.UpdateGUI();
-				Logic.Instance.UserControlSpawns.UpdateGUI();
+				Logic.Instance.MainWindow.SpawnsetArena.UpdateGUI();
+				Logic.Instance.MainWindow.SpawnsetSettings.UpdateGUI();
+				Logic.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
 			}
 		}
 
@@ -275,11 +275,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 			}
 
-			Logic.Instance.UserControlSpawns.UpdateEndLoopInternally();
+			Logic.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
 
-			Logic.Instance.UserControlArena.UpdateGUI();
-			Logic.Instance.UserControlSettings.UpdateGUI();
-			Logic.Instance.UserControlSpawns.UpdateGUI();
+			Logic.Instance.MainWindow.SpawnsetArena.UpdateGUI();
+			Logic.Instance.MainWindow.SpawnsetSettings.UpdateGUI();
+			Logic.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
 		}
 
 		private void FileSave_Click(object sender, RoutedEventArgs e)

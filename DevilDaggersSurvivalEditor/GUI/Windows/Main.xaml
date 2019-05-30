@@ -20,17 +20,17 @@
 				<ColumnDefinition Width="4*"/>
 				<ColumnDefinition Width="3*"/>
 			</Grid.ColumnDefinitions>
-			<StackPanel Grid.Column="0" x:Name="SpawnsetSettings">
+			<StackPanel Grid.Column="0">
 				<Label FontSize="20" Margin="0,0,0,20">Settings</Label>
-				<usercontrols:SpawnsetSettings/>
+				<usercontrols:SpawnsetSettings x:Name="SpawnsetSettings" />
 			</StackPanel>
 			<StackPanel Grid.Column="1">
 				<Label FontSize="20" Margin="0,0,0,20">Spawns</Label>
-				<usercontrols:SpawnsetSpawns/>
+				<usercontrols:SpawnsetSpawns x:Name="SpawnsetSpawns" />
 			</StackPanel>
 			<StackPanel Grid.Column="2">
 				<Label FontSize="20" Margin="0,0,0,20">Arena</Label>
-				<usercontrols:SpawnsetArena/>
+				<usercontrols:SpawnsetArena x:Name="SpawnsetArena" />
 			</StackPanel>
 		</Grid>
 	</Grid>

@@ -1,14 +1,12 @@
 ﻿using DevilDaggersCore.Spawnset;
-using DevilDaggersSurvivalEditor.GUI.UserControls;
+using DevilDaggersSurvivalEditor.GUI.Windows;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Code
 {
 	public sealed class Logic
 	{
-		public SpawnsetArena UserControlArena { get; set; }
-		public SpawnsetSettings UserControlSettings { get; set; }
-		public SpawnsetSpawns UserControlSpawns { get; set; }
+		public MainWindow MainWindow { get; set; }
 
 		public UserSettings userSettings = new UserSettings();
 		public Spawnset spawnset = new Spawnset();

@@ -13,6 +13,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 	{
 		public MainWindow()
 		{
+			Logic.Instance.MainWindow = this;
+
 			InitializeComponent();
 
 			InitializeUserSettings();

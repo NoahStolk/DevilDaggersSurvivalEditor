@@ -13,8 +13,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 	{
 		public SpawnsetArena()
 		{
-			Logic.Instance.UserControlArena = this;
-
 			InitializeComponent();
 
 			// Add height map
