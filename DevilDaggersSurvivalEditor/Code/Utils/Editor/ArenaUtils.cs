@@ -9,6 +9,8 @@ namespace DevilDaggersSurvivalEditor.Code.Utils.Editor
 		public const int TileMax = 63;
 		public const int TileDefault = 0;
 		public const int VoidDefault = -1000;
+		public const int TileSize = 8;
+		public const int TileSizeShrunk = 4;
 
 		public static Color GetColorFromHeight(float height)
 		{
