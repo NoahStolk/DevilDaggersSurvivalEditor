@@ -1,4 +1,5 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
+using System.Windows.Controls;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
@@ -9,17 +10,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			InitializeComponent();
 
 			UpdateGUI();
+
+			Data.DataContext = Logic.Instance.spawnset;
 		}
 
+		// TODO: Remove
 		public override void UpdateGUI()
 		{
-			Dispatcher.Invoke(() =>
-			{
-				ShrinkStart.Text = Logic.Instance.spawnset.ShrinkStart.ToString("0.####");
-				ShrinkEnd.Text = Logic.Instance.spawnset.ShrinkEnd.ToString("0.####");
-				ShrinkRate.Text = Logic.Instance.spawnset.ShrinkRate.ToString("0.####");
-				Brightness.Text = Logic.Instance.spawnset.Brightness.ToString("0.####");
-			});
+		}
+
+		// TODO: Use binding
+		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (Logic.Instance.MainWindow != null && Logic.Instance.MainWindow.SpawnsetArena != null)
+				Logic.Instance.MainWindow.SpawnsetArena.UpdateGUI();
 		}
 	}
 }

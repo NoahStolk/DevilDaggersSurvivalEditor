@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<Style TargetType="Grid">
-		<!--<Setter Property="Margin" Value="10"/>
-		<Setter Property="Background" Value="#000"/>-->
+	<Style TargetType="TextBox">
+		<Style.Triggers>
+			<Trigger Property="Validation.HasError" Value="True">
+				<Setter Property="Background" Value="#ff8888" />
+			</Trigger>
+		</Style.Triggers>
 	</Style>
 </ResourceDictionary>

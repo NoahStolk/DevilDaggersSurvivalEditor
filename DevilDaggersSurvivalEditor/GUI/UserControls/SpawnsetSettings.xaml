@@ -17,11 +17,11 @@
 			<Label Height="30">Shrink rate</Label>
 			<Label Height="30">Brightness</Label>
 		</StackPanel>
-		<StackPanel Grid.Column="1">
-			<TextBox Name="ShrinkStart"></TextBox>
-			<TextBox Name="ShrinkEnd"></TextBox>
-			<TextBox Name="ShrinkRate"></TextBox>
-			<TextBox Name="Brightness"></TextBox>
+		<StackPanel Grid.Column="1" x:Name="Data">
+			<TextBox Name="TextBoxShrinkStart" Text="{Binding ShrinkStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" />
+			<TextBox Name="TextBoxShrinkEnd" Text="{Binding ShrinkEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" />
+			<TextBox Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" />
+			<TextBox Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" />
 		</StackPanel>
 	</Grid>
 </local:AbstractSpawnsetUserControl>
