@@ -19,7 +19,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 		}
 
-		// TODO: Use binding
+		// TODO: Use binding for spawnset arena
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			if (Logic.Instance.MainWindow != null && Logic.Instance.MainWindow.SpawnsetArena != null)

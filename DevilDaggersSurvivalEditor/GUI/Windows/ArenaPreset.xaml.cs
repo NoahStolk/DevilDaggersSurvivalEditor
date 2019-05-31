@@ -42,6 +42,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			}
 		}
 
+		// TODO: Use binding instead (not sure if possible with programmatically generating elements through reflection)
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			TextBox textBox = sender as TextBox;
