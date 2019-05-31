@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.GUI.UserControls"
 		mc:Ignorable="d"
-        Title="Devil Daggers Survival Editor" MinHeight="768" MinWidth="1366" WindowStartupLocation="CenterScreen">
+        Title="Devil Daggers Survival Editor 2" MinHeight="768" MinWidth="1366" WindowStartupLocation="CenterScreen" Background="Gray">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="18"/>
