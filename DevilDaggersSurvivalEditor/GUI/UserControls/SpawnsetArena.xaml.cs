@@ -126,15 +126,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			Dispatcher.Invoke(() =>
 			{
-				ShrinkStart.Width = Logic.Instance.spawnset.ShrinkStart * 4;
-				ShrinkStart.Height = Logic.Instance.spawnset.ShrinkStart * 4;
-				Canvas.SetLeft(ShrinkStart, ArenaTiles.Width / 2 - ShrinkStart.Width / 2);
-				Canvas.SetTop(ShrinkStart, ArenaTiles.Height / 2 - ShrinkStart.Height / 2);
+				// Assuming the arena is a square
+				double arenaEditorRadius = ArenaTiles.Width / 2;
+				double shrinkStartRadius = Logic.Instance.spawnset.ShrinkStart * 2;
+				double shrinkEndRadius = Logic.Instance.spawnset.ShrinkEnd * 2;
 
-				ShrinkEnd.Width = Logic.Instance.spawnset.ShrinkEnd * 4;
-				ShrinkEnd.Height = Logic.Instance.spawnset.ShrinkEnd * 4;
-				Canvas.SetLeft(ShrinkEnd, ArenaTiles.Width / 2 - ShrinkEnd.Width / 2);
-				Canvas.SetTop(ShrinkEnd, ArenaTiles.Height / 2 - ShrinkEnd.Height / 2);
+				ShrinkStart.Width = shrinkStartRadius * 2;
+				ShrinkStart.Height = shrinkStartRadius * 2;
+				Canvas.SetLeft(ShrinkStart, arenaEditorRadius - shrinkStartRadius);
+				Canvas.SetTop(ShrinkStart, arenaEditorRadius - shrinkStartRadius);
+
+				ShrinkEnd.Width = shrinkEndRadius * 2;
+				ShrinkEnd.Height = shrinkEndRadius * 2;
+				Canvas.SetLeft(ShrinkEnd, arenaEditorRadius - shrinkEndRadius);
+				Canvas.SetTop(ShrinkEnd, arenaEditorRadius - shrinkEndRadius);
 
 				if (Logic.Instance.spawnset.ShrinkRate > 0)
 				{
@@ -148,10 +153,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					ShrinkCurrentSlider.IsEnabled = false;
 				}
 
-				ShrinkCurrent.Width = Logic.Instance.spawnset.ShrinkStart * 4 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (Logic.Instance.spawnset.ShrinkStart - Logic.Instance.spawnset.ShrinkEnd) * 4);
-				ShrinkCurrent.Height = Logic.Instance.spawnset.ShrinkStart * 4 - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (Logic.Instance.spawnset.ShrinkStart - Logic.Instance.spawnset.ShrinkEnd) * 4);
-				Canvas.SetLeft(ShrinkCurrent, ArenaTiles.Width / 2 - ShrinkCurrent.Width / 2);
-				Canvas.SetTop(ShrinkCurrent, ArenaTiles.Height / 2 - ShrinkCurrent.Height / 2);
+				double shrinkCurrentRadius = shrinkStartRadius - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (shrinkStartRadius - shrinkEndRadius));
+				ShrinkCurrent.Width = shrinkCurrentRadius * 2;
+				ShrinkCurrent.Height = shrinkCurrentRadius * 2;
+				Canvas.SetLeft(ShrinkCurrent, arenaEditorRadius - shrinkCurrentRadius);
+				Canvas.SetTop(ShrinkCurrent, arenaEditorRadius - shrinkCurrentRadius);
 
 				foreach (UIElement elem in ArenaTiles.Children)
 					if (elem is Rectangle rect)
