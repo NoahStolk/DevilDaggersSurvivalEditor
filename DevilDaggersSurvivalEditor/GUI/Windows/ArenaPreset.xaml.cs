@@ -47,14 +47,14 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			TextBox textBox = sender as TextBox;
 
 			Type t = textBox.Tag as Type;
-			bool validate;
+			bool valid;
 			if (t == typeof(float))
 			{
-				validate = !float.TryParse(textBox.Text, out _);
+				valid = float.TryParse(textBox.Text, out _);
 			}
 			else if (t == typeof(int))
 			{
-				validate = !int.TryParse(textBox.Text, out _);
+				valid = int.TryParse(textBox.Text, out _);
 			}
 			else
 			{
@@ -63,10 +63,10 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				throw ex;
 			}
 
-			if (validate)
-				textBox.Background = new SolidColorBrush(Color.FromRgb(255, 128, 128));
-			else
+			if (valid)
 				textBox.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+			else
+				textBox.Background = new SolidColorBrush(Color.FromRgb(255, 128, 128));
 		}
 
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)
