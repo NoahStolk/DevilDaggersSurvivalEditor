@@ -14,9 +14,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Data.DataContext = Logic.Instance.spawnset;
 		}
 
-		// TODO: Remove
+		// TODO: Replace with SpawnsetLoaded method
 		public override void UpdateGUI()
 		{
+			Dispatcher.Invoke(() =>
+			{
+				TextBoxShrinkStart.Text = Logic.Instance.spawnset.ShrinkStart.ToString();
+				TextBoxShrinkEnd.Text = Logic.Instance.spawnset.ShrinkEnd.ToString();
+				TextBoxShrinkRate.Text = Logic.Instance.spawnset.ShrinkRate.ToString();
+				TextBoxBrightness.Text = Logic.Instance.spawnset.Brightness.ToString();
+			});
 		}
 
 		// TODO: Use binding for spawnset arena
