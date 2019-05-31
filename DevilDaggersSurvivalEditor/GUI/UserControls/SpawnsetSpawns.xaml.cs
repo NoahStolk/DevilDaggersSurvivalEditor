@@ -3,7 +3,6 @@ using DevilDaggersSurvivalEditor.Code;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
@@ -17,6 +16,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			EditSpawnButton.IsEnabled = false;
 			DeleteSpawnButton.IsEnabled = false;
 			ModifyDelaysButton.IsEnabled = false;
+			InsertSpawnButton.IsEnabled = false;
 		}
 
 		public override void UpdateGUI()
@@ -34,7 +34,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 					ListBoxSpawns.Items.Add(new SpawnControl(kvp.Key, seconds, kvp.Value.SpawnsetEnemy.Name, kvp.Value.Delay, kvp.Value.SpawnsetEnemy.NoFarmGems, totalGems)
 					{
-						Background = kvp.Value.IsInLoop ? Brushes.Aqua : Brushes.White
+						FontWeight = kvp.Value.IsInLoop ? FontWeights.Bold : FontWeights.Normal
 					});
 				}
 			});
@@ -46,6 +46,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			EditSpawnButton.IsEnabled = enabled;
 			DeleteSpawnButton.IsEnabled = enabled;
 			ModifyDelaysButton.IsEnabled = enabled;
+			InsertSpawnButton.IsEnabled = enabled;
 		}
 
 		/// <summary>
@@ -80,15 +81,15 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void InsertSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
+			int index = ListBoxSpawns.SelectedIndex;
+			if (index == -1)
+				return; // Nothing selected
+
 			if (!double.TryParse(TextBoxDelay.Text, out double delay))
 			{
 				MessageBox.Show("Please enter a numeric value.", "Invalid delay value");
 				return;
 			}
-
-			int index = ListBoxSpawns.SelectedIndex;
-			if (index == -1)
-				return; // Nothing selected
 
 			List<Spawn> shift = new List<Spawn>();
 			int originalCount = Logic.Instance.spawnset.Spawns.Count;

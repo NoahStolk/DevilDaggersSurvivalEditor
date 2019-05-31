@@ -7,6 +7,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		public SpawnsetSettings()
 		{
 			InitializeComponent();
+
+			UpdateGUI();
 		}
 
 		public override void UpdateGUI()
