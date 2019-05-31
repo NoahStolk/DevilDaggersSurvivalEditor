@@ -1,8 +1,9 @@
-﻿using NetBase.Extensions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
 
 namespace DevilDaggersSurvivalEditor.Code.Utils
@@ -10,13 +11,23 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 	public static class ApplicationUtils
 	{
 		public const string ApplicationName = "DevilDaggersSurvivalEditor";
-		public const string ApplicationVersionNumber = "2.0.0.0 WIP";
+
+		private static Version applicationVersionNumber;
+		public static Version ApplicationVersionNumber
+		{
+			get
+			{
+				if (applicationVersionNumber == null)
+					applicationVersionNumber = Version.Parse(FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion);
+				return applicationVersionNumber;
+			}
+		}
 
 		public static VersionResult CheckVersion()
 		{
 			string url = UrlUtils.GetToolVersions;
 
-			string version = string.Empty;
+			string versionOnline = string.Empty;
 			string errorMessage = string.Empty;
 
 			try
@@ -33,7 +44,7 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 						{
 							if ((string)tool.Name == ApplicationName)
 							{
-								version = (string)tool.VersionNumber;
+								versionOnline = (string)tool.VersionNumber;
 								break;
 							}
 						}
@@ -51,7 +62,7 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 				Logging.Log.Error("An unexpected error occured while trying to retrieve the latest version number.", ex);
 			}
 
-			return new VersionResult(errorMessage != null ? null : (bool?)(int.Parse(version.Numeric()) <= int.Parse(ApplicationVersionNumber.Numeric())), version, errorMessage);
+			return new VersionResult(!string.IsNullOrEmpty(errorMessage) ? null : (bool?)(Version.Parse(versionOnline) <= ApplicationVersionNumber), versionOnline, errorMessage);
 		}
 	}
 }
