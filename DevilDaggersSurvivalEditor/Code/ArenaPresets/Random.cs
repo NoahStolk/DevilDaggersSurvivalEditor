@@ -1,20 +1,21 @@
-﻿namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+﻿using NetBase.Utils;
+
+namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
-	public class Random : AbstractArena
+	public class Random : AbstractRectangularArena
 	{
 		public float MinHeight { get; set; }
 		public float MaxHeight { get; set; }
 
-		public Random(int x1, int y1, int x2, int y2, float minHeight, float maxHeight)
-			: base(x1, y1, x2, y2)
-		{
-			MinHeight = minHeight;
-			MaxHeight = maxHeight;
-		}
-
 		public override float[,] GetTiles()
 		{
-			throw new System.NotImplementedException();
+			float[,] tiles = VoidArena();
+
+			for (int i = X1; i < X2; i++)
+				for (int j = Y1; j < Y2; j++)
+					tiles[i, j] = RandomUtils.RandomFloat(MinHeight, MaxHeight);
+
+			return tiles;
 		}
 	}
 }

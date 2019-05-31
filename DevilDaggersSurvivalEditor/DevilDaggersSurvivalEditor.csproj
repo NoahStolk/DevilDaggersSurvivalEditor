@@ -80,7 +80,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Code\ArenaPresets\AbstractRectangularArena.cs" />
+    <Compile Include="Code\ArenaPresets\Default.cs" />
     <Compile Include="Code\Logging.cs" />
+    <Compile Include="Code\Utils\MiscUtils.cs" />
     <Compile Include="GUI\UserControls\AbstractSpawnsetUserControl.cs" />
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
       <DependentUpon>MenuBar.xaml</DependentUpon>
@@ -93,6 +96,9 @@
     </Compile>
     <Compile Include="GUI\UserControls\SpawnsetSpawns.xaml.cs">
       <DependentUpon>SpawnsetSpawns.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Windows\ArenaPreset.xaml.cs">
+      <DependentUpon>ArenaPreset.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Windows\Error.xaml.cs">
       <DependentUpon>Error.xaml</DependentUpon>
@@ -136,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\UserControls\SpawnsetSpawns.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Windows\ArenaPreset.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

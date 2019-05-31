@@ -27,35 +27,12 @@
 				</Grid.ColumnDefinitions>
 				<StackPanel Grid.Column="0">
 					<Label Padding="4,0,0,0">Height map</Label>
-					<Grid Margin="4,0,0,0" HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40">
-						<Grid.RowDefinitions>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-						</Grid.RowDefinitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-						</Grid.ColumnDefinitions>
-					</Grid>
+					<Grid Margin="4,0,0,0" HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40" />
 					<Label Padding="4,0,0,0">Shrink preview</Label>
-					<Slider Margin="4,0,0,0" Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"></Slider>
+					<Slider Margin="4,0,0,0" Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+					<Label Padding="4,0,0,0">Arena presets</Label>
+					<ComboBox Name="ComboBoxArenaPreset" SelectedIndex="0" />
+					<Button Click="ArenaPresetConfigureButton_Click">Configure</Button>
 				</StackPanel>
 				<StackPanel Grid.Column="1">
 					<Label Padding="4,0,0,0">Tile</Label>

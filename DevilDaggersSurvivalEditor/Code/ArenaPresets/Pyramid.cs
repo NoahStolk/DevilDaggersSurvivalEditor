@@ -1,20 +1,24 @@
-﻿namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+﻿using DevilDaggersCore.Spawnset;
+using System;
+
+namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
-	public class Pyramid : AbstractArena
+	public class Pyramid : AbstractRectangularArena
 	{
 		public float StartHeight { get; set; }
 		public float EndHeight { get; set; }
 
-		public Pyramid(int x1, int y1, int x2, int y2, float startHeight, float endHeight)
-			: base(x1, y1, x2, y2)
-		{
-			StartHeight = startHeight;
-			EndHeight = endHeight;
-		}
-
 		public override float[,] GetTiles()
 		{
-			throw new System.NotImplementedException();
+			float[,] tiles = VoidArena();
+
+			float stepX = (StartHeight - EndHeight) / (X2 - X1 - 1);
+			float stepY = (StartHeight - EndHeight) / (Y2 - Y1 - 1);
+			for (int i = X1; i < X2; i++)
+				for (int j = Y1; j < Y2; j++)
+					tiles[i, j] = EndHeight + (Math.Abs(i - Spawnset.ArenaWidth / 2) * stepX + Math.Abs(j - Spawnset.ArenaHeight / 2) * stepY);
+
+			return tiles;
 		}
 	}
 }

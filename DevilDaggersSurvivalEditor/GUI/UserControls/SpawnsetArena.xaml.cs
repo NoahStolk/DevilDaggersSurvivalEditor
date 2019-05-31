@@ -4,6 +4,8 @@ using DevilDaggersSurvivalEditor.Code.Utils.Editor;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using NetBase.Utils;
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +21,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			InitializeComponent();
 
 			// Add height map
+			for (int i = 0; i < 5; i++)
+				HeightMap.RowDefinitions.Add(new RowDefinition());
+			for (int i = 0; i < 16; i++)
+				HeightMap.ColumnDefinitions.Add(new ColumnDefinition());
+
 			TextBlock textBlock = new TextBlock { Background = new SolidColorBrush(ArenaUtils.GetColorFromHeight(-1)), ToolTip = "-1" };
 			Grid.SetRow(textBlock, 0);
 			Grid.SetColumn(textBlock, 0);
@@ -53,6 +60,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					ArenaTiles.Children.Add(rect);
 				}
 			}
+
+			// Add presets via Reflection
+			foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName.Contains("ArenaPresets") && !t.IsAbstract))
+				ComboBoxArenaPreset.Items.Add(new ComboBoxItem() { Content = type.Name.ToString() });
 
 			UpdateGUI();
 		}
@@ -108,9 +119,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			Point tile = GetTileFromMouse(sender);
 
-			SetTileHeightWindow windowTileHeight = new SetTileHeightWindow(Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
-			if (windowTileHeight.ShowDialog() == true)
-				Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = windowTileHeight.tileHeight;
+			SetTileHeightWindow heightWindow = new SetTileHeightWindow(Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			if (heightWindow.ShowDialog() == true)
+				Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = heightWindow.tileHeight;
 
 			SetHeightText(Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
@@ -122,12 +133,21 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			UpdateGUI();
 		}
 
+		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
+		{
+			ArenaPresetWindow presetWindow = new ArenaPresetWindow((ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Content.ToString());
+			if (presetWindow.ShowDialog() == true)
+			{
+				Logic.Instance.spawnset.ArenaTiles = presetWindow.Preset.GetTiles();
+				UpdateGUI();
+			}
+		}
+
 		public override void UpdateGUI()
 		{
 			Dispatcher.Invoke(() =>
 			{
-				// Assuming the arena is a square
-				double arenaEditorRadius = ArenaTiles.Width / 2;
+				double arenaEditorRadius = ArenaTiles.Width / 2; // Assuming the arena is a square
 				double shrinkStartRadius = Logic.Instance.spawnset.ShrinkStart * 2;
 				double shrinkEndRadius = Logic.Instance.spawnset.ShrinkEnd * 2;
 
@@ -165,6 +185,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			});
 		}
 
+		// TODO: Optimize
 		private void SetTileColor(Rectangle rect)
 		{
 			Point arenaCenter = new Point(204, 204);
