@@ -28,7 +28,7 @@
 			<Label Grid.Column="4" FontWeight="Bold">No farm gems</Label>
 			<Label Grid.Column="5" FontWeight="Bold">Total gems</Label>
 		</Grid>
-		<ListBox Grid.Row="1" Name="ListBoxSpawns" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible"></ListBox>
+		<ListBox Grid.Row="1" Name="ListBoxSpawns" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="ListBoxSpawns_Selected" />
 		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*" />
@@ -53,7 +53,7 @@
 					<ComboBoxItem Content="Spider II" />
 					<ComboBoxItem Content="Ghostpede" />
 				</ComboBox>
-				<TextBox Height="20" Name="TextBoxDelay"></TextBox>
+				<TextBox Height="20" Name="TextBoxDelay">0</TextBox>
 				<Button Name="AddSpawnButton" Content="Add spawn" Click="AddSpawnButton_Click"></Button>
 				<Button Name="InsertSpawnButton" Content="Insert spawn" Click="InsertSpawnButton_Click"></Button>
 			</StackPanel>

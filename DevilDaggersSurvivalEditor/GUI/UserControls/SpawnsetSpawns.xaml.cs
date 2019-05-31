@@ -13,6 +13,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			: base()
 		{
 			InitializeComponent();
+
+			EditSpawnButton.IsEnabled = false;
+			DeleteSpawnButton.IsEnabled = false;
+			ModifyDelaysButton.IsEnabled = false;
 		}
 
 		public override void UpdateGUI()
@@ -34,6 +38,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					});
 				}
 			});
+		}
+
+		private void ListBoxSpawns_Selected(object sender, RoutedEventArgs e)
+		{
+			bool enabled = ListBoxSpawns.SelectedItems.Count != 0;
+			EditSpawnButton.IsEnabled = enabled;
+			DeleteSpawnButton.IsEnabled = enabled;
+			ModifyDelaysButton.IsEnabled = enabled;
 		}
 
 		/// <summary>
