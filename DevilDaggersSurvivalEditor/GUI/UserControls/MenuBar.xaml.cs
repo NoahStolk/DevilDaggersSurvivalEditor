@@ -155,7 +155,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						{
 							Header = name.Replace("_", "__")
 						};
-						nameItem.Click += (sender, e) => SpawnsetItem_Click(sender, e, $"{name}_{author}");
+						nameItem.Click += (sender, e) => SpawnsetItem_Click($"{name}_{author}");
 						authorItem.Items.Add(nameItem);
 					}
 				}
@@ -198,7 +198,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		private void SpawnsetItem_Click(object sender, RoutedEventArgs e, string fileName)
+		private void SpawnsetItem_Click(string fileName)
 		{
 			Thread thread = new Thread(() =>
 			{
