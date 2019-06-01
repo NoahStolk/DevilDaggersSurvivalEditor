@@ -1,4 +1,5 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.User;
 using Newtonsoft.Json;
 using System;
 using System.Globalization;
@@ -18,7 +19,10 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			InitializeComponent();
 
 			InitializeUserSettings();
-			InitializeCultures();
+
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+			Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+			LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
 			Closed += MainWindow_Closed;
 		}
@@ -33,14 +37,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			if (File.Exists(UserSettings.FileName))
 				using (StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName)))
 					Logic.Instance.userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
-		}
-
-		private void InitializeCultures()
-		{
-			Thread.CurrentThread.CurrentCulture = new CultureInfo(Logic.Instance.userSettings.culture);
-			Thread.CurrentThread.CurrentUICulture = new CultureInfo(Logic.Instance.userSettings.culture);
-
-			LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 		}
 	}
 }
