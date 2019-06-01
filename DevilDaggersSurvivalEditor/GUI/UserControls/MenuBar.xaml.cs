@@ -215,7 +215,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 								Logic.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
 
 								Logic.Instance.MainWindow.SpawnsetArena.UpdateGUI();
-								Logic.Instance.MainWindow.SpawnsetSettings.UpdateGUI();
 								Logic.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
 							}
 							else
@@ -257,7 +256,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Logic.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
 
 				Logic.Instance.MainWindow.SpawnsetArena.UpdateGUI();
-				Logic.Instance.MainWindow.SpawnsetSettings.UpdateGUI();
 				Logic.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
 			}
 		}
@@ -279,7 +277,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Logic.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
 
 			Logic.Instance.MainWindow.SpawnsetArena.UpdateGUI();
-			Logic.Instance.MainWindow.SpawnsetSettings.UpdateGUI();
 			Logic.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
 		}
 

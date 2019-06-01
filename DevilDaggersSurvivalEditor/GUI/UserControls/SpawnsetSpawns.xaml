@@ -9,7 +9,7 @@
 	<Grid Height="750">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="30" />
-			<RowDefinition Height="1*" />
+			<RowDefinition Height="408" />
 			<RowDefinition Height="1*" />
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0" HorizontalAlignment="Left" Width="652" Margin="4,0,0,0">

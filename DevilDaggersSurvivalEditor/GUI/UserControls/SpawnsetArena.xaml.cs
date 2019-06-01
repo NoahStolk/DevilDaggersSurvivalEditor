@@ -66,6 +66,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				ComboBoxArenaPreset.Items.Add(new ComboBoxItem() { Content = type.Name.ToString() });
 
 			UpdateGUI();
+
+			SpawnsetSettings.DataContext = Logic.Instance.spawnset;
 		}
 
 		private void SetHeightText(float height)
@@ -79,7 +81,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private Point GetTileFromMouse(object sender)
 		{
 			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
-			return new Point((int)mousePosition.X / ArenaUtils.TileSize, (int)mousePosition.Y / ArenaUtils.TileSize);
+			return new Point(MathUtils.Clamp((int)mousePosition.X / ArenaUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / ArenaUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
 		}
 
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
@@ -143,10 +145,22 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
+		// TODO: Use binding for spawnset arena
+		//private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+		//{
+		//	if (Logic.Instance.MainWindow != null && Logic.Instance.MainWindow.SpawnsetArena != null)
+		//		Logic.Instance.MainWindow.SpawnsetArena.UpdateGUI();
+		//}
+
 		public override void UpdateGUI()
 		{
 			Dispatcher.Invoke(() =>
 			{
+				TextBoxShrinkStart.Text = Logic.Instance.spawnset.ShrinkStart.ToString();
+				TextBoxShrinkEnd.Text = Logic.Instance.spawnset.ShrinkEnd.ToString();
+				TextBoxShrinkRate.Text = Logic.Instance.spawnset.ShrinkRate.ToString();
+				TextBoxBrightness.Text = Logic.Instance.spawnset.Brightness.ToString();
+
 				double arenaEditorRadius = ArenaTiles.Width / 2; // Assuming the arena is a square
 				double shrinkStartRadius = Logic.Instance.spawnset.ShrinkStart * 2;
 				double shrinkEndRadius = Logic.Instance.spawnset.ShrinkEnd * 2;
