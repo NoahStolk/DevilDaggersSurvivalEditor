@@ -5,8 +5,8 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public class Pyramid : AbstractRectangularArena
 	{
-		public float StartHeight { get; set; }
-		public float EndHeight { get; set; }
+		public float StartHeight { get; set; } = -1;
+		public float EndHeight { get; set; } = 6;
 
 		public override float[,] GetTiles()
 		{

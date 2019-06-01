@@ -8,10 +8,10 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 	{
 		public override float[,] GetTiles()
 		{
-			float[,] tiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+			float[,] tiles = CreateArenaArray();
 
 			byte[] defaultArenaBuffer = new byte[Spawnset.ArenaBufferSize];
-			using (FileStream fs = new FileStream("Content/survival", FileMode.Open, FileAccess.Read) { Position = Spawnset.HeaderBufferSize })
+			using (FileStream fs = new FileStream("Content/survival", FileMode.Open, FileAccess.Read) { Position = Spawnset.SettingsBufferSize })
 				fs.Read(defaultArenaBuffer, 0, Spawnset.ArenaBufferSize);
 
 			for (int i = 0; i < defaultArenaBuffer.Length; i += 4)

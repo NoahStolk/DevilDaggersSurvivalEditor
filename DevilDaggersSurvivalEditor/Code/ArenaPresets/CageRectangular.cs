@@ -1,9 +1,9 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
-	public class Cage : AbstractRectangularArena
+	public class CageRectangular : AbstractRectangularArena
 	{
 		public float InsideHeight { get; set; }
-		public float WallHeight { get; set; }
+		public float WallHeight { get; set; } = 8;
 
 		public override float[,] GetTiles()
 		{

@@ -5,7 +5,7 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 	public class Random : AbstractRectangularArena
 	{
 		public float MinHeight { get; set; }
-		public float MaxHeight { get; set; }
+		public float MaxHeight { get; set; } = 16;
 
 		public override float[,] GetTiles()
 		{

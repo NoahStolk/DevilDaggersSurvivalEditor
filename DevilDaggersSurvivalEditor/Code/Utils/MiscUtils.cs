@@ -4,11 +4,11 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 {
 	public static class MiscUtils
 	{
-		public static string ToUserFriendlyString(this string input)
+		public static string ToUserFriendlyString(this object input)
 		{
 			StringBuilder sb = new StringBuilder();
 			bool first = true;
-			foreach (char c in input)
+			foreach (char c in input.ToString())
 			{
 				if (char.IsUpper(c) && !first)
 					sb.Append($" {c.ToString().ToLower()}");

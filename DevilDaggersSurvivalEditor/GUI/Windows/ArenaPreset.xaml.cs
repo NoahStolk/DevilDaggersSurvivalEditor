@@ -20,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			Title = $"{presetName} arena preset";
 
-			Preset = Activator.CreateInstance(Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Name == presetName).FirstOrDefault()) as AbstractArena;
+			Preset = ArenaPresetHandler.Instance.ArenaPresets.Where(a => a.GetType().Name == presetName).FirstOrDefault();
 
 			foreach (PropertyInfo p in Preset.GetType().GetProperties())
 			{

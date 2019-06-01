@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Utils;
 using DevilDaggersSurvivalEditor.Code.Utils.Editor;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using NetBase.Utils;
@@ -62,8 +63,15 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 			// Add presets via Reflection
-			foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName.Contains("ArenaPresets") && !t.IsAbstract))
-				ComboBoxArenaPreset.Items.Add(new ComboBoxItem() { Content = type.Name.ToString() });
+			foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName.Contains("ArenaPresets") && !t.IsAbstract).OrderBy(t => t.Name))
+			{
+				string typeName = type.Name.ToString();
+				ComboBoxArenaPreset.Items.Add(new ComboBoxItem()
+				{
+					Content = typeName.ToUserFriendlyString(),
+					Tag = typeName
+				});
+			}
 
 			UpdateGUI();
 
@@ -137,7 +145,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
 		{
-			ArenaPresetWindow presetWindow = new ArenaPresetWindow((ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Content.ToString());
+			ArenaPresetWindow presetWindow = new ArenaPresetWindow((ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString());
 			if (presetWindow.ShowDialog() == true)
 			{
 				Logic.Instance.spawnset.ArenaTiles = presetWindow.Preset.GetTiles();
