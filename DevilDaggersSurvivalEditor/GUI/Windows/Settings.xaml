@@ -5,21 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Settings" Height="256" Width="512" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition/>
-			<ColumnDefinition Width="2*"/>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
-		<StackPanel Grid.Column="0">
-			<Label>DD Location</Label>
-		</StackPanel>
-		<StackPanel Grid.Column="1">
-			<TextBlock TextWrapping="WrapWithOverflow" Name="LabelDDLocation"></TextBlock>
-		</StackPanel>
-		<StackPanel Grid.Column="2">
-			<Button Content="Browse" Click="BrowseButton_Click" />
-			<Button Content="Apply" Click="ApplyButton_Click"/>
-		</StackPanel>
-	</Grid>
+	<StackPanel x:Name="Data">
+		<Grid Grid.Column="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Label Grid.Column="0">Survival file location</Label>
+			<TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" Name="LabelSurvivalFileLocation" Text="{Binding SurvivalFileLocation}"/>
+			<Button Grid.Column="2" Content="Browse" Click="BrowseButton_Click" />
+		</Grid>
+		<!--<Grid Grid.Column="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Label Grid.Column="0">Number formatting</Label>
+			<TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" Name="LabelNumberFormatting">1234.567</TextBlock>
+			<ComboBox Grid.Column="2" Name="ComboBoxNumberFormatting" SelectionChanged="ComboBoxNumberFormatting_SelectionChanged" />
+		</Grid>-->
+		<Grid Grid.Column="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Button Grid.Column="2" Content="Apply" Click="ApplyButton_Click"/>
+		</Grid>
+	</StackPanel>
 </Window>

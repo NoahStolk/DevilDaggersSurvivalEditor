@@ -18,10 +18,10 @@
 			<Label Height="30">Brightness</Label>
 		</StackPanel>
 		<StackPanel Grid.Column="1" x:Name="Data">
-			<TextBox Name="TextBoxShrinkStart" Text="{Binding ShrinkStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" />
-			<TextBox Name="TextBoxShrinkEnd" Text="{Binding ShrinkEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" />
-			<TextBox Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" />
-			<TextBox Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" />
+			<TextBox Name="TextBoxShrinkStart" Text="{Binding ShrinkStart, Mode=TwoWay}" />
+			<TextBox Name="TextBoxShrinkEnd" Text="{Binding ShrinkEnd, Mode=TwoWay}" />
+			<TextBox Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay}" />
+			<TextBox Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay}" />
 		</StackPanel>
 	</Grid>
 </local:AbstractSpawnsetUserControl>

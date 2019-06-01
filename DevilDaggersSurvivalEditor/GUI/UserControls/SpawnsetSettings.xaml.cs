@@ -14,7 +14,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Data.DataContext = Logic.Instance.spawnset;
 		}
 
-		// TODO: Replace with SpawnsetLoaded method
 		public override void UpdateGUI()
 		{
 			Dispatcher.Invoke(() =>
