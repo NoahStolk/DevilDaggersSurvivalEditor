@@ -16,7 +16,7 @@
 				<StackPanel Grid.Column="1" Name="OptionInputs" />
 			</Grid>
 			<StackPanel>
-				<Button Click="GenerateButton_Click">Generate</Button>
+				<Button Click="ApplyButton_Click">Apply</Button>
 			</StackPanel>
 		</StackPanel>
 	</Grid>

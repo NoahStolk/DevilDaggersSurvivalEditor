@@ -11,6 +11,8 @@ namespace DevilDaggersSurvivalEditor.Code
 	/// </summary>
 	public sealed class ArenaPresetHandler
 	{
+		public AbstractArena Preset { get; set; }
+
 		public readonly List<AbstractArena> ArenaPresets = new List<AbstractArena>();
 
 		private static readonly Lazy<ArenaPresetHandler> lazy = new Lazy<ArenaPresetHandler>(() => new ArenaPresetHandler());

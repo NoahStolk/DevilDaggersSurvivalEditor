@@ -146,11 +146,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
 		{
 			ArenaPresetWindow presetWindow = new ArenaPresetWindow((ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString());
-			if (presetWindow.ShowDialog() == true)
-			{
-				Logic.Instance.spawnset.ArenaTiles = presetWindow.Preset.GetTiles();
-				UpdateGUI();
-			}
+			presetWindow.ShowDialog();
 		}
 
 		// TODO: Use binding for spawnset arena
@@ -251,6 +247,17 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Canvas.SetLeft(rect, i * ArenaUtils.TileSize + offset);
 				Canvas.SetTop(rect, j * ArenaUtils.TileSize + offset);
 			}
+		}
+
+		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			ArenaPresetHandler.Instance.Preset = ArenaPresetHandler.Instance.ArenaPresets.Where(a => a.GetType().Name == (ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString()).FirstOrDefault();
+		}
+
+		private void GenerateButton_Click(object sender, RoutedEventArgs e)
+		{
+			Logic.Instance.spawnset.ArenaTiles = ArenaPresetHandler.Instance.Preset.GetTiles();
+			UpdateGUI();
 		}
 	}
 }

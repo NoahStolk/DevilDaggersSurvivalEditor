@@ -2,7 +2,7 @@
 
 namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
-	public class Random : AbstractRectangularArena
+	public class Noise : AbstractRectangularArena
 	{
 		public float MinHeight { get; set; }
 		public float MaxHeight { get; set; } = 16;

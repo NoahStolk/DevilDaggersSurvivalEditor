@@ -1,8 +1,6 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
-using DevilDaggersSurvivalEditor.Code.ArenaPresets;
 using DevilDaggersSurvivalEditor.Code.Utils;
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,17 +10,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
 	public partial class ArenaPresetWindow : Window
 	{
-		public AbstractArena Preset { get; set; }
-
 		public ArenaPresetWindow(string presetName)
 		{
 			InitializeComponent();
 
 			Title = $"{presetName} arena preset";
 
-			Preset = ArenaPresetHandler.Instance.ArenaPresets.Where(a => a.GetType().Name == presetName).FirstOrDefault();
-
-			foreach (PropertyInfo p in Preset.GetType().GetProperties())
+			foreach (PropertyInfo p in ArenaPresetHandler.Instance.Preset.GetType().GetProperties())
 			{
 				OptionLabels.Children.Add(new Label()
 				{
@@ -33,7 +27,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				TextBox textBox = new TextBox()
 				{
 					Name = p.Name,
-					Text = p.GetValue(Preset).ToString(),
+					Text = p.GetValue(ArenaPresetHandler.Instance.Preset).ToString(),
 					Padding = new Thickness(),
 					Tag = p.PropertyType
 				};
@@ -70,9 +64,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				textBox.Background = new SolidColorBrush(Color.FromRgb(255, 128, 128));
 		}
 
-		private void GenerateButton_Click(object sender, RoutedEventArgs e)
+		private void ApplyButton_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (PropertyInfo p in Preset.GetType().GetProperties())
+			foreach (PropertyInfo p in ArenaPresetHandler.Instance.Preset.GetType().GetProperties())
 			{
 				foreach (UIElement child in OptionInputs.Children)
 				{
@@ -86,13 +80,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 							{
 								if (!float.TryParse(textBox.Text, out float value))
 									return;
-								p.SetValue(Preset, value);
+								p.SetValue(ArenaPresetHandler.Instance.Preset, value);
 							}
 							else if (t == typeof(int))
 							{
 								if (!int.TryParse(textBox.Text, out int value))
 									return;
-								p.SetValue(Preset, value);
+								p.SetValue(ArenaPresetHandler.Instance.Preset, value);
 							}
 							else
 							{

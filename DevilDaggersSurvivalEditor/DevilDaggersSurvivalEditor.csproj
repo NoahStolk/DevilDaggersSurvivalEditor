@@ -85,6 +85,7 @@
     <Compile Include="Code\ArenaPresets\Default.cs" />
     <Compile Include="Code\ArenaPresets\CageSpherical.cs" />
     <Compile Include="Code\ArenaPresets\Islands.cs" />
+    <Compile Include="Code\ArenaPresets\Gaps.cs" />
     <Compile Include="Code\Logging.cs" />
     <Compile Include="Code\Utils\MiscUtils.cs" />
     <Compile Include="GUI\UserControls\AbstractSpawnsetUserControl.cs" />
@@ -178,7 +179,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Code\ArenaPresets\AbstractArena.cs" />
-    <Compile Include="Code\ArenaPresets\Random.cs" />
+    <Compile Include="Code\ArenaPresets\Noise.cs" />
     <Compile Include="Code\ArenaPresets\CageRectangular.cs" />
     <Compile Include="Code\ArenaPresets\Pyramid.cs" />
     <Compile Include="GUI\Windows\About.xaml.cs">
