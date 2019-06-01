@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Utils;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using Microsoft.Win32;
@@ -230,7 +231,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 						if (result == MessageBoxResult.Yes)
 						{
-							WriteSpawnsetToFile(Path.Combine(Logic.Instance.userSettings.survivalFileLocation, "survival"));
+							WriteSpawnsetToFile(Path.Combine(Logic.Instance.userSettings.SurvivalFileLocation, "survival"));
 						}
 					});
 				}
@@ -297,7 +298,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				WriteSpawnsetToFile(Path.Combine(Logic.Instance.userSettings.survivalFileLocation, "survival"));
+				WriteSpawnsetToFile(Path.Combine(Logic.Instance.userSettings.SurvivalFileLocation, "survival"));
 			}
 		}
 
@@ -308,7 +309,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				try
 				{
-					File.Replace(Path.Combine("Content", "survival"), Path.Combine(Logic.Instance.userSettings.survivalFileLocation, "survival"), null);
+					File.Replace(Path.Combine("Content", "survival"), Path.Combine(Logic.Instance.userSettings.SurvivalFileLocation, "survival"), null);
 					MessageBox.Show("Successfully restored original file.", "Success");
 				}
 				catch (Exception ex)

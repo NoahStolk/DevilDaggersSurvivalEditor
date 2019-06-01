@@ -114,7 +114,7 @@
     <Compile Include="Code\Utils\Editor\ArenaUtils.cs" />
     <Compile Include="Code\Utils\UrlUtils.cs" />
     <Compile Include="Code\SpawnsetFile.cs" />
-    <Compile Include="Code\UserSettings.cs" />
+    <Compile Include="Code\User\UserSettings.cs" />
     <Compile Include="Code\Utils\ApplicationUtils.cs" />
     <Compile Include="GUI\Windows\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
