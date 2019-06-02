@@ -92,31 +92,53 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			SpawnsetSettings.DataContext = Logic.Instance.spawnset;
 		}
 
+		public void UpdateSpawnset()
+		{
+			Dispatcher.Invoke(() =>
+			{
+				UpdateShrinkStart();
+				UpdateShrinkEnd();
+				UpdateShrinkCurrent();
+				UpdateTiles();
+			});
+		}
+
 		private void UpdateShrinkStart(object sender, TextChangedEventArgs e)
+		{
+			UpdateShrinkStart();
+			UpdateShrinkCurrent();
+			UpdateTiles();
+		}
+
+		private void UpdateShrinkEnd(object sender, TextChangedEventArgs e)
+		{
+			UpdateShrinkEnd();
+			UpdateShrinkCurrent();
+			UpdateTiles();
+		}
+
+		private void UpdateShrinkCurrent(object sender, TextChangedEventArgs e)
+		{
+			UpdateShrinkCurrent();
+			UpdateTiles();
+		}
+
+		private void UpdateShrinkStart()
 		{
 			double shrinkStartRadius = Logic.Instance.spawnset.ShrinkStart * 2;
 			ShrinkStart.Width = shrinkStartRadius * 2;
 			ShrinkStart.Height = shrinkStartRadius * 2;
 			Canvas.SetLeft(ShrinkStart, arenaCanvasCenter - shrinkStartRadius);
 			Canvas.SetTop(ShrinkStart, arenaCanvasCenter - shrinkStartRadius);
-
-			UpdateShrinkCurrent();
 		}
 
-		private void UpdateShrinkEnd(object sender, TextChangedEventArgs e)
+		private void UpdateShrinkEnd()
 		{
 			double shrinkEndRadius = Logic.Instance.spawnset.ShrinkEnd * 2;
 			ShrinkEnd.Width = shrinkEndRadius * 2;
 			ShrinkEnd.Height = shrinkEndRadius * 2;
 			Canvas.SetLeft(ShrinkEnd, arenaCanvasCenter - shrinkEndRadius);
 			Canvas.SetTop(ShrinkEnd, arenaCanvasCenter - shrinkEndRadius);
-
-			UpdateShrinkCurrent();
-		}
-
-		private void UpdateShrinkCurrent(object sender, TextChangedEventArgs e)
-		{
-			UpdateShrinkCurrent();
 		}
 
 		private void UpdateShrinkCurrent()
@@ -140,8 +162,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			ShrinkCurrent.Height = shrinkCurrentRadius * 2;
 			Canvas.SetLeft(ShrinkCurrent, arenaCanvasCenter - shrinkCurrentRadius);
 			Canvas.SetTop(ShrinkCurrent, arenaCanvasCenter - shrinkCurrentRadius);
-
-			UpdateTiles();
 		}
 
 		private void UpdateTiles()

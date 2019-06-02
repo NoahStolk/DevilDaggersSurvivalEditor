@@ -29,26 +29,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			RetrieveSpawnsetList();
 		}
 
-		private void ShowError(string title, string message, Exception ex)
-		{
-			Logging.Log.Error(message, ex);
-
-			Dispatcher.Invoke(() =>
-			{
-				ErrorWindow errorWindow = new ErrorWindow(title, message, ex);
-				errorWindow.ShowDialog();
-			});
-		}
-
-		public void ShowMessage(string title, string message)
-		{
-			Dispatcher.Invoke(() =>
-			{
-				MessageWindow messageWindow = new MessageWindow(title, message);
-				messageWindow.ShowDialog();
-			});
-		}
-
 		private void WriteSpawnsetToFile(string path)
 		{
 			if (Logic.Instance.spawnset.TryGetBytes(out byte[] bytes))
@@ -58,7 +38,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 			else
 			{
-				ShowError("An unexpected error occurred", $"Error while writing file to {path}.", null);
+				((App)Application.Current).ShowError("An unexpected error occurred", $"Error while writing file to {path}.", null);
 			}
 		}
 
@@ -85,7 +65,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 			else
 			{
-				ShowMessage("Error checking for updates", versionResult.ErrorMessage);
+				((App)Application.Current).ShowMessage("Error checking for updates", versionResult.ErrorMessage);
 			}
 		}
 
@@ -108,11 +88,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 				catch (WebException ex)
 				{
-					ShowError("Error retrieving spawnset list", $"Could not connect to {url}.", ex);
+					((App)Application.Current).ShowError("Error retrieving spawnset list", $"Could not connect to {url}.", ex);
 				}
 				catch (Exception ex)
 				{
-					ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+					((App)Application.Current).ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
 				}
 
 				Dispatcher.Invoke(() =>
@@ -213,12 +193,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 							if (Spawnset.TryParse(stream, out Logic.Instance.spawnset))
 							{
 								Logic.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
-
 								Logic.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
+
+								Logic.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
 							}
 							else
 							{
-								ShowError("Error parsing file", "Could not parse file.", null);
+								((App)Application.Current).ShowError("Error parsing file", "Could not parse file.", null);
 								return;
 							}
 						}
@@ -235,11 +216,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 				catch (WebException ex)
 				{
-					ShowError("Error downloading file", $"Could not connect to {url}.", ex);
+					((App)Application.Current).ShowError("Error downloading file", $"Could not connect to {url}.", ex);
 				}
 				catch (Exception ex)
 				{
-					ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+					((App)Application.Current).ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
 				}
 			});
 			thread.Start();
@@ -253,8 +234,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Logic.Instance.spawnset = new Spawnset();
 
 				Logic.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
-
 				Logic.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
+
+				Logic.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
 			}
 		}
 
@@ -267,14 +249,15 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out Logic.Instance.spawnset))
 				{
-					ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.", null);
+					((App)Application.Current).ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.", null);
 					return;
 				}
 			}
 
 			Logic.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
-
 			Logic.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
+
+			Logic.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
 		}
 
 		private void FileSave_Click(object sender, RoutedEventArgs e)
@@ -308,7 +291,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 				catch (Exception ex)
 				{
-					ShowError("An unexpected error occurred", "An unexpected error occurred while trying to restore the original file.", ex);
+					((App)Application.Current).ShowError("An unexpected error occurred", "An unexpected error occurred while trying to restore the original file.", ex);
 				}
 			}
 		}
@@ -357,17 +340,17 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (!versionResult.IsUpToDate.Value)
 				{
-					ShowMessage("Update recommended", $"Devil Daggers Survival Editor {versionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
+					((App)Application.Current).ShowMessage("Update recommended", $"Devil Daggers Survival Editor {versionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
 					Process.Start(UrlUtils.ApplicationDownloadUrl(versionResult.VersionNumberOnline));
 				}
 				else
 				{
-					ShowMessage("Up to date", $"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.");
+					((App)Application.Current).ShowMessage("Up to date", $"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.");
 				}
 			}
 			else
 			{
-				ShowMessage("Error checking for updates", versionResult.ErrorMessage);
+				((App)Application.Current).ShowMessage("Error checking for updates", versionResult.ErrorMessage);
 			}
 		}
 
