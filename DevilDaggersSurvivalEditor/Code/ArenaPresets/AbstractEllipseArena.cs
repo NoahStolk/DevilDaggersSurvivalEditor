@@ -6,8 +6,8 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 	{
 		public int OffsetX { get; set; }
 		public int OffsetY { get; set; }
-		public int InnerRadius { get; set; } = 8;
-		public int OuterRadius { get; set; } = 8;
+		public int InnerRadius { get; set; } = 12;
+		public int OuterRadius { get; set; } = 12;
 		public float AngleInDegrees { get; set; } = 0;
 
 		protected bool PointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius, float angleInDegrees)
