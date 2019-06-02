@@ -1,10 +1,17 @@
 ﻿using DevilDaggersSurvivalEditor.Code.Utils.Editor;
+using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public class Rectangular : AbstractRectangularArena
 	{
-		public float Height { get; set; }
+		private float height;
+
+		public float Height
+		{
+			get => height;
+			set => height = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+		}
 
 		public override float[,] GetTiles()
 		{

@@ -6,9 +6,25 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public class Gaps : AbstractRectangularArena
 	{
-		public float Height { get; set; }
-		public int Amount { get; set; } = 5;
-		public int Iterations { get; set; } = 2;
+		private float height;
+		private int amount = 5;
+		private int iterations = 2;
+
+		public float Height
+		{
+			get => height;
+			set => height = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+		}
+		public int Amount
+		{
+			get => amount;
+			set => amount = MathUtils.Clamp(value, 1, 50);
+		}
+		public int Iterations
+		{
+			get => iterations;
+			set => iterations = MathUtils.Clamp(value, 1, 20);
+		}
 
 		public override float[,] GetTiles()
 		{

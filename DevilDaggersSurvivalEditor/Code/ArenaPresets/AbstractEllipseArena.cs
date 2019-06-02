@@ -1,14 +1,42 @@
-﻿using System;
+﻿using DevilDaggersCore.Spawnset;
+using NetBase.Utils;
+using System;
 
 namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public abstract class AbstractEllipseArena : AbstractArena
 	{
-		public int OffsetX { get; set; }
-		public int OffsetY { get; set; }
-		public int InnerRadius { get; set; } = 10;
-		public int OuterRadius { get; set; } = 10;
-		public float AngleInDegrees { get; set; } = 0;
+		private int offsetX;
+		private int offsetY;
+		private int innerRadius = 10;
+		private int outerRadius = 10;
+		private float angleInDegrees;
+
+		public int OffsetX
+		{
+			get => offsetX;
+			set => offsetX = MathUtils.Clamp(value, 0, Spawnset.ArenaWidth);
+		}
+		public int OffsetY
+		{
+			get => offsetY;
+			set => offsetY = MathUtils.Clamp(value, 0, Spawnset.ArenaHeight);
+		}
+		public int InnerRadius
+		{
+			get => innerRadius;
+			set => innerRadius = MathUtils.Clamp(value, 1, 100);
+		}
+		public int OuterRadius
+		{
+			get => outerRadius;
+			set => outerRadius = MathUtils.Clamp(value, 1, 100);
+		}
+		public float AngleInDegrees
+		{
+			get => angleInDegrees;
+			set => angleInDegrees = value % 360;
+		}
 
 		protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius, float angleInDegrees)
 		{

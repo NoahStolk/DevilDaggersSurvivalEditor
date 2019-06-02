@@ -5,8 +5,19 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public class Noise : AbstractRectangularArena
 	{
-		public float MinHeight { get; set; }
-		public float MaxHeight { get; set; } = 16;
+		private float minHeight;
+		private float maxHeight = 16;
+
+		public float MinHeight
+		{
+			get => minHeight;
+			set => minHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+		}
+		public float MaxHeight
+		{
+			get => maxHeight;
+			set => maxHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+		}
 
 		public override float[,] GetTiles()
 		{

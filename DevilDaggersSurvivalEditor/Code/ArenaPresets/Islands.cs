@@ -6,11 +6,37 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public class Islands : AbstractRectangularArena
 	{
-		public float MinHeight { get; set; }
-		public float MaxHeight { get; set; } = 5;
-		public int Amount { get; set; } = 5;
-		public int Iterations { get; set; } = 2;
-		public float Steepness { get; set; } = 0.1f;
+		private float minHeight;
+		private float maxHeight = 5;
+		private int amount = 5;
+		private int iterations = 2;
+		private float steepness = 0.1f;
+
+		public float MinHeight
+		{
+			get => minHeight;
+			set => minHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+		}
+		public float MaxHeight
+		{
+			get => maxHeight;
+			set => maxHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+		}
+		public int Amount
+		{
+			get => amount;
+			set => amount = MathUtils.Clamp(value, 1, 50);
+		}
+		public int Iterations
+		{
+			get => iterations;
+			set => iterations = MathUtils.Clamp(value, 1, 20);
+		}
+		public float Steepness
+		{
+			get => steepness;
+			set => steepness = MathUtils.Clamp(value, -5, 5);
+		}
 
 		public override float[,] GetTiles()
 		{

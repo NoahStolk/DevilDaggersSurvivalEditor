@@ -1,11 +1,23 @@
 ﻿using DevilDaggersSurvivalEditor.Code.Utils.Editor;
+using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public class CageRectangular : AbstractRectangularArena
 	{
-		public float InsideHeight { get; set; }
-		public float WallHeight { get; set; } = 8;
+		private float insideHeight;
+		private float wallHeight = 8;
+
+		public float InsideHeight
+		{
+			get => insideHeight;
+			set => insideHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+		}
+		public float WallHeight
+		{
+			get => wallHeight;
+			set => wallHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+		}
 
 		public override float[,] GetTiles()
 		{
