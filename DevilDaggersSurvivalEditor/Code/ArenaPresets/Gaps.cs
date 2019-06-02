@@ -6,12 +6,14 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public class Gaps : AbstractRectangularArena
 	{
+		public float Height { get; set; }
 		public int Amount { get; set; } = 5;
 		public int Iterations { get; set; } = 2;
 
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
+			SetHeightGlobally(tiles, Height);
 
 			for (int i = 0; i < Amount; i++)
 				tiles[RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2)] = ArenaUtils.VoidDefault;
