@@ -43,13 +43,10 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 			double cosA = Math.Cos(angleInDegrees / 180 * Math.PI);
 			double sinA = Math.Sin(angleInDegrees / 180 * Math.PI);
 
-			double innerRadiusSquared = innerRadius * innerRadius;
-			double outerRadiusSquared = outerRadius * outerRadius;
-
 			double a = Math.Pow(cosA * (pointX - ellipseX) + sinA * (pointY - ellipseY), 2);
 			double b = Math.Pow(sinA * (pointX - ellipseX) - cosA * (pointY - ellipseY), 2);
 
-			return (a / innerRadiusSquared) + (b / outerRadiusSquared) <= 1;
+			return (a / (innerRadius * innerRadius)) + (b / (outerRadius * outerRadius)) <= 1;
 		}
 	}
 }
