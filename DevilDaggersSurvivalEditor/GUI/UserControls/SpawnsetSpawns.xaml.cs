@@ -3,10 +3,11 @@ using DevilDaggersSurvivalEditor.Code;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnsetSpawns : AbstractSpawnsetUserControl
+	public partial class SpawnsetSpawns : UserControl
 	{
 		public SpawnsetSpawns()
 			: base()

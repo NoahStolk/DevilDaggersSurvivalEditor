@@ -16,7 +16,7 @@ using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnsetArena : AbstractSpawnsetUserControl
+	public partial class SpawnsetArena : UserControl
 	{
 		public SpawnsetArena()
 		{
