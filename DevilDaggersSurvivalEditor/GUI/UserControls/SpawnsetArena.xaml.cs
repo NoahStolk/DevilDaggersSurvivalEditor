@@ -89,7 +89,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private Point GetTileFromMouse(object sender)
 		{
 			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
-			return new Point(MathUtils.Clamp((int)mousePosition.X / ArenaUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / ArenaUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
+			return new Point(MathUtils.Clamp((int)mousePosition.Y / ArenaUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.X / ArenaUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
 		}
 
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
@@ -208,8 +208,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			Point arenaCenter = new Point(204, 204);
 
-			int i = (int)Canvas.GetLeft(rect) / ArenaUtils.TileSize;
-			int j = (int)Canvas.GetTop(rect) / ArenaUtils.TileSize;
+			int i = (int)Canvas.GetTop(rect) / ArenaUtils.TileSize;
+			int j = (int)Canvas.GetLeft(rect) / ArenaUtils.TileSize;
 			float height = Logic.Instance.spawnset.ArenaTiles[i, j];
 
 			int x, y;
@@ -231,11 +231,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				rect.Width = ArenaUtils.TileSize;
 				rect.Height = ArenaUtils.TileSize;
-				if (Canvas.GetLeft(rect) % ArenaUtils.TileSize != 0 || Canvas.GetTop(rect) % ArenaUtils.TileSize != 0)
-				{
-					Canvas.SetLeft(rect, i * ArenaUtils.TileSize);
-					Canvas.SetTop(rect, j * ArenaUtils.TileSize);
-				}
+
+				Canvas.SetTop(rect, i * ArenaUtils.TileSize);
+				Canvas.SetLeft(rect, j * ArenaUtils.TileSize);
 			}
 			else
 			{
@@ -243,9 +241,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				rect.Height = ArenaUtils.TileSizeShrunk;
 
 				int offset = (ArenaUtils.TileSize - ArenaUtils.TileSizeShrunk) / 2;
-
-				Canvas.SetLeft(rect, i * ArenaUtils.TileSize + offset);
-				Canvas.SetTop(rect, j * ArenaUtils.TileSize + offset);
+				Canvas.SetTop(rect, i * ArenaUtils.TileSize + offset);
+				Canvas.SetLeft(rect, j * ArenaUtils.TileSize + offset);
 			}
 		}
 
