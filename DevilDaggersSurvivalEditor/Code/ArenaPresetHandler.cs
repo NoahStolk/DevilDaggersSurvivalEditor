@@ -22,6 +22,8 @@ namespace DevilDaggersSurvivalEditor.Code
 		{
 			foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName.Contains("ArenaPresets") && !t.IsAbstract))
 				ArenaPresets.Add(Activator.CreateInstance(type) as AbstractArena);
+
+			ActivePreset = ArenaPresets.Where(a => a.GetType().Name == "Default").FirstOrDefault();
 		}
 	}
 }

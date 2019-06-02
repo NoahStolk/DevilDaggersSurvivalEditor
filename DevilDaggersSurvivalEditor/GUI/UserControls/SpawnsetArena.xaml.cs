@@ -44,6 +44,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 			}
 
+			// Set the default arena
+			Logic.Instance.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
+
 			// Add arena tiles
 			for (int i = 0; i < Logic.Instance.spawnset.ArenaTiles.GetLength(0); i++)
 			{
@@ -66,11 +69,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName.Contains("ArenaPresets") && !t.IsAbstract).OrderBy(t => t.Name))
 			{
 				string typeName = type.Name.ToString();
-				ComboBoxArenaPreset.Items.Add(new ComboBoxItem()
+
+				ComboBoxItem item = new ComboBoxItem()
 				{
 					Content = typeName.ToUserFriendlyString(),
 					Tag = typeName
-				});
+				};
+				if (typeName == "Default")
+					ComboBoxArenaPreset.SelectedItem = item;
+
+				ComboBoxArenaPreset.Items.Add(item);
 			}
 
 			UpdateGUI();

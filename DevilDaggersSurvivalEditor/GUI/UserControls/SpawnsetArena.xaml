@@ -67,7 +67,7 @@
 					<Label FontWeight="Bold">Shrink preview</Label>
 					<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
 					<Label FontWeight="Bold">Arena presets</Label>
-					<ComboBox Name="ComboBoxArenaPreset" SelectedIndex="0" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
+					<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
 					<Button Click="ArenaPresetConfigureButton_Click">Configure</Button>
 					<Button Click="GenerateButton_Click">Generate</Button>
 				</StackPanel>
