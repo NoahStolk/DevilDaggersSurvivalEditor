@@ -32,7 +32,7 @@ The source code is here, so take a look at it if you do not trust it. You could 
 
 ## Changelog
 
-**2.0.0.0 - Work In Progress & To Be Released ([2.0 branch](https://bitbucket.org/NoahStolk/devildaggerssurvivaleditor/src/e54995113d8d884188fd8967af3deb0f0e440be1?at=2.0))**
+**2.0.0.0 - Work In Progress & To Be Released
 
 - Rebuilt the entire application from the ground up. The application now makes use of UserControls and proper separation of layout code, WPF binding, reflection, and a lot more stuff that makes the code much more maintainable.
 - The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
