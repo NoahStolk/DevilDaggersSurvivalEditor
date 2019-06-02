@@ -39,9 +39,9 @@ The source code is here, so take a look at it if you do not trust it. You could 
 - Made the application window resizable.
 - Fixed issue where the arena was always incorrectly rotated and mirrored.
 - Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
-- Added more presets: Cage Ellipse, Ellipse, Gaps, and Islands.
+- Added more presets: Cage Ellipse, Ellipse, Gaps, Islands, and Qbert.
 - Removed presets: Default Flat, Full, and Void (as they are now redundant).
-- Renamed some older presets.
+- Renamed and fixed some older presets.
 
 **Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
 

@@ -1,24 +1,35 @@
 ﻿using DevilDaggersCore.Spawnset;
-using DevilDaggersSurvivalEditor.Code.Utils.Editor;
-using System;
 
 namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
-	public class Pyramid : AbstractRectangularArena
+	public class Pyramid : AbstractArena
 	{
-		public float StartHeight { get; set; } = -1;
+		public float StartHeight { get; set; } = 0;
 		public float EndHeight { get; set; } = 6;
+		public int Size { get; set; } = 16;
 
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
-			SetHeightGlobally(tiles, ArenaUtils.VoidDefault);
 
-			float stepX = (StartHeight - EndHeight) / (X2 - X1 - 1);
-			float stepY = (StartHeight - EndHeight) / (Y2 - Y1 - 1);
-			for (int i = X1; i < X2; i++)
-				for (int j = Y1; j < Y2; j++)
-					tiles[i, j] = EndHeight + (Math.Abs(i - Spawnset.ArenaWidth / 2) * stepX + Math.Abs(j - Spawnset.ArenaHeight / 2) * stepY);
+			int halfSize = Size / 2;
+			for (int i = 0; i < halfSize; i++)
+			{
+				int coord = Spawnset.ArenaWidth / 2 - halfSize + i;
+
+				for (int j = 0; j <= (Spawnset.ArenaWidth / 2 - coord) * 2; j++)
+				{
+					float height = StartHeight + i / (float)halfSize * (EndHeight - StartHeight);
+
+					tiles[coord, coord + j] = height;
+					tiles[coord + j, coord] = height;
+
+					tiles[Spawnset.ArenaWidth - 1 - coord, coord + j] = height;
+					tiles[coord + j, Spawnset.ArenaHeight - 1 - coord] = height;
+				}
+
+				tiles[Spawnset.ArenaWidth / 2, Spawnset.ArenaHeight / 2] = EndHeight;
+			}
 
 			return tiles;
 		}
