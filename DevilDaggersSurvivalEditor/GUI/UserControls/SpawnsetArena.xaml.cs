@@ -273,7 +273,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 			if (heightWindow.ShowDialog() == true)
-				Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = heightWindow.tileHeight;
+				Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = MathUtils.Clamp(heightWindow.tileHeight, ArenaUtils.TileMin, ArenaUtils.TileMax);
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
