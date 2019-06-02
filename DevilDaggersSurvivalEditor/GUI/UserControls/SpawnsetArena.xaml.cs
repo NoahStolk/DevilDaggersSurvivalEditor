@@ -96,7 +96,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			Point tile = GetTileFromMouse(sender);
 
-			LabelTile.Content = tile.ToString();
+			LabelTile.Content = $"{{{tile.Y}, {tile.X}}}";
 			SetHeightText(Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 		}
 

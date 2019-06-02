@@ -14,10 +14,10 @@
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
 				<StackPanel Grid.Column="0">
-					<Label Name="LabelTile">0,0</Label>
+					<Label Name="LabelTile">{0, 0}</Label>
 				</StackPanel>
 				<StackPanel Grid.Column="1">
-					<Label Name="HeightTile">0</Label>
+					<Label Name="HeightTile">0.00</Label>
 				</StackPanel>
 			</Grid>
 			<Grid>
