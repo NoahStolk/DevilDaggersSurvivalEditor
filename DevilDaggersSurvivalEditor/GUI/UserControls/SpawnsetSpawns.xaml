@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="768" d:DesignWidth="683">
 	<Grid Height="750">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="30" />
@@ -32,31 +32,48 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*" />
 				<ColumnDefinition Width="1*" />
-				<ColumnDefinition Width="2*" />
 			</Grid.ColumnDefinitions>
 			<StackPanel Grid.Column="0">
-				<Label>Enemy</Label>
-				<Label>Delay</Label>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Enemy</Label>
+					<ComboBox Grid.Column="1" Name="ComboBoxEnemy" Height="20" SelectedIndex="0">
+						<ComboBoxItem Content="EMPTY" />
+						<ComboBoxItem Content="Squid I" />
+						<ComboBoxItem Content="Squid II" />
+						<ComboBoxItem Content="Centipede" />
+						<ComboBoxItem Content="Spider I" />
+						<ComboBoxItem Content="Leviathan" />
+						<ComboBoxItem Content="Gigapede" />
+						<ComboBoxItem Content="Squid III" />
+						<ComboBoxItem Content="Thorn" />
+						<ComboBoxItem Content="Spider II" />
+						<ComboBoxItem Content="Ghostpede" />
+					</ComboBox>
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Delay</Label>
+					<TextBox Grid.Column="1" Height="20" Name="TextBoxDelay">0</TextBox>
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="2*" />
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+					<Button Grid.Column="1" Name="AddSpawnButton" Content="Add" Click="AddSpawnButton_Click"></Button>
+					<Button Grid.Column="2" Name="InsertSpawnButton" Content="Insert" Click="InsertSpawnButton_Click"></Button>
+				</Grid>
+				<TextBlock Name="WarningLabel" FontWeight="Bold" Foreground="Red" TextWrapping="WrapWithOverflow" />
 			</StackPanel>
 			<StackPanel Grid.Column="1">
-				<ComboBox Name="ComboBoxEnemy" Height="20" SelectedIndex="0">
-					<ComboBoxItem Content="EMPTY" />
-					<ComboBoxItem Content="Squid I" />
-					<ComboBoxItem Content="Squid II" />
-					<ComboBoxItem Content="Centipede" />
-					<ComboBoxItem Content="Spider I" />
-					<ComboBoxItem Content="Leviathan" />
-					<ComboBoxItem Content="Gigapede" />
-					<ComboBoxItem Content="Squid III" />
-					<ComboBoxItem Content="Thorn" />
-					<ComboBoxItem Content="Spider II" />
-					<ComboBoxItem Content="Ghostpede" />
-				</ComboBox>
-				<TextBox Height="20" Name="TextBoxDelay">0</TextBox>
-				<Button Name="AddSpawnButton" Content="Add spawn" Click="AddSpawnButton_Click"></Button>
-				<Button Name="InsertSpawnButton" Content="Insert spawn" Click="InsertSpawnButton_Click"></Button>
-			</StackPanel>
-			<StackPanel Grid.Column="2">
 				<Button Name="EditSpawnButton" Content="Edit selected spawn(s)" Click="EditSpawnButton_Click"></Button>
 				<Button Name="DeleteSpawnButton" Content="Delete selected spawn(s)" Click="DeleteSpawnButton_Click"></Button>
 				<Button Name="ModifyDelaysButton" Content="Modify delays for selected spawn(s)" Click="ModifyDelaysButton_Click"></Button>
