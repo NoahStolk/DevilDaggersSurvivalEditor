@@ -40,8 +40,9 @@ The source code is here, so take a look at it if you do not trust it. You could 
 - Made the application window resizable.
 - Fixed issue where the arena was always incorrectly rotated and mirrored.
 - Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
-- Added more presets: Cage Ellipse, Ellipse, Gaps, Islands, and Qbert.
-- Removed presets: Default Flat, Full, and Void (as they are now redundant).
+- Added new arena presets: Cage Ellipse, Ellipse, Gaps, Islands, and Qbert.
+- Added more parameters to existing presets.
+- Removed Default Flat preset (can now be created using the new Ellipse preset).
 - Renamed and fixed some older presets.
 - Added ability to rotate and flip the arena.
 

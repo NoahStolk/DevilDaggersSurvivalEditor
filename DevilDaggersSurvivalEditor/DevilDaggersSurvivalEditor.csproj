@@ -83,6 +83,8 @@
     <Compile Include="Code\ArenaPresets\AbstractEllipseArena.cs" />
     <Compile Include="Code\ArenaPresets\AbstractRectangularArena.cs" />
     <Compile Include="Code\ArenaPresetHandler.cs" />
+    <Compile Include="Code\ArenaPresets\Full.cs" />
+    <Compile Include="Code\ArenaPresets\Void.cs" />
     <Compile Include="Code\ArenaPresets\Ellipse.cs" />
     <Compile Include="Code\ArenaPresets\Default.cs" />
     <Compile Include="Code\ArenaPresets\CageEllipse.cs" />
