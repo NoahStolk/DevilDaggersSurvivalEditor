@@ -4,6 +4,8 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public class Pyramid : AbstractArena
 	{
+		public int OffsetX { get; set; }
+		public int OffsetY { get; set; }
 		public float StartHeight { get; set; } = 0;
 		public float EndHeight { get; set; } = 6;
 		public int Size { get; set; } = 16;
@@ -21,14 +23,14 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 				{
 					float height = StartHeight + i / (float)halfSize * (EndHeight - StartHeight);
 
-					tiles[coord, coord + j] = height;
-					tiles[coord + j, coord] = height;
+					tiles[coord + OffsetX, coord + j + OffsetY] = height;
+					tiles[coord + j + OffsetX, coord + OffsetY] = height;
 
-					tiles[Spawnset.ArenaWidth - 1 - coord, coord + j] = height;
-					tiles[coord + j, Spawnset.ArenaHeight - 1 - coord] = height;
+					tiles[Spawnset.ArenaWidth - 1 - coord + OffsetX, coord + j + OffsetY] = height;
+					tiles[coord + j + OffsetX, Spawnset.ArenaHeight - 1 - coord + OffsetY] = height;
 				}
 
-				tiles[Spawnset.ArenaWidth / 2, Spawnset.ArenaHeight / 2] = EndHeight;
+				tiles[Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY] = EndHeight;
 			}
 
 			return tiles;
