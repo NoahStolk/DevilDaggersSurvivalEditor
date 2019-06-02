@@ -20,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			InsertSpawnButton.IsEnabled = false;
 		}
 
-		public void UpdateGUI()
+		public void UpdateSpawnset()
 		{
 			Dispatcher.Invoke(() =>
 			{
@@ -76,8 +76,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], delay, true));
 
 			UpdateEndLoopInternally();
-
-			UpdateGUI();
+			UpdateSpawnset();
 		}
 
 		private void InsertSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -107,8 +106,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Program.App.spawnset.Spawns.Add(max + i, shift[i]);
 
 			UpdateEndLoopInternally();
-
-			UpdateGUI();
+			UpdateSpawnset();
 		}
 
 		private void EditSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -129,8 +127,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 			UpdateEndLoopInternally();
-
-			UpdateGUI();
+			UpdateSpawnset();
 		}
 
 		private void DeleteSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -153,8 +150,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Program.App.spawnset.Spawns = newSpawns;
 
 			UpdateEndLoopInternally();
-
-			UpdateGUI();
+			UpdateSpawnset();
 		}
 
 		private void ModifyDelaysButton_Click(object sender, RoutedEventArgs e)

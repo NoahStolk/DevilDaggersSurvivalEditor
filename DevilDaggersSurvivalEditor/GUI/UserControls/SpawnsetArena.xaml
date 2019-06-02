@@ -63,16 +63,20 @@
 						<Label Grid.Column="0">Brightness</Label>
 						<TextBox Grid.Column="1" Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 					</Grid>
+
 					<Label FontWeight="Bold">Shrink preview</Label>
 					<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+					
 					<Label FontWeight="Bold">Arena presets</Label>
 					<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
 					<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
 					<Button Click="GenerateButton_Click">Generate</Button>
+					
 					<Label FontWeight="Bold">Arena tools</Label>
 					<Button Click="Rotate_Click">Rotate arena clockwise</Button>
 					<Button Click="FlipVertical_Click">Flip arena vertically</Button>
 					<Button Click="FlipHorizontal_Click">Flip arena horizontally</Button>
+					
 					<Label FontWeight="Bold">Tile tools</Label>
 					<Button Click="RoundHeights_Click">Round heights</Button>
 					<Button Click="RandomizeHeights_Click">Randomize heights</Button>
