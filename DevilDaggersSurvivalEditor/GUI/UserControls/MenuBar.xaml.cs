@@ -192,9 +192,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						{
 							if (Spawnset.TryParse(stream, out Program.App.spawnset))
 							{
-								Program.App.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
 								Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-
 								Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
 							}
 							else
@@ -233,9 +231,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				Program.App.spawnset = new Spawnset();
 
-				Program.App.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
 				Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-
 				Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
 			}
 		}
@@ -254,9 +250,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 			}
 
-			Program.App.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
 			Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-
 			Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
 		}
 

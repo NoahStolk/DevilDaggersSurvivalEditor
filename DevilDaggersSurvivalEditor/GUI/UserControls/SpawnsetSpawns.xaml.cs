@@ -22,9 +22,27 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		public void UpdateSpawnset()
 		{
+			double loopLength = 0;
+			int endLoopSpawns = 0;
+			bool loop = true;
+			for (int i = Program.App.spawnset.Spawns.Count - 1; i >= 0; i--)
+			{
+				Program.App.spawnset.Spawns[i].IsInLoop = loop;
+				if (loop)
+				{
+					loopLength += Program.App.spawnset.Spawns[i].Delay;
+					if (Program.App.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1])
+						loop = false;
+					else
+						endLoopSpawns++;
+				}
+			}
+
 			Dispatcher.Invoke(() =>
 			{
 				ListBoxSpawns.Items.Clear();
+
+				WarningLabel.Text = endLoopSpawns > 0 && loopLength < 0.5 ? $"WARNING: The end loop is only {loopLength} seconds long, which will probably result in Devil Daggers lagging and becoming unstable." : "";
 
 				double seconds = 0;
 				int totalGems = 0;
@@ -50,21 +68,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			InsertSpawnButton.IsEnabled = enabled;
 		}
 
-		/// <summary>
-		/// Updates the internal end loop.
-		/// Only call this when the spawns in the spawnset have been modified.
-		/// </summary>
-		public void UpdateEndLoopInternally()
-		{
-			bool loop = true;
-			for (int i = Program.App.spawnset.Spawns.Count - 1; i >= 0; i--)
-			{
-				Program.App.spawnset.Spawns[i].IsInLoop = loop;
-				if (loop && Program.App.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1])
-					loop = false;
-			}
-		}
-
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!double.TryParse(TextBoxDelay.Text, out double delay))
@@ -75,7 +78,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], delay, true));
 
-			UpdateEndLoopInternally();
 			UpdateSpawnset();
 		}
 
@@ -105,7 +107,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			for (int i = 0; i < shift.Count; i++)
 				Program.App.spawnset.Spawns.Add(max + i, shift[i]);
 
-			UpdateEndLoopInternally();
 			UpdateSpawnset();
 		}
 
@@ -126,7 +127,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Program.App.spawnset.Spawns[i].Delay = delay;
 			}
 
-			UpdateEndLoopInternally();
 			UpdateSpawnset();
 		}
 
@@ -149,7 +149,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.spawnset.Spawns = newSpawns;
 
-			UpdateEndLoopInternally();
 			UpdateSpawnset();
 		}
 
