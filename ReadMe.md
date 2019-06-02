@@ -35,7 +35,7 @@ The source code is here, so take a look at it if you do not trust it. You could 
 **2.0.0.0 - Work In Progress & To Be Released**
 
 - Rebuilt the entire application from the ground up. The application now makes use of UserControls and proper separation of layout code, WPF binding, reflection, and a lot more stuff that makes the code much more maintainable.
-- Performance optimizations.
+- A lot of performance optimizations.
 - The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
 - Made the application window resizable.
 - Fixed issue where the arena was always incorrectly rotated and mirrored.
@@ -43,6 +43,7 @@ The source code is here, so take a look at it if you do not trust it. You could 
 - Added more presets: Cage Ellipse, Ellipse, Gaps, Islands, and Qbert.
 - Removed presets: Default Flat, Full, and Void (as they are now redundant).
 - Renamed and fixed some older presets.
+- Added ability to rotate and flip the arena.
 
 **Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
 
@@ -79,15 +80,15 @@ The source code is here, so take a look at it if you do not trust it. You could 
 In order to understand how to create your own spawnset for Devil Daggers, there are a few basic things that you need to know.
 
 #### The spawns list
-- 10 enemies can be spawned in the game: Squid I, Squid II, Centipede, Spider I, Leviathan, Gigapede, Squid III, Thorn, Spider II, Ghostpede. (Order is defined by the survival file structure, all enemies have a one-digit ID.)
-- Additionally there's an EMPTY spawn with ID -1. This has no purpose except that the end loop starts after the last EMPTY spawn.
-- The end loop is basically the same set of spawns over and over again, faster every time.
-- Every third wave of the end loop, all Gigapedes are changed into Ghostpedes.
-- Every spawn contains one enemy and a delay value, the delay value represents the amount of seconds between the current spawn and the previous spawn.
+- 10 enemies can be spawned in the game. These are Squid I, Squid II, Centipede, Spider I, Leviathan, Gigapede, Squid III, Thorn, Spider II, and Ghostpede (respectively). The order is defined by the survival file structure. All enemies have a one-digit ID.
+- Additionally, there is an EMPTY spawn with ID -1. This has no purpose except that the end loop starts after the last EMPTY spawn.
+- Every spawn contains an enemy ID and a delay value. The enemy ID (-1 to 9) represents which enemy will be spawned. The delay value represents the amount of seconds between the current spawn and the previous spawn.
 - The delay value supports decimal values, even though the original spawnset in the game doesn't use this. This means you can spawn an enemy, for example at 4.5 seconds.
+- The end loop is the same set of spawns over and over again, faster every time. How fast it speeds up exactly is explained below, under "Advanced information".
+- Every third wave of the end loop, all Gigapedes are changed into Ghostpedes. This is hardcoded within the game and cannot be changed.
 
 #### Enemies and hand upgrades
-- Visit [devildaggers.info](https://devildaggers.info).
+- Visit the [devildaggers.info](https://devildaggers.info) wiki pages.
 
 ### GUI explanation
 
@@ -142,18 +143,17 @@ namespace DevilDaggersEndLoop
 Thanks to Bintr for figuring this out.
 
 #### The arena
-- The default arena size is 23 by 23 tiles at the start. This is equivalent to shrink radius 50 (technically the arena would be 25 by 25 but, because of shrinking controls, the outer tiles are already shrunk at the very beginning).
-- The arena shrinks in size as time goes on. The default shrink start radius is 50 and the default shrink end radius is 20. The default shrink rate is 0.025. So the default arena reaches the end radius at 1200 seconds because (50-20)/0.025 = 1200. (Although not exactly because the shrinking radius will not hit the next tiles exactly at 1200, I haven't bothered with the math behind this, but the last tiles shrink around 1187 seconds. The shrinking technically continues for about 13 seconds but no tiles are affected by it.)
 - The maximum arena size is 50 by 50.
 - The player always spawns at coordinate 25,25.
-- The original game doesn't use different tile heights, all the tiles are around height 0 (there are some tiny differences that are barely noticable, but for convenience we could say that all the tiles are at height 0 and that 0 is the default height).
-- The player can stand on tiles with height -1, but anything lower than that will result in dying (FALLEN). The default "void" height in the original game is around -1007.57, but for convenience I use the number -1000 because it doesn't matter. All tiles below -1 are essentially the same because you cannot see them or stand on them without dying.
-- The tile at coordinate 1,0 is invisible for some reason, but you can still walk on it.
-- The player can be spawned on different tile heights, though this is not recommended because some enemies will go through the floor, you won't be able to pick up any gems (they only fly towards height 0), and some really odd stuff can happen (audio glitches, no hand appearing, crashes...).
-- I set the maximum tile height of the editor to 63 because odd stuff happens when the player reaches a certain height...
-- The game crashes when you get too near the edge of a full arena (below x/y 0 or above x/y 50, and I think at/around coordinate 0,0 but I am not sure).
-- The tiles have infinitely long hitboxes but the texture only covers the top of it.
 - You can only have 1 tile per coordinate.
+- The default arena size is 23 by 23 tiles at the start. This is equivalent to shrink radius 50 (technically the arena would be 25 by 25 but, because of shrinking controls, the outer tiles are already shrunk at the very beginning).
+- The arena shrinks in size as time goes on. The default shrink start radius is 50 and the default shrink end radius is 20. The default shrink rate is 0.025. This means the default arena reaches the end radius at 1200 seconds, since (50-20)/0.025 = 1200. (Although not exactly because the shrinking radius will not hit the next tiles exactly at 1200, I haven't bothered with the math behind this, but the last tiles shrink around 1187 seconds. The shrinking technically continues for about 13 seconds but no tiles are affected by it.)
+- The original spawnset doesn't use different tile heights, all the tiles are around height 0. (Though there are some tiny differences that are barely noticable, but for convenience we could say that all the tiles are at height 0 and that 0 is the default height.)
+- The player can stand on tiles with height -1, but anything lower than that will result in dying (FALLEN). The default "void" height in the original game is around -1007.57, but for convenience I use the number -1000 because it doesn't matter. All tiles below -1 are essentially the same as you cannot see or stand on them without dying.
+- The tile at coordinate 1,0 is always invisible for some reason, but you can still walk on it.
+- The player can be spawned on different tile heights, although this is not recommended, since enemies will move through the floor, you won't be able to pick up any gems (they only fly towards height 0), and some really odd stuff can happen (audio glitches, invisible hand, and even crashes). I set the maximum tile height within the editor to 63 for this specific reason.
+- The game crashes when you get too near the edge of a full arena (below x/y 0 or above x/y 50, and I think at/around coordinate 0,0 but I am not sure).
+- The tiles have infinitely long hitboxes, but the texture only covers the top of it.
 - 1 tile height is equivalent to 1/4 of a tile (let's say it is a cube). So if you could stack tiles on top of each other, the first tile would be at height 0, the second at height 4, the third at height 8, and so on.
 - The player's jump height is equivalent to 1 tile height (1/4 of a tile).
 - The player's dagger jump height is just below 5 tile heights. So, from tile height 0, you can dagger jump on a tile with height 4, but not 5.

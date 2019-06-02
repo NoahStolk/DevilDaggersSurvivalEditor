@@ -10,7 +10,7 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 		public int OuterRadius { get; set; } = 10;
 		public float AngleInDegrees { get; set; } = 0;
 
-		protected bool PointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius, float angleInDegrees)
+		protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius, float angleInDegrees)
 		{
 			double cosA = Math.Cos(angleInDegrees / 180 * Math.PI);
 			double sinA = Math.Sin(angleInDegrees / 180 * Math.PI);
