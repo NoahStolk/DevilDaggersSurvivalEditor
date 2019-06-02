@@ -5,6 +5,7 @@ using DevilDaggersSurvivalEditor.Code.Utils.Editor;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using NetBase.Utils;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -12,20 +13,20 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class SpawnsetArena : UserControl
 	{
+		private readonly int arenaCanvasCenter;
+
+		private readonly List<Rectangle> tiles = new List<Rectangle>();
+
 		public SpawnsetArena()
 		{
 			InitializeComponent();
 
-			DispatcherTimer arenaShrinkingGuiUpdateTimer = new DispatcherTimer();
-			arenaShrinkingGuiUpdateTimer.Tick += UpdateGUI;
-			arenaShrinkingGuiUpdateTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
-			arenaShrinkingGuiUpdateTimer.Start();
+			arenaCanvasCenter = (int)ArenaTiles.Width / 2;
 
 			// Add height map
 			for (int i = 0; i < 5; i++)
@@ -68,6 +69,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					SetTileColor(rect);
 
 					ArenaTiles.Children.Add(rect);
+					tiles.Add(rect);
 				}
 			}
 
@@ -88,6 +90,112 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 			SpawnsetSettings.DataContext = Logic.Instance.spawnset;
+		}
+
+		private void UpdateShrinkStart(object sender, TextChangedEventArgs e)
+		{
+			double shrinkStartRadius = Logic.Instance.spawnset.ShrinkStart * 2;
+			ShrinkStart.Width = shrinkStartRadius * 2;
+			ShrinkStart.Height = shrinkStartRadius * 2;
+			Canvas.SetLeft(ShrinkStart, arenaCanvasCenter - shrinkStartRadius);
+			Canvas.SetTop(ShrinkStart, arenaCanvasCenter - shrinkStartRadius);
+
+			UpdateShrinkCurrent();
+		}
+
+		private void UpdateShrinkEnd(object sender, TextChangedEventArgs e)
+		{
+			double shrinkEndRadius = Logic.Instance.spawnset.ShrinkEnd * 2;
+			ShrinkEnd.Width = shrinkEndRadius * 2;
+			ShrinkEnd.Height = shrinkEndRadius * 2;
+			Canvas.SetLeft(ShrinkEnd, arenaCanvasCenter - shrinkEndRadius);
+			Canvas.SetTop(ShrinkEnd, arenaCanvasCenter - shrinkEndRadius);
+
+			UpdateShrinkCurrent();
+		}
+
+		private void UpdateShrinkCurrent(object sender, TextChangedEventArgs e)
+		{
+			UpdateShrinkCurrent();
+		}
+
+		private void UpdateShrinkCurrent()
+		{
+			if (Logic.Instance.spawnset.ShrinkRate > 0 && Logic.Instance.spawnset.ShrinkStart - Logic.Instance.spawnset.ShrinkEnd > 0)
+			{
+				ShrinkCurrentSlider.Maximum = (Logic.Instance.spawnset.ShrinkStart - Logic.Instance.spawnset.ShrinkEnd) / Logic.Instance.spawnset.ShrinkRate;
+				ShrinkCurrentSlider.IsEnabled = true;
+			}
+			else
+			{
+				ShrinkCurrentSlider.Value = 0;
+				ShrinkCurrentSlider.Maximum = 1;
+				ShrinkCurrentSlider.IsEnabled = false;
+			}
+
+			double shrinkStartRadius = Logic.Instance.spawnset.ShrinkStart * 2;
+			double shrinkEndRadius = Logic.Instance.spawnset.ShrinkEnd * 2;
+			double shrinkCurrentRadius = shrinkStartRadius - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (shrinkStartRadius - shrinkEndRadius));
+			ShrinkCurrent.Width = shrinkCurrentRadius * 2;
+			ShrinkCurrent.Height = shrinkCurrentRadius * 2;
+			Canvas.SetLeft(ShrinkCurrent, arenaCanvasCenter - shrinkCurrentRadius);
+			Canvas.SetTop(ShrinkCurrent, arenaCanvasCenter - shrinkCurrentRadius);
+
+			UpdateTiles();
+		}
+
+		private void UpdateTiles()
+		{
+			foreach (Rectangle rect in tiles)
+				SetTileColor(rect);
+		}
+
+		private void SetTileColor(Rectangle rect)
+		{
+			int coordX = (int)Canvas.GetTop(rect) / ArenaUtils.TileSize;
+			int coordY = (int)Canvas.GetLeft(rect) / ArenaUtils.TileSize;
+
+			float height = Logic.Instance.spawnset.ArenaTiles[coordX, coordY];
+			Color color = ArenaUtils.GetColorFromHeight(height);
+			rect.Fill = new SolidColorBrush(color);
+
+			int x, y;
+			if (coordX > Spawnset.ArenaWidth / 2)
+				x = coordX * ArenaUtils.TileSize + ArenaUtils.TileSize;
+			else
+				x = coordX * ArenaUtils.TileSize;
+
+			if (coordY > Spawnset.ArenaHeight / 2)
+				y = coordY * ArenaUtils.TileSize + ArenaUtils.TileSize;
+			else
+				y = coordY * ArenaUtils.TileSize;
+
+			int xFromCenter = x - arenaCanvasCenter;
+			int yFromCenter = y - arenaCanvasCenter;
+			double distance = xFromCenter * xFromCenter + (yFromCenter * yFromCenter);
+			if (distance <= ShrinkCurrent.Width * ShrinkCurrent.Width / 4)
+			{
+				if (rect.Width == ArenaUtils.TileSize)
+					return;
+
+				rect.Width = ArenaUtils.TileSize;
+				rect.Height = ArenaUtils.TileSize;
+
+				Canvas.SetTop(rect, coordX * ArenaUtils.TileSize);
+				Canvas.SetLeft(rect, coordY * ArenaUtils.TileSize);
+			}
+			else
+			{
+				if (rect.Width == ArenaUtils.TileSizeShrunk)
+					return;
+
+				rect.Width = ArenaUtils.TileSizeShrunk;
+				rect.Height = ArenaUtils.TileSizeShrunk;
+
+				int offset = (ArenaUtils.TileSize - ArenaUtils.TileSizeShrunk) / 2;
+				Canvas.SetTop(rect, coordX * ArenaUtils.TileSize + offset);
+				Canvas.SetLeft(rect, coordY * ArenaUtils.TileSize + offset);
+			}
 		}
 
 		private void SetHeightText(float height)
@@ -119,6 +227,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = MathUtils.Clamp(Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] + e.Delta / 120, ArenaUtils.TileMin, ArenaUtils.TileMax);
 
 			SetHeightText(Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+
+			// TODO: Only update one
+			UpdateTiles();
 		}
 
 		private void ArenaTiles_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -131,6 +242,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = ArenaUtils.TileDefault;
 
 			SetHeightText(Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+
+			// TODO: Only update one
+			UpdateTiles();
 		}
 
 		private void ArenaTiles_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -142,96 +256,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = heightWindow.tileHeight;
 
 			SetHeightText(Logic.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+
+			// TODO: Only update one
+			UpdateTiles();
 		}
 
 		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
+			UpdateShrinkCurrent();
 		}
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
 		{
 			ArenaPresetWindow presetWindow = new ArenaPresetWindow((ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString());
 			presetWindow.ShowDialog();
-		}
-
-		private void UpdateGUI(object sender, EventArgs e)
-		{
-			double arenaEditorRadius = ArenaTiles.Width / 2; // Assuming the arena is a square
-			double shrinkStartRadius = Logic.Instance.spawnset.ShrinkStart * 2;
-			double shrinkEndRadius = Logic.Instance.spawnset.ShrinkEnd * 2;
-
-			ShrinkStart.Width = shrinkStartRadius * 2;
-			ShrinkStart.Height = shrinkStartRadius * 2;
-			Canvas.SetLeft(ShrinkStart, arenaEditorRadius - shrinkStartRadius);
-			Canvas.SetTop(ShrinkStart, arenaEditorRadius - shrinkStartRadius);
-
-			ShrinkEnd.Width = shrinkEndRadius * 2;
-			ShrinkEnd.Height = shrinkEndRadius * 2;
-			Canvas.SetLeft(ShrinkEnd, arenaEditorRadius - shrinkEndRadius);
-			Canvas.SetTop(ShrinkEnd, arenaEditorRadius - shrinkEndRadius);
-
-			if (Logic.Instance.spawnset.ShrinkRate > 0)
-			{
-				ShrinkCurrentSlider.Maximum = (Logic.Instance.spawnset.ShrinkStart - Logic.Instance.spawnset.ShrinkEnd) / Logic.Instance.spawnset.ShrinkRate;
-				ShrinkCurrentSlider.IsEnabled = true;
-			}
-			else
-			{
-				ShrinkCurrentSlider.Value = 0;
-				ShrinkCurrentSlider.Maximum = 1;
-				ShrinkCurrentSlider.IsEnabled = false;
-			}
-
-			double shrinkCurrentRadius = shrinkStartRadius - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (shrinkStartRadius - shrinkEndRadius));
-			ShrinkCurrent.Width = shrinkCurrentRadius * 2;
-			ShrinkCurrent.Height = shrinkCurrentRadius * 2;
-			Canvas.SetLeft(ShrinkCurrent, arenaEditorRadius - shrinkCurrentRadius);
-			Canvas.SetTop(ShrinkCurrent, arenaEditorRadius - shrinkCurrentRadius);
-
-			foreach (UIElement elem in ArenaTiles.Children)
-				if (elem is Rectangle rect)
-					SetTileColor(rect);
-		}
-
-		// TODO: Optimize
-		private void SetTileColor(Rectangle rect)
-		{
-			int coordX = (int)Canvas.GetTop(rect) / ArenaUtils.TileSize;
-			int coordY = (int)Canvas.GetLeft(rect) / ArenaUtils.TileSize;
-
-			float height = Logic.Instance.spawnset.ArenaTiles[coordX, coordY];
-			rect.Fill = new SolidColorBrush(ArenaUtils.GetColorFromHeight(height));
-
-			int x, y;
-			if (coordX > Spawnset.ArenaWidth / 2)
-				x = coordX * ArenaUtils.TileSize + ArenaUtils.TileSize;
-			else
-				x = coordX * ArenaUtils.TileSize;
-
-			if (coordY > Spawnset.ArenaHeight / 2)
-				y = coordY * ArenaUtils.TileSize + ArenaUtils.TileSize;
-			else
-				y = coordY * ArenaUtils.TileSize;
-
-			int arenaCenter = 204;
-			double distance = Math.Abs((x - arenaCenter) * (x - arenaCenter) + ((y - arenaCenter) * (y - arenaCenter)));
-			if (distance <= ShrinkCurrent.Width * ShrinkCurrent.Width / 4)
-			{
-				rect.Width = ArenaUtils.TileSize;
-				rect.Height = ArenaUtils.TileSize;
-
-				Canvas.SetTop(rect, coordX * ArenaUtils.TileSize);
-				Canvas.SetLeft(rect, coordY * ArenaUtils.TileSize);
-			}
-			else
-			{
-				rect.Width = ArenaUtils.TileSizeShrunk;
-				rect.Height = ArenaUtils.TileSizeShrunk;
-
-				int offset = (ArenaUtils.TileSize - ArenaUtils.TileSizeShrunk) / 2;
-				Canvas.SetTop(rect, coordX * ArenaUtils.TileSize + offset);
-				Canvas.SetLeft(rect, coordY * ArenaUtils.TileSize + offset);
-			}
 		}
 
 		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -244,6 +282,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)
 		{
 			Logic.Instance.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
+
+			UpdateTiles();
 		}
 
 		private void Rotate_Click(object sender, RoutedEventArgs e)

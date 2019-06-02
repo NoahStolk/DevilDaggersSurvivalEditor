@@ -37,7 +37,7 @@
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 						<Label Grid.Column="0">Shrink start</Label>
-						<TextBox Grid.Column="1" Name="TextBoxShrinkStart" Text="{Binding ShrinkStart, Mode=TwoWay}" />
+						<TextBox Grid.Column="1" Name="TextBoxShrinkStart" Text="{Binding ShrinkStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkStart" />
 					</Grid>
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -45,7 +45,7 @@
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 						<Label Grid.Column="0">Shrink end</Label>
-						<TextBox Grid.Column="1" Name="TextBoxShrinkEnd" Text="{Binding ShrinkEnd, Mode=TwoWay}" />
+						<TextBox Grid.Column="1" Name="TextBoxShrinkEnd" Text="{Binding ShrinkEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkEnd" />
 					</Grid>
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -53,7 +53,7 @@
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 						<Label Grid.Column="0">Shrink rate</Label>
-						<TextBox Grid.Column="1" Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay}" />
+						<TextBox Grid.Column="1" Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkCurrent" />
 					</Grid>
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -61,7 +61,7 @@
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 						<Label Grid.Column="0">Brightness</Label>
-						<TextBox Grid.Column="1" Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay}" />
+						<TextBox Grid.Column="1" Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 					</Grid>
 					<Label FontWeight="Bold">Shrink preview</Label>
 					<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
