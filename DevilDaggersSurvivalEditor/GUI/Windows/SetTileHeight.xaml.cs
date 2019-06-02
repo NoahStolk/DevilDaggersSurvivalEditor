@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Code.Utils.Editor;
+﻿using DevilDaggersSurvivalEditor.Code;
 using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
@@ -23,13 +23,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			if (!float.TryParse(TileHeightTextBox.Text, out tileHeight))
 			{
-				MessageBox.Show("Please enter a numeric value.", "Invalid tile height value");
-				return;
-			}
-
-			if (tileHeight < ArenaUtils.TileMin || tileHeight > ArenaUtils.TileMax)
-			{
-				MessageBox.Show($"Please enter a number between {ArenaUtils.TileMin} and {ArenaUtils.TileMax}.", "Invalid tile height value");
+				// TODO: Binding validation
+				Program.App.ShowError("Invalid tile height value", "Please enter a numeric value.", null);
 				return;
 			}
 

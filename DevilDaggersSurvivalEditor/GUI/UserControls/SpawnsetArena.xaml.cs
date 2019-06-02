@@ -43,7 +43,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				for (int j = 0; j < 16; j++)
 				{
-					textBlock = new TextBlock { Background = new SolidColorBrush(ArenaUtils.GetColorFromHeight(i * 16 + j)), ToolTip = (i * 16 + j).ToString() };
+					float height = i * 16 + j;
+					textBlock = new TextBlock { Background = new SolidColorBrush(ArenaUtils.GetColorFromHeight(height)), ToolTip = height.ToString() };
 
 					Grid.SetRow(textBlock, i + 1);
 					Grid.SetColumn(textBlock, j);
@@ -62,7 +63,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					Rectangle rect = new Rectangle
 					{
 						Width = 8,
-						Height = 8
+						Height = 8,
+						Tag = $"{j},{i}"
 					};
 					Canvas.SetLeft(rect, i * 8);
 					Canvas.SetTop(rect, j * 8);
@@ -248,8 +250,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
-			// TODO: Only update one
-			UpdateTiles();
+			SetTileColor(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
 		}
 
 		private void ArenaTiles_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -263,8 +264,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
-			// TODO: Only update one
-			UpdateTiles();
+			SetTileColor(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
 		}
 
 		private void ArenaTiles_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -277,13 +277,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
-			// TODO: Only update one
-			UpdateTiles();
+			SetTileColor(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
 		}
 
 		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
 			UpdateShrinkCurrent();
+
+			// TODO: Optimize
 			UpdateTiles();
 		}
 
