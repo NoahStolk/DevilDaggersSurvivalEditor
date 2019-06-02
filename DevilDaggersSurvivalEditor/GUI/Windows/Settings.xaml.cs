@@ -10,9 +10,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			LabelSurvivalFileLocation.Text = Logic.Instance.userSettings.SurvivalFileLocation;
+			LabelSurvivalFileLocation.Text = Program.Instance.userSettings.SurvivalFileLocation;
 
-			Data.DataContext = Logic.Instance.userSettings;
+			Data.DataContext = Program.Instance.userSettings;
 
 			//foreach (CultureSettings culture in (CultureSettings[])Enum.GetValues(typeof(CultureSettings)))
 			//	ComboBoxNumberFormatting.Items.Add(new ComboBoxItem()
@@ -28,12 +28,12 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			CommonOpenFileDialog dialog = new CommonOpenFileDialog
 			{
 				IsFolderPicker = true,
-				InitialDirectory = Logic.Instance.userSettings.SurvivalFileLocation
+				InitialDirectory = Program.Instance.userSettings.SurvivalFileLocation
 			};
 			CommonFileDialogResult result = dialog.ShowDialog();
 
 			if (result == CommonFileDialogResult.Ok)
-				Logic.Instance.userSettings.SurvivalFileLocation = dialog.FileName;
+				Program.Instance.userSettings.SurvivalFileLocation = dialog.FileName;
 
 			// Make sure this window keeps being focused rather than the MainWindow
 			Focus();

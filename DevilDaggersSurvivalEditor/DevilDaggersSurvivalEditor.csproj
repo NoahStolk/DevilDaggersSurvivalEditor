@@ -115,7 +115,7 @@
     <Compile Include="GUI\Windows\Message.xaml.cs">
       <DependentUpon>Message.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Code\Logic.cs" />
+    <Compile Include="Code\Program.cs" />
     <Compile Include="Code\VersionResult.cs" />
     <Compile Include="Code\Utils\Editor\ArenaUtils.cs" />
     <Compile Include="Code\Utils\UrlUtils.cs" />
