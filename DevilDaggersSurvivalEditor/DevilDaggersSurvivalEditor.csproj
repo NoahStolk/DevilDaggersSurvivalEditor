@@ -80,10 +80,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Code\ArenaPresets\AbstractEllipseArena.cs" />
     <Compile Include="Code\ArenaPresets\AbstractRectangularArena.cs" />
     <Compile Include="Code\ArenaPresetHandler.cs" />
+    <Compile Include="Code\ArenaPresets\Ellipse.cs" />
     <Compile Include="Code\ArenaPresets\Default.cs" />
-    <Compile Include="Code\ArenaPresets\CageSpherical.cs" />
+    <Compile Include="Code\ArenaPresets\CageEllipse.cs" />
     <Compile Include="Code\ArenaPresets\Islands.cs" />
     <Compile Include="Code\ArenaPresets\Gaps.cs" />
     <Compile Include="Code\Logging.cs" />

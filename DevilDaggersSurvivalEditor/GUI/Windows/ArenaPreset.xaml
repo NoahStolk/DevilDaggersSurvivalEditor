@@ -7,17 +7,8 @@
         Height="400" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<Grid Margin="10">
 		<StackPanel>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition />
-				</Grid.ColumnDefinitions>
-				<StackPanel Grid.Column="0" Name="OptionLabels" />
-				<StackPanel Grid.Column="1" Name="OptionInputs" />
-			</Grid>
-			<StackPanel>
-				<Button Click="ApplyButton_Click">Apply</Button>
-			</StackPanel>
+			<StackPanel Name="Options" />
+			<Button Click="ApplyButton_Click">Apply</Button>
 		</StackPanel>
 	</Grid>
 </Window>

@@ -18,11 +18,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			foreach (PropertyInfo p in ArenaPresetHandler.Instance.Preset.GetType().GetProperties())
 			{
-				OptionLabels.Children.Add(new Label()
+				Label label = new Label()
 				{
 					Content = p.Name.ToUserFriendlyString(),
 					Padding = new Thickness()
-				});
+				};
 
 				TextBox textBox = new TextBox()
 				{
@@ -31,8 +31,17 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					Padding = new Thickness(),
 					Tag = p.PropertyType
 				};
+				Grid.SetColumn(textBox, 1);
 				textBox.TextChanged += TextBox_TextChanged;
-				OptionInputs.Children.Add(textBox);
+
+				Grid grid = new Grid();
+				grid.ColumnDefinitions.Add(new ColumnDefinition());
+				grid.ColumnDefinitions.Add(new ColumnDefinition());
+
+				grid.Children.Add(label);
+				grid.Children.Add(textBox);
+
+				Options.Children.Add(grid);
 			}
 		}
 
@@ -68,31 +77,37 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			foreach (PropertyInfo p in ArenaPresetHandler.Instance.Preset.GetType().GetProperties())
 			{
-				foreach (UIElement child in OptionInputs.Children)
+				foreach (UIElement child in Options.Children)
 				{
-					if (child is TextBox textBox)
+					if (child is Grid grid)
 					{
-						if (textBox.Name == p.Name)
+						foreach (UIElement gridChild in grid.Children)
 						{
-							Type t = p.PropertyType;
+							if (gridChild is TextBox textBox)
+							{
+								if (textBox.Name == p.Name)
+								{
+									Type t = p.PropertyType;
 
-							if (t == typeof(float))
-							{
-								if (!float.TryParse(textBox.Text, out float value))
-									return;
-								p.SetValue(ArenaPresetHandler.Instance.Preset, value);
-							}
-							else if (t == typeof(int))
-							{
-								if (!int.TryParse(textBox.Text, out int value))
-									return;
-								p.SetValue(ArenaPresetHandler.Instance.Preset, value);
-							}
-							else
-							{
-								Exception ex = new Exception($"Type {t} not supported in ArenaPreset TextBox.");
-								Logging.Log.Error($"Type {t} not supported in ArenaPreset TextBox.", ex);
-								throw ex;
+									if (t == typeof(float))
+									{
+										if (!float.TryParse(textBox.Text, out float value))
+											return;
+										p.SetValue(ArenaPresetHandler.Instance.Preset, value);
+									}
+									else if (t == typeof(int))
+									{
+										if (!int.TryParse(textBox.Text, out int value))
+											return;
+										p.SetValue(ArenaPresetHandler.Instance.Preset, value);
+									}
+									else
+									{
+										Exception ex = new Exception($"Type {t} not supported in ArenaPreset TextBox.");
+										Logging.Log.Error($"Type {t} not supported in ArenaPreset TextBox.", ex);
+										throw ex;
+									}
+								}
 							}
 						}
 					}

@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code.Utils.Editor;
 using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
@@ -13,7 +14,8 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 
 		public override float[,] GetTiles()
 		{
-			float[,] tiles = VoidArena();
+			float[,] tiles = CreateArenaArray();
+			SetHeightGlobally(tiles, ArenaUtils.VoidDefault);
 
 			for (int i = 0; i < Amount; i++)
 				tiles[RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2)] = RandomUtils.RandomFloat(MinHeight, MaxHeight);
@@ -27,13 +29,13 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 						float tile = tiles[j, k];
 						if (tile >= -1)
 						{
-							if (RandomUtils.Chance(50) && j > 0)
+							if (j > 0 && RandomUtils.Chance(50))
 								tiles[j - 1, k] = tile - Steepness;
-							if (RandomUtils.Chance(50) && j < Spawnset.ArenaWidth - 1)
+							if (j < Spawnset.ArenaWidth - 1 && RandomUtils.Chance(50))
 								tiles[j + 1, k] = tile - Steepness;
-							if (RandomUtils.Chance(50) && k > 0)
+							if (k > 0 && RandomUtils.Chance(50))
 								tiles[j, k - 1] = tile - Steepness;
-							if (RandomUtils.Chance(50) && k < Spawnset.ArenaHeight - 1)
+							if (k < Spawnset.ArenaHeight - 1 && RandomUtils.Chance(50))
 								tiles[j, k + 1] = tile - Steepness;
 						}
 					}

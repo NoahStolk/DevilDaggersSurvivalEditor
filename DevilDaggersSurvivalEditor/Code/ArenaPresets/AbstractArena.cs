@@ -1,5 +1,4 @@
 ﻿using DevilDaggersCore.Spawnset;
-using DevilDaggersSurvivalEditor.Code.Utils.Editor;
 
 namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
@@ -12,13 +11,11 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 			return new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 		}
 
-		protected float[,] VoidArena()
+		protected void SetHeightGlobally(float[,] arenaArray, float height)
 		{
-			float[,] tiles = CreateArenaArray();
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
-					tiles[i, j] = ArenaUtils.VoidDefault;
-			return tiles;
+					arenaArray[i, j] = height;
 		}
 	}
 }

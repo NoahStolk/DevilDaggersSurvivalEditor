@@ -25,13 +25,13 @@ namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 						float tile = tiles[j, k];
 						if (tile == ArenaUtils.VoidDefault)
 						{
-							if (RandomUtils.Chance(50) && j > 0)
+							if (j > 0 && RandomUtils.Chance(50))
 								tiles[j - 1, k] = ArenaUtils.VoidDefault;
-							if (RandomUtils.Chance(50) && j < Spawnset.ArenaWidth - 1)
+							if (j < Spawnset.ArenaWidth - 1 && RandomUtils.Chance(50))
 								tiles[j + 1, k] = ArenaUtils.VoidDefault;
-							if (RandomUtils.Chance(50) && k > 0)
+							if (k > 0 && RandomUtils.Chance(50))
 								tiles[j, k - 1] = ArenaUtils.VoidDefault;
-							if (RandomUtils.Chance(50) && k < Spawnset.ArenaHeight - 1)
+							if (k < Spawnset.ArenaHeight - 1 && RandomUtils.Chance(50))
 								tiles[j, k + 1] = ArenaUtils.VoidDefault;
 						}
 					}

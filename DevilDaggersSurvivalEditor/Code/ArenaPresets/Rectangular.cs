@@ -1,4 +1,6 @@
-﻿namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+﻿using DevilDaggersSurvivalEditor.Code.Utils.Editor;
+
+namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
 {
 	public class Rectangular : AbstractRectangularArena
 	{
@@ -6,7 +8,8 @@
 
 		public override float[,] GetTiles()
 		{
-			float[,] tiles = VoidArena();
+			float[,] tiles = CreateArenaArray();
+			SetHeightGlobally(tiles, ArenaUtils.VoidDefault);
 
 			for (int i = X1; i < X2; i++)
 				for (int j = Y1; j < Y2; j++)
