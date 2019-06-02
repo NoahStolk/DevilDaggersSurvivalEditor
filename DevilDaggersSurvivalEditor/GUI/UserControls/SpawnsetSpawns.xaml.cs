@@ -55,12 +55,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		/// </summary>
 		public void UpdateEndLoopInternally()
 		{
-			for (int i = 0; i < Logic.Instance.spawnset.Spawns.Count; i++)
+			bool loop = true;
+			for (int i = Logic.Instance.spawnset.Spawns.Count - 1; i >= 0; i--)
 			{
-				Logic.Instance.spawnset.Spawns[i].IsInLoop = true;
-				if (Logic.Instance.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1])
-					for (int j = 0; j < i; j++)
-						Logic.Instance.spawnset.Spawns[j].IsInLoop = false;
+				Logic.Instance.spawnset.Spawns[i].IsInLoop = loop;
+				if (loop && Logic.Instance.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1])
+					loop = false;
 			}
 		}
 
