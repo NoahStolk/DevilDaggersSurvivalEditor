@@ -14,7 +14,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 ## System requirements
 
 - Microsoft Windows
-- .NET Framework 4.7.2
+- .NET Framework 4.6.1 (.NET Framework 4.7.2 for version 2)
 
 ## Installation
 
