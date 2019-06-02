@@ -308,19 +308,56 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			UpdateTiles();
 		}
 
-		private void Rotate_Click(object sender, RoutedEventArgs e)
+		private void RotateClockwise_Click(object sender, RoutedEventArgs e)
 		{
+			float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
+			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+				for (int j = 0; j < Spawnset.ArenaHeight; j++)
+					newTiles[i, j] = Program.App.spawnset.ArenaTiles[Spawnset.ArenaHeight - 1 - j, i];
+
+			Program.App.spawnset.ArenaTiles = newTiles;
+
+			UpdateTiles();
+		}
+
+		private void RotateCounterClockwise_Click(object sender, RoutedEventArgs e)
+		{
+			float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+
+			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+				for (int j = 0; j < Spawnset.ArenaHeight; j++)
+					newTiles[i, j] = Program.App.spawnset.ArenaTiles[j, Spawnset.ArenaWidth - 1 - i];
+
+			Program.App.spawnset.ArenaTiles = newTiles;
+
+			UpdateTiles();
 		}
 
 		private void FlipVertical_Click(object sender, RoutedEventArgs e)
 		{
+			float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
+			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+				for (int j = 0; j < Spawnset.ArenaHeight; j++)
+					newTiles[i, j] = Program.App.spawnset.ArenaTiles[Spawnset.ArenaWidth - 1 - i, j];
+
+			Program.App.spawnset.ArenaTiles = newTiles;
+
+			UpdateTiles();
 		}
 
 		private void FlipHorizontal_Click(object sender, RoutedEventArgs e)
 		{
+			float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
+			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+				for (int j = 0; j < Spawnset.ArenaHeight; j++)
+					newTiles[i, j] = Program.App.spawnset.ArenaTiles[i, Spawnset.ArenaHeight - 1 - j];
+
+			Program.App.spawnset.ArenaTiles = newTiles;
+
+			UpdateTiles();
 		}
 
 		private void RoundHeights_Click(object sender, RoutedEventArgs e)

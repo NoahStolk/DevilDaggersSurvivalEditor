@@ -7,7 +7,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 	<Grid>
 		<StackPanel>
-			<Grid HorizontalAlignment="Left" Width="408" Height="28">
+			<Grid HorizontalAlignment="Left" Width="408" Height="30">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
 					<ColumnDefinition/>
@@ -73,9 +73,20 @@
 					<Button Click="GenerateButton_Click">Generate</Button>
 					
 					<Label FontWeight="Bold">Arena tools</Label>
-					<Button Click="Rotate_Click">Rotate arena clockwise</Button>
-					<Button Click="FlipVertical_Click">Flip arena vertically</Button>
-					<Button Click="FlipHorizontal_Click">Flip arena horizontally</Button>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0">
+							<Button Click="RotateClockwise_Click">Rotate clockwise</Button>
+							<Button Click="FlipHorizontal_Click">Flip horizontally</Button>
+						</StackPanel>
+						<StackPanel Grid.Column="1">
+							<Button Click="RotateCounterClockwise_Click">Rotate counter-clockwise</Button>
+							<Button Click="FlipVertical_Click">Flip vertically</Button>
+						</StackPanel>
+					</Grid>
 					
 					<Label FontWeight="Bold">Tile tools</Label>
 					<Button Click="RoundHeights_Click">Round heights</Button>

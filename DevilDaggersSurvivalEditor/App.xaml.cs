@@ -23,6 +23,7 @@ namespace DevilDaggersSurvivalEditor
 		private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
 			ShowError("Fatal error", e.Exception.Message, e.Exception);
+			e.Handled = true;
 		}
 
 		public void ShowError(string title, string message, Exception ex)
