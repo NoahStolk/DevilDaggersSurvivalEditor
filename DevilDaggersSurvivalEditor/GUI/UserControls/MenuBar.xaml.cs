@@ -31,14 +31,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void WriteSpawnsetToFile(string path)
 		{
-			if (Program.Instance.spawnset.TryGetBytes(out byte[] bytes))
+			if (Program.App.spawnset.TryGetBytes(out byte[] bytes))
 			{
 				File.WriteAllBytes(path, bytes);
 				MessageBox.Show($"Successfully wrote the spawnset to {path}.", "Success");
 			}
 			else
 			{
-				Program.Instance.App.ShowError("An unexpected error occurred", $"Error while writing file to {path}.", null);
+				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {path}.", null);
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 			else
 			{
-				Program.Instance.App.ShowMessage("Error checking for updates", versionResult.ErrorMessage);
+				Program.App.ShowMessage("Error checking for updates", versionResult.ErrorMessage);
 			}
 		}
 
@@ -88,11 +88,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 				catch (WebException ex)
 				{
-					Program.Instance.App.ShowError("Error retrieving spawnset list", $"Could not connect to {url}.", ex);
+					Program.App.ShowError("Error retrieving spawnset list", $"Could not connect to {url}.", ex);
 				}
 				catch (Exception ex)
 				{
-					Program.Instance.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+					Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
 				}
 
 				Dispatcher.Invoke(() =>
@@ -190,16 +190,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					{
 						using (Stream stream = new MemoryStream(client.DownloadData(url)))
 						{
-							if (Spawnset.TryParse(stream, out Program.Instance.spawnset))
+							if (Spawnset.TryParse(stream, out Program.App.spawnset))
 							{
-								Program.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
-								Program.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
+								Program.App.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
+								Program.App.MainWindow.SpawnsetSpawns.UpdateGUI();
 
-								Program.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
+								Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
 							}
 							else
 							{
-								Program.Instance.App.ShowError("Error parsing file", "Could not parse file.", null);
+								Program.App.ShowError("Error parsing file", "Could not parse file.", null);
 								return;
 							}
 						}
@@ -210,17 +210,17 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 						if (result == MessageBoxResult.Yes)
 						{
-							WriteSpawnsetToFile(Path.Combine(Program.Instance.userSettings.SurvivalFileLocation, "survival"));
+							WriteSpawnsetToFile(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
 						}
 					});
 				}
 				catch (WebException ex)
 				{
-					Program.Instance.App.ShowError("Error downloading file", $"Could not connect to {url}.", ex);
+					Program.App.ShowError("Error downloading file", $"Could not connect to {url}.", ex);
 				}
 				catch (Exception ex)
 				{
-					Program.Instance.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+					Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
 				}
 			});
 			thread.Start();
@@ -231,12 +231,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want create an empty spawnset? The current spawnset will be lost if you haven't saved it.", "New", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				Program.Instance.spawnset = new Spawnset();
+				Program.App.spawnset = new Spawnset();
 
-				Program.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
-				Program.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
+				Program.App.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
+				Program.App.MainWindow.SpawnsetSpawns.UpdateGUI();
 
-				Program.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
+				Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
 			}
 		}
 
@@ -247,17 +247,17 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (result.HasValue && result.Value)
 			{
-				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out Program.Instance.spawnset))
+				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
 				{
-					Program.Instance.App.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.", null);
+					Program.App.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.", null);
 					return;
 				}
 			}
 
-			Program.Instance.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
-			Program.Instance.MainWindow.SpawnsetSpawns.UpdateGUI();
+			Program.App.MainWindow.SpawnsetSpawns.UpdateEndLoopInternally();
+			Program.App.MainWindow.SpawnsetSpawns.UpdateGUI();
 
-			Program.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
+			Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
 		}
 
 		private void FileSave_Click(object sender, RoutedEventArgs e)
@@ -275,7 +275,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				WriteSpawnsetToFile(Path.Combine(Program.Instance.userSettings.SurvivalFileLocation, "survival"));
+				WriteSpawnsetToFile(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
 			}
 		}
 
@@ -286,12 +286,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				try
 				{
-					File.Replace(Path.Combine("Content", "survival"), Path.Combine(Program.Instance.userSettings.SurvivalFileLocation, "survival"), null);
+					File.Replace(Path.Combine("Content", "survival"), Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"), null);
 					MessageBox.Show("Successfully restored original file.", "Success");
 				}
 				catch (Exception ex)
 				{
-					Program.Instance.App.ShowError("An unexpected error occurred", "An unexpected error occurred while trying to restore the original file.", ex);
+					Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred while trying to restore the original file.", ex);
 				}
 			}
 		}
@@ -308,7 +308,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				using (StreamWriter sw = new StreamWriter(File.Create(UserSettings.FileName)))
 				{
-					sw.Write(JsonConvert.SerializeObject(Program.Instance.userSettings, Formatting.Indented));
+					sw.Write(JsonConvert.SerializeObject(Program.App.userSettings, Formatting.Indented));
 				}
 			}
 		}
@@ -340,17 +340,17 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (!versionResult.IsUpToDate.Value)
 				{
-					Program.Instance.App.ShowMessage("Update recommended", $"Devil Daggers Survival Editor {versionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
+					Program.App.ShowMessage("Update recommended", $"Devil Daggers Survival Editor {versionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
 					Process.Start(UrlUtils.ApplicationDownloadUrl(versionResult.VersionNumberOnline));
 				}
 				else
 				{
-					Program.Instance.App.ShowMessage("Up to date", $"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.");
+					Program.App.ShowMessage("Up to date", $"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.");
 				}
 			}
 			else
 			{
-				Program.Instance.App.ShowMessage("Error checking for updates", versionResult.ErrorMessage);
+				Program.App.ShowMessage("Error checking for updates", versionResult.ErrorMessage);
 			}
 		}
 

@@ -1,4 +1,6 @@
-﻿using DevilDaggersSurvivalEditor.Code;
+﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using System;
 using System.Windows;
@@ -8,6 +10,11 @@ namespace DevilDaggersSurvivalEditor
 {
 	public partial class App : Application
 	{
+		public new MainWindow MainWindow { get; set; }
+
+		public UserSettings userSettings = new UserSettings();
+		public Spawnset spawnset = new Spawnset();
+
 		public App()
 		{
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
@@ -16,7 +23,6 @@ namespace DevilDaggersSurvivalEditor
 		private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
 			ShowError("Fatal error", e.Exception.Message, e.Exception);
-			e.Handled = true;
 		}
 
 		public void ShowError(string title, string message, Exception ex)

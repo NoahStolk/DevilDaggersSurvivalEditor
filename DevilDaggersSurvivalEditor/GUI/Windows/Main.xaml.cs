@@ -14,7 +14,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 	{
 		public MainWindow()
 		{
-			Program.Instance.MainWindow = this;
+			Program.App.MainWindow = this;
 
 			InitializeComponent();
 
@@ -36,7 +36,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			if (File.Exists(UserSettings.FileName))
 				using (StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName)))
-					Program.Instance.userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+					Program.App.userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
 		}
 	}
 }

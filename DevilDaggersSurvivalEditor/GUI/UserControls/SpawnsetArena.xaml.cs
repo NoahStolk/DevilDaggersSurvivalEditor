@@ -52,12 +52,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 			// Set the default arena
-			Program.Instance.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
+			Program.App.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
 
 			// Add arena tiles
-			for (int i = 0; i < Program.Instance.spawnset.ArenaTiles.GetLength(0); i++)
+			for (int i = 0; i < Program.App.spawnset.ArenaTiles.GetLength(0); i++)
 			{
-				for (int j = 0; j < Program.Instance.spawnset.ArenaTiles.GetLength(1); j++)
+				for (int j = 0; j < Program.App.spawnset.ArenaTiles.GetLength(1); j++)
 				{
 					Rectangle rect = new Rectangle
 					{
@@ -89,7 +89,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				ComboBoxArenaPreset.Items.Add(item);
 			}
 
-			SpawnsetSettings.DataContext = Program.Instance.spawnset;
+			SpawnsetSettings.DataContext = Program.App.spawnset;
 		}
 
 		public void UpdateSpawnset()
@@ -125,7 +125,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void UpdateShrinkStart()
 		{
-			double shrinkStartRadius = Program.Instance.spawnset.ShrinkStart * 2;
+			double shrinkStartRadius = Program.App.spawnset.ShrinkStart * 2;
 			ShrinkStart.Width = shrinkStartRadius * 2;
 			ShrinkStart.Height = shrinkStartRadius * 2;
 			Canvas.SetLeft(ShrinkStart, arenaCanvasCenter - shrinkStartRadius);
@@ -134,7 +134,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void UpdateShrinkEnd()
 		{
-			double shrinkEndRadius = Program.Instance.spawnset.ShrinkEnd * 2;
+			double shrinkEndRadius = Program.App.spawnset.ShrinkEnd * 2;
 			ShrinkEnd.Width = shrinkEndRadius * 2;
 			ShrinkEnd.Height = shrinkEndRadius * 2;
 			Canvas.SetLeft(ShrinkEnd, arenaCanvasCenter - shrinkEndRadius);
@@ -143,9 +143,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void UpdateShrinkCurrent()
 		{
-			if (Program.Instance.spawnset.ShrinkRate > 0 && Program.Instance.spawnset.ShrinkStart - Program.Instance.spawnset.ShrinkEnd > 0)
+			if (Program.App.spawnset.ShrinkRate > 0 && Program.App.spawnset.ShrinkStart - Program.App.spawnset.ShrinkEnd > 0)
 			{
-				ShrinkCurrentSlider.Maximum = (Program.Instance.spawnset.ShrinkStart - Program.Instance.spawnset.ShrinkEnd) / Program.Instance.spawnset.ShrinkRate;
+				ShrinkCurrentSlider.Maximum = (Program.App.spawnset.ShrinkStart - Program.App.spawnset.ShrinkEnd) / Program.App.spawnset.ShrinkRate;
 				ShrinkCurrentSlider.IsEnabled = true;
 			}
 			else
@@ -155,8 +155,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				ShrinkCurrentSlider.IsEnabled = false;
 			}
 
-			double shrinkStartRadius = Program.Instance.spawnset.ShrinkStart * 2;
-			double shrinkEndRadius = Program.Instance.spawnset.ShrinkEnd * 2;
+			double shrinkStartRadius = Program.App.spawnset.ShrinkStart * 2;
+			double shrinkEndRadius = Program.App.spawnset.ShrinkEnd * 2;
 			double shrinkCurrentRadius = shrinkStartRadius - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (shrinkStartRadius - shrinkEndRadius));
 			ShrinkCurrent.Width = shrinkCurrentRadius * 2;
 			ShrinkCurrent.Height = shrinkCurrentRadius * 2;
@@ -175,7 +175,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			int coordX = (int)Canvas.GetTop(rect) / ArenaUtils.TileSize;
 			int coordY = (int)Canvas.GetLeft(rect) / ArenaUtils.TileSize;
 
-			float height = Program.Instance.spawnset.ArenaTiles[coordX, coordY];
+			float height = Program.App.spawnset.ArenaTiles[coordX, coordY];
 			Color color = ArenaUtils.GetColorFromHeight(height);
 			rect.Fill = new SolidColorBrush(color);
 
@@ -237,16 +237,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Point tile = GetTileFromMouse(sender);
 
 			LabelTile.Content = $"{{{tile.Y}, {tile.X}}}";
-			SetHeightText(Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 		}
 
 		private void ArenaTiles_MouseWheel(object sender, MouseWheelEventArgs e)
 		{
 			Point tile = GetTileFromMouse(sender);
 
-			Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = MathUtils.Clamp(Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] + e.Delta / 120, ArenaUtils.TileMin, ArenaUtils.TileMax);
+			Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] + e.Delta / 120, ArenaUtils.TileMin, ArenaUtils.TileMax);
 
-			SetHeightText(Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
 			// TODO: Only update one
 			UpdateTiles();
@@ -256,12 +256,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			Point tile = GetTileFromMouse(sender);
 
-			if (Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] >= ArenaUtils.TileMin)
-				Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = ArenaUtils.VoidDefault;
+			if (Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] >= ArenaUtils.TileMin)
+				Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = ArenaUtils.VoidDefault;
 			else
-				Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = ArenaUtils.TileDefault;
+				Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = ArenaUtils.TileDefault;
 
-			SetHeightText(Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
 			// TODO: Only update one
 			UpdateTiles();
@@ -271,11 +271,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			Point tile = GetTileFromMouse(sender);
 
-			SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 			if (heightWindow.ShowDialog() == true)
-				Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = heightWindow.tileHeight;
+				Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = heightWindow.tileHeight;
 
-			SetHeightText(Program.Instance.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
 			// TODO: Only update one
 			UpdateTiles();
@@ -284,6 +284,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
 			UpdateShrinkCurrent();
+			UpdateTiles();
 		}
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
@@ -301,7 +302,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)
 		{
-			Program.Instance.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
+			Program.App.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
 
 			UpdateTiles();
 		}
