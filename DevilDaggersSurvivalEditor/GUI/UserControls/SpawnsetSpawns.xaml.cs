@@ -19,7 +19,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			InsertSpawnButton.IsEnabled = false;
 		}
 
-		public override void UpdateGUI()
+		public void UpdateGUI()
 		{
 			Dispatcher.Invoke(() =>
 			{

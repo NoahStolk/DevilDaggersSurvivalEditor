@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 	<Grid>
 		<StackPanel>
-			<Grid HorizontalAlignment="Left" Width="408" Height="30">
+			<Grid HorizontalAlignment="Left" Width="408" Height="28">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
 					<ColumnDefinition/>
@@ -70,6 +70,13 @@
 					<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
 					<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
 					<Button Click="GenerateButton_Click">Generate</Button>
+					<Label FontWeight="Bold">Arena tools</Label>
+					<Button Click="Rotate_Click">Rotate arena clockwise</Button>
+					<Button Click="FlipVertical_Click">Flip arena vertically</Button>
+					<Button Click="FlipHorizontal_Click">Flip arena horizontally</Button>
+					<Label FontWeight="Bold">Tile tools</Label>
+					<Button Click="RoundHeights_Click">Round heights</Button>
+					<Button Click="RandomizeHeights_Click">Randomize heights</Button>
 				</StackPanel>
 			</Grid>
 			<Grid>

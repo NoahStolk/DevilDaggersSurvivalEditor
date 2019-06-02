@@ -7,8 +7,5 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		protected AbstractSpawnsetUserControl()
 		{
 		}
-
-		// TODO: Replace with SpawnsetLoaded method
-		public abstract void UpdateGUI();
 	}
 }
