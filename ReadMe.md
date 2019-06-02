@@ -14,7 +14,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 ## System requirements
 
 - Microsoft Windows
-- .NET Framework 4.6.1
+- .NET Framework 4.7.2
 
 ## Installation
 
@@ -23,7 +23,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 3. Run DevilDaggersSurvivalEditor.exe inside the folder.
 
 **Note:** You will almost certainly get an automatic warning from Windows saying that you should not run this application because "it has only been downloaded very few times and has an unknown publisher", or something.
-Just take a look at the source code if you do not trust the application.
+The source code is here, so take a look at it if you do not trust it. You could also run the program directly from the source if you wish.
 
 ## Links
 
@@ -32,9 +32,20 @@ Just take a look at the source code if you do not trust the application.
 
 ## Changelog
 
-**NOTE:** Version 1 is discontinued. I've set up version 2 ([2.0 branch](https://bitbucket.org/NoahStolk/devildaggerssurvivaleditor/src/e54995113d8d884188fd8967af3deb0f0e440be1?at=2.0)), but it is still a work in progress. Version 2 is basically a complete rewrite of the program, and will include plenty of new features (eventually).
+**2.0.0.0 - Work In Progress & To Be Released ([2.0 branch](https://bitbucket.org/NoahStolk/devildaggerssurvivaleditor/src/e54995113d8d884188fd8967af3deb0f0e440be1?at=2.0))**
 
-**1.1.5.0 - November 3, 2018**
+- Rebuilt the entire application from the ground up. The application now makes use of UserControls and proper separation of layout code, WPF binding, reflection, and a lot more stuff that makes the code much more maintainable.
+- The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
+- Made the application window resizable.
+- Fixed issue where the arena was always incorrectly rotated and mirrored.
+- Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
+- Added more presets: Cage Ellipse, Ellipse, Gaps, and Islands.
+- Removed presets: Default Flat, Full, and Void as they are now redundant.
+- Renamed some older presets.
+
+**Note:** Version 1 is discontinued. If you wish to view the source code for version 1.1.5.0, the latest commit is from November 4, 2018 on the master branch.
+
+**1.1.5.0 - November 4, 2018**
 
 - Added functionality to automatically check for new versions of the program.
 
@@ -157,7 +168,7 @@ And also [these two editors](https://steamcommunity.com/app/422970/discussions/0
 
 MIT License
 
-Copyright (c) 2018 Noah Stolk
+Copyright (c) 2018-2019 Noah Stolk
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

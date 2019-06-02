@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>DevilDaggersSurvivalEditor</RootNamespace>
     <AssemblyName>DevilDaggersSurvivalEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,20 +35,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Content\dd.ico</ApplicationIcon>
+    <ApplicationIcon>Content\icon24.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Infragistics.Themes.MetroDark.Wpf.1.0.0\lib\net40\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Infragistics.Themes.MetroDark.Wpf.1.0.0\lib\net40\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,32 +71,108 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Infragistics.Themes.MetroDark.Wpf.1.0.0\lib\net40\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helpers\GameHelper.cs" />
-    <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="Models\SpawnsetFile.cs" />
-    <Compile Include="Models\UserSettings.cs" />
-    <Compile Include="Helpers\Utils.cs" />
-    <Compile Include="Models\Enemy.cs" />
-    <Compile Include="Models\Spawn.cs" />
-    <Compile Include="Models\Spawnset.cs" />
-    <Compile Include="Windows\WindowTileHeight.xaml.cs">
-      <DependentUpon>WindowTileHeight.xaml</DependentUpon>
+    <Compile Include="Code\ArenaPresets\AbstractEllipseArena.cs" />
+    <Compile Include="Code\ArenaPresets\AbstractRectangularArena.cs" />
+    <Compile Include="Code\ArenaPresetHandler.cs" />
+    <Compile Include="Code\ArenaPresets\Ellipse.cs" />
+    <Compile Include="Code\ArenaPresets\Default.cs" />
+    <Compile Include="Code\ArenaPresets\CageEllipse.cs" />
+    <Compile Include="Code\ArenaPresets\Islands.cs" />
+    <Compile Include="Code\ArenaPresets\Gaps.cs" />
+    <Compile Include="Code\Logging.cs" />
+    <Compile Include="Code\Utils\MiscUtils.cs" />
+    <Compile Include="GUI\UserControls\AbstractSpawnsetUserControl.cs" />
+    <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
+      <DependentUpon>MenuBar.xaml</DependentUpon>
     </Compile>
-    <Page Include="Windows\WindowAbout.xaml">
+    <Compile Include="GUI\UserControls\Spawn.xaml.cs">
+      <DependentUpon>Spawn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\SpawnsetArena.xaml.cs">
+      <DependentUpon>SpawnsetArena.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\SpawnsetSpawns.xaml.cs">
+      <DependentUpon>SpawnsetSpawns.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Windows\ArenaPreset.xaml.cs">
+      <DependentUpon>ArenaPreset.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Windows\Error.xaml.cs">
+      <DependentUpon>Error.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Windows\CheckingForUpdates.xaml.cs">
+      <DependentUpon>CheckingForUpdates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Windows\Message.xaml.cs">
+      <DependentUpon>Message.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Logic.cs" />
+    <Compile Include="Code\VersionResult.cs" />
+    <Compile Include="Code\Utils\Editor\ArenaUtils.cs" />
+    <Compile Include="Code\Utils\UrlUtils.cs" />
+    <Compile Include="Code\SpawnsetFile.cs" />
+    <Compile Include="Code\User\UserSettings.cs" />
+    <Compile Include="Code\Utils\ApplicationUtils.cs" />
+    <Compile Include="GUI\Windows\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Windows\SetTileHeight.xaml.cs">
+      <DependentUpon>SetTileHeight.xaml</DependentUpon>
+    </Compile>
+    <Page Include="GUI\Themes\DevilDaggersSurvivalEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\WindowSettings.xaml">
+    <Page Include="GUI\UserControls\MenuBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\UserControls\Spawn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\UserControls\SpawnsetArena.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\UserControls\SpawnsetSpawns.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Windows\ArenaPreset.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Windows\Error.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Windows\CheckingForUpdates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Windows\Message.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Windows\Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\MainWindow.xaml">
+    <Page Include="GUI\Windows\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Windows\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -94,27 +180,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Presets\ArenaAbstract.cs" />
-    <Compile Include="Presets\ArenaRandom.cs" />
-    <Compile Include="Presets\ArenaCage.cs" />
-    <Compile Include="Presets\ArenaPyramid.cs" />
-    <Compile Include="Windows\WindowAbout.xaml.cs">
-      <DependentUpon>WindowAbout.xaml</DependentUpon>
+    <Compile Include="Code\ArenaPresets\AbstractArena.cs" />
+    <Compile Include="Code\ArenaPresets\Noise.cs" />
+    <Compile Include="Code\ArenaPresets\CageRectangular.cs" />
+    <Compile Include="Code\ArenaPresets\Pyramid.cs" />
+    <Compile Include="GUI\Windows\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\WindowSettings.xaml.cs">
-      <DependentUpon>WindowSettings.xaml</DependentUpon>
+    <Compile Include="GUI\Windows\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Windows\WindowTileHeight.xaml">
+    <Page Include="GUI\Windows\SetTileHeight.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Presets\ArenaRectangular.cs" />
+    <Compile Include="Code\ArenaPresets\Rectangular.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -132,6 +214,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -145,7 +230,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Content\dd.ico" />
+    <ProjectReference Include="..\..\DevilDaggersCore\DevilDaggersCore\DevilDaggersCore.csproj">
+      <Project>{5593879a-1411-4e62-a682-9431da03898f}</Project>
+      <Name>DevilDaggersCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetBase\NetBase\NetBase.csproj">
+      <Project>{99ba0c6a-5fa2-4f49-a692-694b97605096}</Project>
+      <Name>NetBase</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

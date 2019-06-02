@@ -1,0 +1,83 @@
+﻿<local:AbstractSpawnsetUserControl x:Class="DevilDaggersSurvivalEditor.GUI.UserControls.SpawnsetArena"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:DevilDaggersSurvivalEditor.GUI.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid>
+		<StackPanel>
+			<Grid HorizontalAlignment="Left" Width="408" Height="30">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Grid.Column="0">
+					<Label Name="LabelTile">0,0</Label>
+				</StackPanel>
+				<StackPanel Grid.Column="1">
+					<Label Name="HeightTile">0</Label>
+				</StackPanel>
+			</Grid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="408"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Canvas Grid.Column="0" Name="ArenaTiles" HorizontalAlignment="Left" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408">
+					<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
+					<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
+					<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1" />
+				</Canvas>
+				<StackPanel Grid.Column="1" x:Name="SpawnsetSettings">
+					<Label FontWeight="Bold">Settings</Label>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0">Shrink start</Label>
+						<TextBox Grid.Column="1" Name="TextBoxShrinkStart" Text="{Binding ShrinkStart, Mode=TwoWay}" />
+					</Grid>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0">Shrink end</Label>
+						<TextBox Grid.Column="1" Name="TextBoxShrinkEnd" Text="{Binding ShrinkEnd, Mode=TwoWay}" />
+					</Grid>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0">Shrink rate</Label>
+						<TextBox Grid.Column="1" Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay}" />
+					</Grid>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0">Brightness</Label>
+						<TextBox Grid.Column="1" Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay}" />
+					</Grid>
+					<Label FontWeight="Bold">Shrink preview</Label>
+					<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+					<Label FontWeight="Bold">Arena presets</Label>
+					<ComboBox Name="ComboBoxArenaPreset" SelectedIndex="0" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
+					<Button Click="ArenaPresetConfigureButton_Click">Configure</Button>
+					<Button Click="GenerateButton_Click">Generate</Button>
+				</StackPanel>
+			</Grid>
+			<Grid>
+				<StackPanel>
+					<Label>Height map</Label>
+					<Grid HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40" />
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+	</Grid>
+</local:AbstractSpawnsetUserControl>

@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevilDaggersSurvivalEditor", "DevilDaggersSurvivalEditor\DevilDaggersSurvivalEditor.csproj", "{1F1E41AC-3DB2-4C00-B68D-692421DAE241}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevilDaggersCore", "..\DevilDaggersCore\DevilDaggersCore\DevilDaggersCore.csproj", "{5593879A-1411-4E62-A682-9431DA03898F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBase", "..\NetBase\NetBase\NetBase.csproj", "{99BA0C6A-5FA2-4F49-A692-694B97605096}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{1F1E41AC-3DB2-4C00-B68D-692421DAE241}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F1E41AC-3DB2-4C00-B68D-692421DAE241}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F1E41AC-3DB2-4C00-B68D-692421DAE241}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5593879A-1411-4E62-A682-9431DA03898F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5593879A-1411-4E62-A682-9431DA03898F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5593879A-1411-4E62-A682-9431DA03898F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5593879A-1411-4E62-A682-9431DA03898F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,6 +4,5 @@ namespace DevilDaggersSurvivalEditor
 {
 	public partial class App : Application
 	{
-
 	}
 }
