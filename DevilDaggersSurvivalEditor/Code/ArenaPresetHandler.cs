@@ -11,7 +11,7 @@ namespace DevilDaggersSurvivalEditor.Code
 	/// </summary>
 	public sealed class ArenaPresetHandler
 	{
-		public AbstractArena Preset { get; set; }
+		public AbstractArena ActivePreset { get; set; }
 
 		public readonly List<AbstractArena> ArenaPresets = new List<AbstractArena>();
 

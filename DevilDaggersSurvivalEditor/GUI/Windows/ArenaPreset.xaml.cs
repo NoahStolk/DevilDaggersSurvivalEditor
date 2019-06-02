@@ -16,7 +16,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			Title = $"{presetName} arena preset";
 
-			foreach (PropertyInfo p in ArenaPresetHandler.Instance.Preset.GetType().GetProperties())
+			foreach (PropertyInfo p in ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties())
 			{
 				Label label = new Label()
 				{
@@ -27,7 +27,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				TextBox textBox = new TextBox()
 				{
 					Name = p.Name,
-					Text = p.GetValue(ArenaPresetHandler.Instance.Preset).ToString(),
+					Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset).ToString(),
 					Padding = new Thickness(),
 					Tag = p.PropertyType
 				};
@@ -75,7 +75,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void ApplyButton_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (PropertyInfo p in ArenaPresetHandler.Instance.Preset.GetType().GetProperties())
+			foreach (PropertyInfo p in ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties())
 			{
 				foreach (UIElement child in Options.Children)
 				{
@@ -93,13 +93,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 									{
 										if (!float.TryParse(textBox.Text, out float value))
 											return;
-										p.SetValue(ArenaPresetHandler.Instance.Preset, value);
+										p.SetValue(ArenaPresetHandler.Instance.ActivePreset, value);
 									}
 									else if (t == typeof(int))
 									{
 										if (!int.TryParse(textBox.Text, out int value))
 											return;
-										p.SetValue(ArenaPresetHandler.Instance.Preset, value);
+										p.SetValue(ArenaPresetHandler.Instance.ActivePreset, value);
 									}
 									else
 									{

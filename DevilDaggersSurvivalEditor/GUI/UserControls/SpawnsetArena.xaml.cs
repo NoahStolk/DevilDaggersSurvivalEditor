@@ -248,12 +248,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			ArenaPresetHandler.Instance.Preset = ArenaPresetHandler.Instance.ArenaPresets.Where(a => a.GetType().Name == (ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString()).FirstOrDefault();
+			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.Where(a => a.GetType().Name == (ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString()).FirstOrDefault();
 		}
 
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)
 		{
-			Logic.Instance.spawnset.ArenaTiles = ArenaPresetHandler.Instance.Preset.GetTiles();
+			Logic.Instance.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
 			UpdateGUI();
 		}
 	}
