@@ -23,6 +23,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			}
 
 			Error.DataContext = this;
+
+			OKButton.IsDefault = true;
 		}
 
 		private void OKButton_Click(object sender, RoutedEventArgs e)
