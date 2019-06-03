@@ -1,7 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.Utils;
-using DevilDaggersSurvivalEditor.Code.Utils.Editor;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using NetBase.Utils;
 using System;
@@ -68,7 +68,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					};
 					Canvas.SetLeft(rect, i * 8);
 					Canvas.SetTop(rect, j * 8);
-					SetTileColor(rect);
+					SetTile(rect);
 
 					ArenaTiles.Children.Add(rect);
 					tiles.Add(rect);
@@ -169,11 +169,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void UpdateTiles()
 		{
 			foreach (Rectangle rect in tiles)
-				SetTileColor(rect);
+				SetTile(rect);
 		}
 
-		private void SetTileColor(Rectangle rect)
+		private void SetTile(Rectangle rect)
 		{
+			// Set tile color
 			int coordX = (int)Canvas.GetTop(rect) / ArenaUtils.TileSize;
 			int coordY = (int)Canvas.GetLeft(rect) / ArenaUtils.TileSize;
 
@@ -181,6 +182,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Color color = ArenaUtils.GetColorFromHeight(height);
 			rect.Fill = new SolidColorBrush(color);
 
+			// Set tile size
 			int x, y;
 			if (coordX > Spawnset.ArenaWidth / 2)
 				x = coordX * ArenaUtils.TileSize + ArenaUtils.TileSize;
@@ -250,7 +252,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
-			SetTileColor(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
+			SetTile(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
 		}
 
 		private void ArenaTiles_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -264,7 +266,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
-			SetTileColor(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
+			SetTile(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
 		}
 
 		private void ArenaTiles_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -277,7 +279,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
 
-			SetTileColor(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
+			SetTile(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
 		}
 
 		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

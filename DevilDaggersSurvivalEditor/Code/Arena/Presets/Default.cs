@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Default : AbstractArena
 	{

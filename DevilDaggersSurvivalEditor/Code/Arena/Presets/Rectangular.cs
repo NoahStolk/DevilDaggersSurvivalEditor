@@ -1,7 +1,6 @@
-﻿using DevilDaggersSurvivalEditor.Code.Utils.Editor;
-using NetBase.Utils;
+﻿using NetBase.Utils;
 
-namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Rectangular : AbstractRectangularArena
 	{

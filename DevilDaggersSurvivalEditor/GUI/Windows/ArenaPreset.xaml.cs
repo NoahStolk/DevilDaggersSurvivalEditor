@@ -1,4 +1,5 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.Utils;
 using System;
 using System.Reflection;

@@ -1,6 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 
-namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public abstract class AbstractArena
 	{

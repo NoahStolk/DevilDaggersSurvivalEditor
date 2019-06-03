@@ -1,7 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
 using NetBase.Utils;
 
-namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public abstract class AbstractRectangularArena : AbstractArena
 	{

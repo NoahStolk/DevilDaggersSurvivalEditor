@@ -1,8 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
-using DevilDaggersSurvivalEditor.Code.Utils.Editor;
 using NetBase.Utils;
 
-namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class CageEllipse : AbstractEllipseArena
 	{

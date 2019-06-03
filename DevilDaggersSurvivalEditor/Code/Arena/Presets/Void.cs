@@ -1,6 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Code.Utils.Editor;
-
-namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+﻿namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Void : AbstractArena
 	{

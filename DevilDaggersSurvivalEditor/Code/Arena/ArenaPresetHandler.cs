@@ -1,10 +1,10 @@
-﻿using DevilDaggersSurvivalEditor.Code.ArenaPresets;
+﻿using DevilDaggersSurvivalEditor.Code.Arena.Presets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace DevilDaggersSurvivalEditor.Code
+namespace DevilDaggersSurvivalEditor.Code.Arena
 {
 	/// <summary>
 	/// Singleton class to create all arena presets automatically through reflection and keep them in memory rather than re-instantiating them every time so their settings are remembered.

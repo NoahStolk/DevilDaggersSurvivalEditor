@@ -80,17 +80,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Code\ArenaPresets\AbstractEllipseArena.cs" />
-    <Compile Include="Code\ArenaPresets\AbstractRectangularArena.cs" />
-    <Compile Include="Code\ArenaPresetHandler.cs" />
-    <Compile Include="Code\ArenaPresets\Full.cs" />
-    <Compile Include="Code\ArenaPresets\Void.cs" />
-    <Compile Include="Code\ArenaPresets\Ellipse.cs" />
-    <Compile Include="Code\ArenaPresets\Default.cs" />
-    <Compile Include="Code\ArenaPresets\CageEllipse.cs" />
-    <Compile Include="Code\ArenaPresets\Islands.cs" />
-    <Compile Include="Code\ArenaPresets\Gaps.cs" />
-    <Compile Include="Code\ArenaPresets\Pyramid.cs" />
+    <Compile Include="Code\Arena\Presets\AbstractEllipseArena.cs" />
+    <Compile Include="Code\Arena\Presets\AbstractRectangularArena.cs" />
+    <Compile Include="Code\Arena\ArenaPresetHandler.cs" />
+    <Compile Include="Code\Arena\Presets\Full.cs" />
+    <Compile Include="Code\Arena\Presets\Void.cs" />
+    <Compile Include="Code\Arena\Presets\Ellipse.cs" />
+    <Compile Include="Code\Arena\Presets\Default.cs" />
+    <Compile Include="Code\Arena\Presets\CageEllipse.cs" />
+    <Compile Include="Code\Arena\Presets\Islands.cs" />
+    <Compile Include="Code\Arena\Presets\Gaps.cs" />
+    <Compile Include="Code\Arena\Presets\Pyramid.cs" />
     <Compile Include="Code\Logging.cs" />
     <Compile Include="Code\Utils\MiscUtils.cs" />
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
@@ -119,7 +119,7 @@
     </Compile>
     <Compile Include="Code\Program.cs" />
     <Compile Include="Code\VersionResult.cs" />
-    <Compile Include="Code\Utils\Editor\ArenaUtils.cs" />
+    <Compile Include="Code\Arena\ArenaUtils.cs" />
     <Compile Include="Code\Utils\UrlUtils.cs" />
     <Compile Include="Code\SpawnsetFile.cs" />
     <Compile Include="Code\User\UserSettings.cs" />
@@ -182,10 +182,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Code\ArenaPresets\AbstractArena.cs" />
-    <Compile Include="Code\ArenaPresets\Noise.cs" />
-    <Compile Include="Code\ArenaPresets\CageRectangular.cs" />
-    <Compile Include="Code\ArenaPresets\Qbert.cs" />
+    <Compile Include="Code\Arena\Presets\AbstractArena.cs" />
+    <Compile Include="Code\Arena\Presets\Noise.cs" />
+    <Compile Include="Code\Arena\Presets\CageRectangular.cs" />
+    <Compile Include="Code\Arena\Presets\Qbert.cs" />
     <Compile Include="GUI\Windows\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -198,7 +198,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\ArenaPresets\Rectangular.cs" />
+    <Compile Include="Code\Arena\Presets\Rectangular.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

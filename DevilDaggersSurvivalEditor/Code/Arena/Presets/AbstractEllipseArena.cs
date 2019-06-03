@@ -2,7 +2,7 @@
 using NetBase.Utils;
 using System;
 
-namespace DevilDaggersSurvivalEditor.Code.ArenaPresets
+namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public abstract class AbstractEllipseArena : AbstractArena
 	{

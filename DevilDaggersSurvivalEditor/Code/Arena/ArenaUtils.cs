@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace DevilDaggersSurvivalEditor.Code.Utils.Editor
+namespace DevilDaggersSurvivalEditor.Code.Arena
 {
 	public static class ArenaUtils
 	{
