@@ -4,6 +4,10 @@ using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena
 {
+	/// <summary>
+	/// Provides a simple structure containing a read-only integer coordinate that is specific to the arena. Also provides arena tile constants and utility methods.
+	/// This struct should not be used for arena indexing, as coordinates are useless in that case. Use the struct for GUI-related tasks.
+	/// </summary>
 	public struct ArenaCoord
 	{
 		public const int TileMin = -1;
@@ -29,9 +33,6 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 
 		public static Color GetColorFromHeight(float height)
 		{
-			if (height < TileMin)
-				return Color.FromRgb(0, 0, 0);
-
 			float colorValue = Math.Max(0, (height - TileMin) * 12 + 32);
 
 			return Color.FromRgb((byte)colorValue, (byte)(colorValue / 2), (byte)((height - TileMin) * 4));

@@ -177,6 +177,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			// Set tile color
 			float height = Program.App.spawnset.ArenaTiles[tile.X, tile.Y];
+
+			if (height < ArenaCoord.TileMin)
+			{
+				rect.Visibility = Visibility.Hidden;
+				return;
+			}
+			rect.Visibility = Visibility.Visible;
+
 			Color color = ArenaCoord.GetColorFromHeight(height);
 			rect.Fill = new SolidColorBrush(color);
 
