@@ -6,7 +6,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 {
 	/// <summary>
 	/// Provides a simple structure containing a read-only integer coordinate that is specific to the arena. Also provides arena tile constants and utility methods.
-	/// This struct should not be used for arena indexing, as coordinates are useless in that case. Use the struct for GUI-related tasks.
+	/// This struct should not be used for arena indexing (hence why there is no tile height property), as coordinates are useless in that case (indexing is done through a two-dimensional array of floats).
+	/// Use the struct for GUI-related tasks only.
 	/// </summary>
 	public struct ArenaCoord
 	{
