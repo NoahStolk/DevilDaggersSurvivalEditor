@@ -18,9 +18,13 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 		private static readonly Lazy<ArenaPresetHandler> lazy = new Lazy<ArenaPresetHandler>(() => new ArenaPresetHandler());
 		public static ArenaPresetHandler Instance => lazy.Value;
 
+		public IEnumerable<Type> PresetTypes { get; private set; }
+
 		private ArenaPresetHandler()
 		{
-			foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName.Contains("ArenaPresets") && !t.IsAbstract))
+			PresetTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName.Contains("Arena.Presets") && !t.IsAbstract).OrderBy(t => t.Name);
+
+			foreach (Type type in PresetTypes)
 				ArenaPresets.Add(Activator.CreateInstance(type) as AbstractArena);
 
 			ActivePreset = ArenaPresets.Where(a => a.GetType().Name == "Default").FirstOrDefault();

@@ -76,7 +76,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 			// Add presets via Reflection
-			foreach (Type type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName.Contains("ArenaPresets") && !t.IsAbstract).OrderBy(t => t.Name))
+			foreach (Type type in ArenaPresetHandler.Instance.PresetTypes)
 			{
 				string typeName = type.Name.ToString();
 
