@@ -80,7 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Code\Arena\Coord.cs" />
+    <Compile Include="Code\Arena\ArenaCoord.cs" />
     <Compile Include="Code\Arena\Presets\AbstractEllipseArena.cs" />
     <Compile Include="Code\Arena\Presets\AbstractRectangularArena.cs" />
     <Compile Include="Code\Arena\ArenaPresetHandler.cs" />
@@ -120,7 +120,6 @@
     </Compile>
     <Compile Include="Code\Program.cs" />
     <Compile Include="Code\VersionResult.cs" />
-    <Compile Include="Code\Arena\ArenaUtils.cs" />
     <Compile Include="Code\Utils\UrlUtils.cs" />
     <Compile Include="Code\SpawnsetFile.cs" />
     <Compile Include="Code\User\UserSettings.cs" />

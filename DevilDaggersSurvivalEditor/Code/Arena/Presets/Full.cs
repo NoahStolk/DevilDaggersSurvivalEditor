@@ -9,7 +9,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float Height
 		{
 			get => height;
-			set => height = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+			set => height = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
 		}
 
 		public override float[,] GetTiles()

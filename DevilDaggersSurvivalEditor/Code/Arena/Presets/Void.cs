@@ -6,7 +6,7 @@
 		{
 			float[,] tiles = CreateArenaArray();
 
-			SetHeightGlobally(tiles, ArenaUtils.VoidDefault);
+			SetHeightGlobally(tiles, ArenaCoord.VoidDefault);
 
 			return tiles;
 		}

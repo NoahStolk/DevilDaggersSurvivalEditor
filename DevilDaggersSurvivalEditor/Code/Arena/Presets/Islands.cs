@@ -14,12 +14,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float MinHeight
 		{
 			get => minHeight;
-			set => minHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+			set => minHeight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
 		}
 		public float MaxHeight
 		{
 			get => maxHeight;
-			set => maxHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+			set => maxHeight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
 		}
 		public int Amount
 		{
@@ -40,7 +40,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
-			SetHeightGlobally(tiles, ArenaUtils.VoidDefault);
+			SetHeightGlobally(tiles, ArenaCoord.VoidDefault);
 
 			for (int i = 0; i < Amount; i++)
 				tiles[RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2)] = RandomUtils.RandomFloat(MinHeight, MaxHeight);

@@ -10,18 +10,18 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float InsideHeight
 		{
 			get => insideHeight;
-			set => insideHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+			set => insideHeight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
 		}
 		public float WallHeight
 		{
 			get => wallHeight;
-			set => wallHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+			set => wallHeight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
 		}
 
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
-			SetHeightGlobally(tiles, ArenaUtils.VoidDefault);
+			SetHeightGlobally(tiles, ArenaCoord.VoidDefault);
 
 			for (int i = X1; i < X2; i++)
 				for (int j = Y1; j < Y2; j++)

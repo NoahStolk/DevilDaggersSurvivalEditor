@@ -24,12 +24,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float StartHeight
 		{
 			get => startheight;
-			set => startheight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+			set => startheight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
 		}
 		public float EndHeight
 		{
 			get => endHeight;
-			set => endHeight = MathUtils.Clamp(value, ArenaUtils.TileMin, ArenaUtils.TileMax);
+			set => endHeight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
 		}
 		public int Size
 		{
