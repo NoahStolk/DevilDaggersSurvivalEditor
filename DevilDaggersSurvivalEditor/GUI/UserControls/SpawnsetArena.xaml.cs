@@ -64,7 +64,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					{
 						Width = 8,
 						Height = 8,
-						Tag = $"{j},{i}"
+						Tag = new Coord(j, i)
 					};
 					Canvas.SetLeft(rect, i * 8);
 					Canvas.SetTop(rect, j * 8);
@@ -230,56 +230,56 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			HeightTile.Content = voidTile ? "Void" : height.ToString("0.00");
 		}
 
-		private Point GetTileFromMouse(object sender)
+		private Coord GetTileFromMouse(object sender)
 		{
 			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
-			return new Point(MathUtils.Clamp((int)mousePosition.Y / ArenaUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.X / ArenaUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
+			return new Coord(MathUtils.Clamp((int)mousePosition.Y / ArenaUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.X / ArenaUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
 		}
 
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
 		{
-			Point tile = GetTileFromMouse(sender);
+			Coord tile = GetTileFromMouse(sender);
 
 			LabelTile.Content = $"{{{tile.Y}, {tile.X}}}";
-			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
 
 		private void ArenaTiles_MouseWheel(object sender, MouseWheelEventArgs e)
 		{
-			Point tile = GetTileFromMouse(sender);
+			Coord tile = GetTileFromMouse(sender);
 
-			Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] + e.Delta / 120, ArenaUtils.TileMin, ArenaUtils.TileMax);
+			Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[tile.X, tile.Y] + e.Delta / 120, ArenaUtils.TileMin, ArenaUtils.TileMax);
 
-			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 
-			SetTile(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
+			SetTile(tiles.Where(t => (Coord)t.Tag == tile).FirstOrDefault());
 		}
 
 		private void ArenaTiles_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			Point tile = GetTileFromMouse(sender);
+			Coord tile = GetTileFromMouse(sender);
 
-			if (Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] >= ArenaUtils.TileMin)
-				Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = ArenaUtils.VoidDefault;
+			if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= ArenaUtils.TileMin)
+				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = ArenaUtils.VoidDefault;
 			else
-				Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = ArenaUtils.TileDefault;
+				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = ArenaUtils.TileDefault;
 
-			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 
-			SetTile(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
+			SetTile(tiles.Where(t => (Coord)t.Tag == tile).FirstOrDefault());
 		}
 
 		private void ArenaTiles_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			Point tile = GetTileFromMouse(sender);
+			Coord tile = GetTileFromMouse(sender);
 
-			SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 			if (heightWindow.ShowDialog() == true)
-				Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y] = heightWindow.TileHeight;
+				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = heightWindow.TileHeight;
 
-			SetHeightText(Program.App.spawnset.ArenaTiles[(int)tile.X, (int)tile.Y]);
+			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 
-			SetTile(tiles.Where(t => (string)t.Tag == $"{tile.X},{tile.Y}").FirstOrDefault());
+			SetTile(tiles.Where(t => (Coord)t.Tag == tile).FirstOrDefault());
 		}
 
 		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
