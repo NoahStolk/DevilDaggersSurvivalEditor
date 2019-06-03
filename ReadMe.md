@@ -106,27 +106,26 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 
 #### The end loop
 - This C# console application shows all the end loop spawn seconds for the first 20 waves:
-```
+```cs
 using System;
-using System.Collections.Generic;
 
 namespace DevilDaggersEndLoop
 {
 	public static class Program
 	{
-		public static void Main(string[] args)
+		public static void Main()
 		{
-			const double physicsTick = 1f / 60f;
+			const float physicsTick = 1 / 60f;
 
-			List<int> loopSeconds = new List<int> { 5, 8, 11, 16, 21, 22, 23, 33, 34, 35, 40, 41, 46, 51, 56 };
+			int[] loopSeconds = new int[] { 5, 8, 11, 16, 21, 22, 23, 33, 34, 35, 40, 41, 46, 51, 56 };
 
-			double waveModifier = 0f;
-			double seconds = 451f; // loop start
+			double waveModifier = 0.0;
+			double seconds = 451.0; // loop start
 
 			for (int i = 0; i < 20; i++) // wave index
 			{
-				double enemyTimer = 0f;
-				for (int j = 0; j < loopSeconds.Count; j++)
+				double enemyTimer = 0.0;
+				for (int j = 0; j < loopSeconds.Length; j++)
 				{
 					while (enemyTimer < loopSeconds[j])
 					{
@@ -135,13 +134,13 @@ namespace DevilDaggersEndLoop
 					}
 					Console.WriteLine((Math.Floor(seconds * 60) / 60).ToString("0.0000"));
 				}
-				waveModifier += physicsTick / 8f; // After every end wave, each enemy spawns an added 12.5% (100% / 8) faster.
+				waveModifier += physicsTick / 8.0; // After every end wave, each enemy spawns an added 12.5% (100% / 8) faster.
 			}
 		}
 	}
 }
 ```
-Thanks to Bintr for figuring this out.
+Thanks to Bintr for figuring out how the end loop speeds up.
 
 #### The arena
 - The maximum arena size is 50 by 50.
