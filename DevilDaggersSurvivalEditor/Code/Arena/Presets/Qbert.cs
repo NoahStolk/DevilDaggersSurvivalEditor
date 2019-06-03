@@ -14,12 +14,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public int OffsetX
 		{
 			get => offsetX;
-			set => offsetX = MathUtils.Clamp(value, 0, Spawnset.ArenaWidth);
+			set => offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
 		public int OffsetY
 		{
 			get => offsetY;
-			set => offsetY = MathUtils.Clamp(value, 0, Spawnset.ArenaHeight);
+			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
 		public float StartHeight
 		{
