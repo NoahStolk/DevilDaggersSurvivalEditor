@@ -106,7 +106,7 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 
 #### The end loop
 - This C# console application shows all the end loop spawn seconds for the first 20 waves:
-```cs
+```csharp
 using System;
 
 namespace DevilDaggersEndLoop
