@@ -143,16 +143,19 @@ namespace DevilDaggersEndLoop
 Thanks to Bintr for figuring out how the end loop speeds up.
 
 #### The arena
-- The maximum arena size is 50 by 50.
-- The player always spawns at coordinate 25,25.
+- The maximum arena size is 51 by 51.
+- The player always spawns at coordinate {25, 25}.
 - You can only have 1 tile per coordinate.
 - The default arena size is 23 by 23 tiles at the start. This is equivalent to shrink radius 50 (technically the arena would be 25 by 25 but, because of shrinking controls, the outer tiles are already shrunk at the very beginning).
 - The arena shrinks in size as time goes on. The default shrink start radius is 50 and the default shrink end radius is 20. The default shrink rate is 0.025. This means the default arena reaches the end radius at 1200 seconds, since (50-20)/0.025 = 1200. (Although not exactly because the shrinking radius will not hit the next tiles exactly at 1200, I haven't bothered with the math behind this, but the last tiles shrink around 1187 seconds. The shrinking technically continues for about 13 seconds but no tiles are affected by it.)
 - The original spawnset doesn't use different tile heights, all the tiles are around height 0. (Though there are some tiny differences that are barely noticable, but for convenience we could say that all the tiles are at height 0 and that 0 is the default height.)
-- The player can stand on tiles with height -1, but anything lower than that will result in dying (FALLEN). The default "void" height in the original game is around -1007.57, but for convenience I use the number -1000 because it doesn't matter. All tiles below -1 are essentially the same as you cannot see or stand on them without dying.
-- The tile at coordinate 1,0 is always invisible for some reason, but you can still walk on it.
-- The player can be spawned on different tile heights, although this is not recommended, since enemies will move through the floor, you won't be able to pick up any gems (they only fly towards height 0), and some really odd stuff can happen (audio glitches, invisible hand, and even crashes). I set the maximum tile height within the editor to 63 for this specific reason.
-- The game crashes when you get too near the edge of a full arena (below x/y 0 or above x/y 50, and I think at/around coordinate 0,0 but I am not sure).
+- The player can stand on tiles with height -1, but anything lower than that will result in the tile falling down immediately. All tiles below -1 are essentially the same for this reason, so the editor considers any tile with a height below -1 to be "void".
+- The tile at coordinate {1, 0} is always invisible for some reason, but you can still walk on it.
+- The player can be spawned on different tile heights.
+- Enemies and gems do not react to different tile heights, only the player, the daggers, and some effects do (like Thorn spawn smokes, meat chunks, etc).
+- The maximum tile height within the editor is set to 63, because anything higher than that seems unnecessary and the main light in the game doesn't reach that far so everything is completely black.
+- Setting the tile at coordinate {25, 27} to a value higher than around 0.4975 seems to cause some really odd stuff like audio glitches, invisible hand, and possibly even game crashes. (Only tested this on one PC, so needs more confirmation, and maybe a bit more testing to be absolutely sure.)
+- The game crashes when you get too near the edge of a full arena (outside of the regular 51x51 range, and I think at or around coordinate {0, 0} but I am not sure).
 - The tiles have infinitely long hitboxes, but the texture only covers the top of it.
 - 1 tile height is equivalent to 1/4 of a tile (let's say it is a cube). So if you could stack tiles on top of each other, the first tile would be at height 0, the second at height 4, the third at height 8, and so on.
 - The player's jump height is equivalent to 1 tile height (1/4 of a tile).
