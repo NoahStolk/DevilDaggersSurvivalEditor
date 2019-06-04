@@ -12,6 +12,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 	public sealed class ArenaPresetHandler
 	{
 		public AbstractArena ActivePreset { get; set; }
+		public AbstractArena DefaultPreset { get; private set; }
 
 		public readonly List<AbstractArena> ArenaPresets = new List<AbstractArena>();
 
@@ -27,7 +28,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			foreach (Type type in PresetTypes)
 				ArenaPresets.Add(Activator.CreateInstance(type) as AbstractArena);
 
-			ActivePreset = ArenaPresets.Where(a => a.GetType().Name == "Default").FirstOrDefault();
+			DefaultPreset = ArenaPresets.Where(a => a.GetType().Name == "Default").FirstOrDefault();
+			ActivePreset = DefaultPreset;
 		}
 	}
 }

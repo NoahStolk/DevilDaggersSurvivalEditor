@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Utils;
 using DevilDaggersSurvivalEditor.GUI.Windows;
@@ -229,7 +230,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want create an empty spawnset? The current spawnset will be lost if you haven't saved it.", "New", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				Program.App.spawnset = new Spawnset();
+				Program.App.spawnset = new Spawnset
+				{
+					ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
+				};
 
 				Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
 				Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();

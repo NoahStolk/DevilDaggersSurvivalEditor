@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using System;
@@ -13,7 +14,10 @@ namespace DevilDaggersSurvivalEditor
 		public new MainWindow MainWindow { get; set; }
 
 		public UserSettings userSettings = new UserSettings();
-		public Spawnset spawnset = new Spawnset();
+		public Spawnset spawnset = new Spawnset
+		{
+			ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
+		};
 
 		public App()
 		{

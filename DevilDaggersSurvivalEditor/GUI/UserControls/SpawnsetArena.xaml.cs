@@ -51,9 +51,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 			}
 
-			// Set the default arena
-			Program.App.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
-
 			// Add arena tiles
 			for (int i = 0; i < Program.App.spawnset.ArenaTiles.GetLength(0); i++)
 			{
