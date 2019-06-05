@@ -19,7 +19,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 	{
 		private readonly int arenaCanvasCenter;
 
-		private readonly List<Rectangle> tilesElements = new List<Rectangle>();
+		private readonly Rectangle[,] tileElements = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
 		public SpawnsetArena()
 		{
@@ -52,22 +52,21 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 			// Add arena tiles
-			for (int i = 0; i < Program.App.spawnset.ArenaTiles.GetLength(0); i++)
+			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 			{
-				for (int j = 0; j < Program.App.spawnset.ArenaTiles.GetLength(1); j++)
+				for (int j = 0; j < Spawnset.ArenaHeight; j++)
 				{
 					Rectangle rect = new Rectangle
 					{
-						Width = 8,
-						Height = 8,
-						Tag = new ArenaCoord(j, i)
+						Width = TileUtils.TileSize,
+						Height = TileUtils.TileSize
 					};
-					Canvas.SetLeft(rect, i * 8);
-					Canvas.SetTop(rect, j * 8);
-					SetTile(rect);
-
+					Canvas.SetLeft(rect, i * TileUtils.TileSize);
+					Canvas.SetTop(rect, j * TileUtils.TileSize);
 					ArenaTiles.Children.Add(rect);
-					tilesElements.Add(rect);
+					tileElements[i, j] = rect;
+
+					SetTile(new ArenaCoord(i, j));
 				}
 			}
 
@@ -105,8 +104,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			Dispatcher.Invoke(() =>
 			{
-				// TODO: Only update tile {25, 27}
-				UpdateTiles();
+				SetTile(new ArenaCoord(25, 27));
 			});
 		}
 
@@ -173,23 +171,22 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void UpdateTiles()
 		{
-			foreach (Rectangle rect in tilesElements)
-				SetTile(rect);
+			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+				for (int j = 0; j < Spawnset.ArenaHeight; j++)
+					SetTile(new ArenaCoord(i, j));
 		}
 
-		// I don't really like this approach, maybe use a dictionary of ArenaCoords and Rectangles instead of passing the Rectangles and having an ArenaCoord as Tag.
-		private void SetTile(Rectangle rect)
+		private void SetTile(ArenaCoord tile)
 		{
-			ArenaCoord tile = (ArenaCoord)rect.Tag;
-
 			if (Program.App.userSettings.LockTile2527)
-				Program.App.spawnset.ArenaTiles[27, 25] = Math.Min(Program.App.spawnset.ArenaTiles[27, 25], TileUtils.Tile2527Max);
+				Program.App.spawnset.ArenaTiles[25, 27] = Math.Min(Program.App.spawnset.ArenaTiles[25, 27], TileUtils.Tile2527Max);
 
-			WarningLabel.Text = Program.App.spawnset.ArenaTiles[27, 25] > TileUtils.Tile2527Max ? $"WARNING: The tile at coordinate {{25, 27}} has a height value greater than {TileUtils.Tile2527Max}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to be in the safe range in the Options > Settings menu." : "";
+			WarningLabel.Text = Program.App.spawnset.ArenaTiles[25, 27] > TileUtils.Tile2527Max ? $"WARNING: The tile at coordinate {{25, 27}} has a height value greater than {TileUtils.Tile2527Max}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to be in the safe range in the Options > Settings menu." : "";
 
 			// Set tile color
 			float height = Program.App.spawnset.ArenaTiles[tile.X, tile.Y];
 
+			Rectangle rect = tileElements[tile.X, tile.Y];
 			if (height < TileUtils.TileMin)
 			{
 				rect.Visibility = Visibility.Hidden;
@@ -210,8 +207,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				rect.Width = TileUtils.TileSize;
 				rect.Height = TileUtils.TileSize;
 
-				Canvas.SetTop(rect, tile.X * TileUtils.TileSize);
-				Canvas.SetLeft(rect, tile.Y * TileUtils.TileSize);
+				Canvas.SetLeft(rect, tile.X * TileUtils.TileSize);
+				Canvas.SetTop(rect, tile.Y * TileUtils.TileSize);
 			}
 			else
 			{
@@ -222,8 +219,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				rect.Height = TileUtils.TileSizeShrunk;
 
 				int offset = (TileUtils.TileSize - TileUtils.TileSizeShrunk) / 2;
-				Canvas.SetTop(rect, tile.X * TileUtils.TileSize + offset);
-				Canvas.SetLeft(rect, tile.Y * TileUtils.TileSize + offset);
+				Canvas.SetLeft(rect, tile.X * TileUtils.TileSize + offset);
+				Canvas.SetTop(rect, tile.Y * TileUtils.TileSize + offset);
 			}
 		}
 
@@ -238,14 +235,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private ArenaCoord GetTileFromMouse(object sender)
 		{
 			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
-			return new ArenaCoord(MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
+			return new ArenaCoord(MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
 		}
 
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
-			LabelTile.Content = $"{{{tile.Y}, {tile.X}}}";
+			LabelTile.Content = $"{{{tile.X}, {tile.Y}}}";
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
 
@@ -255,7 +252,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[tile.X, tile.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
 
-			SetTile(tilesElements.Where(t => (ArenaCoord)t.Tag == tile).FirstOrDefault());
+			SetTile(tile);
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
@@ -269,9 +266,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			else
 				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
 
-			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+			SetTile(tile);
 
-			SetTile(tilesElements.Where(t => (ArenaCoord)t.Tag == tile).FirstOrDefault());
+			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
 
 		private void ArenaTiles_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -282,9 +279,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			if (heightWindow.ShowDialog() == true)
 				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = heightWindow.TileHeight;
 
-			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+			SetTile(tile);
 
-			SetTile(tilesElements.Where(t => (ArenaCoord)t.Tag == tile).FirstOrDefault());
+			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
 
 		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
