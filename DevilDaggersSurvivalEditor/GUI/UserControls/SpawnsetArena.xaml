@@ -94,7 +94,14 @@
 				</StackPanel>
 			</Grid>
 			<Grid>
-				<StackPanel>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="408"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Grid.Column="0">
+					<TextBlock Name="WarningLabel" FontWeight="Bold" Foreground="Red" TextWrapping="WrapWithOverflow" />
+				</StackPanel>
+				<StackPanel Grid.Column="1">
 					<Label>Height map</Label>
 					<Grid HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40" />
 				</StackPanel>

@@ -12,6 +12,8 @@
 		public const string SurvivalFileLocationDefault = @"C:\Program Files (x86)\Steam\steamapps\common\devildaggers\dd";
 		public string SurvivalFileLocation { get; set; } = SurvivalFileLocationDefault;
 
+		public bool LockTile2527 { get; set; }
+
 		//public const CultureSettings CultureDefault = CultureSettings.Default;
 		//private CultureSettings cultureSetting = CultureDefault;
 		//public CultureSettings CultureSetting

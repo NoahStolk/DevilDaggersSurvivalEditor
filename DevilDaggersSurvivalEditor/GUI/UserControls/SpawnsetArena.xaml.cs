@@ -101,6 +101,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			});
 		}
 
+		public void UpdateSettings()
+		{
+			Dispatcher.Invoke(() =>
+			{
+				UpdateTiles(); // Update tile {25, 27}
+			});
+		}
+
 		private void UpdateShrinkStart(object sender, TextChangedEventArgs e)
 		{
 			UpdateShrinkStart();
@@ -171,6 +179,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void SetTile(Rectangle rect)
 		{
 			ArenaCoord tile = (ArenaCoord)rect.Tag;
+
+			if (Program.App.userSettings.LockTile2527)
+				Program.App.spawnset.ArenaTiles[27, 25] = Math.Min(Program.App.spawnset.ArenaTiles[27, 25], TileUtils.Tile2527Max);
+
+			WarningLabel.Text = Program.App.spawnset.ArenaTiles[27, 25] > TileUtils.Tile2527Max ? $"WARNING: The tile at coordinate {{25, 27}} has a height value greater than {TileUtils.Tile2527Max}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to be in the safe range in the Options > Settings menu." : "";
 
 			// Set tile color
 			float height = Program.App.spawnset.ArenaTiles[tile.X, tile.Y];

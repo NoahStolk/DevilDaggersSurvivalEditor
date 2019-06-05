@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Settings" Height="256" Width="512" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel x:Name="Data">
-		<Grid Grid.Column="0">
+		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
 				<ColumnDefinition Width="2*"/>
@@ -17,7 +17,16 @@
 			<TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" Name="LabelSurvivalFileLocation" Text="{Binding SurvivalFileLocation}"/>
 			<Button Grid.Column="2" Content="Browse" Click="BrowseButton_Click" />
 		</Grid>
-		<!--<Grid Grid.Column="1">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Label Grid.Column="0">Lock tile {25, 27} to safe range</Label>
+			<CheckBox Grid.Column="1" IsChecked="{Binding LockTile2527}" />
+		</Grid>
+		<!--<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
 				<ColumnDefinition Width="2*"/>

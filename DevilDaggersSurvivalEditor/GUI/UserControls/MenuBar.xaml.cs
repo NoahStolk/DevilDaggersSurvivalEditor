@@ -308,6 +308,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				{
 					sw.Write(JsonConvert.SerializeObject(Program.App.userSettings, Formatting.Indented));
 				}
+
+				Program.App.MainWindow.SpawnsetArena.UpdateSettings();
 			}
 		}
 

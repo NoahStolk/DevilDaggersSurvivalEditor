@@ -12,6 +12,8 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 		public const int TileSize = 8;
 		public const int TileSizeShrunk = 4;
 
+		public const float Tile2527Max = 0.4973333f;
+
 		public static Color GetColorFromHeight(float height)
 		{
 			float colorValue = Math.Max(0, (height - TileMin) * 12 + 32);

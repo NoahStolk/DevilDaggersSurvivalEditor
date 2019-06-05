@@ -45,6 +45,7 @@ The source code is here, so take a look at it if you do not trust it. You could 
 - Removed Default Flat preset (can now be created using the new Ellipse preset).
 - Renamed and fixed some older presets.
 - Added ability to rotate and flip the arena.
+- The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short.
 
 **Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
 
@@ -154,7 +155,7 @@ Thanks to Bintr for figuring out how the end loop speeds up.
 - The player can be spawned on different tile heights.
 - Enemies and gems do not react to different tile heights, only the player, the daggers, and some effects do (like Thorn spawn smokes, meat chunks, etc).
 - The maximum tile height within the editor is set to 63, because anything higher than that seems unnecessary and the main light in the game doesn't reach that far so everything is completely black.
-- Setting the tile at coordinate {25, 27} to a value higher than around 0.4975 seems to cause some really odd stuff like audio glitches, invisible hand, and possibly even game crashes. (Only tested this on one PC, so needs more confirmation, and maybe a bit more testing to be absolutely sure.)
+- Setting the tile at coordinate {25, 27} to a value higher than around 0.4975 seems to cause some really odd stuff like audio glitches, invisible hand, and possibly even game crashes.
 - The game crashes when you get too near the edge of a full arena (outside of the regular 51x51 range, and I think at or around coordinate {0, 0} but I am not sure).
 - The tiles have infinitely long hitboxes, but the texture only covers the top of it.
 - 1 tile height is equivalent to 1/4 of a tile (let's say it is a cube). So if you could stack tiles on top of each other, the first tile would be at height 0, the second at height 4, the third at height 8, and so on.
