@@ -8,6 +8,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 	{
 		private float insideHeight;
 		private float wallHeight = 8;
+		private int thickness = 1;
 
 		public float InsideHeight
 		{
@@ -19,6 +20,11 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			get => wallHeight;
 			set => wallHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
+		public int Thickness
+		{
+			get => thickness;
+			set => thickness = MathUtils.Clamp(value, 1, 20);
+		}
 
 		public override float[,] GetTiles()
 		{
@@ -26,7 +32,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
-					tiles[i, j] = IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j) ? InsideHeight : WallHeight;
+					if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius, OuterRadius))
+						tiles[i, j] = InsideHeight;
+					else if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius + Thickness/* * InnerRadius / OuterRadius*/, OuterRadius + Thickness))
+						tiles[i, j] = WallHeight;
+					else
+						tiles[i, j] = TileUtils.VoidDefault;
 
 			return tiles;
 		}

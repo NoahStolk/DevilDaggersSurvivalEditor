@@ -38,7 +38,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			set => angleInDegrees = value % 360;
 		}
 
-		protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY)
+		protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius)
 		{
 			double cosA = Math.Cos(AngleInDegrees / 180 * Math.PI);
 			double sinA = Math.Sin(AngleInDegrees / 180 * Math.PI);
@@ -46,7 +46,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			double a = Math.Pow(cosA * (pointX - ellipseX) + sinA * (pointY - ellipseY), 2);
 			double b = Math.Pow(sinA * (pointX - ellipseX) - cosA * (pointY - ellipseY), 2);
 
-			return (a / (InnerRadius * InnerRadius)) + (b / (OuterRadius * OuterRadius)) <= 1;
+			return (a / (innerRadius * innerRadius)) + (b / (outerRadius * outerRadius)) <= 1;
 		}
 	}
 }
