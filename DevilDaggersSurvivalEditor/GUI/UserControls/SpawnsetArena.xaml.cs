@@ -238,11 +238,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
-
-			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 			Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[tile.X, tile.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
 
 			SetTile(tilesElements.Where(t => (ArenaCoord)t.Tag == tile).FirstOrDefault());
+
+			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
 
 		private void ArenaTiles_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
