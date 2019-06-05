@@ -45,9 +45,9 @@ The source code is here, so take a look at it if you do not trust it. You could 
 - Removed Default Flat preset (can now be created using the new Ellipse preset).
 - Renamed and fixed some older presets.
 - Added ability to rotate and flip the arena.
-- The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short.
+- The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short. This also includes the new discovery of the mysterious {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
 
-**Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
+**Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, since 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
 
 **1.1.5.0 - November 4, 2018**
 

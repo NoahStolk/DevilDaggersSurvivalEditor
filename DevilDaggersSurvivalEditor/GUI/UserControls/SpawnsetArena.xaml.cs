@@ -101,11 +101,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			});
 		}
 
-		public void UpdateSettings()
+		public void UpdateTile2527()
 		{
 			Dispatcher.Invoke(() =>
 			{
-				UpdateTiles(); // Update tile {25, 27}
+				// TODO: Only update tile {25, 27}
+				UpdateTiles();
 			});
 		}
 
@@ -176,6 +177,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				SetTile(rect);
 		}
 
+		// I don't really like this approach, maybe use a dictionary of ArenaCoords and Rectangles instead of passing the Rectangles and having an ArenaCoord as Tag.
 		private void SetTile(Rectangle rect)
 		{
 			ArenaCoord tile = (ArenaCoord)rect.Tag;
