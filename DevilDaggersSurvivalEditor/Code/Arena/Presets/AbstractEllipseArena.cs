@@ -8,8 +8,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 	{
 		private int offsetX;
 		private int offsetY;
-		private int innerRadius = 10;
-		private int outerRadius = 10;
+		private float innerRadius = 10;
+		private float outerRadius = 10;
 		private float angleInDegrees;
 
 		public int OffsetX
@@ -22,12 +22,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			get => offsetY;
 			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
-		public int InnerRadius
+		public float InnerRadius
 		{
 			get => innerRadius;
 			set => innerRadius = MathUtils.Clamp(value, 1, 100);
 		}
-		public int OuterRadius
+		public float OuterRadius
 		{
 			get => outerRadius;
 			set => outerRadius = MathUtils.Clamp(value, 1, 100);
@@ -38,15 +38,15 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			set => angleInDegrees = value % 360;
 		}
 
-		protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius, float angleInDegrees)
+		protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY)
 		{
-			double cosA = Math.Cos(angleInDegrees / 180 * Math.PI);
-			double sinA = Math.Sin(angleInDegrees / 180 * Math.PI);
+			double cosA = Math.Cos(AngleInDegrees / 180 * Math.PI);
+			double sinA = Math.Sin(AngleInDegrees / 180 * Math.PI);
 
 			double a = Math.Pow(cosA * (pointX - ellipseX) + sinA * (pointY - ellipseY), 2);
 			double b = Math.Pow(sinA * (pointX - ellipseX) - cosA * (pointY - ellipseY), 2);
 
-			return (a / (innerRadius * innerRadius)) + (b / (outerRadius * outerRadius)) <= 1;
+			return (a / (InnerRadius * InnerRadius)) + (b / (OuterRadius * OuterRadius)) <= 1;
 		}
 	}
 }
