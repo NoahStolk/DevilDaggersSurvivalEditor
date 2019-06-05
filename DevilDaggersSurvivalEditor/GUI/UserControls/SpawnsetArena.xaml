@@ -53,7 +53,7 @@
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 						<Label Grid.Column="0">Shrink rate</Label>
-						<TextBox Grid.Column="1" Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkCurrent" />
+						<TextBox Grid.Column="1" Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkRate" />
 					</Grid>
 					<Grid>
 						<Grid.ColumnDefinitions>

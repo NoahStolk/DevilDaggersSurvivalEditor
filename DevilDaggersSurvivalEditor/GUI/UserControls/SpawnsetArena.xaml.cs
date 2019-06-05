@@ -122,7 +122,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			UpdateTiles();
 		}
 
-		private void UpdateShrinkCurrent(object sender, TextChangedEventArgs e)
+		private void UpdateShrinkRate(object sender, TextChangedEventArgs e)
 		{
 			UpdateShrinkCurrent();
 			UpdateTiles();
