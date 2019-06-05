@@ -89,8 +89,8 @@
     <Compile Include="Code\Arena\Presets\Ellipse.cs" />
     <Compile Include="Code\Arena\Presets\Default.cs" />
     <Compile Include="Code\Arena\Presets\CageEllipse.cs" />
-    <Compile Include="Code\Arena\Presets\Islands.cs" />
-    <Compile Include="Code\Arena\Presets\Gaps.cs" />
+    <Compile Include="Code\Arena\Presets\RandomIslands.cs" />
+    <Compile Include="Code\Arena\Presets\RandomGaps.cs" />
     <Compile Include="Code\Arena\Presets\Pyramid.cs" />
     <Compile Include="Code\Logging.cs" />
     <Compile Include="Code\Utils\MiscUtils.cs" />
@@ -184,7 +184,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Code\Arena\Presets\AbstractArena.cs" />
-    <Compile Include="Code\Arena\Presets\Noise.cs" />
+    <Compile Include="Code\Arena\Presets\RandomNoise.cs" />
     <Compile Include="Code\Arena\Presets\CageRectangular.cs" />
     <Compile Include="Code\Arena\Presets\Qbert.cs" />
     <Compile Include="GUI\Windows\About.xaml.cs">

@@ -4,7 +4,7 @@ using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	public class Islands : AbstractRectangularArena
+	public class RandomIslands : AbstractRectangularArena
 	{
 		private float minHeight;
 		private float maxHeight = 5;

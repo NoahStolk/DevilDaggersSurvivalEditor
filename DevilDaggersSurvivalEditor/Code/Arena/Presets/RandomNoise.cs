@@ -3,7 +3,7 @@ using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	public class Noise : AbstractRectangularArena
+	public class RandomNoise : AbstractRectangularArena
 	{
 		private float minHeight;
 		private float maxHeight = 16;

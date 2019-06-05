@@ -4,7 +4,7 @@ using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	public class Gaps : AbstractRectangularArena
+	public class RandomGaps : AbstractRectangularArena
 	{
 		private float height;
 		private int amount = 5;
