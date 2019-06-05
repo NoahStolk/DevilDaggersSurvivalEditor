@@ -28,6 +28,8 @@ namespace DevilDaggersSurvivalEditor
 		{
 			ShowError("Fatal error", e.Exception.Message, e.Exception);
 			e.Handled = true;
+
+			Current.Shutdown();
 		}
 
 		public void ShowError(string title, string message, Exception ex)
