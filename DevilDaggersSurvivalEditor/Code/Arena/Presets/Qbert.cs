@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code.Utils;
 using NetBase.Utils;
 using System;
 
@@ -24,18 +25,18 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float StartHeight
 		{
 			get => startheight;
-			set => startheight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
+			set => startheight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 		public float EndHeight
 		{
 			get => endHeight;
-			set => endHeight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
+			set => endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
-			SetHeightGlobally(tiles, ArenaCoord.VoidDefault);
+			SetHeightGlobally(tiles, TileUtils.VoidDefault);
 
 			float stepX = (StartHeight - EndHeight) / (X2 - X1 - 1);
 			float stepY = (StartHeight - EndHeight) / (Y2 - Y1 - 1);

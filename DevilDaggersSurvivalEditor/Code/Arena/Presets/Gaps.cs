@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code.Utils;
 using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
@@ -12,7 +13,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float Height
 		{
 			get => height;
-			set => height = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
+			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 		public int Amount
 		{
@@ -28,14 +29,14 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
-			SetHeightGlobally(tiles, ArenaCoord.VoidDefault);
+			SetHeightGlobally(tiles, TileUtils.VoidDefault);
 
 			for (int i = X1; i < X2; i++)
 				for (int j = Y1; j < Y2; j++)
 					tiles[i, j] = Height;
 
 			for (int i = 0; i < Amount; i++)
-				tiles[RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2)] = ArenaCoord.VoidDefault;
+				tiles[RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2)] = TileUtils.VoidDefault;
 
 			for (int i = 0; i < Iterations; i++)
 			{
@@ -44,23 +45,23 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 					for (int k = Y1; k < Y2; k++)
 					{
 						float tile = tiles[j, k];
-						if (tile == ArenaCoord.VoidDefault)
+						if (tile == TileUtils.VoidDefault)
 						{
 							if (j > 0 && RandomUtils.Chance(50))
-								tiles[j - 1, k] = ArenaCoord.VoidDefault;
+								tiles[j - 1, k] = TileUtils.VoidDefault;
 							if (j < Spawnset.ArenaWidth - 1 && RandomUtils.Chance(50))
-								tiles[j + 1, k] = ArenaCoord.VoidDefault;
+								tiles[j + 1, k] = TileUtils.VoidDefault;
 							if (k > 0 && RandomUtils.Chance(50))
-								tiles[j, k - 1] = ArenaCoord.VoidDefault;
+								tiles[j, k - 1] = TileUtils.VoidDefault;
 							if (k < Spawnset.ArenaHeight - 1 && RandomUtils.Chance(50))
-								tiles[j, k + 1] = ArenaCoord.VoidDefault;
+								tiles[j, k + 1] = TileUtils.VoidDefault;
 						}
 					}
 				}
 			}
 
 			// Make sure the player doesn't spawn in the void
-			if (tiles[Spawnset.ArenaWidth / 2, Spawnset.ArenaHeight / 2] == ArenaCoord.VoidDefault)
+			if (tiles[Spawnset.ArenaWidth / 2, Spawnset.ArenaHeight / 2] == TileUtils.VoidDefault)
 				tiles[Spawnset.ArenaWidth / 2, Spawnset.ArenaHeight / 2] = 0;
 
 			return tiles;

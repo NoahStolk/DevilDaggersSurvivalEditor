@@ -1,4 +1,6 @@
-﻿namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
+﻿using DevilDaggersSurvivalEditor.Code.Utils;
+
+namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Void : AbstractArena
 	{
@@ -6,7 +8,7 @@
 		{
 			float[,] tiles = CreateArenaArray();
 
-			SetHeightGlobally(tiles, ArenaCoord.VoidDefault);
+			SetHeightGlobally(tiles, TileUtils.VoidDefault);
 
 			return tiles;
 		}

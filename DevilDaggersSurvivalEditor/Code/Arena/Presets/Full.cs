@@ -1,4 +1,5 @@
-﻿using NetBase.Utils;
+﻿using DevilDaggersSurvivalEditor.Code.Utils;
+using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
@@ -9,7 +10,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float Height
 		{
 			get => height;
-			set => height = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
+			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override float[,] GetTiles()

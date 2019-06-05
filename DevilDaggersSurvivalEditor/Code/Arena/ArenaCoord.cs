@@ -1,23 +1,16 @@
 ﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code.Utils;
 using System;
-using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena
 {
 	/// <summary>
-	/// Provides a simple structure containing a read-only integer coordinate that is specific to the arena. Also provides arena tile constants and utility methods.
+	/// Provides a simple structure containing a read-only integer coordinate that is specific to the arena.
 	/// This struct should not be used for arena indexing (hence why there is no tile height property), as coordinates are useless in that case (indexing is done through a two-dimensional array of floats).
 	/// Use the struct for GUI-related tasks only.
 	/// </summary>
 	public struct ArenaCoord
 	{
-		public const int TileMin = -1;
-		public const int TileMax = 63;
-		public const int TileDefault = 0;
-		public const int VoidDefault = -1000;
-		public const int TileSize = 8;
-		public const int TileSizeShrunk = 4;
-
 		public int X { get; }
 		public int Y { get; }
 
@@ -32,25 +25,18 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			Y = y;
 		}
 
-		public static Color GetColorFromHeight(float height)
-		{
-			float colorValue = Math.Max(0, (height - TileMin) * 12 + 32);
-
-			return Color.FromRgb((byte)colorValue, (byte)(colorValue / 2), (byte)((height - TileMin) * 4));
-		}
-
 		public double GetDistanceToCanvasPointSquared(int canvasPoint)
 		{
 			int canvasX, canvasY;
 			if (X > Spawnset.ArenaWidth / 2)
-				canvasX = X * TileSize + TileSize;
+				canvasX = X * TileUtils.TileSize + TileUtils.TileSize;
 			else
-				canvasX = X * TileSize;
+				canvasX = X * TileUtils.TileSize;
 
 			if (Y > Spawnset.ArenaHeight / 2)
-				canvasY = Y * TileSize + TileSize;
+				canvasY = Y * TileUtils.TileSize + TileUtils.TileSize;
 			else
-				canvasY = Y * TileSize;
+				canvasY = Y * TileUtils.TileSize;
 
 			int xFromCenter = canvasX - canvasPoint;
 			int yFromCenter = canvasY - canvasPoint;

@@ -33,7 +33,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			for (int i = 0; i < 16; i++)
 				HeightMap.ColumnDefinitions.Add(new ColumnDefinition());
 
-			TextBlock textBlock = new TextBlock { Background = new SolidColorBrush(ArenaCoord.GetColorFromHeight(-1)), ToolTip = "-1" };
+			TextBlock textBlock = new TextBlock { Background = new SolidColorBrush(TileUtils.GetColorFromHeight(-1)), ToolTip = "-1" };
 			Grid.SetRow(textBlock, 0);
 			Grid.SetColumn(textBlock, 0);
 			HeightMap.Children.Add(textBlock);
@@ -43,7 +43,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				for (int j = 0; j < 16; j++)
 				{
 					float height = i * 16 + j;
-					textBlock = new TextBlock { Background = new SolidColorBrush(ArenaCoord.GetColorFromHeight(height)), ToolTip = height.ToString() };
+					textBlock = new TextBlock { Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString() };
 
 					Grid.SetRow(textBlock, i + 1);
 					Grid.SetColumn(textBlock, j);
@@ -175,46 +175,46 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			// Set tile color
 			float height = Program.App.spawnset.ArenaTiles[tile.X, tile.Y];
 
-			if (height < ArenaCoord.TileMin)
+			if (height < TileUtils.TileMin)
 			{
 				rect.Visibility = Visibility.Hidden;
 				return;
 			}
 			rect.Visibility = Visibility.Visible;
 
-			Color color = ArenaCoord.GetColorFromHeight(height);
+			Color color = TileUtils.GetColorFromHeight(height);
 			rect.Fill = new SolidColorBrush(color);
 
 			// Set tile size
 			double distance = tile.GetDistanceToCanvasPointSquared(arenaCanvasCenter);
 			if (distance <= ShrinkCurrent.Width * ShrinkCurrent.Width / 4)
 			{
-				if (rect.Width == ArenaCoord.TileSize)
+				if (rect.Width == TileUtils.TileSize)
 					return;
 
-				rect.Width = ArenaCoord.TileSize;
-				rect.Height = ArenaCoord.TileSize;
+				rect.Width = TileUtils.TileSize;
+				rect.Height = TileUtils.TileSize;
 
-				Canvas.SetTop(rect, tile.X * ArenaCoord.TileSize);
-				Canvas.SetLeft(rect, tile.Y * ArenaCoord.TileSize);
+				Canvas.SetTop(rect, tile.X * TileUtils.TileSize);
+				Canvas.SetLeft(rect, tile.Y * TileUtils.TileSize);
 			}
 			else
 			{
-				if (rect.Width == ArenaCoord.TileSizeShrunk)
+				if (rect.Width == TileUtils.TileSizeShrunk)
 					return;
 
-				rect.Width = ArenaCoord.TileSizeShrunk;
-				rect.Height = ArenaCoord.TileSizeShrunk;
+				rect.Width = TileUtils.TileSizeShrunk;
+				rect.Height = TileUtils.TileSizeShrunk;
 
-				int offset = (ArenaCoord.TileSize - ArenaCoord.TileSizeShrunk) / 2;
-				Canvas.SetTop(rect, tile.X * ArenaCoord.TileSize + offset);
-				Canvas.SetLeft(rect, tile.Y * ArenaCoord.TileSize + offset);
+				int offset = (TileUtils.TileSize - TileUtils.TileSizeShrunk) / 2;
+				Canvas.SetTop(rect, tile.X * TileUtils.TileSize + offset);
+				Canvas.SetLeft(rect, tile.Y * TileUtils.TileSize + offset);
 			}
 		}
 
 		private void SetHeightText(float height)
 		{
-			bool voidTile = height < ArenaCoord.TileMin;
+			bool voidTile = height < TileUtils.TileMin;
 
 			HeightTile.FontWeight = voidTile ? FontWeights.Bold : FontWeights.Normal;
 			HeightTile.Content = voidTile ? "Void" : height.ToString("0.00");
@@ -223,7 +223,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private ArenaCoord GetTileFromMouse(object sender)
 		{
 			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
-			return new ArenaCoord(MathUtils.Clamp((int)mousePosition.Y / ArenaCoord.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.X / ArenaCoord.TileSize, 0, Spawnset.ArenaHeight - 1));
+			return new ArenaCoord(MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
 		}
 
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
@@ -238,9 +238,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
-			Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[tile.X, tile.Y] + e.Delta / 120, ArenaCoord.TileMin, ArenaCoord.TileMax);
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+			Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[tile.X, tile.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
 
 			SetTile(tilesElements.Where(t => (ArenaCoord)t.Tag == tile).FirstOrDefault());
 		}
@@ -249,10 +249,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
-			if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= ArenaCoord.TileMin)
-				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = ArenaCoord.VoidDefault;
+			if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= TileUtils.TileMin)
+				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
 			else
-				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = ArenaCoord.TileDefault;
+				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 

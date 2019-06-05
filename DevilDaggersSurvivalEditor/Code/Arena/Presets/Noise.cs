@@ -1,4 +1,5 @@
-﻿using NetBase.Utils;
+﻿using DevilDaggersSurvivalEditor.Code.Utils;
+using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
@@ -10,18 +11,18 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float MinHeight
 		{
 			get => minHeight;
-			set => minHeight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
+			set => minHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 		public float MaxHeight
 		{
 			get => maxHeight;
-			set => maxHeight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
+			set => maxHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
-			SetHeightGlobally(tiles, ArenaCoord.VoidDefault);
+			SetHeightGlobally(tiles, TileUtils.VoidDefault);
 
 			for (int i = X1; i < X2; i++)
 				for (int j = Y1; j < Y2; j++)

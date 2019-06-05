@@ -94,6 +94,7 @@
     <Compile Include="Code\Arena\Presets\Pyramid.cs" />
     <Compile Include="Code\Logging.cs" />
     <Compile Include="Code\Utils\MiscUtils.cs" />
+    <Compile Include="Code\Utils\TileUtils.cs" />
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
       <DependentUpon>MenuBar.xaml</DependentUpon>
     </Compile>

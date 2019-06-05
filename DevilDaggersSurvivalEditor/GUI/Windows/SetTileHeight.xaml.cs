@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Code.Arena;
+﻿using DevilDaggersSurvivalEditor.Code.Utils;
 using NetBase.Utils;
 using System.Windows;
 using System.Windows.Threading;
@@ -12,7 +12,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		public float TileHeight
 		{
 			get => tileHeight;
-			set => tileHeight = MathUtils.Clamp(value, ArenaCoord.TileMin, ArenaCoord.TileMax);
+			set => tileHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public SetTileHeightWindow(float tileHeight)
