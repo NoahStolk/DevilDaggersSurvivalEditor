@@ -178,10 +178,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void SetTile(ArenaCoord tile)
 		{
-			if (Program.App.userSettings.LockTile2527)
-				Program.App.spawnset.ArenaTiles[25, 27] = Math.Min(Program.App.spawnset.ArenaTiles[25, 27], TileUtils.Tile2527Max);
+			if (tile.X == 25 && tile.Y == 27)
+			{
+				if (Program.App.userSettings.LockTile2527)
+					Program.App.spawnset.ArenaTiles[25, 27] = Math.Min(Program.App.spawnset.ArenaTiles[25, 27], TileUtils.Tile2527Max);
 
-			WarningLabel.Text = Program.App.spawnset.ArenaTiles[25, 27] > TileUtils.Tile2527Max ? $"WARNING: The tile at coordinate {{25, 27}} has a height value greater than {TileUtils.Tile2527Max}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to be in the safe range in the Options > Settings menu." : "";
+				WarningLabel.Text = Program.App.spawnset.ArenaTiles[25, 27] > TileUtils.Tile2527Max ? $"WARNING: The tile at coordinate {{25, 27}} has a height value greater than {TileUtils.Tile2527Max}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to be in the safe range in the Options > Settings menu." : "";
+			}
 
 			// Set tile color
 			float height = Program.App.spawnset.ArenaTiles[tile.X, tile.Y];
@@ -344,7 +347,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
-					newTiles[i, j] = Program.App.spawnset.ArenaTiles[Spawnset.ArenaWidth - 1 - i, j];
+					newTiles[i, j] = Program.App.spawnset.ArenaTiles[i, Spawnset.ArenaHeight - 1 - j];
 
 			Program.App.spawnset.ArenaTiles = newTiles;
 
@@ -357,7 +360,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
-					newTiles[i, j] = Program.App.spawnset.ArenaTiles[i, Spawnset.ArenaHeight - 1 - j];
+					newTiles[i, j] = Program.App.spawnset.ArenaTiles[Spawnset.ArenaWidth - 1 - i, j];
 
 			Program.App.spawnset.ArenaTiles = newTiles;
 
