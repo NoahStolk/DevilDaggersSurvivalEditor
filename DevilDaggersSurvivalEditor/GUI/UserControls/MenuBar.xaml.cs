@@ -309,7 +309,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					sw.Write(JsonConvert.SerializeObject(Program.App.userSettings, Formatting.Indented));
 				}
 
-				Program.App.MainWindow.SpawnsetArena.UpdateTile2527();
+				Dispatcher.Invoke(() =>
+				{
+					Program.App.MainWindow.SpawnsetArena.UpdateTile(new ArenaCoord(25, 27));
+				});
 			}
 		}
 

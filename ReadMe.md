@@ -41,9 +41,9 @@ The source code is here, so take a look at it if you do not trust it. You could 
 - Fixed issue where the arena was always incorrectly rotated and mirrored.
 - Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
 - Added new arena presets: Cage Ellipse, Ellipse, Gaps, Islands, and Qbert.
-- Added more parameters to existing presets.
 - Removed Default Flat preset (can now be created using the new Ellipse preset).
-- Renamed and fixed some older presets.
+- Added more parameters to existing presets.
+- Renamed and fixed some existing presets.
 - Added ability to rotate and flip the arena.
 - The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short. This also includes the new discovery of the mysterious {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
 

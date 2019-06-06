@@ -66,7 +66,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					ArenaTiles.Children.Add(rect);
 					tileElements[i, j] = rect;
 
-					SetTile(new ArenaCoord(i, j));
+					UpdateTile(new ArenaCoord(i, j));
 				}
 			}
 
@@ -96,15 +96,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				UpdateShrinkStart();
 				UpdateShrinkEnd();
 				UpdateShrinkCurrent();
-				UpdateTiles();
-			});
-		}
-
-		public void UpdateTile2527()
-		{
-			Dispatcher.Invoke(() =>
-			{
-				SetTile(new ArenaCoord(25, 27));
+				UpdateAllTiles();
 			});
 		}
 
@@ -112,20 +104,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			UpdateShrinkStart();
 			UpdateShrinkCurrent();
-			UpdateTiles();
+			UpdateAllTiles();
 		}
 
 		private void UpdateShrinkEnd(object sender, TextChangedEventArgs e)
 		{
 			UpdateShrinkEnd();
 			UpdateShrinkCurrent();
-			UpdateTiles();
+			UpdateAllTiles();
 		}
 
 		private void UpdateShrinkRate(object sender, TextChangedEventArgs e)
 		{
 			UpdateShrinkCurrent();
-			UpdateTiles();
+			UpdateAllTiles();
 		}
 
 		private void UpdateShrinkStart()
@@ -169,14 +161,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Canvas.SetTop(ShrinkCurrent, arenaCanvasCenter - shrinkCurrentRadius);
 		}
 
-		private void UpdateTiles()
+		private void UpdateAllTiles()
 		{
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
-					SetTile(new ArenaCoord(i, j));
+					UpdateTile(new ArenaCoord(i, j));
 		}
 
-		private void SetTile(ArenaCoord tile)
+		public void UpdateTile(ArenaCoord tile)
 		{
 			if (tile.X == 25 && tile.Y == 27)
 			{
@@ -255,7 +247,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[tile.X, tile.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
 
-			SetTile(tile);
+			UpdateTile(tile);
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
@@ -269,7 +261,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			else
 				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
 
-			SetTile(tile);
+			UpdateTile(tile);
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
@@ -282,7 +274,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			if (heightWindow.ShowDialog() == true)
 				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = heightWindow.TileHeight;
 
-			SetTile(tile);
+			UpdateTile(tile);
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
@@ -312,7 +304,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			Program.App.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
 
-			UpdateTiles();
+			UpdateAllTiles();
 		}
 
 		private void RotateClockwise_Click(object sender, RoutedEventArgs e)
@@ -325,7 +317,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.spawnset.ArenaTiles = newTiles;
 
-			UpdateTiles();
+			UpdateAllTiles();
 		}
 
 		private void RotateCounterClockwise_Click(object sender, RoutedEventArgs e)
@@ -338,7 +330,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.spawnset.ArenaTiles = newTiles;
 
-			UpdateTiles();
+			UpdateAllTiles();
 		}
 
 		private void FlipVertical_Click(object sender, RoutedEventArgs e)
@@ -351,7 +343,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.spawnset.ArenaTiles = newTiles;
 
-			UpdateTiles();
+			UpdateAllTiles();
 		}
 
 		private void FlipHorizontal_Click(object sender, RoutedEventArgs e)
@@ -364,7 +356,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.spawnset.ArenaTiles = newTiles;
 
-			UpdateTiles();
+			UpdateAllTiles();
 		}
 
 		private void RoundHeights_Click(object sender, RoutedEventArgs e)

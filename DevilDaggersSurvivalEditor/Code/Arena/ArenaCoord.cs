@@ -40,7 +40,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 
 			int xFromCenter = canvasX - canvasPoint;
 			int yFromCenter = canvasY - canvasPoint;
-			return xFromCenter * xFromCenter + (yFromCenter * yFromCenter);
+			return xFromCenter * xFromCenter + yFromCenter * yFromCenter;
 		}
 
 		public override bool Equals(object obj)
