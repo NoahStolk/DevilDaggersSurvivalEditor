@@ -9,7 +9,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Arena presets
 - Shrink preview that shows a rough approximation of what the arena will be like at what time during the spawnset
 - Easily replacing the currently active spawnset in the game
-- Downloading and importing spawnsets directly from https://devildaggers.info
+- Downloading and importing spawnsets directly from [DevilDaggers.info](https://devildaggers.info)
 
 ## System requirements
 
@@ -34,18 +34,25 @@ The source code is here, so take a look at it if you do not trust it. You could 
 
 **2.0.0.0 - Work In Progress & To Be Released**
 
-- Rebuilt the entire application from the ground up. The application now makes use of UserControls and proper separation of layout code, WPF binding, reflection, and a lot more stuff that makes the code much more maintainable.
+Devil Daggers Survival Editor 2 is a complete rewrite of the entire application. 
+
+General
+- Made the application window resizable (includes fullscreen).
+- Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
+- The application now warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
 - A lot of performance optimizations.
 - The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
-- Made the application window resizable.
+
+Fixes
 - Fixed issue where the arena was always incorrectly rotated and mirrored.
-- Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
-- Added new arena presets: Cage Ellipse, Ellipse, Gaps, Islands, and Qbert.
+
+New
+- Added new arena presets: Cage Ellipse, Ellipse, Random Gaps, Random Islands, and Qbert.
 - Removed Default Flat preset (can now be created using the new Ellipse preset).
 - Added more parameters to existing presets.
 - Renamed and fixed some existing presets.
 - Added ability to rotate and flip the arena.
-- The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short. This also includes the new discovery of the mysterious {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
+- Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
 
 **Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, since 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
 
@@ -61,7 +68,7 @@ The source code is here, so take a look at it if you do not trust it. You could 
 
 **1.1.2.0 - July 27, 2018**
 
-- Added functionality to download spawnsets directly from https://devildaggers.info/Spawnsets within the menu.
+- Added functionality to download spawnsets directly from [DevilDaggers.info/Spawnsets](https://devildaggers.info/Spawnsets) within the menu.
 
 **1.0.2.0 - July 26, 2018**
 
