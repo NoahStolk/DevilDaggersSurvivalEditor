@@ -24,7 +24,7 @@
 					<ColumnDefinition Width="408"/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
-				<Canvas Grid.Column="0" Name="ArenaTiles" HorizontalAlignment="Left" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408">
+				<Canvas Grid.Column="0" Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408">
 					<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
 					<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
 					<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1" />
@@ -71,8 +71,10 @@
 					<Label FontWeight="Bold">Arena presets</Label>
 					<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
 					<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
-					<Label>Clear previous</Label>
-					<CheckBox Name="ClearPreviousCheckBox" IsChecked="True" IsEnabled="False" />
+					<StackPanel Orientation="Horizontal">
+						<CheckBox Name="ClearPreviousCheckBox" IsChecked="True" IsEnabled="False" />
+						<Label>Clear previous</Label>
+					</StackPanel>
 					<Button Click="GenerateButton_Click">Generate</Button>
 					
 					<Label FontWeight="Bold">Arena tools</Label>
