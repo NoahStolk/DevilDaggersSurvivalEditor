@@ -18,14 +18,21 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 	public partial class SpawnsetArena : UserControl
 	{
 		private readonly int arenaCanvasCenter;
+		private readonly int arenaCenter;
 
 		private readonly Rectangle[,] tileElements = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+
+		// In tile units
+		private double shrinkStartRadius;
+		private double shrinkEndRadius;
+		private double shrinkCurrentRadius;
 
 		public SpawnsetArena()
 		{
 			InitializeComponent();
 
 			arenaCanvasCenter = (int)ArenaTiles.Width / 2;
+			arenaCenter = Spawnset.ArenaWidth / 2;
 
 			// Add height map
 			for (int i = 0; i < 5; i++)
@@ -122,20 +129,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void UpdateShrinkStart()
 		{
-			double shrinkStartRadius = Program.App.spawnset.ShrinkStart * 2;
-			ShrinkStart.Width = shrinkStartRadius * 2;
-			ShrinkStart.Height = shrinkStartRadius * 2;
-			Canvas.SetLeft(ShrinkStart, arenaCanvasCenter - shrinkStartRadius);
-			Canvas.SetTop(ShrinkStart, arenaCanvasCenter - shrinkStartRadius);
+			shrinkStartRadius = Program.App.spawnset.ShrinkStart * 0.25;
+			ShrinkStart.Width = shrinkStartRadius * TileUtils.TileSize * 2;
+			ShrinkStart.Height = shrinkStartRadius * TileUtils.TileSize * 2;
+			Canvas.SetLeft(ShrinkStart, arenaCanvasCenter - ShrinkStart.Width * 0.5);
+			Canvas.SetTop(ShrinkStart, arenaCanvasCenter - ShrinkStart.Height * 0.5);
 		}
 
 		private void UpdateShrinkEnd()
 		{
-			double shrinkEndRadius = Program.App.spawnset.ShrinkEnd * 2;
-			ShrinkEnd.Width = shrinkEndRadius * 2;
-			ShrinkEnd.Height = shrinkEndRadius * 2;
-			Canvas.SetLeft(ShrinkEnd, arenaCanvasCenter - shrinkEndRadius);
-			Canvas.SetTop(ShrinkEnd, arenaCanvasCenter - shrinkEndRadius);
+			shrinkEndRadius = Program.App.spawnset.ShrinkEnd * 0.25;
+			ShrinkEnd.Width = shrinkEndRadius * TileUtils.TileSize * 2;
+			ShrinkEnd.Height = shrinkEndRadius * TileUtils.TileSize * 2;
+			Canvas.SetLeft(ShrinkEnd, arenaCanvasCenter - ShrinkEnd.Width * 0.5);
+			Canvas.SetTop(ShrinkEnd, arenaCanvasCenter - ShrinkEnd.Height * 0.5);
 		}
 
 		private void UpdateShrinkCurrent()
@@ -152,13 +159,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				ShrinkCurrentSlider.IsEnabled = false;
 			}
 
-			double shrinkStartRadius = Program.App.spawnset.ShrinkStart * 2;
-			double shrinkEndRadius = Program.App.spawnset.ShrinkEnd * 2;
-			double shrinkCurrentRadius = shrinkStartRadius - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (shrinkStartRadius - shrinkEndRadius));
-			ShrinkCurrent.Width = shrinkCurrentRadius * 2;
-			ShrinkCurrent.Height = shrinkCurrentRadius * 2;
-			Canvas.SetLeft(ShrinkCurrent, arenaCanvasCenter - shrinkCurrentRadius);
-			Canvas.SetTop(ShrinkCurrent, arenaCanvasCenter - shrinkCurrentRadius);
+			shrinkCurrentRadius = shrinkStartRadius - (ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (shrinkStartRadius - shrinkEndRadius));
+			ShrinkCurrent.Width = shrinkCurrentRadius * TileUtils.TileSize * 2;
+			ShrinkCurrent.Height = shrinkCurrentRadius * TileUtils.TileSize * 2;
+			Canvas.SetLeft(ShrinkCurrent, arenaCanvasCenter - ShrinkCurrent.Width * 0.5);
+			Canvas.SetTop(ShrinkCurrent, arenaCanvasCenter - ShrinkCurrent.Height * 0.5);
 		}
 
 		private void UpdateAllTiles()
@@ -286,16 +291,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			// TODO: Check if current has increased or decreased and only update the corresponding tiles.
 
 			// Only update the tiles between the shrink start range and the shrink end range.
-			int center = Spawnset.ArenaWidth / 2;
-			int shrinkStartRadius = (int)ShrinkStart.Width / TileUtils.TileSize / 2;
-			int shrinkEndRadius = (int)ShrinkEnd.Width / TileUtils.TileSize / 2;
+			int shrinkStartRadius = (int)Math.Ceiling(this.shrinkStartRadius);
+			int shrinkEndRadius = (int)Math.Floor(this.shrinkEndRadius);
 
 			// Calculate the half size of the largest square that fits inside the shrink end circle.
 			double shrinkEndContainedSquareHalfSize = Math.Sqrt(shrinkEndRadius * shrinkEndRadius * 2) / 2;
 
-			for (int i = center - shrinkStartRadius; i < center + shrinkStartRadius; i++)
-				for (int j = center - shrinkStartRadius; j < center + shrinkStartRadius; j++)
-					if (i < center - shrinkEndContainedSquareHalfSize || i > center + shrinkEndContainedSquareHalfSize || j < center - shrinkEndContainedSquareHalfSize || j > center + shrinkEndContainedSquareHalfSize)
+			//TestSquare.Width = shrinkEndContainedSquareHalfSize * 2 * TileUtils.TileSize;
+			//TestSquare.Height = shrinkEndContainedSquareHalfSize * 2 * TileUtils.TileSize;
+			//Canvas.SetLeft(TestSquare, arenaCanvasCenter - TestSquare.Width * 0.5);
+			//Canvas.SetTop(TestSquare, arenaCanvasCenter - TestSquare.Height * 0.5);
+
+			for (int i = arenaCenter - shrinkStartRadius; i < arenaCenter + shrinkStartRadius; i++)
+				for (int j = arenaCenter - shrinkStartRadius; j < arenaCenter + shrinkStartRadius; j++)
+					if (i < arenaCenter - shrinkEndContainedSquareHalfSize || i > arenaCenter + shrinkEndContainedSquareHalfSize || j < arenaCenter - shrinkEndContainedSquareHalfSize || j > arenaCenter + shrinkEndContainedSquareHalfSize)
 						UpdateTile(new ArenaCoord(i, j));
 		}
 
