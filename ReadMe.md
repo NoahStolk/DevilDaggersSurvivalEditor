@@ -53,7 +53,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Added new arena presets: Cage Ellipse, Ellipse, Random Gaps, Random Islands, and Qbert.
 - Removed Default Flat preset (can now be created using the new Ellipse preset).
 - Added more parameters to existing presets.
-- Renamed and fixed some existing presets.
+- Renamed and improved some existing presets.
 - Added ability to rotate and flip the arena.
 - Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
 
