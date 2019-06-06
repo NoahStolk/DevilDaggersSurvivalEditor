@@ -38,6 +38,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			set => size = MathUtils.Clamp(value, 2, Spawnset.ArenaWidth);
 		}
 
+		public override bool IsFull => false;
+
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();

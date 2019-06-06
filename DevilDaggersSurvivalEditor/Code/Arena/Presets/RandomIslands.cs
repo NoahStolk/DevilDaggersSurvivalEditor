@@ -41,7 +41,6 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
-			SetHeightGlobally(tiles, TileUtils.VoidDefault);
 
 			for (int i = 0; i < Amount; i++)
 				tiles[RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2)] = RandomUtils.RandomFloat(MinHeight, MaxHeight);

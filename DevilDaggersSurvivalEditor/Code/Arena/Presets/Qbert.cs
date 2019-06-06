@@ -36,7 +36,6 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
-			SetHeightGlobally(tiles, TileUtils.VoidDefault);
 
 			float stepX = (StartHeight - EndHeight) / (X2 - X1 - 1);
 			float stepY = (StartHeight - EndHeight) / (Y2 - Y1 - 1);

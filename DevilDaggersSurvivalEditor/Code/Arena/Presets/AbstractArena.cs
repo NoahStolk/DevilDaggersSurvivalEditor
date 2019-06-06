@@ -1,14 +1,28 @@
 ﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public abstract class AbstractArena
 	{
+		public abstract bool IsFull { get; }
+
 		public abstract float[,] GetTiles();
 
 		protected float[,] CreateArenaArray()
 		{
-			return new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+			// Startup of the application, return empty array
+			if (Program.App == null || Program.App.MainWindow == null)
+				return new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+
+			// Clear previous is off, return the old arena
+			if (!Program.App.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsChecked == true)
+				return Program.App.spawnset.ArenaTiles;
+
+			// Return void arena
+			float[,] voidArena = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+			SetHeightGlobally(voidArena, TileUtils.VoidDefault);
+			return voidArena;
 		}
 
 		protected void SetHeightGlobally(float[,] arenaArray, float height)

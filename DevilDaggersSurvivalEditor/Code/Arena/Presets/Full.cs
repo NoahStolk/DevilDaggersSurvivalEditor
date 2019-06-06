@@ -13,6 +13,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
+		public override bool IsFull => true;
+
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();

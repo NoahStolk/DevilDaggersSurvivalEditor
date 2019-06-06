@@ -36,8 +36,6 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 						tiles[i, j] = InsideHeight;
 					else if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius + Thickness, OuterRadius + Thickness))
 						tiles[i, j] = WallHeight;
-					else
-						tiles[i, j] = TileUtils.VoidDefault;
 
 			return tiles;
 		}

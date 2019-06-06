@@ -11,7 +11,17 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 	/// </summary>
 	public sealed class ArenaPresetHandler
 	{
-		public AbstractArena ActivePreset { get; set; }
+		private AbstractArena activePreset;
+		public AbstractArena ActivePreset
+		{
+			get => activePreset;
+			set
+			{
+				activePreset = value;
+				if (Program.App != null && Program.App.MainWindow != null && Program.App.MainWindow.SpawnsetArena != null)
+					Program.App.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !activePreset.IsFull;
+			}
+		}
 		public AbstractArena DefaultPreset { get; private set; }
 
 		public readonly List<AbstractArena> ArenaPresets = new List<AbstractArena>();

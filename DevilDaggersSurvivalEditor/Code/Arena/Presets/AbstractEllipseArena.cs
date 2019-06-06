@@ -38,6 +38,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			set => angleInDegrees = value % 360;
 		}
 
+		public override bool IsFull => false;
+
 		protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius)
 		{
 			double cosA = Math.Cos(AngleInDegrees / 180 * Math.PI);

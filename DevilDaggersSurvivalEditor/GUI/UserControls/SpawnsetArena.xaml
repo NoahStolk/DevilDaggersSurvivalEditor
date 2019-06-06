@@ -71,6 +71,8 @@
 					<Label FontWeight="Bold">Arena presets</Label>
 					<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
 					<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
+					<Label>Clear previous</Label>
+					<CheckBox Name="ClearPreviousCheckBox" IsChecked="True" IsEnabled="False" />
 					<Button Click="GenerateButton_Click">Generate</Button>
 					
 					<Label FontWeight="Bold">Arena tools</Label>

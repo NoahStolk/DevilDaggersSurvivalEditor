@@ -6,6 +6,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Default : AbstractArena
 	{
+		public override bool IsFull => true;
+
 		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();

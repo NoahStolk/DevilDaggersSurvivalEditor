@@ -2,6 +2,8 @@
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.Utils;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,13 +13,17 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
 	public partial class ArenaPresetWindow : Window
 	{
+		private readonly IEnumerable<PropertyInfo> properties;
+
 		public ArenaPresetWindow(string presetName)
 		{
 			InitializeComponent();
 
 			Title = $"{presetName} arena preset";
 
-			foreach (PropertyInfo p in ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties())
+			properties = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Where(p => p.SetMethod != null);
+
+			foreach (PropertyInfo p in properties)
 			{
 				Label label = new Label()
 				{
@@ -91,7 +97,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void ApplyButton_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (PropertyInfo p in ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties())
+			foreach (PropertyInfo p in properties)
 			{
 				foreach (UIElement child in Options.Children)
 				{
