@@ -25,22 +25,37 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					Padding = new Thickness()
 				};
 
-				TextBox textBox = new TextBox()
+				Control control;
+				if (p.PropertyType == typeof(bool))
 				{
-					Name = p.Name,
-					Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset).ToString(),
-					Padding = new Thickness(),
-					Tag = p.PropertyType
-				};
-				Grid.SetColumn(textBox, 1);
-				textBox.TextChanged += TextBox_TextChanged;
+					control = new CheckBox()
+					{
+						Name = p.Name,
+						Tag = p.PropertyType
+					};
+				}
+				else
+				{
+					TextBox textBox = new TextBox()
+					{
+						Name = p.Name,
+						Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset).ToString(),
+						Padding = new Thickness(),
+						Tag = p.PropertyType
+					};
+					textBox.TextChanged += TextBox_TextChanged;
+
+					control = textBox;
+				}
+
+				Grid.SetColumn(control, 1);
 
 				Grid grid = new Grid();
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 
 				grid.Children.Add(label);
-				grid.Children.Add(textBox);
+				grid.Children.Add(control);
 
 				Options.Children.Add(grid);
 			}
@@ -108,6 +123,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 										Logging.Log.Error($"Type {t} not supported in ArenaPreset TextBox.", ex);
 										throw ex;
 									}
+								}
+							}
+							else if (gridChild is CheckBox checkBox)
+							{
+								if (checkBox.Name == p.Name)
+								{
+									p.SetValue(ArenaPresetHandler.Instance.ActivePreset, checkBox.IsChecked);
 								}
 							}
 						}
