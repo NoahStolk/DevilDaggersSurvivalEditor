@@ -283,8 +283,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			UpdateShrinkCurrent();
 
-			// TODO: Optimize
-			UpdateAllTiles();
+			// TODO: Check if current has increased or decreased and only update the corresponding tiles.
+
+			// Only update the tiles between the shrink start range and the shrink end range.
+			int center = Spawnset.ArenaWidth / 2;
+			int shrinkStartRadius = (int)ShrinkStart.Width / TileUtils.TileSize / 2;
+			int shrinkEndRadius = (int)ShrinkEnd.Width / TileUtils.TileSize / 2;
+
+			// Calculate the half size of the largest square that fits inside the shrink end circle.
+			double shrinkEndContainedSquareHalfSize = Math.Sqrt(shrinkEndRadius * shrinkEndRadius * 2) / 2;
+
+			for (int i = center - shrinkStartRadius; i < center + shrinkStartRadius; i++)
+				for (int j = center - shrinkStartRadius; j < center + shrinkStartRadius; j++)
+					if (i < center - shrinkEndContainedSquareHalfSize || i > center + shrinkEndContainedSquareHalfSize || j < center - shrinkEndContainedSquareHalfSize || j > center + shrinkEndContainedSquareHalfSize)
+						UpdateTile(new ArenaCoord(i, j));
 		}
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
