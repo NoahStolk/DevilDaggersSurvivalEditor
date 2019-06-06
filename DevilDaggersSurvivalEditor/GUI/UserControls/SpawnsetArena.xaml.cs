@@ -175,12 +175,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		public void UpdateTile(ArenaCoord tile)
 		{
-			if (tile.X == 25 && tile.Y == 27)
+			if (tile == TileUtils.GlitchTile)
 			{
-				if (Program.App.userSettings.LockTile2527)
-					Program.App.spawnset.ArenaTiles[25, 27] = Math.Min(Program.App.spawnset.ArenaTiles[25, 27], TileUtils.Tile2527Max);
+				if (Program.App.userSettings.LockGlitchTile)
+					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = Math.Min(Program.App.spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.GlitchTileMax);
 
-				WarningLabel.Text = Program.App.spawnset.ArenaTiles[25, 27] > TileUtils.Tile2527Max ? $"WARNING: The tile at coordinate {{25, 27}} has a height value greater than {TileUtils.Tile2527Max}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to be in the safe range in the Options > Settings menu." : "";
+				WarningLabel.Text = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? $"WARNING: The tile at coordinate {tile} has a height value greater than {TileUtils.GlitchTileMax}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to remain within its safe range in the Options > Settings menu." : "";
 			}
 
 			// Set tile color
@@ -242,7 +242,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
-			LabelTile.Content = $"{{{tile.X}, {tile.Y}}}";
+			LabelTile.Content = tile.ToString();
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
 

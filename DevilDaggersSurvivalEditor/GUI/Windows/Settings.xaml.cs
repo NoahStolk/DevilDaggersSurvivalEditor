@@ -1,4 +1,5 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Utils;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
 
@@ -9,6 +10,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		public SettingsWindow()
 		{
 			InitializeComponent();
+
+			GlitchTileLabel.Content = $"Lock tile {TileUtils.GlitchTile} to safe range";
 
 			LabelSurvivalFileLocation.Text = Program.App.userSettings.SurvivalFileLocation;
 

@@ -23,8 +23,8 @@
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
 
-			<Label Grid.Column="0">Lock tile {25, 27} to safe range</Label>
-			<CheckBox Grid.Column="1" IsChecked="{Binding LockTile2527}" />
+			<Label Name="GlitchTileLabel" Grid.Column="0" />
+			<CheckBox Grid.Column="1" IsChecked="{Binding LockGlitchTile}" />
 		</Grid>
 		<!--<Grid>
 			<Grid.ColumnDefinitions>

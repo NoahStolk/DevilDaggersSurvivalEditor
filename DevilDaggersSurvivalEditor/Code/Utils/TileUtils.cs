@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Media;
+using DevilDaggersSurvivalEditor.Code.Arena;
 
 namespace DevilDaggersSurvivalEditor.Code.Utils
 {
@@ -12,7 +13,8 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 		public const int TileSize = 8;
 		public const int TileSizeShrunk = 4;
 
-		public const float Tile2527Max = 0.4973333f;
+		public static readonly ArenaCoord GlitchTile = new ArenaCoord(25, 27);
+		public const float GlitchTileMax = 0.4973333f;
 
 		public static Color GetColorFromHeight(float height)
 		{

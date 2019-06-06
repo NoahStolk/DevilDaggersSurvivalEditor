@@ -43,6 +43,11 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			return xFromCenter * xFromCenter + yFromCenter * yFromCenter;
 		}
 
+		public override string ToString()
+		{
+			return $"{{{X}, {Y}}}";
+		}
+
 		public override bool Equals(object obj)
 		{
 			ArenaCoord coord = (ArenaCoord)obj;
