@@ -284,7 +284,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			UpdateShrinkCurrent();
 
 			// TODO: Optimize
-			UpdateTiles();
+			UpdateAllTiles();
 		}
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
