@@ -36,20 +36,10 @@ The source code is here, so take a look at it if you do not trust it. You could 
 
 Devil Daggers Survival Editor 2 is a complete rewrite of the entire application. 
 
-**General**
-
 - Made the application window resizable (includes fullscreen).
 - Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
-- The application now warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
 - A lot of performance optimizations.
-- The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
-
-**Fixes**
-
 - Fixed issue where the arena was always incorrectly rotated and mirrored.
-
-**New**
-
 - Added new arena presets: Cage Ellipse, Ellipse, Random Gaps, Random Islands, and Qbert.
 - Removed Default Flat preset (can now be created using the new Ellipse preset).
 - Added more parameters to existing presets.
@@ -58,6 +48,8 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
 - The applications now uses logging.
 - Added menu item to open the current survival file.
+- The application now warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
+- The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
 
 **Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, since 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
 

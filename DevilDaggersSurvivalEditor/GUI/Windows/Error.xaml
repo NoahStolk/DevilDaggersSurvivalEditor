@@ -7,10 +7,10 @@
         Title="" Height="450" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<Grid x:Name="Error">
 		<StackPanel>
-			<TextBlock Text="{Binding ErrorMessage}" TextWrapping="WrapWithOverflow"></TextBlock>
+			<TextBox Text="{Binding ErrorMessage, Mode=OneTime}" TextWrapping="WrapWithOverflow" IsReadOnly="True" />
 			<StackPanel x:Name="ExceptionStackPanel" Visibility="Hidden">
 				<Label>Technical information</Label>
-				<TextBlock Text="{Binding Message}" TextWrapping="WrapWithOverflow"></TextBlock>
+				<TextBox Text="{Binding Message, Mode=OneTime}" TextWrapping="WrapWithOverflow" IsReadOnly="True" />
 			</StackPanel>
 			<Button Name="OKButton" Content="OK" Click="OKButton_Click"/>
 		</StackPanel>
