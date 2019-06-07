@@ -21,6 +21,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private readonly int arenaCenter;
 
 		private readonly Rectangle[,] tileElements = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+		private readonly Rectangle[,] tileElementSelections = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+
+		private readonly List<ArenaCoord> selections = new List<ArenaCoord>();
 
 		// In tile units
 		private double shrinkStartRadius;
@@ -49,14 +52,28 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					};
 					Canvas.SetLeft(rect, i * TileUtils.TileSize);
 					Canvas.SetTop(rect, j * TileUtils.TileSize);
+
+					Rectangle rectSelection = new Rectangle
+					{
+						Width = TileUtils.TileSize,
+						Height = TileUtils.TileSize,
+						Stroke = new SolidColorBrush(Color.FromRgb(255, 255, 0)),
+						Visibility = Visibility.Hidden
+					};
+					Panel.SetZIndex(rectSelection, 2);
+					Canvas.SetLeft(rectSelection, i * TileUtils.TileSize);
+					Canvas.SetTop(rectSelection, j * TileUtils.TileSize);
+
 					ArenaTiles.Children.Add(rect);
+					ArenaTiles.Children.Add(rectSelection);
 					tileElements[i, j] = rect;
+					tileElementSelections[i, j] = rectSelection;
 
 					UpdateTile(new ArenaCoord(i, j));
 				}
 			}
 
-			// Add presets via Reflection
+			// Add presets
 			foreach (Type type in ArenaPresetHandler.Instance.PresetTypes)
 			{
 				string typeName = type.Name.ToString();
@@ -104,6 +121,25 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			UpdateShrinkCurrent();
 			UpdateAllTiles();
+		}
+
+		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		{
+			UpdateShrinkCurrent();
+
+			// TODO: Check if current has increased or decreased and only update the corresponding tiles.
+
+			// Only update the tiles between the shrink start range and the shrink end range.
+			int shrinkStartRadius = (int)Math.Ceiling(this.shrinkStartRadius);
+			int shrinkEndRadius = (int)Math.Floor(this.shrinkEndRadius);
+
+			// Calculate the half size of the largest square that fits inside the shrink end circle.
+			double shrinkEndContainedSquareHalfSize = Math.Sqrt(shrinkEndRadius * shrinkEndRadius * 2) / 2;
+
+			for (int i = arenaCenter - shrinkStartRadius; i < arenaCenter + shrinkStartRadius; i++)
+				for (int j = arenaCenter - shrinkStartRadius; j < arenaCenter + shrinkStartRadius; j++)
+					if (i < arenaCenter - shrinkEndContainedSquareHalfSize || i > arenaCenter + shrinkEndContainedSquareHalfSize || j < arenaCenter - shrinkEndContainedSquareHalfSize || j > arenaCenter + shrinkEndContainedSquareHalfSize)
+						UpdateTile(new ArenaCoord(i, j));
 		}
 
 		private void UpdateShrinkStart()
@@ -154,6 +190,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		public void UpdateTile(ArenaCoord tile)
 		{
+			// Lock special cases if set in settings
 			if (tile == TileUtils.GlitchTile)
 			{
 				if (Program.App.userSettings.LockGlitchTile)
@@ -168,6 +205,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				Program.App.MainWindow.WarningVoidSpawn.Visibility = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;
 			}
+
+			// Set selection
+			tileElementSelections[tile.X, tile.Y].Visibility = selections.Contains(tile) ? Visibility.Visible : Visibility.Hidden;
 
 			// Set tile color
 			float height = Program.App.spawnset.ArenaTiles[tile.X, tile.Y];
@@ -247,14 +287,24 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
-			if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= TileUtils.TileMin)
-				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
+			if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+			{
+				if (selections.Contains(tile))
+					selections.Remove(tile);
+				else
+					selections.Add(tile);
+			}
 			else
-				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
+			{
+				if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= TileUtils.TileMin)
+					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
+				else
+					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
+
+				SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+			}
 
 			UpdateTile(tile);
-
-			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
 
 		private void ArenaTiles_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -268,25 +318,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			UpdateTile(tile);
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
-		}
-
-		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-		{
-			UpdateShrinkCurrent();
-
-			// TODO: Check if current has increased or decreased and only update the corresponding tiles.
-
-			// Only update the tiles between the shrink start range and the shrink end range.
-			int shrinkStartRadius = (int)Math.Ceiling(this.shrinkStartRadius);
-			int shrinkEndRadius = (int)Math.Floor(this.shrinkEndRadius);
-
-			// Calculate the half size of the largest square that fits inside the shrink end circle.
-			double shrinkEndContainedSquareHalfSize = Math.Sqrt(shrinkEndRadius * shrinkEndRadius * 2) / 2;
-
-			for (int i = arenaCenter - shrinkStartRadius; i < arenaCenter + shrinkStartRadius; i++)
-				for (int j = arenaCenter - shrinkStartRadius; j < arenaCenter + shrinkStartRadius; j++)
-					if (i < arenaCenter - shrinkEndContainedSquareHalfSize || i > arenaCenter + shrinkEndContainedSquareHalfSize || j < arenaCenter - shrinkEndContainedSquareHalfSize || j > arenaCenter + shrinkEndContainedSquareHalfSize)
-						UpdateTile(new ArenaCoord(i, j));
 		}
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
