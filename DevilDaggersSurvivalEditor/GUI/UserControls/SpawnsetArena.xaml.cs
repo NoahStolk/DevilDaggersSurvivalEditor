@@ -283,11 +283,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			// Calculate the half size of the largest square that fits inside the shrink end circle.
 			double shrinkEndContainedSquareHalfSize = Math.Sqrt(shrinkEndRadius * shrinkEndRadius * 2) / 2;
 
-			//TestSquare.Width = shrinkEndContainedSquareHalfSize * 2 * TileUtils.TileSize;
-			//TestSquare.Height = shrinkEndContainedSquareHalfSize * 2 * TileUtils.TileSize;
-			//Canvas.SetLeft(TestSquare, arenaCanvasCenter - TestSquare.Width * 0.5);
-			//Canvas.SetTop(TestSquare, arenaCanvasCenter - TestSquare.Height * 0.5);
-
 			for (int i = arenaCenter - shrinkStartRadius; i < arenaCenter + shrinkStartRadius; i++)
 				for (int j = arenaCenter - shrinkStartRadius; j < arenaCenter + shrinkStartRadius; j++)
 					if (i < arenaCenter - shrinkEndContainedSquareHalfSize || i > arenaCenter + shrinkEndContainedSquareHalfSize || j < arenaCenter - shrinkEndContainedSquareHalfSize || j > arenaCenter + shrinkEndContainedSquareHalfSize)
@@ -320,7 +315,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
-					newTiles[i, j] = Program.App.spawnset.ArenaTiles[Spawnset.ArenaHeight - 1 - j, i];
+					newTiles[i, j] = Program.App.spawnset.ArenaTiles[j, Spawnset.ArenaWidth - 1 - i];
 
 			Program.App.spawnset.ArenaTiles = newTiles;
 
@@ -333,7 +328,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
-					newTiles[i, j] = Program.App.spawnset.ArenaTiles[j, Spawnset.ArenaWidth - 1 - i];
+					newTiles[i, j] = Program.App.spawnset.ArenaTiles[Spawnset.ArenaHeight - 1 - j, i];
 
 			Program.App.spawnset.ArenaTiles = newTiles;
 

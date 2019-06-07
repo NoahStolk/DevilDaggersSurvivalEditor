@@ -27,7 +27,6 @@
 				<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
 				<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
 				<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1" />
-				<!--<Rectangle Stroke="AliceBlue" Name="TestSquare" Panel.ZIndex="1" />-->
 			</Canvas>
 			<StackPanel Grid.Column="1" x:Name="SpawnsetSettings">
 				<Label FontWeight="Bold">Settings</Label>
