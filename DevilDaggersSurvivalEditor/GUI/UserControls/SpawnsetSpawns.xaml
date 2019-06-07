@@ -71,7 +71,6 @@
 					<Button Grid.Column="1" Name="AddSpawnButton" Content="Add" Click="AddSpawnButton_Click"></Button>
 					<Button Grid.Column="2" Name="InsertSpawnButton" Content="Insert" Click="InsertSpawnButton_Click"></Button>
 				</Grid>
-				<TextBlock Name="WarningLabel" FontWeight="Bold" Foreground="Red" TextWrapping="WrapWithOverflow" />
 			</StackPanel>
 			<StackPanel Grid.Column="1">
 				<Button Name="EditSpawnButton" Content="Edit selected spawn(s)" Click="EditSpawnButton_Click"></Button>

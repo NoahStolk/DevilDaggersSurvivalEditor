@@ -312,6 +312,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Dispatcher.Invoke(() =>
 				{
 					Program.App.MainWindow.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
+					Program.App.MainWindow.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
 				});
 			}
 		}

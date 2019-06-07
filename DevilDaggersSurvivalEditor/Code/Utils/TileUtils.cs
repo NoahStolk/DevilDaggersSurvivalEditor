@@ -13,6 +13,7 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 		public const int TileSize = 8;
 		public const int TileSizeShrunk = 4;
 
+		public static readonly ArenaCoord SpawnTile = new ArenaCoord(25, 25);
 		public static readonly ArenaCoord GlitchTile = new ArenaCoord(25, 27);
 		public const float GlitchTileMax = 0.4973333f;
 

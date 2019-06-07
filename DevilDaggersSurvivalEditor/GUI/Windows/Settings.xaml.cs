@@ -11,19 +11,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			GlitchTileLabel.Content = $"Lock tile {TileUtils.GlitchTile} to safe range";
+			GlitchTileLabel.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range";
 
 			LabelSurvivalFileLocation.Text = Program.App.userSettings.SurvivalFileLocation;
 
 			Data.DataContext = Program.App.userSettings;
-
-			//foreach (CultureSettings culture in (CultureSettings[])Enum.GetValues(typeof(CultureSettings)))
-			//	ComboBoxNumberFormatting.Items.Add(new ComboBoxItem()
-			//	{
-			//		Content = MiscUtils.ToUserFriendlyString(culture.ToString())
-			//	});
-
-			//ComboBoxNumberFormatting.SelectedIndex = (int)Logic.Instance.userSettings.CultureSetting;
 		}
 
 		private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -41,14 +33,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			// Make sure this window keeps being focused rather than the MainWindow
 			Focus();
 		}
-
-		//private void ComboBoxNumberFormatting_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		//{
-		//	if (ComboBoxNumberFormatting.SelectedIndex == -1)
-		//		return;
-
-		//	Logic.Instance.userSettings.CultureSetting = (CultureSettings)ComboBoxNumberFormatting.SelectedIndex;
-		//}
 
 		private void ApplyButton_Click(object sender, RoutedEventArgs e)
 		{

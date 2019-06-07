@@ -26,18 +26,16 @@
 			<Label Name="GlitchTileLabel" Grid.Column="0" />
 			<CheckBox Grid.Column="1" IsChecked="{Binding LockGlitchTile}" />
 		</Grid>
-		<!--<Grid>
+		<Grid>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition Width="3*"/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
 
-			<Label Grid.Column="0">Number formatting</Label>
-			<TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" Name="LabelNumberFormatting">1234.567</TextBlock>
-			<ComboBox Grid.Column="2" Name="ComboBoxNumberFormatting" SelectionChanged="ComboBoxNumberFormatting_SelectionChanged" />
-		</Grid>-->
-		<Grid Grid.Column="2">
+			<Label Content="Prevent spawn tile to be void" Grid.Column="0" />
+			<CheckBox Grid.Column="1" IsChecked="{Binding LockSpawnTile}" />
+		</Grid>
+		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
 				<ColumnDefinition Width="2*"/>

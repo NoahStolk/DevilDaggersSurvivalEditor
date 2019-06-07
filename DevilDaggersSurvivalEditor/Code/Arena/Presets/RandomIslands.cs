@@ -67,10 +67,6 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 				}
 			}
 
-			// Make sure the player doesn't spawn in the void
-			if (tiles[Spawnset.ArenaWidth / 2, Spawnset.ArenaHeight / 2] < -1)
-				tiles[Spawnset.ArenaWidth / 2, Spawnset.ArenaHeight / 2] = 0;
-
 			return tiles;
 		}
 	}

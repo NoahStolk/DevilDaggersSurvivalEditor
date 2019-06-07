@@ -33,7 +33,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			arenaCanvasCenter = (int)ArenaTiles.Width / 2;
 			arenaCenter = Spawnset.ArenaWidth / 2;
+		}
 
+		public void Initialize()
+		{
 			// Add height map
 			for (int i = 0; i < 5; i++)
 				HeightMap.RowDefinitions.Add(new RowDefinition());
@@ -180,7 +183,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				if (Program.App.userSettings.LockGlitchTile)
 					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = Math.Min(Program.App.spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.GlitchTileMax);
 
-				WarningLabel.Text = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? $"WARNING: The tile at coordinate {tile} has a height value greater than {TileUtils.GlitchTileMax}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to remain within its safe range in the Options > Settings menu." : "";
+				Program.App.MainWindow.WarningGlitchTile.Visibility = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? Visibility.Visible : Visibility.Collapsed;
+			}
+			else if (tile == TileUtils.SpawnTile)
+			{
+				if (Program.App.userSettings.LockSpawnTile)
+					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = Math.Max(Program.App.spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.TileMin);
+
+				Program.App.MainWindow.WarningVoidSpawn.Visibility = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;
 			}
 
 			// Set tile color

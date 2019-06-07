@@ -9,23 +9,35 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="18"/>
-			<RowDefinition Height="1*"/>
+			<RowDefinition />
 		</Grid.RowDefinitions>
 		<DockPanel Grid.Row="0">
 			<usercontrols:MenuBar/>
 		</DockPanel>
 		<Grid Grid.Row="1" Height="768" Width="1366" Background="#eee">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="1*"/>
-				<ColumnDefinition Width="1*"/>
-			</Grid.ColumnDefinitions>
-			<StackPanel Grid.Column="0">
-				<Label FontSize="20" Margin="0,0,0,20">Spawns</Label>
-				<usercontrols:SpawnsetSpawns x:Name="SpawnsetSpawns" />
-			</StackPanel>
-			<StackPanel Grid.Column="1">
-				<Label FontSize="20" Margin="0,0,0,20">Arena</Label>
-				<usercontrols:SpawnsetArena x:Name="SpawnsetArena" />
+			<Grid.RowDefinitions>
+				<RowDefinition Height="7*" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid Grid.Row="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<StackPanel Grid.Column="0">
+					<Label FontSize="20" Margin="0,0,0,20">Spawns</Label>
+					<usercontrols:SpawnsetSpawns x:Name="SpawnsetSpawns" />
+				</StackPanel>
+				<StackPanel Grid.Column="1">
+					<Label FontSize="20" Margin="0,0,0,20">Arena</Label>
+					<usercontrols:SpawnsetArena x:Name="SpawnsetArena" />
+				</StackPanel>
+			</Grid>
+			<StackPanel Grid.Row="1">
+				<Label FontWeight="Bold">Warnings</Label>
+				<TextBlock Name="WarningVoidSpawn" FontWeight="Bold" Foreground="Red" TextWrapping="WrapWithOverflow" Visibility="Collapsed" />
+				<TextBlock Name="WarningGlitchTile" FontWeight="Bold" Foreground="Red" TextWrapping="WrapWithOverflow" Visibility="Collapsed" />
+				<TextBlock Name="WarningEndLoopLength" FontWeight="Bold" Foreground="Red" TextWrapping="WrapWithOverflow" Visibility="Collapsed" />
 			</StackPanel>
 		</Grid>
 	</Grid>

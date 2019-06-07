@@ -56,6 +56,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Renamed and improved some existing presets.
 - Added ability to rotate and flip the arena.
 - Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
+- The applications now uses logging.
 
 **Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, since 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
 

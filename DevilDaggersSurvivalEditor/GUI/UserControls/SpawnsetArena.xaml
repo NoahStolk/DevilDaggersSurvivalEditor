@@ -67,7 +67,7 @@
 
 					<Label FontWeight="Bold">Shrink preview</Label>
 					<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
-					
+
 					<Label FontWeight="Bold">Arena presets</Label>
 					<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
 					<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
@@ -76,7 +76,7 @@
 						<Label>Clear previous</Label>
 					</StackPanel>
 					<Button Click="GenerateButton_Click">Generate</Button>
-					
+
 					<Label FontWeight="Bold">Arena tools</Label>
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -92,25 +92,14 @@
 							<Button Click="FlipVertical_Click">Flip vertically</Button>
 						</StackPanel>
 					</Grid>
-					
+
 					<Label FontWeight="Bold">Tile tools</Label>
 					<Button Click="RoundHeights_Click">Round heights</Button>
 					<Button Click="RandomizeHeights_Click">Randomize heights</Button>
 				</StackPanel>
 			</Grid>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="408"/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-				<StackPanel Grid.Column="0">
-					<TextBlock Name="WarningLabel" FontWeight="Bold" Foreground="Red" TextWrapping="WrapWithOverflow" />
-				</StackPanel>
-				<StackPanel Grid.Column="1">
-					<Label>Height map</Label>
-					<Grid HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40" />
-				</StackPanel>
-			</Grid>
+			<Label>Height map</Label>
+			<Grid HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40" />
 		</StackPanel>
 	</Grid>
 </UserControl>
