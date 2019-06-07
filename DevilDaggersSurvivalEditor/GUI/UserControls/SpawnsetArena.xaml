@@ -5,99 +5,97 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="683">
-	<Grid>
-		<StackPanel>
-			<Grid HorizontalAlignment="Left" Width="408" Height="30">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-				<StackPanel Grid.Column="0">
-					<Label Name="LabelTile">{0, 0}</Label>
-				</StackPanel>
-				<StackPanel Grid.Column="1">
-					<Label Name="HeightTile">0.00</Label>
-				</StackPanel>
-			</Grid>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="408"/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-				<Canvas Grid.Column="0" Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408">
-					<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
-					<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
-					<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1" />
-					<!--<Rectangle Stroke="AliceBlue" Name="TestSquare" Panel.ZIndex="1" />-->
-				</Canvas>
-				<StackPanel Grid.Column="1" x:Name="SpawnsetSettings">
-					<Label FontWeight="Bold">Settings</Label>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-						</Grid.ColumnDefinitions>
-						<Label Grid.Column="0">Shrink start</Label>
-						<TextBox Grid.Column="1" Name="TextBoxShrinkStart" Text="{Binding ShrinkStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkStart" />
-					</Grid>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-						</Grid.ColumnDefinitions>
-						<Label Grid.Column="0">Shrink end</Label>
-						<TextBox Grid.Column="1" Name="TextBoxShrinkEnd" Text="{Binding ShrinkEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkEnd" />
-					</Grid>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-						</Grid.ColumnDefinitions>
-						<Label Grid.Column="0">Shrink rate</Label>
-						<TextBox Grid.Column="1" Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkRate" />
-					</Grid>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-						</Grid.ColumnDefinitions>
-						<Label Grid.Column="0">Brightness</Label>
-						<TextBox Grid.Column="1" Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-					</Grid>
+	<StackPanel>
+		<Grid HorizontalAlignment="Left" Width="408" Style="{StaticResource SpawnsetHeader}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<StackPanel Grid.Column="0">
+				<Label Name="LabelTile">{0, 0}</Label>
+			</StackPanel>
+			<StackPanel Grid.Column="1">
+				<Label Name="HeightTile">0.00</Label>
+			</StackPanel>
+		</Grid>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="408"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Canvas Grid.Column="0" Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408">
+				<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
+				<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
+				<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1" />
+				<!--<Rectangle Stroke="AliceBlue" Name="TestSquare" Panel.ZIndex="1" />-->
+			</Canvas>
+			<StackPanel Grid.Column="1" x:Name="SpawnsetSettings">
+				<Label FontWeight="Bold">Settings</Label>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Shrink start</Label>
+					<TextBox Grid.Column="1" Name="TextBoxShrinkStart" Text="{Binding ShrinkStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkStart" />
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Shrink end</Label>
+					<TextBox Grid.Column="1" Name="TextBoxShrinkEnd" Text="{Binding ShrinkEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkEnd" />
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Shrink rate</Label>
+					<TextBox Grid.Column="1" Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkRate" />
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Brightness</Label>
+					<TextBox Grid.Column="1" Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				</Grid>
 
-					<Label FontWeight="Bold">Shrink preview</Label>
-					<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+				<Label FontWeight="Bold">Shrink preview</Label>
+				<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
 
-					<Label FontWeight="Bold">Arena presets</Label>
-					<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
-					<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
-					<StackPanel Orientation="Horizontal">
-						<CheckBox Name="ClearPreviousCheckBox" IsChecked="True" IsEnabled="False" />
-						<Label>Clear previous</Label>
+				<Label FontWeight="Bold">Arena presets</Label>
+				<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
+				<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
+				<StackPanel Orientation="Horizontal">
+					<CheckBox Name="ClearPreviousCheckBox" IsChecked="True" IsEnabled="False" />
+					<Label>Clear previous</Label>
+				</StackPanel>
+				<Button Click="GenerateButton_Click">Generate</Button>
+
+				<Label FontWeight="Bold">Arena tools</Label>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<StackPanel Grid.Column="0">
+						<Button Click="RotateClockwise_Click">Rotate clockwise</Button>
+						<Button Click="FlipHorizontal_Click">Flip horizontally</Button>
 					</StackPanel>
-					<Button Click="GenerateButton_Click">Generate</Button>
+					<StackPanel Grid.Column="1">
+						<Button Click="RotateCounterClockwise_Click">Rotate counter-clockwise</Button>
+						<Button Click="FlipVertical_Click">Flip vertically</Button>
+					</StackPanel>
+				</Grid>
 
-					<Label FontWeight="Bold">Arena tools</Label>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-						</Grid.ColumnDefinitions>
-						<StackPanel Grid.Column="0">
-							<Button Click="RotateClockwise_Click">Rotate clockwise</Button>
-							<Button Click="FlipHorizontal_Click">Flip horizontally</Button>
-						</StackPanel>
-						<StackPanel Grid.Column="1">
-							<Button Click="RotateCounterClockwise_Click">Rotate counter-clockwise</Button>
-							<Button Click="FlipVertical_Click">Flip vertically</Button>
-						</StackPanel>
-					</Grid>
-
-					<Label FontWeight="Bold">Tile tools</Label>
-					<Button Click="RoundHeights_Click">Round heights</Button>
-					<Button Click="RandomizeHeights_Click">Randomize heights</Button>
-				</StackPanel>
-			</Grid>
-		</StackPanel>
-	</Grid>
+				<Label FontWeight="Bold">Tile tools</Label>
+				<Button Click="RoundHeights_Click">Round heights</Button>
+				<Button Click="RandomizeHeights_Click">Randomize heights</Button>
+			</StackPanel>
+		</Grid>
+	</StackPanel>
 </UserControl>

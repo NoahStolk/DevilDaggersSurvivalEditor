@@ -1,9 +1,36 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Style TargetType="TextBox">
 		<Style.Triggers>
 			<Trigger Property="Validation.HasError" Value="True">
 				<Setter Property="Background" Value="#ff8888" />
 			</Trigger>
 		</Style.Triggers>
+	</Style>
+
+	<Style TargetType="CheckBox">
+		<Style.Setters>
+			<Setter Property="Margin" Value="2,2,2,2" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="Label">
+		<Style.Setters>
+			<Setter Property="Padding" Value="2,2,2,2" />
+			<Setter Property="Margin" Value="0,0,0,0" />
+		</Style.Setters>
+	</Style>
+	<Style TargetType="Label" x:Key="TitleLabel">
+		<Style.Setters>
+			<Setter Property="FontSize" Value="20" />
+			<Setter Property="Padding" Value="8,8,8,8" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="Grid" x:Key="SpawnsetHeader">
+		<Style.Setters>
+			<Setter Property="Margin" Value="7,8,0,0" />
+			<Setter Property="Height" Value="30" />
+		</Style.Setters>
 	</Style>
 </ResourceDictionary>

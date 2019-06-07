@@ -5,13 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="683">
-	<Grid Height="750">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="30" />
-			<RowDefinition Height="408" />
-			<RowDefinition Height="1*" />
-		</Grid.RowDefinitions>
-		<Grid Grid.Row="0" HorizontalAlignment="Left" Width="652">
+	<StackPanel>
+		<Grid HorizontalAlignment="Left" Width="652" Style="{StaticResource SpawnsetHeader}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*" />
 				<ColumnDefinition Width="2*" />
@@ -27,8 +22,8 @@
 			<Label Grid.Column="4" FontWeight="Bold">No farm gems</Label>
 			<Label Grid.Column="5" FontWeight="Bold">Total gems</Label>
 		</Grid>
-		<ListBox Grid.Row="1" Name="ListBoxSpawns" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="ListBoxSpawns_Selected" />
-		<Grid Grid.Row="2">
+		<ListBox Name="ListBoxSpawns" Height="408" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="ListBoxSpawns_Selected" />
+		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*" />
 				<ColumnDefinition Width="1*" />
@@ -40,7 +35,7 @@
 						<ColumnDefinition Width="1*" />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Enemy</Label>
-					<ComboBox Grid.Column="1" Name="ComboBoxEnemy" Height="20" SelectedIndex="0">
+					<ComboBox Grid.Column="1" Name="ComboBoxEnemy" Height="20" SelectedIndex="1">
 						<ComboBoxItem Content="EMPTY" />
 						<ComboBoxItem Content="Squid I" />
 						<ComboBoxItem Content="Squid II" />
@@ -78,5 +73,5 @@
 				<Button Name="ModifyDelaysButton" Content="Modify delays for selected spawn(s)" Click="ModifyDelaysButton_Click"></Button>
 			</StackPanel>
 		</Grid>
-	</Grid>
+	</StackPanel>
 </UserControl>
