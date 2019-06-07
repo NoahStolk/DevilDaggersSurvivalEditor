@@ -10,13 +10,14 @@
 			<MenuItem Header="_File">
 				<MenuItem Header="_New" Click="FileNew_Click" />
 				<MenuItem Header="_Open" Click="FileOpen_Click" />
-				<MenuItem Name="FileOnlineMenuItem" Header="_Open from DevilDaggers.info">
-					<MenuItem StaysOpenOnClick="True" Name="FileOnlineLoading" Header="Loading..." IsEnabled="False" Click="Reload_Click" />
+				<MenuItem Header="Open from _DevilDaggers.info" Name="FileOnlineMenuItem">
+					<MenuItem Header="Loading..." Name="FileOnlineLoading" StaysOpenOnClick="True" IsEnabled="False" Click="Reload_Click" />
 				</MenuItem>
 				<MenuItem Header="_Save" Click="FileSave_Click" />
 				<Separator />
-				<MenuItem Header="_Replace 'survival' file" Click="ReplaceSurvival_Click" />
-				<MenuItem Header="Res_tore 'survival' file (V3)" Click="RestoreSurvival_Click" />
+				<MenuItem Header="O_pen 'survival' file" Click="SurvivalOpen_Click" />
+				<MenuItem Header="_Replace 'survival' file" Click="SurvivalReplace_Click" />
+				<MenuItem Header="Res_tore 'survival' file (V3)" Click="SurvivalRestore_Click" />
 				<Separator />
 				<MenuItem Header="_Exit" Click="Exit_Click" />
 			</MenuItem>
@@ -27,9 +28,9 @@
 				<MenuItem Header="_Browse spawnsets online" Click="Browse_Click"/>
 				<MenuItem Header="Open _Discord server" Click="Discord_Click"/>
 			</MenuItem>
-			<MenuItem Name="HelpItem" Header="_Help">
+			<MenuItem Header="_Help" Name="HelpItem">
 				<MenuItem Header="_About" Click="About_Click" />
-				<MenuItem Name="UpdateItem" Header="_Check for updates" Click="Update_Click" />
+				<MenuItem Header="_Check for updates" Name="UpdateItem" Click="Update_Click" />
 				<MenuItem Header="Show log" Click="ShowLog_Click" />
 			</MenuItem>
 		</Menu>

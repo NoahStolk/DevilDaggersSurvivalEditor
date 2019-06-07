@@ -43,6 +43,19 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
+		private void ReplaceFile(string sourceFileName, string destinationFileName)
+		{
+			try
+			{
+				File.Replace(sourceFileName, destinationFileName, null);
+				MessageBox.Show("Successfully replaced file.", "Success");
+			}
+			catch (Exception ex)
+			{
+				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred while trying to replace the file.", ex);
+			}
+		}
+
 		private void ChangeMenuIfUpdateAvailable()
 		{
 			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
@@ -268,7 +281,19 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		private void ReplaceSurvival_Click(object sender, RoutedEventArgs e)
+		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
+		{
+			if (!Spawnset.TryParse(new FileStream(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"), FileMode.Open, FileAccess.Read), out Program.App.spawnset))
+			{
+				Program.App.ShowError("Could not parse file", "Failed to parse the 'survival' file.", null);
+				return;
+			}
+
+			Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
+			Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
+		}
+
+		private void SurvivalReplace_Click(object sender, RoutedEventArgs e)
 		{
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
@@ -277,20 +302,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		private void RestoreSurvival_Click(object sender, RoutedEventArgs e)
+		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)
 		{
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				try
-				{
-					File.Replace(Path.Combine("Content", "survival"), Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"), null);
-					MessageBox.Show("Successfully restored original file.", "Success");
-				}
-				catch (Exception ex)
-				{
-					Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred while trying to restore the original file.", ex);
-				}
+				ReplaceFile(Path.Combine("Content", "survival"), Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
 			}
 		}
 
