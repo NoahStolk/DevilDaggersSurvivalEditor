@@ -37,30 +37,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		public void Initialize()
 		{
-			// Add height map
-			for (int i = 0; i < 5; i++)
-				HeightMap.RowDefinitions.Add(new RowDefinition());
-			for (int i = 0; i < 16; i++)
-				HeightMap.ColumnDefinitions.Add(new ColumnDefinition());
-
-			TextBlock textBlock = new TextBlock { Background = new SolidColorBrush(TileUtils.GetColorFromHeight(-1)), ToolTip = "-1" };
-			Grid.SetRow(textBlock, 0);
-			Grid.SetColumn(textBlock, 0);
-			HeightMap.Children.Add(textBlock);
-
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 16; j++)
-				{
-					float height = i * 16 + j;
-					textBlock = new TextBlock { Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString() };
-
-					Grid.SetRow(textBlock, i + 1);
-					Grid.SetColumn(textBlock, j);
-					HeightMap.Children.Add(textBlock);
-				}
-			}
-
 			// Add arena tiles
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 			{

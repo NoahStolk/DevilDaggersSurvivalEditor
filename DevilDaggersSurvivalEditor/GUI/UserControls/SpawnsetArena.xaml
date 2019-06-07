@@ -98,8 +98,6 @@
 					<Button Click="RandomizeHeights_Click">Randomize heights</Button>
 				</StackPanel>
 			</Grid>
-			<Label>Height map</Label>
-			<Grid HorizontalAlignment="Left" Name="HeightMap" Width="128" Height="40" />
 		</StackPanel>
 	</Grid>
 </UserControl>
