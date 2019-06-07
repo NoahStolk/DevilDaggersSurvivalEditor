@@ -120,9 +120,9 @@
       <DependentUpon>Message.xaml</DependentUpon>
     </Compile>
     <Compile Include="Code\Program.cs" />
-    <Compile Include="Code\VersionResult.cs" />
+    <Compile Include="Code\Web\VersionResult.cs" />
     <Compile Include="Code\Utils\UrlUtils.cs" />
-    <Compile Include="Code\SpawnsetFile.cs" />
+    <Compile Include="Code\Web\SpawnsetFile.cs" />
     <Compile Include="Code\User\UserSettings.cs" />
     <Compile Include="Code\Utils\ApplicationUtils.cs" />
     <Compile Include="GUI\Windows\Main.xaml.cs">
