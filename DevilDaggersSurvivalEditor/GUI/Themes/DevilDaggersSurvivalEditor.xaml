@@ -1,9 +1,24 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:windows="clr-namespace:DevilDaggersSurvivalEditor.GUI.Windows">
+	<Style TargetType="Window">
+		<Style.Setters>
+			<Setter Property="Background" Value="#bbb" />
+		</Style.Setters>
+	</Style>
+	<Style TargetType="{x:Type windows:AboutWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:ArenaPresetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:CheckingForUpdatesWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:ErrorWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:MainWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:MessageWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:SetTileHeightWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:SettingsWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+
 	<Style TargetType="TextBox">
 		<Style.Triggers>
 			<Trigger Property="Validation.HasError" Value="True">
-				<Setter Property="Background" Value="#ff8888" />
+				<Setter Property="Background" Value="#f88" />
 			</Trigger>
 		</Style.Triggers>
 	</Style>
