@@ -4,22 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="About" Height="256" Width="384" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<Grid>
-		<StackPanel>
-			<Label FontSize="24" HorizontalAlignment="Center">Devil Daggers Survival Editor</Label>
-			<Label FontSize="20" HorizontalAlignment="Center" Name="VersionLabel"></Label>
-			<Label FontSize="16" HorizontalAlignment="Center">Made by Noah Stolk</Label>
-			<Label FontSize="16" HorizontalAlignment="Center">
-				<Hyperlink NavigateUri="http://www.noahstolk.com" RequestNavigate="Hyperlink_RequestNavigate">
-					www.noahstolk.com
-				</Hyperlink>
-			</Label>
-			<Label FontSize="16" HorizontalAlignment="Center">
-				<Hyperlink NavigateUri="https://bitbucket.org/NoahStolk/DevilDaggersSurvivalEditor/src" RequestNavigate="Hyperlink_RequestNavigate">
-					View source code and documentation
-				</Hyperlink>
-			</Label>
-		</StackPanel>
-	</Grid>
+        Title="About" Height="384" Width="384" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<StackPanel>
+		<Image Style="{StaticResource Logo}" />
+		<Label FontSize="24" HorizontalAlignment="Center">Devil Daggers Survival Editor</Label>
+		<Label FontSize="20" HorizontalAlignment="Center" Name="VersionLabel" />
+		<Label FontSize="16" HorizontalAlignment="Center">Developed by Noah Stolk</Label>
+		<Label FontSize="16" HorizontalAlignment="Center">
+			<Hyperlink NavigateUri="http://www.noahstolk.com" RequestNavigate="Hyperlink_RequestNavigate">
+				www.noahstolk.com
+			</Hyperlink>
+		</Label>
+		<Label FontSize="16" HorizontalAlignment="Center">
+			<Hyperlink NavigateUri="https://bitbucket.org/NoahStolk/DevilDaggersSurvivalEditor/src" RequestNavigate="Hyperlink_RequestNavigate">
+				View source code and documentation
+			</Hyperlink>
+		</Label>
+	</StackPanel>
 </Window>
