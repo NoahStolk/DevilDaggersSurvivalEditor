@@ -276,9 +276,19 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
-			Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[tile.X, tile.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
-
-			UpdateTile(tile);
+			if (selections.Count == 0)
+			{
+				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[tile.X, tile.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
+				UpdateTile(tile);
+			}
+			else
+			{
+				foreach (ArenaCoord t in selections)
+				{
+					Program.App.spawnset.ArenaTiles[t.X, t.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[t.X, t.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
+					UpdateTile(t);
+				}
+			}
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}
@@ -311,11 +321,27 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
-			SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
-			if (heightWindow.ShowDialog() == true)
-				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = heightWindow.TileHeight;
-
-			UpdateTile(tile);
+			if (selections.Count == 0)
+			{
+				SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+				if (heightWindow.ShowDialog() == true)
+				{
+					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = heightWindow.TileHeight;
+					UpdateTile(tile);
+				}
+			}
+			else
+			{
+				SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[selections[0].X, selections[0].Y]);
+				if (heightWindow.ShowDialog() == true)
+				{
+					foreach (ArenaCoord t in selections)
+					{
+						Program.App.spawnset.ArenaTiles[t.X, t.Y] = heightWindow.TileHeight;
+						UpdateTile(t);
+					}
+				}
+			}
 
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 		}

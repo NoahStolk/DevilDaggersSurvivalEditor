@@ -46,6 +46,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Renamed and improved some existing presets.
 - Added ability to rotate and flip the arena.
 - Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
+- Added multiple tile selection to the arena editor.
 - The applications now uses logging.
 - Added menu item to open the current survival file.
 - The application now warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
