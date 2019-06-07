@@ -25,11 +25,11 @@
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
 				<StackPanel Grid.Column="0">
-					<Label FontSize="20" Margin="0,0,0,20">Spawns</Label>
+					<Label FontSize="20">Spawns</Label>
 					<usercontrols:SpawnsetSpawns x:Name="SpawnsetSpawns" />
 				</StackPanel>
 				<StackPanel Grid.Column="1">
-					<Label FontSize="20" Margin="0,0,0,20">Arena</Label>
+					<Label FontSize="20">Arena</Label>
 					<usercontrols:SpawnsetArena x:Name="SpawnsetArena" />
 				</StackPanel>
 			</Grid>

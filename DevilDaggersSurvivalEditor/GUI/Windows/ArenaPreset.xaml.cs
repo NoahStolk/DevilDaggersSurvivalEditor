@@ -27,8 +27,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				Label label = new Label()
 				{
-					Content = p.Name.ToUserFriendlyString(),
-					Padding = new Thickness()
+					Content = p.Name.ToUserFriendlyString()
 				};
 
 				Control control;
@@ -46,7 +45,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					{
 						Name = p.Name,
 						Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset).ToString(),
-						Padding = new Thickness(),
 						Tag = p.PropertyType
 					};
 					textBox.TextChanged += TextBox_TextChanged;

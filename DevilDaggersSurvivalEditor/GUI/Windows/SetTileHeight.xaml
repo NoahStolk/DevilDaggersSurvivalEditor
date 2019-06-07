@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Set tile height" Height="200" Width="200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<Grid Margin="10">
+	<Grid>
 		<StackPanel x:Name="Data">
 			<TextBox Name="TileHeightTextBox" Text="{Binding TileHeight}" />
 			<Button Name="OKButton" Content="OK" Click="OKButton_Click" />

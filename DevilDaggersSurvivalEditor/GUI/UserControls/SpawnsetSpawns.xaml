@@ -11,7 +11,7 @@
 			<RowDefinition Height="408" />
 			<RowDefinition Height="1*" />
 		</Grid.RowDefinitions>
-		<Grid Grid.Row="0" HorizontalAlignment="Left" Width="652" Margin="4,0,0,0">
+		<Grid Grid.Row="0" HorizontalAlignment="Left" Width="652">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*" />
 				<ColumnDefinition Width="2*" />
