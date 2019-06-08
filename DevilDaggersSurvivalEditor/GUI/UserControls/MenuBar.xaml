@@ -10,9 +10,7 @@
 			<MenuItem Header="_File">
 				<MenuItem Header="_New" Click="FileNew_Click" />
 				<MenuItem Header="_Open" Click="FileOpen_Click" />
-				<MenuItem Header="Open from _DevilDaggers.info" Name="FileOnlineMenuItem">
-					<MenuItem Header="Loading..." Name="FileOnlineLoading" StaysOpenOnClick="True" IsEnabled="False" Click="Reload_Click" />
-				</MenuItem>
+				<MenuItem Header="Open from _DevilDaggers.info" Click="DownloadSpawnset_Click" />
 				<MenuItem Header="_Save" Click="FileSave_Click" />
 				<Separator />
 				<MenuItem Header="O_pen 'survival' file" Click="SurvivalOpen_Click" />

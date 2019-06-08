@@ -2,8 +2,10 @@
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.Logging;
 using DevilDaggersSurvivalEditor.Code.User;
+using DevilDaggersSurvivalEditor.Code.Web;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -22,6 +24,13 @@ namespace DevilDaggersSurvivalEditor
 		public App()
 		{
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+
+			BackgroundWorker thread = new BackgroundWorker();
+			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
+			{
+				SpawnsetListHandler.Instance.RetrieveSpawnsetList();
+			};
+			thread.RunWorkerAsync();
 		}
 
 		private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

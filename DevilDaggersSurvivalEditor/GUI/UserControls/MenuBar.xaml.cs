@@ -7,12 +7,8 @@ using DevilDaggersSurvivalEditor.Code.Web.Models;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,19 +16,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class MenuBar : UserControl
 	{
-		private List<SpawnsetFile> spawnsetFiles = new List<SpawnsetFile>();
-
 		public MenuBar()
 		{
 			InitializeComponent();
 
-			ChangeMenuIfUpdateAvailable();
-
-			RetrieveSpawnsetList();
-		}
-
-		private void ChangeMenuIfUpdateAvailable()
-		{
 			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
 			window.ShowDialog();
 
@@ -56,161 +43,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				Program.App.ShowMessage("Error checking for updates", versionResult.ErrorMessage);
 			}
-		}
-
-		private void RetrieveSpawnsetList()
-		{
-			Thread thread = new Thread(() =>
-			{
-				bool success = false;
-				string url = UrlUtils.GetSpawnsets;
-
-				try
-				{
-					string downloadString = string.Empty;
-					using (WebClient client = new WebClient())
-					{
-						downloadString = client.DownloadString(url);
-					}
-					spawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
-					success = true;
-				}
-				catch (WebException ex)
-				{
-					Program.App.ShowError("Error retrieving spawnset list", $"Could not connect to {url}.", ex);
-				}
-				catch (Exception ex)
-				{
-					Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
-				}
-
-				Dispatcher.Invoke(() =>
-				{
-					if (success)
-					{
-						InitializeOnlineSpawnsetList();
-					}
-					else
-					{
-						EnableReloadButton(true);
-					}
-				});
-			});
-			thread.Start();
-		}
-
-		private void InitializeOnlineSpawnsetList()
-		{
-			List<string> authors = new List<string>();
-			foreach (SpawnsetFile s in spawnsetFiles)
-				if (!authors.Contains(s.Author))
-					authors.Add(s.Author);
-			authors.Sort();
-
-			List<MenuItem> authorMenuItems = new List<MenuItem>();
-			foreach (string author in authors)
-			{
-				MenuItem authorItem = new MenuItem
-				{
-					Header = author.Replace("_", "__")
-				};
-
-				foreach (SpawnsetFile s in spawnsetFiles)
-				{
-					if (s.Author == author)
-					{
-						string name = s.Name;
-						MenuItem nameItem = new MenuItem
-						{
-							Header = name.Replace("_", "__")
-						};
-						nameItem.Click += (sender, e) => SpawnsetItem_Click($"{name}_{author}");
-						authorItem.Items.Add(nameItem);
-					}
-				}
-
-				authorMenuItems.Add(authorItem);
-			}
-
-			foreach (MenuItem item in authorMenuItems)
-				FileOnlineMenuItem.Items.Add(item);
-
-			EnableReloadButton(true);
-		}
-
-		private void Reload_Click(object sender, RoutedEventArgs e)
-		{
-			spawnsetFiles.Clear();
-			List<MenuItem> toRemove = new List<MenuItem>();
-			foreach (MenuItem item in FileOnlineMenuItem.Items)
-				if (item != FileOnlineLoading)
-					toRemove.Add(item);
-			foreach (MenuItem item in toRemove)
-				FileOnlineMenuItem.Items.Remove(item);
-
-			EnableReloadButton(false);
-
-			RetrieveSpawnsetList();
-		}
-
-		private void EnableReloadButton(bool enabled)
-		{
-			if (enabled)
-			{
-				FileOnlineLoading.IsEnabled = true;
-				FileOnlineLoading.Header = "Reload";
-			}
-			else
-			{
-				FileOnlineLoading.IsEnabled = false;
-				FileOnlineLoading.Header = "Loading...";
-			}
-		}
-
-		private void SpawnsetItem_Click(string fileName)
-		{
-			Thread thread = new Thread(() =>
-			{
-				string url = UrlUtils.GetSpawnset(fileName);
-
-				try
-				{
-					using (WebClient client = new WebClient())
-					{
-						using (Stream stream = new MemoryStream(client.DownloadData(url)))
-						{
-							if (Spawnset.TryParse(stream, out Program.App.spawnset))
-							{
-								Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-								Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
-							}
-							else
-							{
-								Program.App.ShowError("Error parsing file", "Could not parse file.", null);
-								return;
-							}
-						}
-					}
-
-					Dispatcher.Invoke(() =>
-					{
-						MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
-						if (result == MessageBoxResult.Yes)
-						{
-							FileUtils.WriteSpawnsetToFile(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
-						}
-					});
-				}
-				catch (WebException ex)
-				{
-					Program.App.ShowError("Error downloading file", $"Could not connect to {url}.", ex);
-				}
-				catch (Exception ex)
-				{
-					Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
-				}
-			});
-			thread.Start();
 		}
 
 		private void FileNew_Click(object sender, RoutedEventArgs e)
@@ -244,6 +76,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
 			Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
+		}
+
+		private void DownloadSpawnset_Click(object sender, RoutedEventArgs e)
+		{
+			DownloadSpawnsetWindow window = new DownloadSpawnsetWindow();
+			window.ShowDialog();
 		}
 
 		private void FileSave_Click(object sender, RoutedEventArgs e)

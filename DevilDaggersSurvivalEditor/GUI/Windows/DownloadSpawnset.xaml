@@ -1,0 +1,44 @@
+﻿<Window x:Class="DevilDaggersSurvivalEditor.GUI.Windows.DownloadSpawnsetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
+        Title="Download Spawnset" Height="768" Width="1366" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<StackPanel>
+		<Label Style="{StaticResource TitleLabel}">Spawnsets from DevilDaggers.info</Label>
+		<Button Name="ReloadButton" Click="ReloadButton_Click">Reload</Button>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="3*" />
+			</Grid.ColumnDefinitions>
+			<StackPanel Grid.Column="0">
+				<Label FontWeight="Bold">Authors</Label>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="96" />
+						<ColumnDefinition Width="136" />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Author filter</Label>
+					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="AuthorSearchTextBox_TextChanged" />
+				</Grid>
+				<ListBox Grid.Row="1" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" Height="600" />
+			</StackPanel>
+			<StackPanel Grid.Column="1">
+				<Label FontWeight="Bold">Spawnsets</Label>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="96" />
+						<ColumnDefinition Width="136" />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Spawnset filter</Label>
+					<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="SpawnsetSearchTextBox_TextChanged" />
+				</Grid>
+				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="600">
+					<StackPanel Name="SpawnsetsList" />
+				</ScrollViewer>
+			</StackPanel>
+		</Grid>
+	</StackPanel>
+</Window>

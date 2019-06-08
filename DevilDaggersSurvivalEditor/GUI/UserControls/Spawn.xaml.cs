@@ -29,8 +29,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Grid.DataContext = this;
 
 			SpawnsetEnemy enemy = Spawnset.Enemies.Where(k => k.Value.Name == enemyName).FirstOrDefault().Value;
-			Color color = enemy == Spawnset.Enemies[-1] ? Color.FromArgb(0, 0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ToEnemy(Game.GameVersions[Game.DEFAULT_GAME_VERSION]).ColorCode}") + Color.FromRgb(128, 128, 128);
+			Color color = enemy == Spawnset.Enemies[-1] ? Color.FromArgb(255, 0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ToEnemy(Game.GameVersions[Game.DEFAULT_GAME_VERSION]).ColorCode}");
 			Enemy.Background = new SolidColorBrush(color);
+			Enemy.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
 		}
 	}
 }

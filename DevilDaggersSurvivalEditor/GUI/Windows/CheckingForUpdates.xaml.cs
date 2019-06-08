@@ -20,14 +20,14 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			thread.RunWorkerAsync();
 		}
 
-		private void Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-		{
-			Close();
-		}
-
 		private void Thread_DoWork(object sender, DoWorkEventArgs e)
 		{
 			VersionResult = ApplicationUtils.CheckVersion();
+		}
+
+		private void Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			Close();
 		}
 
 		private void CancelButton_Click(object sender, RoutedEventArgs e)

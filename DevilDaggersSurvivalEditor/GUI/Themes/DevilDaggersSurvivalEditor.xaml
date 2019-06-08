@@ -9,11 +9,19 @@
 	<Style TargetType="{x:Type windows:AboutWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:ArenaPresetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:CheckingForUpdatesWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:DownloadSpawnsetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:ErrorWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:MainWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:MessageWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:SetTileHeightWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:SettingsWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+
+	<Style TargetType="Grid" x:Key="SpawnsetHeader">
+		<Style.Setters>
+			<Setter Property="Margin" Value="7,8,0,0" />
+			<Setter Property="Height" Value="30" />
+		</Style.Setters>
+	</Style>
 
 	<Style TargetType="TextBox">
 		<Style.Triggers>
@@ -21,11 +29,24 @@
 				<Setter Property="Background" Value="#f88" />
 			</Trigger>
 		</Style.Triggers>
+		<Style.Setters>
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="Width" Value="128" />
+			<Setter Property="Margin" Value="2,2,2,2" />
+		</Style.Setters>
 	</Style>
 
 	<Style TargetType="CheckBox">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2,2,2,2" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="ComboBox">
+		<Style.Setters>
+			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="Padding" Value="4,1,0,0" />
+			<Setter Property="MinHeight" Value="20" />
 		</Style.Setters>
 	</Style>
 
@@ -42,10 +63,10 @@
 		</Style.Setters>
 	</Style>
 
-	<Style TargetType="Grid" x:Key="SpawnsetHeader">
+	<Style TargetType="Button">
 		<Style.Setters>
-			<Setter Property="Margin" Value="7,8,0,0" />
-			<Setter Property="Height" Value="30" />
+			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="MaxWidth" Value="256" />
 		</Style.Setters>
 	</Style>
 
