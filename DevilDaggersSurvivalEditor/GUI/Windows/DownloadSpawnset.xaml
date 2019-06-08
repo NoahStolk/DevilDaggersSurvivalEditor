@@ -11,7 +11,7 @@
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
-				<ColumnDefinition Width="3*" />
+				<ColumnDefinition Width="4*" />
 			</Grid.ColumnDefinitions>
 			<StackPanel Grid.Column="0">
 				<Label FontWeight="Bold">Authors</Label>
@@ -22,6 +22,14 @@
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Author filter</Label>
 					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="AuthorSearchTextBox_TextChanged" />
+				</Grid>
+				<Grid HorizontalAlignment="Left" Width="208"><!--TODO: Figure out how to stretch content and remove hardcoded width-->
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0" FontWeight="Bold">Name</Label>
+					<Label Grid.Column="1" FontWeight="Bold">Spawnsets</Label>
 				</Grid>
 				<ListBox Grid.Row="1" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" Height="600" />
 			</StackPanel>
@@ -34,6 +42,27 @@
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Spawnset filter</Label>
 					<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="SpawnsetSearchTextBox_TextChanged" />
+				</Grid>
+				<Grid HorizontalAlignment="Left" Width="1134">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="3*" />
+						<ColumnDefinition Width="2*" />
+						<ColumnDefinition Width="2*" />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0" FontWeight="Bold">Name</Label>
+					<Label Grid.Column="1" FontWeight="Bold">Author</Label>
+					<Label Grid.Column="2" FontWeight="Bold">Last updated</Label>
+					<Label Grid.Column="3" FontWeight="Bold">Non-loop length</Label>
+					<Label Grid.Column="4" FontWeight="Bold">Non-loop spawns</Label>
+					<Label Grid.Column="5" FontWeight="Bold">Loop start</Label>
+					<Label Grid.Column="6" FontWeight="Bold">Loop length</Label>
+					<Label Grid.Column="7" FontWeight="Bold">Loop spawns</Label>
 				</Grid>
 				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="600">
 					<StackPanel Name="SpawnsetsList" />
