@@ -3,7 +3,7 @@ using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Utils;
-using DevilDaggersSurvivalEditor.Code.Web;
+using DevilDaggersSurvivalEditor.Code.Web.Models;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;

@@ -1,5 +1,5 @@
 ﻿using DevilDaggersSurvivalEditor.Code.Logging;
-using DevilDaggersSurvivalEditor.Code.Web;
+using DevilDaggersSurvivalEditor.Code.Web.Models;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;

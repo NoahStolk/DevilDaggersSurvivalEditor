@@ -1,4 +1,4 @@
-﻿namespace DevilDaggersSurvivalEditor.Code.Web
+﻿namespace DevilDaggersSurvivalEditor.Code.Web.Models
 {
 	public class SpawnsetFile
 	{
