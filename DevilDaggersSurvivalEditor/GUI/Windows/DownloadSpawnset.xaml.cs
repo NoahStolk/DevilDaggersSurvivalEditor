@@ -1,7 +1,7 @@
-﻿using DevilDaggersSurvivalEditor.Code;
+﻿using DevilDaggersCore.Spawnset.Web;
+using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Utils;
 using DevilDaggersSurvivalEditor.Code.Web;
-using DevilDaggersSurvivalEditor.Code.Web.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -112,8 +112,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Grid.SetColumn(spawnsetCountLabel, 1);
 
 			Grid grid = new Grid { Tag = author, Width = 256 };
-			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+			grid.ColumnDefinitions.Add(new ColumnDefinition());
+			grid.ColumnDefinitions.Add(new ColumnDefinition());
 			grid.Children.Add(authorLabel);
 			grid.Children.Add(spawnsetCountLabel);
 
