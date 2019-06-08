@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code.Utils;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -29,9 +30,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Grid.DataContext = this;
 
 			SpawnsetEnemy enemy = Spawnset.Enemies.Where(k => k.Value.Name == enemyName).FirstOrDefault().Value;
-			Color color = enemy == Spawnset.Enemies[-1] ? Color.FromArgb(255, 0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ToEnemy(Game.GameVersions[Game.DEFAULT_GAME_VERSION]).ColorCode}");
+			Color color = enemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ToEnemy(Game.GameVersions[Game.DEFAULT_GAME_VERSION]).ColorCode}");
 			Enemy.Background = new SolidColorBrush(color);
-			Enemy.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+
+			if (MiscUtils.GetPerceivedBrightness(color) < 140)
+				Enemy.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
 		}
 	}
 }

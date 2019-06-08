@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Code.Utils
 {
@@ -17,6 +19,19 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 				first = false;
 			}
 			return sb.ToString();
+		}
+
+		/// <summary>
+		/// Returns an integer between 0 and 255 representing the perceived brightness of the color.
+		/// </summary>
+		/// <param name="c">The color.</param>
+		/// <returns>The perceived brightness between 0 and 255.</returns>
+		public static int GetPerceivedBrightness(Color c)
+		{
+			return (int)Math.Sqrt(
+				c.R * c.R * .299 +
+				c.G * c.G * .587 +
+				c.B * c.B * .114);
 		}
 	}
 }
