@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 		}
 		public AbstractArena DefaultPreset { get; private set; }
 
-		public readonly List<AbstractArena> ArenaPresets = new List<AbstractArena>();
+		public List<AbstractArena> ArenaPresets { get; private set; } = new List<AbstractArena>();
 
 		public IEnumerable<Type> PresetTypes { get; private set; }
 

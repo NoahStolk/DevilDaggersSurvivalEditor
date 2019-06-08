@@ -93,6 +93,7 @@
     <Compile Include="Code\Arena\Presets\RandomGaps.cs" />
     <Compile Include="Code\Arena\Presets\Pyramid.cs" />
     <Compile Include="Code\Logging\Logger.cs" />
+    <Compile Include="Code\Utils\FileUtils.cs" />
     <Compile Include="Code\Utils\MiscUtils.cs" />
     <Compile Include="Code\Utils\TileUtils.cs" />
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
@@ -120,9 +121,9 @@
       <DependentUpon>Message.xaml</DependentUpon>
     </Compile>
     <Compile Include="Code\Program.cs" />
-    <Compile Include="Code\Web\VersionResult.cs" />
+    <Compile Include="Code\Web\Models\VersionResult.cs" />
     <Compile Include="Code\Utils\UrlUtils.cs" />
-    <Compile Include="Code\Web\SpawnsetFile.cs" />
+    <Compile Include="Code\Web\Models\SpawnsetFile.cs" />
     <Compile Include="Code\User\UserSettings.cs" />
     <Compile Include="Code\Utils\ApplicationUtils.cs" />
     <Compile Include="GUI\Windows\Main.xaml.cs">
