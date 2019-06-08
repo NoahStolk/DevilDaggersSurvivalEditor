@@ -84,6 +84,7 @@
     <Compile Include="Code\Arena\Presets\AbstractEllipseArena.cs" />
     <Compile Include="Code\Arena\Presets\AbstractRectangularArena.cs" />
     <Compile Include="Code\Arena\ArenaPresetHandler.cs" />
+    <Compile Include="Code\Arena\Presets\RandomPillars.cs" />
     <Compile Include="Code\Arena\Presets\Full.cs" />
     <Compile Include="Code\Arena\Presets\Void.cs" />
     <Compile Include="Code\Arena\Presets\Ellipse.cs" />
