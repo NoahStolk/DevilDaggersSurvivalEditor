@@ -26,10 +26,10 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 
 		public readonly List<AbstractArena> ArenaPresets = new List<AbstractArena>();
 
+		public IEnumerable<Type> PresetTypes { get; private set; }
+
 		private static readonly Lazy<ArenaPresetHandler> lazy = new Lazy<ArenaPresetHandler>(() => new ArenaPresetHandler());
 		public static ArenaPresetHandler Instance => lazy.Value;
-
-		public IEnumerable<Type> PresetTypes { get; private set; }
 
 		private ArenaPresetHandler()
 		{
