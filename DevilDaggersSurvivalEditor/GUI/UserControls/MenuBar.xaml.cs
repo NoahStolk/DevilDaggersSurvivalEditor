@@ -31,32 +31,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			RetrieveSpawnsetList();
 		}
 
-		private void WriteSpawnsetToFile(string path)
-		{
-			if (Program.App.spawnset.TryGetBytes(out byte[] bytes))
-			{
-				File.WriteAllBytes(path, bytes);
-				MessageBox.Show($"Successfully wrote the spawnset to {path}.", "Success");
-			}
-			else
-			{
-				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {path}.", null);
-			}
-		}
-
-		private void ReplaceFile(string sourceFileName, string destinationFileName)
-		{
-			try
-			{
-				File.Replace(sourceFileName, destinationFileName, null);
-				MessageBox.Show("Successfully replaced file.", "Success");
-			}
-			catch (Exception ex)
-			{
-				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred while trying to replace the file.", ex);
-			}
-		}
-
 		private void ChangeMenuIfUpdateAvailable()
 		{
 			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
@@ -223,7 +197,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 						if (result == MessageBoxResult.Yes)
 						{
-							WriteSpawnsetToFile(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
+							FileUtils.WriteSpawnsetToFile(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
 						}
 					});
 				}
@@ -278,7 +252,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			bool? result = dialog.ShowDialog();
 			if (result.HasValue && result.Value)
 			{
-				WriteSpawnsetToFile(dialog.FileName);
+				FileUtils.WriteSpawnsetToFile(dialog.FileName);
 			}
 		}
 
@@ -299,7 +273,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				WriteSpawnsetToFile(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
+				FileUtils.WriteSpawnsetToFile(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
 			}
 		}
 
@@ -308,7 +282,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				ReplaceFile(Path.Combine("Content", "survival"), Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
+				FileUtils.ReplaceFile(Path.Combine("Content", "survival"), Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
 			}
 		}
 
