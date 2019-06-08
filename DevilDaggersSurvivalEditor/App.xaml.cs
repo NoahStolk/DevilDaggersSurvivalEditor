@@ -1,6 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
-using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Logging;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using System;
@@ -34,7 +34,7 @@ namespace DevilDaggersSurvivalEditor
 
 		public void ShowError(string title, string message, Exception ex)
 		{
-			Logging.Log.Error(message, ex);
+			Logger.Log.Error(message, ex);
 
 			Dispatcher.Invoke(() =>
 			{

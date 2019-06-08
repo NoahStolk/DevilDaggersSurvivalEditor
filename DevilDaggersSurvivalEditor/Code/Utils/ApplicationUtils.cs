@@ -1,4 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code.Web;
+﻿using DevilDaggersSurvivalEditor.Code.Logging;
+using DevilDaggersSurvivalEditor.Code.Web;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -55,12 +56,12 @@ namespace DevilDaggersSurvivalEditor.Code.Utils
 			catch (WebException ex)
 			{
 				errorMessage = $"Could not connect to {url}.";
-				Logging.Log.Error($"Could not connect to {url}.", ex);
+				Logger.Log.Error($"Could not connect to {url}.", ex);
 			}
 			catch (Exception ex)
 			{
 				errorMessage = "An unexpected error occured while trying to retrieve the latest version number.";
-				Logging.Log.Error("An unexpected error occured while trying to retrieve the latest version number.", ex);
+				Logger.Log.Error("An unexpected error occured while trying to retrieve the latest version number.", ex);
 			}
 
 			return new VersionResult(!string.IsNullOrEmpty(errorMessage) ? null : (bool?)(Version.Parse(versionOnline) <= ApplicationVersionNumber), versionOnline, errorMessage);

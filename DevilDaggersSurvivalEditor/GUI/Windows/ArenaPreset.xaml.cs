@@ -1,5 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code;
-using DevilDaggersSurvivalEditor.Code.Arena;
+﻿using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Logging;
 using DevilDaggersSurvivalEditor.Code.Utils;
 using System;
 using System.Collections.Generic;
@@ -83,7 +83,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			else
 			{
 				Exception ex = new Exception($"Type {t} not supported in ArenaPreset TextBox.");
-				Logging.Log.Error($"Type {t} not supported in ArenaPreset TextBox.", ex);
+				Logger.Log.Error($"Type {t} not supported in ArenaPreset TextBox.", ex);
 				throw ex;
 			}
 
@@ -124,7 +124,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 									else
 									{
 										Exception ex = new Exception($"Type {t} not supported in ArenaPreset TextBox.");
-										Logging.Log.Error($"Type {t} not supported in ArenaPreset TextBox.", ex);
+										Logger.Log.Error($"Type {t} not supported in ArenaPreset TextBox.", ex);
 										throw ex;
 									}
 								}
