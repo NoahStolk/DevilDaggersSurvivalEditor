@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Logging;
 using DevilDaggersSurvivalEditor.Code.Utils;
 using DevilDaggersSurvivalEditor.Code.Web.Models;
 using Newtonsoft.Json;
@@ -32,11 +33,13 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			}
 			catch (WebException ex)
 			{
-				Program.App.ShowError("Error retrieving spawnset list", $"Could not connect to {UrlUtils.GetSpawnsets}.", ex);
+				Program.App.ShowError("Error retrieving spawnset list", $"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
+				Logger.Log.Error($"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
 			}
 			catch (Exception ex)
 			{
 				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+				Logger.Log.Error("An unexpected error occurred.", ex);
 			}
 		}
 
@@ -57,7 +60,8 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			}
 			catch (WebException ex)
 			{
-				Program.App.ShowError("Error downloading file", $"Could not connect to {url}.", ex);
+				Program.App.ShowError("Error downloading file", $"Could not connect to '{url}'.", ex);
+				Logger.Log.Error($"Could not connect to '{url}'.", ex);
 
 				return new Spawnset
 				{
@@ -67,6 +71,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			catch (Exception ex)
 			{
 				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+				Logger.Log.Error("An unexpected error occurred.", ex);
 
 				return new Spawnset
 				{
