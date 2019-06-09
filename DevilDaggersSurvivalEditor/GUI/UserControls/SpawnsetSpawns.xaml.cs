@@ -1,5 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Spawns;
+using DevilDaggersSurvivalEditor.GUI.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -130,10 +132,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				return;
 			}
 
-			List<int> indices = (from object obj in ListBoxSpawns.SelectedItems
-								 select ListBoxSpawns.Items.IndexOf(obj)).ToList();
-
-			foreach (int i in indices)
+			foreach (int i in GetSpawnSelectionIndices())
 			{
 				Program.App.spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1];
 				Program.App.spawnset.Spawns[i].Delay = delay;
@@ -144,10 +143,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void DeleteSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			List<int> indices = (from object obj in ListBoxSpawns.SelectedItems
-								 select ListBoxSpawns.Items.IndexOf(obj)).ToList();
-
-			foreach (int i in indices)
+			foreach (int i in GetSpawnSelectionIndices())
 				Program.App.spawnset.Spawns.Remove(i);
 
 			// Reset the keys (we don't want gaps in the sorted dictionary)
@@ -164,9 +160,40 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			UpdateSpawnset();
 		}
 
+		private List<int> GetSpawnSelectionIndices()
+		{
+			return (from object obj in ListBoxSpawns.SelectedItems
+					select ListBoxSpawns.Items.IndexOf(obj)).ToList();
+		}
+
 		private void ModifyDelaysButton_Click(object sender, RoutedEventArgs e)
 		{
+			ModifySpawnDelayWindow window = new ModifySpawnDelayWindow();
 
+			if (window.ShowDialog() == true)
+			{
+				foreach (int i in GetSpawnSelectionIndices())
+				{
+					switch (window.Function)
+					{
+						default:
+						case DelayModificationFunction.Add:
+							Program.App.spawnset.Spawns[i].Delay += window.Value;
+							break;
+						case DelayModificationFunction.Subtract:
+							Program.App.spawnset.Spawns[i].Delay -= window.Value;
+							break;
+						case DelayModificationFunction.Multiply:
+							Program.App.spawnset.Spawns[i].Delay *= window.Value;
+							break;
+						case DelayModificationFunction.Divide:
+							Program.App.spawnset.Spawns[i].Delay /= window.Value;
+							break;
+					}
+				}
+			}
+
+			UpdateSpawnset();
 		}
 	}
 }
