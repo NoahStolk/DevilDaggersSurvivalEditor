@@ -377,9 +377,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (multiSelectContinuous)
 			{
-				if (selections.Contains(tile))
-					selections.Remove(tile);
-				else
+				if (!selections.Contains(tile))
 					selections.Add(tile);
 
 				UpdateTileSelections();
