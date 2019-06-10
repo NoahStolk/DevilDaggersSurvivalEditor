@@ -22,6 +22,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private readonly Rectangle[,] tileElements = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 		private readonly Rectangle[,] tileElementSelections = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+		private Line[,,] tileElementSelectionBorders = new Line[Spawnset.ArenaWidth, Spawnset.ArenaHeight, 4];
 
 		private readonly List<ArenaCoord> selections = new List<ArenaCoord>();
 
@@ -40,38 +41,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		public void Initialize()
 		{
-			// Add arena tiles
-			for (int i = 0; i < Spawnset.ArenaWidth; i++)
-			{
-				for (int j = 0; j < Spawnset.ArenaHeight; j++)
-				{
-					Rectangle rect = new Rectangle
-					{
-						Width = TileUtils.TileSize,
-						Height = TileUtils.TileSize
-					};
-					Canvas.SetLeft(rect, i * TileUtils.TileSize);
-					Canvas.SetTop(rect, j * TileUtils.TileSize);
-
-					Rectangle rectSelection = new Rectangle
-					{
-						Width = TileUtils.TileSize,
-						Height = TileUtils.TileSize,
-						Stroke = new SolidColorBrush(Color.FromRgb(255, 255, 0)),
-						Visibility = Visibility.Hidden
-					};
-					Panel.SetZIndex(rectSelection, 2);
-					Canvas.SetLeft(rectSelection, i * TileUtils.TileSize);
-					Canvas.SetTop(rectSelection, j * TileUtils.TileSize);
-
-					ArenaTiles.Children.Add(rect);
-					ArenaTiles.Children.Add(rectSelection);
-					tileElements[i, j] = rect;
-					tileElementSelections[i, j] = rectSelection;
-
-					UpdateTile(new ArenaCoord(i, j));
-				}
-			}
+			SpawnsetSettings.DataContext = Program.App.spawnset;
 
 			// Add presets
 			foreach (Type type in ArenaPresetHandler.Instance.PresetTypes)
@@ -89,7 +59,37 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				ComboBoxArenaPreset.Items.Add(item);
 			}
 
-			SpawnsetSettings.DataContext = Program.App.spawnset;
+			// Add arena tiles
+			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+			{
+				for (int j = 0; j < Spawnset.ArenaHeight; j++)
+				{
+					Rectangle rect = new Rectangle
+					{
+						Width = TileUtils.TileSize,
+						Height = TileUtils.TileSize
+					};
+					Canvas.SetLeft(rect, i * TileUtils.TileSize);
+					Canvas.SetTop(rect, j * TileUtils.TileSize);
+					ArenaTiles.Children.Add(rect);
+					tileElements[i, j] = rect;
+
+					Rectangle rectSelection = new Rectangle
+					{
+						Width = TileUtils.TileSize,
+						Height = TileUtils.TileSize,
+						Fill = new SolidColorBrush(Color.FromArgb(64, 255, 255, 255)),
+						Visibility = Visibility.Hidden
+					};
+					Panel.SetZIndex(rectSelection, 2);
+					Canvas.SetLeft(rectSelection, i * TileUtils.TileSize);
+					Canvas.SetTop(rectSelection, j * TileUtils.TileSize);
+					ArenaTiles.Children.Add(rectSelection);
+					tileElementSelections[i, j] = rectSelection;
+
+					UpdateTile(new ArenaCoord(i, j));
+				}
+			}
 		}
 
 		public void UpdateSpawnset()
@@ -206,7 +206,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Program.App.MainWindow.WarningVoidSpawn.Visibility = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;
 			}
 
-			// Set selection
+			// Set selection visibility
 			tileElementSelections[tile.X, tile.Y].Visibility = selections.Contains(tile) ? Visibility.Visible : Visibility.Hidden;
 
 			// Set tile color
@@ -247,6 +247,79 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				int offset = (TileUtils.TileSize - TileUtils.TileSizeShrunk) / 2;
 				Canvas.SetLeft(rect, tile.X * TileUtils.TileSize + offset);
 				Canvas.SetTop(rect, tile.Y * TileUtils.TileSize + offset);
+			}
+		}
+
+		private void UpdateTileSelections()
+		{
+			foreach (Line line in tileElementSelectionBorders)
+				ArenaTiles.Children.Remove(line);
+			tileElementSelectionBorders = new Line[Spawnset.ArenaWidth, Spawnset.ArenaHeight, 4];
+
+			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+			{
+				for (int j = 0; j < Spawnset.ArenaHeight; j++)
+				{
+					if (selections.Contains(new ArenaCoord(i, j)))
+					{
+						for (int k = 0; k < 4; k++)
+						{
+							int x1, x2, y1, y2;
+							switch (k)
+							{
+								default:
+								case 0:
+									if (selections.Contains(new ArenaCoord(i - 1, j)))
+										continue;
+									x1 = i * TileUtils.TileSize + 1;
+									x2 = i * TileUtils.TileSize + 1;
+									y1 = j * TileUtils.TileSize;
+									y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+									break;
+								case 1:
+									if (selections.Contains(new ArenaCoord(i, j - 1)))
+										continue;
+									x1 = i * TileUtils.TileSize;
+									x2 = i * TileUtils.TileSize + TileUtils.TileSize;
+									y1 = j * TileUtils.TileSize + 1;
+									y2 = j * TileUtils.TileSize + 1;
+									break;
+								case 2:
+									if (selections.Contains(new ArenaCoord(i + 1, j)))
+										continue;
+									x1 = i * TileUtils.TileSize + TileUtils.TileSize;
+									x2 = i * TileUtils.TileSize + TileUtils.TileSize;
+									y1 = j * TileUtils.TileSize;
+									y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+									break;
+								case 3:
+									if (selections.Contains(new ArenaCoord(i, j + 1)))
+										continue;
+									x1 = i * TileUtils.TileSize;
+									x2 = i * TileUtils.TileSize + TileUtils.TileSize;
+									y1 = j * TileUtils.TileSize + TileUtils.TileSize;
+									y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+									break;
+							}
+
+							Line line = new Line
+							{
+								Stroke = new SolidColorBrush(Color.FromRgb(255, 255, 0)),
+								StrokeThickness = 1,
+								X1 = x1,
+								X2 = x2,
+								Y1 = y1,
+								Y2 = y2,
+								SnapsToDevicePixels = true
+							};
+							line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+							Panel.SetZIndex(line, 2);
+							ArenaTiles.Children.Add(line);
+
+							tileElementSelectionBorders[i, j, k] = line;
+						}
+					}
+				}
 			}
 		}
 
@@ -303,6 +376,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					selections.Remove(tile);
 				else
 					selections.Add(tile);
+
+				UpdateTileSelections();
 			}
 			else
 			{
