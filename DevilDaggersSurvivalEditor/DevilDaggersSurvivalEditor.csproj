@@ -94,6 +94,7 @@
     <Compile Include="Code\Arena\Presets\RandomIslands.cs" />
     <Compile Include="Code\Arena\Presets\RandomGaps.cs" />
     <Compile Include="Code\Arena\Presets\Pyramid.cs" />
+    <Compile Include="Code\Arena\TileAction.cs" />
     <Compile Include="Code\Logging\Logger.cs" />
     <Compile Include="Code\Spawns\DelayModificationFunction.cs" />
     <Compile Include="Code\Utils\FileUtils.cs" />
@@ -262,6 +263,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Icon32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\TileActionMultiSelectContinuous.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Content\TileActionMultiSelectOnce.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Content\TileActionMultiSelectRectangle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Content\TileActionToggle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

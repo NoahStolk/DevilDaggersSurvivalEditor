@@ -7,10 +7,12 @@ using NetBase.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
@@ -24,6 +26,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private readonly Rectangle[,] tileElementSelections = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 		private Line[,,] tileElementSelectionBorders = new Line[Spawnset.ArenaWidth, Spawnset.ArenaHeight, 4];
 
+		private TileAction tileAction;
+		private readonly List<RadioButton> tileActionRadioButtons = new List<RadioButton>();
 		private readonly List<ArenaCoord> selections = new List<ArenaCoord>();
 
 		// In tile units
@@ -42,6 +46,24 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		public void Initialize()
 		{
 			SpawnsetSettings.DataContext = Program.App.spawnset;
+
+			// Add tile actions
+			foreach (TileAction tileAction in (TileAction[])Enum.GetValues(typeof(TileAction)))
+			{
+				RadioButton tb = new RadioButton
+				{
+					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/TileAction{tileAction}.png")) },
+					ToolTip = tileAction.ToUserFriendlyString(),
+					IsChecked = tileAction == 0
+				};
+				tb.Checked += (sender, e) =>
+				{
+					this.tileAction = tileAction;
+				};
+
+				tileActionRadioButtons.Add(tb);
+				TileActionsStackPanel.Children.Add(tb);
+			}
 
 			// Add presets
 			foreach (Type type in ArenaPresetHandler.Instance.PresetTypes)
@@ -90,6 +112,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					UpdateTile(new ArenaCoord(i, j));
 				}
 			}
+
+			CursorRectangle.Width = TileUtils.TileSize;
+			CursorRectangle.Height = TileUtils.TileSize;
+			CursorRectangle.Stroke = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255));
 		}
 
 		public void UpdateSpawnset()
@@ -341,8 +367,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
+			Canvas.SetLeft(CursorRectangle, tile.X * TileUtils.TileSize);
+			Canvas.SetTop(CursorRectangle, tile.Y * TileUtils.TileSize);
+
 			LabelTile.Content = tile.ToString();
 			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+
+			double left = Canvas.GetLeft(MultiSelectRectangle);
+			double top = Canvas.GetTop(MultiSelectRectangle);
+			MultiSelectRectangle.Width = tile.X * TileUtils.TileSize - left;
+			MultiSelectRectangle.Height = tile.Y * TileUtils.TileSize - top;
 		}
 
 		private void ArenaTiles_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -370,23 +404,43 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ArenaCoord tile = GetTileFromMouse(sender);
 
-			if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+			switch (tileAction)
 			{
-				if (selections.Contains(tile))
-					selections.Remove(tile);
-				else
-					selections.Add(tile);
+				default:
+				case TileAction.Toggle:
+					if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= TileUtils.TileMin)
+						Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
+					else
+						Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
 
-				UpdateTileSelections();
-			}
-			else
-			{
-				if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= TileUtils.TileMin)
-					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
-				else
-					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
+					SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+					break;
+				case TileAction.MultiSelectOnce:
+					if (selections.Contains(tile))
+						selections.Remove(tile);
+					else
+						selections.Add(tile);
 
-				SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+					UpdateTileSelections();
+					break;
+				case TileAction.MultiSelectContinuous:
+					// TODO
+					break;
+				case TileAction.MultiSelectRectangle:
+					bool wasHidden = MultiSelectRectangle.Visibility == Visibility.Hidden;
+					MultiSelectRectangle.Visibility = wasHidden ? Visibility.Visible : Visibility.Hidden;
+					if (wasHidden)
+					{
+						Canvas.SetLeft(MultiSelectRectangle, tile.X * TileUtils.TileSize);
+						Canvas.SetTop(MultiSelectRectangle, tile.Y * TileUtils.TileSize);
+					}
+					else
+					{
+						// TODO: Select
+					}
+
+					UpdateTileSelections();
+					break;
 			}
 
 			UpdateTile(tile);

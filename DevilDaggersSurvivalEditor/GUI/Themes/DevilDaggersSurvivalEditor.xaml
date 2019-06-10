@@ -79,4 +79,6 @@
 			<Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
 		</Style.Setters>
 	</Style>
+
+	<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}" />
 </ResourceDictionary>
