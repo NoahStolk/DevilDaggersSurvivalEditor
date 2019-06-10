@@ -176,7 +176,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				{
 					switch (window.Function)
 					{
-						default:
 						case DelayModificationFunction.Add:
 							Program.App.spawnset.Spawns[i].Delay += window.Value;
 							break;
