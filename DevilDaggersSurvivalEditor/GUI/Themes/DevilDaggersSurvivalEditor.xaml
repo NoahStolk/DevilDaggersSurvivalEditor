@@ -80,5 +80,9 @@
 		</Style.Setters>
 	</Style>
 
-	<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}" />
+	<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+		<Style.Setters>
+			<Setter Property="Margin" Value="2,2,2,2" />
+		</Style.Setters>
+	</Style>
 </ResourceDictionary>
