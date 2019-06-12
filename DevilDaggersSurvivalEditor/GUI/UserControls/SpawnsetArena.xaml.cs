@@ -391,10 +391,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					else
 					{
 						// Remove corresponding line from neighbor
-						Line lineToRemove = tileElementSelectionBorders[neighbor.X, neighbor.Y, (k + 2) % 4];
-						if (ArenaTiles.Children.Contains(lineToRemove))
+						Line neighborLineToRemove = tileElementSelectionBorders[neighbor.X, neighbor.Y, (k + 2) % 4];
+						if (ArenaTiles.Children.Contains(neighborLineToRemove))
 						{
-							ArenaTiles.Children.Remove(lineToRemove);
+							ArenaTiles.Children.Remove(neighborLineToRemove);
 
 							tileElementSelectionBorders[i, j, k] = null;
 						}
