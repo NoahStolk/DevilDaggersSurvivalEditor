@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows;
 
-namespace DevilDaggersSurvivalEditor.Code.Utils
+namespace DevilDaggersSurvivalEditor.Code
 {
 	public static class FileUtils
 	{

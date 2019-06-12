@@ -1,6 +1,6 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnset;
-using DevilDaggersSurvivalEditor.Code.Utils;
+using DevilDaggersSurvivalEditor.Code;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;

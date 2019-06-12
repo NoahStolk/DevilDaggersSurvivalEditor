@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
-using DevilDaggersSurvivalEditor.Code.Arena;
 
-namespace DevilDaggersSurvivalEditor.Code.Utils
+namespace DevilDaggersSurvivalEditor.Code.Arena
 {
 	public static class TileUtils
 	{

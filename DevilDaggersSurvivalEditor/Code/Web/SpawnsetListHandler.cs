@@ -1,8 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersCore.Spawnset.Web;
 using DevilDaggersSurvivalEditor.Code.Arena;
-using DevilDaggersSurvivalEditor.Code.Logging;
-using DevilDaggersSurvivalEditor.Code.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

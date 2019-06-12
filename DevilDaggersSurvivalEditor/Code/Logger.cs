@@ -1,7 +1,7 @@
 ﻿using log4net;
 using System.Reflection;
 
-namespace DevilDaggersSurvivalEditor.Code.Logging
+namespace DevilDaggersSurvivalEditor.Code
 {
 	public static class Logger
 	{

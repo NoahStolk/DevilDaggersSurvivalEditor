@@ -95,11 +95,11 @@
     <Compile Include="Code\Arena\Presets\RandomGaps.cs" />
     <Compile Include="Code\Arena\Presets\Pyramid.cs" />
     <Compile Include="Code\Arena\TileAction.cs" />
-    <Compile Include="Code\Logging\Logger.cs" />
+    <Compile Include="Code\Logger.cs" />
     <Compile Include="Code\Spawns\DelayModificationFunction.cs" />
-    <Compile Include="Code\Utils\FileUtils.cs" />
-    <Compile Include="Code\Utils\MiscUtils.cs" />
-    <Compile Include="Code\Utils\TileUtils.cs" />
+    <Compile Include="Code\FileUtils.cs" />
+    <Compile Include="Code\MiscUtils.cs" />
+    <Compile Include="Code\Arena\TileUtils.cs" />
     <Compile Include="Code\Web\SpawnsetListHandler.cs" />
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
       <DependentUpon>MenuBar.xaml</DependentUpon>
@@ -130,9 +130,9 @@
     </Compile>
     <Compile Include="Code\Program.cs" />
     <Compile Include="Code\Web\Models\VersionResult.cs" />
-    <Compile Include="Code\Utils\UrlUtils.cs" />
+    <Compile Include="Code\Web\UrlUtils.cs" />
     <Compile Include="Code\User\UserSettings.cs" />
-    <Compile Include="Code\Utils\ApplicationUtils.cs" />
+    <Compile Include="Code\ApplicationUtils.cs" />
     <Compile Include="GUI\Windows\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>

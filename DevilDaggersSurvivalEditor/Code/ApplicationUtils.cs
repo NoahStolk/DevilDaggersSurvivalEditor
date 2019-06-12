@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Code.Logging;
+﻿using DevilDaggersSurvivalEditor.Code.Web;
 using DevilDaggersSurvivalEditor.Code.Web.Models;
 using Newtonsoft.Json;
 using System;
@@ -8,7 +8,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 
-namespace DevilDaggersSurvivalEditor.Code.Utils
+namespace DevilDaggersSurvivalEditor.Code
 {
 	public static class ApplicationUtils
 	{

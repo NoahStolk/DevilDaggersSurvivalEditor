@@ -2,7 +2,7 @@
 using System.Text;
 using System.Windows.Media;
 
-namespace DevilDaggersSurvivalEditor.Code.Utils
+namespace DevilDaggersSurvivalEditor.Code
 {
 	public static class MiscUtils
 	{

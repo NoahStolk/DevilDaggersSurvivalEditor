@@ -1,4 +1,4 @@
-﻿namespace DevilDaggersSurvivalEditor.Code.Utils
+﻿namespace DevilDaggersSurvivalEditor.Code.Web
 {
 	public static class UrlUtils
 	{

@@ -1,6 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code.Arena;
-using DevilDaggersSurvivalEditor.Code.Logging;
-using DevilDaggersSurvivalEditor.Code.Utils;
+﻿using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Arena;
 using System;
 using System.Collections.Generic;
 using System.Linq;
