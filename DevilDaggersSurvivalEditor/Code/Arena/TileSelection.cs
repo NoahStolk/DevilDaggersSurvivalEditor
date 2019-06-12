@@ -1,6 +1,6 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.Arena
 {
-	public enum TileSelectionAction
+	public enum TileSelection
 	{
 		Once, Continuous, Rectangle
 	}

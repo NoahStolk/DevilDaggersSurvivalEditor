@@ -94,7 +94,7 @@
     <Compile Include="Code\Arena\Presets\RandomIslands.cs" />
     <Compile Include="Code\Arena\Presets\RandomGaps.cs" />
     <Compile Include="Code\Arena\Presets\Pyramid.cs" />
-    <Compile Include="Code\Arena\TileSelectionAction.cs" />
+    <Compile Include="Code\Arena\TileSelection.cs" />
     <Compile Include="Code\Arena\TileAction.cs" />
     <Compile Include="Code\Logger.cs" />
     <Compile Include="Code\Spawns\DelayModificationFunction.cs" />

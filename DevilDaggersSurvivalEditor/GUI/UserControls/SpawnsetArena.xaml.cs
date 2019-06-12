@@ -28,7 +28,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private ArenaCoord focusedTile;
 		private ArenaCoord focusedTilePrevious;
 
-		private TileSelectionAction tileSelectionAction;
+		private TileSelection tileSelectionAction;
 		private TileAction tileAction;
 		private readonly List<RadioButton> tileActionRadioButtons = new List<RadioButton>();
 		private readonly List<RadioButton> tileSelectionRadioButtons = new List<RadioButton>();
@@ -54,11 +54,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			SpawnsetSettings.DataContext = Program.App.spawnset;
 
-			foreach (TileSelectionAction tileSelectionAction in (TileSelectionAction[])Enum.GetValues(typeof(TileSelectionAction)))
+			foreach (TileSelection tileSelectionAction in (TileSelection[])Enum.GetValues(typeof(TileSelection)))
 			{
 				RadioButton tb = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/{nameof(TileSelectionAction)}{tileSelectionAction}.png")) },
+					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/{nameof(TileSelection)}{tileSelectionAction}.png")) },
 					ToolTip = tileSelectionAction.ToUserFriendlyString(),
 					IsChecked = tileSelectionAction == 0
 				};
@@ -456,10 +456,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			switch (tileSelectionAction)
 			{
-				case TileSelectionAction.Continuous:
+				case TileSelection.Continuous:
 					continuous = true;
 					break;
-				case TileSelectionAction.Rectangle:
+				case TileSelection.Rectangle:
 					rectangleStart = tile;
 					break;
 			}
@@ -523,10 +523,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			switch (tileSelectionAction)
 			{
-				case TileSelectionAction.Continuous:
+				case TileSelection.Continuous:
 					continuous = false;
 					break;
-				case TileSelectionAction.Rectangle:
+				case TileSelection.Rectangle:
 					if (!rectangleStart.HasValue)
 						break;
 
