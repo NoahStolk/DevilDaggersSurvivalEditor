@@ -25,12 +25,17 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private readonly Rectangle[,] tileElementSelections = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 		private readonly Line[,,] tileElementSelectionBorders = new Line[Spawnset.ArenaWidth, Spawnset.ArenaHeight, 4];
 
+		private ArenaCoord focusedTile;
+		private ArenaCoord focusedTilePrevious;
+
+		private TileSelectionAction tileSelectionAction;
 		private TileAction tileAction;
 		private readonly List<RadioButton> tileActionRadioButtons = new List<RadioButton>();
+		private readonly List<RadioButton> tileSelectionRadioButtons = new List<RadioButton>();
 		private readonly List<ArenaCoord> selections = new List<ArenaCoord>();
 
-		private bool multiSelectContinuous;
-		private ArenaCoord? multiSelectRectangleStart;
+		private bool continuous;
+		private ArenaCoord? rectangleStart;
 
 		// In tile units
 		private double shrinkStartRadius;
@@ -49,12 +54,28 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			SpawnsetSettings.DataContext = Program.App.spawnset;
 
-			// Add tile actions
+			foreach (TileSelectionAction tileSelectionAction in (TileSelectionAction[])Enum.GetValues(typeof(TileSelectionAction)))
+			{
+				RadioButton tb = new RadioButton
+				{
+					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/{nameof(TileSelectionAction)}{tileSelectionAction}.png")) },
+					ToolTip = tileSelectionAction.ToUserFriendlyString(),
+					IsChecked = tileSelectionAction == 0
+				};
+				tb.Checked += (sender, e) =>
+				{
+					this.tileSelectionAction = tileSelectionAction;
+				};
+
+				tileActionRadioButtons.Add(tb);
+				TileActionsStackPanel.Children.Add(tb);
+			}
+
 			foreach (TileAction tileAction in (TileAction[])Enum.GetValues(typeof(TileAction)))
 			{
 				RadioButton tb = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/TileAction{tileAction}.png")) },
+					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/{nameof(TileAction)}{tileAction}.png")) },
 					ToolTip = tileAction.ToUserFriendlyString(),
 					IsChecked = tileAction == 0
 				};
@@ -63,11 +84,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					this.tileAction = tileAction;
 				};
 
-				tileActionRadioButtons.Add(tb);
-				TileActionsStackPanel.Children.Add(tb);
+				tileSelectionRadioButtons.Add(tb);
+				TileSelectionsStackPanel.Children.Add(tb);
 			}
 
-			// Add presets
 			foreach (Type type in ArenaPresetHandler.Instance.PresetTypes)
 			{
 				string typeName = type.Name.ToString();
@@ -83,7 +103,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				ComboBoxArenaPreset.Items.Add(item);
 			}
 
-			// Add arena tiles
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 			{
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
@@ -402,68 +421,138 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			HeightTile.Content = voidTile ? "Void" : height.ToString("0.00");
 		}
 
-		private ArenaCoord GetTileFromMouse(object sender)
+		private void ExecuteTileAction(ArenaCoord tile)
 		{
-			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
-			return new ArenaCoord(MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
+			switch (tileAction)
+			{
+				case TileAction.ToggleVoid:
+					if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= TileUtils.TileMin)
+						Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
+					else
+						Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
+
+					SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+
+					UpdateTile(tile);
+					break;
+				case TileAction.Select:
+					if (!selections.Contains(tile))
+					{
+						selections.Add(tile);
+						UpdateTileSelection(tile);
+					}
+					break;
+				case TileAction.Deselect:
+					if (selections.Contains(tile))
+					{
+						selections.Remove(tile);
+						UpdateTileSelection(tile);
+					}
+					break;
+			}
+		}
+
+		private void ExecuteTileSelectionAction(ArenaCoord tile)
+		{
+			switch (tileSelectionAction)
+			{
+				case TileSelectionAction.Continuous:
+					continuous = true;
+					break;
+				case TileSelectionAction.Rectangle:
+					rectangleStart = tile;
+					break;
+			}
 		}
 
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
 		{
-			ArenaCoord tile = GetTileFromMouse(sender);
+			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
+			focusedTile = new ArenaCoord(MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
+			if (focusedTile == focusedTilePrevious)
+				return;
 
-			Canvas.SetLeft(CursorRectangle, tile.X * TileUtils.TileSize);
-			Canvas.SetTop(CursorRectangle, tile.Y * TileUtils.TileSize);
+			Canvas.SetLeft(CursorRectangle, focusedTile.X * TileUtils.TileSize);
+			Canvas.SetTop(CursorRectangle, focusedTile.Y * TileUtils.TileSize);
 
-			LabelTile.Content = tile.ToString();
-			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+			LabelTile.Content = focusedTile.ToString();
+			SetHeightText(Program.App.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y]);
 
-			if (multiSelectContinuous)
-			{
-				if (!selections.Contains(tile))
-				{
-					selections.Add(tile);
-					UpdateTileSelection(tile);
-				}
-			}
+			if (continuous)
+				ExecuteTileAction(focusedTile);
 
-			if (multiSelectRectangleStart.HasValue)
+			if (rectangleStart.HasValue)
 			{
 				MultiSelectRectLeft.Visibility = Visibility.Visible;
 				MultiSelectRectRight.Visibility = Visibility.Visible;
 				MultiSelectRectTop.Visibility = Visibility.Visible;
 				MultiSelectRectBottom.Visibility = Visibility.Visible;
 
-				MultiSelectRectLeft.X1 = Math.Min(multiSelectRectangleStart.Value.X, tile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectLeft.X2 = Math.Min(multiSelectRectangleStart.Value.X, tile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectLeft.Y1 = Math.Min(multiSelectRectangleStart.Value.Y, tile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectLeft.Y2 = Math.Max(multiSelectRectangleStart.Value.Y, tile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectLeft.X1 = Math.Min(rectangleStart.Value.X, focusedTile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectLeft.X2 = Math.Min(rectangleStart.Value.X, focusedTile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectLeft.Y1 = Math.Min(rectangleStart.Value.Y, focusedTile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectLeft.Y2 = Math.Max(rectangleStart.Value.Y, focusedTile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
 
-				MultiSelectRectRight.X1 = Math.Max(multiSelectRectangleStart.Value.X, tile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectRight.X2 = Math.Max(multiSelectRectangleStart.Value.X, tile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectRight.Y1 = Math.Min(multiSelectRectangleStart.Value.Y, tile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectRight.Y2 = Math.Max(multiSelectRectangleStart.Value.Y, tile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectRight.X1 = Math.Max(rectangleStart.Value.X, focusedTile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectRight.X2 = Math.Max(rectangleStart.Value.X, focusedTile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectRight.Y1 = Math.Min(rectangleStart.Value.Y, focusedTile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectRight.Y2 = Math.Max(rectangleStart.Value.Y, focusedTile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
 
-				MultiSelectRectTop.X1 = Math.Min(multiSelectRectangleStart.Value.X, tile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectTop.X2 = Math.Max(multiSelectRectangleStart.Value.X, tile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectTop.Y1 = Math.Min(multiSelectRectangleStart.Value.Y, tile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectTop.Y2 = Math.Min(multiSelectRectangleStart.Value.Y, tile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectTop.X1 = Math.Min(rectangleStart.Value.X, focusedTile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectTop.X2 = Math.Max(rectangleStart.Value.X, focusedTile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectTop.Y1 = Math.Min(rectangleStart.Value.Y, focusedTile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectTop.Y2 = Math.Min(rectangleStart.Value.Y, focusedTile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
 
-				MultiSelectRectBottom.X1 = Math.Min(multiSelectRectangleStart.Value.X, tile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectBottom.X2 = Math.Max(multiSelectRectangleStart.Value.X, tile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectBottom.Y1 = Math.Max(multiSelectRectangleStart.Value.Y, tile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
-				MultiSelectRectBottom.Y2 = Math.Max(multiSelectRectangleStart.Value.Y, tile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectBottom.X1 = Math.Min(rectangleStart.Value.X, focusedTile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectBottom.X2 = Math.Max(rectangleStart.Value.X, focusedTile.X) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectBottom.Y1 = Math.Max(rectangleStart.Value.Y, focusedTile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
+				MultiSelectRectBottom.Y2 = Math.Max(rectangleStart.Value.Y, focusedTile.Y) * TileUtils.TileSize + TileUtils.TileSize / 2;
+			}
+
+			focusedTilePrevious = focusedTile;
+		}
+
+		private void ArenaTiles_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			ExecuteTileAction(focusedTile);
+
+			ExecuteTileSelectionAction(focusedTile);
+		}
+
+		private void ArenaTiles_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			switch (tileSelectionAction)
+			{
+				case TileSelectionAction.Continuous:
+					continuous = false;
+					break;
+				case TileSelectionAction.Rectangle:
+					if (!rectangleStart.HasValue)
+						break;
+
+					for (int i = Math.Min(rectangleStart.Value.X, focusedTile.X); i <= Math.Max(rectangleStart.Value.X, focusedTile.X); i++)
+					{
+						for (int j = Math.Min(rectangleStart.Value.Y, focusedTile.Y); j <= Math.Max(rectangleStart.Value.Y, focusedTile.Y); j++)
+						{
+							ArenaCoord tile = new ArenaCoord(Math.Min(i, Spawnset.ArenaWidth - 1), Math.Min(j, Spawnset.ArenaHeight - 1));
+							ExecuteTileAction(tile);
+						}
+					}
+					rectangleStart = null;
+					MultiSelectRectLeft.Visibility = Visibility.Hidden;
+					MultiSelectRectRight.Visibility = Visibility.Hidden;
+					MultiSelectRectTop.Visibility = Visibility.Hidden;
+					MultiSelectRectBottom.Visibility = Visibility.Hidden;
+					break;
 			}
 		}
 
 		private void ArenaTiles_MouseWheel(object sender, MouseWheelEventArgs e)
 		{
-			ArenaCoord tile = GetTileFromMouse(sender);
-
 			if (selections.Count == 0)
 			{
-				Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[tile.X, tile.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
-				UpdateTile(tile);
+				Program.App.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
+				UpdateTile(focusedTile);
 			}
 			else
 			{
@@ -474,87 +563,18 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 			}
 
-			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
-		}
-
-		private void ArenaTiles_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-		{
-			ArenaCoord tile = GetTileFromMouse(sender);
-
-			switch (tileAction)
-			{
-				case TileAction.Toggle:
-					if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= TileUtils.TileMin)
-						Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
-					else
-						Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
-
-					SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
-					break;
-				case TileAction.MultiSelectOnce:
-					if (selections.Contains(tile))
-						selections.Remove(tile);
-					else
-						selections.Add(tile);
-
-					UpdateTileSelection(tile);
-					break;
-				case TileAction.MultiSelectContinuous:
-					multiSelectContinuous = true;
-					break;
-				case TileAction.MultiSelectRectangle:
-					multiSelectRectangleStart = tile;
-					break;
-			}
-
-			UpdateTile(tile);
-		}
-
-		private void ArenaTiles_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-		{
-			switch (tileAction)
-			{
-				case TileAction.MultiSelectContinuous:
-					multiSelectContinuous = false;
-					break;
-				case TileAction.MultiSelectRectangle:
-					if (!multiSelectRectangleStart.HasValue)
-						break;
-
-					ArenaCoord mouseTile = GetTileFromMouse(sender);
-
-					for (int i = Math.Min(multiSelectRectangleStart.Value.X, mouseTile.X); i <= Math.Max(multiSelectRectangleStart.Value.X, mouseTile.X); i++)
-					{
-						for (int j = Math.Min(multiSelectRectangleStart.Value.Y, mouseTile.Y); j <= Math.Max(multiSelectRectangleStart.Value.Y, mouseTile.Y); j++)
-						{
-							ArenaCoord tile = new ArenaCoord(Math.Min(i, Spawnset.ArenaWidth - 1), Math.Min(j, Spawnset.ArenaHeight - 1));
-							if (!selections.Contains(tile))
-							{
-								selections.Add(tile);
-								UpdateTileSelection(tile);
-							}
-						}
-					}
-					multiSelectRectangleStart = null;
-					MultiSelectRectLeft.Visibility = Visibility.Hidden;
-					MultiSelectRectRight.Visibility = Visibility.Hidden;
-					MultiSelectRectTop.Visibility = Visibility.Hidden;
-					MultiSelectRectBottom.Visibility = Visibility.Hidden;
-					break;
-			}
+			SetHeightText(Program.App.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y]);
 		}
 
 		private void ArenaTiles_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			ArenaCoord tile = GetTileFromMouse(sender);
-
 			if (selections.Count == 0)
 			{
-				SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[tile.X, tile.Y], tile);
+				SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y], focusedTile);
 				if (heightWindow.ShowDialog() == true)
 				{
-					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = heightWindow.TileHeight;
-					UpdateTile(tile);
+					Program.App.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y] = heightWindow.TileHeight;
+					UpdateTile(focusedTile);
 				}
 			}
 			else
@@ -570,7 +590,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 			}
 
-			SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+			SetHeightText(Program.App.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y]);
 		}
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)

@@ -2,6 +2,6 @@
 {
 	public enum TileAction
 	{
-		Toggle, MultiSelectOnce, MultiSelectContinuous, MultiSelectRectangle
+		ToggleVoid, Select, Deselect
 	}
 }

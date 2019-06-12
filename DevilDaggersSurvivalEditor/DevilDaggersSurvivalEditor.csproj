@@ -94,6 +94,7 @@
     <Compile Include="Code\Arena\Presets\RandomIslands.cs" />
     <Compile Include="Code\Arena\Presets\RandomGaps.cs" />
     <Compile Include="Code\Arena\Presets\Pyramid.cs" />
+    <Compile Include="Code\Arena\TileSelectionAction.cs" />
     <Compile Include="Code\Arena\TileAction.cs" />
     <Compile Include="Code\Logger.cs" />
     <Compile Include="Code\Spawns\DelayModificationFunction.cs" />
@@ -267,16 +268,24 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Content\TileActionMultiSelectContinuous.png">
+    <Resource Include="Content\TileSelectionActionContinuous.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Content\TileActionMultiSelectOnce.png">
+    <Resource Include="Content\TileSelectionActionOnce.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Content\TileActionMultiSelectRectangle.png">
+    <Resource Include="Content\TileSelectionActionRectangle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Content\TileActionToggle.png">
+    <Resource Include="Content\TileActionToggleVoid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\TileActionDeselect.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Content\TileActionSelect.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

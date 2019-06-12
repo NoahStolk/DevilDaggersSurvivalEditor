@@ -10,11 +10,13 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
 				<ColumnDefinition />
-				<ColumnDefinition Width="2*" />
+				<ColumnDefinition />
+				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 			<Label Grid.Column="0" Name="LabelTile">{0, 0}</Label>
 			<Label Grid.Column="1" Name="HeightTile">0.00</Label>
 			<StackPanel Grid.Column="2" Orientation="Horizontal" Name="TileActionsStackPanel" />
+			<StackPanel Grid.Column="3" Orientation="Horizontal" Name="TileSelectionsStackPanel" />
 		</Grid>
 		<Grid>
 			<Grid.ColumnDefinitions>
