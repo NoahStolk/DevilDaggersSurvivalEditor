@@ -7,6 +7,7 @@
         Title="Set tile height" Height="200" Width="200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<Grid>
 		<StackPanel x:Name="Data">
+			<TextBlock TextWrapping="WrapWithOverflow" Name="CoordinatesLabel" />
 			<TextBox Name="TileHeightTextBox" Text="{Binding TileHeight}" />
 			<Button Name="OKButton" Content="OK" Click="OKButton_Click" />
 		</StackPanel>

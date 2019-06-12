@@ -467,10 +467,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 			else
 			{
-				foreach (ArenaCoord t in selections)
+				foreach (ArenaCoord selection in selections)
 				{
-					Program.App.spawnset.ArenaTiles[t.X, t.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[t.X, t.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
-					UpdateTile(t);
+					Program.App.spawnset.ArenaTiles[selection.X, selection.Y] = MathUtils.Clamp(Program.App.spawnset.ArenaTiles[selection.X, selection.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
+					UpdateTile(selection);
 				}
 			}
 
@@ -550,7 +550,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (selections.Count == 0)
 			{
-				SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
+				SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[tile.X, tile.Y], tile);
 				if (heightWindow.ShowDialog() == true)
 				{
 					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = heightWindow.TileHeight;
@@ -559,13 +559,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 			else
 			{
-				SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[selections[0].X, selections[0].Y]);
+				SetTileHeightWindow heightWindow = new SetTileHeightWindow(Program.App.spawnset.ArenaTiles[selections[0].X, selections[0].Y], selections.ToArray());
 				if (heightWindow.ShowDialog() == true)
 				{
-					foreach (ArenaCoord t in selections)
+					foreach (ArenaCoord selection in selections)
 					{
-						Program.App.spawnset.ArenaTiles[t.X, t.Y] = heightWindow.TileHeight;
-						UpdateTile(t);
+						Program.App.spawnset.ArenaTiles[selection.X, selection.Y] = heightWindow.TileHeight;
+						UpdateTile(selection);
 					}
 				}
 			}

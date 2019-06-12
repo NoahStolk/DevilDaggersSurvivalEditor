@@ -15,11 +15,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			set => tileHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
-		public SetTileHeightWindow(float tileHeight)
+		public SetTileHeightWindow(float tileHeight, params ArenaCoord[] selections)
 		{
 			this.tileHeight = tileHeight; // Avoid clamping in case of a void tile.
 
 			InitializeComponent();
+
+			CoordinatesLabel.Text = selections.Length < 5 ? $"Modify height for tile{(selections.Length == 1 ? "" : "s")}:\n{string.Join("\n", selections)}" : $"Modify height for {selections.Length} tiles";
 
 			Data.DataContext = this;
 
