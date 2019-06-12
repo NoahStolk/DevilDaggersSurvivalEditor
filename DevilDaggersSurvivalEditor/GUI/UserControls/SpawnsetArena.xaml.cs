@@ -374,7 +374,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					{
 						Line line = new Line
 						{
-							Stroke = new SolidColorBrush(Color.FromRgb(255, 255, 0)),
+							Stroke = new SolidColorBrush(GetBorderColor(k)),
 							StrokeThickness = 1,
 							X1 = x1,
 							X2 = x2,
@@ -409,7 +409,99 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					Line line = tileElementSelectionBorders[i, j, k];
 					if (ArenaTiles.Children.Contains(line))
 						ArenaTiles.Children.Remove(line);
+
+					#region Fix
+					ArenaCoord neighbor;
+					int x1, x2, y1, y2;
+					switch (k)
+					{
+						default:
+						case 0:
+							if (i - 1 < 0)
+								continue;
+
+							neighbor = new ArenaCoord(i - 1, j);
+							if (!selections.Contains(neighbor))
+								continue;
+
+							x1 = i * TileUtils.TileSize;
+							x2 = i * TileUtils.TileSize;
+							y1 = j * TileUtils.TileSize;
+							y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+							break;
+						case 1:
+							if (j - 1 < 0)
+								continue;
+
+							neighbor = new ArenaCoord(i, j - 1);
+							if (!selections.Contains(neighbor))
+								continue;
+
+							x1 = i * TileUtils.TileSize;
+							x2 = i * TileUtils.TileSize + TileUtils.TileSize;
+							y1 = j * TileUtils.TileSize;
+							y2 = j * TileUtils.TileSize;
+							break;
+						case 2:
+							if (i + 1 > Spawnset.ArenaWidth - 1)
+								continue;
+
+							neighbor = new ArenaCoord(i + 1, j);
+							if (!selections.Contains(neighbor))
+								continue;
+
+							x1 = i * TileUtils.TileSize + TileUtils.TileSize + 1;
+							x2 = i * TileUtils.TileSize + TileUtils.TileSize + 1;
+							y1 = j * TileUtils.TileSize;
+							y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+							break;
+						case 3:
+							if (j + 1 > Spawnset.ArenaHeight - 1)
+								continue;
+
+							neighbor = new ArenaCoord(i, j + 1);
+							if (!selections.Contains(neighbor))
+								continue;
+
+							x1 = i * TileUtils.TileSize;
+							x2 = i * TileUtils.TileSize + TileUtils.TileSize;
+							y1 = j * TileUtils.TileSize + TileUtils.TileSize + 1;
+							y2 = j * TileUtils.TileSize + TileUtils.TileSize + 1;
+							break;
+					}
+
+					if (tileElementSelectionBorders[neighbor.X, neighbor.Y, k] != null)
+						continue;
+
+					Line neighborLineToAdd = new Line
+					{
+						Stroke = new SolidColorBrush(GetBorderColor(k)),
+						StrokeThickness = 1,
+						X1 = x1,
+						X2 = x2,
+						Y1 = y1,
+						Y2 = y2,
+						SnapsToDevicePixels = true
+					};
+					neighborLineToAdd.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+					Panel.SetZIndex(neighborLineToAdd, 2);
+					ArenaTiles.Children.Add(neighborLineToAdd);
+
+					tileElementSelectionBorders[neighbor.X, neighbor.Y, k] = neighborLineToAdd;
+					#endregion
 				}
+			}
+		}
+
+		private Color GetBorderColor(int border)
+		{
+			switch (border)
+			{
+				default:
+				case 0: return Color.FromRgb(255, 255, 128);
+				case 1: return Color.FromRgb(255, 192, 128);
+				case 2: return Color.FromRgb(192, 192, 128);
+				case 3: return Color.FromRgb(192, 128, 128);
 			}
 		}
 
