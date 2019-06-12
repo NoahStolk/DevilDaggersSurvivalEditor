@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private readonly Rectangle[,] tileElements = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 		private readonly Rectangle[,] tileElementSelections = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
-		private Line[,,] tileElementSelectionBorders = new Line[Spawnset.ArenaWidth, Spawnset.ArenaHeight, 4];
+		private readonly Line[,,] tileElementSelectionBorders = new Line[Spawnset.ArenaWidth, Spawnset.ArenaHeight, 4];
 
 		private TileAction tileAction;
 		private readonly List<RadioButton> tileActionRadioButtons = new List<RadioButton>();
@@ -276,77 +276,121 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		// TODO: Only update one
-		private void UpdateTileSelections()
+		private void UpdateTileSelection(ArenaCoord tile)
 		{
-			foreach (Line line in tileElementSelectionBorders)
-				ArenaTiles.Children.Remove(line);
-			foreach (Rectangle rect in tileElementSelections)
-				rect.Visibility = Visibility.Hidden;
-			tileElementSelectionBorders = new Line[Spawnset.ArenaWidth, Spawnset.ArenaHeight, 4];
-
-			foreach (ArenaCoord tile in selections)
+			int i = tile.X;
+			int j = tile.Y;
+			if (selections.Contains(tile))
 			{
 				// Set selection visibility
-				tileElementSelections[tile.X, tile.Y].Visibility = Visibility.Visible;
+				tileElementSelections[i, j].Visibility = Visibility.Visible;
 
-				int i = tile.X;
-				int j = tile.Y;
+				// Set lines
 				for (int k = 0; k < 4; k++)
 				{
-					int x1, x2, y1, y2;
+					ArenaCoord neighbor;
+					int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+					bool neighborSelected = true;
 					switch (k)
 					{
 						default:
 						case 0:
-							if (selections.Contains(new ArenaCoord(i - 1, j)))
+							if (i - 1 < 0)
 								continue;
-							x1 = i * TileUtils.TileSize + 1;
-							x2 = i * TileUtils.TileSize + 1;
-							y1 = j * TileUtils.TileSize;
-							y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+
+							neighbor = new ArenaCoord(i - 1, j);
+							if (!selections.Contains(neighbor))
+							{
+								x1 = i * TileUtils.TileSize + 1;
+								x2 = i * TileUtils.TileSize + 1;
+								y1 = j * TileUtils.TileSize;
+								y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+								neighborSelected = false;
+							}
 							break;
 						case 1:
-							if (selections.Contains(new ArenaCoord(i, j - 1)))
+							if (j - 1 < 0)
 								continue;
-							x1 = i * TileUtils.TileSize;
-							x2 = i * TileUtils.TileSize + TileUtils.TileSize;
-							y1 = j * TileUtils.TileSize + 1;
-							y2 = j * TileUtils.TileSize + 1;
+
+							neighbor = new ArenaCoord(i, j - 1);
+							if (!selections.Contains(neighbor))
+							{
+								x1 = i * TileUtils.TileSize;
+								x2 = i * TileUtils.TileSize + TileUtils.TileSize;
+								y1 = j * TileUtils.TileSize + 1;
+								y2 = j * TileUtils.TileSize + 1;
+								neighborSelected = false;
+							}
 							break;
 						case 2:
-							if (selections.Contains(new ArenaCoord(i + 1, j)))
+							if (i + 1 > Spawnset.ArenaWidth - 1)
 								continue;
-							x1 = i * TileUtils.TileSize + TileUtils.TileSize;
-							x2 = i * TileUtils.TileSize + TileUtils.TileSize;
-							y1 = j * TileUtils.TileSize;
-							y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+
+							neighbor = new ArenaCoord(i + 1, j);
+							if (!selections.Contains(neighbor))
+							{
+								x1 = i * TileUtils.TileSize + TileUtils.TileSize;
+								x2 = i * TileUtils.TileSize + TileUtils.TileSize;
+								y1 = j * TileUtils.TileSize;
+								y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+								neighborSelected = false;
+							}
 							break;
 						case 3:
-							if (selections.Contains(new ArenaCoord(i, j + 1)))
+							if (j + 1 > Spawnset.ArenaHeight - 1)
 								continue;
-							x1 = i * TileUtils.TileSize;
-							x2 = i * TileUtils.TileSize + TileUtils.TileSize;
-							y1 = j * TileUtils.TileSize + TileUtils.TileSize;
-							y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+
+							neighbor = new ArenaCoord(i, j + 1);
+							if (!selections.Contains(neighbor))
+							{
+								x1 = i * TileUtils.TileSize;
+								x2 = i * TileUtils.TileSize + TileUtils.TileSize;
+								y1 = j * TileUtils.TileSize + TileUtils.TileSize;
+								y2 = j * TileUtils.TileSize + TileUtils.TileSize;
+								neighborSelected = false;
+							}
 							break;
 					}
 
-					Line line = new Line
+					if (!neighborSelected)
 					{
-						Stroke = new SolidColorBrush(Color.FromRgb(255, 255, 0)),
-						StrokeThickness = 1,
-						X1 = x1,
-						X2 = x2,
-						Y1 = y1,
-						Y2 = y2,
-						SnapsToDevicePixels = true
-					};
-					line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-					Panel.SetZIndex(line, 2);
-					ArenaTiles.Children.Add(line);
+						Line line = new Line
+						{
+							Stroke = new SolidColorBrush(Color.FromRgb(255, 255, 0)),
+							StrokeThickness = 1,
+							X1 = x1,
+							X2 = x2,
+							Y1 = y1,
+							Y2 = y2,
+							SnapsToDevicePixels = true
+						};
+						line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+						Panel.SetZIndex(line, 2);
+						ArenaTiles.Children.Add(line);
 
-					tileElementSelectionBorders[i, j, k] = line;
+						tileElementSelectionBorders[i, j, k] = line;
+					}
+					else
+					{
+						// Remove corresponding line from neighbor
+						Line lineToRemove = tileElementSelectionBorders[neighbor.X, neighbor.Y, (k + 2) % 4];
+						if (ArenaTiles.Children.Contains(lineToRemove))
+						{
+							ArenaTiles.Children.Remove(lineToRemove);
+
+							tileElementSelectionBorders[i, j, k] = null;
+						}
+					}
+				}
+			}
+			else
+			{
+				tileElementSelections[tile.X, tile.Y].Visibility = Visibility.Hidden;
+				for (int k = 0; k < 4; k++)
+				{
+					Line line = tileElementSelectionBorders[i, j, k];
+					if (ArenaTiles.Children.Contains(line))
+						ArenaTiles.Children.Remove(line);
 				}
 			}
 		}
@@ -378,9 +422,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			if (multiSelectContinuous)
 			{
 				if (!selections.Contains(tile))
+				{
 					selections.Add(tile);
-
-				UpdateTileSelections();
+					UpdateTileSelection(tile);
+				}
 			}
 
 			if (multiSelectRectangleStart.HasValue)
@@ -453,7 +498,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					else
 						selections.Add(tile);
 
-					UpdateTileSelections();
+					UpdateTileSelection(tile);
 					break;
 				case TileAction.MultiSelectContinuous:
 					multiSelectContinuous = true;
@@ -485,10 +530,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						{
 							ArenaCoord tile = new ArenaCoord(Math.Min(i, Spawnset.ArenaWidth - 1), Math.Min(j, Spawnset.ArenaHeight - 1));
 							if (!selections.Contains(tile))
+							{
 								selections.Add(tile);
+								UpdateTileSelection(tile);
+							}
 						}
 					}
-					UpdateTileSelections();
 					multiSelectRectangleStart = null;
 					MultiSelectRectLeft.Visibility = Visibility.Hidden;
 					MultiSelectRectRight.Visibility = Visibility.Hidden;
