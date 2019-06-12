@@ -75,7 +75,7 @@
 		<Style.Setters>
 			<Setter Property="Width" Value="96" />
 			<Setter Property="Margin" Value="0,12,0,0" />
-			<Setter Property="Source" Value="/Content/Icon32.png" />
+			<Setter Property="Source" Value="/Content/Images/Icon/Icon32.png" />
 			<Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
 		</Style.Setters>
 	</Style>

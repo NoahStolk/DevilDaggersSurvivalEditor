@@ -263,32 +263,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Content\Icon32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\TileSelectionActionContinuous.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Content\TileSelectionActionOnce.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Content\TileSelectionActionRectangle.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Content\TileActionToggleVoid.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\TileActionDeselect.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Content\TileActionSelect.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Icon24.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Content\Images\Arena\Tiles\ActionDeselect.png" />
+    <Resource Include="Content\Images\Arena\Tiles\ActionSelect.png" />
+    <Resource Include="Content\Images\Arena\Tiles\ActionToggleVoid.png" />
+    <Resource Include="Content\Images\Arena\Tiles\SelectionContinuous.png" />
+    <Resource Include="Content\Images\Arena\Tiles\SelectionOnce.png" />
+    <Resource Include="Content\Images\Arena\Tiles\SelectionRectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\Arena\FlipHorizontally.png" />
+    <Resource Include="Content\Images\Arena\FlipVertically.png" />
+    <Resource Include="Content\Images\Arena\RotateClockwise.png" />
+    <Resource Include="Content\Images\Arena\RotateCounterClockwise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\Icon\Icon24.png" />
+    <Resource Include="Content\Images\Icon\Icon32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

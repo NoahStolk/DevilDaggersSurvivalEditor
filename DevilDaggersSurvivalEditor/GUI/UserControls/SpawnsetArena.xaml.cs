@@ -28,7 +28,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private ArenaCoord focusedTile;
 		private ArenaCoord focusedTilePrevious;
 
-		private TileSelection tileSelectionAction;
+		private TileSelection tileSelection;
 		private TileAction tileAction;
 		private readonly List<RadioButton> tileActionRadioButtons = new List<RadioButton>();
 		private readonly List<RadioButton> tileSelectionRadioButtons = new List<RadioButton>();
@@ -54,38 +54,38 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			SpawnsetSettings.DataContext = Program.App.spawnset;
 
-			foreach (TileSelection tileSelectionAction in (TileSelection[])Enum.GetValues(typeof(TileSelection)))
+			foreach (TileSelection tileSelection in (TileSelection[])Enum.GetValues(typeof(TileSelection)))
 			{
-				RadioButton tb = new RadioButton
+				RadioButton radioButton = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/{nameof(TileSelection)}{tileSelectionAction}.png")) },
-					ToolTip = tileSelectionAction.ToUserFriendlyString(),
-					IsChecked = tileSelectionAction == 0
+					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/Images/Arena/Tiles/Selection{tileSelection}.png")) },
+					ToolTip = tileSelection.ToUserFriendlyString(),
+					IsChecked = tileSelection == 0
 				};
-				tb.Checked += (sender, e) =>
+				radioButton.Checked += (sender, e) =>
 				{
-					this.tileSelectionAction = tileSelectionAction;
+					this.tileSelection = tileSelection;
 				};
 
-				tileActionRadioButtons.Add(tb);
-				TileActionsStackPanel.Children.Add(tb);
+				tileActionRadioButtons.Add(radioButton);
+				TileActionsStackPanel.Children.Add(radioButton);
 			}
 
 			foreach (TileAction tileAction in (TileAction[])Enum.GetValues(typeof(TileAction)))
 			{
-				RadioButton tb = new RadioButton
+				RadioButton radioButton = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/{nameof(TileAction)}{tileAction}.png")) },
+					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/Images/Arena/Tiles/Action{tileAction}.png")) },
 					ToolTip = tileAction.ToUserFriendlyString(),
 					IsChecked = tileAction == 0
 				};
-				tb.Checked += (sender, e) =>
+				radioButton.Checked += (sender, e) =>
 				{
 					this.tileAction = tileAction;
 				};
 
-				tileSelectionRadioButtons.Add(tb);
-				TileSelectionsStackPanel.Children.Add(tb);
+				tileSelectionRadioButtons.Add(radioButton);
+				TileSelectionsStackPanel.Children.Add(radioButton);
 			}
 
 			foreach (Type type in ArenaPresetHandler.Instance.PresetTypes)
@@ -454,7 +454,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ExecuteTileSelectionAction(ArenaCoord tile)
 		{
-			switch (tileSelectionAction)
+			switch (tileSelection)
 			{
 				case TileSelection.Continuous:
 					continuous = true;
@@ -521,7 +521,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ArenaTiles_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			switch (tileSelectionAction)
+			switch (tileSelection)
 			{
 				case TileSelection.Continuous:
 					continuous = false;
