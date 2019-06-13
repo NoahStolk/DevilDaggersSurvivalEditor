@@ -623,13 +623,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						break;
 
 					for (int i = Math.Min(rectangleStart.Value.X, focusedTile.X); i <= Math.Max(rectangleStart.Value.X, focusedTile.X); i++)
-					{
 						for (int j = Math.Min(rectangleStart.Value.Y, focusedTile.Y); j <= Math.Max(rectangleStart.Value.Y, focusedTile.Y); j++)
-						{
-							ArenaCoord tile = new ArenaCoord(Math.Min(i, Spawnset.ArenaWidth - 1), Math.Min(j, Spawnset.ArenaHeight - 1));
-							ExecuteTileAction(tile);
-						}
-					}
+							ExecuteTileAction(new ArenaCoord(i, j));
 					rectangleStart = null;
 					MultiSelectRectLeft.Visibility = Visibility.Hidden;
 					MultiSelectRectRight.Visibility = Visibility.Hidden;
