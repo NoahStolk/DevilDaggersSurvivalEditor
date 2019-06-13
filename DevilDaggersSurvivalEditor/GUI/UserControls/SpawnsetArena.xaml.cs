@@ -523,9 +523,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					else
 						Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
 
-					SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
-
 					UpdateTile(tile);
+
+					SetHeightText(Program.App.spawnset.ArenaTiles[tile.X, tile.Y]);
 					break;
 				case TileAction.Select:
 					if (!selections.Contains(tile))
