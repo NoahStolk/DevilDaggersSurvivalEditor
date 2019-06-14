@@ -1,30 +1,30 @@
-﻿using System;
+﻿using DevilDaggersCore.Spawnset;
+using System;
 using System.IO;
-using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.Code
 {
 	public static class FileUtils
 	{
-		public static void WriteSpawnsetToFile(string path)
+		public static void WriteSpawnsetToFile(Spawnset spawnset, string destinationPath)
 		{
-			if (Program.App.spawnset.TryGetBytes(out byte[] bytes))
+			if (spawnset.TryGetBytes(out byte[] bytes))
 			{
-				File.WriteAllBytes(path, bytes);
-				MessageBox.Show($"Successfully wrote file to {path}.", "Success");
+				File.WriteAllBytes(destinationPath, bytes);
+				Program.App.ShowMessage("Success", $"Successfully wrote file to {destinationPath}.");
 			}
 			else
 			{
-				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {path}.", null);
+				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {destinationPath}.");
 			}
 		}
 
-		public static void ReplaceFile(string sourceFileName, string destinationFileName)
+		public static void CopyFile(string sourcePath, string destinationPath)
 		{
 			try
 			{
-				File.Copy(sourceFileName, destinationFileName);
-				MessageBox.Show("Successfully replaced file.", "Success");
+				File.Copy(sourcePath, destinationPath);
+				Program.App.ShowMessage("Success", "Successfully replaced file.");
 			}
 			catch (Exception ex)
 			{

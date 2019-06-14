@@ -63,7 +63,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
 				{
-					Program.App.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.", null);
+					Program.App.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
 					return;
 				}
 			}
@@ -84,7 +84,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			bool? result = dialog.ShowDialog();
 			if (result.HasValue && result.Value)
 			{
-				FileUtils.WriteSpawnsetToFile(dialog.FileName);
+				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, dialog.FileName);
 			}
 		}
 
@@ -92,7 +92,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			if (!Spawnset.TryParse(new FileStream(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"), FileMode.Open, FileAccess.Read), out Program.App.spawnset))
 			{
-				Program.App.ShowError("Could not parse file", "Failed to parse the 'survival' file.", null);
+				Program.App.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;
 			}
 
@@ -105,7 +105,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				FileUtils.WriteSpawnsetToFile(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
+				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
 			}
 		}
 
@@ -114,7 +114,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				FileUtils.ReplaceFile(Path.Combine("Content", "survival"), Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
+				FileUtils.CopyFile(Path.Combine("Content", "survival"), Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
 			}
 		}
 

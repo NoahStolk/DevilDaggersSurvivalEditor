@@ -33,13 +33,11 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			catch (WebException ex)
 			{
 				Program.App.ShowError("Error retrieving spawnset list", $"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
-				Logger.Log.Error($"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
 				return false;
 			}
 			catch (Exception ex)
 			{
 				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
-				Logger.Log.Error("An unexpected error occurred.", ex);
 				return false;
 			}
 		}
@@ -55,14 +53,13 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 				using (WebClient client = new WebClient())
 				using (Stream stream = new MemoryStream(client.DownloadData(url)))
 					if (!Spawnset.TryParse(stream, out spawnset))
-						Program.App.ShowError("Error parsing file", "Could not parse file.", null);
+						Program.App.ShowError("Error parsing file", "Could not parse file.");
 
 				return spawnset;
 			}
 			catch (WebException ex)
 			{
 				Program.App.ShowError("Error downloading file", $"Could not connect to '{url}'.", ex);
-				Logger.Log.Error($"Could not connect to '{url}'.", ex);
 
 				return new Spawnset
 				{
@@ -72,7 +69,6 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			catch (Exception ex)
 			{
 				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
-				Logger.Log.Error("An unexpected error occurred.", ex);
 
 				return new Spawnset
 				{

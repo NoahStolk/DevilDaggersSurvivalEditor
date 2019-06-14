@@ -1,10 +1,11 @@
 ﻿using DevilDaggersCore.Spawnset;
-using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web.Models;
 using DevilDaggersSurvivalEditor.GUI.Windows;
+using log4net;
 using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -12,6 +13,8 @@ namespace DevilDaggersSurvivalEditor
 {
 	public partial class App : Application
 	{
+		public static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
 		public LoadingWindow LoadingWindow { get; set; }
 		public new MainWindow MainWindow { get; set; }
 
@@ -36,9 +39,13 @@ namespace DevilDaggersSurvivalEditor
 			Current.Shutdown();
 		}
 
-		public void ShowError(string title, string message, Exception ex)
+		/// <summary>
+		/// Shows the error using the <see cref="ErrorWindow">ErrorWindow</see> and logs the Exception if there is one.
+		/// </summary>
+		public void ShowError(string title, string message, Exception ex = null)
 		{
-			Logger.Log.Error(message, ex);
+			if (ex != null)
+				Log.Error(message, ex);
 
 			Dispatcher.Invoke(() =>
 			{

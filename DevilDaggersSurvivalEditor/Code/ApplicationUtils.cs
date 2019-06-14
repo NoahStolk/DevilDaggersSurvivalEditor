@@ -56,12 +56,12 @@ namespace DevilDaggersSurvivalEditor.Code
 			catch (WebException ex)
 			{
 				errorMessage = $"Could not connect to '{url}'.";
-				Logger.Log.Error(errorMessage, ex);
+				Program.App.ShowError("Error", errorMessage, ex);
 			}
 			catch (Exception ex)
 			{
-				errorMessage = "An unexpected error occured while trying to retrieve the latest version number.";
-				Logger.Log.Error(errorMessage, ex);
+				errorMessage = $"An unexpected error occured while trying to retrieve the latest version number from '{url}'.";
+				Program.App.ShowError("Error", errorMessage, ex);
 			}
 
 			return new VersionResult(!string.IsNullOrEmpty(errorMessage) ? null : (bool?)(Version.Parse(versionOnline) <= ApplicationVersionNumber), versionOnline, errorMessage);
