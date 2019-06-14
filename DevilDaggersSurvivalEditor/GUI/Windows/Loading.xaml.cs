@@ -1,8 +1,12 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
 using DevilDaggersSurvivalEditor.Code.Web.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,7 +16,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 	public partial class LoadingWindow : Window
 	{
 		private int threadsComplete;
-		private bool retrieveSpawnsetsSuccess;
 		private readonly List<BackgroundWorker> threads = new List<BackgroundWorker>();
 		private readonly List<string> threadMessages = new List<string>();
 
@@ -44,6 +47,40 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				ThreadComplete();
 			};
 
+			bool readUserSettingsSuccess = false;
+			bool userSettingsExist = File.Exists(UserSettings.FileName);
+			BackgroundWorker readUserSettingsThread = new BackgroundWorker();
+			readUserSettingsThread.DoWork += (object sender, DoWorkEventArgs e) =>
+			{
+				try
+				{
+					if (userSettingsExist)
+						using (StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName)))
+							Program.App.userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+
+					readUserSettingsSuccess = true;
+				}
+				catch (Exception ex)
+				{
+					Program.App.ShowError("Error", "Error while trying to read user settings.", ex);
+				}
+			};
+			readUserSettingsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+			{
+				Dispatcher.Invoke(() =>
+				{
+					TaskResultsStackPanel.Children.Add(new Label
+					{
+						Content = readUserSettingsSuccess ? userSettingsExist ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
+						Foreground = new SolidColorBrush(readUserSettingsSuccess ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
+						FontWeight = FontWeights.Bold
+					});
+				});
+
+				ThreadComplete();
+			};
+
+			bool retrieveSpawnsetsSuccess = false;
 			BackgroundWorker retrieveSpawnsetsThread = new BackgroundWorker();
 			retrieveSpawnsetsThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
@@ -79,10 +116,12 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			};
 
 			threads.Add(checkVersionThread);
+			threads.Add(readUserSettingsThread);
 			threads.Add(retrieveSpawnsetsThread);
 			threads.Add(mainInitThread);
 
 			threadMessages.Add("Checking for updates...");
+			threadMessages.Add("Reading user settings...");
 			threadMessages.Add("Retrieving spawnsets...");
 			threadMessages.Add("Initializing application...");
 

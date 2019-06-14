@@ -1,13 +1,9 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
-using DevilDaggersSurvivalEditor.Code.User;
-using Newtonsoft.Json;
 using System;
 using System.Globalization;
-using System.IO;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Markup;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
@@ -19,8 +15,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Program.App.MainWindow = this;
 
 			InitializeComponent();
-
-			InitializeUserSettings();
 
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 			Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
@@ -37,13 +31,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void MainWindow_Closed(object sender, EventArgs e)
 		{
 			Application.Current.Shutdown();
-		}
-
-		private void InitializeUserSettings()
-		{
-			if (File.Exists(UserSettings.FileName))
-				using (StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName)))
-					Program.App.userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
 		}
 	}
 }
