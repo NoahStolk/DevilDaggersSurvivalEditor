@@ -46,7 +46,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Renamed Cage preset to Cage Rectangular.
 - Renamed Random preset to Random Noise.
 - Added new arena presets: Cage Ellipse, Ellipse, Hill, Pyramid, Random Gaps, Random Islands, and Random Pillars.
-- Removed Default Flat preset (can now be created using the new Ellipse preset).
+- Removed Default Flat preset, as it can now be created using the new Ellipse preset, or using the "Round heights" button.
 - Added wall thickness parameter to Cage Rectangular preset.
 - Added offset parameters to Qbert preset.
 - Added ability to rotate and flip the arena.
