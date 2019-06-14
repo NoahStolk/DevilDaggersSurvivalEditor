@@ -40,12 +40,15 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
 - A lot of performance optimizations and layout improvements.
 - Fixed issue where the arena was always incorrectly rotated and mirrored.
-- Fixed issue where restoring V3 would remove the original survival file from the application's Content folder and as a result will no longer work.
-- Fixed issue where the application wouldn't start up anymore after the first time (not confirmed yet).
-- Added new arena presets: Cage Ellipse, Ellipse, Hill, Random Gaps, Random Islands, Random Pillars, and Qbert.
+- Fixed issue where restoring the original V3 spawnset would remove the survival file from the application's 'Content' folder and as a result the option no longer works until the file is put back (either by re-downloading the application or by doing it manually).
+- Fixed issue where the application would not start up after using it (not confirmed yet).
+- Renamed Pyramid preset to Qbert.
+- Renamed Cage preset to Cage Rectangular.
+- Renamed Random preset to Random Noise.
+- Added new arena presets: Cage Ellipse, Ellipse, Hill, Pyramid, Random Gaps, Random Islands, and Random Pillars.
 - Removed Default Flat preset (can now be created using the new Ellipse preset).
-- Added more parameters to existing presets.
-- Renamed and improved some existing presets.
+- Added wall thickness parameter to Cage Rectangular preset.
+- Added offset parameters to Qbert preset.
 - Added ability to rotate and flip the arena.
 - Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
 - Added multiple tile selection to the arena editor.
@@ -59,7 +62,8 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Show more spawnset data in the online spawnsets list.
 - Added menu item to open the current survival file.
 - Added more settings, for example you can prevent the player from spawning in the void.
-- The application now warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
+- The application now warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short, or when you're spawning the player in the void. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
+- The application also warns you when the path to the survival file in the user settings is incorrect.
 - The application now uses logging, so whenever it crashes you can open the log to see what went wrong.
 - The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
 

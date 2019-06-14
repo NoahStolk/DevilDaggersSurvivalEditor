@@ -6,7 +6,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 	{
 		private float insideHeight;
 		private float wallHeight = 8;
-		private int thickness = 1;
+		private int wallThickness = 1;
 
 		public float InsideHeight
 		{
@@ -18,10 +18,10 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			get => wallHeight;
 			set => wallHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		public int Thickness
+		public int WallThickness
 		{
-			get => thickness;
-			set => thickness = MathUtils.Clamp(value, 1, 20);
+			get => wallThickness;
+			set => wallThickness = MathUtils.Clamp(value, 1, 20);
 		}
 
 		public override float[,] GetTiles()
@@ -30,10 +30,10 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 
 			for (int i = X1; i < X2; i++)
 				for (int j = Y1; j < Y2; j++)
-					tiles[i, j] = (i >= X1 && i < X1 + Thickness)
-							   || (i >= X2 - Thickness && i < X2)
-							   || (j >= Y1 && j < Y1 + Thickness)
-							   || (j >= Y2 - Thickness && j < Y2)
+					tiles[i, j] = (i >= X1 && i < X1 + WallThickness)
+							   || (i >= X2 - WallThickness && i < X2)
+							   || (j >= Y1 && j < Y1 + WallThickness)
+							   || (j >= Y2 - WallThickness && j < Y2)
 								? WallHeight : InsideHeight;
 
 			return tiles;

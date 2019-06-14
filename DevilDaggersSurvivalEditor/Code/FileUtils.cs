@@ -23,12 +23,14 @@ namespace DevilDaggersSurvivalEditor.Code
 		{
 			try
 			{
+				if (File.Exists(destinationPath))
+					File.Delete(destinationPath);
 				File.Copy(sourcePath, destinationPath);
-				Program.App.ShowMessage("Success", "Successfully replaced file.");
+				Program.App.ShowMessage("Success", $"Successfully wrote file to {destinationPath}.");
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred while trying to replace the file.", ex);
+				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {destinationPath}.", ex);
 			}
 		}
 	}

@@ -91,6 +91,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
 		{
+			if (!Program.App.userSettings.SurvivalFileExists)
+			{
+				Program.App.ShowError("Survival file does not exist", "Please make sure to correct the survival file location in the Options > Settings menu.");
+				return;
+			}
+
 			if (!Spawnset.TryParse(new FileStream(Program.App.userSettings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
 			{
 				Program.App.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
