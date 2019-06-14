@@ -17,13 +17,13 @@
 				<Label FontWeight="Bold">Authors</Label>
 				<Grid>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="96" />
-						<ColumnDefinition Width="136" />
+						<ColumnDefinition />
+						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Author filter</Label>
+					<Label Grid.Column="0">Filter</Label>
 					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="AuthorSearchTextBox_TextChanged" />
 				</Grid>
-				<Grid HorizontalAlignment="Left" Width="208"><!--TODO: Figure out how to stretch content and remove hardcoded width-->
+				<Grid HorizontalAlignment="Stretch" Margin="0,20,0,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />
@@ -37,13 +37,24 @@
 				<Label FontWeight="Bold">Spawnsets</Label>
 				<Grid>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="96" />
-						<ColumnDefinition Width="136" />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition Width="7*" />
 					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Spawnset filter</Label>
+					<Label Grid.Column="0">Filter</Label>
 					<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="SpawnsetSearchTextBox_TextChanged" />
 				</Grid>
-				<Grid HorizontalAlignment="Left" Width="1134">
+				<Grid HorizontalAlignment="Stretch" Margin="0,0,20,0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="7*" />
+						<ColumnDefinition Width="2*" />
+						<ColumnDefinition Width="3*" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="1" FontWeight="Bold">Non-loop</Label>
+					<Label Grid.Column="2" FontWeight="Bold">Loop</Label>
+				</Grid>
+				<Grid HorizontalAlignment="Stretch" Margin="0,0,20,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="3*" />
 						<ColumnDefinition Width="2*" />
@@ -58,13 +69,13 @@
 					<Label Grid.Column="0" FontWeight="Bold">Name</Label>
 					<Label Grid.Column="1" FontWeight="Bold">Author</Label>
 					<Label Grid.Column="2" FontWeight="Bold">Last updated</Label>
-					<Label Grid.Column="3" FontWeight="Bold">Non-loop length</Label>
-					<Label Grid.Column="4" FontWeight="Bold">Non-loop spawns</Label>
-					<Label Grid.Column="5" FontWeight="Bold">Loop start</Label>
-					<Label Grid.Column="6" FontWeight="Bold">Loop length</Label>
-					<Label Grid.Column="7" FontWeight="Bold">Loop spawns</Label>
+					<Label Grid.Column="3" FontWeight="Bold">Length</Label>
+					<Label Grid.Column="4" FontWeight="Bold">Spawns</Label>
+					<Label Grid.Column="5" FontWeight="Bold">Start</Label>
+					<Label Grid.Column="6" FontWeight="Bold">Length</Label>
+					<Label Grid.Column="7" FontWeight="Bold">Spawns</Label>
 				</Grid>
-				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="600">
+				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="580">
 					<StackPanel Name="SpawnsetsList" />
 				</ScrollViewer>
 			</StackPanel>

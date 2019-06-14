@@ -117,7 +117,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Label spawnsetCountLabel = new Label { Content = spawnsetCount };
 			Grid.SetColumn(spawnsetCountLabel, 1);
 
-			Grid grid = new Grid { Tag = author, Width = 208 }; // TODO: Figure out how to stretch content and remove hardcoded width
+			Grid grid = new Grid { Tag = author, HorizontalAlignment = HorizontalAlignment.Stretch };
 			grid.ColumnDefinitions.Add(new ColumnDefinition());
 			grid.ColumnDefinitions.Add(new ColumnDefinition());
 			grid.Children.Add(authorLabel);
@@ -143,7 +143,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Label nonLoopSpawnsLabel = new Label { Content = sf.spawnsetData.NonLoopSpawns == 0 ? "N/A" : sf.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(nonLoopSpawnsLabel, 4);
 
-			Label loopStartLabel = new Label { Content = sf.spawnsetData.LoopStart.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
+			Label loopStartLabel = new Label { Content = sf.spawnsetData.LoopSpawns == 0 ? "N/A" : sf.spawnsetData.LoopStart.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(loopStartLabel, 5);
 
 			Label loopLengthLabel = new Label { Content = sf.spawnsetData.LoopLength == 0 ? "N/A" : sf.spawnsetData.LoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
