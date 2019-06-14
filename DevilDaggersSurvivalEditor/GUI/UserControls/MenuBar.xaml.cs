@@ -35,6 +35,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 			else
 			{
+				// TODO: Still necessary?
 				Program.App.ShowMessage("Error checking for updates", Program.App.VersionResult.ErrorMessage);
 			}
 		}
@@ -90,7 +91,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
 		{
-			if (!Spawnset.TryParse(new FileStream(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"), FileMode.Open, FileAccess.Read), out Program.App.spawnset))
+			if (!Spawnset.TryParse(new FileStream(Program.App.userSettings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
 			{
 				Program.App.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;
@@ -105,7 +106,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
+				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Program.App.userSettings.SurvivalFileLocation);
 			}
 		}
 
@@ -114,7 +115,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
 			{
-				FileUtils.CopyFile(Path.Combine("Content", "survival"), Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
+				FileUtils.CopyFile(Path.Combine("Content", "survival"), Program.App.userSettings.SurvivalFileLocation);
 			}
 		}
 
@@ -134,6 +135,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				Dispatcher.Invoke(() =>
 				{
+					Program.App.MainWindow.UpdateWarningNoSurvivalFile();
 					Program.App.MainWindow.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
 					Program.App.MainWindow.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
 				});

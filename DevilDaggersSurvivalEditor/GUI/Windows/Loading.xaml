@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Loading..." Height="384" Width="384" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Loading..." Height="480" Width="480" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel>
 		<Image Style="{StaticResource Logo}" />
 		<Label Style="{StaticResource TitleLabel}" HorizontalAlignment="Center">Devil Daggers Survival Editor</Label>

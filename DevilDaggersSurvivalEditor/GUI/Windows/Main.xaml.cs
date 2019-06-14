@@ -25,12 +25,34 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			WarningVoidSpawn.Text = $"The tile at coordinate {TileUtils.SpawnTile} (player spawn) is void, meaning the player will die instantly. You can prevent this from happening in the Options > Settings menu.";
 			WarningGlitchTile.Text = $"The tile at coordinate {TileUtils.GlitchTile} has a height value greater than {TileUtils.GlitchTileMax}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to remain within its safe range in the Options > Settings menu.";
 
+			UpdateWarningNoSurvivalFile();
+
 			SpawnsetArena.Initialize();
 		}
 
 		private void MainWindow_Closed(object sender, EventArgs e)
 		{
 			Application.Current.Shutdown();
+		}
+
+		public void UpdateWarningNoSurvivalFile()
+		{
+			if (!Program.App.userSettings.SurvivalFileExists || !Program.App.userSettings.SurvivalFileIsValid)
+			{
+				WarningNoSurvivalFile.Visibility = Visibility.Visible;
+				WarningNoSurvivalFile.Text = $"The survival file {(!Program.App.userSettings.SurvivalFileExists ? "does not exist" : !Program.App.userSettings.SurvivalFileIsValid ? "could not be parsed" : "")}. Please make sure to correct the survival file location in the Options > Settings menu.";
+			}
+			else
+			{
+				WarningNoSurvivalFile.Visibility = Visibility.Collapsed;
+				WarningNoSurvivalFile.Text = "";
+			}
+		}
+
+		public void UpdateWarningEndLoopLength(bool visible, double loopLength)
+		{
+			WarningEndLoopLength.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+			WarningEndLoopLength.Text = visible ? $"The end loop is only {loopLength} seconds long, which will probably result in Devil Daggers lagging and becoming unstable." : "";
 		}
 	}
 }

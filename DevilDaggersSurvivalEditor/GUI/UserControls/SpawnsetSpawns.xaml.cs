@@ -44,16 +44,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				ListBoxSpawns.Items.Clear();
 
-				if (endLoopSpawns > 0 && loopLength < 0.5)
-				{
-					Program.App.MainWindow.WarningEndLoopLength.Visibility = Visibility.Visible;
-					Program.App.MainWindow.WarningEndLoopLength.Text = $"The end loop is only {loopLength} seconds long, which will probably result in Devil Daggers lagging and becoming unstable.";
-				}
-				else
-				{
-					Program.App.MainWindow.WarningEndLoopLength.Visibility = Visibility.Collapsed;
-					Program.App.MainWindow.WarningEndLoopLength.Text = "";
-				}
+				Program.App.MainWindow.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
 
 				double seconds = 0;
 				int totalGems = 0;

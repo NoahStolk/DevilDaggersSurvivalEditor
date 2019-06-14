@@ -50,7 +50,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 					if (result == MessageBoxResult.Yes)
 					{
-						FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
+						FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Program.App.userSettings.SurvivalFileLocation);
 					}
 				});
 			};

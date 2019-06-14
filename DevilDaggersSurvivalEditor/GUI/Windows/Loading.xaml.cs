@@ -1,7 +1,7 @@
-﻿using DevilDaggersSurvivalEditor.Code;
+﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
-using DevilDaggersSurvivalEditor.Code.Web.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,6 +27,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber}";
 
+			// TODO: Add timeout
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
@@ -48,13 +49,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			};
 
 			bool readUserSettingsSuccess = false;
-			bool userSettingsExist = File.Exists(UserSettings.FileName);
+			bool userSettingsFileExists = File.Exists(UserSettings.FileName);
 			BackgroundWorker readUserSettingsThread = new BackgroundWorker();
 			readUserSettingsThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
 				try
 				{
-					if (userSettingsExist)
+					if (userSettingsFileExists)
 						using (StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName)))
 							Program.App.userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
 
@@ -71,7 +72,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				{
 					TaskResultsStackPanel.Children.Add(new Label
 					{
-						Content = readUserSettingsSuccess ? userSettingsExist ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
+						Content = readUserSettingsSuccess ? userSettingsFileExists ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
 						Foreground = new SolidColorBrush(readUserSettingsSuccess ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
@@ -80,6 +81,26 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				ThreadComplete();
 			};
 
+			BackgroundWorker validateSurvivalFileThread = new BackgroundWorker();
+			validateSurvivalFileThread.DoWork += (object sender, DoWorkEventArgs e) =>
+			{
+				Dispatcher.Invoke(() =>
+				{
+					TaskResultsStackPanel.Children.Add(new Label
+					{
+						Content = Program.App.userSettings.SurvivalFileExists ? Program.App.userSettings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
+						Foreground = new SolidColorBrush(!Program.App.userSettings.SurvivalFileExists || !Program.App.userSettings.SurvivalFileIsValid ? Color.FromRgb(255, 0, 0) : Color.FromRgb(0, 128, 0)),
+						FontWeight = FontWeights.Bold
+					});
+				});
+
+			};
+			validateSurvivalFileThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+			{
+				ThreadComplete();
+			};
+
+			// TODO: Add timeout
 			bool retrieveSpawnsetsSuccess = false;
 			BackgroundWorker retrieveSpawnsetsThread = new BackgroundWorker();
 			retrieveSpawnsetsThread.DoWork += (object sender, DoWorkEventArgs e) =>
@@ -117,11 +138,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			threads.Add(checkVersionThread);
 			threads.Add(readUserSettingsThread);
+			threads.Add(validateSurvivalFileThread);
 			threads.Add(retrieveSpawnsetsThread);
 			threads.Add(mainInitThread);
 
 			threadMessages.Add("Checking for updates...");
 			threadMessages.Add("Reading user settings...");
+			threadMessages.Add("Validating survival file...");
 			threadMessages.Add("Retrieving spawnsets...");
 			threadMessages.Add("Initializing application...");
 
@@ -143,12 +166,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			});
 
 			worker.RunWorkerAsync();
-		}
-
-		// TODO
-		private void CancelButton_Click(object sender, RoutedEventArgs e)
-		{
-			Program.App.VersionResult = new VersionResult(null, string.Empty, "Canceled by user");
 		}
 	}
 }
