@@ -11,10 +11,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class SpawnsetSpawns : UserControl
 	{
+		public float Delay { get; set; } = 3;
+
 		public SpawnsetSpawns()
 			: base()
 		{
 			InitializeComponent();
+
+			TextBoxDelay.DataContext = this;
 		}
 
 		public void Initialize()
@@ -75,22 +79,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ListBoxSpawns_Selected(object sender, RoutedEventArgs e)
 		{
-			bool enabled = ListBoxSpawns.SelectedItems.Count != 0;
-			EditSpawnButton.IsEnabled = enabled;
-			DeleteSpawnButton.IsEnabled = enabled;
-			ModifyDelaysButton.IsEnabled = enabled;
-			InsertSpawnButton.IsEnabled = enabled;
+			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
+			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
+			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
+			DeleteSpawnButton.IsEnabled = hasSelection;
+			ModifyDelaysButton.IsEnabled = hasSelection;
 		}
 
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!double.TryParse(TextBoxDelay.Text, out double delay))
-			{
-				MessageBox.Show("Please enter a numeric value.", "Invalid delay value");
-				return;
-			}
-
-			Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], delay, true));
+			Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay, true));
 
 			UpdateSpawnset();
 		}
@@ -101,12 +99,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			if (index == -1)
 				return; // Nothing selected
 
-			if (!double.TryParse(TextBoxDelay.Text, out double delay))
-			{
-				MessageBox.Show("Please enter a numeric value.", "Invalid delay value");
-				return;
-			}
-
 			List<Spawn> shift = new List<Spawn>();
 			int originalCount = Program.App.spawnset.Spawns.Count;
 			for (int i = index; i < originalCount; i++)
@@ -115,7 +107,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Program.App.spawnset.Spawns.Remove(i);
 			}
 
-			Program.App.spawnset.Spawns.Add(index, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], delay, true));
+			Program.App.spawnset.Spawns.Add(index, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay, true));
 
 			int max = Program.App.spawnset.Spawns.Count;
 			for (int i = 0; i < shift.Count; i++)
@@ -126,16 +118,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void EditSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!double.TryParse(TextBoxDelay.Text, out double delay))
-			{
-				MessageBox.Show("Please enter a numeric value.", "Invalid delay value");
-				return;
-			}
-
 			foreach (int i in GetSpawnSelectionIndices())
 			{
 				Program.App.spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1];
-				Program.App.spawnset.Spawns[i].Delay = delay;
+				Program.App.spawnset.Spawns[i].Delay = Delay;
 			}
 
 			UpdateSpawnset();
@@ -193,6 +179,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 			UpdateSpawnset();
+		}
+
+		private void TextBoxDelay_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			AddSpawnButton.IsEnabled = !Validation.GetHasError(TextBoxDelay);
+			InsertSpawnButton.IsEnabled = !Validation.GetHasError(TextBoxDelay);
+			EditSpawnButton.IsEnabled = !Validation.GetHasError(TextBoxDelay);
 		}
 	}
 }
