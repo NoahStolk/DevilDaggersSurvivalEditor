@@ -57,13 +57,13 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Added ability to round selected tile heights.
 - Added ability to randomize selected tile heights.
 - Added loading screen.
-- Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window.
-- Add spawnset search and filter options.
-- Show more spawnset data in the online spawnsets list.
+- Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window which contains the online spawnsets list.
+- Added search and filter options to the online spawnsets list.
+- The online spawnsets list now shows more information (such as when the loop starts) about the spawnsets.
 - Added menu item to open the current survival file.
 - Added more settings, for example you can prevent the player from spawning in the void.
 - The application now warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short, or when you're spawning the player in the void. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
-- The application also warns you when the path to the survival file in the user settings is incorrect.
+- The application also warns you when the path to the survival file in the user settings is incorrect, or when the file could not be parsed.
 - The application now uses logging, so whenever it crashes you can open the log to see what went wrong.
 - The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
 

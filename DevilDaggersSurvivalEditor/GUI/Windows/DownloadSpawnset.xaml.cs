@@ -137,19 +137,19 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Label lastUpdatedLabel = new Label { Content = sf.settings.LastUpdated.ToString("dd MMM yyyy HH:mm") };
 			Grid.SetColumn(lastUpdatedLabel, 2);
 
-			Label nonLoopLengthLabel = new Label { Content = sf.spawnsetData.NonLoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
+			Label nonLoopLengthLabel = new Label { Content = sf.spawnsetData.NonLoopLength == 0 ? "N/A" : sf.spawnsetData.NonLoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(nonLoopLengthLabel, 3);
 
-			Label nonLoopSpawnsLabel = new Label { Content = sf.spawnsetData.NonLoopSpawns, HorizontalAlignment = HorizontalAlignment.Right };
+			Label nonLoopSpawnsLabel = new Label { Content = sf.spawnsetData.NonLoopSpawns == 0 ? "N/A" : sf.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(nonLoopSpawnsLabel, 4);
 
 			Label loopStartLabel = new Label { Content = sf.spawnsetData.LoopStart.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(loopStartLabel, 5);
 
-			Label loopLengthLabel = new Label { Content = sf.spawnsetData.LoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
+			Label loopLengthLabel = new Label { Content = sf.spawnsetData.LoopLength == 0 ? "N/A" : sf.spawnsetData.LoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(loopLengthLabel, 6);
 
-			Label loopSpawnsLabel = new Label { Content = sf.spawnsetData.LoopSpawns, HorizontalAlignment = HorizontalAlignment.Right };
+			Label loopSpawnsLabel = new Label { Content = sf.spawnsetData.LoopSpawns == 0 ? "N/A" : sf.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(loopSpawnsLabel, 7);
 
 			Button button = new Button { Content = $"Download" };
