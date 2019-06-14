@@ -82,6 +82,7 @@
     </ApplicationDefinition>
     <Compile Include="Code\Arena\ArenaCoord.cs" />
     <Compile Include="Code\Arena\Presets\AbstractEllipseArena.cs" />
+    <Compile Include="Code\Arena\Presets\AbstractOrientedRectangularArena.cs" />
     <Compile Include="Code\Arena\Presets\AbstractRectangularArena.cs" />
     <Compile Include="Code\Arena\ArenaPresetHandler.cs" />
     <Compile Include="Code\Arena\Presets\Hill.cs" />

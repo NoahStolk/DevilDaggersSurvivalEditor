@@ -127,6 +127,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			worker.RunWorkerAsync();
 		}
 
+		// TODO
 		private void CancelButton_Click(object sender, RoutedEventArgs e)
 		{
 			Program.App.VersionResult = new VersionResult(null, string.Empty, "Canceled by user");

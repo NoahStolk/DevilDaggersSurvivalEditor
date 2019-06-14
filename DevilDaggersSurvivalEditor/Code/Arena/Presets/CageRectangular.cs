@@ -2,7 +2,7 @@
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	public class CageRectangular : AbstractRectangularArena
+	public class CageRectangular : AbstractOrientedRectangularArena
 	{
 		private float insideHeight;
 		private float wallHeight = 8;
