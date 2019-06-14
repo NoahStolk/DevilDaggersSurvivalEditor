@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
@@ -71,7 +72,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 					ListBoxSpawns.Items.Add(new SpawnControl(kvp.Key, seconds, kvp.Value.SpawnsetEnemy.Name, kvp.Value.Delay, kvp.Value.SpawnsetEnemy.NoFarmGems, totalGems)
 					{
-						FontWeight = kvp.Value.IsInLoop ? FontWeights.Bold : FontWeights.Normal
+						FontWeight = kvp.Value.IsInLoop ? FontWeights.Bold : FontWeights.Normal,
+						Background = new SolidColorBrush(kvp.Value.IsInLoop ? Color.FromRgb(255, 255, 128) : Color.FromArgb(0, 0, 0, 0))
 					});
 				}
 			});

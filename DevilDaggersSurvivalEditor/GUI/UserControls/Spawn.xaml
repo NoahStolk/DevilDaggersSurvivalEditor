@@ -9,16 +9,16 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="1*" />
 			<ColumnDefinition Width="2*" />
+			<ColumnDefinition Width="4*" />
 			<ColumnDefinition Width="2*" />
 			<ColumnDefinition Width="2*" />
-			<ColumnDefinition Width="3*" />
-			<ColumnDefinition Width="3*" />
+			<ColumnDefinition Width="2*" />
 		</Grid.ColumnDefinitions>
-		<Label Grid.Column="0" Content="{Binding ID}" />
-		<Label Grid.Column="1" Content="{Binding Seconds}" />
+		<Label Grid.Column="0" Content="{Binding ID}" Style="{StaticResource NumericSpawnLabel}" />
+		<Label Grid.Column="1" Content="{Binding Seconds}" ContentStringFormat="{}{0:N2}" Style="{StaticResource NumericSpawnLabel}" />
 		<Label Grid.Column="2" Content="{Binding EnemyName}" Name="Enemy" />
-		<Label Grid.Column="3" Content="{Binding Delay}" />
-		<Label Grid.Column="4" Content="{Binding NoFarmGems}" />
-		<Label Grid.Column="5" Content="{Binding TotalGems}" />
+		<Label Grid.Column="3" Content="{Binding Delay}" ContentStringFormat="{}{0:N2}" Style="{StaticResource NumericSpawnLabel}" />
+		<Label Grid.Column="4" Content="{Binding NoFarmGems}" Style="{StaticResource NumericSpawnLabel}" />
+		<Label Grid.Column="5" Content="{Binding TotalGems}" Style="{StaticResource NumericSpawnLabel}" />
 	</Grid>
 </UserControl>
