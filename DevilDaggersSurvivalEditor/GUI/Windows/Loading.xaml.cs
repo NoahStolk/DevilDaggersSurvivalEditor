@@ -14,6 +14,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private int threadsComplete;
 		private bool retrieveSpawnsetsSuccess;
 		private readonly List<BackgroundWorker> threads = new List<BackgroundWorker>();
+		private readonly List<string> threadMessages = new List<string>();
 
 		public LoadingWindow()
 		{
@@ -26,14 +27,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				Dispatcher.Invoke(() =>
-				{
-					TasksStackPanel.Children.Add(new Label
-					{
-						Content = "Checking for updates..."
-					});
-				});
-
 				Program.App.VersionResult = NetworkHandler.Instance.RetrieveVersion();
 			};
 			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
@@ -43,7 +36,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = Program.App.VersionResult.IsUpToDate.HasValue ? Program.App.VersionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
-						Foreground = new SolidColorBrush(Program.App.VersionResult.IsUpToDate.HasValue ? Color.FromRgb(0, 192, 0) : Color.FromRgb(255, 0, 0)),
+						Foreground = new SolidColorBrush(Program.App.VersionResult.IsUpToDate.HasValue ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});
@@ -54,14 +47,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			BackgroundWorker retrieveSpawnsetsThread = new BackgroundWorker();
 			retrieveSpawnsetsThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				Dispatcher.Invoke(() =>
-				{
-					TasksStackPanel.Children.Add(new Label
-					{
-						Content = "Retrieving spawnsets..."
-					});
-				});
-
 				retrieveSpawnsetsSuccess = NetworkHandler.Instance.RetrieveSpawnsetList();
 			};
 			retrieveSpawnsetsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
@@ -71,7 +56,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = retrieveSpawnsetsSuccess ? "OK" : "Error",
-						Foreground = new SolidColorBrush(retrieveSpawnsetsSuccess ? Color.FromRgb(0, 192, 0) : Color.FromRgb(255, 0, 0)),
+						Foreground = new SolidColorBrush(retrieveSpawnsetsSuccess ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});
@@ -84,33 +69,22 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				Dispatcher.Invoke(() =>
 				{
-					TasksStackPanel.Children.Add(new Label
-					{
-						Content = "Initializing MainWindow..."
-					});
-
 					MainWindow mainWindow = new MainWindow();
 					mainWindow.Show();
 				});
 			};
 			mainInitThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{
-				Dispatcher.Invoke(() =>
-				{
-					TaskResultsStackPanel.Children.Add(new Label
-					{
-						Content = "OK",
-						Foreground = new SolidColorBrush(Color.FromRgb(0, 192, 0)),
-						FontWeight = FontWeights.Bold
-					});
-				});
-
-				//Close();
+				Close();
 			};
 
 			threads.Add(checkVersionThread);
 			threads.Add(retrieveSpawnsetsThread);
 			threads.Add(mainInitThread);
+
+			threadMessages.Add("Checking for updates...");
+			threadMessages.Add("Retrieving spawnsets...");
+			threadMessages.Add("Initializing application...");
 
 			RunThread(threads[0]);
 		}
@@ -124,6 +98,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void RunThread(BackgroundWorker worker)
 		{
+			TasksStackPanel.Children.Add(new Label
+			{
+				Content = threadMessages[threadsComplete]
+			});
+
 			worker.RunWorkerAsync();
 		}
 
