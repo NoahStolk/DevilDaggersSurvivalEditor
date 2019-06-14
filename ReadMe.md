@@ -101,17 +101,6 @@ In order to understand how to create your own spawnset for Devil Daggers, there 
 #### Enemies and hand upgrades
 - Visit the [devildaggers.info](https://devildaggers.info) wiki pages.
 
-### GUI explanation
-
-#### The arena
-- Left click on a tile to enable or disable it.
-- Scroll on a tile to change its height.
-- Right click on a tile to manually set its height.
-- The shrink preview shows a rough approximation of what the arena will be like at which second. This isn't entirely accurate because the application only uses 8x8 pixels per tile.
-
-#### The spawns list
-- The end loop is made bold.
-
 ### Advanced information
 
 #### The end loop
