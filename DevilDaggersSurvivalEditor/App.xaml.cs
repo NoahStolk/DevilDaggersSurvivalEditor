@@ -2,10 +2,9 @@
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
-using DevilDaggersSurvivalEditor.Code.Web;
+using DevilDaggersSurvivalEditor.Code.Web.Models;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -13,6 +12,7 @@ namespace DevilDaggersSurvivalEditor
 {
 	public partial class App : Application
 	{
+		public LoadingWindow LoadingWindow { get; set; }
 		public new MainWindow MainWindow { get; set; }
 
 		public UserSettings userSettings = new UserSettings();
@@ -21,16 +21,11 @@ namespace DevilDaggersSurvivalEditor
 			ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
 		};
 
+		public VersionResult VersionResult { get; set; }
+
 		public App()
 		{
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
-
-			BackgroundWorker thread = new BackgroundWorker();
-			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
-			{
-				SpawnsetListHandler.Instance.RetrieveSpawnsetList();
-			};
-			thread.RunWorkerAsync();
 		}
 
 		private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

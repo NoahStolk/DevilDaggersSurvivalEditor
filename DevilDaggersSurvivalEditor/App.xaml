@@ -1,7 +1,7 @@
 ﻿<Application x:Class="DevilDaggersSurvivalEditor.App"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 StartupUri="GUI\Windows\Main.xaml">
+			 StartupUri="GUI\Windows\Loading.xaml">
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>

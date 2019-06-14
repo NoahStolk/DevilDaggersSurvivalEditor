@@ -20,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 		{
 		}
 
-		public void RetrieveSpawnsetList()
+		public bool RetrieveSpawnsetList()
 		{
 			try
 			{
@@ -28,16 +28,19 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 				using (WebClient client = new WebClient())
 					downloadString = client.DownloadString(UrlUtils.GetSpawnsets);
 				SpawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
+				return true;
 			}
 			catch (WebException ex)
 			{
 				Program.App.ShowError("Error retrieving spawnset list", $"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
 				Logger.Log.Error($"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
+				return false;
 			}
 			catch (Exception ex)
 			{
 				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
 				Logger.Log.Error("An unexpected error occurred.", ex);
+				return false;
 			}
 		}
 

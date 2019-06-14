@@ -39,9 +39,9 @@ namespace DevilDaggersSurvivalEditor.Code
 					using (MemoryStream stream = new MemoryStream(client.DownloadData(url)))
 					{
 						byte[] byteArray = new byte[1024];
-						int count = stream.Read(byteArray, 0, 1024);
-						string str = Encoding.UTF8.GetString(byteArray);
-						dynamic json = JsonConvert.DeserializeObject(str);
+						stream.Read(byteArray, 0, 1024);
+
+						dynamic json = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(byteArray));
 						foreach (dynamic tool in json)
 						{
 							if ((string)tool.Name == ApplicationName)

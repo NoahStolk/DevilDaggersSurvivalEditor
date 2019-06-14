@@ -7,8 +7,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
 	public partial class CheckingForUpdatesWindow : Window
 	{
-		public VersionResult VersionResult { get; set; }
-
 		public CheckingForUpdatesWindow()
 		{
 			InitializeComponent();
@@ -22,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void Thread_DoWork(object sender, DoWorkEventArgs e)
 		{
-			VersionResult = ApplicationUtils.CheckVersion();
+			Program.App.VersionResult = ApplicationUtils.CheckVersion();
 		}
 
 		private void Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -32,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void CancelButton_Click(object sender, RoutedEventArgs e)
 		{
-			VersionResult = new VersionResult(null, string.Empty, "Canceled by user");
+			Program.App.VersionResult = new VersionResult(null, string.Empty, "Canceled by user");
 			Close();
 		}
 	}

@@ -1,0 +1,23 @@
+﻿<Window x:Class="DevilDaggersSurvivalEditor.GUI.Windows.LoadingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Loading..." Height="384" Width="384" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<StackPanel>
+		<Image Style="{StaticResource Logo}" />
+		<Label Style="{StaticResource TitleLabel}" HorizontalAlignment="Center">Devil Daggers Survival Editor</Label>
+		<Label Style="{StaticResource TitleLabel}" HorizontalAlignment="Center" Name="VersionLabel" />
+		<Label HorizontalAlignment="Center">Developed by Noah Stolk</Label>
+		<Label Style="{StaticResource TitleLabel}" HorizontalAlignment="Center">Loading...</Label>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<StackPanel Grid.Column="0" Name="TasksStackPanel" />
+			<StackPanel Grid.Column="1" Name="TaskResultsStackPanel" />
+		</Grid>
+	</StackPanel>
+</Window>
