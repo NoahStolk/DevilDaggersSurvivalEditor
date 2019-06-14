@@ -1,4 +1,5 @@
-﻿using DevilDaggersCore.Spawnset.Web;
+﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersCore.Spawnset.Web;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Web;
 using System.Collections.Generic;
@@ -29,12 +30,18 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			BackgroundWorker thread = new BackgroundWorker();
 
+			Spawnset download = null;
 			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
 			{
-				Program.App.spawnset = SpawnsetListHandler.Instance.DownloadSpawnset(fileName);
+				download = NetworkHandler.Instance.DownloadSpawnset(fileName);
+				if (download != null)
+					Program.App.spawnset = download;
 			};
 			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
 			{
+				if (download == null)
+					return;
+
 				Dispatcher.Invoke(() =>
 				{
 					Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
@@ -43,7 +50,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
 					if (result == MessageBoxResult.Yes)
 					{
-						FileUtils.WriteSpawnsetToFile(Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
+						FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Path.Combine(Program.App.userSettings.SurvivalFileLocation, "survival"));
 					}
 				});
 			};
@@ -63,7 +70,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
 			{
-				SpawnsetListHandler.Instance.RetrieveSpawnsetList();
+				NetworkHandler.Instance.RetrieveSpawnsetList();
 			};
 			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
 			{
@@ -81,18 +88,18 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			AuthorsListBox.Items.Add(new ListBoxItem
 			{
-				Content = CreateAuthorGrid(AllAuthors, SpawnsetListHandler.Instance.SpawnsetFiles.Count),
+				Content = CreateAuthorGrid(AllAuthors, NetworkHandler.Instance.SpawnsetFiles.Count),
 				Tag = AllAuthors
 			});
 
-			foreach (SpawnsetFile sf in SpawnsetListHandler.Instance.SpawnsetFiles)
+			foreach (SpawnsetFile sf in NetworkHandler.Instance.SpawnsetFiles)
 			{
 				if (!authors.Contains(sf.Author))
 				{
 					authors.Add(sf.Author);
 					ListBoxItem i = new ListBoxItem
 					{
-						Content = CreateAuthorGrid(sf.Author, SpawnsetListHandler.Instance.SpawnsetFiles.Where(s => s.Author == sf.Author).Count()),
+						Content = CreateAuthorGrid(sf.Author, NetworkHandler.Instance.SpawnsetFiles.Where(s => s.Author == sf.Author).Count()),
 						Tag = sf.Author
 					};
 					AuthorsListBox.Items.Add(i);

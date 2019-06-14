@@ -34,7 +34,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					});
 				});
 
-				Program.App.VersionResult = ApplicationUtils.CheckVersion();
+				Program.App.VersionResult = NetworkHandler.Instance.RetrieveVersion();
 			};
 			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{
@@ -62,7 +62,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					});
 				});
 
-				retrieveSpawnsetsSuccess = SpawnsetListHandler.Instance.RetrieveSpawnsetList();
+				retrieveSpawnsetsSuccess = NetworkHandler.Instance.RetrieveSpawnsetList();
 			};
 			retrieveSpawnsetsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{

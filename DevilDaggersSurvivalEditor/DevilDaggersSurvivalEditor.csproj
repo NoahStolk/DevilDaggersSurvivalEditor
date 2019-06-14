@@ -100,7 +100,7 @@
     <Compile Include="Code\FileUtils.cs" />
     <Compile Include="Code\MiscUtils.cs" />
     <Compile Include="Code\Arena\TileUtils.cs" />
-    <Compile Include="Code\Web\SpawnsetListHandler.cs" />
+    <Compile Include="Code\Web\NetworkHandler.cs" />
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
       <DependentUpon>MenuBar.xaml</DependentUpon>
     </Compile>

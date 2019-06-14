@@ -1,4 +1,5 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Web;
 using DevilDaggersSurvivalEditor.Code.Web.Models;
 using System.ComponentModel;
 using System.Windows;
@@ -20,7 +21,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void Thread_DoWork(object sender, DoWorkEventArgs e)
 		{
-			Program.App.VersionResult = ApplicationUtils.CheckVersion();
+			Program.App.VersionResult = NetworkHandler.Instance.RetrieveVersion();
 		}
 
 		private void Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

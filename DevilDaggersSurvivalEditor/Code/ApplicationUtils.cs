@@ -24,47 +24,5 @@ namespace DevilDaggersSurvivalEditor.Code
 				return applicationVersionNumber;
 			}
 		}
-
-		public static VersionResult CheckVersion()
-		{
-			string url = UrlUtils.GetToolVersions;
-
-			string versionOnline = string.Empty;
-			string errorMessage = string.Empty;
-
-			try
-			{
-				using (WebClient client = new WebClient())
-				{
-					using (MemoryStream stream = new MemoryStream(client.DownloadData(url)))
-					{
-						byte[] byteArray = new byte[1024];
-						stream.Read(byteArray, 0, 1024);
-
-						dynamic json = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(byteArray));
-						foreach (dynamic tool in json)
-						{
-							if ((string)tool.Name == ApplicationName)
-							{
-								versionOnline = (string)tool.VersionNumber;
-								break;
-							}
-						}
-					}
-				}
-			}
-			catch (WebException ex)
-			{
-				errorMessage = $"Could not connect to '{url}'.";
-				Program.App.ShowError("Error", errorMessage, ex);
-			}
-			catch (Exception ex)
-			{
-				errorMessage = $"An unexpected error occured while trying to retrieve the latest version number from '{url}'.";
-				Program.App.ShowError("Error", errorMessage, ex);
-			}
-
-			return new VersionResult(!string.IsNullOrEmpty(errorMessage) ? null : (bool?)(Version.Parse(versionOnline) <= ApplicationVersionNumber), versionOnline, errorMessage);
-		}
 	}
 }
