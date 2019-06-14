@@ -23,7 +23,7 @@ namespace DevilDaggersSurvivalEditor.Code
 		{
 			try
 			{
-				File.Replace(sourceFileName, destinationFileName, null);
+				File.Copy(sourceFileName, destinationFileName);
 				MessageBox.Show("Successfully replaced file.", "Success");
 			}
 			catch (Exception ex)
