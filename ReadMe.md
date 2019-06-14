@@ -57,6 +57,8 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Added ability to round selected tile heights.
 - Added ability to randomize selected tile heights.
 - Added loading screen.
+- Removed height map.
+- The arena editor now shows void tile heights as "Void" rather than their actual (meaningless) value.
 - Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window which contains the online spawnsets list.
 - Added search and filter options to the online spawnsets list.
 - The online spawnsets list now shows more information (such as when the loop starts) about the spawnsets.
