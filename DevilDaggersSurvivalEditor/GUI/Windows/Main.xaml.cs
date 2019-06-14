@@ -31,19 +31,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			WarningVoidSpawn.Text = $"The tile at coordinate {TileUtils.SpawnTile} (player spawn) is void, meaning the player will die instantly. You can prevent this from happening in the Options > Settings menu.";
 			WarningGlitchTile.Text = $"The tile at coordinate {TileUtils.GlitchTile} has a height value greater than {TileUtils.GlitchTileMax}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to remain within its safe range in the Options > Settings menu.";
 
-			Program.App.LoadingWindow.TasksStackPanel.Children.Add(new Label
-			{
-				Content = "Initializing arena controls..."
-			});
-
 			SpawnsetArena.Initialize();
-
-			Program.App.LoadingWindow.TasksStackPanel.Children.Add(new Label
-			{
-				Content = "Initializing spawns controls..."
-			});
-
-			SpawnsetSpawns.Initialize();
 		}
 
 		private void MainWindow_Closed(object sender, EventArgs e)

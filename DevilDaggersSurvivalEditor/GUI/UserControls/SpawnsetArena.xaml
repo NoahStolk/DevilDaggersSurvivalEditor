@@ -105,8 +105,8 @@
 				</Grid>
 
 				<Label FontWeight="Bold">Tile tools</Label>
-				<Button Click="RoundHeights_Click">Round heights</Button>
-				<Button Click="RandomizeHeights_Click">Randomize heights</Button>
+				<Button Name="RoundHeightsButton" Click="RoundHeights_Click" IsEnabled="False">Round heights</Button>
+				<Button Name="RandomizeHeightsButton" Click="RandomizeHeights_Click" IsEnabled="False">Randomize heights</Button>
 			</StackPanel>
 		</Grid>
 	</StackPanel>

@@ -64,13 +64,13 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Button Grid.Column="1" Name="AddSpawnButton" Content="Add" Click="AddSpawnButton_Click"></Button>
-					<Button Grid.Column="2" Name="InsertSpawnButton" Content="Insert" Click="InsertSpawnButton_Click"></Button>
+					<Button Grid.Column="2" Name="InsertSpawnButton" Content="Insert" Click="InsertSpawnButton_Click" IsEnabled="False" />
 				</Grid>
 			</StackPanel>
 			<StackPanel Grid.Column="1">
-				<Button Name="EditSpawnButton" Content="Edit selected spawn(s)" Click="EditSpawnButton_Click"></Button>
-				<Button Name="DeleteSpawnButton" Content="Delete selected spawn(s)" Click="DeleteSpawnButton_Click"></Button>
-				<Button Name="ModifyDelaysButton" Content="Modify delays for selected spawn(s)" Click="ModifyDelaysButton_Click"></Button>
+				<Button Name="EditSpawnButton" Content="Edit selected spawn(s)" Click="EditSpawnButton_Click" IsEnabled="False" />
+				<Button Name="DeleteSpawnButton" Content="Delete selected spawn(s)" Click="DeleteSpawnButton_Click" IsEnabled="False" />
+				<Button Name="ModifyDelaysButton" Content="Modify delays for selected spawn(s)" Click="ModifyDelaysButton_Click" IsEnabled="False" />
 			</StackPanel>
 		</Grid>
 	</StackPanel>

@@ -22,14 +22,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			TextBoxDelay.DataContext = this;
 		}
 
-		public void Initialize()
-		{
-			EditSpawnButton.IsEnabled = false;
-			DeleteSpawnButton.IsEnabled = false;
-			ModifyDelaysButton.IsEnabled = false;
-			InsertSpawnButton.IsEnabled = false;
-		}
-
 		public void UpdateSpawnset()
 		{
 			double loopLength = 0;
@@ -84,6 +76,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
 			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
 			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
+
 			DeleteSpawnButton.IsEnabled = hasSelection;
 			ModifyDelaysButton.IsEnabled = hasSelection;
 		}
@@ -185,9 +178,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void TextBoxDelay_TextChanged(object sender, TextChangedEventArgs e)
 		{
+			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
+			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
+			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
+
 			AddSpawnButton.IsEnabled = !Validation.GetHasError(TextBoxDelay);
-			InsertSpawnButton.IsEnabled = !Validation.GetHasError(TextBoxDelay);
-			EditSpawnButton.IsEnabled = !Validation.GetHasError(TextBoxDelay);
 		}
 	}
 }

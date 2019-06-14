@@ -296,6 +296,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void UpdateTileSelection(ArenaCoord tile)
 		{
+			RandomizeHeightsButton.IsEnabled = selections.Count != 0;
+			RoundHeightsButton.IsEnabled = selections.Count != 0;
+
 			int i = tile.X;
 			int j = tile.Y;
 			if (selections.Contains(tile))
@@ -754,12 +757,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void RoundHeights_Click(object sender, RoutedEventArgs e)
 		{
-
+			foreach (ArenaCoord selection in selections)
+				Program.App.spawnset.ArenaTiles[selection.X, selection.Y] = (float)Math.Round(Program.App.spawnset.ArenaTiles[selection.X, selection.Y]);
 		}
 
 		private void RandomizeHeights_Click(object sender, RoutedEventArgs e)
 		{
-
+			foreach (ArenaCoord selection in selections)
+				Program.App.spawnset.ArenaTiles[selection.X, selection.Y] += RandomUtils.RandomFloat(-0.1f, 0.1f);
 		}
 	}
 }

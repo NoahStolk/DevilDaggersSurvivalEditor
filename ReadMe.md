@@ -38,7 +38,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 
 - Made the application window resizable (includes fullscreen).
 - Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
-- A lot of performance optimizations.
+- A lot of performance optimizations and layout improvements.
 - Fixed issue where the arena was always incorrectly rotated and mirrored.
 - Fixed issue where restoring V3 would remove the original survival file from the application's Content folder and as a result will no longer work.
 - Fixed issue where the application wouldn't start up anymore after the first time (not confirmed yet).
@@ -49,12 +49,19 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Added ability to rotate and flip the arena.
 - Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
 - Added multiple tile selection to the arena editor.
-- The application now uses logging, so whenever it crashes you can open the log to see what went wrong.
+- Added continuous tile modification/selection to the arena editor.
+- Added rectangular tile modification/selection to the arena editor.
+- Added ability to round selected tile heights.
+- Added ability to randomize selected tile heights.
+- Added loading screen.
+- Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window.
+- Add spawnset search and filter options.
+- Show more spawnset data in the online spawnsets list.
 - Added menu item to open the current survival file.
 - Added more settings, for example you can prevent the player from spawning in the void.
 - The application now warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
+- The application now uses logging, so whenever it crashes you can open the log to see what went wrong.
 - The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
-- Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window which allows you to search and filter spawnsets on the website. It also shows more information about them.
 
 **Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, since 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
 
