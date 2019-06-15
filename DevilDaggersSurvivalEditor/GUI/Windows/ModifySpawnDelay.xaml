@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
-        Title="Modify spawn delay" Height="200" Width="200">
+        Title="Modify spawn delay" Height="256" Width="256">
 	<StackPanel x:Name="Data">
+		<TextBlock TextWrapping="WrapWithOverflow" Name="SpawnsLabel" />
 		<ComboBox Name="FunctionComboBox" SelectedIndex="{Binding Function}">
 			<ComboBoxItem>+</ComboBoxItem>
 			<ComboBoxItem>-</ComboBoxItem>

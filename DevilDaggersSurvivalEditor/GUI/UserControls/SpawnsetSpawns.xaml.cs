@@ -2,6 +2,7 @@
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.GUI.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -140,11 +141,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ModifyDelaysButton_Click(object sender, RoutedEventArgs e)
 		{
-			ModifySpawnDelayWindow window = new ModifySpawnDelayWindow();
+			List<int> selections = GetSpawnSelectionIndices();
+			ModifySpawnDelayWindow window = new ModifySpawnDelayWindow(selections.Count);
 
 			if (window.ShowDialog() == true)
 			{
-				foreach (int i in GetSpawnSelectionIndices())
+				foreach (int i in selections)
 				{
 					switch (window.Function)
 					{
@@ -161,6 +163,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 							Program.App.spawnset.Spawns[i].Delay /= window.Value;
 							break;
 					}
+
+					Program.App.spawnset.Spawns[i].Delay = Math.Max(0, Program.App.spawnset.Spawns[i].Delay);
 				}
 			}
 

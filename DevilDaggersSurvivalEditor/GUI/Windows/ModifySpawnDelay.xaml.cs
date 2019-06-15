@@ -9,9 +9,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		public DelayModificationFunction Function { get; set; }
 		public float Value { get; set; } = 2;
 
-		public ModifySpawnDelayWindow()
+		public ModifySpawnDelayWindow(int spawnCount)
 		{
 			InitializeComponent();
+
+			SpawnsLabel.Text = $"Modify delay for {spawnCount} spawns";
 
 			Data.DataContext = this;
 
