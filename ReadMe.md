@@ -24,8 +24,9 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 ## Links
 
-- [DevilDaggersSurvivalEditor page on DevilDaggers.info (includes documentation)](https://devildaggers.info/Tools/DevilDaggersSurvivalEditor)
 - [DevilDaggers.info website](https://devildaggers.info)
+- [Main web page for DevilDaggersSurvivalEditor](https://devildaggers.info/Tools/DevilDaggersSurvivalEditor)
+- [Online list of spawnsets, as well as general information about how spawnsets work](https://devildaggers.info/Spawnsets)
 - [Discord server](https://discord.gg/NF32j8S)
 
 ## Changelog
