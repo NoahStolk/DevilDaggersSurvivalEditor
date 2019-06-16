@@ -1,14 +1,17 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
+using NetBase.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
@@ -23,6 +26,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Program.App.LoadingWindow = this;
 
 			InitializeComponent();
+
+			Splash.Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/Images/SplashScreens/{RandomUtils.RandomInt(37)}.png"));
 
 			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber}";
 
