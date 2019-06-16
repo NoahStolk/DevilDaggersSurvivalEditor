@@ -7,28 +7,30 @@
              d:DesignHeight="20" d:DesignWidth="800">
 	<Grid>
 		<Menu DockPanel.Dock="Top">
-			<MenuItem Header="_File">
-				<MenuItem Header="_New" Click="FileNew_Click" />
-				<MenuItem Header="_Open" Click="FileOpen_Click" />
-				<MenuItem Header="Open from _DevilDaggers.info" Click="DownloadSpawnset_Click" />
-				<MenuItem Header="_Save" Click="FileSave_Click" />
+			<MenuItem Header="File">
+				<MenuItem Header="New" Click="FileNew_Click" />
+				<MenuItem Header="Open" Click="FileOpen_Click" />
+				<MenuItem Header="Open from DevilDaggers.info" Click="DownloadSpawnset_Click" />
+				<MenuItem Header="Save" Click="FileSave_Click" />
 				<Separator />
-				<MenuItem Header="O_pen 'survival' file" Click="SurvivalOpen_Click" />
-				<MenuItem Header="_Replace 'survival' file" Click="SurvivalReplace_Click" />
-				<MenuItem Header="Res_tore 'survival' file (V3)" Click="SurvivalRestore_Click" />
+				<MenuItem Header="Open 'survival' file" Click="SurvivalOpen_Click" />
+				<MenuItem Header="Replace 'survival' file" Click="SurvivalReplace_Click" />
+				<MenuItem Header="Restore 'survival' file (V3)" Click="SurvivalRestore_Click" />
 				<Separator />
-				<MenuItem Header="_Exit" Click="Exit_Click" />
+				<MenuItem Header="Exit" Click="Exit_Click" />
 			</MenuItem>
-			<MenuItem Header="_Options">
-				<MenuItem Header="_Settings" Click="Settings_Click" />
+			<MenuItem Header="Options">
+				<MenuItem Header="Settings" Click="Settings_Click" />
 			</MenuItem>
-			<MenuItem Header="_Community">
-				<MenuItem Header="_Browse spawnsets online" Click="Browse_Click"/>
-				<MenuItem Header="Open _Discord server" Click="Discord_Click"/>
+			<MenuItem Header="Community">
+				<MenuItem Header="Browse spawnsets online" Click="Browse_Click"/>
+				<MenuItem Header="Open Discord server" Click="Discord_Click"/>
 			</MenuItem>
-			<MenuItem Header="_Help" Name="HelpItem">
-				<MenuItem Header="_About" Click="About_Click" />
-				<MenuItem Header="_Check for updates" Name="UpdateItem" Click="Update_Click" />
+			<MenuItem Header="Help" Name="HelpItem">
+				<MenuItem Header="Help" Click="Help_Click" />
+				<MenuItem Header="About" Click="About_Click" />
+				<MenuItem Header="View source code" Click="SourceCode_Click" />
+				<MenuItem Header="Check for updates" Name="UpdateItem" Click="Update_Click" />
 				<MenuItem Header="Show log" Click="ShowLog_Click" />
 			</MenuItem>
 		</Menu>

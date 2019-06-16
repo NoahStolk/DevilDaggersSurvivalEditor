@@ -14,7 +14,7 @@
 			</Grid.ColumnDefinitions>
 
 			<Label Grid.Column="0">Survival file root folder</Label>
-			<TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" Name="LabelSurvivalFileRootFolder" />
+			<TextBlock Grid.Column="1" Name="LabelSurvivalFileRootFolder" />
 			<Button Grid.Column="2" Content="Browse" Click="BrowseButton_Click" />
 		</Grid>
 		<Grid>

@@ -7,7 +7,7 @@
         Title="" Height="200" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<Grid x:Name="Grid">
 		<StackPanel>
-			<TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Message}"></TextBlock>
+			<TextBlock Text="{Binding Message}"></TextBlock>
 			<Button Name="OKButton" Content="OK" Click="OKButton_Click"/>
 		</StackPanel>
 	</Grid>

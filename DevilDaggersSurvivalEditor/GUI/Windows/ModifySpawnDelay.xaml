@@ -6,7 +6,7 @@
 		mc:Ignorable="d"
         Title="Modify spawn delay" Height="256" Width="256">
 	<StackPanel x:Name="Data">
-		<TextBlock TextWrapping="WrapWithOverflow" Name="SpawnsLabel" />
+		<TextBlock Name="SpawnsLabel" />
 		<ComboBox Name="FunctionComboBox" SelectedIndex="{Binding Function}">
 			<ComboBoxItem>+</ComboBoxItem>
 			<ComboBoxItem>-</ComboBoxItem>

@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Set tile height" Height="200" Width="200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Set tile height" Height="256" Width="256" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<Grid>
 		<StackPanel x:Name="Data">
-			<TextBlock TextWrapping="WrapWithOverflow" Name="CoordinatesLabel" />
+			<TextBlock Name="CoordinatesLabel" />
 			<TextBox Name="TileHeightTextBox" Text="{Binding TileHeight}" />
 			<Button Name="OKButton" Content="OK" Click="OKButton_Click" />
 		</StackPanel>

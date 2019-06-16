@@ -126,6 +126,9 @@
     <Compile Include="GUI\Windows\CheckingForUpdates.xaml.cs">
       <DependentUpon>CheckingForUpdates.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Windows\Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Windows\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
@@ -179,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Windows\CheckingForUpdates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Windows\Help.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

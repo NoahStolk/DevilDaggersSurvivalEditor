@@ -11,6 +11,7 @@
 	<Style TargetType="{x:Type windows:CheckingForUpdatesWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:DownloadSpawnsetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:ErrorWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:HelpWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:LoadingWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:MainWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:ModifySpawnDelayWindow}" BasedOn="{StaticResource {x:Type Window}}" />
@@ -41,6 +42,12 @@
 	<Style TargetType="CheckBox">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2,2,2,2" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="TextBlock">
+		<Style.Setters>
+			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
 		</Style.Setters>
 	</Style>
 

@@ -158,10 +158,21 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Process.Start(UrlUtils.Discord);
 		}
 
+		private void Help_Click(object sender, RoutedEventArgs e)
+		{
+			HelpWindow helpWindow = new HelpWindow();
+			helpWindow.ShowDialog();
+		}
+
 		private void About_Click(object sender, RoutedEventArgs e)
 		{
 			AboutWindow aboutWindow = new AboutWindow();
 			aboutWindow.ShowDialog();
+		}
+
+		private void SourceCode_Click(object sender, RoutedEventArgs e)
+		{
+			Process.Start("https://bitbucket.org/NoahStolk/devildaggerssurvivaleditor/src/master/");
 		}
 
 		private void Update_Click(object sender, RoutedEventArgs e)
