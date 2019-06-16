@@ -45,7 +45,14 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Renamed Pyramid preset to Qbert.
 - Renamed Cage preset to Cage Rectangular.
 - Renamed Random preset to Random Noise.
-- Added new arena presets: Cage Ellipse, Ellipse, Hill, Pyramid, Random Gaps, Random Islands, and Random Pillars.
+- Added new arena presets:
+	- Cage Ellipse
+	- Ellipse
+	- Hill
+	- Pyramid
+	- Random Gaps
+	- Random Islands
+	- Random Pillars
 - Removed Default Flat preset, as it can now be created using the new Ellipse preset, or using the "Round heights" button.
 - Added wall thickness parameter to Cage Rectangular preset.
 - Added offset parameters to Qbert preset.
@@ -54,8 +61,8 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Added multiple tile selection to the arena editor.
 - Added continuous tile modification/selection to the arena editor.
 - Added rectangular tile modification/selection to the arena editor.
-- Added ability to round selected tile heights.
-- Added ability to randomize selected tile heights.
+- Added ability to round heights for selected tiles.
+- Added ability to randomize heights for selected tiles.
 - Added loading screen.
 - Removed height map.
 - The arena editor now shows void tile heights as "Void" rather than their actual (meaningless) value.
@@ -63,9 +70,13 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Added search and filter options to the online spawnsets list.
 - The online spawnsets list now shows more information (such as when the loop starts) about the spawnsets.
 - Added menu item to open the current survival file.
-- Added more settings, for example you can prevent the player from spawning in the void.
-- The application now warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short, or when you're spawning the player in the void. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
-- The application also warns you when the path to the survival file in the user settings is incorrect, or when the file could not be parsed.
+- Added ability to modify delays for selected spawns. This can be used to easily speed up or slow down parts of a spawnset, or a spawnset in its entirety.
+- Added various warnings:
+	- The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short, or when you're spawning the player in the void. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
+	- The application warns you when the path to the survival file in the user settings is incorrect, or when the file could not be parsed.
+- Added more settings:
+	- Prevent the player from spawning in the void.
+	- Prevent tile {25, 27} from going outside of its safe range.
 - The application now uses logging, so whenever it crashes you can open the log to see what went wrong.
 - The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
 
@@ -166,7 +177,7 @@ Thanks to Bintr for figuring out how the end loop speeds up.
 - The player can be spawned on different tile heights.
 - Enemies and gems do not react to different tile heights, only the player, the daggers, and some effects do (like Thorn spawn smokes, meat chunks, etc).
 - The maximum tile height within the editor is set to 63, because anything higher than that seems unnecessary and the main light in the game doesn't reach that far so everything is completely black.
-- Setting the tile at coordinate {25, 27} to a value higher than around 0.4975 seems to cause some really odd stuff like audio glitches, invisible hand, and possibly even game crashes.
+- There is one particular tile which causes Devil Daggers to glitch (audio glitches, hand disappearing, crashes) whenever its height is put to a value greater than 0.4973333. This tile is always at coordinate {25, 27} (just below the player spawn).
 - The game crashes when you get too near the edge of a full arena (outside of the regular 51x51 range, and I think at or around coordinate {0, 0} but I am not sure).
 - The tiles have infinitely long hitboxes, but the texture only covers the top of it.
 - 1 tile height is equivalent to 1/4 of a tile (let's say it is a cube). So if you could stack tiles on top of each other, the first tile would be at height 0, the second at height 4, the third at height 8, and so on.
