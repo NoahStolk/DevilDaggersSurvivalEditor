@@ -50,6 +50,12 @@
 			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
 		</Style.Setters>
 	</Style>
+	<Style TargetType="TextBlock" x:Key="ParagraphTextBlock">
+		<Style.Setters>
+			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
+			<Setter Property="Padding" Value="8,8,8,8" />
+		</Style.Setters>
+	</Style>
 
 	<Style TargetType="ComboBox">
 		<Style.Setters>

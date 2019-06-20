@@ -15,5 +15,10 @@
 				www.noahstolk.com
 			</Hyperlink>
 		</Label>
+		<Label HorizontalAlignment="Center">
+			<Hyperlink NavigateUri="mailto:contact@devildaggers.info" RequestNavigate="Hyperlink_RequestNavigate">
+				contact@devildaggers.info
+			</Hyperlink>
+		</Label>
 	</StackPanel>
 </Window>

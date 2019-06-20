@@ -7,13 +7,16 @@
         Title="Help" Height="384" Width="384" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel>
 		<Label Style="{StaticResource TitleLabel}">General help with spawnsets</Label>
-		<TextBlock>
+		<TextBlock Style="{StaticResource ParagraphTextBlock}">
 			A lot of information about how spawnsets work is listed on the <Hyperlink NavigateUri="https://devildaggers.info/Spawnsets" RequestNavigate="Hyperlink_RequestNavigate">DevilDaggers.info website</Hyperlink>.
 		</TextBlock>
 
 		<Label Style="{StaticResource TitleLabel}">Help with the application</Label>
-		<TextBlock>
-			Please let me know if anything is unclear, or if you have any issues with the editor or spawnsets in general. Also make sure to report bugs as this really helps me making the application more stable. If the application crashes, there should be some information in the "DDSE.log" file (you can open it from the "Help" menu item).
+		<TextBlock Style="{StaticResource ParagraphTextBlock}">
+			Please let me know if anything is unclear, or if you have any issues with the editor. Reporting bugs is also appreciated as this really helps me improving the application. If the application crashes, there should be some information in the "DDSE.log" file (you can open it by clicking Help > Show log).
+		</TextBlock>
+		<TextBlock Style="{StaticResource ParagraphTextBlock}">
+			You can contact me at <Hyperlink NavigateUri="mailto:contact@devildaggers.info" RequestNavigate="Hyperlink_RequestNavigate">contact@devildaggers.info</Hyperlink>.
 		</TextBlock>
 	</StackPanel>
 </Window>
