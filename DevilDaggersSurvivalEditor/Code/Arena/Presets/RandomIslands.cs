@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 using NetBase.Utils;
+using System.Collections.Generic;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
@@ -24,12 +25,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public int Amount
 		{
 			get => amount;
-			set => amount = MathUtils.Clamp(value, 1, 50);
+			set => amount = MathUtils.Clamp(value, 1, 10);
 		}
 		public int Iterations
 		{
 			get => iterations;
-			set => iterations = MathUtils.Clamp(value, 1, 20);
+			set => iterations = MathUtils.Clamp(value, 1, 4);
 		}
 		public float Steepness
 		{
@@ -41,8 +42,14 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		{
 			float[,] tiles = CreateArenaArray();
 
+			List<ArenaCoord> islandTiles = new List<ArenaCoord>();
+
 			for (int i = 0; i < Amount; i++)
-				tiles[RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2)] = RandomUtils.RandomFloat(MinHeight, MaxHeight);
+			{
+				ArenaCoord coord = new ArenaCoord(RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2));
+				islandTiles.Add(coord);
+				tiles[coord.X, coord.Y] = RandomUtils.RandomFloat(MinHeight, MaxHeight);
+			}
 
 			for (int i = 0; i < Iterations; i++)
 			{
@@ -50,23 +57,46 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 				{
 					for (int k = Y1; k < Y2; k++)
 					{
-						float tile = tiles[j, k];
-						if (tile >= -1)
+						if (islandTiles.Contains(new ArenaCoord(j, k)))
 						{
-							if (j > 0 && RandomUtils.Chance(50))
-								tiles[j - 1, k] = tile - Steepness;
-							if (j < Spawnset.ArenaWidth - 1 && RandomUtils.Chance(50))
-								tiles[j + 1, k] = tile - Steepness;
-							if (k > 0 && RandomUtils.Chance(50))
-								tiles[j, k - 1] = tile - Steepness;
-							if (k < Spawnset.ArenaHeight - 1 && RandomUtils.Chance(50))
-								tiles[j, k + 1] = tile - Steepness;
+							float height = tiles[j, k];
+
+							if (j > 0)
+							{
+								ArenaCoord coord = new ArenaCoord(j - 1, k);
+								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
+									SetNeighbour(coord, height);
+							}
+							if (j < Spawnset.ArenaWidth - 1)
+							{
+								ArenaCoord coord = new ArenaCoord(j + 1, k);
+								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
+									SetNeighbour(coord, height);
+							}
+							if (k > 0)
+							{
+								ArenaCoord coord = new ArenaCoord(j, k - 1);
+								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
+									SetNeighbour(coord, height);
+							}
+							if (k < Spawnset.ArenaHeight - 1)
+							{
+								ArenaCoord coord = new ArenaCoord(j, k + 1);
+								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
+									SetNeighbour(coord, height);
+							}
 						}
 					}
 				}
 			}
 
 			return tiles;
+
+			void SetNeighbour(ArenaCoord coord, float parentHeight)
+			{
+				islandTiles.Add(coord);
+				tiles[coord.X, coord.Y] = parentHeight - Steepness;
+			}
 		}
 	}
 }
