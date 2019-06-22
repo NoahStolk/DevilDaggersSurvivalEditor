@@ -41,6 +41,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Fixed issue where the arena was always incorrectly rotated and mirrored.
 - Fixed issue where restoring the original V3 spawnset would remove the survival file from the application's 'Content' folder and as a result the option no longer works until the file is put back (either by re-downloading the application or by doing it manually).
 - Fixed issue where the application would not start up after using it (not confirmed yet).
+- Set the max tile height to 54 rather than 63, since any tiles with a height value greater than 54 will be in complete darkness and won't be visible (regardless of brightness).
 - Renamed Pyramid preset to Qbert.
 - Renamed Cage preset to Cage Rectangular.
 - Renamed Random preset to Random Noise.

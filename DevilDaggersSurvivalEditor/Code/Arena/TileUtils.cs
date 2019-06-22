@@ -6,7 +6,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 	public static class TileUtils
 	{
 		public const int TileMin = -1;
-		public const int TileMax = 63;
+		public const int TileMax = 54;
 		public const int TileDefault = 0;
 		public const int VoidDefault = -1000;
 		public const int TileSize = 8;
