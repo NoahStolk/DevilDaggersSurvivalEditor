@@ -164,10 +164,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			bool valid = float.TryParse(textBox.Text, out _);
 
-			if (valid)
-				textBox.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-			else
-				textBox.Background = new SolidColorBrush(Color.FromRgb(255, 128, 128));
+			textBox.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 128, 128));
 
 			return valid;
 		}
