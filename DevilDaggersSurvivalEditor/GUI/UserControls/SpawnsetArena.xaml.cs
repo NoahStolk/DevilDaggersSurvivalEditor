@@ -52,8 +52,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		public void Initialize()
 		{
-			SpawnsetSettings.DataContext = Program.App.spawnset;
-
 			foreach (TileSelection tileSelection in (TileSelection[])Enum.GetValues(typeof(TileSelection)))
 			{
 				RadioButton radioButton = new RadioButton
@@ -137,6 +135,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			CursorRectangle.Width = TileUtils.TileSize;
 			CursorRectangle.Height = TileUtils.TileSize;
 			CursorRectangle.Stroke = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255));
+
+			SetSettingTextBoxes();
 		}
 
 		public void UpdateSpawnset()
@@ -147,27 +147,67 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				UpdateShrinkEnd();
 				UpdateShrinkCurrent();
 				UpdateAllTiles();
+
+				SetSettingTextBoxes();
 			});
+		}
+
+		private void SetSettingTextBoxes()
+		{
+			TextBoxShrinkStart.Text = Program.App.spawnset.ShrinkStart.ToString();
+			TextBoxShrinkEnd.Text = Program.App.spawnset.ShrinkEnd.ToString();
+			TextBoxShrinkRate.Text = Program.App.spawnset.ShrinkRate.ToString();
+			TextBoxBrightness.Text = Program.App.spawnset.Brightness.ToString();
+		}
+
+		private bool ValidateTextBox(TextBox textBox)
+		{
+			bool valid = float.TryParse(textBox.Text, out _);
+
+			if (valid)
+				textBox.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+			else
+				textBox.Background = new SolidColorBrush(Color.FromRgb(255, 128, 128));
+
+			return valid;
 		}
 
 		private void UpdateShrinkStart(object sender, TextChangedEventArgs e)
 		{
-			UpdateShrinkStart();
-			UpdateShrinkCurrent();
-			UpdateAllTiles();
+			if (ValidateTextBox(TextBoxShrinkStart))
+			{
+				Program.App.spawnset.ShrinkStart = float.Parse(TextBoxShrinkStart.Text);
+				UpdateShrinkStart();
+				UpdateShrinkCurrent();
+				UpdateAllTiles();
+			}
 		}
 
 		private void UpdateShrinkEnd(object sender, TextChangedEventArgs e)
 		{
-			UpdateShrinkEnd();
-			UpdateShrinkCurrent();
-			UpdateAllTiles();
+			if (ValidateTextBox(TextBoxShrinkEnd))
+			{
+				Program.App.spawnset.ShrinkEnd = float.Parse(TextBoxShrinkEnd.Text);
+				UpdateShrinkEnd();
+				UpdateShrinkCurrent();
+				UpdateAllTiles();
+			}
 		}
 
 		private void UpdateShrinkRate(object sender, TextChangedEventArgs e)
 		{
-			UpdateShrinkCurrent();
-			UpdateAllTiles();
+			if (ValidateTextBox(TextBoxShrinkRate))
+			{
+				Program.App.spawnset.ShrinkRate = float.Parse(TextBoxShrinkRate.Text);
+				UpdateShrinkCurrent();
+				UpdateAllTiles();
+			}
+		}
+
+		private void UpdateBrightness(object sender, TextChangedEventArgs e)
+		{
+			if (ValidateTextBox(TextBoxBrightness))
+				Program.App.spawnset.Brightness = float.Parse(TextBoxBrightness.Text);
 		}
 
 		private void ShrinkCurrentSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

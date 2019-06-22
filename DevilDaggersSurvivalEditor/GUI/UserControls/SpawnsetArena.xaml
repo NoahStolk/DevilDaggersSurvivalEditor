@@ -33,7 +33,7 @@
 				<Line Name="MultiSelectRectTop" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 				<Line Name="MultiSelectRectBottom" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 			</Canvas>
-			<StackPanel Grid.Column="1" x:Name="SpawnsetSettings">
+			<StackPanel Grid.Column="1">
 				<Label FontWeight="Bold">Settings</Label>
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -41,7 +41,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Shrink start</Label>
-					<TextBox Grid.Column="1" Name="TextBoxShrinkStart" Text="{Binding ShrinkStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkStart" />
+					<TextBox Grid.Column="1" Name="TextBoxShrinkStart" TextChanged="UpdateShrinkStart" />
 				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -49,7 +49,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Shrink end</Label>
-					<TextBox Grid.Column="1" Name="TextBoxShrinkEnd" Text="{Binding ShrinkEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkEnd" />
+					<TextBox Grid.Column="1" Name="TextBoxShrinkEnd" TextChanged="UpdateShrinkEnd" />
 				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -57,7 +57,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Shrink rate</Label>
-					<TextBox Grid.Column="1" Name="TextBoxShrinkRate" Text="{Binding ShrinkRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="UpdateShrinkRate" />
+					<TextBox Grid.Column="1" Name="TextBoxShrinkRate" TextChanged="UpdateShrinkRate" />
 				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -65,7 +65,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Brightness</Label>
-					<TextBox Grid.Column="1" Name="TextBoxBrightness" Text="{Binding Brightness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+					<TextBox Grid.Column="1" Name="TextBoxBrightness" TextChanged="UpdateBrightness" />
 				</Grid>
 
 				<Label FontWeight="Bold">Shrink preview</Label>
