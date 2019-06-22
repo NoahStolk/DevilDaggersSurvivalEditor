@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 using NetBase.Utils;
+using System.Collections.Generic;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
@@ -17,12 +18,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public int Amount
 		{
 			get => amount;
-			set => amount = MathUtils.Clamp(value, 1, 50);
+			set => amount = MathUtils.Clamp(value, 1, 10);
 		}
 		public int Iterations
 		{
 			get => iterations;
-			set => iterations = MathUtils.Clamp(value, 1, 20);
+			set => iterations = MathUtils.Clamp(value, 1, 4);
 		}
 
 		public override float[,] GetTiles()
@@ -33,8 +34,14 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 				for (int j = Y1; j < Y2; j++)
 					tiles[i, j] = Height;
 
+			List<ArenaCoord> gapTiles = new List<ArenaCoord>();
+
 			for (int i = 0; i < Amount; i++)
-				tiles[RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2)] = TileUtils.VoidDefault;
+			{
+				ArenaCoord coord = new ArenaCoord(RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2));
+				gapTiles.Add(coord);
+				tiles[coord.X, coord.Y] = TileUtils.VoidDefault;
+			}
 
 			for (int i = 0; i < Iterations; i++)
 			{
@@ -42,23 +49,44 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 				{
 					for (int k = Y1; k < Y2; k++)
 					{
-						float tile = tiles[j, k];
-						if (tile == TileUtils.VoidDefault)
+						if (gapTiles.Contains(new ArenaCoord(j, k)))
 						{
-							if (j > 0 && RandomUtils.Chance(50))
-								tiles[j - 1, k] = TileUtils.VoidDefault;
-							if (j < Spawnset.ArenaWidth - 1 && RandomUtils.Chance(50))
-								tiles[j + 1, k] = TileUtils.VoidDefault;
-							if (k > 0 && RandomUtils.Chance(50))
-								tiles[j, k - 1] = TileUtils.VoidDefault;
-							if (k < Spawnset.ArenaHeight - 1 && RandomUtils.Chance(50))
-								tiles[j, k + 1] = TileUtils.VoidDefault;
+							if (j > 0)
+							{
+								ArenaCoord coord = new ArenaCoord(j - 1, k);
+								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
+									SetNeighbour(coord);
+							}
+							if (j < Spawnset.ArenaWidth - 1)
+							{
+								ArenaCoord coord = new ArenaCoord(j + 1, k);
+								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
+									SetNeighbour(coord);
+							}
+							if (k > 0)
+							{
+								ArenaCoord coord = new ArenaCoord(j, k - 1);
+								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
+									SetNeighbour(coord);
+							}
+							if (k < Spawnset.ArenaHeight - 1)
+							{
+								ArenaCoord coord = new ArenaCoord(j, k + 1);
+								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
+									SetNeighbour(coord);
+							}
 						}
 					}
 				}
 			}
 
 			return tiles;
+
+			void SetNeighbour(ArenaCoord coord)
+			{
+				gapTiles.Add(coord);
+				tiles[coord.X, coord.Y] = TileUtils.VoidDefault;
+			}
 		}
 	}
 }
