@@ -18,6 +18,7 @@
 	<Style TargetType="{x:Type windows:MessageWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:SetTileHeightWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:SettingsWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:SwitchEnemyTypeWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 
 	<Style TargetType="Grid" x:Key="SpawnsetHeader">
 		<Style.Setters>

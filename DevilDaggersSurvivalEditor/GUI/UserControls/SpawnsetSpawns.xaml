@@ -36,6 +36,7 @@
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Enemy</Label>
 					<ComboBox Grid.Column="1" Name="ComboBoxEnemy" SelectedIndex="1">
+					<!--TODO: Programmatically-->
 						<ComboBoxItem Content="EMPTY" />
 						<ComboBoxItem Content="Squid I" />
 						<ComboBoxItem Content="Squid II" />
@@ -71,6 +72,7 @@
 				<Button Name="EditSpawnButton" Content="Edit selected spawn(s)" Click="EditSpawnButton_Click" IsEnabled="False" />
 				<Button Name="DeleteSpawnButton" Content="Delete selected spawn(s)" Click="DeleteSpawnButton_Click" IsEnabled="False" />
 				<Button Name="ModifyDelaysButton" Content="Modify delays for selected spawn(s)" Click="ModifyDelaysButton_Click" IsEnabled="False" />
+				<Button Name="SwitchEnemyTypesButton" Content="Switch enemy types for selected spawn(s)" Click="SwitchEnemyTypesButton_Click" IsEnabled="False" />
 			</StackPanel>
 		</Grid>
 	</StackPanel>

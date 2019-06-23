@@ -63,6 +63,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			});
 		}
 
+		private List<int> GetSpawnSelectionIndices()
+		{
+			return (from object obj in ListBoxSpawns.SelectedItems
+					select ListBoxSpawns.Items.IndexOf(obj)).ToList();
+		}
+
 		private void ListBoxSpawns_Selected(object sender, RoutedEventArgs e)
 		{
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
@@ -71,6 +77,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			DeleteSpawnButton.IsEnabled = hasSelection;
 			ModifyDelaysButton.IsEnabled = hasSelection;
+			SwitchEnemyTypesButton.IsEnabled = hasSelection;
+		}
+
+		private void TextBoxDelay_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
+			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
+			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
+
+			AddSpawnButton.IsEnabled = !Validation.GetHasError(DelayTextBox);
 		}
 
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -133,12 +149,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			UpdateSpawnset();
 		}
 
-		private List<int> GetSpawnSelectionIndices()
-		{
-			return (from object obj in ListBoxSpawns.SelectedItems
-					select ListBoxSpawns.Items.IndexOf(obj)).ToList();
-		}
-
 		private void ModifyDelaysButton_Click(object sender, RoutedEventArgs e)
 		{
 			List<int> selections = GetSpawnSelectionIndices();
@@ -170,13 +180,30 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			UpdateSpawnset();
 		}
 
-		private void TextBoxDelay_TextChanged(object sender, TextChangedEventArgs e)
+		private void SwitchEnemyTypesButton_Click(object sender, RoutedEventArgs e)
 		{
-			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
-			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
-			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
+			List<int> selections = GetSpawnSelectionIndices();
+			SwitchEnemyTypeWindow window = new SwitchEnemyTypeWindow(selections.Count);
 
-			AddSpawnButton.IsEnabled = !Validation.GetHasError(DelayTextBox);
+			if (window.ShowDialog() == true)
+			{
+				foreach (int i in selections)
+				{
+					int current = 0;
+					foreach (KeyValuePair<int, SpawnsetEnemy> enemy in Spawnset.Enemies)
+					{
+						if (enemy.Value == Program.App.spawnset.Spawns[i].SpawnsetEnemy)
+						{
+							current = enemy.Key;
+							break;
+						}
+					}
+
+					Program.App.spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[window.switchArray[current + 1] - 1];
+				}
+			}
+
+			UpdateSpawnset();
 		}
 	}
 }

@@ -593,6 +593,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
+		// TODO: Remove. This is for debugging until deselection is fixed.
 		private Color GetBorderColor(int border)
 		{
 			switch (border)

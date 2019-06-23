@@ -14,7 +14,7 @@
 		<DockPanel Grid.Row="0">
 			<usercontrols:MenuBar/>
 		</DockPanel>
-		<Grid Grid.Row="1" Height="768" Width="1366" Background="#eee">
+		<Grid Grid.Row="1" MaxHeight="768" Width="1366" Background="#eee">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="7*" />
 				<RowDefinition />

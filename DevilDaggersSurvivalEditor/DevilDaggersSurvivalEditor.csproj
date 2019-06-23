@@ -231,9 +231,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Windows\SwitchEnemyType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Arena\Presets\Rectangular.cs" />
+    <Compile Include="GUI\Windows\SwitchEnemyType.xaml.cs">
+      <DependentUpon>SwitchEnemyType.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
