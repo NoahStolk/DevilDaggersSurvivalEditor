@@ -47,7 +47,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 - Spawns
 	- Added ability to modify delays for selected spawns. This can be used to easily speed up or slow down parts of a spawnset, or a spawnset in its entirety.
 - Arena
-	- Set the max tile height to 54 rather than 63, since any tiles with a height value greater than 54 will be in complete darkness and won't be visible (regardless of brightness).
+	- Set the max tile height to 54 rather than 63, since any tiles with a height value greater than 54 will be in complete darkness and won't be visible (regardless of the spawnset brightness setting, or the in-game gamma setting).
 	- The arena editor now shows void tile heights as "Void" rather than their actual (meaningless) value.
 	- Added height selector which lets you pick a height and use it in the arena editor.
 	- Removed the old height map as this is now redundant.
@@ -69,7 +69,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 		- Random Gaps
 		- Random Islands
 		- Random Pillars
-	- Removed Default Flat preset, as it can now be created using the new Ellipse preset, or using the "Round heights" button.
+	- Removed Default Flat preset, as it can now be created using the new Ellipse preset, or using the "Round heights" button on the Default arena.
 	- Added wall thickness parameter to Cage Rectangular preset.
 	- Added offset parameters to Qbert preset.
 	- Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.

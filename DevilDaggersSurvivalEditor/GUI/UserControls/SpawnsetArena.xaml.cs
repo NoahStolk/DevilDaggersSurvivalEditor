@@ -60,7 +60,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			for (int i = 0; i < 9; i++)
 			{
-				float height = i == 0 ? TileUtils.VoidDefault : -1 + (i + 1) * 0.25f;
+				float height = i == 0 ? TileUtils.VoidDefault : -1.25f + i * 0.25f;
 				RadioButton heightRadioButton = height == TileUtils.VoidDefault
 					? new RadioButton { Margin = new Thickness(), Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)), ToolTip = new TextBlock { Text = "Void", FontWeight = FontWeights.Bold }, Tag = height, IsChecked = true }
 					: new RadioButton { Margin = new Thickness(), Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString("0.##"), Tag = height };
