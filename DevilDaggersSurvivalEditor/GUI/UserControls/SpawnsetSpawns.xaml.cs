@@ -2,6 +2,7 @@
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.GUI.Windows;
+using NetBase.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,25 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class SpawnsetSpawns : UserControl
 	{
-		public float Delay { get; set; } = 3;
+		private float delay = 3;
+		public float Delay
+		{
+			get => delay;
+			set
+			{
+				delay = MathUtils.Clamp(value, 0, 10000);
+			}
+		}
+
+		private int amount = 1;
+		public int Amount
+		{
+			get => amount;
+			set
+			{
+				amount = MathUtils.Clamp(value, 1, 100);
+			}
+		}
 
 		public SpawnsetSpawns()
 			: base()
@@ -21,6 +40,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			InitializeComponent();
 
 			DelayTextBox.DataContext = this;
+			AmountTextBox.DataContext = this;
 		}
 
 		public void UpdateSpawnset()
@@ -71,27 +91,32 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ListBoxSpawns_Selected(object sender, RoutedEventArgs e)
 		{
+			bool textBoxesValid = !Validation.GetHasError(DelayTextBox) && !Validation.GetHasError(AmountTextBox);
+
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
-			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
-			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
+			InsertSpawnButton.IsEnabled = hasSelection && textBoxesValid;
+			EditSpawnButton.IsEnabled = hasSelection && textBoxesValid;
 
 			DeleteSpawnButton.IsEnabled = hasSelection;
 			ModifyDelaysButton.IsEnabled = hasSelection;
 			SwitchEnemyTypesButton.IsEnabled = hasSelection;
 		}
 
-		private void TextBoxDelay_TextChanged(object sender, TextChangedEventArgs e)
+		private void TextBoxSpawn_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
-			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
-			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
+			bool textBoxesValid = !Validation.GetHasError(DelayTextBox) && !Validation.GetHasError(AmountTextBox);
 
-			AddSpawnButton.IsEnabled = !Validation.GetHasError(DelayTextBox);
+			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
+			InsertSpawnButton.IsEnabled = hasSelection && textBoxesValid;
+			EditSpawnButton.IsEnabled = hasSelection && textBoxesValid;
+
+			AddSpawnButton.IsEnabled = textBoxesValid;
 		}
 
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay, true));
+			for (int i = 0; i < Amount; i++)
+				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay, true));
 
 			UpdateSpawnset();
 		}
@@ -102,15 +127,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			if (index == -1)
 				return; // Nothing selected
 
-			List<Spawn> shift = new List<Spawn>();
 			int originalCount = Program.App.spawnset.Spawns.Count;
+			List<Spawn> shift = new List<Spawn>();
 			for (int i = index; i < originalCount; i++)
 			{
 				shift.Add(Program.App.spawnset.Spawns[i]);
 				Program.App.spawnset.Spawns.Remove(i);
 			}
 
-			Program.App.spawnset.Spawns.Add(index, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay, true));
+			for (int i = 0; i < Amount; i++)
+				Program.App.spawnset.Spawns.Add(index + i, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay, true));
 
 			int max = Program.App.spawnset.Spawns.Count;
 			for (int i = 0; i < shift.Count; i++)

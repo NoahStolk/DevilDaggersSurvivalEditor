@@ -56,7 +56,15 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Delay</Label>
-					<TextBox Grid.Column="1" x:Name="DelayTextBox" Text="{Binding Delay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxDelay_TextChanged" />
+					<TextBox Grid.Column="1" x:Name="DelayTextBox" Text="{Binding Delay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxSpawn_TextChanged" />
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Amount</Label>
+					<TextBox Grid.Column="1" x:Name="AmountTextBox" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxSpawn_TextChanged" />
 				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -64,15 +72,15 @@
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					<Button Grid.Column="1" Name="AddSpawnButton" Content="Add" Click="AddSpawnButton_Click"></Button>
-					<Button Grid.Column="2" Name="InsertSpawnButton" Content="Insert" Click="InsertSpawnButton_Click" IsEnabled="False" />
+					<Button Grid.Column="1" Name="AddSpawnButton" Click="AddSpawnButton_Click">Add</Button>
+					<Button Grid.Column="2" Name="InsertSpawnButton" Click="InsertSpawnButton_Click" IsEnabled="False">Insert</Button>
 				</Grid>
 			</StackPanel>
 			<StackPanel Grid.Column="1">
-				<Button Name="EditSpawnButton" Content="Edit selected spawn(s)" Click="EditSpawnButton_Click" IsEnabled="False" />
-				<Button Name="DeleteSpawnButton" Content="Delete selected spawn(s)" Click="DeleteSpawnButton_Click" IsEnabled="False" />
-				<Button Name="ModifyDelaysButton" Content="Modify delays for selected spawn(s)" Click="ModifyDelaysButton_Click" IsEnabled="False" />
-				<Button Name="SwitchEnemyTypesButton" Content="Switch enemy types for selected spawn(s)" Click="SwitchEnemyTypesButton_Click" IsEnabled="False" />
+				<Button Name="EditSpawnButton"  Click="EditSpawnButton_Click" IsEnabled="False">Edit selected spawn(s)</Button>
+				<Button Name="DeleteSpawnButton" Click="DeleteSpawnButton_Click" IsEnabled="False">Delete selected spawn(s)</Button>
+				<Button Name="ModifyDelaysButton" Click="ModifyDelaysButton_Click" IsEnabled="False">Modify delays for selected spawn(s)</Button>
+				<Button Name="SwitchEnemyTypesButton" Click="SwitchEnemyTypesButton_Click" IsEnabled="False">Switch enemy types for selected spawn(s)</Button>
 			</StackPanel>
 		</Grid>
 	</StackPanel>
