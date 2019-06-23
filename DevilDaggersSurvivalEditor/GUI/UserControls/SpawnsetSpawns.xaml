@@ -55,7 +55,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Delay</Label>
-					<TextBox Grid.Column="1" x:Name="TextBoxDelay" Text="{Binding Delay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxDelay_TextChanged" />
+					<TextBox Grid.Column="1" x:Name="DelayTextBox" Text="{Binding Delay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxDelay_TextChanged" />
 				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>

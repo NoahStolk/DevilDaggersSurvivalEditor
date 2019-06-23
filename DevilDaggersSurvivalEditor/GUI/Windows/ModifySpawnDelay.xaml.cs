@@ -1,5 +1,6 @@
 ﻿using DevilDaggersSurvivalEditor.Code.Spawns;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
@@ -17,7 +18,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			Data.DataContext = this;
 
-			FunctionComboBox.SelectedIndex = 0;
+			ApplyButton.IsDefault = true;
 
 			// This is pretty ugly, but all other methods stopped working after the binding was added to the TextBox.
 			DispatcherTimer selectAllTimer = new DispatcherTimer();
@@ -26,16 +27,15 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				ValueTextBox.Focus();
 				ValueTextBox.SelectAll();
-				selectAllTimer.Stop();
 				FunctionComboBox.SelectedIndex = 0;
+				selectAllTimer.Stop();
 			};
 		}
 
 		private void ApplyButton_Click(object sender, RoutedEventArgs e)
 		{
-			DialogResult = true;
-
-			ApplyButton.IsDefault = true;
+			if (!Validation.GetHasError(ValueTextBox))
+				DialogResult = true;
 		}
 	}
 }

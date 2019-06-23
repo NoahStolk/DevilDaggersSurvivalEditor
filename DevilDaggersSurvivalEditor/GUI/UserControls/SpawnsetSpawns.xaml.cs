@@ -20,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			InitializeComponent();
 
-			TextBoxDelay.DataContext = this;
+			DelayTextBox.DataContext = this;
 		}
 
 		public void UpdateSpawnset()
@@ -66,8 +66,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void ListBoxSpawns_Selected(object sender, RoutedEventArgs e)
 		{
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
-			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
-			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
+			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
+			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
 
 			DeleteSpawnButton.IsEnabled = hasSelection;
 			ModifyDelaysButton.IsEnabled = hasSelection;
@@ -146,6 +146,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (window.ShowDialog() == true)
 			{
+				window.Value = Math.Abs(window.Value);
 				foreach (int i in selections)
 				{
 					switch (window.Function)
@@ -163,8 +164,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 							Program.App.spawnset.Spawns[i].Delay /= window.Value;
 							break;
 					}
-
-					Program.App.spawnset.Spawns[i].Delay = Math.Max(0, Program.App.spawnset.Spawns[i].Delay);
 				}
 			}
 
@@ -174,10 +173,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void TextBoxDelay_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
-			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
-			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(TextBoxDelay);
+			InsertSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
+			EditSpawnButton.IsEnabled = hasSelection && !Validation.GetHasError(DelayTextBox);
 
-			AddSpawnButton.IsEnabled = !Validation.GetHasError(TextBoxDelay);
+			AddSpawnButton.IsEnabled = !Validation.GetHasError(DelayTextBox);
 		}
 	}
 }

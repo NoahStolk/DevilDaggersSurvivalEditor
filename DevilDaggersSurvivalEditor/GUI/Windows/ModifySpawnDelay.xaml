@@ -13,7 +13,7 @@
 			<ComboBoxItem>*</ComboBoxItem>
 			<ComboBoxItem>/</ComboBoxItem>
 		</ComboBox>
-		<TextBox Name="ValueTextBox" Text="{Binding Value}" />
+		<TextBox Name="ValueTextBox" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
 		<Button Name="ApplyButton" Click="ApplyButton_Click" Content="Apply" />
 	</StackPanel>
 </Window>

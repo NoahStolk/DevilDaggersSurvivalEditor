@@ -7,8 +7,8 @@
         Title="" Height="200" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<Grid x:Name="Grid">
 		<StackPanel>
-			<TextBlock Text="{Binding Message}"></TextBlock>
-			<Button Name="OKButton" Content="OK" Click="OKButton_Click"/>
+			<TextBlock Style="{StaticResource ParagraphTextBlock}" Text="{Binding Message}" />
+			<Button Name="OKButton" Content="OK" Click="OKButton_Click" />
 		</StackPanel>
 	</Grid>
 </Window>
