@@ -33,13 +33,12 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 #### 2.0.0.0 - Work In Progress & To Be Released
 
-Devil Daggers Survival Editor 2 is a complete rewrite of the entire application. 
+Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire application.
 
 - General
-	- Made the application window resizable (includes fullscreen).
-	- Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
-	- A lot of performance optimizations and layout improvements.
+	- Made the main application window resizable (includes fullscreen).
 	- Added loading screen.
+	- Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
 - Fixes
 	- Fixed issue where the arena was always incorrectly rotated and mirrored.
 	- Fixed issue where restoring the original V3 spawnset would remove the survival file from the application's 'Content' folder and as a result the option no longer works until the file is put back (either by re-downloading the application or by doing it manually).
@@ -60,6 +59,8 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 	- Added ability to round heights for selected tiles.
 	- Added ability to randomize heights for selected tiles.
 	- Added ability to rotate and flip the arena.
+	- Optimized the shrink preview slider for better performance.
+	- Made the tiles brighter for better visibility.
 - Arena presets
 	- Renamed Pyramid preset to Qbert.
 	- Renamed Cage preset to Cage Rectangular.
