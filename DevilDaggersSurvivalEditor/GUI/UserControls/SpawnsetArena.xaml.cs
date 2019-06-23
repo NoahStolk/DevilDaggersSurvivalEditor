@@ -28,8 +28,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private ArenaCoord focusedTile;
 		private ArenaCoord focusedTilePrevious;
 
+		private float heightSelectorValue = TileUtils.VoidDefault;
+		private TileAction tileAction = TileAction.Height;
 		private TileSelection tileSelection;
-		private TileAction tileAction;
 		private readonly List<RadioButton> tileActionRadioButtons = new List<RadioButton>();
 		private readonly List<RadioButton> tileSelectionRadioButtons = new List<RadioButton>();
 		private readonly List<ArenaCoord> selections = new List<ArenaCoord>();
@@ -52,6 +53,82 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		public void Initialize()
 		{
+			for (int i = 0; i < 7; i++)
+				HeightMap.RowDefinitions.Add(new RowDefinition());
+			for (int i = 0; i < 9; i++)
+				HeightMap.ColumnDefinitions.Add(new ColumnDefinition());
+
+			for (int i = 0; i < 9; i++)
+			{
+				float height = i == 0 ? TileUtils.VoidDefault : -1 + (i + 1) * 0.25f;
+				RadioButton heightRadioButton = height == TileUtils.VoidDefault
+					? new RadioButton { Margin = new Thickness(), Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)), ToolTip = new TextBlock { Text = "Void", FontWeight = FontWeights.Bold }, Tag = height, IsChecked = true }
+					: new RadioButton { Margin = new Thickness(), Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString("0.##"), Tag = height };
+				heightRadioButton.Checked += (sender, e) =>
+				{
+					RadioButton r = sender as RadioButton;
+					foreach (RadioButton rb in tileActionRadioButtons)
+						if (rb != r)
+							rb.IsChecked = false;
+					tileAction = TileAction.Height;
+					heightSelectorValue = float.Parse(r.Tag.ToString());
+				};
+
+				Grid.SetRow(heightRadioButton, 0);
+				Grid.SetColumn(heightRadioButton, i);
+				HeightMap.Children.Add(heightRadioButton);
+
+				tileActionRadioButtons.Add(heightRadioButton);
+			}
+
+			for (int i = 0; i < 6; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					float height = i * 9 + j + 1;
+					RadioButton heightRadioButton = new RadioButton { Margin = new Thickness(), Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString(), Tag = height };
+					heightRadioButton.Checked += (sender, e) =>
+					{
+						RadioButton r = sender as RadioButton;
+						foreach (RadioButton rb in tileActionRadioButtons)
+							if (rb != r)
+								rb.IsChecked = false;
+						tileAction = TileAction.Height;
+						heightSelectorValue = float.Parse(r.Tag.ToString());
+					};
+
+					Grid.SetRow(heightRadioButton, i + 1);
+					Grid.SetColumn(heightRadioButton, j);
+					HeightMap.Children.Add(heightRadioButton);
+
+					tileActionRadioButtons.Add(heightRadioButton);
+				}
+			}
+
+			foreach (TileAction tileAction in (TileAction[])Enum.GetValues(typeof(TileAction)))
+			{
+				if (tileAction == TileAction.Height)
+					continue;
+
+				RadioButton radioButton = new RadioButton
+				{
+					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/Images/Arena/Tiles/Action{tileAction}.png")) },
+					ToolTip = tileAction.ToUserFriendlyString(),
+					IsChecked = tileAction == 0
+				};
+				radioButton.Checked += (sender, e) =>
+				{
+					RadioButton r = sender as RadioButton;
+					foreach (RadioButton rb in tileActionRadioButtons)
+						if (rb != r)
+							rb.IsChecked = false;
+					this.tileAction = tileAction;
+				};
+
+				tileActionRadioButtons.Add(radioButton);
+				TileActionsStackPanel.Children.Add(radioButton);
+			}
+
 			foreach (TileSelection tileSelection in (TileSelection[])Enum.GetValues(typeof(TileSelection)))
 			{
 				RadioButton radioButton = new RadioButton
@@ -63,23 +140,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				radioButton.Checked += (sender, e) =>
 				{
 					this.tileSelection = tileSelection;
-				};
-
-				tileActionRadioButtons.Add(radioButton);
-				TileActionsStackPanel.Children.Add(radioButton);
-			}
-
-			foreach (TileAction tileAction in (TileAction[])Enum.GetValues(typeof(TileAction)))
-			{
-				RadioButton radioButton = new RadioButton
-				{
-					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/Images/Arena/Tiles/Action{tileAction}.png")) },
-					ToolTip = tileAction.ToUserFriendlyString(),
-					IsChecked = tileAction == 0
-				};
-				radioButton.Checked += (sender, e) =>
-				{
-					this.tileAction = tileAction;
 				};
 
 				tileSelectionRadioButtons.Add(radioButton);
@@ -557,11 +617,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			switch (tileAction)
 			{
-				case TileAction.ToggleVoid:
-					if (Program.App.spawnset.ArenaTiles[tile.X, tile.Y] >= TileUtils.TileMin)
-						Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
-					else
-						Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.TileDefault;
+				case TileAction.Height:
+					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = heightSelectorValue;
 
 					UpdateTile(tile);
 

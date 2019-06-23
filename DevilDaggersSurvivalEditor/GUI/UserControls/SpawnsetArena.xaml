@@ -10,13 +10,9 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
 				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 			<Label Grid.Column="0" Name="LabelTile">{0, 0}</Label>
 			<Label Grid.Column="1" Name="HeightTile">0.00</Label>
-			<StackPanel Grid.Column="2" Orientation="Horizontal" Name="TileActionsStackPanel" />
-			<StackPanel Grid.Column="3" Orientation="Horizontal" Name="TileSelectionsStackPanel" />
 		</Grid>
 		<Grid>
 			<Grid.ColumnDefinitions>
@@ -108,6 +104,21 @@
 				<Button Name="RoundHeightsButton" Click="RoundHeights_Click" IsEnabled="False">Round heights</Button>
 				<Button Name="RandomizeHeightsButton" Click="RandomizeHeights_Click" IsEnabled="False">Randomize heights</Button>
 			</StackPanel>
+		</Grid>
+		<Grid HorizontalAlignment="Left" Width="408">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0" HorizontalAlignment="Left" Name="HeightMap" Width="144" Height="112" />
+			<Grid Grid.Column="1" VerticalAlignment="Top">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<StackPanel Grid.Column="0" Orientation="Horizontal" Name="TileActionsStackPanel" />
+				<StackPanel Grid.Column="1" Orientation="Horizontal" Name="TileSelectionsStackPanel" />
+			</Grid>
 		</Grid>
 	</StackPanel>
 </UserControl>

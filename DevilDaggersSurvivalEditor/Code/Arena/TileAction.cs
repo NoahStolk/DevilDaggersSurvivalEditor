@@ -2,6 +2,6 @@
 {
 	public enum TileAction
 	{
-		ToggleVoid, Select, Deselect
+		Height, Select, Deselect
 	}
 }

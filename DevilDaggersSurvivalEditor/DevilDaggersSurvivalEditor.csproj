@@ -321,7 +321,6 @@
   <ItemGroup>
     <Resource Include="Content\Images\Arena\Tiles\ActionDeselect.png" />
     <Resource Include="Content\Images\Arena\Tiles\ActionSelect.png" />
-    <Resource Include="Content\Images\Arena\Tiles\ActionToggleVoid.png" />
     <Resource Include="Content\Images\Arena\Tiles\SelectionContinuous.png" />
     <Resource Include="Content\Images\Arena\Tiles\SelectionOnce.png" />
     <Resource Include="Content\Images\Arena\Tiles\SelectionRectangle.png" />
