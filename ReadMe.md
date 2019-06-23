@@ -44,9 +44,11 @@ Devil Daggers Survival Editor 2 is a complete rewrite of the entire application.
 	- Fixed issue where the arena was always incorrectly rotated and mirrored.
 	- Fixed issue where restoring the original V3 spawnset would remove the survival file from the application's 'Content' folder and as a result the option no longer works until the file is put back (either by re-downloading the application or by doing it manually).
 	- Fixed issue where the application would not start up after using it (not confirmed yet).
+	- Fixed issue where you could create spawns with a negative delay value.
 - Spawns
 	- Added ability to modify (add, subtract, multiply, divide) delays for selected spawns. This can be used to easily speed up or slow down parts of a spawnset, or a spawnset in its entirety.
 	- Added ability to switch enemy types for selected spawns.
+	- Added ability to add or insert the same spawn multiple times at once using the "Amount" value.
 - Arena
 	- Set the max tile height to 54 rather than 63, since any tiles with a height value greater than 54 will be in complete darkness and won't be visible (regardless of the spawnset brightness setting, or the in-game gamma setting).
 	- The arena editor now shows void tile heights as "Void" rather than their actual (meaningless) value.
