@@ -35,50 +35,59 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 Devil Daggers Survival Editor 2 is a complete rewrite of the entire application. 
 
-- Made the application window resizable (includes fullscreen).
-- Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
-- A lot of performance optimizations and layout improvements.
-- Fixed issue where the arena was always incorrectly rotated and mirrored.
-- Fixed issue where restoring the original V3 spawnset would remove the survival file from the application's 'Content' folder and as a result the option no longer works until the file is put back (either by re-downloading the application or by doing it manually).
-- Fixed issue where the application would not start up after using it (not confirmed yet).
-- Set the max tile height to 54 rather than 63, since any tiles with a height value greater than 54 will be in complete darkness and won't be visible (regardless of brightness).
-- Renamed Pyramid preset to Qbert.
-- Renamed Cage preset to Cage Rectangular.
-- Renamed Random preset to Random Noise.
-- Added new arena presets:
-	- Cage Ellipse
-	- Ellipse
-	- Hill
-	- Pyramid
-	- Random Gaps
-	- Random Islands
-	- Random Pillars
-- Removed Default Flat preset, as it can now be created using the new Ellipse preset, or using the "Round heights" button.
-- Added wall thickness parameter to Cage Rectangular preset.
-- Added offset parameters to Qbert preset.
-- Added ability to rotate and flip the arena.
-- Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
-- Added multiple tile selection to the arena editor.
-- Added continuous tile modification/selection to the arena editor.
-- Added rectangular tile modification/selection to the arena editor.
-- Added ability to round heights for selected tiles.
-- Added ability to randomize heights for selected tiles.
-- Added loading screen.
-- Removed height map.
-- The arena editor now shows void tile heights as "Void" rather than their actual (meaningless) value.
-- Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window which contains the online spawnsets list.
-- Added search and filter options to the online spawnsets list.
-- The online spawnsets list now shows more information (such as when the loop starts) about the spawnsets.
-- Added menu item to open the current survival file.
-- Added ability to modify delays for selected spawns. This can be used to easily speed up or slow down parts of a spawnset, or a spawnset in its entirety.
-- Added various warnings:
-	- The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short, or when you're spawning the player in the void. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
-	- The application warns you when the path to the survival file in the user settings is incorrect, or when the file could not be parsed.
-- Added more settings:
-	- Prevent the player from spawning in the void.
-	- Prevent tile {25, 27} from going outside of its safe range.
-- The application now uses logging, so whenever it crashes you can open the log to see what went wrong.
-- The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
+- General
+	- Made the application window resizable (includes fullscreen).
+	- Made user input more lenient, less errors will be thrown and the application will just deal with input values even if they don't make much sense.
+	- A lot of performance optimizations and layout improvements.
+	- Added loading screen.
+- Fixes
+	- Fixed issue where the arena was always incorrectly rotated and mirrored.
+	- Fixed issue where restoring the original V3 spawnset would remove the survival file from the application's 'Content' folder and as a result the option no longer works until the file is put back (either by re-downloading the application or by doing it manually).
+	- Fixed issue where the application would not start up after using it (not confirmed yet).
+- Spawns
+	- Added ability to modify delays for selected spawns. This can be used to easily speed up or slow down parts of a spawnset, or a spawnset in its entirety.
+- Arena
+	- Set the max tile height to 54 rather than 63, since any tiles with a height value greater than 54 will be in complete darkness and won't be visible (regardless of brightness).
+	- The arena editor now shows void tile heights as "Void" rather than their actual (meaningless) value.
+	- Added height selector which lets you pick a height and use it in the arena editor.
+	- Removed the old height map as this is now redundant.
+	- Added multiple tile selection to the arena editor.
+	- Added continuous tile modification and selection to the arena editor.
+	- Added rectangular tile modification and selection to the arena editor.
+	- Added ability to round heights for selected tiles.
+	- Added ability to randomize heights for selected tiles.
+	- Added ability to rotate and flip the arena.
+- Arena presets
+	- Renamed Pyramid preset to Qbert.
+	- Renamed Cage preset to Cage Rectangular.
+	- Renamed Random preset to Random Noise.
+	- Added new arena presets:
+		- Cage Ellipse
+		- Ellipse
+		- Hill
+		- Pyramid
+		- Random Gaps
+		- Random Islands
+		- Random Pillars
+	- Removed Default Flat preset, as it can now be created using the new Ellipse preset, or using the "Round heights" button.
+	- Added wall thickness parameter to Cage Rectangular preset.
+	- Added offset parameters to Qbert preset.
+	- Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
+- Menu
+	- Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window which contains the online spawnsets list.
+	- Added menu item to open the current survival file.
+- Online spawnsets
+	- Added search and filter options to the online spawnsets list.
+	- The online spawnsets list now shows more information (such as when the loop starts) about the spawnsets.
+- Miscellaneous
+	- Added various warnings:
+		- The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short, or when you're spawning the player in the void. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
+		- The application warns you when the path to the survival file in the user settings is incorrect, or when the file could not be parsed.
+	- Added more settings:
+		- Prevent the player from spawning in the void.
+		- Prevent tile {25, 27} from going outside of its safe range.
+	- The application now uses logging, so whenever it crashes you can open the log to see what went wrong.
+	- The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
 
 **Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, since 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
 
