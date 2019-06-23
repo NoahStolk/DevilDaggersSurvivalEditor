@@ -13,7 +13,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			SpawnsLabel.Text = $"Modify delay for {spawnCount} spawns";
+			SpawnsLabel.Text = $"Modify delay for {spawnCount} spawn{(spawnCount == 1 ? "" : "s")}";
 
 			Data.DataContext = this;
 
@@ -27,6 +27,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				ValueTextBox.Focus();
 				ValueTextBox.SelectAll();
 				selectAllTimer.Stop();
+				FunctionComboBox.SelectedIndex = 0;
 			};
 		}
 
