@@ -35,20 +35,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Enemy</Label>
-					<ComboBox Grid.Column="1" Name="ComboBoxEnemy" SelectedIndex="1">
-					<!--TODO: Programmatically-->
-						<ComboBoxItem Content="EMPTY" />
-						<ComboBoxItem Content="Squid I" />
-						<ComboBoxItem Content="Squid II" />
-						<ComboBoxItem Content="Centipede" />
-						<ComboBoxItem Content="Spider I" />
-						<ComboBoxItem Content="Leviathan" />
-						<ComboBoxItem Content="Gigapede" />
-						<ComboBoxItem Content="Squid III" />
-						<ComboBoxItem Content="Thorn" />
-						<ComboBoxItem Content="Spider II" />
-						<ComboBoxItem Content="Ghostpede" />
-					</ComboBox>
+					<ComboBox Grid.Column="1" Name="ComboBoxEnemy" SelectedIndex="1" />
 				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>

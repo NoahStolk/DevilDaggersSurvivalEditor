@@ -41,6 +41,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			DelayTextBox.DataContext = this;
 			AmountTextBox.DataContext = this;
+
+			foreach (KeyValuePair<int, SpawnsetEnemy> enemy in Spawnset.Enemies)
+				ComboBoxEnemy.Items.Add(new ComboBoxItem { Content = enemy.Value.Name });
 		}
 
 		public void UpdateSpawnset()
