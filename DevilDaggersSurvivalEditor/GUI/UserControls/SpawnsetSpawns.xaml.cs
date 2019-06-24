@@ -14,15 +14,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class SpawnsetSpawns : UserControl
 	{
-		private float delay = 3;
-		public float Delay
-		{
-			get => delay;
-			set
-			{
-				delay = MathUtils.Clamp(value, 0, 1000000);
-			}
-		}
+		public float Delay { get; set; } = 3;
 
 		private int amount = 1;
 		public int Amount
@@ -94,7 +86,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private bool IsDelayValid()
 		{
-			return float.TryParse(DelayTextBox.Text, out float parsed) && parsed >= 0;
+			return float.TryParse(DelayTextBox.Text, out float parsed) && parsed >= 0 && parsed < 1000000;
 		}
 
 		private bool IsAmountValid()
