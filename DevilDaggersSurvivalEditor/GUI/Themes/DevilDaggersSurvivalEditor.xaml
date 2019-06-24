@@ -34,6 +34,7 @@
 			</Trigger>
 		</Style.Triggers>
 		<Style.Setters>
+			<Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="Width" Value="128" />
 			<Setter Property="Margin" Value="2,2,2,2" />
