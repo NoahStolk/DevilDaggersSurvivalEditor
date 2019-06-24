@@ -6,29 +6,52 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="683">
 	<StackPanel>
-		<Grid HorizontalAlignment="Left" Width="408" Style="{StaticResource SpawnsetHeader}">
+		<Grid Style="{StaticResource SpawnsetHeader}" Width="408" HorizontalAlignment="Left">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
-			<Label Grid.Column="0" Name="LabelTile">{0, 0}</Label>
-			<Label Grid.Column="1" Name="HeightTile">0.00</Label>
+			<StackPanel Orientation="Horizontal" Grid.Column="0">
+				<Label>Tile:</Label>
+				<Label Name="LabelTile">{0, 0}</Label>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal" Grid.Column="1">
+				<Label>Height:</Label>
+				<Label Name="HeightTile">0.00</Label>
+			</StackPanel>
 		</Grid>
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="408" />
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
-			<Canvas Grid.Column="0" Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseLeftButtonUp="ArenaTiles_MouseLeftButtonUp" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408" SnapsToDevicePixels="True" UseLayoutRounding="True">
-				<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
-				<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
-				<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1" />
-				<Rectangle Name="CursorRectangle" Panel.ZIndex="4" />
-				<Line Name="MultiSelectRectLeft" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
-				<Line Name="MultiSelectRectRight" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
-				<Line Name="MultiSelectRectTop" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
-				<Line Name="MultiSelectRectBottom" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
-			</Canvas>
+			<StackPanel Grid.Column="0">
+				<Canvas Grid.Column="0" Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseLeftButtonUp="ArenaTiles_MouseLeftButtonUp" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408" SnapsToDevicePixels="True" UseLayoutRounding="True">
+					<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
+					<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
+					<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1" />
+					<Rectangle Name="CursorRectangle" Panel.ZIndex="4" />
+					<Line Name="MultiSelectRectLeft" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
+					<Line Name="MultiSelectRectRight" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
+					<Line Name="MultiSelectRectTop" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
+					<Line Name="MultiSelectRectBottom" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
+				</Canvas>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Grid Grid.Column="0" HorizontalAlignment="Left" Name="HeightMap" Width="144" Height="112" Margin="2,2,2,2" />
+					<Grid Grid.Column="1" VerticalAlignment="Top">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Orientation="Horizontal" Name="TileActionsStackPanel" />
+						<StackPanel Grid.Column="1" Orientation="Horizontal" Name="TileSelectionsStackPanel" />
+					</Grid>
+				</Grid>
+			</StackPanel>
 			<StackPanel Grid.Column="1">
 				<Label Style="{StaticResource BoldLabel}">Settings</Label>
 				<Grid>
@@ -104,21 +127,6 @@
 				<Button Name="RoundHeightsButton" Click="RoundHeights_Click" IsEnabled="False">Round heights</Button>
 				<Button Name="RandomizeHeightsButton" Click="RandomizeHeights_Click" IsEnabled="False">Randomize heights</Button>
 			</StackPanel>
-		</Grid>
-		<Grid HorizontalAlignment="Left" Width="408">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-			<Grid Grid.Column="0" HorizontalAlignment="Left" Name="HeightMap" Width="144" Height="112" />
-			<Grid Grid.Column="1" VerticalAlignment="Top">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition />
-				</Grid.ColumnDefinitions>
-				<StackPanel Grid.Column="0" Orientation="Horizontal" Name="TileActionsStackPanel" />
-				<StackPanel Grid.Column="1" Orientation="Horizontal" Name="TileSelectionsStackPanel" />
-			</Grid>
 		</Grid>
 	</StackPanel>
 </UserControl>

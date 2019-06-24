@@ -48,6 +48,7 @@
 			<Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
 			<Setter Property="HorizontalAlignment" Value="Stretch" />
 			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="Height" Value="20" />
 		</Style.Setters>
 	</Style>
 	<Style TargetType="TextBox" x:Key="ParagraphTextBox">
@@ -96,8 +97,9 @@
 	</Style>
 	<Style TargetType="Label" x:Key="BoldLabel">
 		<Style.Setters>
-			<Setter Property="FontWeight" Value="Bold" />
 			<Setter Property="Margin" Value="0,0,0,6" />
+			<Setter Property="Padding" Value="3,2,2,2" />
+			<Setter Property="FontWeight" Value="Bold" />
 		</Style.Setters>
 	</Style>
 	<Style TargetType="Label" x:Key="NumericSpawnLabel">
