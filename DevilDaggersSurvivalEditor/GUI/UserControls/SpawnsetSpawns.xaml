@@ -43,7 +43,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Delay</Label>
-					<TextBox Grid.Column="1" x:Name="DelayTextBox" Text="{Binding Delay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxSpawn_TextChanged" />
+					<TextBox Grid.Column="1" Name="DelayTextBox" TextChanged="TextBoxDelay_TextChanged" />
 				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -51,7 +51,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Amount</Label>
-					<TextBox Grid.Column="1" x:Name="AmountTextBox" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxSpawn_TextChanged" />
+					<TextBox Grid.Column="1" x:Name="AmountTextBox" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxAmount_TextChanged" />
 				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>

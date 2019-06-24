@@ -20,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			get => delay;
 			set
 			{
-				delay = MathUtils.Clamp(value, 0, 10000);
+				delay = MathUtils.Clamp(value, 0, 1000000);
 			}
 		}
 
@@ -39,7 +39,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			InitializeComponent();
 
-			DelayTextBox.DataContext = this;
+			DelayTextBox.Text = Delay.ToString();
 			AmountTextBox.DataContext = this;
 
 			foreach (KeyValuePair<int, SpawnsetEnemy> enemy in Spawnset.Enemies)
@@ -92,9 +92,19 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					select ListBoxSpawns.Items.IndexOf(obj)).ToList();
 		}
 
+		private bool IsDelayValid()
+		{
+			return float.TryParse(DelayTextBox.Text, out float parsed) && parsed >= 0;
+		}
+
+		private bool IsAmountValid()
+		{
+			return !Validation.GetHasError(AmountTextBox);
+		}
+
 		private void ListBoxSpawns_Selected(object sender, RoutedEventArgs e)
 		{
-			bool textBoxesValid = !Validation.GetHasError(DelayTextBox) && !Validation.GetHasError(AmountTextBox);
+			bool textBoxesValid = IsDelayValid() && IsAmountValid();
 
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
 			InsertSpawnButton.IsEnabled = hasSelection && textBoxesValid;
@@ -105,9 +115,26 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			SwitchEnemyTypesButton.IsEnabled = hasSelection;
 		}
 
-		private void TextBoxSpawn_TextChanged(object sender, TextChangedEventArgs e)
+		private void TextBoxDelay_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			bool textBoxesValid = !Validation.GetHasError(DelayTextBox) && !Validation.GetHasError(AmountTextBox);
+			bool valid = IsDelayValid();
+
+			DelayTextBox.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 128, 128));
+
+			UpdateButtons();
+
+			if (valid)
+				Delay = float.Parse(DelayTextBox.Text);
+		}
+
+		private void TextBoxAmount_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			UpdateButtons();
+		}
+
+		private void UpdateButtons()
+		{
+			bool textBoxesValid = IsDelayValid() && IsAmountValid();
 
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
 			InsertSpawnButton.IsEnabled = hasSelection && textBoxesValid;
