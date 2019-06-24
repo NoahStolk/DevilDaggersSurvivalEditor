@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Help" Height="384" Width="384" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<StackPanel>
+	<StackPanel Style="{StaticResource PaddingStackPanel}">
 		<Label Style="{StaticResource TitleLabel}">General help with spawnsets</Label>
 		<TextBlock Style="{StaticResource ParagraphTextBlock}">
 			A lot of information about how spawnsets work is listed on the <Hyperlink NavigateUri="https://devildaggers.info/Spawnsets" RequestNavigate="Hyperlink_RequestNavigate">DevilDaggers.info website</Hyperlink>.

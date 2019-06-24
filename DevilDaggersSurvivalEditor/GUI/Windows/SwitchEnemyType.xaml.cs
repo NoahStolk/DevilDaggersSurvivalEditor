@@ -15,7 +15,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			SpawnsLabel.Text = $"Switch enemy types for {spawnCount} spawn{(spawnCount == 1 ? "" : "s")}";
+			SpawnsLabel.Content = $"Switch enemy types for {spawnCount} spawn{(spawnCount == 1 ? "" : "s")}";
 
 			foreach (KeyValuePair<int, SpawnsetEnemy> enemyOriginal in Spawnset.Enemies)
 			{
@@ -36,11 +36,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 				SwitchStackPanel.Children.Add(grid);
 			}
-
-			ApplyButton.IsDefault = true;
 		}
 
-		private void ApplyButton_Click(object sender, RoutedEventArgs e)
+		private void OKButton_Click(object sender, RoutedEventArgs e)
 		{
 			for (int i = 0; i < switchArray.Length; i++)
 				switchArray[i] = comboBoxes[i].SelectedIndex;

@@ -5,9 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
         Title="Download spawnset" Height="768" Width="1366" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<StackPanel>
+	<StackPanel Style="{StaticResource PaddingStackPanel}">
 		<Label Style="{StaticResource TitleLabel}">Spawnsets from DevilDaggers.info</Label>
-		<Button Name="ReloadButton" Click="ReloadButton_Click">Reload</Button>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="8*" />
+			</Grid.ColumnDefinitions>
+			<Button Name="ReloadButton" Click="ReloadButton_Click">Reload all</Button>
+		</Grid>
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
@@ -75,7 +81,7 @@
 					<Label Grid.Column="6" FontWeight="Bold">Length</Label>
 					<Label Grid.Column="7" FontWeight="Bold">Spawns</Label>
 				</Grid>
-				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="580">
+				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="556">
 					<StackPanel Name="SpawnsetsList" />
 				</ScrollViewer>
 			</StackPanel>

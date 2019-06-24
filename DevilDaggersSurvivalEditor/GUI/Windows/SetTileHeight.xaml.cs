@@ -21,11 +21,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			InitializeComponent();
 
-			CoordinatesLabel.Text = selections.Length < 5 ? $"Modify height for tile{(selections.Length == 1 ? "" : "s")}:\n{string.Join("\n", selections)}" : $"Modify height for {selections.Length} tiles";
+			CoordinatesLabel.Content = selections.Length < 5 ? $"Set height for tile{(selections.Length == 1 ? "" : "s")}:\n{string.Join("\n", selections)}" : $"Set height for {selections.Length} tiles";
 
 			Data.DataContext = this;
-
-			OKButton.IsDefault = true;
 
 			// This is pretty ugly, but all other methods stopped working after the binding was added to the TextBox.
 			DispatcherTimer selectAllTimer = new DispatcherTimer();

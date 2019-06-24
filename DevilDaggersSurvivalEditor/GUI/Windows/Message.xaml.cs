@@ -13,9 +13,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Title = title;
 			Message = message;
 
-			Grid.DataContext = this;
-
-			OKButton.IsDefault = true;
+			StackPanel.DataContext = this;
 		}
 
 		private void OKButton_Click(object sender, RoutedEventArgs e)

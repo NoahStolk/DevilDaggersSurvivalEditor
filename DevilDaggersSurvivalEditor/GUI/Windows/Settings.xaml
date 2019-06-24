@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Settings" Height="256" Width="768" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<StackPanel x:Name="Data">
+	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
@@ -42,7 +42,7 @@
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
 
-			<Button Grid.Column="2" Content="Apply" Click="ApplyButton_Click"/>
+			<Button Style="{StaticResource OKButton}" Grid.Column="2" Click="OKButton_Click">OK</Button>
 		</Grid>
 	</StackPanel>
 </Window>

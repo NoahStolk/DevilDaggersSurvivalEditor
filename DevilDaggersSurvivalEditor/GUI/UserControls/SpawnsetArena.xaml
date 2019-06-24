@@ -30,7 +30,7 @@
 				<Line Name="MultiSelectRectBottom" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 			</Canvas>
 			<StackPanel Grid.Column="1">
-				<Label FontWeight="Bold">Settings</Label>
+				<Label Style="{StaticResource BoldLabel}">Settings</Label>
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
@@ -64,10 +64,10 @@
 					<TextBox Grid.Column="1" Name="TextBoxBrightness" TextChanged="UpdateBrightness" />
 				</Grid>
 
-				<Label FontWeight="Bold">Shrink preview</Label>
+				<Label Style="{StaticResource BoldLabel}">Shrink preview</Label>
 				<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
 
-				<Label FontWeight="Bold">Arena presets</Label>
+				<Label Style="{StaticResource BoldLabel}">Arena presets</Label>
 				<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
 				<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
 				<StackPanel Orientation="Horizontal">
@@ -76,7 +76,7 @@
 				</StackPanel>
 				<Button Click="GenerateButton_Click">Generate</Button>
 
-				<Label FontWeight="Bold">Arena tools</Label>
+				<Label Style="{StaticResource BoldLabel}">Arena tools</Label>
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
@@ -100,7 +100,7 @@
 					</StackPanel>
 				</Grid>
 
-				<Label FontWeight="Bold">Tile tools</Label>
+				<Label Style="{StaticResource BoldLabel}">Tile tools</Label>
 				<Button Name="RoundHeightsButton" Click="RoundHeights_Click" IsEnabled="False">Round heights</Button>
 				<Button Name="RandomizeHeightsButton" Click="RandomizeHeights_Click" IsEnabled="False">Randomize heights</Button>
 			</StackPanel>

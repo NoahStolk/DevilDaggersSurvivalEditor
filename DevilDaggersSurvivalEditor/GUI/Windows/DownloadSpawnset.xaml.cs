@@ -4,10 +4,10 @@ using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Web;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			PopulateListBoxes();
 		}
 
-		private void Spawnset_Click(string fileName)
+		private void Download_Click(string fileName)
 		{
 			Close();
 
@@ -154,9 +154,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			Button button = new Button { Content = $"Download" };
 			Grid.SetColumn(button, 8);
-			button.Click += (sender, e) => Spawnset_Click($"{sf.Name}_{sf.Author}");
+			button.Click += (sender, e) => Download_Click($"{sf.Name}_{sf.Author}");
 
-			Grid grid = new Grid { Tag = sf };
+			Grid grid = new Grid { Tag = sf, Background = new SolidColorBrush(Color.FromRgb(255, 255, 255)) };
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });

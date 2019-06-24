@@ -14,11 +14,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			SpawnsLabel.Text = $"Modify delay for {spawnCount} spawn{(spawnCount == 1 ? "" : "s")}";
+			SpawnsLabel.Content = $"Modify delay for {spawnCount} spawn{(spawnCount == 1 ? "" : "s")}";
 
 			Data.DataContext = this;
-
-			ApplyButton.IsDefault = true;
 
 			// This is pretty ugly, but all other methods stopped working after the binding was added to the TextBox.
 			DispatcherTimer selectAllTimer = new DispatcherTimer();
@@ -32,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			};
 		}
 
-		private void ApplyButton_Click(object sender, RoutedEventArgs e)
+		private void OKButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!Validation.GetHasError(ValueTextBox))
 				DialogResult = true;

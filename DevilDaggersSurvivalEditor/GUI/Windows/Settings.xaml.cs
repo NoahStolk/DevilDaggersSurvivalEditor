@@ -33,11 +33,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				LabelSurvivalFileRootFolder.Text = Program.App.userSettings.SurvivalFileRootFolder;
 			}
 
-			// Make sure this window keeps being focused rather than the MainWindow
+			// Make sure this window stays focused rather than the MainWindow.
 			Focus();
 		}
 
-		private void ApplyButton_Click(object sender, RoutedEventArgs e)
+		private void OKButton_Click(object sender, RoutedEventArgs e)
 		{
 			DialogResult = true;
 		}

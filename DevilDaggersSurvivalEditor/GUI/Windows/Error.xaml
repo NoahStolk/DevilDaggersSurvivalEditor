@@ -4,15 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="" Height="450" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<Grid x:Name="Error">
-		<StackPanel>
-			<TextBox Text="{Binding ErrorMessage, Mode=OneTime}" TextWrapping="WrapWithOverflow" IsReadOnly="True" />
-			<StackPanel x:Name="ExceptionStackPanel" Visibility="Hidden">
-				<Label>Technical information</Label>
-				<TextBox Text="{Binding Message, Mode=OneTime}" TextWrapping="WrapWithOverflow" IsReadOnly="True" />
-			</StackPanel>
-			<Button Name="OKButton" Content="OK" Click="OKButton_Click"/>
+        Height="256" Width="512" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<StackPanel x:Name="Error">
+		<TextBox Style="{StaticResource ParagraphTextBox}" Text="{Binding ErrorMessage, Mode=OneTime}" IsReadOnly="True" />
+		<StackPanel x:Name="ExceptionStackPanel" Visibility="Hidden">
+			<Label>Technical information</Label>
+			<TextBox Style="{StaticResource ParagraphTextBox}" Text="{Binding Message, Mode=OneTime}" TextWrapping="WrapWithOverflow" IsReadOnly="True" />
 		</StackPanel>
-	</Grid>
+		<Button Style="{StaticResource OKButton}" Name="OKButton" Click="OKButton_Click">OK</Button>
+	</StackPanel>
 </Window>

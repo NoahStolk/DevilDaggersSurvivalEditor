@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
         Title="Modify spawn delay" Height="256" Width="256" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<StackPanel x:Name="Data">
-		<TextBlock Name="SpawnsLabel" />
+	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">
+		<Label Style="{StaticResource BoldLabel}" Name="SpawnsLabel" />
 		<ComboBox Name="FunctionComboBox" SelectedIndex="{Binding Function}">
 			<ComboBoxItem>+</ComboBoxItem>
 			<ComboBoxItem>-</ComboBoxItem>
@@ -14,6 +14,6 @@
 			<ComboBoxItem>/</ComboBoxItem>
 		</ComboBox>
 		<TextBox Name="ValueTextBox" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
-		<Button Name="ApplyButton" Click="ApplyButton_Click" Content="Apply" />
+		<Button Style="{StaticResource OKButton}" Name="OKButton" Click="OKButton_Click">OK</Button>
 	</StackPanel>
 </Window>

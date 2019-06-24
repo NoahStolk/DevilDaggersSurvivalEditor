@@ -33,7 +33,7 @@ namespace DevilDaggersSurvivalEditor
 
 		private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
-			ShowError("Fatal error", e.Exception.Message, e.Exception);
+			ShowError("Fatal error", "An unhandled exception occurred in the main thread.", e.Exception);
 			e.Handled = true;
 
 			Current.Shutdown();
