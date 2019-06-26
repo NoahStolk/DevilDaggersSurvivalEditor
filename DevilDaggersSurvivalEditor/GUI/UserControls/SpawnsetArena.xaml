@@ -26,7 +26,7 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 			<StackPanel Grid.Column="0">
-				<Canvas Grid.Column="0" Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseLeftButtonUp="ArenaTiles_MouseLeftButtonUp" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408" SnapsToDevicePixels="True" UseLayoutRounding="True">
+				<Canvas Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseLeftButtonUp="ArenaTiles_MouseLeftButtonUp" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408" SnapsToDevicePixels="True" UseLayoutRounding="True">
 					<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
 					<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
 					<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1" />
