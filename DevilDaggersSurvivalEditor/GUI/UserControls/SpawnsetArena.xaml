@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:shaders="clr-namespace:DevilDaggersSurvivalEditor.Code.Shaders"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="683">
+	<UserControl.Resources>
+		<ImageBrush x:Key="NormalMap" />
+	</UserControl.Resources>
 	<StackPanel>
 		<Grid Style="{StaticResource SpawnsetHeader}" Width="408" HorizontalAlignment="Left">
 			<Grid.ColumnDefinitions>
@@ -27,6 +31,9 @@
 			</Grid.ColumnDefinitions>
 			<StackPanel Grid.Column="0">
 				<Canvas Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseLeftButtonUp="ArenaTiles_MouseLeftButtonUp" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408" SnapsToDevicePixels="True" UseLayoutRounding="True">
+					<Canvas.Effect>
+						<shaders:SelectionEffect x:Name="SelectionEffect" NormalMap="{StaticResource NormalMap}" />
+					</Canvas.Effect>
 					<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
 					<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
 					<Ellipse Stroke="Lime" Name="ShrinkCurrent" Panel.ZIndex="1" />
@@ -36,6 +43,14 @@
 					<Line Name="MultiSelectRectTop" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 					<Line Name="MultiSelectRectBottom" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 				</Canvas>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0" Name="ShaderParams" />
+					<Image Grid.Column="1" Name="NormalMap" Width="128" Height="128" />
+				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />

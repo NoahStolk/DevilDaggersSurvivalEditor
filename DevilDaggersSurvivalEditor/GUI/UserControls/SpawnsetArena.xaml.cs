@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
@@ -22,7 +23,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private readonly Rectangle[,] tileElements = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 		private readonly Rectangle[,] tileElementSelections = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
-		private readonly Line[,,] tileElementSelectionBorders = new Line[Spawnset.ArenaWidth, Spawnset.ArenaHeight, 4];
 
 		private ArenaCoord focusedTile;
 		private ArenaCoord focusedTilePrevious;
@@ -42,9 +42,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private double shrinkEndRadius;
 		private double shrinkCurrentRadius;
 
+		private readonly WriteableBitmap normalMap = new WriteableBitmap(Spawnset.ArenaWidth * TileUtils.TileSize, Spawnset.ArenaHeight * TileUtils.TileSize, 96, 96, PixelFormats.BlackWhite, BitmapPalettes.BlackAndWhite);
+
 		public SpawnsetArena()
 		{
 			InitializeComponent();
+
+			(Resources["NormalMap"] as ImageBrush).ImageSource = normalMap;
+			NormalMap.Source = normalMap;
 
 			arenaCanvasCenter = (int)ArenaTiles.Width / 2;
 			arenaCenter = Spawnset.ArenaWidth / 2;
@@ -392,217 +397,17 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void UpdateTileSelection(ArenaCoord tile)
 		{
+			bool selected = selections.Contains(tile);
+
+			byte[] pixelBytes = new byte[TileUtils.TileSize * TileUtils.TileSize];
+			for (int ii = 0; ii < pixelBytes.Length; ii++)
+				pixelBytes[ii] = selected ? (byte)0xFF : (byte)0x00;
+			normalMap.WritePixels(new Int32Rect(tile.X * TileUtils.TileSize, tile.Y * TileUtils.TileSize, TileUtils.TileSize, TileUtils.TileSize), pixelBytes, TileUtils.TileSize, 0);
+
 			RandomizeHeightsButton.IsEnabled = selections.Count != 0;
 			RoundHeightsButton.IsEnabled = selections.Count != 0;
 
-			int i = tile.X;
-			int j = tile.Y;
-			if (selections.Contains(tile))
-			{
-				// Set selection visibility
-				tileElementSelections[i, j].Visibility = Visibility.Visible;
-
-				// Set lines
-				for (int k = 0; k < 4; k++)
-				{
-					ArenaCoord neighbor;
-					int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
-					bool neighborSelected = true;
-					switch (k)
-					{
-						default:
-						case 0:
-							if (i - 1 < 0)
-								continue;
-
-							neighbor = new ArenaCoord(i - 1, j);
-							if (!selections.Contains(neighbor))
-							{
-								x1 = i * TileUtils.TileSize + 1;
-								x2 = i * TileUtils.TileSize + 1;
-								y1 = j * TileUtils.TileSize;
-								y2 = j * TileUtils.TileSize + TileUtils.TileSize;
-								neighborSelected = false;
-							}
-							break;
-						case 1:
-							if (j - 1 < 0)
-								continue;
-
-							neighbor = new ArenaCoord(i, j - 1);
-							if (!selections.Contains(neighbor))
-							{
-								x1 = i * TileUtils.TileSize;
-								x2 = i * TileUtils.TileSize + TileUtils.TileSize;
-								y1 = j * TileUtils.TileSize + 1;
-								y2 = j * TileUtils.TileSize + 1;
-								neighborSelected = false;
-							}
-							break;
-						case 2:
-							if (i + 1 > Spawnset.ArenaWidth - 1)
-								continue;
-
-							neighbor = new ArenaCoord(i + 1, j);
-							if (!selections.Contains(neighbor))
-							{
-								x1 = i * TileUtils.TileSize + TileUtils.TileSize;
-								x2 = i * TileUtils.TileSize + TileUtils.TileSize;
-								y1 = j * TileUtils.TileSize;
-								y2 = j * TileUtils.TileSize + TileUtils.TileSize;
-								neighborSelected = false;
-							}
-							break;
-						case 3:
-							if (j + 1 > Spawnset.ArenaHeight - 1)
-								continue;
-
-							neighbor = new ArenaCoord(i, j + 1);
-							if (!selections.Contains(neighbor))
-							{
-								x1 = i * TileUtils.TileSize;
-								x2 = i * TileUtils.TileSize + TileUtils.TileSize;
-								y1 = j * TileUtils.TileSize + TileUtils.TileSize;
-								y2 = j * TileUtils.TileSize + TileUtils.TileSize;
-								neighborSelected = false;
-							}
-							break;
-					}
-
-					if (!neighborSelected)
-					{
-						Line line = new Line
-						{
-							Stroke = new SolidColorBrush(GetBorderColor(k)),
-							StrokeThickness = 1,
-							X1 = x1,
-							X2 = x2,
-							Y1 = y1,
-							Y2 = y2,
-							SnapsToDevicePixels = true
-						};
-						line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-						Panel.SetZIndex(line, 2);
-						ArenaTiles.Children.Add(line);
-
-						tileElementSelectionBorders[i, j, k] = line;
-					}
-					else
-					{
-						// Remove corresponding line from neighbor
-						Line neighborLineToRemove = tileElementSelectionBorders[neighbor.X, neighbor.Y, (k + 2) % 4];
-						if (ArenaTiles.Children.Contains(neighborLineToRemove))
-						{
-							ArenaTiles.Children.Remove(neighborLineToRemove);
-
-							tileElementSelectionBorders[i, j, k] = null;
-						}
-					}
-				}
-			}
-			else
-			{
-				tileElementSelections[tile.X, tile.Y].Visibility = Visibility.Hidden;
-				for (int k = 0; k < 4; k++)
-				{
-					Line line = tileElementSelectionBorders[i, j, k];
-					if (ArenaTiles.Children.Contains(line))
-						ArenaTiles.Children.Remove(line);
-
-					#region Fix
-					ArenaCoord neighbor;
-					int x1, x2, y1, y2;
-					switch (k)
-					{
-						default:
-						case 0:
-							if (i - 1 < 0)
-								continue;
-
-							neighbor = new ArenaCoord(i - 1, j);
-							if (!selections.Contains(neighbor))
-								continue;
-
-							x1 = i * TileUtils.TileSize;
-							x2 = i * TileUtils.TileSize;
-							y1 = j * TileUtils.TileSize;
-							y2 = j * TileUtils.TileSize + TileUtils.TileSize;
-							break;
-						case 1:
-							if (j - 1 < 0)
-								continue;
-
-							neighbor = new ArenaCoord(i, j - 1);
-							if (!selections.Contains(neighbor))
-								continue;
-
-							x1 = i * TileUtils.TileSize;
-							x2 = i * TileUtils.TileSize + TileUtils.TileSize;
-							y1 = j * TileUtils.TileSize;
-							y2 = j * TileUtils.TileSize;
-							break;
-						case 2:
-							if (i + 1 > Spawnset.ArenaWidth - 1)
-								continue;
-
-							neighbor = new ArenaCoord(i + 1, j);
-							if (!selections.Contains(neighbor))
-								continue;
-
-							x1 = i * TileUtils.TileSize + TileUtils.TileSize + 1;
-							x2 = i * TileUtils.TileSize + TileUtils.TileSize + 1;
-							y1 = j * TileUtils.TileSize;
-							y2 = j * TileUtils.TileSize + TileUtils.TileSize;
-							break;
-						case 3:
-							if (j + 1 > Spawnset.ArenaHeight - 1)
-								continue;
-
-							neighbor = new ArenaCoord(i, j + 1);
-							if (!selections.Contains(neighbor))
-								continue;
-
-							x1 = i * TileUtils.TileSize;
-							x2 = i * TileUtils.TileSize + TileUtils.TileSize;
-							y1 = j * TileUtils.TileSize + TileUtils.TileSize + 1;
-							y2 = j * TileUtils.TileSize + TileUtils.TileSize + 1;
-							break;
-					}
-
-					if (tileElementSelectionBorders[neighbor.X, neighbor.Y, k] != null)
-						continue;
-
-					Line neighborLineToAdd = new Line
-					{
-						Stroke = new SolidColorBrush(GetBorderColor(k)),
-						StrokeThickness = 1,
-						X1 = x1,
-						X2 = x2,
-						Y1 = y1,
-						Y2 = y2,
-						SnapsToDevicePixels = true
-					};
-					neighborLineToAdd.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-					Panel.SetZIndex(neighborLineToAdd, 2);
-					ArenaTiles.Children.Add(neighborLineToAdd);
-
-					tileElementSelectionBorders[neighbor.X, neighbor.Y, k] = neighborLineToAdd;
-					#endregion
-				}
-			}
-		}
-
-		// TODO: Remove. This is for debugging until deselection is fixed.
-		private Color GetBorderColor(int border)
-		{
-			switch (border)
-			{
-				default:
-				case 0: return Color.FromRgb(255, 255, 128);
-				case 1: return Color.FromRgb(255, 192, 128);
-				case 2: return Color.FromRgb(192, 192, 128);
-				case 3: return Color.FromRgb(192, 128, 128);
-			}
+			tileElementSelections[tile.X, tile.Y].Visibility = selected ? Visibility.Visible : Visibility.Hidden;
 		}
 
 		private void SetHeightText(float height)
@@ -657,6 +462,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void ArenaTiles_MouseMove(object sender, MouseEventArgs e)
 		{
 			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
+
+			SelectionEffect.LightDirection = new Point3D(0.1f, arenaCanvasCenter - mousePosition.X, arenaCanvasCenter - mousePosition.Y);
+			ShaderParams.Content = SelectionEffect.ToString();
+
 			focusedTile = new ArenaCoord(MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
 			if (focusedTile == focusedTilePrevious)
 				return;
