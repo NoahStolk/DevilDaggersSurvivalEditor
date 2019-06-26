@@ -6,7 +6,6 @@ using NetBase.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -112,7 +111,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				RadioButton radioButton = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/Images/Arena/Tiles/Action{tileAction}.png")) },
+					Content = new Image { Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Arena", "Tiles", $"Action{tileAction}.png"))) },
 					ToolTip = tileAction.ToUserFriendlyString(),
 					IsChecked = tileAction == 0
 				};
@@ -133,7 +132,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				RadioButton radioButton = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Content/Images/Arena/Tiles/Selection{tileSelection}.png")) },
+					Content = new Image { Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Arena", "Tiles", $"Selection{tileSelection}.png"))) },
 					ToolTip = tileSelection.ToUserFriendlyString(),
 					IsChecked = tileSelection == 0
 				};

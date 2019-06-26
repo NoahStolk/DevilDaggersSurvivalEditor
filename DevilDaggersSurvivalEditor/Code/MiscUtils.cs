@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Text;
 using System.Windows.Media;
 
@@ -32,6 +33,11 @@ namespace DevilDaggersSurvivalEditor.Code
 				c.R * c.R * .299 +
 				c.G * c.G * .587 +
 				c.B * c.B * .114);
+		}
+
+		public static Uri MakeUri(string localPath)
+		{
+			return new Uri($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/{localPath}");
 		}
 	}
 }
