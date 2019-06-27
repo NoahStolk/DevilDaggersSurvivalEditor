@@ -11,18 +11,17 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class SpawnsetArena : UserControl
 	{
+		private readonly int arenaCanvasSize;
 		private readonly int arenaCanvasCenter;
 		private readonly int arenaCenter;
 
 		private readonly Rectangle[,] tileElements = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
-		private readonly Rectangle[,] tileElementSelections = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
 		private ArenaCoord focusedTile;
 		private ArenaCoord focusedTilePrevious;
@@ -51,7 +50,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			(Resources["NormalMap"] as ImageBrush).ImageSource = normalMap;
 			NormalMap.Source = normalMap;
 
-			arenaCanvasCenter = (int)ArenaTiles.Width / 2;
+			arenaCanvasSize = (int)ArenaTiles.Width;
+			arenaCanvasCenter = arenaCanvasSize / 2;
 			arenaCenter = Spawnset.ArenaWidth / 2;
 		}
 
@@ -178,19 +178,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					Canvas.SetTop(rect, j * TileUtils.TileSize);
 					ArenaTiles.Children.Add(rect);
 					tileElements[i, j] = rect;
-
-					Rectangle rectSelection = new Rectangle
-					{
-						Width = TileUtils.TileSize,
-						Height = TileUtils.TileSize,
-						Fill = new SolidColorBrush(Color.FromArgb(64, 255, 255, 255)),
-						Visibility = Visibility.Hidden
-					};
-					Panel.SetZIndex(rectSelection, 2);
-					Canvas.SetLeft(rectSelection, i * TileUtils.TileSize);
-					Canvas.SetTop(rectSelection, j * TileUtils.TileSize);
-					ArenaTiles.Children.Add(rectSelection);
-					tileElementSelections[i, j] = rectSelection;
 
 					UpdateTile(new ArenaCoord(i, j));
 				}
@@ -406,16 +393,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			RandomizeHeightsButton.IsEnabled = selections.Count != 0;
 			RoundHeightsButton.IsEnabled = selections.Count != 0;
-
-			tileElementSelections[tile.X, tile.Y].Visibility = selected ? Visibility.Visible : Visibility.Hidden;
 		}
 
 		private void SetHeightText(float height)
 		{
 			bool voidTile = height < TileUtils.TileMin;
 
-			HeightTile.FontWeight = voidTile ? FontWeights.Bold : FontWeights.Normal;
-			HeightTile.Content = voidTile ? "Void" : height.ToString("0.00");
+			TileHeightLabel.FontWeight = voidTile ? FontWeights.Bold : FontWeights.Normal;
+			TileHeightLabel.Content = voidTile ? "Void" : height.ToString("0.00");
 		}
 
 		private void ExecuteTileAction(ArenaCoord tile)
@@ -463,7 +448,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
 
-			SelectionEffect.LightDirection = new Point3D(0.1f, arenaCanvasCenter - mousePosition.X, arenaCanvasCenter - mousePosition.Y);
+			SelectionEffect.MousePosition = new Point(mousePosition.X / arenaCanvasSize, mousePosition.Y / arenaCanvasSize);
+			// TODO: Always
+			SelectionEffect.FlashIntensity = Math.Abs(DateTime.Now.Millisecond / 1000f - 0.5f);
+			SelectionEffect.HighlightColor = TileUtils.GetColorFromHeight(heightSelectorValue).ToPoint4D(0.5f);
 			ShaderParams.Content = SelectionEffect.ToString();
 
 			focusedTile = new ArenaCoord(MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
@@ -473,7 +461,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Canvas.SetLeft(CursorRectangle, focusedTile.X * TileUtils.TileSize);
 			Canvas.SetTop(CursorRectangle, focusedTile.Y * TileUtils.TileSize);
 
-			LabelTile.Content = focusedTile.ToString();
+			TileCoordLabel.Content = focusedTile.ToString();
 			SetHeightText(Program.App.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y]);
 
 			if (continuous)

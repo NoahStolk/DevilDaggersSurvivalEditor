@@ -97,6 +97,7 @@
     <Compile Include="Code\Arena\Presets\Pyramid.cs" />
     <Compile Include="Code\Arena\TileSelection.cs" />
     <Compile Include="Code\Arena\TileAction.cs" />
+    <Compile Include="Code\ExtensionMethods.cs" />
     <Compile Include="Code\Shaders\SelectionEffect.cs" />
     <Compile Include="Code\Spawns\DelayModificationFunction.cs" />
     <Compile Include="Code\FileUtils.cs" />

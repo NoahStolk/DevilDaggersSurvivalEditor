@@ -17,11 +17,11 @@
 			</Grid.ColumnDefinitions>
 			<StackPanel Orientation="Horizontal" Grid.Column="0">
 				<Label>Tile:</Label>
-				<Label Name="LabelTile">{0, 0}</Label>
+				<Label Name="TileCoordLabel">{0, 0}</Label>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" Grid.Column="1">
 				<Label>Height:</Label>
-				<Label Name="HeightTile">0.00</Label>
+				<Label Name="TileHeightLabel">0.00</Label>
 			</StackPanel>
 		</Grid>
 		<Grid>
@@ -32,7 +32,7 @@
 			<StackPanel Grid.Column="0">
 				<Canvas Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseLeftButtonUp="ArenaTiles_MouseLeftButtonUp" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408" SnapsToDevicePixels="True" UseLayoutRounding="True">
 					<Canvas.Effect>
-						<shaders:SelectionEffect x:Name="SelectionEffect" NormalMap="{StaticResource NormalMap}" />
+						<shaders:SelectionEffect x:Name="SelectionEffect" NormalMap="{StaticResource NormalMap}" HighlightRadiusSquared="0.005" />
 					</Canvas.Effect>
 					<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
 					<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />
@@ -43,7 +43,7 @@
 					<Line Name="MultiSelectRectTop" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 					<Line Name="MultiSelectRectBottom" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 				</Canvas>
-				<Grid>
+				<Grid Visibility="Collapsed"> <!--DEBUGGING-->
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />

@@ -24,32 +24,32 @@ namespace DevilDaggersSurvivalEditor.Code.Shaders
 			set => SetValue(NormalMapProperty, value);
 		}
 
-		public static readonly DependencyProperty DiffuseIntensityProperty = DependencyProperty.Register("DiffuseIntensity", typeof(float), typeof(SelectionEffect), new UIPropertyMetadata(1f, PixelShaderConstantCallback(0)));
-		public float DiffuseIntensity
+		public static readonly DependencyProperty FlashIntensityProperty = DependencyProperty.Register("FlashIntensity", typeof(float), typeof(SelectionEffect), new UIPropertyMetadata(0f, PixelShaderConstantCallback(0)));
+		public float FlashIntensity
 		{
-			get => (float)GetValue(DiffuseIntensityProperty);
-			set => SetValue(DiffuseIntensityProperty, value);
+			get => (float)GetValue(FlashIntensityProperty);
+			set => SetValue(FlashIntensityProperty, value);
 		}
 
-		public static readonly DependencyProperty AmbientIntensityProperty = DependencyProperty.Register("AmbientIntensity", typeof(float), typeof(SelectionEffect), new UIPropertyMetadata(0f, PixelShaderConstantCallback(1)));
-		public float AmbientIntensity
+		public static readonly DependencyProperty HighlightColorProperty = DependencyProperty.Register("HighlightColor", typeof(Point4D), typeof(SelectionEffect), new UIPropertyMetadata(new Point4D(1, 1, 1, 1), PixelShaderConstantCallback(1)));
+		public Point4D HighlightColor
 		{
-			get => (float)GetValue(AmbientIntensityProperty);
-			set => SetValue(AmbientIntensityProperty, value);
+			get => (Point4D)GetValue(HighlightColorProperty);
+			set => SetValue(HighlightColorProperty, value);
 		}
 
-		public static readonly DependencyProperty AmbientColorProperty = DependencyProperty.Register("AmbientColor", typeof(Point4D), typeof(SelectionEffect), new UIPropertyMetadata(new Point4D(1, 1, 1, 1), PixelShaderConstantCallback(2)));
-		public Point4D AmbientColor
+		public static readonly DependencyProperty HighlightRadiusSquaredProperty = DependencyProperty.Register("HighlightRadiusSquared", typeof(float), typeof(SelectionEffect), new UIPropertyMetadata(0.1f, PixelShaderConstantCallback(2)));
+		public float HighlightRadiusSquared
 		{
-			get => (Point4D)GetValue(AmbientColorProperty);
-			set => SetValue(AmbientColorProperty, value);
+			get => (float)GetValue(HighlightRadiusSquaredProperty);
+			set => SetValue(HighlightRadiusSquaredProperty, value);
 		}
 
-		public static readonly DependencyProperty LightDirectionProperty = DependencyProperty.Register("LightDirection", typeof(Point3D), typeof(SelectionEffect), new UIPropertyMetadata(new Point3D(1, 1, 1), PixelShaderConstantCallback(3)));
-		public Point3D LightDirection
+		public static readonly DependencyProperty MousePositionProperty = DependencyProperty.Register("MousePosition", typeof(Point), typeof(SelectionEffect), new UIPropertyMetadata(new Point(0, 0), PixelShaderConstantCallback(3)));
+		public Point MousePosition
 		{
-			get => (Point3D)GetValue(LightDirectionProperty);
-			set => SetValue(LightDirectionProperty, value);
+			get => (Point)GetValue(MousePositionProperty);
+			set => SetValue(MousePositionProperty, value);
 		}
 
 		public SelectionEffect()
@@ -57,15 +57,15 @@ namespace DevilDaggersSurvivalEditor.Code.Shaders
 			PixelShader = pixelShader;
 			UpdateShaderValue(InputProperty);
 			UpdateShaderValue(NormalMapProperty);
-			UpdateShaderValue(DiffuseIntensityProperty);
-			UpdateShaderValue(AmbientIntensityProperty);
-			UpdateShaderValue(AmbientColorProperty);
-			UpdateShaderValue(LightDirectionProperty);
+			UpdateShaderValue(FlashIntensityProperty);
+			UpdateShaderValue(HighlightColorProperty);
+			UpdateShaderValue(HighlightRadiusSquaredProperty);
+			UpdateShaderValue(MousePositionProperty);
 		}
 
 		public override string ToString()
 		{
-			return $"Diffuse intensity: {DiffuseIntensity}\nAmbient intensity: {AmbientIntensity}\nAmbient color: {AmbientColor}\nLight direction: {LightDirection}";
+			return $"{nameof(FlashIntensity)}: {FlashIntensity}\n{nameof(HighlightColor)}: {HighlightColor}\n{nameof(HighlightRadiusSquared)}: {HighlightRadiusSquared}\n{nameof(MousePosition)}: {MousePosition}";
 		}
 	}
 }
