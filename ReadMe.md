@@ -36,7 +36,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 ## Changelog
 
-#### 2.0.0.0 - Work In Progress & To Be Released
+#### 2.0.0.0 - June 29, 2019
 
 Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire application.
 
@@ -47,7 +47,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 - Fixes
 	- Fixed issue where the arena was always incorrectly rotated and mirrored.
 	- Fixed issue where restoring the original V3 spawnset would remove the survival file from the application's 'Content' folder and as a result the option no longer works until the file is put back (either by re-downloading the application or by doing it manually).
-	- Fixed issue where the application would not start up after using it (not confirmed yet).
+	- Fixed issue where the application would not start up after using it.
 	- Fixed issue where you could create spawns with a negative delay value.
 - Spawns
 	- Added ability to modify (add, subtract, multiply, divide) delays for selected spawns. This can be used to easily speed up or slow down parts of a spawnset, or a spawnset in its entirety.
@@ -94,7 +94,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 		- The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short, or when you're spawning the player in the void. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
 		- The application warns you when the path to the survival file in the user settings is incorrect, or when the file could not be parsed.
 	- Added more settings:
-		- Prevent the player from spawning in the void.
+		- Prevent the player from spawning in the void by making sure the spawn tile always has a height.
 		- Prevent tile {25, 27} from going outside of its safe range.
 	- The application now uses logging, so whenever it crashes you can open the log to see what went wrong.
 	- The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
