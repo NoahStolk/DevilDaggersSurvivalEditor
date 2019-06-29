@@ -155,7 +155,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void Discord_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start(UrlUtils.Discord);
+			Process.Start(UrlUtils.DiscordInviteLink);
 		}
 
 		private void Help_Click(object sender, RoutedEventArgs e)
@@ -172,7 +172,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void SourceCode_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start("https://bitbucket.org/NoahStolk/devildaggerssurvivaleditor/src/master/");
+			Process.Start(UrlUtils.SourceCode);
 		}
 
 		private void Update_Click(object sender, RoutedEventArgs e)
@@ -200,7 +200,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ShowLog_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start("DDSE.log");
+			if (File.Exists("DDSE.log"))
+				Process.Start("DDSE.log");
+			else
+				Program.App.ShowMessage("No log file", "Log file does not exist.");
 		}
 	}
 }
