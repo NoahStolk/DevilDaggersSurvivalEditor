@@ -169,15 +169,15 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
 				{
-					Rectangle rect = new Rectangle
+					Rectangle tileRectangle = new Rectangle
 					{
 						Width = TileUtils.TileSize,
 						Height = TileUtils.TileSize
 					};
-					Canvas.SetLeft(rect, i * TileUtils.TileSize);
-					Canvas.SetTop(rect, j * TileUtils.TileSize);
-					ArenaTiles.Children.Add(rect);
-					tileElements[i, j] = rect;
+					Canvas.SetLeft(tileRectangle, i * TileUtils.TileSize);
+					Canvas.SetTop(tileRectangle, j * TileUtils.TileSize);
+					ArenaTiles.Children.Add(tileRectangle);
+					tileElements[i, j] = tileRectangle;
 
 					UpdateTile(new ArenaCoord(i, j));
 				}
