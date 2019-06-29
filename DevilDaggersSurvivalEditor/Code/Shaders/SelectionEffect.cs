@@ -31,7 +31,7 @@ namespace DevilDaggersSurvivalEditor.Code.Shaders
 			set => SetValue(FlashIntensityProperty, value);
 		}
 
-		public static readonly DependencyProperty HighlightColorProperty = DependencyProperty.Register("HighlightColor", typeof(Point4D), typeof(SelectionEffect), new UIPropertyMetadata(new Point4D(1, 1, 1, 1), PixelShaderConstantCallback(1)));
+		public static readonly DependencyProperty HighlightColorProperty = DependencyProperty.Register("HighlightColor", typeof(Point4D), typeof(SelectionEffect), new UIPropertyMetadata(new Point4D(0, 0, 0, 1), PixelShaderConstantCallback(1)));
 		public Point4D HighlightColor
 		{
 			get => (Point4D)GetValue(HighlightColorProperty);

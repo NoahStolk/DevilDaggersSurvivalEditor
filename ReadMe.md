@@ -22,6 +22,11 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 2. Unzip its contents.
 3. Run DevilDaggersSurvivalEditor.exe inside the folder.
 
+## Running from source
+
+- DevilDaggersSurvivalEditor is dependent on [NetBase](https://bitbucket.org/NoahStolk/netbase/src/master/) and [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/). Their sources need to be within the same root folder as the source for DevilDaggersSurvivalEditor itself.
+- DevilDaggersSurvivalEditor uses pixel shaders. In order to build pixel shaders you will need Microsoft's DirectX SDK from June 2010, and use the FXC compiler tool. If you do not need to build pixel shaders (the build for the origin one is already included in the source), then you can remove the pre-build event from Build Events in DevilDaggersSurvivalEditor.csproj's properties to prevent it from throwing an error.
+
 ## Links
 
 - [DevilDaggers.info website](https://devildaggers.info)
@@ -59,8 +64,9 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 	- Added ability to round heights for selected tiles.
 	- Added ability to randomize heights for selected tiles.
 	- Added ability to rotate and flip the arena.
-	- Optimized the shrink preview slider for better performance.
 	- Made the tiles brighter for better visibility.
+	- Optimized the shrink preview slider for better performance.
+	- Implemented custom pixel shading for the arena editor to take advantage of high-performant GPU rendering to render lighting, selection borders and selection highlighting.
 - Arena presets
 	- Renamed Pyramid preset to Qbert.
 	- Renamed Cage preset to Cage Rectangular.

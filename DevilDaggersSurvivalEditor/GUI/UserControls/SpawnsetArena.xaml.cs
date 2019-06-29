@@ -49,10 +49,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			InitializeComponent();
 
 			(Resources["NormalMap"] as ImageBrush).ImageSource = normalMap;
-#if DEBUG
-			ShaderDebug.Visibility = Visibility.Visible;
-			NormalMap.Source = normalMap;
-#endif
 			arenaCanvasSize = (int)ArenaTiles.Width;
 			arenaCanvasCenter = arenaCanvasSize / 2;
 			arenaCenter = Spawnset.ArenaWidth / 2;
@@ -68,6 +64,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void MainLoop_Tick(object sender, EventArgs e)
 		{
 			UpdateSelectionHighlightFlashIntensity();
+
+			CursorRectangle.Visibility = ArenaTiles.IsMouseOver ? Visibility.Visible : Visibility.Hidden;
 			if (!ArenaTiles.IsMouseOver && Mouse.LeftButton == MouseButtonState.Released)
 				ArenaRelease();
 		}
@@ -75,9 +73,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void UpdateSelectionHighlightFlashIntensity()
 		{
 			SelectionEffect.FlashIntensity = Math.Abs(DateTime.Now.Millisecond / 1000f - 0.5f);
-#if DEBUG
-			Flash.Content = SelectionEffect.FlashIntensity;
-#endif
 		}
 
 		public void Initialize()
@@ -476,9 +471,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			SelectionEffect.MousePosition = new Point(mousePosition.X / arenaCanvasSize, mousePosition.Y / arenaCanvasSize);
 			SelectionEffect.HighlightColor = TileUtils.GetColorFromHeight(heightSelectorValue).ToPoint4D(0.5f);
 			UpdateSelectionHighlightFlashIntensity();
-#if DEBUG
-			ShaderParams.Content = SelectionEffect;
-#endif
 
 			focusedTile = new ArenaCoord(MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
 			if (focusedTile == focusedTilePrevious)
