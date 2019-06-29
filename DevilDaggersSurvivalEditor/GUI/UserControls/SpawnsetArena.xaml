@@ -43,12 +43,15 @@
 					<Line Name="MultiSelectRectTop" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 					<Line Name="MultiSelectRectBottom" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 				</Canvas>
-				<Grid Visibility="Collapsed"> <!--DEBUGGING-->
+				<Grid Name="ShaderDebug" Visibility="Collapsed">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0" Name="ShaderParams" />
+					<StackPanel Grid.Column="0">
+						<Label Name="ShaderParams" />
+						<Label Name="Flash" />
+					</StackPanel>
 					<Image Grid.Column="1" Name="NormalMap" Width="128" Height="128" />
 				</Grid>
 				<Grid>
