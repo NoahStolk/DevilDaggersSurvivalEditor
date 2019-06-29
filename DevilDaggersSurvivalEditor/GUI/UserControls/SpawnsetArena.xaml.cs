@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
@@ -48,11 +49,35 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			InitializeComponent();
 
 			(Resources["NormalMap"] as ImageBrush).ImageSource = normalMap;
+#if DEBUG
+			ShaderDebug.Visibility = Visibility.Visible;
 			NormalMap.Source = normalMap;
-
+#endif
 			arenaCanvasSize = (int)ArenaTiles.Width;
 			arenaCanvasCenter = arenaCanvasSize / 2;
 			arenaCenter = Spawnset.ArenaWidth / 2;
+
+			DispatcherTimer mainLoop = new DispatcherTimer
+			{
+				Interval = new TimeSpan(0, 0, 0, 0, 16)
+			};
+			mainLoop.Tick += MainLoop_Tick;
+			mainLoop.Start();
+		}
+
+		private void MainLoop_Tick(object sender, EventArgs e)
+		{
+			UpdateSelectionHighlightFlashIntensity();
+			if (!ArenaTiles.IsMouseOver && Mouse.LeftButton == MouseButtonState.Released)
+				ArenaRelease();
+		}
+
+		private void UpdateSelectionHighlightFlashIntensity()
+		{
+			SelectionEffect.FlashIntensity = Math.Abs(DateTime.Now.Millisecond / 1000f - 0.5f);
+#if DEBUG
+			Flash.Content = SelectionEffect.FlashIntensity;
+#endif
 		}
 
 		public void Initialize()
@@ -449,10 +474,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Point mousePosition = Mouse.GetPosition((IInputElement)sender);
 
 			SelectionEffect.MousePosition = new Point(mousePosition.X / arenaCanvasSize, mousePosition.Y / arenaCanvasSize);
-			// TODO: Always
-			SelectionEffect.FlashIntensity = Math.Abs(DateTime.Now.Millisecond / 1000f - 0.5f);
 			SelectionEffect.HighlightColor = TileUtils.GetColorFromHeight(heightSelectorValue).ToPoint4D(0.5f);
-			ShaderParams.Content = SelectionEffect.ToString();
+			UpdateSelectionHighlightFlashIntensity();
+#if DEBUG
+			ShaderParams.Content = SelectionEffect;
+#endif
 
 			focusedTile = new ArenaCoord(MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
 			if (focusedTile == focusedTilePrevious)
@@ -506,6 +532,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		}
 
 		private void ArenaTiles_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			ArenaRelease();
+		}
+
+		private void ArenaRelease()
 		{
 			switch (tileSelection)
 			{
