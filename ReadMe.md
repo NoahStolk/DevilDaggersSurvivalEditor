@@ -47,7 +47,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 - Fixes
 	- Fixed issue where the arena was always incorrectly rotated and mirrored.
 	- Fixed issue where restoring the original V3 spawnset would remove the survival file from the application's 'Content' folder and as a result the option no longer works until the file is put back (either by re-downloading the application or by doing it manually).
-	- Fixed issue where the application would not start up after using it.
+	- Fixed issue where the application would not start up again after using it (due to the issue above).
 	- Fixed issue where you could create spawns with a negative delay value.
 - Spawns
 	- Added ability to modify (add, subtract, multiply, divide) delays for selected spawns. This can be used to easily speed up or slow down parts of a spawnset, or a spawnset in its entirety.
