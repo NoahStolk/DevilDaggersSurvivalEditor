@@ -28,9 +28,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			Close();
 
-			BackgroundWorker thread = new BackgroundWorker();
-
 			Spawnset download = null;
+
+			BackgroundWorker thread = new BackgroundWorker();
 			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
 			{
 				download = NetworkHandler.Instance.DownloadSpawnset(fileName);
@@ -67,7 +67,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			SpawnsetsList.Children.Clear();
 
 			BackgroundWorker thread = new BackgroundWorker();
-
 			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
 			{
 				NetworkHandler.Instance.RetrieveSpawnsetList();
@@ -97,12 +96,12 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				if (!authors.Contains(sf.Author))
 				{
 					authors.Add(sf.Author);
-					ListBoxItem i = new ListBoxItem
+					ListBoxItem lbi = new ListBoxItem
 					{
 						Content = CreateAuthorGrid(sf.Author, NetworkHandler.Instance.SpawnsetFiles.Where(s => s.Author == sf.Author).Count()),
 						Tag = sf.Author
 					};
-					AuthorsListBox.Items.Add(i);
+					AuthorsListBox.Items.Add(lbi);
 				}
 
 				SpawnsetsList.Children.Add(CreateSpawnsetGrid(sf, index++));
@@ -152,7 +151,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Label loopSpawnsLabel = new Label { Content = sf.spawnsetData.LoopSpawns == 0 ? "N/A" : sf.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(loopSpawnsLabel, 7);
 
-			Button button = new Button { Content = $"Download" };
+			Button button = new Button { Content = "Download" };
 			Grid.SetColumn(button, 8);
 			button.Click += (sender, e) => Download_Click($"{sf.Name}_{sf.Author}");
 
