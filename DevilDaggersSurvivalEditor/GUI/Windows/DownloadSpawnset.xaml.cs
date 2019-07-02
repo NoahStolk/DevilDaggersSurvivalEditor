@@ -84,14 +84,14 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void PopulateListBoxes()
 		{
-			List<string> authors = new List<string>();
-
 			AuthorsListBox.Items.Add(new ListBoxItem
 			{
 				Content = CreateAuthorGrid(AllAuthors, NetworkHandler.Instance.SpawnsetFiles.Count),
 				Tag = AllAuthors
 			});
 
+			List<string> authors = new List<string>();
+			int index = 0;
 			foreach (SpawnsetFile sf in NetworkHandler.Instance.SpawnsetFiles)
 			{
 				if (!authors.Contains(sf.Author))
@@ -105,7 +105,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					AuthorsListBox.Items.Add(i);
 				}
 
-				SpawnsetsList.Children.Add(CreateSpawnsetGrid(sf));
+				SpawnsetsList.Children.Add(CreateSpawnsetGrid(sf, index++));
 			}
 		}
 
@@ -126,7 +126,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			return grid;
 		}
 
-		private Grid CreateSpawnsetGrid(SpawnsetFile sf)
+		private Grid CreateSpawnsetGrid(SpawnsetFile sf, int index)
 		{
 			Label spawnsetNameLabel = new Label { Content = sf.Name.Replace("_", "__") };
 			Grid.SetColumn(spawnsetNameLabel, 0);
@@ -156,7 +156,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Grid.SetColumn(button, 8);
 			button.Click += (sender, e) => Download_Click($"{sf.Name}_{sf.Author}");
 
-			Grid grid = new Grid { Tag = sf, Background = new SolidColorBrush(Color.FromRgb(255, 255, 255)) };
+			Grid grid = new Grid { Tag = sf, Background = new SolidColorBrush(index % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(192, 192, 192)), Margin = new Thickness(0) };
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });

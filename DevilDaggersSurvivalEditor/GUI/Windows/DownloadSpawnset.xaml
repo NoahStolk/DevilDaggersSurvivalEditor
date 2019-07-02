@@ -81,7 +81,8 @@
 					<Label Grid.Column="6" FontWeight="Bold">Length</Label>
 					<Label Grid.Column="7" FontWeight="Bold">Spawns</Label>
 				</Grid>
-				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="556">
+				<!--TODO: Fix height-->
+				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="560">
 					<StackPanel Name="SpawnsetsList" />
 				</ScrollViewer>
 			</StackPanel>
