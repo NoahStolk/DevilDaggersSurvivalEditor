@@ -72,14 +72,87 @@
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0" FontWeight="Bold">Name</Label>
-					<Label Grid.Column="1" FontWeight="Bold">Author</Label>
-					<Label Grid.Column="2" FontWeight="Bold">Last updated</Label>
-					<Label Grid.Column="3" FontWeight="Bold">Length</Label>
-					<Label Grid.Column="4" FontWeight="Bold">Spawns</Label>
-					<Label Grid.Column="5" FontWeight="Bold">Start</Label>
-					<Label Grid.Column="6" FontWeight="Bold">Length</Label>
-					<Label Grid.Column="7" FontWeight="Bold">Spawns</Label>
+					<!---TODO: Generate programmatically-->
+					<StackPanel Grid.Column="0" Orientation="Horizontal">
+						<Label FontWeight="Bold">Name</Label>
+						<Button Tag="False" Name="SortButtonName" Click="SortButtonName_Click" Width="18" ToolTip="Sort by name">
+							<Image RenderTransformOrigin=".5,.5" Source="/Content/Images/Buttons/SpawnsetSort.png" Stretch="None">
+								<Image.RenderTransform>
+									<ScaleTransform ScaleY="1" />
+								</Image.RenderTransform>
+							</Image>
+						</Button>
+					</StackPanel>
+					<StackPanel Grid.Column="1" Orientation="Horizontal">
+						<Label FontWeight="Bold">Author</Label>
+						<Button Tag="False" Name="SortButtonAuthor" Click="SortButtonAuthor_Click" Width="18" ToolTip="Sort by author">
+							<Image RenderTransformOrigin=".5,.5" Source="/Content/Images/Buttons/SpawnsetSort.png" Stretch="None">
+								<Image.RenderTransform>
+									<ScaleTransform ScaleY="1" />
+								</Image.RenderTransform>
+							</Image>
+						</Button>
+					</StackPanel>
+					<StackPanel Grid.Column="2" Orientation="Horizontal">
+						<Label FontWeight="Bold">Last updated</Label>
+						<Button Tag="False" Name="SortButtonLastUpdated" Click="SortButtonLastUpdated_Click" Width="18" ToolTip="Sort by last updated">
+							<Image RenderTransformOrigin=".5,.5" Source="/Content/Images/Buttons/SpawnsetSort.png" Stretch="None">
+								<Image.RenderTransform>
+									<ScaleTransform ScaleY="-1" />
+								</Image.RenderTransform>
+							</Image>
+						</Button>
+					</StackPanel>
+					<StackPanel Grid.Column="3" Orientation="Horizontal">
+						<Label FontWeight="Bold">Length</Label>
+						<Button Tag="False" Name="SortButtonNonLoopLength" Click="SortButtonNonLoopLength_Click" Width="18" ToolTip="Sort by non-loop length">
+							<Image RenderTransformOrigin=".5,.5" Source="/Content/Images/Buttons/SpawnsetSort.png" Stretch="None">
+								<Image.RenderTransform>
+									<ScaleTransform ScaleY="-1" />
+								</Image.RenderTransform>
+							</Image>
+						</Button>
+					</StackPanel>
+					<StackPanel Grid.Column="4" Orientation="Horizontal">
+						<Label FontWeight="Bold">Spawns</Label>
+						<Button Tag="False" Name="SortButtonNonLoopSpawns" Click="SortButtonNonLoopSpawns_Click" Width="18" ToolTip="Sort by non-loop spawns">
+							<Image RenderTransformOrigin=".5,.5" Source="/Content/Images/Buttons/SpawnsetSort.png" Stretch="None">
+								<Image.RenderTransform>
+									<ScaleTransform ScaleY="-1" />
+								</Image.RenderTransform>
+							</Image>
+						</Button>
+					</StackPanel>
+					<StackPanel Grid.Column="5" Orientation="Horizontal">
+						<Label FontWeight="Bold">Start</Label>
+						<Button Tag="False" Name="SortButtonLoopStart" Click="SortButtonLoopStart_Click" Width="18" ToolTip="Sort by loop start">
+							<Image RenderTransformOrigin=".5,.5" Source="/Content/Images/Buttons/SpawnsetSort.png" Stretch="None">
+								<Image.RenderTransform>
+									<ScaleTransform ScaleY="-1" />
+								</Image.RenderTransform>
+							</Image>
+						</Button>
+					</StackPanel>
+					<StackPanel Grid.Column="6" Orientation="Horizontal">
+						<Label FontWeight="Bold">Length</Label>
+						<Button Tag="False" Name="SortButtonLoopLength" Click="SortButtonLoopLength_Click" Width="18" ToolTip="Sort by loop length">
+							<Image RenderTransformOrigin=".5,.5" Source="/Content/Images/Buttons/SpawnsetSort.png" Stretch="None">
+								<Image.RenderTransform>
+									<ScaleTransform ScaleY="-1" />
+								</Image.RenderTransform>
+							</Image>
+						</Button>
+					</StackPanel>
+					<StackPanel Grid.Column="7" Orientation="Horizontal">
+						<Label FontWeight="Bold">Spawns</Label>
+						<Button Tag="False" Name="SortButtonLoopSpawns" Click="SortButtonLoopSpawns_Click" Width="18" ToolTip="Sort by loop spawns">
+							<Image RenderTransformOrigin=".5,.5" Source="/Content/Images/Buttons/SpawnsetSort.png" Stretch="None">
+								<Image.RenderTransform>
+									<ScaleTransform ScaleY="-1" />
+								</Image.RenderTransform>
+							</Image>
+						</Button>
+					</StackPanel>
 				</Grid>
 				<!--TODO: Fix height-->
 				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="560">

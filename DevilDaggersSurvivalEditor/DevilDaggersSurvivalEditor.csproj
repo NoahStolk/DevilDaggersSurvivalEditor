@@ -348,6 +348,9 @@
     <Resource Include="Content\Images\Icon\Icon32.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Content\Images\Buttons\SpawnsetSort.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Content\Shaders\Selection.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
