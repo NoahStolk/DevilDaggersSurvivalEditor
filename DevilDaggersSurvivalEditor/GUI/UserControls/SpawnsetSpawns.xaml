@@ -23,52 +23,59 @@
 			<Label Grid.Column="5" FontWeight="Bold">Total gems</Label>
 		</Grid>
 		<ListBox Name="ListBoxSpawns" Height="408" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="ListBoxSpawns_Selected" />
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-			<StackPanel Grid.Column="0">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Enemy</Label>
-					<ComboBox Grid.Column="1" Name="ComboBoxEnemy" SelectedIndex="1" />
-				</Grid>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Delay</Label>
-					<TextBox Grid.Column="1" Name="DelayTextBox" TextChanged="TextBoxDelay_TextChanged" />
-				</Grid>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Amount</Label>
-					<TextBox Grid.Column="1" x:Name="AmountTextBox" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxAmount_TextChanged" />
-				</Grid>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="2*" />
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Button Grid.Column="1" Name="AddSpawnButton" Click="AddSpawnButton_Click">Add</Button>
-					<Button Grid.Column="2" Name="InsertSpawnButton" Click="InsertSpawnButton_Click" IsEnabled="False">Insert</Button>
-				</Grid>
-			</StackPanel>
-			<StackPanel Grid.Column="1">
-				<Button Name="EditSpawnButton"  Click="EditSpawnButton_Click" IsEnabled="False">Edit selected spawn(s)</Button>
-				<Button Name="DeleteSpawnButton" Click="DeleteSpawnButton_Click" IsEnabled="False">Delete selected spawn(s)</Button>
-				<Button Name="ModifyDelaysButton" Click="ModifyDelaysButton_Click" IsEnabled="False">Modify delays for selected spawn(s)</Button>
-				<Button Name="SwitchEnemyTypesButton" Click="SwitchEnemyTypesButton_Click" IsEnabled="False">Switch enemy types for selected spawn(s)</Button>
-			</StackPanel>
-		</Grid>
+		<StackPanel>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition Width="2*" />
+				</Grid.ColumnDefinitions>
+				<Label Grid.Column="0">Enemy</Label>
+				<ComboBox Grid.Column="1" Name="ComboBoxEnemy" SelectedIndex="1" />
+				<Button Grid.Column="2" Name="EditSpawnButton" Click="EditSpawnButton_Click" IsEnabled="False">Edit selected spawn(s)</Button>
+			</Grid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition Width="2*" />
+				</Grid.ColumnDefinitions>
+				<Label Grid.Column="0">Delay</Label>
+				<TextBox Grid.Column="1" Name="DelayTextBox" TextChanged="TextBoxDelay_TextChanged" />
+				<Button Grid.Column="2" Name="DeleteSpawnButton" Click="DeleteSpawnButton_Click" IsEnabled="False">Delete selected spawn(s)</Button>
+			</Grid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition Width="2*" />
+				</Grid.ColumnDefinitions>
+				<Label Grid.Column="0">Amount</Label>
+				<TextBox Grid.Column="1" x:Name="AmountTextBox" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxAmount_TextChanged" />
+				<Button Grid.Column="2" Name="CopySpawnButton" Click="CopySpawnButton_Click" IsEnabled="False">Copy selected spawn(s)</Button>
+			</Grid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="2*" />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition Width="4*" />
+				</Grid.ColumnDefinitions>
+				<Button Grid.Column="1" Name="AddSpawnButton" Click="AddSpawnButton_Click">Add</Button>
+				<Button Grid.Column="2" Name="InsertSpawnButton" Click="InsertSpawnButton_Click" IsEnabled="False">Insert</Button>
+				<Button Grid.Column="3" Name="ModifyDelaysButton" Click="ModifyDelaysButton_Click" IsEnabled="False">Modify delays for selected spawn(s)</Button>
+			</Grid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="2*" />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition Width="4*" />
+				</Grid.ColumnDefinitions>
+				<Button Grid.Column="1" Name="PasteAddSpawnButton" Click="PasteAddSpawnButton_Click" IsEnabled="False">Paste</Button>
+				<Button Grid.Column="2" Name="PasteInsertSpawnButton" Click="PasteInsertSpawnButton_Click" IsEnabled="False">Paste (insert)</Button>
+				<Button Grid.Column="3" Name="SwitchEnemyTypesButton" Click="SwitchEnemyTypesButton_Click" IsEnabled="False">Switch enemy types for selected spawn(s)</Button>
+			</Grid>
+		</StackPanel>
 	</StackPanel>
 </UserControl>

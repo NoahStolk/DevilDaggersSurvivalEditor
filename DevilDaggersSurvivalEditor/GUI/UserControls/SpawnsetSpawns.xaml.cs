@@ -26,6 +26,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
+		private readonly List<Spawn> clipboard = new List<Spawn>();
+
 		public SpawnsetSpawns()
 			: base()
 		{
@@ -58,9 +60,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Dispatcher.Invoke(() =>
 			{
-				ListBoxSpawns.Items.Clear();
-
 				Program.App.MainWindow.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
+
+				// TODO: Optimize
+				ListBoxSpawns.Items.Clear();
 
 				double seconds = 0;
 				int totalGems = 0;
@@ -96,27 +99,19 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ListBoxSpawns_Selected(object sender, RoutedEventArgs e)
 		{
-			bool textBoxesValid = IsDelayValid() && IsAmountValid();
-
-			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
-			InsertSpawnButton.IsEnabled = hasSelection && textBoxesValid;
-			EditSpawnButton.IsEnabled = hasSelection && textBoxesValid;
-
-			DeleteSpawnButton.IsEnabled = hasSelection;
-			ModifyDelaysButton.IsEnabled = hasSelection;
-			SwitchEnemyTypesButton.IsEnabled = hasSelection;
+			UpdateButtons();
 		}
 
 		private void TextBoxDelay_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			bool valid = IsDelayValid();
 
+			if (valid)
+				Delay = float.Parse(DelayTextBox.Text);
+
 			DelayTextBox.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 128, 128));
 
 			UpdateButtons();
-
-			if (valid)
-				Delay = float.Parse(DelayTextBox.Text);
 		}
 
 		private void TextBoxAmount_TextChanged(object sender, TextChangedEventArgs e)
@@ -127,42 +122,84 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void UpdateButtons()
 		{
 			bool textBoxesValid = IsDelayValid() && IsAmountValid();
-
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
-			InsertSpawnButton.IsEnabled = hasSelection && textBoxesValid;
-			EditSpawnButton.IsEnabled = hasSelection && textBoxesValid;
+			bool hasClipboard = clipboard.Count != 0;
 
 			AddSpawnButton.IsEnabled = textBoxesValid;
+			InsertSpawnButton.IsEnabled = hasSelection && textBoxesValid;
+
+			EditSpawnButton.IsEnabled = hasSelection && textBoxesValid;
+			DeleteSpawnButton.IsEnabled = hasSelection;
+			CopySpawnButton.IsEnabled = hasSelection;
+			ModifyDelaysButton.IsEnabled = hasSelection;
+			SwitchEnemyTypesButton.IsEnabled = hasSelection;
+
+			PasteAddSpawnButton.IsEnabled = hasClipboard;
+			PasteInsertSpawnButton.IsEnabled = hasClipboard && hasSelection;
 		}
 
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
 			for (int i = 0; i < Amount; i++)
-				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay, true));
+				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
 
 			UpdateSpawnset();
+
+			//ListBoxSpawns.ScrollIntoView(ListBoxSpawns.SelectedItem);
 		}
 
 		private void InsertSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			int index = ListBoxSpawns.SelectedIndex;
-			if (index == -1)
-				return; // Nothing selected
-
 			int originalCount = Program.App.spawnset.Spawns.Count;
-			List<Spawn> shift = new List<Spawn>();
-			for (int i = index; i < originalCount; i++)
+
+			// Retrieve the spawns to shift and remove them from the list
+			List<Spawn> spawnsToShift = new List<Spawn>();
+			for (int i = ListBoxSpawns.SelectedIndex; i < originalCount; i++)
 			{
-				shift.Add(Program.App.spawnset.Spawns[i]);
+				spawnsToShift.Add(Program.App.spawnset.Spawns[i]);
 				Program.App.spawnset.Spawns.Remove(i);
 			}
 
+			// Insert new spawns
 			for (int i = 0; i < Amount; i++)
-				Program.App.spawnset.Spawns.Add(index + i, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay, true));
+				Program.App.spawnset.Spawns.Add(ListBoxSpawns.SelectedIndex + i, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
 
+			// Add the spawns to shift to the end of the spawns list
 			int max = Program.App.spawnset.Spawns.Count;
-			for (int i = 0; i < shift.Count; i++)
-				Program.App.spawnset.Spawns.Add(max + i, shift[i]);
+			for (int i = 0; i < spawnsToShift.Count; i++)
+				Program.App.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
+
+			UpdateSpawnset();
+		}
+
+		private void PasteAddSpawnButton_Click(object sender, RoutedEventArgs e)
+		{
+			for (int i = 0; i < clipboard.Count; i++)
+				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, clipboard[i].Copy());
+
+			UpdateSpawnset();
+		}
+
+		private void PasteInsertSpawnButton_Click(object sender, RoutedEventArgs e)
+		{
+			int originalCount = Program.App.spawnset.Spawns.Count;
+
+			// Retrieve the spawns to shift and remove them from the list
+			List<Spawn> spawnsToShift = new List<Spawn>();
+			for (int i = ListBoxSpawns.SelectedIndex; i < originalCount; i++)
+			{
+				spawnsToShift.Add(Program.App.spawnset.Spawns[i]);
+				Program.App.spawnset.Spawns.Remove(i);
+			}
+
+			// Insert new spawns
+			for (int i = 0; i < clipboard.Count; i++)
+				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, clipboard[i].Copy());
+
+			// Add the spawns to shift to the end of the spawns list
+			int max = Program.App.spawnset.Spawns.Count;
+			for (int i = 0; i < spawnsToShift.Count; i++)
+				Program.App.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
 
 			UpdateSpawnset();
 		}
@@ -187,14 +224,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			SortedDictionary<int, Spawn> newSpawns = new SortedDictionary<int, Spawn>();
 			int j = 0;
 			foreach (KeyValuePair<int, Spawn> kvp in Program.App.spawnset.Spawns)
-			{
-				newSpawns.Add(j, kvp.Value);
-				j++;
-			}
+				newSpawns.Add(j++, kvp.Value);
 
 			Program.App.spawnset.Spawns = newSpawns;
 
 			UpdateSpawnset();
+		}
+
+		private void CopySpawnButton_Click(object sender, RoutedEventArgs e)
+		{
+			clipboard.Clear();
+			foreach (int i in GetSpawnSelectionIndices())
+				clipboard.Add(Program.App.spawnset.Spawns[i]);
+
+			UpdateButtons();
 		}
 
 		private void ModifyDelaysButton_Click(object sender, RoutedEventArgs e)

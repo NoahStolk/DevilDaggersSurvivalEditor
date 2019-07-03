@@ -106,8 +106,6 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 	- The application now uses logging, so whenever it crashes you can open the log to see what went wrong.
 	- The application is now dependent on [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/), which is a .NET Standard class library used to share code between various Devil Daggers related applications.
 
-**Note:** Version 1 is discontinued. If you wish to view the source code for the latest update for version 1 (which is 1.1.5.0, since 1.1.5.1 never got a proper release), the latest commit is from November 4, 2018.
-
 #### 1.1.5.0 - November 4, 2018
 
 - Added functionality to automatically check for new versions of the program.
