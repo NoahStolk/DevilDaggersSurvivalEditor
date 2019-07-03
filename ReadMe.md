@@ -36,6 +36,13 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 ## Changelog
 
+#### 2.x.x.x - Work In Progress & To Be Released
+
+- Added sorting to the online spawnsets list.
+- Added "Select all" and "Deselect all" buttons to the arena editor.
+- Fixed tile elements not updating colors after rounding or randomizing.
+- Minor layout improvements.
+
 #### 2.0.0.0 - June 29, 2019
 
 Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire application.
