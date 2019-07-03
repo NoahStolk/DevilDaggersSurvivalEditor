@@ -25,7 +25,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 ## Running from source
 
 - DevilDaggersSurvivalEditor is dependent on [NetBase](https://bitbucket.org/NoahStolk/netbase/src/master/) and [DevilDaggersCore](https://bitbucket.org/NoahStolk/devildaggerscore/src/master/). Their sources need to be within the same root folder as the source for DevilDaggersSurvivalEditor itself.
-- DevilDaggersSurvivalEditor uses pixel shaders. In order to build pixel shaders you will need Microsoft's DirectX SDK from June 2010, and use the FXC compiler tool. If you do not need to build pixel shaders (the build for the origin one is already included in the source), then you can remove the pre-build event from Build Events in DevilDaggersSurvivalEditor.csproj's properties to prevent it from throwing an error.
+- DevilDaggersSurvivalEditor uses pixel shaders. In order to build pixel shaders you will need Microsoft's DirectX SDK from June 2010, and use the FXC compiler tool. If you do not need to build pixel shaders (the build for the origin one is already included in the source), then you can skip this step and remove the pre-build event from Build Events in DevilDaggersSurvivalEditor.csproj's properties to prevent it from throwing an error.
 
 ## Links
 
