@@ -347,6 +347,8 @@
     <Resource Include="Content\Images\Buttons\ArenaTilesSelectionContinuous.png" />
     <Resource Include="Content\Images\Buttons\ArenaTilesSelectionOnce.png" />
     <Resource Include="Content\Images\Buttons\ArenaTilesSelectionRectangle.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesDeselectAll.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesSelectAll.png" />
     <Content Include="Content\Shaders\Selection.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

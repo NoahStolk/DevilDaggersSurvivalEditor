@@ -45,7 +45,7 @@
 				</Canvas>
 				<Grid>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
+						<ColumnDefinition Width="148" />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Grid Grid.Column="0" HorizontalAlignment="Left" Name="HeightMap" Width="144" Height="112" Margin="2,2,2,2" />
@@ -54,8 +54,18 @@
 							<ColumnDefinition />
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
-						<StackPanel Grid.Column="0" Orientation="Horizontal" Name="TileActionsStackPanel" />
-						<StackPanel Grid.Column="1" Orientation="Horizontal" Name="TileSelectionsStackPanel" />
+						<StackPanel Grid.Column="0">
+							<StackPanel Orientation="Horizontal" Name="TileActionsStackPanel" />
+							<StackPanel Orientation="Horizontal" Name="TileSelectionsStackPanel" />
+						</StackPanel>
+						<StackPanel Grid.Column="1">
+							<Button Name="SelectAll" Click="SelectAll_Click" HorizontalAlignment="Left" ToolTip="Select all">
+								<Image Source="/Content/Images/Buttons/ArenaTilesSelectAll.png" Stretch="None" />
+							</Button>
+							<Button Name="DeselectAll" Click="DeselectAll_Click" HorizontalAlignment="Left" ToolTip="Deselect all">
+								<Image Source="/Content/Images/Buttons/ArenaTilesDeselectAll.png" Stretch="None" />
+							</Button>
+						</StackPanel>
 					</Grid>
 				</Grid>
 			</StackPanel>

@@ -686,5 +686,39 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				UpdateTile(selection);
 			}
 		}
+
+		private void SelectAll_Click(object sender, RoutedEventArgs e)
+		{
+			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+			{
+				for (int j = 0; j < Spawnset.ArenaHeight; j++)
+				{
+					ArenaCoord coord = new ArenaCoord(i, j);
+					if (!selections.Contains(coord))
+						selections.Add(coord);
+				}
+			}
+
+			byte[] pixelBytes = new byte[TileUtils.TileSize * TileUtils.TileSize * Spawnset.ArenaWidth * Spawnset.ArenaHeight];
+			for (int i = 0; i < pixelBytes.Length; i++)
+				pixelBytes[i] = 0xFF;
+			normalMap.WritePixels(new Int32Rect(0, 0, TileUtils.TileSize * Spawnset.ArenaWidth, TileUtils.TileSize * Spawnset.ArenaHeight), pixelBytes, TileUtils.TileSize * Spawnset.ArenaWidth, 0);
+
+			RandomizeHeightsButton.IsEnabled = true;
+			RoundHeightsButton.IsEnabled = true;
+		}
+
+		private void DeselectAll_Click(object sender, RoutedEventArgs e)
+		{
+			selections.Clear();
+
+			byte[] pixelBytes = new byte[TileUtils.TileSize * TileUtils.TileSize * Spawnset.ArenaWidth * Spawnset.ArenaHeight];
+			for (int i = 0; i < pixelBytes.Length; i++)
+				pixelBytes[i] = 0x00;
+			normalMap.WritePixels(new Int32Rect(0, 0, TileUtils.TileSize * Spawnset.ArenaWidth, TileUtils.TileSize * Spawnset.ArenaHeight), pixelBytes, TileUtils.TileSize * Spawnset.ArenaWidth, 0);
+
+			RandomizeHeightsButton.IsEnabled = false;
+			RoundHeightsButton.IsEnabled = false;
+		}
 	}
 }
