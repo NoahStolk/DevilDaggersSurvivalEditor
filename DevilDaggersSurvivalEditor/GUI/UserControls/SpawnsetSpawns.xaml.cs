@@ -145,7 +145,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			UpdateSpawnset();
 
-			//ListBoxSpawns.ScrollIntoView(ListBoxSpawns.SelectedItem);
+			ScrollToEnd();
 		}
 
 		private void InsertSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -178,6 +178,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, clipboard[i].Copy());
 
 			UpdateSpawnset();
+
+			ScrollToEnd();
+		}
+
+		private void ScrollToEnd()
+		{
+			ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(Program.App.spawnset.Spawns.Count - 1));
 		}
 
 		private void PasteInsertSpawnButton_Click(object sender, RoutedEventArgs e)
