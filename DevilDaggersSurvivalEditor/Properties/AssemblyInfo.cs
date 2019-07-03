@@ -6,11 +6,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DevilDaggersSurvivalEditor")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Devil Daggers Survival Editor")]
+[assembly: AssemblyDescription("Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DevilDaggersSurvivalEditor")]
+[assembly: AssemblyProduct("Devil Daggers Survival Editor")]
 [assembly: AssemblyCopyright("Copyright © Noah Stolk 2018 - 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
