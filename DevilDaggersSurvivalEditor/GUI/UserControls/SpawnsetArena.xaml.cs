@@ -136,7 +136,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				RadioButton radioButton = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Arena", "Tiles", $"Action{tileAction}.png"))) },
+					Content = new Image { Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesAction{tileAction}.png"))) },
 					ToolTip = tileAction.ToUserFriendlyString(),
 					IsChecked = tileAction == 0
 				};
@@ -157,7 +157,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				RadioButton radioButton = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Arena", "Tiles", $"Selection{tileSelection}.png"))) },
+					Content = new Image { Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesSelection{tileSelection}.png"))) },
 					ToolTip = tileSelection.ToUserFriendlyString(),
 					IsChecked = tileSelection == 0
 				};
@@ -407,8 +407,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			bool selected = selections.Contains(tile);
 
 			byte[] pixelBytes = new byte[TileUtils.TileSize * TileUtils.TileSize];
-			for (int ii = 0; ii < pixelBytes.Length; ii++)
-				pixelBytes[ii] = selected ? (byte)0xFF : (byte)0x00;
+			for (int i = 0; i < pixelBytes.Length; i++)
+				pixelBytes[i] = selected ? (byte)0xFF : (byte)0x00;
 			normalMap.WritePixels(new Int32Rect(tile.X * TileUtils.TileSize, tile.Y * TileUtils.TileSize, TileUtils.TileSize, TileUtils.TileSize), pixelBytes, TileUtils.TileSize, 0);
 
 			RandomizeHeightsButton.IsEnabled = selections.Count != 0;

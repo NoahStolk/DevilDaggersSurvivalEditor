@@ -114,18 +114,18 @@
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
 						<Button Click="RotateClockwise_Click" ToolTip="Rotate clockwise">
-							<Image Source="/Content/Images/Arena/RotateClockwise.png" Stretch="None" />
+							<Image Source="/Content/Images/Buttons/ArenaRotateClockwise.png" Stretch="None" />
 						</Button>
 						<Button Click="FlipHorizontal_Click" ToolTip="Flip horizontally">
-							<Image Source="/Content/Images/Arena/FlipHorizontally.png" Stretch="None" />
+							<Image Source="/Content/Images/Buttons/ArenaFlipHorizontally.png" Stretch="None" />
 						</Button>
 					</StackPanel>
 					<StackPanel Grid.Column="1">
 						<Button Click="RotateCounterClockwise_Click" ToolTip="Rotate counter-clockwise">
-							<Image Source="/Content/Images/Arena/RotateCounterClockwise.png" Stretch="None" />
+							<Image Source="/Content/Images/Buttons/ArenaRotateCounterClockwise.png" Stretch="None" />
 						</Button>
 						<Button Click="FlipVertical_Click" ToolTip="Flip vertically">
-							<Image Source="/Content/Images/Arena/FlipVertically.png" Stretch="None" />
+							<Image Source="/Content/Images/Buttons/ArenaFlipVertically.png" Stretch="None" />
 						</Button>
 					</StackPanel>
 				</Grid>

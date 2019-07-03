@@ -331,19 +331,6 @@
     <Resource Include="Content\Images\SplashScreens\9.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Content\Images\Arena\Tiles\ActionDeselect.png" />
-    <Resource Include="Content\Images\Arena\Tiles\ActionSelect.png" />
-    <Resource Include="Content\Images\Arena\Tiles\SelectionContinuous.png" />
-    <Resource Include="Content\Images\Arena\Tiles\SelectionOnce.png" />
-    <Resource Include="Content\Images\Arena\Tiles\SelectionRectangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Images\Arena\FlipHorizontally.png" />
-    <Resource Include="Content\Images\Arena\FlipVertically.png" />
-    <Resource Include="Content\Images\Arena\RotateClockwise.png" />
-    <Resource Include="Content\Images\Arena\RotateCounterClockwise.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Content\Images\Icon\Icon24.png" />
     <Resource Include="Content\Images\Icon\Icon32.png" />
   </ItemGroup>
@@ -351,6 +338,15 @@
     <Resource Include="Content\Images\Buttons\SpawnsetSort.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Content\Images\Buttons\ArenaFlipHorizontally.png" />
+    <Resource Include="Content\Images\Buttons\ArenaFlipVertically.png" />
+    <Resource Include="Content\Images\Buttons\ArenaRotateClockwise.png" />
+    <Resource Include="Content\Images\Buttons\ArenaRotateCounterClockwise.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesActionDeselect.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesActionSelect.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesSelectionContinuous.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesSelectionOnce.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesSelectionRectangle.png" />
     <Content Include="Content\Shaders\Selection.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
