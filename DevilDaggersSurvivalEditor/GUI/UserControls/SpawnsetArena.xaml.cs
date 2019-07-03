@@ -672,13 +672,19 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void RoundHeights_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (ArenaCoord selection in selections)
+			{
 				Program.App.spawnset.ArenaTiles[selection.X, selection.Y] = (float)Math.Round(Program.App.spawnset.ArenaTiles[selection.X, selection.Y]);
+				UpdateTile(selection);
+			}
 		}
 
 		private void RandomizeHeights_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (ArenaCoord selection in selections)
+			{
 				Program.App.spawnset.ArenaTiles[selection.X, selection.Y] += RandomUtils.RandomFloat(-0.1f, 0.1f);
+				UpdateTile(selection);
+			}
 		}
 	}
 }
