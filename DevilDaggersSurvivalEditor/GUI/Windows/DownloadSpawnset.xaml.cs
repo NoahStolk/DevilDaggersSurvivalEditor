@@ -119,9 +119,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void PopulateSpawnsets()
 		{
-			int index = 0;
 			foreach (SpawnsetFile sf in NetworkHandler.Instance.SpawnsetFiles)
-				SpawnsetsList.Children.Add(CreateSpawnsetGrid(sf, index++));
+				SpawnsetsList.Children.Add(CreateSpawnsetGrid(sf));
 		}
 
 		private Grid CreateAuthorGrid(string author, int spawnsetCount)
@@ -141,7 +140,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			return grid;
 		}
 
-		private Grid CreateSpawnsetGrid(SpawnsetFile sf, int index)
+		private Grid CreateSpawnsetGrid(SpawnsetFile sf)
 		{
 			Label spawnsetNameLabel = new Label { Content = sf.Name.Replace("_", "__") };
 			Grid.SetColumn(spawnsetNameLabel, 0);
