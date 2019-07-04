@@ -44,7 +44,8 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Fixed tile elements not updating colors after rounding or randomizing.
 - The spawns editor scrollbar now scrolls to the end when adding new spawns.
 - The online spawnsets window now remembers the author and spawnset search values after it is closed.
-- Layout improvements.
+- Embed the default survival file into the executable so the actual file is not needed anymore. This removes the issue where the application crashes whenever the file would not be present.
+- Optimisations and layout improvements.
 
 #### 2.0.0.0 - June 29, 2019
 
