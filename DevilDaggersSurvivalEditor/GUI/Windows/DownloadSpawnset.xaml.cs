@@ -16,7 +16,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 	{
 		private const string AllAuthors = "[All]";
 
-		private string authorFilter;
+		private string authorSelection;
 
 		public DownloadSpawnsetWindow()
 		{
@@ -190,9 +190,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			if (AuthorsListBox.SelectedItem == null)
 				return;
 
-			authorFilter = (AuthorsListBox.SelectedItem as ListBoxItem).Tag.ToString();
+			authorSelection = (AuthorsListBox.SelectedItem as ListBoxItem).Tag.ToString();
 
-			if (authorFilter == AllAuthors)
+			if (authorSelection == AllAuthors)
 			{
 				foreach (Grid grid in SpawnsetsList.Children)
 					grid.Visibility = Visibility.Visible;
@@ -200,7 +200,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			else
 			{
 				foreach (Grid grid in SpawnsetsList.Children)
-					grid.Visibility = (grid.Tag as SpawnsetFile).Author == authorFilter ? Visibility.Visible : Visibility.Collapsed;
+					grid.Visibility = (grid.Tag as SpawnsetFile).Author == authorSelection ? Visibility.Visible : Visibility.Collapsed;
 			}
 		}
 
