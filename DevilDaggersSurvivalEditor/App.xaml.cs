@@ -1,7 +1,6 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
-using DevilDaggersSurvivalEditor.Code.Web.Models;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using log4net;
 using System;
@@ -15,17 +14,20 @@ namespace DevilDaggersSurvivalEditor
 	{
 		public static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+		public Assembly Assembly { get; private set; }
+
 		public new MainWindow MainWindow { get; set; }
 
-		public UserSettings userSettings = new UserSettings();
-		public Spawnset spawnset = new Spawnset
-		{
-			ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
-		};
+		public UserSettings userSettings;
+		public Spawnset spawnset;
 
 		public App()
 		{
+			Assembly = Assembly.GetExecutingAssembly();
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+
+			userSettings = new UserSettings();
+			spawnset = new Spawnset { ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles() };
 		}
 
 		private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

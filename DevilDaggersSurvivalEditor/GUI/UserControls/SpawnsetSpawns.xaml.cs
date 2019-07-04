@@ -20,10 +20,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		public int Amount
 		{
 			get => amount;
-			set
-			{
-				amount = MathUtils.Clamp(value, 1, 100);
-			}
+			set => amount = MathUtils.Clamp(value, 1, 100);
 		}
 
 		private readonly List<Spawn> clipboard = new List<Spawn>();

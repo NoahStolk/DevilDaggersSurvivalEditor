@@ -1,12 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code.Web;
-using DevilDaggersSurvivalEditor.Code.Web.Models;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Reflection;
-using System.Text;
 
 namespace DevilDaggersSurvivalEditor.Code
 {
@@ -20,7 +13,7 @@ namespace DevilDaggersSurvivalEditor.Code
 			get
 			{
 				if (applicationVersionNumber == null)
-					applicationVersionNumber = Version.Parse(FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion);
+					applicationVersionNumber = Version.Parse(FileVersionInfo.GetVersionInfo(Program.App.Assembly.Location).FileVersion);
 				return applicationVersionNumber;
 			}
 		}
