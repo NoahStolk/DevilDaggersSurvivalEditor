@@ -41,6 +41,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Added sorting to the online spawnsets list.
 - Added "Select all" and "Deselect all" buttons to the arena editor.
 - Added copy/paste functionality to the spawns editor.
+- Added timeout for web requests so the application doesn't keep waiting when the website is offline.
 - Fixed tile elements not updating colors after rounding or randomizing.
 - The spawns editor scrollbar now scrolls to the end when adding new spawns.
 - The online spawnsets window now remembers the author and spawnset search values after it is closed.

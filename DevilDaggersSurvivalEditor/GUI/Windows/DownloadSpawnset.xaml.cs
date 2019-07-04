@@ -251,9 +251,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			for (int i = 0; i < SpawnsetsList.Children.Count; i++)
 			{
 				Grid grid = SpawnsetsList.Children.OfType<Grid>().Where(g => g.Tag as SpawnsetFile == sorted[i]).FirstOrDefault();
-				SetBackgroundColor(grid);
 				SpawnsetsList.Children.Remove(grid);
 				SpawnsetsList.Children.Insert(i, grid);
+				SetBackgroundColor(grid);
 			}
 		}
 
