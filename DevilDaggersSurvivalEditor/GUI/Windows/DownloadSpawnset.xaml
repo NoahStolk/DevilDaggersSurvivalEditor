@@ -26,7 +26,7 @@
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Filter</Label>
+					<Label Grid.Column="0">Search</Label>
 					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" Text="{Binding AuthorSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="AuthorSearchTextBox_TextChanged" />
 				</Grid>
 				<Grid HorizontalAlignment="Stretch" Margin="0,20,0,0">
@@ -47,7 +47,7 @@
 						<ColumnDefinition />
 						<ColumnDefinition Width="7*" />
 					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Filter</Label>
+					<Label Grid.Column="0">Search</Label>
 					<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" Text="{Binding SpawnsetSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="SpawnsetSearchTextBox_TextChanged" />
 				</Grid>
 				<Grid HorizontalAlignment="Stretch" Margin="0,0,20,0">
