@@ -28,6 +28,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private readonly List<Spawn> clipboard = new List<Spawn>();
 
+		private int endLoopStartIndex = 0;
+
 		public SpawnsetSpawns()
 			: base()
 		{
@@ -44,17 +46,17 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			double loopLength = 0;
 			int endLoopSpawns = 0;
-			bool loop = true;
 			for (int i = Program.App.spawnset.Spawns.Count - 1; i >= 0; i--)
 			{
-				Program.App.spawnset.Spawns[i].IsInLoop = loop;
-				if (loop)
+				loopLength += Program.App.spawnset.Spawns[i].Delay;
+				if (Program.App.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1])
 				{
-					loopLength += Program.App.spawnset.Spawns[i].Delay;
-					if (Program.App.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1])
-						loop = false;
-					else
-						endLoopSpawns++;
+					endLoopStartIndex = i;
+					break;
+				}
+				else
+				{
+					endLoopSpawns++;
 				}
 			}
 
@@ -72,10 +74,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					seconds += kvp.Value.Delay;
 					totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
 
+					bool isInLoop = kvp.Key >= endLoopStartIndex;
 					ListBoxSpawns.Items.Add(new SpawnControl(kvp.Key, seconds, kvp.Value.SpawnsetEnemy.Name, kvp.Value.Delay, kvp.Value.SpawnsetEnemy.NoFarmGems, totalGems)
 					{
-						FontWeight = kvp.Value.IsInLoop ? FontWeights.Bold : FontWeights.Normal,
-						Background = new SolidColorBrush(kvp.Value.IsInLoop ? Color.FromRgb(255, 255, 128) : Color.FromArgb(0, 0, 0, 0))
+						FontWeight = isInLoop ? FontWeights.Bold : FontWeights.Normal,
+						Background = new SolidColorBrush(isInLoop ? Color.FromRgb(255, 255, 128) : Color.FromArgb(0, 0, 0, 0))
 					});
 				}
 			});
