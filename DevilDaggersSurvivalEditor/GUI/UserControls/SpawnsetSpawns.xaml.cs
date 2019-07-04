@@ -75,7 +75,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					ListBoxSpawns.Items.Add(new SpawnControl(kvp.Key, seconds, kvp.Value.SpawnsetEnemy.Name, kvp.Value.Delay, kvp.Value.SpawnsetEnemy.NoFarmGems, totalGems)
 					{
 						FontWeight = isInLoop ? FontWeights.Bold : FontWeights.Normal,
-						Background = new SolidColorBrush(isInLoop ? Color.FromRgb(255, 255, 128) : Color.FromArgb(0, 0, 0, 0))
+						Background = new SolidColorBrush(isInLoop ? Color.FromArgb(128, 255, 255, 128) : Color.FromArgb(0, 0, 0, 0))
 					});
 				}
 			});
