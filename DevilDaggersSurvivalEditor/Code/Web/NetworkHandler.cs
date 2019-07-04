@@ -12,9 +12,11 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 {
 	public sealed class NetworkHandler
 	{
+		private const int Timeout = 7500;
+
 		public IReadOnlyList<SpawnsetFile> SpawnsetFiles { get; private set; } = new List<SpawnsetFile>();
 
-		public VersionResult VersionResult { get; set; }
+		public VersionResult VersionResult { get; set; } = new VersionResult(null, string.Empty, "Version has not yet been retrieved.");
 
 		private static readonly Lazy<NetworkHandler> lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
 		public static NetworkHandler Instance => lazy.Value;
@@ -30,7 +32,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 
 			try
 			{
-				using (WebClient client = new WebClient())
+				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
 				{
 					using (MemoryStream stream = new MemoryStream(client.DownloadData(url)))
 					{
@@ -67,7 +69,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			try
 			{
 				string downloadString = string.Empty;
-				using (WebClient client = new WebClient())
+				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
 					downloadString = client.DownloadString(UrlUtils.GetSpawnsets);
 				SpawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
 				return true;
@@ -92,7 +94,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			{
 				Spawnset spawnset;
 
-				using (WebClient client = new WebClient())
+				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
 				using (Stream stream = new MemoryStream(client.DownloadData(url)))
 					if (!Spawnset.TryParse(stream, out spawnset))
 						Program.App.ShowError("Error parsing file", "Could not parse file.");
