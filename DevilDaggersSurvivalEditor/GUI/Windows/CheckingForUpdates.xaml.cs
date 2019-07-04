@@ -21,7 +21,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void Thread_DoWork(object sender, DoWorkEventArgs e)
 		{
-			Program.App.VersionResult = NetworkHandler.Instance.RetrieveVersion();
+			NetworkHandler.Instance.VersionResult = NetworkHandler.Instance.RetrieveVersion();
 		}
 
 		private void Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -31,7 +31,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void CancelButton_Click(object sender, RoutedEventArgs e)
 		{
-			Program.App.VersionResult = new VersionResult(null, string.Empty, "Canceled by user");
+			NetworkHandler.Instance.VersionResult = new VersionResult(null, string.Empty, "Canceled by user");
 			Close();
 		}
 	}

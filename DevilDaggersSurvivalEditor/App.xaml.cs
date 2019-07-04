@@ -15,7 +15,6 @@ namespace DevilDaggersSurvivalEditor
 	{
 		public static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		public LoadingWindow LoadingWindow { get; set; }
 		public new MainWindow MainWindow { get; set; }
 
 		public UserSettings userSettings = new UserSettings();
@@ -23,8 +22,6 @@ namespace DevilDaggersSurvivalEditor
 		{
 			ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
 		};
-
-		public VersionResult VersionResult { get; set; }
 
 		public App()
 		{

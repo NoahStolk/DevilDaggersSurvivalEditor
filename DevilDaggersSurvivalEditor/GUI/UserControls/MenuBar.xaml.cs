@@ -19,9 +19,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			InitializeComponent();
 
-			if (Program.App.VersionResult.IsUpToDate.HasValue)
+			if (NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue)
 			{
-				if (!Program.App.VersionResult.IsUpToDate.Value)
+				if (!NetworkHandler.Instance.VersionResult.IsUpToDate.Value)
 				{
 					HelpItem.Header += " (Update available)";
 					HelpItem.FontWeight = FontWeights.Bold;
@@ -36,7 +36,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			else
 			{
 				// TODO: Still necessary?
-				Program.App.ShowMessage("Error checking for updates", Program.App.VersionResult.ErrorMessage);
+				Program.App.ShowMessage("Error checking for updates", NetworkHandler.Instance.VersionResult.ErrorMessage);
 			}
 		}
 
@@ -180,12 +180,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
 			window.ShowDialog();
 
-			if (Program.App.VersionResult.IsUpToDate.HasValue)
+			if (NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue)
 			{
-				if (!Program.App.VersionResult.IsUpToDate.Value)
+				if (!NetworkHandler.Instance.VersionResult.IsUpToDate.Value)
 				{
-					Program.App.ShowMessage("Update recommended", $"Devil Daggers Survival Editor {Program.App.VersionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
-					Process.Start(UrlUtils.ApplicationDownloadUrl(Program.App.VersionResult.VersionNumberOnline));
+					Program.App.ShowMessage("Update recommended", $"Devil Daggers Survival Editor {NetworkHandler.Instance.VersionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
+					Process.Start(UrlUtils.ApplicationDownloadUrl(NetworkHandler.Instance.VersionResult.VersionNumberOnline));
 				}
 				else
 				{
@@ -194,7 +194,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 			else
 			{
-				Program.App.ShowMessage("Error checking for updates", Program.App.VersionResult.ErrorMessage);
+				Program.App.ShowMessage("Error checking for updates", NetworkHandler.Instance.VersionResult.ErrorMessage);
 			}
 		}
 

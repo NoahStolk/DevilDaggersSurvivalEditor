@@ -22,8 +22,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		public LoadingWindow()
 		{
-			Program.App.LoadingWindow = this;
-
 			InitializeComponent();
 
 			Splash.Source = new BitmapImage(MiscUtils.MakeUri(Path.Combine("Content", "Images", "SplashScreens", $"{RandomUtils.RandomInt(37)}.png")));
@@ -34,7 +32,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				Program.App.VersionResult = NetworkHandler.Instance.RetrieveVersion();
+				NetworkHandler.Instance.VersionResult = NetworkHandler.Instance.RetrieveVersion();
 			};
 			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{
@@ -42,8 +40,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				{
 					TaskResultsStackPanel.Children.Add(new Label
 					{
-						Content = Program.App.VersionResult.IsUpToDate.HasValue ? Program.App.VersionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
-						Foreground = new SolidColorBrush(Program.App.VersionResult.IsUpToDate.HasValue ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
+						Content = NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue ? NetworkHandler.Instance.VersionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
+						Foreground = new SolidColorBrush(NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});

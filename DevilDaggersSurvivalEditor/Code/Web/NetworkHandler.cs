@@ -1,6 +1,5 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersCore.Spawnset.Web;
-using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.Web.Models;
 using Newtonsoft.Json;
 using System;
@@ -14,6 +13,8 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 	public sealed class NetworkHandler
 	{
 		public IReadOnlyList<SpawnsetFile> SpawnsetFiles { get; private set; } = new List<SpawnsetFile>();
+
+		public VersionResult VersionResult { get; set; }
 
 		private static readonly Lazy<NetworkHandler> lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
 		public static NetworkHandler Instance => lazy.Value;
