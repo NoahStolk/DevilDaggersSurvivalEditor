@@ -171,7 +171,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Grid.SetColumn(button, 8);
 			button.Click += (sender, e) => Download_Click($"{sf.Name}_{sf.Author}");
 
-			Grid grid = new Grid { Tag = sf, Background = new SolidColorBrush(index % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(192, 192, 192)) };
+			Grid grid = new Grid { Tag = sf };
+			SetBackgroundColor(grid);
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
@@ -204,12 +205,18 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			if (authorSelection == AllAuthors)
 			{
 				foreach (Grid grid in SpawnsetsList.Children)
+				{
 					grid.Visibility = Visibility.Visible;
+					SetBackgroundColor(grid);
+				}
 			}
 			else
 			{
 				foreach (Grid grid in SpawnsetsList.Children)
+				{
 					grid.Visibility = (grid.Tag as SpawnsetFile).Author == authorSelection ? Visibility.Visible : Visibility.Collapsed;
+					SetBackgroundColor(grid);
+				}
 			}
 		}
 
@@ -232,7 +239,10 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void FilterSpawnsets()
 		{
 			foreach (Grid grid in SpawnsetsList.Children)
+			{
 				grid.Visibility = (grid.Tag as SpawnsetFile).Name.ToLower().Contains(OnlineSpawnsetsHandler.Instance.SpawnsetSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+				SetBackgroundColor(grid);
+			}
 		}
 
 		private void SortSpawnsets(Func<SpawnsetFile, object> sorting, bool ascending = true)
@@ -242,10 +252,16 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			for (int i = 0; i < SpawnsetsList.Children.Count; i++)
 			{
 				Grid grid = SpawnsetsList.Children.OfType<Grid>().Where(g => g.Tag as SpawnsetFile == sorted[i]).FirstOrDefault();
-				grid.Background = new SolidColorBrush(i % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(192, 192, 192));
+				SetBackgroundColor(grid);
 				SpawnsetsList.Children.Remove(grid);
 				SpawnsetsList.Children.Insert(i, grid);
 			}
+		}
+
+		private void SetBackgroundColor(Grid grid)
+		{
+			List<Grid> items = SpawnsetsList.Children.OfType<Grid>().Where(c => c.Visibility == Visibility.Visible).ToList();
+			grid.Background = new SolidColorBrush(items.IndexOf(grid) % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(192, 192, 192));
 		}
 
 		private static bool GetSortingButtonTag(object sender)
