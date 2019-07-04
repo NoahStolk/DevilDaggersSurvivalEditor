@@ -13,8 +13,13 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			float[,] tiles = CreateArenaArray();
 
 			byte[] defaultArenaBuffer = new byte[Spawnset.ArenaBufferSize];
-			using (FileStream fs = new FileStream("Content/survival", FileMode.Open, FileAccess.Read) { Position = Spawnset.SettingsBufferSize })
-				fs.Read(defaultArenaBuffer, 0, Spawnset.ArenaBufferSize);
+
+			using (Stream stream = Program.App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival"))
+			using (BinaryReader reader = new BinaryReader(stream))
+			{
+				reader.BaseStream.Seek(Spawnset.SettingsBufferSize, SeekOrigin.Begin);
+				reader.Read(defaultArenaBuffer, 0, Spawnset.ArenaBufferSize);
+			}
 
 			for (int i = 0; i < defaultArenaBuffer.Length; i += 4)
 			{
