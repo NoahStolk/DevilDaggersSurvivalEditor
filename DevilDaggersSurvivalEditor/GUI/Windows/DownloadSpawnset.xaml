@@ -14,7 +14,7 @@
 			</Grid.ColumnDefinitions>
 			<Button Name="ReloadButton" Click="ReloadButton_Click">Reload all</Button>
 		</Grid>
-		<Grid>
+		<Grid x:Name="Data">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
 				<ColumnDefinition Width="4*" />
@@ -27,7 +27,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Filter</Label>
-					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="AuthorSearchTextBox_TextChanged" />
+					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" Text="{Binding AuthorSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="AuthorSearchTextBox_TextChanged" />
 				</Grid>
 				<Grid HorizontalAlignment="Stretch" Margin="0,20,0,0">
 					<Grid.ColumnDefinitions>
@@ -48,7 +48,7 @@
 						<ColumnDefinition Width="7*" />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Filter</Label>
-					<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="SpawnsetSearchTextBox_TextChanged" />
+					<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" Text="{Binding SpawnsetSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="SpawnsetSearchTextBox_TextChanged" />
 				</Grid>
 				<Grid HorizontalAlignment="Stretch" Margin="0,0,20,0">
 					<Grid.ColumnDefinitions>

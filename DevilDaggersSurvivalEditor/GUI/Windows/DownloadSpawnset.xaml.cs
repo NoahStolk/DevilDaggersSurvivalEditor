@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersCore.Spawnset.Web;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.Web;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
+			Data.DataContext = OnlineSpawnsetsHandler.Instance;
+
 			PopulateAuthors();
 			PopulateSpawnsets();
+
+			FilterAuthors();
+			FilterSpawnsets();
 		}
 
 		private void Download_Click(string fileName)
@@ -62,6 +68,12 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void ReloadButton_Click(object sender, RoutedEventArgs e)
 		{
+			AuthorsListBox.Items.Clear();
+			SpawnsetsList.Children.Clear();
+
+			AuthorSearchTextBox.Text = string.Empty;
+			SpawnsetSearchTextBox.Text = string.Empty;
+
 			ReloadButton.IsEnabled = false;
 			ReloadButton.Content = "Loading...";
 
@@ -84,7 +96,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void PopulateAuthors()
 		{
-			AuthorsListBox.Items.Clear();
 			AuthorsListBox.Items.Add(new ListBoxItem
 			{
 				Content = CreateAuthorGrid(AllAuthors, NetworkHandler.Instance.SpawnsetFiles.Count),
@@ -108,8 +119,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void PopulateSpawnsets()
 		{
-			SpawnsetsList.Children.Clear();
-
 			int index = 0;
 			foreach (SpawnsetFile sf in NetworkHandler.Instance.SpawnsetFiles)
 				SpawnsetsList.Children.Add(CreateSpawnsetGrid(sf, index++));
@@ -206,14 +215,24 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void AuthorSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			foreach (ListBoxItem lbi in AuthorsListBox.Items)
-				lbi.Visibility = lbi.Tag.ToString().ToLower().Contains(AuthorSearchTextBox.Text.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+			FilterAuthors();
 		}
 
 		private void SpawnsetSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
+			FilterSpawnsets();
+		}
+
+		private void FilterAuthors()
+		{
+			foreach (ListBoxItem lbi in AuthorsListBox.Items)
+				lbi.Visibility = lbi.Tag.ToString().ToLower().Contains(OnlineSpawnsetsHandler.Instance.AuthorSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		private void FilterSpawnsets()
+		{
 			foreach (Grid grid in SpawnsetsList.Children)
-				grid.Visibility = (grid.Tag as SpawnsetFile).Name.ToLower().Contains(SpawnsetSearchTextBox.Text.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+				grid.Visibility = (grid.Tag as SpawnsetFile).Name.ToLower().Contains(OnlineSpawnsetsHandler.Instance.SpawnsetSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void SortSpawnsets(Func<SpawnsetFile, object> sorting, bool ascending = true)

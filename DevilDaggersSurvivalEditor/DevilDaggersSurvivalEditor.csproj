@@ -99,6 +99,7 @@
     <Compile Include="Code\Arena\TileAction.cs" />
     <Compile Include="Code\ExtensionMethods.cs" />
     <Compile Include="Code\Shaders\SelectionEffect.cs" />
+    <Compile Include="Code\Spawnsets\OnlineSpawnsetsHandler.cs" />
     <Compile Include="Code\Spawns\DelayModificationFunction.cs" />
     <Compile Include="Code\FileUtils.cs" />
     <Compile Include="Code\MiscUtils.cs" />
