@@ -32,7 +32,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				NetworkHandler.Instance.VersionResult = NetworkHandler.Instance.RetrieveVersion();
+				NetworkHandler.Instance.RetrieveVersion();
 			};
 			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{

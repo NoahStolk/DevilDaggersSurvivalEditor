@@ -23,11 +23,9 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 		{
 		}
 
-		public VersionResult RetrieveVersion()
+		public void RetrieveVersion()
 		{
 			string url = UrlUtils.GetToolVersions;
-
-			string versionOnline = string.Empty;
 			string errorMessage = string.Empty;
 
 			try
@@ -44,7 +42,8 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 						{
 							if ((string)tool.Name == ApplicationUtils.ApplicationName)
 							{
-								versionOnline = (string)tool.VersionNumber;
+								string versionOnline = (string)tool.VersionNumber;
+								VersionResult = new VersionResult(!string.IsNullOrEmpty(errorMessage) ? null : (bool?)(Version.Parse(versionOnline) <= ApplicationUtils.ApplicationVersionNumber), versionOnline, errorMessage);
 								break;
 							}
 						}
@@ -61,8 +60,6 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 				errorMessage = $"An unexpected error occured while trying to retrieve the latest version number from '{url}'.";
 				Program.App.ShowError("Error", errorMessage, ex);
 			}
-
-			return new VersionResult(!string.IsNullOrEmpty(errorMessage) ? null : (bool?)(Version.Parse(versionOnline) <= ApplicationUtils.ApplicationVersionNumber), versionOnline, errorMessage);
 		}
 
 		public bool RetrieveSpawnsetList()
