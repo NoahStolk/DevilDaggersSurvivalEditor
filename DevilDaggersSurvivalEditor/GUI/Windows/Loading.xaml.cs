@@ -28,7 +28,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber}";
 
-			// TODO: Add timeout
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
@@ -41,7 +40,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue ? NetworkHandler.Instance.VersionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
-						Foreground = new SolidColorBrush(NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
+						Foreground = new SolidColorBrush(NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue ? NetworkHandler.Instance.VersionResult.IsUpToDate.Value ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 96, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});
@@ -101,7 +100,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				ThreadComplete();
 			};
 
-			// TODO: Add timeout
 			bool retrieveSpawnsetsSuccess = false;
 			BackgroundWorker retrieveSpawnsetsThread = new BackgroundWorker();
 			retrieveSpawnsetsThread.DoWork += (object sender, DoWorkEventArgs e) =>

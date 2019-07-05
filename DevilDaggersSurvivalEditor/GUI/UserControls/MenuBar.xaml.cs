@@ -185,8 +185,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (!NetworkHandler.Instance.VersionResult.IsUpToDate.Value)
 				{
-					Program.App.ShowMessage("Update recommended", $"Devil Daggers Survival Editor {NetworkHandler.Instance.VersionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.");
-					Process.Start(UrlUtils.ApplicationDownloadUrl(NetworkHandler.Instance.VersionResult.VersionNumberOnline));
+					UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
+					updateRecommendedWindow.ShowDialog();
 				}
 				else
 				{

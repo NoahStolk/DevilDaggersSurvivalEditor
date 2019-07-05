@@ -19,6 +19,7 @@
 	<Style TargetType="{x:Type windows:SetTileHeightWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:SettingsWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:SwitchEnemyTypeWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:UpdateRecommendedWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 
 	<Style TargetType="StackPanel" x:Key="PaddingStackPanel">
 		<Style.Setters>

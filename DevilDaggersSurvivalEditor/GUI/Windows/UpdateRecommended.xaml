@@ -1,0 +1,12 @@
+﻿<Window x:Class="DevilDaggersSurvivalEditor.GUI.Windows.UpdateRecommendedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
+        Title="Update recommended" Height="128" Width="512" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<StackPanel Style="{StaticResource PaddingStackPanel}">
+		<Label HorizontalAlignment="Center" Name="Text" />
+		<Button Name="DownloadButton" Click="DownloadButton_Click" Width="128" Margin="0,10,0,0">Download</Button>
+	</StackPanel>
+</Window>
