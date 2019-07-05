@@ -19,18 +19,25 @@ namespace DevilDaggersSurvivalEditor.Code
 			}
 		}
 
-		public static void CopyFile(string sourcePath, string destinationPath)
+		public static void RestoreSurvivalFile()
 		{
 			try
 			{
-				if (File.Exists(destinationPath))
-					File.Delete(destinationPath);
-				File.Copy(sourcePath, destinationPath);
-				Program.App.ShowMessage("Success", $"Successfully wrote file to {destinationPath}.");
+				using (Stream stream = Program.App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival"))
+				{
+					byte[] data = new byte[stream.Length];
+					using (BinaryReader reader = new BinaryReader(stream))
+						reader.Read(data, 0, data.Length);
+
+					using (FileStream fileStream = new FileStream(Program.App.userSettings.SurvivalFileLocation, FileMode.OpenOrCreate))
+						fileStream.Write(data, 0, data.Length);
+				}
+
+				Program.App.ShowMessage("Success", $"Successfully wrote file to {Program.App.userSettings.SurvivalFileLocation}.");
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {destinationPath}.", ex);
+				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {Program.App.userSettings.SurvivalFileLocation}.", ex);
 			}
 		}
 	}
