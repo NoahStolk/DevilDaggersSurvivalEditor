@@ -23,7 +23,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			Data.DataContext = OnlineSpawnsetsHandler.Instance;
+			Data.DataContext = SpawnsetListStateHandler.Instance;
 
 			PopulateAuthors();
 			PopulateSpawnsets();
@@ -232,14 +232,14 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void FilterAuthors()
 		{
 			foreach (ListBoxItem lbi in AuthorsListBox.Items)
-				lbi.Visibility = lbi.Tag.ToString().ToLower().Contains(OnlineSpawnsetsHandler.Instance.AuthorSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+				lbi.Visibility = lbi.Tag.ToString().ToLower().Contains(SpawnsetListStateHandler.Instance.AuthorSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void FilterSpawnsets()
 		{
 			foreach (Grid grid in SpawnsetsList.Children)
 			{
-				grid.Visibility = (grid.Tag as SpawnsetFile).Name.ToLower().Contains(OnlineSpawnsetsHandler.Instance.SpawnsetSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+				grid.Visibility = (grid.Tag as SpawnsetFile).Name.ToLower().Contains(SpawnsetListStateHandler.Instance.SpawnsetSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
 				SetBackgroundColor(grid);
 			}
 		}
