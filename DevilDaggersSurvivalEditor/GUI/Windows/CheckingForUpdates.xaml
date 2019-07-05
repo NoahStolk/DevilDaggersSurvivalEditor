@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Checking for updates" Height="200" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel Style="{StaticResource PaddingStackPanel}">
-		<TextBlock>Loading...</TextBlock>
+		<TextBlock HorizontalAlignment="Center">Loading...</TextBlock>
 		<Button Style="{StaticResource OKButton}" Name="CancelButton" Click="CancelButton_Click">Cancel</Button>
 	</StackPanel>
 </Window>
