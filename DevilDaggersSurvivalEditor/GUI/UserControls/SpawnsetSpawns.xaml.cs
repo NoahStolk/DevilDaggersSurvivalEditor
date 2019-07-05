@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnsetSpawns : UserControl
+	public partial class SpawnsetSpawnsControl : UserControl
 	{
 		public float Delay { get; set; } = 3;
 
@@ -27,7 +27,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private int endLoopStartIndex = 0;
 
-		public SpawnsetSpawns()
+		public SpawnsetSpawnsControl()
 			: base()
 		{
 			InitializeComponent();
@@ -89,7 +89,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private bool IsDelayValid()
 		{
-			return float.TryParse(DelayTextBox.Text, out float parsed) && parsed >= 0 && parsed < 1000000;
+			return float.TryParse(DelayTextBox.Text, out float parsed) && parsed >= 0 && parsed < 10000;
 		}
 
 		private bool IsAmountValid()

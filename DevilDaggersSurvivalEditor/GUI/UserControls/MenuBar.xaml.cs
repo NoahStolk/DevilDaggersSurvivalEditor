@@ -6,7 +6,6 @@ using DevilDaggersSurvivalEditor.Code.Web;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -14,9 +13,9 @@ using System.Windows.Controls;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class MenuBar : UserControl
+	public partial class MenuBarControl : UserControl
 	{
-		public MenuBar()
+		public MenuBarControl()
 		{
 			InitializeComponent();
 

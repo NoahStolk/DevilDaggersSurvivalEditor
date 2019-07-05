@@ -12,7 +12,7 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 		<DockPanel Grid.Row="0">
-			<usercontrols:MenuBar/>
+			<usercontrols:MenuBarControl />
 		</DockPanel>
 		<Grid Grid.Row="1" MaxHeight="768" Width="1366" Background="#eee">
 			<Grid.RowDefinitions>
@@ -26,11 +26,11 @@
 				</Grid.ColumnDefinitions>
 				<StackPanel Grid.Column="0">
 					<Label Style="{StaticResource TitleLabel}">Spawns</Label>
-					<usercontrols:SpawnsetSpawns x:Name="SpawnsetSpawns" />
+					<usercontrols:SpawnsetSpawnsControl x:Name="SpawnsetSpawns" />
 				</StackPanel>
 				<StackPanel Grid.Column="1">
 					<Label Style="{StaticResource TitleLabel}">Arena</Label>
-					<usercontrols:SpawnsetArena x:Name="SpawnsetArena" />
+					<usercontrols:SpawnsetArenaControl x:Name="SpawnsetArena" />
 				</StackPanel>
 			</Grid>
 			<StackPanel Grid.Row="1" Background="DarkGray">
