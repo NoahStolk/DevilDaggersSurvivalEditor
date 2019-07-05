@@ -14,6 +14,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class SpawnsetSpawnsControl : UserControl
 	{
+		private const int MaxSpawns = 10000;
+
 		public float Delay { get; set; } = 3;
 
 		private int amount = 1;
@@ -138,10 +140,30 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			PasteInsertSpawnButton.IsEnabled = hasClipboard && hasSelection;
 		}
 
+		private static bool HasTooManySpawns()
+		{
+			if (Program.App.spawnset.Spawns.Count >= MaxSpawns)
+			{
+				Program.App.ShowMessage("Too many spawns", $"You can have {MaxSpawns} spawns at most.");
+				return true;
+			}
+
+			return false;
+		}
+
+		private void ScrollToEnd()
+		{
+			ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(Program.App.spawnset.Spawns.Count - 1));
+		}
+
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
 			for (int i = 0; i < Amount; i++)
+			{
+				if (HasTooManySpawns())
+					break;
 				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
+			}
 
 			UpdateSpawnset();
 
@@ -162,12 +184,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			// Insert new spawns
 			for (int i = 0; i < Amount; i++)
+			{
+				if (HasTooManySpawns())
+					break;
 				Program.App.spawnset.Spawns.Add(ListBoxSpawns.SelectedIndex + i, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
+			}
 
 			// Add the spawns to shift to the end of the spawns list
 			int max = Program.App.spawnset.Spawns.Count;
 			for (int i = 0; i < spawnsToShift.Count; i++)
+			{
+				if (HasTooManySpawns())
+					break;
 				Program.App.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
+			}
 
 			UpdateSpawnset();
 		}
@@ -175,16 +205,15 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void PasteAddSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
 			for (int i = 0; i < clipboard.Count; i++)
+			{
+				if (HasTooManySpawns())
+					break;
 				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, clipboard[i].Copy());
+			}
 
 			UpdateSpawnset();
 
 			ScrollToEnd();
-		}
-
-		private void ScrollToEnd()
-		{
-			ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(Program.App.spawnset.Spawns.Count - 1));
 		}
 
 		private void PasteInsertSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -201,12 +230,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			// Insert new spawns
 			for (int i = 0; i < clipboard.Count; i++)
+			{
+				if (HasTooManySpawns())
+					break;
 				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, clipboard[i].Copy());
+			}
 
 			// Add the spawns to shift to the end of the spawns list
 			int max = Program.App.spawnset.Spawns.Count;
 			for (int i = 0; i < spawnsToShift.Count; i++)
+			{
+				if (HasTooManySpawns())
+					break;
 				Program.App.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
+			}
 
 			UpdateSpawnset();
 		}
