@@ -1,4 +1,4 @@
-# Devil Daggers Survival Editor 2.1.0.0 ([Download](https://devildaggers.info/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor2.1.0.0.zip))
+# Devil Daggers Survival Editor 2.1.1.0 ([Download](https://devildaggers.info/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor2.1.1.0.zip))
 
 Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers. It is a .NET WPF application built using Visual Studio 2019.
 
@@ -35,6 +35,10 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - [Discord server](https://discord.gg/NF32j8S)
 
 ## Changelog
+
+#### 2.1.1.0 - July 5, 2019
+
+- Hotfix for restoring the default survival file.
 
 #### 2.1.0.0 - July 5, 2019
 
