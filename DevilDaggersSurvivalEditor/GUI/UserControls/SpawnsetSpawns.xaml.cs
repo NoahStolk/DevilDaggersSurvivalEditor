@@ -48,7 +48,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			for (int i = Program.App.spawnset.Spawns.Count - 1; i >= 0; i--)
 			{
 				loopLength += Program.App.spawnset.Spawns[i].Delay;
-				if (Program.App.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1])
+				if (Program.App.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1] || i == 0)
 				{
 					endLoopStartIndex = i;
 					break;
