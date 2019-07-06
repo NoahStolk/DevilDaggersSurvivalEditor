@@ -100,6 +100,7 @@
     <Compile Include="Code\ExtensionMethods.cs" />
     <Compile Include="Code\Shaders\SelectionEffect.cs" />
     <Compile Include="Code\Spawnsets\SpawnsetListStateHandler.cs" />
+    <Compile Include="Code\Spawnsets\SpawnsetSorting.cs" />
     <Compile Include="Code\Spawns\DelayModificationFunction.cs" />
     <Compile Include="Code\FileUtils.cs" />
     <Compile Include="Code\MiscUtils.cs" />
@@ -356,6 +357,7 @@
     <Resource Include="Content\Images\Buttons\ArenaTilesSelectionRectangle.png" />
     <Resource Include="Content\Images\Buttons\ArenaTilesDeselectAll.png" />
     <Resource Include="Content\Images\Buttons\ArenaTilesSelectAll.png" />
+    <Resource Include="Content\Images\Buttons\SpawnsetSortActive.png" />
     <Content Include="Content\Shaders\Selection.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

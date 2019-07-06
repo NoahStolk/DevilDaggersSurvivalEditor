@@ -3,13 +3,13 @@ using DevilDaggersCore.Spawnset.Web;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.Web;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
@@ -17,16 +17,58 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 	{
 		private const string AllAuthors = "[All]";
 
+		private readonly List<Image> sortingImages = new List<Image>();
+
 		private string authorSelection;
 
 		public DownloadSpawnsetWindow()
 		{
 			InitializeComponent();
 
+			int index = 0;
+			foreach (SpawnsetSorting sorting in SpawnsetListStateHandler.Instance.Sortings)
+			{
+				Label label = new Label
+				{
+					FontWeight = FontWeights.Bold,
+					Content = sorting.Name
+				};
+
+				Image image = new Image
+				{
+					Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", sorting == SpawnsetListStateHandler.Instance.ActiveSorting ? "SpawnsetSortActive.png" : "SpawnsetSort.png"))),
+					Stretch = Stretch.None,
+					RenderTransformOrigin = new Point(0.5, 0.5),
+					RenderTransform = new ScaleTransform
+					{
+						ScaleY = sorting.IsAscendingDefault ? sorting.Ascending ? 1 : -1 : sorting.Ascending ? -1 : 1
+					}
+				};
+				sortingImages.Add(image);
+
+				Button button = new Button
+				{
+					ToolTip = $"Sort by {sorting.Name}",
+					Width = 18,
+					Content = image,
+					Tag = sorting
+				};
+				button.Click += SortButton_Click;
+
+				StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+				stackPanel.Children.Add(label);
+				stackPanel.Children.Add(button);
+				Grid.SetColumn(stackPanel, index++);
+
+				SpawnsetHeaders.Children.Add(stackPanel);
+			}
+
 			Data.DataContext = SpawnsetListStateHandler.Instance;
 
 			PopulateAuthors();
 			PopulateSpawnsets();
+
+			SortSpawnsets(SpawnsetListStateHandler.Instance.ActiveSorting);
 
 			FilterAuthors();
 			FilterSpawnsets();
@@ -87,6 +129,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				PopulateAuthors();
 				PopulateSpawnsets();
 
+				SortSpawnsets(SpawnsetListStateHandler.Instance.ActiveSorting);
+
 				ReloadButton.IsEnabled = true;
 				ReloadButton.Content = "Reload";
 			};
@@ -120,7 +164,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void PopulateSpawnsets()
 		{
 			foreach (SpawnsetFile sf in NetworkHandler.Instance.SpawnsetFiles)
-				SpawnsetsList.Children.Add(CreateSpawnsetGrid(sf));
+			{
+				Grid grid = CreateSpawnsetGrid(sf);
+				SpawnsetsList.Children.Add(grid);
+				SetBackgroundColor(grid);
+			}
 		}
 
 		private Grid CreateAuthorGrid(string author, int spawnsetCount)
@@ -171,7 +219,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			button.Click += (sender, e) => Download_Click($"{sf.Name}_{sf.Author}");
 
 			Grid grid = new Grid { Tag = sf };
-			SetBackgroundColor(grid);
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
@@ -244,9 +291,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			}
 		}
 
-		private void SortSpawnsets(Func<SpawnsetFile, object> sorting, bool ascending = true)
+		private void SortSpawnsets(SpawnsetSorting sorting)
 		{
-			List<SpawnsetFile> sorted = ascending ? NetworkHandler.Instance.SpawnsetFiles.OrderBy(sorting).ToList() : NetworkHandler.Instance.SpawnsetFiles.OrderByDescending(sorting).ToList();
+			List<SpawnsetFile> sorted = sorting.Ascending ? NetworkHandler.Instance.SpawnsetFiles.OrderBy(sorting.SortingFunction).ToList() : NetworkHandler.Instance.SpawnsetFiles.OrderByDescending(sorting.SortingFunction).ToList();
 
 			for (int i = 0; i < SpawnsetsList.Children.Count; i++)
 			{
@@ -263,59 +310,32 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			grid.Background = new SolidColorBrush(items.IndexOf(grid) % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(192, 192, 192));
 		}
 
-		private static bool GetSortingButtonTag(object sender)
+		private void SortButton_Click(object sender, RoutedEventArgs e)
 		{
 			Button button = sender as Button;
-			bool ascending = bool.Parse(button.Tag.ToString());
-			button.Tag = !ascending;
 
-			Image image = button.Content as Image;
-			image.RenderTransform = new ScaleTransform
+			foreach (Image image in sortingImages)
 			{
-				ScaleY = -(image.RenderTransform as ScaleTransform).ScaleY
-			};
+				if (image == button.Content as Image)
+				{
+					image.Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));
+					image.RenderTransform = new ScaleTransform
+					{
+						ScaleY = -(image.RenderTransform as ScaleTransform).ScaleY
+					};
+				}
+				else
+				{
+					image.Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSort.png")));
+				}
+			}
 
-			return ascending;
-		}
+			SpawnsetSorting sorting = button.Tag as SpawnsetSorting;
 
-		private void SortButtonName_Click(object sender, RoutedEventArgs e)
-		{
-			SortSpawnsets(s => s.Name, GetSortingButtonTag(sender));
-		}
+			SpawnsetListStateHandler.Instance.ActiveSorting = sorting;
+			SpawnsetListStateHandler.Instance.ActiveSorting.Ascending = !SpawnsetListStateHandler.Instance.ActiveSorting.Ascending;
 
-		private void SortButtonAuthor_Click(object sender, RoutedEventArgs e)
-		{
-			SortSpawnsets(s => s.Author, GetSortingButtonTag(sender));
-		}
-
-		private void SortButtonLastUpdated_Click(object sender, RoutedEventArgs e)
-		{
-			SortSpawnsets(s => s.settings.LastUpdated, GetSortingButtonTag(sender));
-		}
-
-		private void SortButtonNonLoopLength_Click(object sender, RoutedEventArgs e)
-		{
-			SortSpawnsets(s => s.spawnsetData.NonLoopLength, GetSortingButtonTag(sender));
-		}
-
-		private void SortButtonNonLoopSpawns_Click(object sender, RoutedEventArgs e)
-		{
-			SortSpawnsets(s => s.spawnsetData.NonLoopSpawns, GetSortingButtonTag(sender));
-		}
-
-		private void SortButtonLoopStart_Click(object sender, RoutedEventArgs e)
-		{
-			SortSpawnsets(s => s.spawnsetData.LoopStart, GetSortingButtonTag(sender));
-		}
-
-		private void SortButtonLoopLength_Click(object sender, RoutedEventArgs e)
-		{
-			SortSpawnsets(s => s.spawnsetData.LoopLength, GetSortingButtonTag(sender));
-		}
-
-		private void SortButtonLoopSpawns_Click(object sender, RoutedEventArgs e)
-		{
-			SortSpawnsets(s => s.spawnsetData.LoopSpawns, GetSortingButtonTag(sender));
+			SortSpawnsets(sorting);
 		}
 	}
 }
