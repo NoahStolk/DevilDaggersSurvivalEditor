@@ -1,5 +1,4 @@
-﻿using DevilDaggersCore.Spawnset.Web;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace DevilDaggersSurvivalEditor.Code.Spawnsets
@@ -27,7 +26,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 
 		private SpawnsetListStateHandler()
 		{
-			ActiveSorting = Sortings[0];
+			ActiveSorting = Sortings[2];
 		}
 	}
 }
