@@ -22,11 +22,14 @@ bool isEqualTo(float4 left, float4 right)
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
     float4 diffuseColor = tex2D(implicitInputSampler, uv);
-    float distanceSquared = pow(uv.x - mousePosition.x, 2) + pow(uv.y - mousePosition.y, 2);
-    if (!isEqualTo(diffuseColor, float4(0, 0, 0, 1)) && distanceSquared < highlightRadiusSquared)
+    if (!isEqualTo(diffuseColor, float4(0, 0, 0, 1)))
     {
-        float highlightPercentage = saturate(1 - (distanceSquared / highlightRadiusSquared)) * highlightColor.w;
-        diffuseColor += highlightColor * highlightPercentage;
+        float distanceSquared = pow(uv.x - mousePosition.x, 2) + pow(uv.y - mousePosition.y, 2);
+        if (distanceSquared < highlightRadiusSquared)
+        {
+            float highlightPercentage = saturate(1 - (distanceSquared / highlightRadiusSquared)) * highlightColor.w;
+            diffuseColor += highlightColor * highlightPercentage;
+        }
     }
 
     float4 normalMapColor = tex2D(normalMapSampler, uv);

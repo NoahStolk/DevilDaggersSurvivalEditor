@@ -30,9 +30,9 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 			<StackPanel Grid.Column="0">
-				<Canvas Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseLeftButtonUp="ArenaTiles_MouseLeftButtonUp" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" Background="Black" Width="408" Height="408" SnapsToDevicePixels="True" UseLayoutRounding="True">
+				<Canvas Name="ArenaTiles" HorizontalAlignment="Left" VerticalAlignment="Top" MouseMove="ArenaTiles_MouseMove" MouseWheel="ArenaTiles_MouseWheel" MouseLeftButtonDown="ArenaTiles_MouseLeftButtonDown" MouseLeftButtonUp="ArenaTiles_MouseLeftButtonUp" MouseRightButtonDown="ArenaTiles_MouseRightButtonDown" MouseLeave="ArenaTiles_MouseLeave" MouseEnter="ArenaTiles_MouseEnter" Background="Black" Width="408" Height="408" SnapsToDevicePixels="True" UseLayoutRounding="True">
 					<Canvas.Effect>
-						<shaders:SelectionEffect x:Name="SelectionEffect" NormalMap="{StaticResource NormalMap}" HighlightRadiusSquared="0.005" />
+						<shaders:SelectionEffect x:Name="SelectionEffect" NormalMap="{StaticResource NormalMap}" />
 					</Canvas.Effect>
 					<Ellipse Stroke="Blue" Name="ShrinkStart" Panel.ZIndex="1" />
 					<Ellipse Stroke="Red" Name="ShrinkEnd" Panel.ZIndex="1" />

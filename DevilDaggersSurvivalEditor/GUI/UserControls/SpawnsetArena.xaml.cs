@@ -63,14 +63,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void MainLoop_Tick(object sender, EventArgs e)
 		{
-			UpdateSelectionHighlightFlashIntensity();
+			UpdateSelectionEffectContinuousValues();
 
 			CursorRectangle.Visibility = ArenaTiles.IsMouseOver ? Visibility.Visible : Visibility.Hidden;
 			if (!ArenaTiles.IsMouseOver && Mouse.LeftButton == MouseButtonState.Released)
 				ArenaRelease();
 		}
 
-		private void UpdateSelectionHighlightFlashIntensity()
+		private void UpdateSelectionEffectContinuousValues()
 		{
 			SelectionEffect.FlashIntensity = Math.Abs(DateTime.Now.Millisecond / 1000f - 0.5f);
 		}
@@ -470,7 +470,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SelectionEffect.MousePosition = new Point(mousePosition.X / arenaCanvasSize, mousePosition.Y / arenaCanvasSize);
 			SelectionEffect.HighlightColor = TileUtils.GetColorFromHeight(heightSelectorValue).ToPoint4D(0.5f);
-			UpdateSelectionHighlightFlashIntensity();
+			UpdateSelectionEffectContinuousValues();
 
 			focusedTile = new ArenaCoord(MathUtils.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
 			if (focusedTile == focusedTilePrevious)
@@ -719,6 +719,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			RandomizeHeightsButton.IsEnabled = false;
 			RoundHeightsButton.IsEnabled = false;
+		}
+
+		private void ArenaTiles_MouseLeave(object sender, MouseEventArgs e)
+		{
+			SelectionEffect.HighlightRadiusSquared = 0;
+		}
+
+		private void ArenaTiles_MouseEnter(object sender, MouseEventArgs e)
+		{
+			SelectionEffect.HighlightRadiusSquared = 0.005f;
 		}
 	}
 }
