@@ -10,7 +10,7 @@
 			<MenuItem Header="File">
 				<MenuItem Header="New" Click="FileNew_Click" />
 				<MenuItem Header="Open" Click="FileOpen_Click" />
-				<MenuItem Header="Open from DevilDaggers.info" Click="DownloadSpawnset_Click" />
+				<MenuItem Header="Open from DevilDaggers.info" Click="FileOpenFromWeb_Click" />
 				<MenuItem Header="Save" Click="FileSave_Click" />
 				<MenuItem Header="Save as" Click="FileSaveAs_Click" />
 				<Separator />

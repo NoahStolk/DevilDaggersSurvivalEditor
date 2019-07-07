@@ -1,4 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code;
+﻿using DevilDaggersCore.Spawnset.Web;
+using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using log4net;
@@ -33,9 +34,10 @@ namespace DevilDaggersSurvivalEditor
 
 		public void UpdateMainWindowTitle()
 		{
+			string spawnset = SpawnsetHandler.Instance.SpawnsetName.Contains("_") ? $"{SpawnsetFile.GetName(SpawnsetHandler.Instance.SpawnsetName)} by {SpawnsetFile.GetAuthor(SpawnsetHandler.Instance.SpawnsetName)}" : SpawnsetHandler.Instance.SpawnsetName;
 			Dispatcher.Invoke(() =>
 			{
-				MainWindow.Title = $"{ApplicationUtils.ApplicationDisplayName} - {SpawnsetHandler.Instance.SpawnsetName}{(SpawnsetHandler.Instance.UnsavedChanges ? "*" : "")}";
+				MainWindow.Title = $"{ApplicationUtils.ApplicationDisplayName} - {spawnset}{(SpawnsetHandler.Instance.UnsavedChanges ? "*" : "")}";
 			});
 		}
 

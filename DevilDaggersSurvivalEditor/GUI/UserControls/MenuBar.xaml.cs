@@ -90,7 +90,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		private void DownloadSpawnset_Click(object sender, RoutedEventArgs e)
+		private void FileOpenFromWeb_Click(object sender, RoutedEventArgs e)
 		{
 			if (!ProceedWithUnsavedChanges("Download"))
 				return;
