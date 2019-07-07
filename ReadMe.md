@@ -39,7 +39,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 #### 2.2.0.0 - July 7, 2019
 
 - The application now keeps track of whether or not you have any unsaved changes and will ask you whether or not you want to to save it before proceeding to overwrite it by opening an existing spawnset or creating a new one.
-- The application window title now displays the current spawnset name if there is one.
+- The application window title now displays the current spawnset's name if it has one.
 - Added "Save as" menu item.
 - Added shortcut keys:
 	- CTRL + S - Save
