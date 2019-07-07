@@ -630,10 +630,15 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)
 		{
-			SpawnsetHandler.Instance.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
-			SpawnsetHandler.Instance.UnsavedChanges = true;
+			ConfirmWindow confirmWindow = new ConfirmWindow("Generate arena", "Are you sure you want to overwrite the arena with this preset? This cannot be undone.");
+			confirmWindow.ShowDialog();
+			if (confirmWindow.Confirmed)
+			{
+				SpawnsetHandler.Instance.spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
+				SpawnsetHandler.Instance.UnsavedChanges = true;
 
-			UpdateAllTiles();
+				UpdateAllTiles();
+			}
 		}
 
 		private void RotateClockwise_Click(object sender, RoutedEventArgs e)
