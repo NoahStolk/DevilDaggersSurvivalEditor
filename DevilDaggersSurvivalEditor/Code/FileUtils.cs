@@ -30,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.Code
 					using (BinaryReader reader = new BinaryReader(stream))
 						reader.Read(data, 0, data.Length);
 
-					using (FileStream fileStream = new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.OpenOrCreate))
+					using (FileStream fileStream = new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Create))
 						fileStream.Write(data, 0, data.Length);
 				}
 
