@@ -209,6 +209,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void PasteAddSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
+			PasteAdd();
+		}
+
+		public void PasteAdd()
+		{
 			for (int i = 0; i < clipboard.Count; i++)
 			{
 				if (HasTooManySpawns())
@@ -272,6 +277,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void DeleteSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
+			Delete();
+		}
+
+		public void Delete()
+		{
 			foreach (int i in GetSpawnSelectionIndices())
 				SpawnsetHandler.Instance.spawnset.Spawns.Remove(i);
 
@@ -288,6 +298,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		}
 
 		private void CopySpawnButton_Click(object sender, RoutedEventArgs e)
+		{
+			Copy();
+		}
+
+		public void Copy()
 		{
 			clipboard.Clear();
 			foreach (int i in GetSpawnSelectionIndices())

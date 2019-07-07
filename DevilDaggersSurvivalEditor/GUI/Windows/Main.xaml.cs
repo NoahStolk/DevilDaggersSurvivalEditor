@@ -5,6 +5,7 @@ using System;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Markup;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
@@ -55,6 +56,34 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			WarningEndLoopLength.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
 			WarningEndLoopLength.Text = visible ? $"The end loop is only {loopLength} seconds long, which will probably result in Devil Daggers lagging and becoming unstable." : "";
+		}
+
+		private void Window_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (Keyboard.Modifiers == ModifierKeys.Control)
+			{
+				switch (e.Key)
+				{
+					case Key.S:
+						MenuBar.FileSave();
+						break;
+					case Key.C:
+						SpawnsetSpawns.Copy();
+						break;
+					case Key.V:
+						SpawnsetSpawns.PasteAdd();
+						break;
+				}
+			}
+			else
+			{
+				switch (e.Key)
+				{
+					case Key.Delete:
+						SpawnsetSpawns.Delete();
+						break;
+				}
+			}
 		}
 	}
 }
