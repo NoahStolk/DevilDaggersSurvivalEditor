@@ -45,6 +45,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			if (!SpawnsetHandler.Instance.UnsavedChanges)
 				return true;
 
+			// TODO: Spawnset has been changed. Save?
 			ConfirmWindow confirmWindow = new ConfirmWindow(title, "Are you sure? The current spawnset has unsaved changes.");
 			confirmWindow.ShowDialog();
 			return confirmWindow.Confirmed;

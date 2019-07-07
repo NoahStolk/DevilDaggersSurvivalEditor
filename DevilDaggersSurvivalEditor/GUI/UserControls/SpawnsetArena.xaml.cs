@@ -749,6 +749,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void ArenaTiles_MouseLeave(object sender, MouseEventArgs e)
 		{
 			SelectionEffect.HighlightRadiusSquared = 0;
+
+			TileCoordLabel.Content = "-";
+			TileHeightLabel.Content = "-";
 		}
 
 		private void ArenaTiles_MouseEnter(object sender, MouseEventArgs e)

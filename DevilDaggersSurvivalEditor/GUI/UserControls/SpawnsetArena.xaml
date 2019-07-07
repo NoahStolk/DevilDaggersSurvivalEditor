@@ -17,11 +17,11 @@
 			</Grid.ColumnDefinitions>
 			<StackPanel Orientation="Horizontal" Grid.Column="0">
 				<Label>Tile:</Label>
-				<Label Name="TileCoordLabel">{0, 0}</Label>
+				<Label Name="TileCoordLabel">-</Label>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" Grid.Column="1">
 				<Label>Height:</Label>
-				<Label Name="TileHeightLabel">0.00</Label>
+				<Label Name="TileHeightLabel">-</Label>
 			</StackPanel>
 		</Grid>
 		<Grid>
