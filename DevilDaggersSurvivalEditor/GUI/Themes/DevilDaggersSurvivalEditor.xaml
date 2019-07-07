@@ -9,6 +9,7 @@
 	<Style TargetType="{x:Type windows:AboutWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:ArenaPresetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:CheckingForUpdatesWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:ConfirmWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:DownloadSpawnsetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:ErrorWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:HelpWindow}" BasedOn="{StaticResource {x:Type Window}}" />

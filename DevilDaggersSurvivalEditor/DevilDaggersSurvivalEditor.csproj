@@ -122,6 +122,9 @@
     <Compile Include="GUI\Windows\ArenaPreset.xaml.cs">
       <DependentUpon>ArenaPreset.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Windows\Confirm.xaml.cs">
+      <DependentUpon>Confirm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Windows\DownloadSpawnset.xaml.cs">
       <DependentUpon>DownloadSpawnset.xaml</DependentUpon>
     </Compile>
@@ -175,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Windows\ArenaPreset.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Windows\Confirm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

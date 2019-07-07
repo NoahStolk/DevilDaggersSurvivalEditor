@@ -97,11 +97,10 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
 					Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
 
-					MessageBoxResult result = MessageBox.Show("Do you want to replace the currently active 'survival' file as well?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
-					if (result == MessageBoxResult.Yes)
-					{
+					ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Do you want to replace the currently active 'survival' file as well?");
+					confirmWindow.ShowDialog();
+					if (confirmWindow.Confirmed)
 						FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Program.App.userSettings.SurvivalFileLocation);
-					}
 				});
 			};
 

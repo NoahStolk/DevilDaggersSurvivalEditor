@@ -42,8 +42,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void FileNew_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult result = MessageBox.Show("Are you sure you want create an empty spawnset? The current spawnset will be lost if you haven't saved it.", "New", MessageBoxButton.YesNo, MessageBoxImage.Question);
-			if (result == MessageBoxResult.Yes)
+			ConfirmWindow confirmWindow = new ConfirmWindow("New spawnset", "Are you sure you want create an empty spawnset? The current spawnset will be lost if you haven't saved it.");
+			confirmWindow.ShowDialog();
+			if (confirmWindow.Confirmed)
 			{
 				Program.App.spawnset = new Spawnset
 				{
@@ -109,20 +110,18 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void SurvivalReplace_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with this spawnset?", "Replace 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
-			if (result == MessageBoxResult.Yes)
-			{
+			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?");
+			confirmWindow.ShowDialog();
+			if (confirmWindow.Confirmed)
 				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Program.App.userSettings.SurvivalFileLocation);
-			}
 		}
 
 		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult result = MessageBox.Show("Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", "Restore 'survival' file", MessageBoxButton.YesNo, MessageBoxImage.Question);
-			if (result == MessageBoxResult.Yes)
-			{
+			ConfirmWindow confirmWindow = new ConfirmWindow("Restore 'survival' file", "Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?");
+			confirmWindow.ShowDialog();
+			if (confirmWindow.Confirmed)
 				FileUtils.RestoreSurvivalFile();
-			}
 		}
 
 		private void Exit_Click(object sender, RoutedEventArgs e)
