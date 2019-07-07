@@ -43,6 +43,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Added "Save as" menu item.
 - The online spawnsets window now remembers the spawnset sorting after it is closed.
 - Limit the amount of spawns per spawnset to 10,000.
+- Improved messages when saving or replacing spawnsets.
 - Fixed the application not displaying an "unsaved changes" warning message when opening the currently active survival file.
 - Fixed the end loop not being displayed correctly when there are no EMPTY spawns in the spawnset.
 - Performance optimisations, layout improvements, and other bug fixes.

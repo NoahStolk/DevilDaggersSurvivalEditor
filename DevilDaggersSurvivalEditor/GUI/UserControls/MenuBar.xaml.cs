@@ -106,8 +106,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			if (File.Exists(SpawnsetHandler.Instance.SpawnsetFileLocation))
 			{
-				FileUtils.WriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, SpawnsetHandler.Instance.SpawnsetFileLocation);
-				SpawnsetHandler.Instance.UnsavedChanges = false;
+				if (FileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, SpawnsetHandler.Instance.SpawnsetFileLocation))
+					SpawnsetHandler.Instance.UnsavedChanges = false;
 			}
 			else
 			{
@@ -124,11 +124,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
 			bool? result = dialog.ShowDialog();
-			if (result.HasValue && result.Value)
-			{
-				FileUtils.WriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, dialog.FileName);
+			if (result.HasValue && result.Value && FileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, dialog.FileName))
 				SpawnsetHandler.Instance.UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
-			}
 		}
 
 		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
@@ -157,8 +154,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?");
 			confirmWindow.ShowDialog();
-			if (confirmWindow.Confirmed)
-				FileUtils.WriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, UserHandler.Instance.settings.SurvivalFileLocation);
+			if (confirmWindow.Confirmed && FileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, UserHandler.Instance.settings.SurvivalFileLocation))
+				Program.App.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
 		}
 
 		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)
@@ -166,7 +163,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			ConfirmWindow confirmWindow = new ConfirmWindow("Restore 'survival' file", "Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?");
 			confirmWindow.ShowDialog();
 			if (confirmWindow.Confirmed)
-				FileUtils.RestoreSurvivalFile();
+				FileUtils.TryRestoreSurvivalFile();
 		}
 
 		private void Exit_Click(object sender, RoutedEventArgs e)

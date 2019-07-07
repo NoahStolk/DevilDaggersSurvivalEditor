@@ -7,20 +7,29 @@ namespace DevilDaggersSurvivalEditor.Code
 {
 	public static class FileUtils
 	{
-		public static void WriteSpawnsetToFile(Spawnset spawnset, string destinationPath)
+		public static bool TryWriteSpawnsetToFile(Spawnset spawnset, string destinationPath)
 		{
-			if (spawnset.TryGetBytes(out byte[] bytes))
+			try
 			{
-				File.WriteAllBytes(destinationPath, bytes);
-				Program.App.ShowMessage("Success", $"Successfully wrote file to {destinationPath}.");
+				if (spawnset.TryGetBytes(out byte[] bytes))
+				{
+					File.WriteAllBytes(destinationPath, bytes);
+					return true;
+				}
+				else
+				{
+					Program.App.ShowError("An unexpected error occurred", "Error while trying to convert spawnset to binary.");
+					return false;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {destinationPath}.");
+				Program.App.ShowError("An unexpected error occurred", $"Error while trying to write file to {destinationPath}.", ex);
+				return false;
 			}
 		}
 
-		public static void RestoreSurvivalFile()
+		public static void TryRestoreSurvivalFile()
 		{
 			try
 			{
@@ -34,11 +43,11 @@ namespace DevilDaggersSurvivalEditor.Code
 						fileStream.Write(data, 0, data.Length);
 				}
 
-				Program.App.ShowMessage("Success", $"Successfully wrote file to {UserHandler.Instance.settings.SurvivalFileLocation}.");
+				Program.App.ShowMessage("Success", "Successfully restored 'survival' file.");
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {UserHandler.Instance.settings.SurvivalFileLocation}.", ex);
+				Program.App.ShowError("An unexpected error occurred", $"Error while trying to write file to {UserHandler.Instance.settings.SurvivalFileLocation}.", ex);
 			}
 		}
 	}
