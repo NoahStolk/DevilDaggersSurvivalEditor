@@ -2,6 +2,7 @@
 using DevilDaggersCore.Spawnset.Web;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
+using DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			InitializeComponent();
 
 			int index = 0;
-			foreach (SpawnsetSorting sorting in SpawnsetListStateHandler.Instance.Sortings)
+			foreach (SpawnsetListSorting sorting in SpawnsetListHandler.Instance.Sortings)
 			{
 				Label label = new Label
 				{
@@ -37,7 +38,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 				Image image = new Image
 				{
-					Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", sorting == SpawnsetListStateHandler.Instance.ActiveSorting ? "SpawnsetSortActive.png" : "SpawnsetSort.png"))),
+					Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", sorting == SpawnsetListHandler.Instance.ActiveSorting ? "SpawnsetSortActive.png" : "SpawnsetSort.png"))),
 					Stretch = Stretch.None,
 					RenderTransformOrigin = new Point(0.5, 0.5),
 					RenderTransform = new ScaleTransform
@@ -64,12 +65,12 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				SpawnsetHeaders.Children.Add(stackPanel);
 			}
 
-			Data.DataContext = SpawnsetListStateHandler.Instance;
+			Data.DataContext = SpawnsetListHandler.Instance;
 
 			PopulateAuthors();
 			PopulateSpawnsets();
 
-			SortSpawnsets(SpawnsetListStateHandler.Instance.ActiveSorting);
+			SortSpawnsets(SpawnsetListHandler.Instance.ActiveSorting);
 
 			FilterAuthors();
 			FilterSpawnsets();
@@ -86,7 +87,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				download = NetworkHandler.Instance.DownloadSpawnset(fileName);
 				if (download != null)
-					Program.App.spawnset = download;
+					SpawnsetHandler.Instance.spawnset = download;
 			};
 			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
 			{
@@ -101,7 +102,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Do you want to replace the currently active 'survival' file as well?");
 					confirmWindow.ShowDialog();
 					if (confirmWindow.Confirmed)
-						FileUtils.WriteSpawnsetToFile(Program.App.spawnset, UserHandler.Instance.settings.SurvivalFileLocation);
+						FileUtils.WriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, UserHandler.Instance.settings.SurvivalFileLocation);
 				});
 			};
 
@@ -129,7 +130,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				PopulateAuthors();
 				PopulateSpawnsets();
 
-				SortSpawnsets(SpawnsetListStateHandler.Instance.ActiveSorting);
+				SortSpawnsets(SpawnsetListHandler.Instance.ActiveSorting);
 
 				ReloadButton.IsEnabled = true;
 				ReloadButton.Content = "Reload";
@@ -279,19 +280,19 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void FilterAuthors()
 		{
 			foreach (ListBoxItem lbi in AuthorsListBox.Items)
-				lbi.Visibility = lbi.Tag.ToString().ToLower().Contains(SpawnsetListStateHandler.Instance.AuthorSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+				lbi.Visibility = lbi.Tag.ToString().ToLower().Contains(SpawnsetListHandler.Instance.AuthorSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void FilterSpawnsets()
 		{
 			foreach (Grid grid in SpawnsetsList.Children)
 			{
-				grid.Visibility = (grid.Tag as SpawnsetFile).Name.ToLower().Contains(SpawnsetListStateHandler.Instance.SpawnsetSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+				grid.Visibility = (grid.Tag as SpawnsetFile).Name.ToLower().Contains(SpawnsetListHandler.Instance.SpawnsetSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
 				SetBackgroundColor(grid);
 			}
 		}
 
-		private void SortSpawnsets(SpawnsetSorting sorting)
+		private void SortSpawnsets(SpawnsetListSorting sorting)
 		{
 			List<SpawnsetFile> sorted = sorting.Ascending ? NetworkHandler.Instance.SpawnsetFiles.OrderBy(sorting.SortingFunction).ToList() : NetworkHandler.Instance.SpawnsetFiles.OrderByDescending(sorting.SortingFunction).ToList();
 
@@ -330,10 +331,10 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				}
 			}
 
-			SpawnsetSorting sorting = button.Tag as SpawnsetSorting;
+			SpawnsetListSorting sorting = button.Tag as SpawnsetListSorting;
 
-			SpawnsetListStateHandler.Instance.ActiveSorting = sorting;
-			SpawnsetListStateHandler.Instance.ActiveSorting.Ascending = !SpawnsetListStateHandler.Instance.ActiveSorting.Ascending;
+			SpawnsetListHandler.Instance.ActiveSorting = sorting;
+			SpawnsetListHandler.Instance.ActiveSorting.Ascending = !SpawnsetListHandler.Instance.ActiveSorting.Ascending;
 
 			SortSpawnsets(sorting);
 		}

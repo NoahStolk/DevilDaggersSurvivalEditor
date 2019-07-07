@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawns;
+using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using NetBase.Utils;
 using System;
@@ -45,10 +46,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			double loopLength = 0;
 			int endLoopSpawns = 0;
-			for (int i = Program.App.spawnset.Spawns.Count - 1; i >= 0; i--)
+			for (int i = SpawnsetHandler.Instance.spawnset.Spawns.Count - 1; i >= 0; i--)
 			{
-				loopLength += Program.App.spawnset.Spawns[i].Delay;
-				if (Program.App.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1] || i == 0)
+				loopLength += SpawnsetHandler.Instance.spawnset.Spawns[i].Delay;
+				if (SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1] || i == 0)
 				{
 					endLoopStartIndex = i;
 					break;
@@ -68,7 +69,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				double seconds = 0;
 				int totalGems = 0;
-				foreach (KeyValuePair<int, Spawn> kvp in Program.App.spawnset.Spawns)
+				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
 				{
 					seconds += kvp.Value.Delay;
 					totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
@@ -142,7 +143,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private static bool HasTooManySpawns()
 		{
-			if (Program.App.spawnset.Spawns.Count >= MaxSpawns)
+			if (SpawnsetHandler.Instance.spawnset.Spawns.Count >= MaxSpawns)
 			{
 				Program.App.ShowMessage("Too many spawns", $"You can have {MaxSpawns} spawns at most.");
 				return true;
@@ -153,7 +154,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ScrollToEnd()
 		{
-			ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(Program.App.spawnset.Spawns.Count - 1));
+			ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(SpawnsetHandler.Instance.spawnset.Spawns.Count - 1));
 		}
 
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -162,7 +163,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (HasTooManySpawns())
 					break;
-				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
+				SpawnsetHandler.Instance.spawnset.Spawns.Add(SpawnsetHandler.Instance.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
 			}
 
 			UpdateSpawnset();
@@ -172,14 +173,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void InsertSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			int originalCount = Program.App.spawnset.Spawns.Count;
+			int originalCount = SpawnsetHandler.Instance.spawnset.Spawns.Count;
 
 			// Retrieve the spawns to shift and remove them from the list
 			List<Spawn> spawnsToShift = new List<Spawn>();
 			for (int i = ListBoxSpawns.SelectedIndex; i < originalCount; i++)
 			{
-				spawnsToShift.Add(Program.App.spawnset.Spawns[i]);
-				Program.App.spawnset.Spawns.Remove(i);
+				spawnsToShift.Add(SpawnsetHandler.Instance.spawnset.Spawns[i]);
+				SpawnsetHandler.Instance.spawnset.Spawns.Remove(i);
 			}
 
 			// Insert new spawns
@@ -187,16 +188,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (HasTooManySpawns())
 					break;
-				Program.App.spawnset.Spawns.Add(ListBoxSpawns.SelectedIndex + i, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
+				SpawnsetHandler.Instance.spawnset.Spawns.Add(ListBoxSpawns.SelectedIndex + i, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
 			}
 
 			// Add the spawns to shift to the end of the spawns list
-			int max = Program.App.spawnset.Spawns.Count;
+			int max = SpawnsetHandler.Instance.spawnset.Spawns.Count;
 			for (int i = 0; i < spawnsToShift.Count; i++)
 			{
 				if (HasTooManySpawns())
 					break;
-				Program.App.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
+				SpawnsetHandler.Instance.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
 			}
 
 			UpdateSpawnset();
@@ -208,7 +209,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (HasTooManySpawns())
 					break;
-				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, clipboard[i].Copy());
+				SpawnsetHandler.Instance.spawnset.Spawns.Add(SpawnsetHandler.Instance.spawnset.Spawns.Count, clipboard[i].Copy());
 			}
 
 			UpdateSpawnset();
@@ -218,14 +219,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void PasteInsertSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			int originalCount = Program.App.spawnset.Spawns.Count;
+			int originalCount = SpawnsetHandler.Instance.spawnset.Spawns.Count;
 
 			// Retrieve the spawns to shift and remove them from the list
 			List<Spawn> spawnsToShift = new List<Spawn>();
 			for (int i = ListBoxSpawns.SelectedIndex; i < originalCount; i++)
 			{
-				spawnsToShift.Add(Program.App.spawnset.Spawns[i]);
-				Program.App.spawnset.Spawns.Remove(i);
+				spawnsToShift.Add(SpawnsetHandler.Instance.spawnset.Spawns[i]);
+				SpawnsetHandler.Instance.spawnset.Spawns.Remove(i);
 			}
 
 			// Insert new spawns
@@ -233,16 +234,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (HasTooManySpawns())
 					break;
-				Program.App.spawnset.Spawns.Add(Program.App.spawnset.Spawns.Count, clipboard[i].Copy());
+				SpawnsetHandler.Instance.spawnset.Spawns.Add(SpawnsetHandler.Instance.spawnset.Spawns.Count, clipboard[i].Copy());
 			}
 
 			// Add the spawns to shift to the end of the spawns list
-			int max = Program.App.spawnset.Spawns.Count;
+			int max = SpawnsetHandler.Instance.spawnset.Spawns.Count;
 			for (int i = 0; i < spawnsToShift.Count; i++)
 			{
 				if (HasTooManySpawns())
 					break;
-				Program.App.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
+				SpawnsetHandler.Instance.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
 			}
 
 			UpdateSpawnset();
@@ -252,8 +253,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			foreach (int i in GetSpawnSelectionIndices())
 			{
-				Program.App.spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1];
-				Program.App.spawnset.Spawns[i].Delay = Delay;
+				SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1];
+				SpawnsetHandler.Instance.spawnset.Spawns[i].Delay = Delay;
 			}
 
 			UpdateSpawnset();
@@ -262,15 +263,15 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void DeleteSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (int i in GetSpawnSelectionIndices())
-				Program.App.spawnset.Spawns.Remove(i);
+				SpawnsetHandler.Instance.spawnset.Spawns.Remove(i);
 
 			// Reset the keys (we don't want gaps in the sorted dictionary)
 			SortedDictionary<int, Spawn> newSpawns = new SortedDictionary<int, Spawn>();
 			int j = 0;
-			foreach (KeyValuePair<int, Spawn> kvp in Program.App.spawnset.Spawns)
+			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
 				newSpawns.Add(j++, kvp.Value);
 
-			Program.App.spawnset.Spawns = newSpawns;
+			SpawnsetHandler.Instance.spawnset.Spawns = newSpawns;
 
 			UpdateSpawnset();
 		}
@@ -279,7 +280,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			clipboard.Clear();
 			foreach (int i in GetSpawnSelectionIndices())
-				clipboard.Add(Program.App.spawnset.Spawns[i]);
+				clipboard.Add(SpawnsetHandler.Instance.spawnset.Spawns[i]);
 
 			UpdateButtons();
 		}
@@ -297,16 +298,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					switch (window.Function)
 					{
 						case DelayModificationFunction.Add:
-							Program.App.spawnset.Spawns[i].Delay += window.Value;
+							SpawnsetHandler.Instance.spawnset.Spawns[i].Delay += window.Value;
 							break;
 						case DelayModificationFunction.Subtract:
-							Program.App.spawnset.Spawns[i].Delay -= window.Value;
+							SpawnsetHandler.Instance.spawnset.Spawns[i].Delay -= window.Value;
 							break;
 						case DelayModificationFunction.Multiply:
-							Program.App.spawnset.Spawns[i].Delay *= window.Value;
+							SpawnsetHandler.Instance.spawnset.Spawns[i].Delay *= window.Value;
 							break;
 						case DelayModificationFunction.Divide:
-							Program.App.spawnset.Spawns[i].Delay /= window.Value;
+							SpawnsetHandler.Instance.spawnset.Spawns[i].Delay /= window.Value;
 							break;
 					}
 				}
@@ -327,14 +328,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					int current = 0;
 					foreach (KeyValuePair<int, SpawnsetEnemy> enemy in Spawnset.Enemies)
 					{
-						if (enemy.Value == Program.App.spawnset.Spawns[i].SpawnsetEnemy)
+						if (enemy.Value == SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy)
 						{
 							current = enemy.Key;
 							break;
 						}
 					}
 
-					Program.App.spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[window.switchArray[current + 1] - 1];
+					SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[window.switchArray[current + 1] - 1];
 				}
 			}
 

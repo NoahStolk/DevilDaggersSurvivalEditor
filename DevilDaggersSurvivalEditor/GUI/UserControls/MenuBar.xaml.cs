@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
 using DevilDaggersSurvivalEditor.GUI.Windows;
@@ -45,7 +46,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			confirmWindow.ShowDialog();
 			if (confirmWindow.Confirmed)
 			{
-				Program.App.spawnset = new Spawnset
+				SpawnsetHandler.Instance.spawnset = new Spawnset
 				{
 					ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
 				};
@@ -62,7 +63,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (result.HasValue && result.Value)
 			{
-				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
+				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out SpawnsetHandler.Instance.spawnset))
 				{
 					Program.App.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
 					return;
@@ -84,9 +85,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			SaveFileDialog dialog = new SaveFileDialog();
 			bool? result = dialog.ShowDialog();
 			if (result.HasValue && result.Value)
-			{
-				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, dialog.FileName);
-			}
+				FileUtils.WriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, dialog.FileName);
 		}
 
 		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
@@ -97,7 +96,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				return;
 			}
 
-			if (!Spawnset.TryParse(new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
+			if (!Spawnset.TryParse(new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out SpawnsetHandler.Instance.spawnset))
 			{
 				Program.App.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;
@@ -112,7 +111,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?");
 			confirmWindow.ShowDialog();
 			if (confirmWindow.Confirmed)
-				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, UserHandler.Instance.settings.SurvivalFileLocation);
+				FileUtils.WriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, UserHandler.Instance.settings.SurvivalFileLocation);
 		}
 
 		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)

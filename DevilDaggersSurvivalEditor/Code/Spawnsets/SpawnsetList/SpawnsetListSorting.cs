@@ -1,9 +1,9 @@
 ﻿using DevilDaggersCore.Spawnset.Web;
 using System;
 
-namespace DevilDaggersSurvivalEditor.Code.Spawnsets
+namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 {
-	public class SpawnsetSorting
+	public class SpawnsetListSorting
 	{
 		public string Name { get; }
 		public Func<SpawnsetFile, object> SortingFunction { get; }
@@ -11,7 +11,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 
 		public bool Ascending { get; set; }
 
-		public SpawnsetSorting(string name, Func<SpawnsetFile, object> sortingFunction, bool isAscendingDefault)
+		public SpawnsetListSorting(string name, Func<SpawnsetFile, object> sortingFunction, bool isAscendingDefault)
 		{
 			Name = name;
 			SortingFunction = sortingFunction;

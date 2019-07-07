@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code.Spawnsets;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
@@ -16,7 +17,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 
 			// Clear previous is off, return the old arena
 			if (!Program.App.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsChecked == true)
-				return Program.App.spawnset.ArenaTiles;
+				return SpawnsetHandler.Instance.spawnset.ArenaTiles;
 
 			// Return void arena
 			float[,] voidArena = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];

@@ -99,13 +99,14 @@
     <Compile Include="Code\Arena\TileAction.cs" />
     <Compile Include="Code\ExtensionMethods.cs" />
     <Compile Include="Code\Shaders\SelectionEffect.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetListStateHandler.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetSorting.cs" />
+    <Compile Include="Code\Spawnsets\SpawnsetList\SpawnsetListHandler.cs" />
+    <Compile Include="Code\Spawnsets\SpawnsetList\SpawnsetListSorting.cs" />
+    <Compile Include="Code\Spawnsets\SpawnsetHandler.cs" />
     <Compile Include="Code\Spawns\DelayModificationFunction.cs" />
     <Compile Include="Code\FileUtils.cs" />
     <Compile Include="Code\MiscUtils.cs" />
     <Compile Include="Code\Arena\TileUtils.cs" />
-    <Compile Include="Code\User\UserSettingsHandler.cs" />
+    <Compile Include="Code\User\UserHandler.cs" />
     <Compile Include="Code\Web\TimeoutWebClient.cs" />
     <Compile Include="Code\Web\NetworkHandler.cs" />
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
