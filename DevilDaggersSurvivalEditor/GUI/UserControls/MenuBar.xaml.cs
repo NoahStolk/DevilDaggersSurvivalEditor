@@ -35,7 +35,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 			else
 			{
-				// TODO: Still necessary?
 				Program.App.ShowMessage("Error checking for updates", NetworkHandler.Instance.VersionResult.ErrorMessage);
 			}
 		}
@@ -92,13 +91,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
 		{
-			if (!Program.App.userSettings.SurvivalFileExists)
+			if (!UserSettingsHandler.Instance.userSettings.SurvivalFileExists)
 			{
 				Program.App.ShowError("Survival file does not exist", "Please make sure to correct the survival file location in the Options > Settings menu.");
 				return;
 			}
 
-			if (!Spawnset.TryParse(new FileStream(Program.App.userSettings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
+			if (!Spawnset.TryParse(new FileStream(UserSettingsHandler.Instance.userSettings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
 			{
 				Program.App.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;
@@ -113,7 +112,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?");
 			confirmWindow.ShowDialog();
 			if (confirmWindow.Confirmed)
-				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Program.App.userSettings.SurvivalFileLocation);
+				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, UserSettingsHandler.Instance.userSettings.SurvivalFileLocation);
 		}
 
 		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)
@@ -136,7 +135,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				// Save the settings
 				using (StreamWriter sw = new StreamWriter(File.Create(UserSettings.FileName)))
-					sw.Write(JsonConvert.SerializeObject(Program.App.userSettings, Formatting.Indented));
+					sw.Write(JsonConvert.SerializeObject(UserSettingsHandler.Instance.userSettings, Formatting.Indented));
 
 				Dispatcher.Invoke(() =>
 				{

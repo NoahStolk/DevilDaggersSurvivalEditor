@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Spawnset;
+using DevilDaggersSurvivalEditor.Code.User;
 using System;
 using System.IO;
 
@@ -29,15 +30,15 @@ namespace DevilDaggersSurvivalEditor.Code
 					using (BinaryReader reader = new BinaryReader(stream))
 						reader.Read(data, 0, data.Length);
 
-					using (FileStream fileStream = new FileStream(Program.App.userSettings.SurvivalFileLocation, FileMode.OpenOrCreate))
+					using (FileStream fileStream = new FileStream(UserSettingsHandler.Instance.userSettings.SurvivalFileLocation, FileMode.OpenOrCreate))
 						fileStream.Write(data, 0, data.Length);
 				}
 
-				Program.App.ShowMessage("Success", $"Successfully wrote file to {Program.App.userSettings.SurvivalFileLocation}.");
+				Program.App.ShowMessage("Success", $"Successfully wrote file to {UserSettingsHandler.Instance.userSettings.SurvivalFileLocation}.");
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {Program.App.userSettings.SurvivalFileLocation}.", ex);
+				Program.App.ShowError("An unexpected error occurred", $"Error while writing file to {UserSettingsHandler.Instance.userSettings.SurvivalFileLocation}.", ex);
 			}
 		}
 	}

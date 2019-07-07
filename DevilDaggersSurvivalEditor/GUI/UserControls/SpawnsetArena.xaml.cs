@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using NetBase.Utils;
 using System;
@@ -348,14 +349,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			// Lock special cases if set in settings
 			if (tile == TileUtils.GlitchTile)
 			{
-				if (Program.App.userSettings.LockGlitchTile)
+				if (UserSettingsHandler.Instance.userSettings.LockGlitchTile)
 					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = Math.Min(Program.App.spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.GlitchTileMax);
 
 				Program.App.MainWindow.WarningGlitchTile.Visibility = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? Visibility.Visible : Visibility.Collapsed;
 			}
 			else if (tile == TileUtils.SpawnTile)
 			{
-				if (Program.App.userSettings.LockSpawnTile)
+				if (UserSettingsHandler.Instance.userSettings.LockSpawnTile)
 					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = Math.Max(Program.App.spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.TileMin);
 
 				Program.App.MainWindow.WarningVoidSpawn.Visibility = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;

@@ -2,6 +2,7 @@
 using DevilDaggersCore.Spawnset.Web;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
+using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -100,7 +101,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Do you want to replace the currently active 'survival' file as well?");
 					confirmWindow.ShowDialog();
 					if (confirmWindow.Confirmed)
-						FileUtils.WriteSpawnsetToFile(Program.App.spawnset, Program.App.userSettings.SurvivalFileLocation);
+						FileUtils.WriteSpawnsetToFile(Program.App.spawnset, UserSettingsHandler.Instance.userSettings.SurvivalFileLocation);
 				});
 			};
 
