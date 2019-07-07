@@ -42,9 +42,9 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - The application window title now displays the current spawnset's name if it has one.
 - Added "Save as" menu item.
 - Added shortcut keys:
-	- CTRL + S - Save
-	- CTRL + C - Copy currently selected spawn(s)
-	- CTRL + V - Paste spawn(s) currently on the clipboard
+	- CTRL+S - Save
+	- CTRL+C - Copy currently selected spawn(s)
+	- CTRL+V - Paste spawn(s) currently on the clipboard
 	- Delete - Delete currently selected spawn(s)
 - The online spawnsets window now remembers the spawnset sorting after it is closed.
 - The application now asks you to confirm to overwrite the existing arena with a preset, as this cannot be undone easily.
