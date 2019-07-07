@@ -14,9 +14,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			GlitchTileLabel.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range";
 
-			LabelSurvivalFileRootFolder.Text = UserSettingsHandler.Instance.userSettings.SurvivalFileRootFolder;
+			LabelSurvivalFileRootFolder.Text = UserHandler.Instance.settings.SurvivalFileRootFolder;
 
-			Data.DataContext = UserSettingsHandler.Instance.userSettings;
+			Data.DataContext = UserHandler.Instance.settings;
 		}
 
 		private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -24,14 +24,14 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			CommonOpenFileDialog dialog = new CommonOpenFileDialog
 			{
 				IsFolderPicker = true,
-				InitialDirectory = UserSettingsHandler.Instance.userSettings.SurvivalFileRootFolder
+				InitialDirectory = UserHandler.Instance.settings.SurvivalFileRootFolder
 			};
 			CommonFileDialogResult result = dialog.ShowDialog();
 
 			if (result == CommonFileDialogResult.Ok)
 			{
-				UserSettingsHandler.Instance.userSettings.SurvivalFileRootFolder = dialog.FileName;
-				LabelSurvivalFileRootFolder.Text = UserSettingsHandler.Instance.userSettings.SurvivalFileRootFolder;
+				UserHandler.Instance.settings.SurvivalFileRootFolder = dialog.FileName;
+				LabelSurvivalFileRootFolder.Text = UserHandler.Instance.settings.SurvivalFileRootFolder;
 			}
 
 			// Make sure this window stays focused rather than the MainWindow.

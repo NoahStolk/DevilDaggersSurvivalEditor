@@ -91,13 +91,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
 		{
-			if (!UserSettingsHandler.Instance.userSettings.SurvivalFileExists)
+			if (!UserHandler.Instance.settings.SurvivalFileExists)
 			{
 				Program.App.ShowError("Survival file does not exist", "Please make sure to correct the survival file location in the Options > Settings menu.");
 				return;
 			}
 
-			if (!Spawnset.TryParse(new FileStream(UserSettingsHandler.Instance.userSettings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
+			if (!Spawnset.TryParse(new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out Program.App.spawnset))
 			{
 				Program.App.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;
@@ -112,7 +112,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?");
 			confirmWindow.ShowDialog();
 			if (confirmWindow.Confirmed)
-				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, UserSettingsHandler.Instance.userSettings.SurvivalFileLocation);
+				FileUtils.WriteSpawnsetToFile(Program.App.spawnset, UserHandler.Instance.settings.SurvivalFileLocation);
 		}
 
 		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)
@@ -135,7 +135,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				// Save the settings
 				using (StreamWriter sw = new StreamWriter(File.Create(UserSettings.FileName)))
-					sw.Write(JsonConvert.SerializeObject(UserSettingsHandler.Instance.userSettings, Formatting.Indented));
+					sw.Write(JsonConvert.SerializeObject(UserHandler.Instance.settings, Formatting.Indented));
 
 				Dispatcher.Invoke(() =>
 				{

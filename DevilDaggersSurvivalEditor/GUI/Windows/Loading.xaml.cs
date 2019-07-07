@@ -57,7 +57,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				{
 					if (userSettingsFileExists)
 						using (StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName)))
-							UserSettingsHandler.Instance.userSettings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+							UserHandler.Instance.settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
 
 					readUserSettingsSuccess = true;
 				}
@@ -88,8 +88,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				{
 					TaskResultsStackPanel.Children.Add(new Label
 					{
-						Content = UserSettingsHandler.Instance.userSettings.SurvivalFileExists ? UserSettingsHandler.Instance.userSettings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
-						Foreground = new SolidColorBrush(!UserSettingsHandler.Instance.userSettings.SurvivalFileExists || !UserSettingsHandler.Instance.userSettings.SurvivalFileIsValid ? Color.FromRgb(255, 0, 0) : Color.FromRgb(0, 128, 0)),
+						Content = UserHandler.Instance.settings.SurvivalFileExists ? UserHandler.Instance.settings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
+						Foreground = new SolidColorBrush(!UserHandler.Instance.settings.SurvivalFileExists || !UserHandler.Instance.settings.SurvivalFileIsValid ? Color.FromRgb(255, 0, 0) : Color.FromRgb(0, 128, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});

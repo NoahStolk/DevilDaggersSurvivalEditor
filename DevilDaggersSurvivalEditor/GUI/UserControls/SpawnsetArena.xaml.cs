@@ -349,14 +349,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			// Lock special cases if set in settings
 			if (tile == TileUtils.GlitchTile)
 			{
-				if (UserSettingsHandler.Instance.userSettings.LockGlitchTile)
+				if (UserHandler.Instance.settings.LockGlitchTile)
 					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = Math.Min(Program.App.spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.GlitchTileMax);
 
 				Program.App.MainWindow.WarningGlitchTile.Visibility = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? Visibility.Visible : Visibility.Collapsed;
 			}
 			else if (tile == TileUtils.SpawnTile)
 			{
-				if (UserSettingsHandler.Instance.userSettings.LockSpawnTile)
+				if (UserHandler.Instance.settings.LockSpawnTile)
 					Program.App.spawnset.ArenaTiles[tile.X, tile.Y] = Math.Max(Program.App.spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.TileMin);
 
 				Program.App.MainWindow.WarningVoidSpawn.Visibility = Program.App.spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;

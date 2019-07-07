@@ -101,7 +101,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 					ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Do you want to replace the currently active 'survival' file as well?");
 					confirmWindow.ShowDialog();
 					if (confirmWindow.Confirmed)
-						FileUtils.WriteSpawnsetToFile(Program.App.spawnset, UserSettingsHandler.Instance.userSettings.SurvivalFileLocation);
+						FileUtils.WriteSpawnsetToFile(Program.App.spawnset, UserHandler.Instance.settings.SurvivalFileLocation);
 				});
 			};
 
