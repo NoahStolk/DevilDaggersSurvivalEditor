@@ -13,9 +13,10 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 	{
 		public MainWindow()
 		{
-			Program.App.MainWindow = this;
-
 			InitializeComponent();
+
+			Program.App.MainWindow = this;
+			Program.App.UpdateMainWindowTitle();
 
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 			Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;

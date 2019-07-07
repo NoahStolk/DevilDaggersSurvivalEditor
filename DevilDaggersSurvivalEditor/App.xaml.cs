@@ -1,4 +1,6 @@
-﻿using DevilDaggersSurvivalEditor.GUI.Windows;
+﻿using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Spawnsets;
+using DevilDaggersSurvivalEditor.GUI.Windows;
 using log4net;
 using System;
 using System.Reflection;
@@ -27,6 +29,14 @@ namespace DevilDaggersSurvivalEditor
 			e.Handled = true;
 
 			Current.Shutdown();
+		}
+
+		public void UpdateMainWindowTitle()
+		{
+			Dispatcher.Invoke(() =>
+			{
+				MainWindow.Title = $"{ApplicationUtils.ApplicationDisplayName} - {SpawnsetHandler.Instance.SpawnsetName}{(SpawnsetHandler.Instance.UnsavedChanges ? "*" : "")}";
+			});
 		}
 
 		/// <summary>

@@ -40,24 +40,37 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
+		private static bool ProceedWithUnsavedChanges(string title)
+		{
+			if (!SpawnsetHandler.Instance.UnsavedChanges)
+				return true;
+
+			ConfirmWindow confirmWindow = new ConfirmWindow(title, "Are you sure? The current spawnset has unsaved changes.");
+			confirmWindow.ShowDialog();
+			return confirmWindow.Confirmed;
+		}
+
 		private void FileNew_Click(object sender, RoutedEventArgs e)
 		{
-			ConfirmWindow confirmWindow = new ConfirmWindow("New spawnset", "Are you sure you want create an empty spawnset? The current spawnset will be lost if you haven't saved it.");
-			confirmWindow.ShowDialog();
-			if (confirmWindow.Confirmed)
-			{
-				SpawnsetHandler.Instance.spawnset = new Spawnset
-				{
-					ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
-				};
+			if (!ProceedWithUnsavedChanges("New"))
+				return;
 
-				Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-				Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
-			}
+			SpawnsetHandler.Instance.spawnset = new Spawnset
+			{
+				ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
+			};
+
+			Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
+			Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
+
+			SpawnsetHandler.Instance.UpdateSpawnsetState("(new spawnset)", string.Empty);
 		}
 
 		private void FileOpen_Click(object sender, RoutedEventArgs e)
 		{
+			if (!ProceedWithUnsavedChanges("Open"))
+				return;
+
 			OpenFileDialog dialog = new OpenFileDialog();
 			bool? result = dialog.ShowDialog();
 
@@ -68,28 +81,52 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					Program.App.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
 					return;
 				}
-			}
 
-			Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-			Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
+				Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
+				Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
+
+				SpawnsetHandler.Instance.UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
+			}
 		}
 
 		private void DownloadSpawnset_Click(object sender, RoutedEventArgs e)
 		{
+			if (!ProceedWithUnsavedChanges("Download"))
+				return;
+
 			DownloadSpawnsetWindow window = new DownloadSpawnsetWindow();
 			window.ShowDialog();
 		}
 
 		private void FileSave_Click(object sender, RoutedEventArgs e)
 		{
+			if (File.Exists(SpawnsetHandler.Instance.SpawnsetFileLocation))
+			{
+				FileUtils.WriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, SpawnsetHandler.Instance.SpawnsetFileLocation);
+				SpawnsetHandler.Instance.UnsavedChanges = false;
+			}
+			else
+			{
+				FileSaveAs_Click(sender, e);
+			}
+		}
+
+		private void FileSaveAs_Click(object sender, RoutedEventArgs e)
+		{
 			SaveFileDialog dialog = new SaveFileDialog();
 			bool? result = dialog.ShowDialog();
 			if (result.HasValue && result.Value)
+			{
 				FileUtils.WriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, dialog.FileName);
+				SpawnsetHandler.Instance.UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
+			}
 		}
 
 		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
 		{
+			if (!ProceedWithUnsavedChanges("Open 'survival'"))
+				return;
+
 			if (!UserHandler.Instance.settings.SurvivalFileExists)
 			{
 				Program.App.ShowError("Survival file does not exist", "Please make sure to correct the survival file location in the Options > Settings menu.");
@@ -104,6 +141,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
 			Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
+
+			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.settings.SurvivalFileLocation);
 		}
 
 		private void SurvivalReplace_Click(object sender, RoutedEventArgs e)

@@ -12,6 +12,7 @@
 				<MenuItem Header="Open" Click="FileOpen_Click" />
 				<MenuItem Header="Open from DevilDaggers.info" Click="DownloadSpawnset_Click" />
 				<MenuItem Header="Save" Click="FileSave_Click" />
+				<MenuItem Header="Save as" Click="FileSaveAs_Click" />
 				<Separator />
 				<MenuItem Header="Open 'survival' file" Click="SurvivalOpen_Click" />
 				<MenuItem Header="Replace 'survival' file" Click="SurvivalReplace_Click" />

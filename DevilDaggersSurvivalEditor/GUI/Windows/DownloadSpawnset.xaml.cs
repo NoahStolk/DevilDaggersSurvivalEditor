@@ -87,7 +87,10 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				download = NetworkHandler.Instance.DownloadSpawnset(fileName);
 				if (download != null)
+				{
 					SpawnsetHandler.Instance.spawnset = download;
+					SpawnsetHandler.Instance.UpdateSpawnsetState(fileName, "");
+				}
 			};
 			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
 			{
