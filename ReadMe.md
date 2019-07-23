@@ -36,6 +36,13 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 ## Changelog
 
+#### 2.x.x.x - WIP
+
+- Added author sorting to the online spawnset list.
+- The application now asks whether or not you want to save when closing the application.
+- The application now displays the "Update Recommended" window on start up when an update is available.
+- Layout improvements in the "Download Spawnset" window.
+
 #### 2.2.0.0 - July 7, 2019
 
 - The application now keeps track of whether or not you have any unsaved changes and will ask you whether or not you want to to save it before proceeding to overwrite it by opening an existing spawnset or creating a new one.

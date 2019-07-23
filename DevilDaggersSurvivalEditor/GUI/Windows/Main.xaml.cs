@@ -4,6 +4,7 @@ using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
@@ -96,7 +97,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			}
 		}
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		private void Window_Closing(object sender, CancelEventArgs e)
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 		}
