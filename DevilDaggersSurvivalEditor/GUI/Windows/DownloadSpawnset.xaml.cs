@@ -211,7 +211,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Label spawnsetCountLabel = new Label { Content = author.SpawnsetCount };
 			Grid.SetColumn(spawnsetCountLabel, 1);
 
-			Grid grid = new Grid { Tag = author, HorizontalAlignment = HorizontalAlignment.Stretch };
+			Grid grid = new Grid { Tag = author };
 			grid.ColumnDefinitions.Add(new ColumnDefinition());
 			grid.ColumnDefinitions.Add(new ColumnDefinition());
 			grid.Children.Add(authorLabel);
