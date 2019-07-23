@@ -160,6 +160,10 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 
 - Initial release.
 
+#### 0.9.0.0 - May 14, 2018
+
+- Beta release.
+
 ## Credits
 
 While I've built this application myself, I'd like to thank everyone that has put effort into figuring out how the survival file actually works.
