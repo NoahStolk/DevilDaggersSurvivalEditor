@@ -2,12 +2,14 @@
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
+using DevilDaggersSurvivalEditor.Code.Web;
 using System;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
@@ -32,11 +34,18 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			UpdateWarningNoSurvivalFile();
 
 			SpawnsetArena.Initialize();
-		}
 
-		private void MainWindow_Closed(object sender, EventArgs e)
-		{
-			Application.Current.Shutdown();
+			if (NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue && !NetworkHandler.Instance.VersionResult.IsUpToDate.Value)
+			{
+				DispatcherTimer timer = new DispatcherTimer();
+				timer.Start();
+				timer.Tick += (sender, e) =>
+				{
+					UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
+					updateRecommendedWindow.ShowDialog();
+					timer.Stop();
+				};
+			}
 		}
 
 		public void UpdateWarningNoSurvivalFile()
@@ -90,6 +99,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
+		}
+
+		private void MainWindow_Closed(object sender, EventArgs e)
+		{
+			Application.Current.Shutdown();
 		}
 	}
 }

@@ -23,6 +23,9 @@
 			<Label Grid.Column="5" FontWeight="Bold">Total gems</Label>
 		</Grid>
 		<ListBox Name="ListBoxSpawns" Height="408" SelectionMode="Extended" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="ListBoxSpawns_Selected" />
+		<!--<ScrollViewer Height="408">
+			<ListBox Name="ListBoxSpawns" SelectionMode="Extended" SelectionChanged="ListBoxSpawns_Selected" />
+		</ScrollViewer>-->
 		<StackPanel>
 			<Grid>
 				<Grid.ColumnDefinitions>
