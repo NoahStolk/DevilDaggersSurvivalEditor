@@ -17,7 +17,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
 	public partial class DownloadSpawnsetWindow : Window
 	{
-		private readonly List<Image> sortingImages = new List<Image>();
+		private readonly List<Image> authorSortingImages = new List<Image>();
+		private readonly List<Image> spawnsetSortingImages = new List<Image>();
 
 		private Author authorSelection;
 
@@ -44,7 +45,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 						ScaleY = sorting.IsAscendingDefault ? sorting.Ascending ? 1 : -1 : sorting.Ascending ? -1 : 1
 					}
 				};
-				sortingImages.Add(image);
+				authorSortingImages.Add(image);
 
 				Button button = new Button
 				{
@@ -82,7 +83,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 						ScaleY = sorting.IsAscendingDefault ? sorting.Ascending ? 1 : -1 : sorting.Ascending ? -1 : 1
 					}
 				};
-				sortingImages.Add(image);
+				spawnsetSortingImages.Add(image);
 
 				Button button = new Button
 				{
@@ -170,6 +171,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				PopulateAuthors();
 				PopulateSpawnsets();
 
+				SortAuthors(SpawnsetListHandler.Instance.ActiveAuthorSorting);
 				SortSpawnsets(SpawnsetListHandler.Instance.ActiveSpawnsetSorting);
 
 				ReloadButton.IsEnabled = true;
@@ -309,7 +311,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void FilterAuthors()
 		{
 			foreach (ListBoxItem lbi in AuthorsListBox.Items)
-				lbi.Visibility = lbi.Tag.ToString().ToLower().Contains(SpawnsetListHandler.Instance.AuthorSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+				lbi.Visibility = (lbi.Tag as Author).Name.ToLower().Contains(SpawnsetListHandler.Instance.AuthorSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void FilterSpawnsets()
@@ -358,7 +360,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			Button button = sender as Button;
 
-			foreach (Image image in sortingImages)
+			foreach (Image image in authorSortingImages)
 			{
 				if (image == button.Content as Image)
 				{
@@ -386,7 +388,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			Button button = sender as Button;
 
-			foreach (Image image in sortingImages)
+			foreach (Image image in spawnsetSortingImages)
 			{
 				if (image == button.Content as Image)
 				{

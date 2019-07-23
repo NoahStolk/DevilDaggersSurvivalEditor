@@ -14,6 +14,6 @@
 
 		public static string GetSpawnset(string fileName) => $"{baseUrl}/API/GetSpawnset?fileName={fileName}";
 
-		public static string ApplicationDownloadUrl(string versionNumber) => $"{baseUrl}/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor{versionNumber}.zip";
+		public static string ApplicationDownloadUrl(string versionNumber) => $"{baseUrl}/tools/{ApplicationUtils.ApplicationName}/{ApplicationUtils.ApplicationName}{versionNumber}.zip";
 	}
 }
