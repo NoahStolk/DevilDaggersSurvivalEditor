@@ -86,5 +86,10 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				}
 			}
 		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
+		}
 	}
 }
