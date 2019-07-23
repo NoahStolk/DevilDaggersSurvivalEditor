@@ -29,13 +29,11 @@
 					<Label Grid.Column="0">Search</Label>
 					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" Text="{Binding AuthorSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="AuthorSearchTextBox_TextChanged" />
 				</Grid>
-				<Grid HorizontalAlignment="Stretch" Margin="0,20,0,0">
+				<Grid Name="AuthorHeaders" HorizontalAlignment="Stretch" Margin="0,20,0,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0" FontWeight="Bold">Name</Label>
-					<Label Grid.Column="1" FontWeight="Bold">Spawnsets</Label>
 				</Grid>
 				<ListBox Grid.Row="1" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" Height="600" />
 			</StackPanel>

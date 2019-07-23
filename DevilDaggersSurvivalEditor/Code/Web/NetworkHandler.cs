@@ -1,10 +1,12 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersCore.Spawnset.Web;
+using DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList;
 using DevilDaggersSurvivalEditor.Code.Web.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -14,6 +16,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 	{
 		private const int Timeout = 7500;
 
+		public List<Author> Authors { get; private set; } = new List<Author>();
 		public IReadOnlyList<SpawnsetFile> SpawnsetFiles { get; private set; } = new List<SpawnsetFile>();
 
 		public VersionResult VersionResult { get; set; } = new VersionResult(null, string.Empty, "Version has not yet been retrieved.");
@@ -72,6 +75,15 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
 					downloadString = client.DownloadString(UrlUtils.GetSpawnsets);
 				SpawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
+
+				Authors.Add(new Author(SpawnsetListHandler.AllAuthors, SpawnsetFiles.Count));
+				foreach (SpawnsetFile sf in SpawnsetFiles)
+				{
+					Author author = new Author(sf.Author, SpawnsetFiles.Where(s => s.Author == sf.Author).Count());
+					if (!Authors.Any(a => a.Name == author.Name))
+						Authors.Add(author);
+				}
+
 				return true;
 			}
 			catch (WebException ex)
