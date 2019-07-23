@@ -1,13 +1,16 @@
 ﻿using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.GUI.Windows;
+using Microsoft.Win32;
 using System;
+using System.IO;
 
 namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 {
 	public sealed class SpawnsetHandler
 	{
 		private bool unsavedChanges = false;
-		public bool UnsavedChanges
+		public bool HasUnsavedChanges
 		{
 			get => unsavedChanges;
 			set
@@ -33,12 +36,45 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 
 		public void UpdateSpawnsetState(string name, string fileLocation)
 		{
-			UnsavedChanges = false;
+			HasUnsavedChanges = false;
 
 			SpawnsetName = name;
 			SpawnsetFileLocation = fileLocation;
 
 			Program.App.UpdateMainWindowTitle();
+		}
+
+		public void ProceedWithUnsavedChanges()
+		{
+			if (!HasUnsavedChanges)
+				return;
+
+			ConfirmWindow confirmWindow = new ConfirmWindow("Save changes?", "The current spawnset has unsaved changes. Save before proceeding?");
+			confirmWindow.ShowDialog();
+
+			if (confirmWindow.Confirmed)
+				FileSave();
+		}
+
+		public void FileSave()
+		{
+			if (File.Exists(SpawnsetFileLocation))
+			{
+				if (FileUtils.TryWriteSpawnsetToFile(spawnset, SpawnsetFileLocation))
+					HasUnsavedChanges = false;
+			}
+			else
+			{
+				FileSaveAs();
+			}
+		}
+
+		public void FileSaveAs()
+		{
+			SaveFileDialog dialog = new SaveFileDialog();
+			bool? result = dialog.ShowDialog();
+			if (result.HasValue && result.Value && FileUtils.TryWriteSpawnsetToFile(spawnset, dialog.FileName))
+				UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
 		}
 	}
 }

@@ -41,21 +41,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		private void ProceedWithUnsavedChanges()
-		{
-			if (!SpawnsetHandler.Instance.UnsavedChanges)
-				return;
-
-			ConfirmWindow confirmWindow = new ConfirmWindow("Save changes?", "The current spawnset has unsaved changes. Save before proceeding?");
-			confirmWindow.ShowDialog();
-
-			if (confirmWindow.Confirmed)
-				FileSave();
-		}
-
 		private void FileNew_Click(object sender, RoutedEventArgs e)
 		{
-			ProceedWithUnsavedChanges();
+			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
 			SpawnsetHandler.Instance.spawnset = new Spawnset
 			{
@@ -70,7 +58,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void FileOpen_Click(object sender, RoutedEventArgs e)
 		{
-			ProceedWithUnsavedChanges();
+			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
 			OpenFileDialog dialog = new OpenFileDialog();
 			bool? result = dialog.ShowDialog();
@@ -92,7 +80,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void FileOpenFromWeb_Click(object sender, RoutedEventArgs e)
 		{
-			ProceedWithUnsavedChanges();
+			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
 			DownloadSpawnsetWindow window = new DownloadSpawnsetWindow();
 			window.ShowDialog();
@@ -100,38 +88,17 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void FileSave_Click(object sender, RoutedEventArgs e)
 		{
-			FileSave();
-		}
-
-		public void FileSave()
-		{
-			if (File.Exists(SpawnsetHandler.Instance.SpawnsetFileLocation))
-			{
-				if (FileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, SpawnsetHandler.Instance.SpawnsetFileLocation))
-					SpawnsetHandler.Instance.UnsavedChanges = false;
-			}
-			else
-			{
-				FileSaveAs();
-			}
+			SpawnsetHandler.Instance.FileSave();
 		}
 
 		private void FileSaveAs_Click(object sender, RoutedEventArgs e)
 		{
-			FileSaveAs();
-		}
-
-		private void FileSaveAs()
-		{
-			SaveFileDialog dialog = new SaveFileDialog();
-			bool? result = dialog.ShowDialog();
-			if (result.HasValue && result.Value && FileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, dialog.FileName))
-				SpawnsetHandler.Instance.UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
+			SpawnsetHandler.Instance.FileSaveAs();
 		}
 
 		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
 		{
-			ProceedWithUnsavedChanges();
+			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
 			if (!UserHandler.Instance.settings.SurvivalFileExists)
 			{

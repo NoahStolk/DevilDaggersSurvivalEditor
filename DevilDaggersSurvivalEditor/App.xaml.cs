@@ -37,7 +37,7 @@ namespace DevilDaggersSurvivalEditor
 			string spawnset = SpawnsetHandler.Instance.SpawnsetName.Contains("_") ? $"{SpawnsetFile.GetName(SpawnsetHandler.Instance.SpawnsetName)} by {SpawnsetFile.GetAuthor(SpawnsetHandler.Instance.SpawnsetName)}" : SpawnsetHandler.Instance.SpawnsetName;
 			Dispatcher.Invoke(() =>
 			{
-				MainWindow.Title = $"{ApplicationUtils.ApplicationDisplayName} - {spawnset}{(SpawnsetHandler.Instance.UnsavedChanges ? "*" : "")}";
+				MainWindow.Title = $"{ApplicationUtils.ApplicationDisplayName} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : "")}";
 			});
 		}
 

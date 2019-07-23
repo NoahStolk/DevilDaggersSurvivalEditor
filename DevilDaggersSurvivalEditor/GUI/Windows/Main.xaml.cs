@@ -1,5 +1,6 @@
 ﻿using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using System;
 using System.Globalization;
@@ -65,7 +66,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				switch (e.Key)
 				{
 					case Key.S:
-						MenuBar.FileSave();
+						SpawnsetHandler.Instance.FileSave();
 						break;
 					case Key.C:
 						SpawnsetSpawns.Copy();

@@ -166,7 +166,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				SpawnsetHandler.Instance.spawnset.Spawns.Add(SpawnsetHandler.Instance.spawnset.Spawns.Count, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
 			}
 
-			SpawnsetHandler.Instance.UnsavedChanges = true;
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			UpdateSpawnset();
 
@@ -202,7 +202,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				SpawnsetHandler.Instance.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
 			}
 
-			SpawnsetHandler.Instance.UnsavedChanges = true;
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			UpdateSpawnset();
 		}
@@ -221,7 +221,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				SpawnsetHandler.Instance.spawnset.Spawns.Add(SpawnsetHandler.Instance.spawnset.Spawns.Count, clipboard[i].Copy());
 			}
 
-			SpawnsetHandler.Instance.UnsavedChanges = true;
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			UpdateSpawnset();
 
@@ -257,7 +257,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				SpawnsetHandler.Instance.spawnset.Spawns.Add(max + i, spawnsToShift[i]);
 			}
 
-			SpawnsetHandler.Instance.UnsavedChanges = true;
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			UpdateSpawnset();
 		}
@@ -270,7 +270,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				SpawnsetHandler.Instance.spawnset.Spawns[i].Delay = Delay;
 			}
 
-			SpawnsetHandler.Instance.UnsavedChanges = true;
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			UpdateSpawnset();
 		}
@@ -292,7 +292,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				newSpawns.Add(j++, kvp.Value);
 
 			SpawnsetHandler.Instance.spawnset.Spawns = newSpawns;
-			SpawnsetHandler.Instance.UnsavedChanges = true;
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			UpdateSpawnset();
 		}
@@ -338,7 +338,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					}
 				}
 
-				SpawnsetHandler.Instance.UnsavedChanges = true;
+				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 				UpdateSpawnset();
 			}
 		}
@@ -365,7 +365,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy = Spawnset.Enemies[window.switchArray[current + 1] - 1];
 				}
 
-				SpawnsetHandler.Instance.UnsavedChanges = true;
+				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 				UpdateSpawnset();
 			}
 		}
