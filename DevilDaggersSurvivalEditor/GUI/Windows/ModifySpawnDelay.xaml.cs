@@ -1,6 +1,8 @@
 ﻿using DevilDaggersSurvivalEditor.Code.Spawns;
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
@@ -8,7 +10,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 	public partial class ModifySpawnDelayWindow : Window
 	{
 		public DelayModificationFunction Function { get; set; }
-		public float Value { get; set; } = 2;
+		public double Value { get; set; } = 2;
 
 		public ModifySpawnDelayWindow(int spawnCount)
 		{
@@ -18,22 +20,44 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			Data.DataContext = this;
 
-			// This is pretty ugly, but all other methods stopped working after the binding was added to the TextBox.
-			DispatcherTimer selectAllTimer = new DispatcherTimer();
-			selectAllTimer.Start();
-			selectAllTimer.Tick += (senderSelectAll, args) =>
+			TextBoxValue.Text = Value.ToString();
+			TextBoxValue.Focus();
+			TextBoxValue.SelectAll();
+
+			foreach (DelayModificationFunction dmf in (DelayModificationFunction[])Enum.GetValues(typeof(DelayModificationFunction)))
+				FunctionComboBox.Items.Add(new ComboBoxItem { Content = dmf.ToString() });
+
+			// No clue why this has to be done this way.
+			DispatcherTimer timer = new DispatcherTimer();
+			timer.Start();
+			timer.Tick += (sender, e) =>
 			{
-				ValueTextBox.Focus();
-				ValueTextBox.SelectAll();
 				FunctionComboBox.SelectedIndex = 0;
-				selectAllTimer.Stop();
+				timer.Stop();
 			};
 		}
 
 		private void OKButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!Validation.GetHasError(ValueTextBox))
+			if (IsValueValid())
 				DialogResult = true;
+		}
+
+		private void TextBoxValue_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			bool valid = IsValueValid();
+
+			if (valid)
+				Value = float.Parse(TextBoxValue.Text);
+
+			TextBoxValue.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 128, 128));
+
+			OKButton.IsEnabled = valid;
+		}
+
+		private bool IsValueValid()
+		{
+			return float.TryParse(TextBoxValue.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
 		}
 	}
 }

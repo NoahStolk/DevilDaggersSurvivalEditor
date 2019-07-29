@@ -107,6 +107,7 @@
     <Compile Include="Code\FileUtils.cs" />
     <Compile Include="Code\MiscUtils.cs" />
     <Compile Include="Code\Arena\TileUtils.cs" />
+    <Compile Include="Code\Spawns\SpawnUtils.cs" />
     <Compile Include="Code\User\UserHandler.cs" />
     <Compile Include="Code\Web\TimeoutWebClient.cs" />
     <Compile Include="Code\Web\NetworkHandler.cs" />
