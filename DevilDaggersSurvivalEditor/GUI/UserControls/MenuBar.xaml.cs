@@ -7,6 +7,7 @@ using DevilDaggersSurvivalEditor.Code.Web;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -38,6 +39,16 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				Program.App.ShowMessage("Error checking for updates", NetworkHandler.Instance.VersionResult.ErrorMessage);
 			}
+
+//#if DEBUG
+			MenuItem testException = new MenuItem { Header = "Test Exception" };
+			testException.Click += TestException_Click;
+
+			MenuItem debug = new MenuItem { Header = "Debug" };
+			debug.Items.Add(testException);
+
+			MenuPanel.Items.Add(debug);
+//#endif
 		}
 
 		private void FileNew_Click(object sender, RoutedEventArgs e)
@@ -212,6 +223,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Process.Start("DDSE.log");
 			else
 				Program.App.ShowMessage("No log file", "Log file does not exist.");
+		}
+
+		private void TestException_Click(object sender, RoutedEventArgs e)
+		{
+			throw new Exception("Test Exception");
 		}
 	}
 }
