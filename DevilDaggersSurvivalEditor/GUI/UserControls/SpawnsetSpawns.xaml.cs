@@ -300,26 +300,43 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		public void Delete()
 		{
-			List<int> selections = GetSpawnSelectionIndices();
+			//List<int> selections = GetSpawnSelectionIndices();
+			//SortedDictionary<int, Spawn> newSpawns = new SortedDictionary<int, Spawn>();
+			//int i = 0;
+			//foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
+			//{
+			//	if (selections.Contains(kvp.Key))
+			//	{
+			//		ListBoxSpawns.Items.RemoveAt(kvp.Key);
+			//		spawnControls.RemoveAt(kvp.Key);
+			//		continue;
+			//	}
+
+			//	newSpawns.Add(i++, SpawnsetHandler.Instance.spawnset.Spawns[kvp.Key]);
+			//}
+			//SpawnsetHandler.Instance.spawnset.Spawns = newSpawns;
+
+			//SpawnsetHandler.Instance.HasUnsavedChanges = true;
+
+			//UpdateSpawnControls();
+
+			//ListBoxSpawns.SelectedItems.Clear();
+
+			foreach (int i in GetSpawnSelectionIndices())
+				SpawnsetHandler.Instance.spawnset.Spawns.Remove(i);
+
+			// Reset the keys (we don't want gaps in the sorted dictionary)
 			SortedDictionary<int, Spawn> newSpawns = new SortedDictionary<int, Spawn>();
-			int i = 0;
+			int j = 0;
 			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
-			{
-				if (selections.Contains(kvp.Key))
-				{
-					ListBoxSpawns.Items.RemoveAt(kvp.Key);
-					spawnControls.RemoveAt(kvp.Key);
-					continue;
-				}
+				newSpawns.Add(j++, kvp.Value);
 
-				newSpawns.Add(i++, SpawnsetHandler.Instance.spawnset.Spawns[kvp.Key]);
-			}
 			SpawnsetHandler.Instance.spawnset.Spawns = newSpawns;
-
+			
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
-
-			UpdateSpawnControls();
-
+			
+			UpdateSpawnset();
+			
 			ListBoxSpawns.SelectedItems.Clear();
 		}
 
