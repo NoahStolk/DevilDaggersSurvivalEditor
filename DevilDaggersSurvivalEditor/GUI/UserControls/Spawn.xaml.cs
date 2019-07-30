@@ -1,7 +1,7 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnset;
 using DevilDaggersSurvivalEditor.Code;
-using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -9,32 +9,77 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class SpawnControl : UserControl
 	{
-		public int ID { get; set; }
-		public double Seconds { get; set; }
-		public string EnemyName { get; set; }
-		public double Delay { get; set; }
-		public int NoFarmGems { get; set; }
-		public int TotalGems { get; set; }
-
-		public SpawnControl(int id, double seconds, string enemyName, double delay, int noFarmGems, int totalGems)
+		private bool isInLoop;
+		public bool IsInLoop
 		{
-			ID = id;
-			Seconds = seconds;
-			EnemyName = enemyName;
-			Delay = delay;
-			NoFarmGems = noFarmGems;
-			TotalGems = totalGems;
+			get => isInLoop;
+			set
+			{
+				if (isInLoop != value)
+				{
+					isInLoop = value;
+					FontWeight = isInLoop ? FontWeights.Bold : FontWeights.Normal;
+					Background = new SolidColorBrush(isInLoop ? Color.FromArgb(128, 255, 255, 128) : Color.FromArgb(0, 0, 0, 0));
+				}
+			}
+		}
 
+		private int id;
+		public int ID
+		{
+			get => id;
+			set
+			{
+				id = value;
+				LabelID.Content = value.ToString();
+			}
+		}
+
+		private double seconds;
+		public double Seconds
+		{
+			get => seconds;
+			set
+			{
+				seconds = value;
+				LabelSeconds.Content = value.ToString("0.00");
+			}
+		}
+
+		private int totalGems;
+		public int TotalGems
+		{
+			get => totalGems;
+			set
+			{
+				totalGems = value;
+				LabelTotalGems.Content = value.ToString();
+			}
+		}
+
+		private Spawn spawn;
+		public Spawn Spawn
+		{
+			get => spawn;
+			set
+			{
+				spawn = value;
+
+				LabelEnemy.Content = spawn.SpawnsetEnemy.Name;
+				LabelDelay.Content = spawn.Delay.ToString("0.00");
+				LabelNoFarmGems.Content = spawn.SpawnsetEnemy.NoFarmGems;
+
+				Color color = spawn.SpawnsetEnemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.SpawnsetEnemy.ToEnemy(Game.GameVersions[Game.DEFAULT_GAME_VERSION]).ColorCode}");
+				LabelEnemy.Background = new SolidColorBrush(color);
+
+				if (MiscUtils.GetPerceivedBrightness(color) < 140)
+					LabelEnemy.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+			}
+		}
+
+		public SpawnControl()
+		{
 			InitializeComponent();
-
-			Grid.DataContext = this;
-
-			SpawnsetEnemy enemy = Spawnset.Enemies.Where(k => k.Value.Name == enemyName).FirstOrDefault().Value;
-			Color color = enemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ToEnemy(Game.GameVersions[Game.DEFAULT_GAME_VERSION]).ColorCode}");
-			Enemy.Background = new SolidColorBrush(color);
-
-			if (MiscUtils.GetPerceivedBrightness(color) < 140)
-				Enemy.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
 		}
 	}
 }

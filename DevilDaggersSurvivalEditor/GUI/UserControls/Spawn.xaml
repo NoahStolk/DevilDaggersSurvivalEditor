@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="400">
-	<Grid x:Name="Grid" Width="652" Height="20">
+	<Grid Width="652" Height="20">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="1*" />
 			<ColumnDefinition Width="2*" />
@@ -14,11 +14,11 @@
 			<ColumnDefinition Width="2*" />
 			<ColumnDefinition Width="2*" />
 		</Grid.ColumnDefinitions>
-		<Label Grid.Column="0" Content="{Binding ID}" Style="{StaticResource NumericSpawnLabel}" />
-		<Label Grid.Column="1" Content="{Binding Seconds}" ContentStringFormat="{}{0:N2}" Style="{StaticResource NumericSpawnLabel}" />
-		<Label Grid.Column="2" Content="{Binding EnemyName}" Name="Enemy" />
-		<Label Grid.Column="3" Content="{Binding Delay}" ContentStringFormat="{}{0:N2}" Style="{StaticResource NumericSpawnLabel}" />
-		<Label Grid.Column="4" Content="{Binding NoFarmGems}" Style="{StaticResource NumericSpawnLabel}" />
-		<Label Grid.Column="5" Content="{Binding TotalGems}" Style="{StaticResource NumericSpawnLabel}" />
+		<Label Grid.Column="0" Name="LabelID" Style="{StaticResource NumericSpawnLabel}" />
+		<Label Grid.Column="1" Name="LabelSeconds" Style="{StaticResource NumericSpawnLabel}" />
+		<Label Grid.Column="2" Name="LabelEnemy" />
+		<Label Grid.Column="3" Name="LabelDelay" Style="{StaticResource NumericSpawnLabel}" />
+		<Label Grid.Column="4" Name="LabelNoFarmGems" Style="{StaticResource NumericSpawnLabel}" />
+		<Label Grid.Column="5" Name="LabelTotalGems" Style="{StaticResource NumericSpawnLabel}" />
 	</Grid>
 </UserControl>
