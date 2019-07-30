@@ -36,7 +36,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 ## Changelog
 
-#### 2.3.0.0 - WIP
+#### 2.3.0.0 - July 30, 2019
 
 - Heavily optimised performance for the spawns section.
 - Added author sorting to the online spawnset list.
