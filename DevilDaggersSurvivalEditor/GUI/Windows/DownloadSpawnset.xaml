@@ -29,13 +29,13 @@
 					<Label Grid.Column="0">Search</Label>
 					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" Text="{Binding AuthorSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="AuthorSearchTextBox_TextChanged" />
 				</Grid>
-				<Grid Name="AuthorHeaders" HorizontalAlignment="Stretch" Margin="4,20,20,0">
+				<Grid Name="AuthorHeaders" HorizontalAlignment="Stretch" Margin="6,20,22,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 				</Grid>
-				<ListBox Grid.Row="1" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" Height="600" HorizontalContentAlignment="Stretch" />
+				<ListBox Grid.Row="1" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" Height="560" HorizontalContentAlignment="Stretch" />
 			</StackPanel>
 			<StackPanel Grid.Column="1">
 				<Label FontWeight="Bold">Spawnsets</Label>
@@ -72,7 +72,7 @@
 					</Grid.ColumnDefinitions>
 				</Grid>
 				<!--TODO: Fix height-->
-				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="560">
+				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="560" Margin="0,1,0,0" Padding="0,1,0,0" Background="White">
 					<StackPanel Name="SpawnsetsList" />
 				</ScrollViewer>
 			</StackPanel>

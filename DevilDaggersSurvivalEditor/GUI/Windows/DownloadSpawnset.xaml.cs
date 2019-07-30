@@ -208,7 +208,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Label authorLabel = new Label { Content = author.Name };
 			Grid.SetColumn(authorLabel, 0);
 
-			Label spawnsetCountLabel = new Label { Content = author.SpawnsetCount };
+			Label spawnsetCountLabel = new Label { Content = author.SpawnsetCount, HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(spawnsetCountLabel, 1);
 
 			Grid grid = new Grid { Tag = author };
@@ -353,7 +353,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void SetBackgroundColor(Grid grid)
 		{
 			List<Grid> items = SpawnsetsList.Children.OfType<Grid>().Where(c => c.Visibility == Visibility.Visible).ToList();
-			grid.Background = new SolidColorBrush(items.IndexOf(grid) % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(192, 192, 192));
+			grid.Background = new SolidColorBrush(items.IndexOf(grid) % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(224, 224, 224));
 		}
 
 		private void SortAuthorsButton_Click(object sender, RoutedEventArgs e)
