@@ -1,5 +1,5 @@
-﻿using DevilDaggersCore.Spawnset;
-using DevilDaggersCore.Spawnset.Web;
+﻿using DevilDaggersCore.Spawnsets;
+using DevilDaggersCore.Spawnsets.Web;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList;

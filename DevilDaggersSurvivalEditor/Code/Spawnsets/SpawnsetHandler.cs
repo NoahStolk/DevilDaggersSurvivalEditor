@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Spawnset;
+﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using Microsoft.Win32;

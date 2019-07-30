@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Spawnset;
+﻿using DevilDaggersCore.Spawnsets;
 using Newtonsoft.Json;
 using System.IO;
 
