@@ -41,7 +41,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Optimised deleting spawns.
 - Layout improvements.
 - Add end loop preview and setting for end loop preview wave amount.
-- Spawn index visualization now starts at 1 rather than 0.
+- Spawn index visualisation now starts at 1 rather than 0.
 
 #### 2.3.1.0 - July 30, 2019
 
@@ -85,7 +85,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Added "Select all" and "Deselect all" buttons to the arena editor.
 - Added copy/paste functionality to the spawns editor.
 - Added timeout for web requests so the application doesn't keep waiting when the website is offline.
-- Fixed tile elements not updating colors after rounding or randomizing.
+- Fixed tile elements not updating colours after rounding or randomising.
 - The spawns editor scrollbar now scrolls to the end when adding new spawns.
 - The online spawnsets window now remembers the author and spawnset search values after it is closed.
 - The default survival file is now embedded into the executable so the actual file is not needed anymore. This removes the issue where the application crashes whenever the file would not be present.
@@ -117,10 +117,10 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 	- Added continuous tile modification and selection to the arena editor.
 	- Added rectangular tile modification and selection to the arena editor.
 	- Added ability to round heights for selected tiles.
-	- Added ability to randomize heights for selected tiles.
+	- Added ability to randomise heights for selected tiles.
 	- Added ability to rotate and flip the arena.
 	- Made the tiles brighter for better visibility.
-	- Optimized the shrink preview slider for better performance.
+	- Optimised the shrink preview slider for better performance.
 	- Implemented custom pixel shading for the arena editor to take advantage of high-performant GPU rendering to render lighting, selection borders and selection highlighting.
 - Arena presets
 	- Renamed Pyramid preset to Qbert.
@@ -170,7 +170,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 
 #### 1.0.2.0 - July 26, 2018
 
-- Enforced en-US globalization.
+- Enforced en-US globalisation.
 
 #### 1.0.1.0 - June 25, 2018
 
