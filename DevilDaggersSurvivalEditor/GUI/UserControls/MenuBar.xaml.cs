@@ -40,7 +40,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Program.App.ShowMessage("Error checking for updates", NetworkHandler.Instance.VersionResult.ErrorMessage);
 			}
 
-//#if DEBUG
+#if DEBUG
 			MenuItem testException = new MenuItem { Header = "Test Exception" };
 			testException.Click += TestException_Click;
 
@@ -48,7 +48,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			debug.Items.Add(testException);
 
 			MenuPanel.Items.Add(debug);
-//#endif
+#endif
 		}
 
 		private void FileNew_Click(object sender, RoutedEventArgs e)
