@@ -23,7 +23,7 @@
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
 
-			<Label Name="GlitchTileLabel" Grid.Column="0" />
+			<Label Grid.Column="0" Name="GlitchTileLabel" />
 			<CheckBox Grid.Column="1" IsChecked="{Binding LockGlitchTile}" />
 		</Grid>
 		<Grid>
@@ -32,8 +32,17 @@
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
 
-			<Label Content="Prevent spawn tile to be void" Grid.Column="0" />
+			<Label Grid.Column="0">Prevent spawn tile to be void</Label>
 			<CheckBox Grid.Column="1" IsChecked="{Binding LockSpawnTile}" />
+		</Grid>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<Label Grid.Column="0">End wave preview amount (set to 1 for no preview)</Label>
+			<TextBox Grid.Column="1" Text="{Binding EndWavePreviewAmount}"/>
 		</Grid>
 		<Grid>
 			<Grid.ColumnDefinitions>

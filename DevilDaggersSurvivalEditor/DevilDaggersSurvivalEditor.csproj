@@ -114,6 +114,9 @@
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
       <DependentUpon>MenuBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UserControls\EndLoopSpawn.xaml.cs">
+      <DependentUpon>EndLoopSpawn.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UserControls\Spawn.xaml.cs">
       <DependentUpon>Spawn.xaml</DependentUpon>
     </Compile>
@@ -168,6 +171,10 @@
     <Page Include="GUI\UserControls\MenuBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\UserControls\EndLoopSpawn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="GUI\UserControls\Spawn.xaml">
       <SubType>Designer</SubType>

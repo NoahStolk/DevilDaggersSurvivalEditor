@@ -2,6 +2,7 @@
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
+using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using NetBase.Utils;
 using System;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
@@ -117,12 +119,59 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
 
 					SpawnControl spawnControl = spawnControls[kvp.Key];
-					spawnControl.ID = kvp.Key;
+					spawnControl.ID = kvp.Key + 1;
 					spawnControl.Seconds = seconds;
 					spawnControl.TotalGems = totalGems;
 					spawnControl.IsInLoop = kvp.Key >= endLoopStartIndex;
 				}
+
+				UpdateEndLoopPreview(seconds, totalGems);
 			});
+		}
+
+		private void UpdateEndLoopPreview(double seconds, int totalGems)
+		{
+			EndLoopSpawns.Items.Clear();
+
+			List<Spawn> endLoop = SpawnsetHandler.Instance.spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.spawnset.GetEndLoopStartIndex()).ToList();
+			int endLoopSpawns = endLoop.Where(s => s.SpawnsetEnemy != Spawnset.Enemies[-1]).Count();
+			EndLoopPreviewLabel.Visibility = endLoopSpawns == 0 || UserHandler.Instance.settings.EndWavePreviewAmount == 1 ? Visibility.Hidden : Visibility.Visible;
+
+			if (endLoopSpawns == 0)
+				return;
+
+			for (int i = 1; i < UserHandler.Instance.settings.EndWavePreviewAmount; i++) // Skip the first wave as it is already included in the regular spawns
+			{
+				int endLoopIndex = 0;
+
+				IEnumerable<double> waveTimes = SpawnsetHandler.Instance.spawnset.GenerateEndWaveTimes(seconds, i);
+
+				EndLoopSpawns.Items.Add(new Label { Content = $"End wave {i + 1}", FontWeight = FontWeights.Bold, Background = new SolidColorBrush(Color.FromRgb(255, 96, 96)) });
+				double secondsPrevious = seconds;
+				foreach (double spawnSecond in waveTimes)
+				{
+					SpawnsetEnemy enemy = endLoop[endLoopIndex].SpawnsetEnemy;
+
+					seconds = spawnSecond;
+					totalGems += enemy.NoFarmGems;
+
+					bool changeGigaIntoGhost = i % 3 == 2 && enemy == Spawnset.Enemies[5]; // Assumes V3
+					EndLoopSpawnControl spawnControl = new EndLoopSpawnControl
+					{
+						Enemy = changeGigaIntoGhost ? Spawnset.Enemies[9] : enemy,
+						ID = SpawnsetHandler.Instance.spawnset.Spawns.Count() + 1 + endLoop.Count * (i - 1) + endLoopIndex,
+						Seconds = seconds,
+						TotalGems = totalGems,
+						Delay = $"{endLoop[endLoopIndex].Delay.ToString("0.00")} ({(seconds - secondsPrevious).ToString("0.00")})"
+					};
+					if (changeGigaIntoGhost)
+						spawnControl.AddGigaGhostToolTip();
+					EndLoopSpawns.Items.Add(spawnControl);
+
+					endLoopIndex++;
+					secondsPrevious = seconds;
+				}
+			}
 		}
 
 		private List<int> GetSpawnSelectionIndices()
@@ -398,6 +447,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				UpdateSpawnControls();
 			}
+		}
+
+		private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+		{
+			ScrollViewer sv = (ScrollViewer)sender;
+			sv.ScrollToVerticalOffset(sv.VerticalOffset - e.Delta);
+			e.Handled = true;
 		}
 	}
 }

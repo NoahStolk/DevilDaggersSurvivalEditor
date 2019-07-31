@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Spawnsets;
+using NetBase.Utils;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -16,6 +17,17 @@ namespace DevilDaggersSurvivalEditor.Code.User
 		public bool LockSpawnTile { get; set; }
 		[JsonProperty]
 		public bool LockGlitchTile { get; set; }
+
+		private int endWavePreviewAmount = 3;
+		[JsonProperty]
+		public int EndWavePreviewAmount
+		{
+			get => endWavePreviewAmount;
+			set
+			{
+				endWavePreviewAmount = MathUtils.Clamp(value, 1, 100);
+			}
+		}
 
 		public string SurvivalFileLocation => Path.Combine(SurvivalFileRootFolder, "survival");
 		public bool SurvivalFileExists => File.Exists(SurvivalFileLocation);
