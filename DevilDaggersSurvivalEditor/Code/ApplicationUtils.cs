@@ -5,7 +5,7 @@ namespace DevilDaggersSurvivalEditor.Code
 {
 	public static class ApplicationUtils
 	{
-		public const string ApplicationDisplayName = "Devil Daggers Survival Editor 2";
+		public static string ApplicationDisplayName = $"Devil Daggers Survival Editor {ApplicationVersionNumber}";
 		public const string ApplicationName = "DevilDaggersSurvivalEditor";
 
 		private static Version applicationVersionNumber;
