@@ -38,11 +38,11 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 #### 2.x.x.x - WIP
 
+- Added end loop preview and setting for end loop preview wave amount.
 - Optimised deleting spawns.
+- Fixed log not being written to.
+- The spawn index visualisation now starts at 1 rather than 0.
 - Layout improvements.
-- Add end loop preview and setting for end loop preview wave amount.
-- Spawn index visualisation now starts at 1 rather than 0.
-- Fix log not being written.
 
 #### 2.3.1.0 - July 30, 2019
 
