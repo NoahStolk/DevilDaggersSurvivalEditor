@@ -5,6 +5,7 @@ using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -20,87 +21,19 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private readonly List<Image> authorSortingImages = new List<Image>();
 		private readonly List<Image> spawnsetSortingImages = new List<Image>();
 
-		private Author authorSelection;
+		private AuthorListEntry authorSelection;
 
 		public DownloadSpawnsetWindow()
 		{
 			InitializeComponent();
 
 			int index = 0;
-			foreach (SpawnsetListSorting<Author> sorting in SpawnsetListHandler.Instance.AuthorSortings)
-			{
-				Label label = new Label
-				{
-					FontWeight = FontWeights.Bold,
-					Content = sorting.Name
-				};
-
-				Image image = new Image
-				{
-					Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", sorting == SpawnsetListHandler.Instance.ActiveAuthorSorting ? "SpawnsetSortActive.png" : "SpawnsetSort.png"))),
-					Stretch = Stretch.None,
-					RenderTransformOrigin = new Point(0.5, 0.5),
-					RenderTransform = new ScaleTransform
-					{
-						ScaleY = sorting.IsAscendingDefault ? sorting.Ascending ? 1 : -1 : sorting.Ascending ? -1 : 1
-					}
-				};
-				authorSortingImages.Add(image);
-
-				Button button = new Button
-				{
-					ToolTip = $"Sort by {sorting.Name}",
-					Width = 18,
-					Content = image,
-					Tag = sorting
-				};
-				button.Click += SortAuthorsButton_Click;
-
-				StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
-				stackPanel.Children.Add(label);
-				stackPanel.Children.Add(button);
-				Grid.SetColumn(stackPanel, index++);
-
-				AuthorHeaders.Children.Add(stackPanel);
-			}
+			foreach (SpawnsetListSorting<AuthorListEntry> sorting in SpawnsetListHandler.Instance.AuthorSortings)
+				AuthorHeaders.Children.Add(CreateHeaderStackPanel(index++, authorSortingImages, sorting, SpawnsetListHandler.Instance.ActiveAuthorSorting, SortAuthorsButton_Click));
 
 			index = 0;
-			foreach (SpawnsetListSorting<SpawnsetFile> sorting in SpawnsetListHandler.Instance.SpawnsetSortings)
-			{
-				Label label = new Label
-				{
-					FontWeight = FontWeights.Bold,
-					Content = sorting.Name
-				};
-
-				Image image = new Image
-				{
-					Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", sorting == SpawnsetListHandler.Instance.ActiveSpawnsetSorting ? "SpawnsetSortActive.png" : "SpawnsetSort.png"))),
-					Stretch = Stretch.None,
-					RenderTransformOrigin = new Point(0.5, 0.5),
-					RenderTransform = new ScaleTransform
-					{
-						ScaleY = sorting.IsAscendingDefault ? sorting.Ascending ? 1 : -1 : sorting.Ascending ? -1 : 1
-					}
-				};
-				spawnsetSortingImages.Add(image);
-
-				Button button = new Button
-				{
-					ToolTip = $"Sort by {sorting.Name}",
-					Width = 18,
-					Content = image,
-					Tag = sorting
-				};
-				button.Click += SortSpawnsetFilesButton_Click;
-
-				StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
-				stackPanel.Children.Add(label);
-				stackPanel.Children.Add(button);
-				Grid.SetColumn(stackPanel, index++);
-
-				SpawnsetHeaders.Children.Add(stackPanel);
-			}
+			foreach (SpawnsetListSorting<SpawnsetListEntry> sorting in SpawnsetListHandler.Instance.SpawnsetSortings)
+				SpawnsetHeaders.Children.Add(CreateHeaderStackPanel(index++, spawnsetSortingImages, sorting, SpawnsetListHandler.Instance.ActiveSpawnsetSorting, SortSpawnsetFilesButton_Click));
 
 			Data.DataContext = SpawnsetListHandler.Instance;
 
@@ -112,6 +45,42 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			FilterAuthors();
 			FilterSpawnsets();
+		}
+
+		private StackPanel CreateHeaderStackPanel<T>(int index, List<Image> sortingImages, SpawnsetListSorting<T> sorting, SpawnsetListSorting<T> activeSorting, Action<object, RoutedEventArgs> buttonClick) where T : AbstractListEntry
+		{
+			Label label = new Label
+			{
+				FontWeight = FontWeights.Bold,
+				Content = sorting.DisplayName
+			};
+
+			Image image = new Image
+			{
+				Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", sorting == activeSorting ? "SpawnsetSortActive.png" : "SpawnsetSort.png"))),
+				Stretch = Stretch.None,
+				RenderTransformOrigin = new Point(0.5, 0.5),
+				RenderTransform = new ScaleTransform
+				{
+					ScaleY = sorting.IsAscendingDefault ? sorting.Ascending ? 1 : -1 : sorting.Ascending ? -1 : 1
+				}
+			};
+			sortingImages.Add(image);
+
+			Button button = new Button
+			{
+				ToolTip = $"Sort by \"{sorting.FullName}\"",
+				Width = 18,
+				Content = image,
+				Tag = sorting
+			};
+			button.Click += (sender, e) => buttonClick(sender, e);
+
+			StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+			stackPanel.Children.Add(label);
+			stackPanel.Children.Add(button);
+			Grid.SetColumn(stackPanel, index++);
+			return stackPanel;
 		}
 
 		private void Download_Click(string fileName)
@@ -183,7 +152,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void PopulateAuthors()
 		{
-			foreach (Author author in NetworkHandler.Instance.Authors)
+			foreach (AuthorListEntry author in NetworkHandler.Instance.Authors)
 			{
 				AuthorsListBox.Items.Add(new ListBoxItem
 				{
@@ -195,7 +164,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void PopulateSpawnsets()
 		{
-			foreach (SpawnsetFile sf in NetworkHandler.Instance.SpawnsetFiles)
+			foreach (SpawnsetListEntry sf in NetworkHandler.Instance.Spawnsets)
 			{
 				Grid grid = CreateSpawnsetGrid(sf);
 				SpawnsetsList.Children.Add(grid);
@@ -203,7 +172,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			}
 		}
 
-		private Grid CreateAuthorGrid(Author author)
+		private Grid CreateAuthorGrid(AuthorListEntry author)
 		{
 			Label authorLabel = new Label { Content = author.Name };
 			Grid.SetColumn(authorLabel, 0);
@@ -220,37 +189,40 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			return grid;
 		}
 
-		private Grid CreateSpawnsetGrid(SpawnsetFile sf)
+		private Grid CreateSpawnsetGrid(SpawnsetListEntry entry)
 		{
-			Label spawnsetNameLabel = new Label { Content = sf.Name.Replace("_", "__") };
+			Label spawnsetNameLabel = new Label { Content = entry.SpawnsetFile.Name.Replace("_", "__") };
 			Grid.SetColumn(spawnsetNameLabel, 0);
 
-			Label authorNameLabel = new Label { Content = sf.Author.Replace("_", "__") };
+			Label authorNameLabel = new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__") };
 			Grid.SetColumn(authorNameLabel, 1);
 
-			Label lastUpdatedLabel = new Label { Content = sf.settings.LastUpdated.ToString("dd MMM yyyy HH:mm") };
+			Label lastUpdatedLabel = new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy HH:mm") };
 			Grid.SetColumn(lastUpdatedLabel, 2);
 
-			Label nonLoopLengthLabel = new Label { Content = sf.spawnsetData.NonLoopLength == 0 ? "N/A" : sf.spawnsetData.NonLoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(nonLoopLengthLabel, 3);
+			Label hasLeaderboardLabel = new Label { Content = entry.HasLeaderboard };
+			Grid.SetColumn(hasLeaderboardLabel, 3);
 
-			Label nonLoopSpawnsLabel = new Label { Content = sf.spawnsetData.NonLoopSpawns == 0 ? "N/A" : sf.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(nonLoopSpawnsLabel, 4);
+			Label nonLoopLengthLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
+			Grid.SetColumn(nonLoopLengthLabel, 4);
 
-			Label loopStartLabel = new Label { Content = sf.spawnsetData.LoopSpawns == 0 ? "N/A" : sf.spawnsetData.LoopStart.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(loopStartLabel, 5);
+			Label nonLoopSpawnsLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
+			Grid.SetColumn(nonLoopSpawnsLabel, 5);
 
-			Label loopLengthLabel = new Label { Content = sf.spawnsetData.LoopLength == 0 ? "N/A" : sf.spawnsetData.LoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(loopLengthLabel, 6);
+			Label loopStartLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopStart.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
+			Grid.SetColumn(loopStartLabel, 6);
 
-			Label loopSpawnsLabel = new Label { Content = sf.spawnsetData.LoopSpawns == 0 ? "N/A" : sf.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(loopSpawnsLabel, 7);
+			Label loopLengthLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
+			Grid.SetColumn(loopLengthLabel, 7);
+
+			Label loopSpawnsLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
+			Grid.SetColumn(loopSpawnsLabel, 8);
 
 			Button button = new Button { Content = "Download" };
-			Grid.SetColumn(button, 8);
-			button.Click += (sender, e) => Download_Click($"{sf.Name}_{sf.Author}");
+			Grid.SetColumn(button, 9);
+			button.Click += (sender, e) => Download_Click($"{entry.SpawnsetFile.Name}_{entry.SpawnsetFile.Author}");
 
-			Grid grid = new Grid { Tag = sf };
+			Grid grid = new Grid { Tag = entry };
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
@@ -260,9 +232,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			grid.ColumnDefinitions.Add(new ColumnDefinition());
 			grid.ColumnDefinitions.Add(new ColumnDefinition());
 			grid.ColumnDefinitions.Add(new ColumnDefinition());
+			grid.ColumnDefinitions.Add(new ColumnDefinition());
 			grid.Children.Add(spawnsetNameLabel);
 			grid.Children.Add(authorNameLabel);
 			grid.Children.Add(lastUpdatedLabel);
+			grid.Children.Add(hasLeaderboardLabel);
 			grid.Children.Add(nonLoopLengthLabel);
 			grid.Children.Add(nonLoopSpawnsLabel);
 			grid.Children.Add(loopStartLabel);
@@ -278,7 +252,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			if (AuthorsListBox.SelectedItem == null)
 				return;
 
-			authorSelection = (Author)(AuthorsListBox.SelectedItem as ListBoxItem).Tag;
+			authorSelection = (AuthorListEntry)(AuthorsListBox.SelectedItem as ListBoxItem).Tag;
 
 			if (authorSelection.Name == SpawnsetListHandler.AllAuthors)
 			{
@@ -292,7 +266,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				foreach (Grid grid in SpawnsetsList.Children)
 				{
-					grid.Visibility = (grid.Tag as SpawnsetFile).Author == authorSelection.Name ? Visibility.Visible : Visibility.Collapsed;
+					grid.Visibility = (grid.Tag as SpawnsetListEntry).SpawnsetFile.Author == authorSelection.Name ? Visibility.Visible : Visibility.Collapsed;
 					SetBackgroundColor(grid);
 				}
 			}
@@ -311,25 +285,25 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void FilterAuthors()
 		{
 			foreach (ListBoxItem lbi in AuthorsListBox.Items)
-				lbi.Visibility = (lbi.Tag as Author).Name.ToLower().Contains(SpawnsetListHandler.Instance.AuthorSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+				lbi.Visibility = (lbi.Tag as AuthorListEntry).Name.ToLower().Contains(SpawnsetListHandler.Instance.AuthorSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void FilterSpawnsets()
 		{
 			foreach (Grid grid in SpawnsetsList.Children)
 			{
-				grid.Visibility = (grid.Tag as SpawnsetFile).Name.ToLower().Contains(SpawnsetListHandler.Instance.SpawnsetSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
+				grid.Visibility = (grid.Tag as SpawnsetListEntry).SpawnsetFile.Name.ToLower().Contains(SpawnsetListHandler.Instance.SpawnsetSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
 				SetBackgroundColor(grid);
 			}
 		}
 
-		private void SortAuthors(SpawnsetListSorting<Author> sorting)
+		private void SortAuthors(SpawnsetListSorting<AuthorListEntry> sorting)
 		{
-			List<Author> sorted = sorting.Ascending ? NetworkHandler.Instance.Authors.OrderBy(sorting.SortingFunction).ToList() : NetworkHandler.Instance.Authors.OrderByDescending(sorting.SortingFunction).ToList();
+			List<AuthorListEntry> sorted = sorting.Ascending ? NetworkHandler.Instance.Authors.OrderBy(sorting.SortingFunction).ToList() : NetworkHandler.Instance.Authors.OrderByDescending(sorting.SortingFunction).ToList();
 
 			for (int i = 0; i < AuthorsListBox.Items.Count; i++)
 			{
-				ListBoxItem lbi = AuthorsListBox.Items.OfType<ListBoxItem>().Where(g => (g.Content as Grid).Tag as Author == sorted[i]).FirstOrDefault();
+				ListBoxItem lbi = AuthorsListBox.Items.OfType<ListBoxItem>().Where(g => (g.Content as Grid).Tag as AuthorListEntry == sorted[i]).FirstOrDefault();
 				AuthorsListBox.Items.Remove(lbi);
 				AuthorsListBox.Items.Insert(i, lbi);
 
@@ -337,13 +311,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			}
 		}
 
-		private void SortSpawnsets(SpawnsetListSorting<SpawnsetFile> sorting)
+		private void SortSpawnsets(SpawnsetListSorting<SpawnsetListEntry> sorting)
 		{
-			List<SpawnsetFile> sorted = sorting.Ascending ? NetworkHandler.Instance.SpawnsetFiles.OrderBy(sorting.SortingFunction).ToList() : NetworkHandler.Instance.SpawnsetFiles.OrderByDescending(sorting.SortingFunction).ToList();
+			List<SpawnsetListEntry> sorted = sorting.Ascending ? NetworkHandler.Instance.Spawnsets.OrderBy(sorting.SortingFunction).ToList() : NetworkHandler.Instance.Spawnsets.OrderByDescending(sorting.SortingFunction).ToList();
 
 			for (int i = 0; i < SpawnsetsList.Children.Count; i++)
 			{
-				Grid grid = SpawnsetsList.Children.OfType<Grid>().Where(g => g.Tag as SpawnsetFile == sorted[i]).FirstOrDefault();
+				Grid grid = SpawnsetsList.Children.OfType<Grid>().Where(g => g.Tag as SpawnsetListEntry == sorted[i]).FirstOrDefault();
 				SpawnsetsList.Children.Remove(grid);
 				SpawnsetsList.Children.Insert(i, grid);
 				SetBackgroundColor(grid);
@@ -376,7 +350,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				}
 			}
 
-			SpawnsetListSorting<Author> sorting = button.Tag as SpawnsetListSorting<Author>;
+			SpawnsetListSorting<AuthorListEntry> sorting = button.Tag as SpawnsetListSorting<AuthorListEntry>;
 
 			SpawnsetListHandler.Instance.ActiveAuthorSorting = sorting;
 			SpawnsetListHandler.Instance.ActiveAuthorSorting.Ascending = !SpawnsetListHandler.Instance.ActiveAuthorSorting.Ascending;
@@ -404,7 +378,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				}
 			}
 
-			SpawnsetListSorting<SpawnsetFile> sorting = button.Tag as SpawnsetListSorting<SpawnsetFile>;
+			SpawnsetListSorting<SpawnsetListEntry> sorting = button.Tag as SpawnsetListSorting<SpawnsetListEntry>;
 
 			SpawnsetListHandler.Instance.ActiveSpawnsetSorting = sorting;
 			SpawnsetListHandler.Instance.ActiveSpawnsetSorting.Ascending = !SpawnsetListHandler.Instance.ActiveSpawnsetSorting.Ascending;

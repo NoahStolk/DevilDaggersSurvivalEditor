@@ -8,6 +8,7 @@
 
 		public static string GetToolVersions => $"{baseUrl}/API/GetToolVersions";
 		public static string GetSpawnsets => $"{baseUrl}/API/GetSpawnsets";
+		public static string GetCustomLeaderboards => $"{baseUrl}/API/GetCustomLeaderboards";
 		public static string Spawnsets => $"{baseUrl}/Spawnsets";
 
 		public static string SourceCode => "https://bitbucket.org/NoahStolk/devildaggerssurvivaleditor/src/master/";

@@ -16,8 +16,8 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 	{
 		private const int Timeout = 7500;
 
-		public List<Author> Authors { get; private set; } = new List<Author>();
-		public IReadOnlyList<SpawnsetFile> SpawnsetFiles { get; private set; } = new List<SpawnsetFile>();
+		public List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
+		public List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
 
 		public VersionResult VersionResult { get; set; } = new VersionResult(null, string.Empty, "Version has not yet been retrieved.");
 
@@ -74,16 +74,28 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 				string downloadString = string.Empty;
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
 					downloadString = client.DownloadString(UrlUtils.GetSpawnsets);
-				SpawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
+				List<SpawnsetFile> spawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
 
 				Authors.Clear();
-				Authors.Add(new Author(SpawnsetListHandler.AllAuthors, SpawnsetFiles.Count));
-				foreach (SpawnsetFile sf in SpawnsetFiles)
+				Authors.Add(new AuthorListEntry(SpawnsetListHandler.AllAuthors, spawnsetFiles.Count));
+				foreach (SpawnsetFile sf in spawnsetFiles)
 				{
-					Author author = new Author(sf.Author, SpawnsetFiles.Where(s => s.Author == sf.Author).Count());
+					AuthorListEntry author = new AuthorListEntry(sf.Author, spawnsetFiles.Where(s => s.Author == sf.Author).Count());
 					if (!Authors.Any(a => a.Name == author.Name))
 						Authors.Add(author);
 				}
+
+				downloadString = string.Empty;
+				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
+					downloadString = client.DownloadString(UrlUtils.GetCustomLeaderboards);
+				dynamic customLeaderboards = JsonConvert.DeserializeObject(downloadString);
+
+				List<string> customLeaderboardNames = new List<string>();
+				foreach (dynamic json in customLeaderboards)
+					customLeaderboardNames.Add(json.SpawnsetFileName.ToString());
+
+				foreach (SpawnsetFile sf in spawnsetFiles)
+					Spawnsets.Add(new SpawnsetListEntry(sf, customLeaderboardNames.Contains(sf.FileName)));
 
 				return true;
 			}
