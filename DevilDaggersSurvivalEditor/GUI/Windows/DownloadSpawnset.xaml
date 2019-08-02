@@ -23,11 +23,13 @@
 				<Label FontWeight="Bold">Authors</Label>
 				<Grid>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
+						<ColumnDefinition Width="80" />
+						<ColumnDefinition Width="100" />
+						<ColumnDefinition Width="24" />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Search</Label>
 					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" Text="{Binding AuthorSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="AuthorSearchTextBox_TextChanged" />
+					<Button Grid.Column="2" Name="ClearAuthorSearchButton" Content="X" Click="ClearAuthorSearchButton_Click" ToolTip="Clear author search" />
 				</Grid>
 				<Grid Name="AuthorHeaders" HorizontalAlignment="Stretch" Margin="6,20,22,0">
 					<Grid.ColumnDefinitions>
@@ -41,12 +43,14 @@
 				<Label FontWeight="Bold">Spawnsets</Label>
 				<Grid>
 					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="80" />
+						<ColumnDefinition Width="100" />
+						<ColumnDefinition Width="24" />
 						<ColumnDefinition />
-						<ColumnDefinition />
-						<ColumnDefinition Width="7*" />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0">Search</Label>
 					<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" Text="{Binding SpawnsetSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="SpawnsetSearchTextBox_TextChanged" />
+					<Button Grid.Column="2" Name="ClearSpawnsetSearchButton" Content="X" Click="ClearSpawnsetSearchButton_Click" ToolTip="Clear spawnset search" />
 				</Grid>
 				<Grid HorizontalAlignment="Stretch" Margin="0,0,20,0">
 					<Grid.ColumnDefinitions>

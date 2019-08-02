@@ -85,6 +85,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 						Authors.Add(author);
 				}
 
+				// TODO: Download all custom leaderboard data in separate method and separate thread (and display separately in loading screen)
 				downloadString = string.Empty;
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
 					downloadString = client.DownloadString(UrlUtils.GetCustomLeaderboards);

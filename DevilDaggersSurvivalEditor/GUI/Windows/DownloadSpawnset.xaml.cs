@@ -385,5 +385,15 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			SortSpawnsets(sorting);
 		}
+
+		private void ClearAuthorSearchButton_Click(object sender, RoutedEventArgs e)
+		{
+			AuthorSearchTextBox.Text = string.Empty;
+		}
+
+		private void ClearSpawnsetSearchButton_Click(object sender, RoutedEventArgs e)
+		{
+			SpawnsetSearchTextBox.Text = string.Empty;
+		}
 	}
 }
