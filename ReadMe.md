@@ -31,7 +31,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 - [DevilDaggers.info website](https://devildaggers.info)
 - [Main web page for DevilDaggersSurvivalEditor](https://devildaggers.info/Tools/DevilDaggersSurvivalEditor)
-- [Online list of spawnsets, as well as general information about how spawnsets work](https://devildaggers.info/Spawnsets)
+- [List of spawnsets, as well as general information about how spawnsets work](https://devildaggers.info/Spawnsets)
 - [Discord server](https://discord.gg/NF32j8S)
 
 ## Changelog
@@ -41,6 +41,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Added end loop preview and setting for end loop preview wave amount.
 - Optimised deleting spawns.
 - Added "clear search" buttons to "Download Spawnset" window.
+- Added "has leaderboard" column to the spawnset list in the "Download Spawnset" window.
 - Fixed log not being written to.
 - The spawn index visualisation now starts at 1 rather than 0.
 - Layout improvements.
@@ -52,7 +53,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 #### 2.3.0.0 - July 30, 2019
 
 - Heavily optimised performance for the spawns section.
-- Added author sorting to the online spawnset list.
+- Added author sorting to the "Download Spawnset" window.
 - Fixed the application not asking whether you want to save the current spawnset when closing the application.
 - Fixed "Modify Spawn Delay" window being able to change spawn delay values into negative values.
 - The application now displays the "Update Recommended" window on start up when an update is available.
@@ -68,7 +69,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 	- CTRL+C - Copy currently selected spawn(s)
 	- CTRL+V - Paste spawn(s) currently on the clipboard
 	- Delete - Delete currently selected spawn(s)
-- The online spawnsets window now remembers the spawnset sorting after it is closed.
+- The "Download Spawnset" window now remembers the spawnset sorting after it is closed.
 - The application now asks you to confirm to overwrite the existing arena with a preset, as this cannot be undone easily.
 - The maximum amount of spawns you can have per spawnset is now set to 10,000.
 - Improved messages when saving or replacing spawnsets.
@@ -83,13 +84,13 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 #### 2.1.0.0 - July 5, 2019
 
-- Added sorting to the online spawnsets list.
+- Added spawnset sorting to the "Download Spawnset" window.
 - Added "Select all" and "Deselect all" buttons to the arena editor.
 - Added copy/paste functionality to the spawns editor.
 - Added timeout for web requests so the application doesn't keep waiting when the website is offline.
 - Fixed tile elements not updating colours after rounding or randomising.
 - The spawns editor scrollbar now scrolls to the end when adding new spawns.
-- The online spawnsets window now remembers the author and spawnset search values after it is closed.
+- The "Download Spawnset" window now remembers the author and spawnset search values after it is closed.
 - The default survival file is now embedded into the executable so the actual file is not needed anymore. This removes the issue where the application crashes whenever the file would not be present.
 - Optimisations and layout improvements.
 
@@ -141,11 +142,11 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 	- Added offset parameters to Qbert preset.
 	- Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
 - Menu
-	- Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window which contains the online spawnsets list.
+	- Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window which contains the spawnsets list.
 	- Added menu item to open the current survival file.
-- Online spawnsets
-	- Added search and filter options to the online spawnsets list.
-	- The online spawnsets list now shows more information (such as when the loop starts) about the spawnsets.
+- Spawnsets from DevilDaggers.info
+	- Added search and filter options to the spawnsets list.
+	- The spawnsets list now shows more information (such as when the loop starts) about the spawnsets.
 - Miscellaneous
 	- Added various warnings:
 		- The application warns you when the spawnset you're creating might cause Devil Daggers to become unstable, for instance when the end loop is very short, or when you're spawning the player in the void. This also includes the new discovery of the {25, 27} tile, which causes Devil Daggers to glitch whenever its height is put to a value greater than 0.4973333.
