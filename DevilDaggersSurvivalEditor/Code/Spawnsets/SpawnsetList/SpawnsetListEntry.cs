@@ -6,11 +6,5 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 	{
 		public SpawnsetFile SpawnsetFile { get; set; }
 		public bool HasLeaderboard { get; set; }
-
-		public SpawnsetListEntry(SpawnsetFile spawnsetFile, bool hasLeaderboard)
-		{
-			SpawnsetFile = spawnsetFile;
-			HasLeaderboard = hasLeaderboard;
-		}
 	}
 }

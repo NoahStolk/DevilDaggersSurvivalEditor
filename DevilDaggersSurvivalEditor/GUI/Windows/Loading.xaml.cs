@@ -121,6 +121,27 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				ThreadComplete();
 			};
 
+			bool retrieveCustomLeaderboardsSuccess = false;
+			BackgroundWorker retrieveCustomLeaderboardsThread = new BackgroundWorker();
+			retrieveCustomLeaderboardsThread.DoWork += (object sender, DoWorkEventArgs e) =>
+			{
+				retrieveCustomLeaderboardsSuccess = NetworkHandler.Instance.RetrieveCustomLeaderboardList();
+			};
+			retrieveCustomLeaderboardsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+			{
+				Dispatcher.Invoke(() =>
+				{
+					TaskResultsStackPanel.Children.Add(new Label
+					{
+						Content = retrieveCustomLeaderboardsSuccess ? "OK" : "Error",
+						Foreground = new SolidColorBrush(retrieveCustomLeaderboardsSuccess ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
+						FontWeight = FontWeights.Bold
+					});
+				});
+
+				ThreadComplete();
+			};
+
 			BackgroundWorker mainInitThread = new BackgroundWorker();
 			mainInitThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
@@ -139,12 +160,14 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			threads.Add(readUserSettingsThread);
 			threads.Add(validateSurvivalFileThread);
 			threads.Add(retrieveSpawnsetsThread);
+			threads.Add(retrieveCustomLeaderboardsThread);
 			threads.Add(mainInitThread);
 
 			threadMessages.Add("Checking for updates...");
 			threadMessages.Add("Reading user settings...");
 			threadMessages.Add("Validating survival file...");
 			threadMessages.Add("Retrieving spawnsets...");
+			threadMessages.Add("Retrieving custom leaderboards...");
 			threadMessages.Add("Initializing application...");
 
 			RunThread(threads[0]);

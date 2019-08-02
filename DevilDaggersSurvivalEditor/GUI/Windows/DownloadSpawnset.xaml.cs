@@ -134,6 +134,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
 			{
 				NetworkHandler.Instance.RetrieveSpawnsetList();
+				NetworkHandler.Instance.RetrieveCustomLeaderboardList();
 			};
 			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
 			{

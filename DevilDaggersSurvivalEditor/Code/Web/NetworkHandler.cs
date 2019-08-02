@@ -1,4 +1,5 @@
-﻿using DevilDaggersCore.Spawnsets;
+﻿using DevilDaggersCore.CustomLeaderboards;
+using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Spawnsets.Web;
 using DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList;
 using DevilDaggersSurvivalEditor.Code.Web.Models;
@@ -85,24 +86,46 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 						Authors.Add(author);
 				}
 
-				// TODO: Download all custom leaderboard data in separate method and separate thread (and display separately in loading screen)
-				downloadString = string.Empty;
-				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
-					downloadString = client.DownloadString(UrlUtils.GetCustomLeaderboards);
-				dynamic customLeaderboards = JsonConvert.DeserializeObject(downloadString);
-
-				List<string> customLeaderboardNames = new List<string>();
-				foreach (dynamic json in customLeaderboards)
-					customLeaderboardNames.Add(json.SpawnsetFileName.ToString());
-
 				foreach (SpawnsetFile sf in spawnsetFiles)
-					Spawnsets.Add(new SpawnsetListEntry(sf, customLeaderboardNames.Contains(sf.FileName)));
+					Spawnsets.Add(new SpawnsetListEntry { SpawnsetFile = sf });
 
 				return true;
 			}
 			catch (WebException ex)
 			{
 				Program.App.ShowError("Error retrieving spawnset list", $"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
+				return false;
+			}
+			catch (Exception ex)
+			{
+				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+				return false;
+			}
+		}
+
+		public bool RetrieveCustomLeaderboardList()
+		{
+			try
+			{
+				// The spawnset list must be retrieved first.
+				if (Spawnsets.Count == 0)
+					return false;
+
+				string downloadString = string.Empty;
+				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
+					downloadString = client.DownloadString(UrlUtils.GetCustomLeaderboards);
+				List<CustomLeaderboardBase> customLeaderboards = JsonConvert.DeserializeObject<List<CustomLeaderboardBase>>(downloadString);
+
+				// TODO: Store the custom leaderboard objects.
+
+				foreach (SpawnsetListEntry entry in Spawnsets)
+					entry.HasLeaderboard = customLeaderboards.Any(l => l.SpawnsetFileName == entry.SpawnsetFile.FileName);
+
+				return true;
+			}
+			catch (WebException ex)
+			{
+				Program.App.ShowError("Error retrieving custom leaderboard list", $"Could not connect to '{UrlUtils.GetCustomLeaderboards}'.", ex);
 				return false;
 			}
 			catch (Exception ex)
