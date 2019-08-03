@@ -39,9 +39,10 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 #### 2.x.x.x - WIP
 
 - Added end loop preview and setting for end loop preview wave amount.
+- Added functionality to auto-detect the location of the survival file within the Settings window.
 - Optimised deleting spawns.
-- Added "clear search" buttons to "Download Spawnset" window.
-- Added "has leaderboard" column to the spawnset list in the "Download Spawnset" window.
+- Added "clear search" buttons to Download Spawnset window.
+- Added "has leaderboard" column to the spawnset list in the Download Spawnset window.
 - Fixed log not being written to.
 - The spawn index visualisation now starts at 1 rather than 0.
 - Layout improvements.
@@ -53,23 +54,23 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 #### 2.3.0.0 - July 30, 2019
 
 - Heavily optimised performance for the spawns section.
-- Added author sorting to the "Download Spawnset" window.
+- Added author sorting to the Download Spawnset window.
 - Fixed the application not asking whether you want to save the current spawnset when closing the application.
-- Fixed "Modify Spawn Delay" window being able to change spawn delay values into negative values.
-- The application now displays the "Update Recommended" window on start up when an update is available.
-- Layout improvements for the "Download Spawnset" window.
+- Fixed Modify Spawn Delay window being able to change spawn delay values into negative values.
+- The application now displays the Update Recommended window on start up when an update is available.
+- Layout improvements for the Download Spawnset window.
 
 #### 2.2.0.0 - July 7, 2019
 
 - The application now keeps track of whether or not you have any unsaved changes and will ask you whether or not you want to to save it before proceeding to overwrite it by opening an existing spawnset or creating a new one.
 - The application window title now displays the current spawnset's name if it has one.
-- Added "Save as" menu item.
+- Added Save As menu item.
 - Added shortcut keys:
 	- CTRL+S - Save
 	- CTRL+C - Copy currently selected spawn(s)
 	- CTRL+V - Paste spawn(s) currently on the clipboard
 	- Delete - Delete currently selected spawn(s)
-- The "Download Spawnset" window now remembers the spawnset sorting after it is closed.
+- The Download Spawnset window now remembers the spawnset sorting after it is closed.
 - The application now asks you to confirm to overwrite the existing arena with a preset, as this cannot be undone easily.
 - The maximum amount of spawns you can have per spawnset is now set to 10,000.
 - Improved messages when saving or replacing spawnsets.
@@ -84,13 +85,13 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 #### 2.1.0.0 - July 5, 2019
 
-- Added spawnset sorting to the "Download Spawnset" window.
-- Added "Select all" and "Deselect all" buttons to the arena editor.
+- Added spawnset sorting to the Download Spawnset window.
+- Added Select All and Deselect All buttons to the arena editor.
 - Added copy/paste functionality to the spawns editor.
 - Added timeout for web requests so the application doesn't keep waiting when the website is offline.
 - Fixed tile elements not updating colours after rounding or randomising.
 - The spawns editor scrollbar now scrolls to the end when adding new spawns.
-- The "Download Spawnset" window now remembers the author and spawnset search values after it is closed.
+- The Download Spawnset window now remembers the author and spawnset search values after it is closed.
 - The default survival file is now embedded into the executable so the actual file is not needed anymore. This removes the issue where the application crashes whenever the file would not be present.
 - Optimisations and layout improvements.
 
@@ -110,7 +111,7 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 - Spawns
 	- Added ability to modify (add, subtract, multiply, divide) delays for selected spawns. This can be used to easily speed up or slow down parts of a spawnset, or a spawnset in its entirety.
 	- Added ability to switch enemy types for selected spawns.
-	- Added ability to add or insert the same spawn multiple times at once using the "Amount" value.
+	- Added ability to add or insert the same spawn multiple times at once using the Amount value.
 - Arena
 	- Set the max tile height to 54 rather than 63, since any tiles with a height value greater than 54 will be in complete darkness and won't be visible (regardless of the spawnset brightness setting, or the in-game gamma setting).
 	- The arena editor now shows void tile heights as "Void" rather than their actual (meaningless) value.
@@ -137,12 +138,12 @@ Devil Daggers Survival Editor 2 is a complete rewrite and redesign of the entire
 		- Random Gaps
 		- Random Islands
 		- Random Pillars
-	- Removed Default Flat preset, as it can now be created using the new Ellipse preset, or using the "Round heights" button on the Default arena.
+	- Removed Default Flat preset, as it can now be created using the new Ellipse preset, or using the Round Heights button on the Default arena.
 	- Added wall thickness parameter to Cage Rectangular preset.
 	- Added offset parameters to Qbert preset.
 	- Added option for arena presets whether to overwrite the previous arena entirely or to generate new tiles on top of it.
 - Menu
-	- Replaced the "Open from DevilDaggers.info" menu item with a new "Download Spawnset" window which contains the spawnsets list.
+	- Replaced the Open From DevilDaggers.info menu item with a new Download Spawnset window which contains the spawnsets list.
 	- Added menu item to open the current survival file.
 - Spawnsets from DevilDaggers.info
 	- Added search and filter options to the spawnsets list.

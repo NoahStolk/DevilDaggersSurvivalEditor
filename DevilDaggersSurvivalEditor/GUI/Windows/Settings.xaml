@@ -8,9 +8,12 @@
 	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">
 		<Label FontWeight="Bold" FontSize="14">General</Label>
 		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
-			<Label Grid.Column="0">Survival file root folder</Label>
-			<Label Grid.Column="1" Name="LabelSurvivalFileRootFolder" />
-			<Button Grid.Column="2" Content="Browse" Click="BrowseButton_Click" HorizontalAlignment="Left" Width="128" />
+			<Label>Survival file root folder</Label>
+			<Label Name="LabelSurvivalFileRootFolder" />
+			<StackPanel Orientation="Horizontal">
+				<Button Content="Browse" Click="BrowseButton_Click" Width="128" />
+				<Button Content="Auto-detect" Click="AutoDetectButton_Click" Width="128" />
+			</StackPanel>
 		</StackPanel>
 
 		<Label FontWeight="Bold" FontSize="14">Arena</Label>
