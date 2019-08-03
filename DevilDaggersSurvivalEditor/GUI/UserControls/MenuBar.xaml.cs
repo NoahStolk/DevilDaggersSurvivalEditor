@@ -154,7 +154,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			SettingsWindow settingsWindow = new SettingsWindow();
 			if (settingsWindow.ShowDialog() == true)
 			{
-				// Save the settings
 				using (StreamWriter sw = new StreamWriter(File.Create(UserSettings.FileName)))
 					sw.Write(JsonConvert.SerializeObject(UserHandler.Instance.settings, Formatting.Indented));
 

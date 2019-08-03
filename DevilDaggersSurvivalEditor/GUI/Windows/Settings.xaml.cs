@@ -13,7 +13,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			GlitchTileLabel.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range";
 
-			LabelSurvivalFileRootFolder.Text = UserHandler.Instance.settings.SurvivalFileRootFolder;
+			LabelSurvivalFileRootFolder.Content = UserHandler.Instance.settings.SurvivalFileRootFolder;
 
 			Data.DataContext = UserHandler.Instance.settings;
 		}
@@ -30,11 +30,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			if (result == CommonFileDialogResult.Ok)
 			{
 				UserHandler.Instance.settings.SurvivalFileRootFolder = dialog.FileName;
-				LabelSurvivalFileRootFolder.Text = UserHandler.Instance.settings.SurvivalFileRootFolder;
+				LabelSurvivalFileRootFolder.Content = UserHandler.Instance.settings.SurvivalFileRootFolder;
 			}
-
-			// Make sure this window stays focused rather than the MainWindow.
-			Focus();
 		}
 
 		private void OKButton_Click(object sender, RoutedEventArgs e)
