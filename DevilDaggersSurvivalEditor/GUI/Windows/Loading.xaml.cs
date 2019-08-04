@@ -28,6 +28,13 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber}";
 
+#if DEBUG
+			VersionLabel.Background = new SolidColorBrush(Color.FromRgb(0, 255, 64));
+			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber} DEBUG";
+#else
+			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber}";
+#endif
+
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{

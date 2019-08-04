@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
@@ -41,10 +42,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 
 #if DEBUG
-			MenuItem testException = new MenuItem { Header = "Test Exception" };
+			MenuItem testException = new MenuItem { Header = "Test Exception", Background = new SolidColorBrush(Color.FromRgb(0, 255, 64)) };
 			testException.Click += TestException_Click;
 
-			MenuItem debug = new MenuItem { Header = "Debug" };
+			MenuItem debug = new MenuItem { Header = "Debug", Background = new SolidColorBrush(Color.FromRgb(0, 255, 64)) };
 			debug.Items.Add(testException);
 
 			MenuPanel.Items.Add(debug);
