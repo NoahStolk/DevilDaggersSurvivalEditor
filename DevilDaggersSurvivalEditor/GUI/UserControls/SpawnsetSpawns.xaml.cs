@@ -61,7 +61,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 			});
 
-			UpdateSpawnControls();
+			UpdateSpawnControls(true);
 		}
 
 		private void AddSpawn(Spawn spawn)
@@ -89,7 +89,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			spawnControls[index].Spawn = spawn;
 		}
 
-		public void UpdateSpawnControls()
+		public void UpdateSpawnControls(bool endLoopModified)
 		{
 			double loopLength = 0;
 			int endLoopSpawns = 0;
@@ -125,7 +125,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					spawnControl.IsInLoop = kvp.Key >= endLoopStartIndex;
 				}
 
-				EndLoopPreview.Update(seconds, totalGems);
+				if (endLoopModified)
+					EndLoopPreview.Update(seconds, totalGems);
 			});
 		}
 
@@ -214,7 +215,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls();
+			UpdateSpawnControls(true);
 
 			ScrollToEnd();
 		}
@@ -239,7 +240,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls();
+			UpdateSpawnControls(originalSelection >= endLoopStartIndex);
 		}
 
 		private void PasteAddSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -259,7 +260,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls();
+			UpdateSpawnControls(true);
 
 			ScrollToEnd();
 		}
@@ -284,17 +285,18 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls();
+			UpdateSpawnControls(originalSelection >= endLoopStartIndex);
 		}
 
 		private void EditSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (int i in GetSpawnSelectionIndices())
+			List<int> selections = GetSpawnSelectionIndices();
+			foreach (int i in selections)
 				EditSpawnAt(i, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls();
+			UpdateSpawnControls(selections.Any(s => s >= endLoopStartIndex));
 		}
 
 		private void DeleteSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -322,7 +324,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls();
+			UpdateSpawnControls(selections.Any(s => s >= endLoopStartIndex));
 
 			ListBoxSpawns.SelectedItems.Clear();
 		}
@@ -372,7 +374,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-				UpdateSpawnControls();
+				UpdateSpawnControls(selections.Any(s => s >= endLoopStartIndex));
 			}
 		}
 
@@ -400,7 +402,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-				UpdateSpawnControls();
+				UpdateSpawnControls(selections.Any(s => s >= endLoopStartIndex));
 			}
 		}
 

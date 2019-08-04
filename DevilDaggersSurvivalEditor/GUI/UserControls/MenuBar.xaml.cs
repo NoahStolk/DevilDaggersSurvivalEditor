@@ -162,7 +162,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					Program.App.MainWindow.UpdateWarningNoSurvivalFile();
 					Program.App.MainWindow.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
 					Program.App.MainWindow.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
-					Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnControls();
+					Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnControls(true);
 					Program.App.MainWindow.SpawnsetSpawns.EndLoopPreview.Update();
 				});
 			}
