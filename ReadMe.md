@@ -38,7 +38,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 #### 2.x.x.x - WIP
 
-- Added end loop preview which allows you to view spawn information for any wave. This includes Gigapedes changing into Ghostpedes every third wave.
+- Added end loop preview which allows you to view spawn information for any wave. This includes Gigapedes changing into Ghostpedes every third wave. The end loop preview can also be turned off in the Settings window.
 - Added ability to increment/decrement tile heights by 0.1 while holding CTRL and using the mouse wheel.
 - Added functionality to auto-detect the location of the survival file within the Settings window.
 - Recreated layout for Settings window.

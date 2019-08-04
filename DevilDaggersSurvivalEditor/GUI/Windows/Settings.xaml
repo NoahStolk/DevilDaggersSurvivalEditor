@@ -24,7 +24,15 @@
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<CheckBox IsChecked="{Binding LockSpawnTile}" />
-				<Label>Prevent spawn tile to be void</Label>
+				<Label>Prevent spawn tile to be void.</Label>
+			</StackPanel>
+		</StackPanel>
+
+		<Label FontWeight="Bold" FontSize="14">Spawns</Label>
+		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
+			<StackPanel Orientation="Horizontal">
+				<CheckBox IsChecked="{Binding EnableEndLoopPreview}" />
+				<Label>Enable end loop preview.</Label>
 			</StackPanel>
 		</StackPanel>
 

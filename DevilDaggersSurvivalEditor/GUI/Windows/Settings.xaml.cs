@@ -25,7 +25,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			GlitchTileLabel.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range";
+			GlitchTileLabel.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range.";
 
 			LabelSurvivalFileRootFolder.Content = UserHandler.Instance.settings.SurvivalFileRootFolder;
 
@@ -34,14 +34,14 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			// Remove Exit button
+			// Removes Exit button.
 			IntPtr hwnd = new WindowInteropHelper(this).Handle;
 			SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			// Prevent Alt F4 from closing the window
+			// Prevents Alt F4 from closing the window.
 			if (!DialogResult.HasValue || !DialogResult.Value)
 				e.Cancel = true;
 		}

@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
+using DevilDaggersSurvivalEditor.Code.User;
 using NetBase.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		public void Update(double seconds, int totalGems)
 		{
 			EndLoopSpawns.Items.Clear();
+
+			if (!UserHandler.Instance.settings.EnableEndLoopPreview)
+			{
+				Visibility = Visibility.Hidden;
+				return;
+			}
 
 			List<Spawn> endLoop = SpawnsetHandler.Instance.spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.spawnset.GetEndLoopStartIndex()).ToList();
 			int endLoopSpawns = endLoop.Where(s => s.SpawnsetEnemy != Spawnset.Enemies[-1]).Count();
@@ -91,7 +98,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		private void Update()
+		public void Update()
 		{
 			double seconds = 0;
 			int totalGems = 0;
