@@ -62,17 +62,19 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				foreach (double spawnSecond in waveTimes)
 				{
 					SpawnsetEnemy enemy = endLoop[endLoopIndex].SpawnsetEnemy;
+					bool gigaBecomesGhost = i % 3 == 2 && enemy == Spawnset.Enemies[5]; // Assumes V3
+					if (gigaBecomesGhost)
+						enemy = Spawnset.Enemies[9];
 
 					seconds = spawnSecond;
 					totalGems += enemy.NoFarmGems;
 
 					if (i == Wave - 1)
 					{
-						bool changeGigaIntoGhost = i % 3 == 2 && enemy == Spawnset.Enemies[5]; // Assumes V3
 						EndLoopSpawnControl spawnControl = new EndLoopSpawnControl
 						{
-							ChangeGigaIntoGhost = changeGigaIntoGhost,
-							Enemy = changeGigaIntoGhost ? Spawnset.Enemies[9] : enemy,
+							GigaBecomesGhost = gigaBecomesGhost,
+							Enemy = enemy,
 							ID = SpawnsetHandler.Instance.spawnset.Spawns.Count() + 1 + endLoop.Count * (i - 1) + endLoopIndex,
 							Seconds = seconds,
 							TotalGems = totalGems,

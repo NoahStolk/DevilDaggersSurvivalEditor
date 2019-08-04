@@ -9,7 +9,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class EndLoopSpawnControl : UserControl
 	{
-		public bool ChangeGigaIntoGhost { get; set; }
+		public bool GigaBecomesGhost { get; set; }
 
 		private int id;
 		public int ID
@@ -63,7 +63,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				enemy = value;
 
-				if (ChangeGigaIntoGhost)
+				if (GigaBecomesGhost)
 				{
 					StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
 					stackPanel.Children.Add(new Label { Content = enemy.Name, Margin = new Thickness(0), Padding = new Thickness(0) });
