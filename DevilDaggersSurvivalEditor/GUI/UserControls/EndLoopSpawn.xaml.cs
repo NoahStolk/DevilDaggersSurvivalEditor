@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Spawns;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -29,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			set
 			{
 				seconds = value;
-				LabelSeconds.Content = value.ToString("0.00");
+				LabelSeconds.Content = value.ToString(SpawnUtils.Format);
 			}
 		}
 

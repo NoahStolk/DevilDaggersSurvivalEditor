@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Spawnsets.Web;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList;
 using DevilDaggersSurvivalEditor.Code.User;
@@ -204,16 +205,16 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			Label hasLeaderboardLabel = new Label { Content = entry.HasLeaderboard };
 			Grid.SetColumn(hasLeaderboardLabel, 3);
 
-			Label nonLoopLengthLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
+			Label nonLoopLengthLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(nonLoopLengthLabel, 4);
 
 			Label nonLoopSpawnsLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(nonLoopSpawnsLabel, 5);
 
-			Label loopStartLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopStart.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
+			Label loopStartLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopStart.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(loopStartLabel, 6);
 
-			Label loopLengthLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.ToString("0.0000"), HorizontalAlignment = HorizontalAlignment.Right };
+			Label loopLengthLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right };
 			Grid.SetColumn(loopLengthLabel, 7);
 
 			Label loopSpawnsLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };

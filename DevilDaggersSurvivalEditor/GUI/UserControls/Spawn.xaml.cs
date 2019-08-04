@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Spawns;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -42,7 +43,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			set
 			{
 				seconds = value;
-				LabelSeconds.Content = value.ToString("0.00");
+				LabelSeconds.Content = value.ToString(SpawnUtils.Format);
 			}
 		}
 
@@ -66,7 +67,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				spawn = value;
 
 				LabelEnemy.Content = spawn.SpawnsetEnemy.Name;
-				LabelDelay.Content = spawn.Delay.ToString("0.00");
+				LabelDelay.Content = spawn.Delay.ToString(SpawnUtils.Format);
 				LabelNoFarmGems.Content = spawn.SpawnsetEnemy.NoFarmGems;
 
 				Color color = spawn.SpawnsetEnemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.SpawnsetEnemy.ToEnemy(GameInfo.GameVersions[GameInfo.DEFAULT_GAME_VERSION]).ColorCode}");

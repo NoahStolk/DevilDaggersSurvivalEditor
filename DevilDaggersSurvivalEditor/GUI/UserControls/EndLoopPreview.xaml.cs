@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Spawnsets;
+using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using NetBase.Utils;
@@ -84,7 +85,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 							ID = SpawnsetHandler.Instance.spawnset.Spawns.Count() + 1 + endLoop.Count * (i - 1) + j,
 							Seconds = seconds,
 							TotalGems = totalGems,
-							Delay = $"{endLoop[j].Delay.ToString("0.00")} ({(seconds - secondsPrevious).ToString("0.00")})"
+							Delay = $"{endLoop[j].Delay.ToString(SpawnUtils.Format)} ({(seconds - secondsPrevious).ToString(SpawnUtils.Format)})"
 						};
 						EndLoopSpawns.Items.Add(spawnControl);
 					}
