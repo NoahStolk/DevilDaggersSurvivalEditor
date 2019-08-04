@@ -567,16 +567,18 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void ArenaTiles_MouseWheel(object sender, MouseWheelEventArgs e)
 		{
+			float change = Keyboard.Modifiers == ModifierKeys.Control ? e.Delta / 1200f : e.Delta / 120f;
+
 			if (selections.Count == 0)
 			{
-				SpawnsetHandler.Instance.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y] = MathUtils.Clamp(SpawnsetHandler.Instance.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
+				SpawnsetHandler.Instance.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y] = MathUtils.Clamp(SpawnsetHandler.Instance.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y] + change, TileUtils.TileMin, TileUtils.TileMax);
 				UpdateTile(focusedTile);
 			}
 			else
 			{
 				foreach (ArenaCoord selection in selections)
 				{
-					SpawnsetHandler.Instance.spawnset.ArenaTiles[selection.X, selection.Y] = MathUtils.Clamp(SpawnsetHandler.Instance.spawnset.ArenaTiles[selection.X, selection.Y] + e.Delta / 120, TileUtils.TileMin, TileUtils.TileMax);
+					SpawnsetHandler.Instance.spawnset.ArenaTiles[selection.X, selection.Y] = MathUtils.Clamp(SpawnsetHandler.Instance.spawnset.ArenaTiles[selection.X, selection.Y] + change, TileUtils.TileMin, TileUtils.TileMax);
 					UpdateTile(selection);
 				}
 			}
