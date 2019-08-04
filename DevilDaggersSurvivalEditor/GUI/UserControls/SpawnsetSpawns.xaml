@@ -25,7 +25,7 @@
 		</Grid>
 		<ScrollViewer Height="408" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" Background="White">
 			<StackPanel>
-				<ListBox Name="ListBoxSpawns" SelectionMode="Extended" SelectionChanged="ListBoxSpawns_Selected" />
+				<ListBox Name="ListBoxSpawns" SelectionMode="Extended" SelectionChanged="ListBoxSpawns_Selected" BorderBrush="Transparent" />
 				<usercontrols:EndLoopPreview x:Name="EndLoopPreview" />
 			</StackPanel>
 		</ScrollViewer>
