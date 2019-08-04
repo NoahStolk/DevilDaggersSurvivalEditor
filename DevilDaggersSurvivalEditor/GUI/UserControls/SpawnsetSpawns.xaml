@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.GUI.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="683">
 	<StackPanel>
@@ -25,8 +26,7 @@
 		<ScrollViewer Height="408" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" Background="White">
 			<StackPanel>
 				<ListBox Name="ListBoxSpawns" SelectionMode="Extended" SelectionChanged="ListBoxSpawns_Selected" />
-				<Label FontWeight="Bold" FontSize="16" Name="EndLoopPreviewLabel" Visibility="Hidden">End loop preview</Label>
-				<ItemsControl Name="EndLoopSpawns" />
+				<usercontrols:EndLoopPreview x:Name="EndLoopPreview" />
 			</StackPanel>
 		</ScrollViewer>
 		<StackPanel>

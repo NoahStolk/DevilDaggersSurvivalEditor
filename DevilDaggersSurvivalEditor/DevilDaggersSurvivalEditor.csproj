@@ -113,6 +113,9 @@
     <Compile Include="Code\User\UserHandler.cs" />
     <Compile Include="Code\Web\TimeoutWebClient.cs" />
     <Compile Include="Code\Web\NetworkHandler.cs" />
+    <Compile Include="GUI\UserControls\EndLoopPreview.xaml.cs">
+      <DependentUpon>EndLoopPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UserControls\MenuBar.xaml.cs">
       <DependentUpon>MenuBar.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,10 @@
       <DependentUpon>SetTileHeight.xaml</DependentUpon>
     </Compile>
     <Page Include="GUI\Themes\DevilDaggersSurvivalEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\UserControls\EndLoopPreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

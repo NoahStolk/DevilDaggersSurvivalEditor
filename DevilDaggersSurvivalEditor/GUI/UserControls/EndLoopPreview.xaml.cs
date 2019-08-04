@@ -1,0 +1,143 @@
+﻿using DevilDaggersCore.Spawnsets;
+using DevilDaggersSurvivalEditor.Code.Spawnsets;
+using NetBase.Utils;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace DevilDaggersSurvivalEditor.GUI.UserControls
+{
+	public partial class EndLoopPreview : UserControl
+	{
+		private const int MaxWaves = 2000;
+
+		private int waveTextBoxValue = 2;
+		public int WaveTextBoxValue
+		{
+			get => waveTextBoxValue;
+			set
+			{
+				waveTextBoxValue = MathUtils.Clamp(value, 2, MaxWaves);
+			}
+		}
+
+		private int wave = 2;
+		public int Wave
+		{
+			get => wave;
+			set
+			{
+				wave = MathUtils.Clamp(value, 2, MaxWaves);
+			}
+		}
+
+		public EndLoopPreview()
+		{
+			InitializeComponent();
+
+			Visibility = Visibility.Hidden;
+
+			NavigationStackPanel.DataContext = this;
+		}
+
+		public void Update(double seconds, int totalGems)
+		{
+			EndLoopSpawns.Items.Clear();
+
+			List<Spawn> endLoop = SpawnsetHandler.Instance.spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.spawnset.GetEndLoopStartIndex()).ToList();
+			int endLoopSpawns = endLoop.Where(s => s.SpawnsetEnemy != Spawnset.Enemies[-1]).Count();
+			Visibility = endLoopSpawns == 0 ? Visibility.Hidden : Visibility.Visible;
+
+			if (endLoopSpawns == 0)
+				return;
+
+			for (int i = 1; i < Wave; i++) // Skip the first wave as it is already included in the regular spawns
+			{
+				int endLoopIndex = 0;
+
+				IEnumerable<double> waveTimes = SpawnsetHandler.Instance.spawnset.GenerateEndWaveTimes(seconds, i);
+
+				double secondsPrevious = seconds;
+				foreach (double spawnSecond in waveTimes)
+				{
+					SpawnsetEnemy enemy = endLoop[endLoopIndex].SpawnsetEnemy;
+
+					seconds = spawnSecond;
+					totalGems += enemy.NoFarmGems;
+
+					if (i == Wave - 1)
+					{
+						bool changeGigaIntoGhost = i % 3 == 2 && enemy == Spawnset.Enemies[5]; // Assumes V3
+						EndLoopSpawnControl spawnControl = new EndLoopSpawnControl
+						{
+							ChangeGigaIntoGhost = changeGigaIntoGhost,
+							Enemy = changeGigaIntoGhost ? Spawnset.Enemies[9] : enemy,
+							ID = SpawnsetHandler.Instance.spawnset.Spawns.Count() + 1 + endLoop.Count * (i - 1) + endLoopIndex,
+							Seconds = seconds,
+							TotalGems = totalGems,
+							Delay = $"{endLoop[endLoopIndex].Delay.ToString("0.00")} ({(seconds - secondsPrevious).ToString("0.00")})"
+						};
+						EndLoopSpawns.Items.Add(spawnControl);
+					}
+
+					endLoopIndex++;
+					secondsPrevious = seconds;
+				}
+
+				if (i == Wave - 1)
+					EndWaveHeaderLabel.Content = $"Wave {i + 1}";
+			}
+		}
+
+		private void Update()
+		{
+			double seconds = 0;
+			int totalGems = 0;
+			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
+			{
+				seconds += kvp.Value.Delay;
+				totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
+			}
+
+			Update(seconds, totalGems);
+		}
+
+		private void NextTenWaves_Click(object sender, RoutedEventArgs e)
+		{
+			Wave += 10;
+			Update();
+		}
+
+		private void NextWaves_Click(object sender, RoutedEventArgs e)
+		{
+			Wave++;
+			Update();
+		}
+
+		private void PreviousWaves_Click(object sender, RoutedEventArgs e)
+		{
+			Wave--;
+			Update();
+		}
+
+		private void PreviousTenWaves_Click(object sender, RoutedEventArgs e)
+		{
+			Wave -= 10;
+			Update();
+		}
+
+		private void ManualWave_Click(object sender, RoutedEventArgs e)
+		{
+			Wave = WaveTextBoxValue;
+			Update();
+
+			ManualWaveButton.IsDefault = false;
+		}
+
+		private void WaveTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			ManualWaveButton.IsDefault = true;
+		}
+	}
+}

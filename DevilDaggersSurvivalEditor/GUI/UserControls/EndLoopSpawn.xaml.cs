@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Code;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -8,6 +9,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
 	public partial class EndLoopSpawnControl : UserControl
 	{
+		public bool ChangeGigaIntoGhost { get; set; }
+
 		private int id;
 		public int ID
 		{
@@ -60,7 +63,18 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				enemy = value;
 
-				LabelEnemy.Content = enemy.Name;
+				if (ChangeGigaIntoGhost)
+				{
+					StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+					stackPanel.Children.Add(new Label { Content = enemy.Name, Margin = new Thickness(0), Padding = new Thickness(0) });
+					stackPanel.Children.Add(new Label { Content = "(?)", Margin = new Thickness(4, 0, 0, 0), Padding = new Thickness(0), FontWeight = FontWeights.Bold, ToolTip = "Every third wave of the end loop, all Gigapedes are changed into Ghostpedes. This is hardcoded within the game and cannot be changed." });
+					LabelEnemy.Content = stackPanel;
+				}
+				else
+				{
+					LabelEnemy.Content = enemy.Name;
+				}
+
 				LabelNoFarmGems.Content = enemy.NoFarmGems;
 
 				Color color = enemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ToEnemy(GameInfo.GameVersions[GameInfo.DEFAULT_GAME_VERSION]).ColorCode}");
@@ -76,11 +90,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			InitializeComponent();
 
 			Background = new SolidColorBrush(Color.FromArgb(192, 255, 255, 255));
-		}
-
-		public void AddGigaGhostToolTip()
-		{
-			LabelEnemy.ToolTip = "Every third wave of the end loop, all Gigapedes are changed into Ghostpedes. This is hardcoded within the game and cannot be changed.";
 		}
 	}
 }

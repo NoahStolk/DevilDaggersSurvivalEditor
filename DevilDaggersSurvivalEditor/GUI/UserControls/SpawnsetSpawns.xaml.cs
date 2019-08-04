@@ -125,62 +125,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					spawnControl.IsInLoop = kvp.Key >= endLoopStartIndex;
 				}
 
-				UpdateEndLoopPreview(seconds, totalGems);
+				EndLoopPreview.Update(seconds, totalGems);
 			});
-		}
-
-		private void UpdateEndLoopPreview(double seconds, int totalGems)
-		{
-			EndLoopSpawns.Items.Clear();
-
-			List<Spawn> endLoop = SpawnsetHandler.Instance.spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.spawnset.GetEndLoopStartIndex()).ToList();
-			int endLoopSpawns = endLoop.Where(s => s.SpawnsetEnemy != Spawnset.Enemies[-1]).Count();
-			EndLoopPreviewLabel.Visibility = endLoopSpawns == 0 || UserHandler.Instance.settings.EndWavePreviewAmount == 1 ? Visibility.Hidden : Visibility.Visible;
-
-			if (endLoopSpawns == 0)
-				return;
-
-			double waveLengthPrevious = 0;
-			for (int i = 0; i < endLoop.Count; i++)
-				waveLengthPrevious += endLoop[i].Delay;
-			for (int i = 1; i < UserHandler.Instance.settings.EndWavePreviewAmount; i++) // Skip the first wave as it is already included in the regular spawns
-			{
-				int endLoopIndex = 0;
-
-				IEnumerable<double> waveTimes = SpawnsetHandler.Instance.spawnset.GenerateEndWaveTimes(seconds, i);
-
-				Label endWaveHeader = new Label { FontWeight = FontWeights.Bold, Background = new SolidColorBrush(Color.FromRgb(255, 96, 96)) };
-				EndLoopSpawns.Items.Add(endWaveHeader);
-				double secondsPrevious = seconds;
-				double waveLength = 0;
-				foreach (double spawnSecond in waveTimes)
-				{
-					SpawnsetEnemy enemy = endLoop[endLoopIndex].SpawnsetEnemy;
-
-					seconds = spawnSecond;
-					totalGems += enemy.NoFarmGems;
-					waveLength += seconds - secondsPrevious;
-
-					bool changeGigaIntoGhost = i % 3 == 2 && enemy == Spawnset.Enemies[5]; // Assumes V3
-					EndLoopSpawnControl spawnControl = new EndLoopSpawnControl
-					{
-						Enemy = changeGigaIntoGhost ? Spawnset.Enemies[9] : enemy,
-						ID = SpawnsetHandler.Instance.spawnset.Spawns.Count() + 1 + endLoop.Count * (i - 1) + endLoopIndex,
-						Seconds = seconds,
-						TotalGems = totalGems,
-						Delay = $"{endLoop[endLoopIndex].Delay.ToString("0.00")} ({(seconds - secondsPrevious).ToString("0.00")})"
-					};
-					if (changeGigaIntoGhost)
-						spawnControl.AddGigaGhostToolTip();
-					EndLoopSpawns.Items.Add(spawnControl);
-
-					endLoopIndex++;
-					secondsPrevious = seconds;
-				}
-
-				endWaveHeader.Content = $"End wave {i + 1} - Length {waveLength.ToString("0.00")} (-{(waveLengthPrevious - waveLength).ToString("0.00")})";
-				waveLengthPrevious = waveLength;
-			}
 		}
 
 		private List<int> GetSpawnSelectionIndices()
