@@ -358,7 +358,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		public void UpdateTile(ArenaCoord tile)
 		{
-			// Lock special cases if set in settings
+			// Lock special cases if set in settings.
 			if (tile == TileUtils.GlitchTile)
 			{
 				if (UserHandler.Instance.settings.LockGlitchTile)
@@ -374,7 +374,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Program.App.MainWindow.WarningVoidSpawn.Visibility = SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;
 			}
 
-			// Set tile color
+			// Set tile color.
 			float height = SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y];
 
 			Rectangle rect = tileElements[tile.X, tile.Y];
@@ -388,7 +388,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Color color = TileUtils.GetColorFromHeight(height);
 			rect.Fill = new SolidColorBrush(color);
 
-			// Set tile size
+			// Set tile size.
 			double distance = tile.GetDistanceToCanvasPointSquared(arenaCanvasCenter);
 			if (distance <= ShrinkCurrent.Width * ShrinkCurrent.Width / 4)
 			{

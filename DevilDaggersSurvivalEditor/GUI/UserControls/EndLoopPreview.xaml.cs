@@ -59,7 +59,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			if (endLoopSpawns == 0)
 				return;
 
-			for (int i = 1; i < Wave; i++) // Skip the first wave as it is already included in the regular spawns
+			for (int i = 1; i < Wave; i++) // Skip the first wave as it is already included in the regular spawns.
 			{
 				IEnumerable<double> waveTimes = SpawnsetHandler.Instance.spawnset.GenerateEndWaveTimes(seconds, i);
 
@@ -68,7 +68,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				foreach (double spawnSecond in waveTimes)
 				{
 					SpawnsetEnemy enemy = endLoop[j].SpawnsetEnemy;
-					bool gigaBecomesGhost = i % 3 == 2 && enemy == Spawnset.Enemies[5]; // Assumes V3
+					bool gigaBecomesGhost = i % 3 == 2 && enemy == Spawnset.Enemies[5]; // Assumes V3.
 					if (gigaBecomesGhost)
 						enemy = Spawnset.Enemies[9];
 

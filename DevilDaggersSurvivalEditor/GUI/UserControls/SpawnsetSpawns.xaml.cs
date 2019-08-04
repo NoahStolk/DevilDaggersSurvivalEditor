@@ -224,11 +224,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			int originalCount = SpawnsetHandler.Instance.spawnset.Spawns.Count;
 			int originalSelection = ListBoxSpawns.SelectedIndex;
 
-			// Shift the spawns after the selection
+			// Shift the spawns after the selection.
 			for (int i = originalCount - 1; i >= originalSelection; i--)
 				SpawnsetHandler.Instance.spawnset.Spawns[i + Amount] = SpawnsetHandler.Instance.spawnset.Spawns[i];
 
-			// Insert new spawns
+			// Insert new spawns.
 			for (int i = 0; i < Amount; i++)
 			{
 				if (HasTooManySpawns())
@@ -269,11 +269,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			int originalCount = SpawnsetHandler.Instance.spawnset.Spawns.Count;
 			int originalSelection = ListBoxSpawns.SelectedIndex;
 
-			// Shift the spawns after the selection
+			// Shift the spawns after the selection.
 			for (int i = originalCount - 1; i >= originalSelection; i--)
 				SpawnsetHandler.Instance.spawnset.Spawns[i + clipboard.Count] = SpawnsetHandler.Instance.spawnset.Spawns[i];
 
-			// Insert new spawns
+			// Insert new spawns.
 			for (int i = 0; i < clipboard.Count; i++)
 			{
 				if (HasTooManySpawns())
