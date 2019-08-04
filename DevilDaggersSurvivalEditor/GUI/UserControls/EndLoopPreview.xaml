@@ -14,7 +14,6 @@
 			<Button Width="32" Click="NextWaves_Click" ToolTip="Next">&gt;</Button>
 			<Button Width="32" Click="NextTenWaves_Click" ToolTip="Next x10">&gt;&gt;</Button>
 			<TextBox Width="32" Text="{Binding WaveTextBoxValue, UpdateSourceTrigger=PropertyChanged}" TextChanged="WaveTextBox_TextChanged" />
-			<Button Width="32" Click="ManualWave_Click" Name="ManualWaveButton">Go</Button>
 		</StackPanel>
 		<ItemsControl Name="EndLoopSpawns" />
 	</StackPanel>

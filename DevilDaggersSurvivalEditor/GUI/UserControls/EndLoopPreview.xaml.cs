@@ -135,17 +135,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			Update();
 		}
 
-		private void ManualWave_Click(object sender, RoutedEventArgs e)
+		private void WaveTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			Wave = WaveTextBoxValue;
 			Update();
-
-			ManualWaveButton.IsDefault = false;
-		}
-
-		private void WaveTextBox_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			ManualWaveButton.IsDefault = true;
 		}
 	}
 }
