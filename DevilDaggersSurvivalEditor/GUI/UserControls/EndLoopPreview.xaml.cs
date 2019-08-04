@@ -54,14 +54,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			for (int i = 1; i < Wave; i++) // Skip the first wave as it is already included in the regular spawns
 			{
-				int endLoopIndex = 0;
-
 				IEnumerable<double> waveTimes = SpawnsetHandler.Instance.spawnset.GenerateEndWaveTimes(seconds, i);
 
+				int j = 0;
 				double secondsPrevious = seconds;
 				foreach (double spawnSecond in waveTimes)
 				{
-					SpawnsetEnemy enemy = endLoop[endLoopIndex].SpawnsetEnemy;
+					SpawnsetEnemy enemy = endLoop[j].SpawnsetEnemy;
 					bool gigaBecomesGhost = i % 3 == 2 && enemy == Spawnset.Enemies[5]; // Assumes V3
 					if (gigaBecomesGhost)
 						enemy = Spawnset.Enemies[9];
@@ -75,15 +74,15 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 						{
 							GigaBecomesGhost = gigaBecomesGhost,
 							Enemy = enemy,
-							ID = SpawnsetHandler.Instance.spawnset.Spawns.Count() + 1 + endLoop.Count * (i - 1) + endLoopIndex,
+							ID = SpawnsetHandler.Instance.spawnset.Spawns.Count() + 1 + endLoop.Count * (i - 1) + j,
 							Seconds = seconds,
 							TotalGems = totalGems,
-							Delay = $"{endLoop[endLoopIndex].Delay.ToString("0.00")} ({(seconds - secondsPrevious).ToString("0.00")})"
+							Delay = $"{endLoop[j].Delay.ToString("0.00")} ({(seconds - secondsPrevious).ToString("0.00")})"
 						};
 						EndLoopSpawns.Items.Add(spawnControl);
 					}
 
-					endLoopIndex++;
+					j++;
 					secondsPrevious = seconds;
 				}
 
