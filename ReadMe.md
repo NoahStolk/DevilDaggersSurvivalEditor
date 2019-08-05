@@ -44,10 +44,11 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 - Recreated layout for Settings window.
 - Optimised performance when deleting spawns.
 - Added "clear search" buttons to Download Spawnset window.
-- Added "has leaderboard" column to the spawnset list in the Download Spawnset window.
+- Added "leaderboard" column to the spawnset list in the Download Spawnset window.
+- Improved Download Spawnset window layout.
+- Added tooltips that display a spawnset's description if it has one.
 - Fixed log file not being written to.
-- The spawn index visualisation now starts at 1 rather than 0.
-- Other layout improvements.
+- Other layout improvements, small bug fixes and improvements.
 
 #### 2.3.1.0 - July 30, 2019
 

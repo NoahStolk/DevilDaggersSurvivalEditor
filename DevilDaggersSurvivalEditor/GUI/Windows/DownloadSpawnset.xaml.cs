@@ -6,6 +6,7 @@ using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
+using NetBase.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -212,7 +213,16 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			}
 			else
 			{
-				Label toolTipLabel = new Label { Content = "(?)", FontWeight = FontWeights.Bold, ToolTip = new TextBlock { Text = entry.SpawnsetFile.settings.Description, MaxWidth = 320 } };
+				Label toolTipLabel = new Label
+				{
+					Content = "(?)",
+					FontWeight = FontWeights.Bold,
+					ToolTip = new TextBlock
+					{
+						Text = HTMLUtils.HTMLToPlainText(entry.SpawnsetFile.settings.Description.Replace("<br />", "\n").Replace("<ul>", "\n").Replace("</ul>", "\n").Replace("<li>", "\n")), // TODO: Use a proper HTML to XAML converter
+						MaxWidth = 320
+					}
+				};
 				ToolTipService.SetShowDuration(toolTipLabel, int.MaxValue);
 
 				nameElement = new StackPanel { Orientation = Orientation.Horizontal };
