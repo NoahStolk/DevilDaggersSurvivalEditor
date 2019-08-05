@@ -3,9 +3,9 @@ using DevilDaggersSurvivalEditor.Code.User;
 using System;
 using System.IO;
 
-namespace DevilDaggersSurvivalEditor.Code
+namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 {
-	public static class FileUtils
+	public static class SpawnsetFileUtils
 	{
 		public static bool TryWriteSpawnsetToFile(Spawnset spawnset, string destinationPath)
 		{

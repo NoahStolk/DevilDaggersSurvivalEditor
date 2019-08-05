@@ -60,7 +60,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 		{
 			if (File.Exists(SpawnsetFileLocation))
 			{
-				if (FileUtils.TryWriteSpawnsetToFile(spawnset, SpawnsetFileLocation))
+				if (SpawnsetFileUtils.TryWriteSpawnsetToFile(spawnset, SpawnsetFileLocation))
 					HasUnsavedChanges = false;
 			}
 			else
@@ -73,7 +73,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
 			bool? result = dialog.ShowDialog();
-			if (result.HasValue && result.Value && FileUtils.TryWriteSpawnsetToFile(spawnset, dialog.FileName))
+			if (result.HasValue && result.Value && SpawnsetFileUtils.TryWriteSpawnsetToFile(spawnset, dialog.FileName))
 				UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
 		}
 	}
