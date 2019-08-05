@@ -199,11 +199,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
-			for (int i = 0; i < 7; i++)
+			for (int i = 0; i < 6; i++)
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 
-			Button button = new Button { Content = "Download" };
-			button.Click += (sender, e) => Download_Click($"{entry.SpawnsetFile.Name}_{entry.SpawnsetFile.Author}");
+			Hyperlink nameElement = new Hyperlink(new Run(entry.SpawnsetFile.Name.Replace("_", "__")));
+			nameElement.Click += (sender, e) => Download_Click($"{entry.SpawnsetFile.Name}_{entry.SpawnsetFile.Author}");
 
 			Span customLeaderboardElement;
 			if (entry.HasLeaderboard)
@@ -222,7 +222,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			List<UIElement> elements = new List<UIElement>
 			{
-				new Label { Content = entry.SpawnsetFile.Name.Replace("_", "__") },
+				new Label { Content = nameElement },
 				new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__") },
 				new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy HH:mm") },
 				new Label { Content = customLeaderboardElement },
@@ -230,8 +230,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right },
 				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopStart.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
 				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right },
-				button
+				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right }
 			};
 
 			for (int i = 0; i < elements.Count; i++)

@@ -10,13 +10,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 
 namespace DevilDaggersSurvivalEditor.Code.Web
 {
 	public sealed class NetworkHandler
 	{
-		private const int Timeout = 7500;
+		private const int Timeout = 7500; // 7.5 seconds
 
 		public List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
 		public List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
