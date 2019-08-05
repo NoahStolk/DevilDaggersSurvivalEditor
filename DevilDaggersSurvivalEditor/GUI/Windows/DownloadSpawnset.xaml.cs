@@ -9,9 +9,11 @@ using DevilDaggersSurvivalEditor.Code.Web;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -193,58 +195,50 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private Grid CreateSpawnsetGrid(SpawnsetListEntry entry)
 		{
-			Label spawnsetNameLabel = new Label { Content = entry.SpawnsetFile.Name.Replace("_", "__") };
-			Grid.SetColumn(spawnsetNameLabel, 0);
-
-			Label authorNameLabel = new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__") };
-			Grid.SetColumn(authorNameLabel, 1);
-
-			Label lastUpdatedLabel = new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy HH:mm") };
-			Grid.SetColumn(lastUpdatedLabel, 2);
-
-			Label hasLeaderboardLabel = new Label { Content = entry.HasLeaderboard };
-			Grid.SetColumn(hasLeaderboardLabel, 3);
-
-			Label nonLoopLengthLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(nonLoopLengthLabel, 4);
-
-			Label nonLoopSpawnsLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(nonLoopSpawnsLabel, 5);
-
-			Label loopStartLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopStart.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(loopStartLabel, 6);
-
-			Label loopLengthLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(loopLengthLabel, 7);
-
-			Label loopSpawnsLabel = new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(loopSpawnsLabel, 8);
-
-			Button button = new Button { Content = "Download" };
-			Grid.SetColumn(button, 9);
-			button.Click += (sender, e) => Download_Click($"{entry.SpawnsetFile.Name}_{entry.SpawnsetFile.Author}");
-
 			Grid grid = new Grid { Tag = entry };
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
-			grid.ColumnDefinitions.Add(new ColumnDefinition());
-			grid.ColumnDefinitions.Add(new ColumnDefinition());
-			grid.ColumnDefinitions.Add(new ColumnDefinition());
-			grid.ColumnDefinitions.Add(new ColumnDefinition());
-			grid.ColumnDefinitions.Add(new ColumnDefinition());
-			grid.ColumnDefinitions.Add(new ColumnDefinition());
-			grid.ColumnDefinitions.Add(new ColumnDefinition());
-			grid.Children.Add(spawnsetNameLabel);
-			grid.Children.Add(authorNameLabel);
-			grid.Children.Add(lastUpdatedLabel);
-			grid.Children.Add(hasLeaderboardLabel);
-			grid.Children.Add(nonLoopLengthLabel);
-			grid.Children.Add(nonLoopSpawnsLabel);
-			grid.Children.Add(loopStartLabel);
-			grid.Children.Add(loopLengthLabel);
-			grid.Children.Add(loopSpawnsLabel);
-			grid.Children.Add(button);
+			for (int i = 0; i < 7; i++)
+				grid.ColumnDefinitions.Add(new ColumnDefinition());
+
+			Button button = new Button { Content = "Download" };
+			button.Click += (sender, e) => Download_Click($"{entry.SpawnsetFile.Name}_{entry.SpawnsetFile.Author}");
+
+			Span customLeaderboardElement;
+			if (entry.HasLeaderboard)
+			{
+				customLeaderboardElement = new Hyperlink(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboard(entry.SpawnsetFile.FileName)) };
+				(customLeaderboardElement as Hyperlink).RequestNavigate += (sender, e) =>
+				{
+					Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+					e.Handled = true;
+				};
+			}
+			else
+			{
+				customLeaderboardElement = new Span(new Run("No"));
+			}
+
+			List<UIElement> elements = new List<UIElement>
+			{
+				new Label { Content = entry.SpawnsetFile.Name.Replace("_", "__") },
+				new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__") },
+				new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy HH:mm") },
+				new Label { Content = customLeaderboardElement },
+				new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopStart.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right },
+				button
+			};
+
+			for (int i = 0; i < elements.Count; i++)
+			{
+				Grid.SetColumn(elements[i], i);
+				grid.Children.Add(elements[i]);
+			}
 
 			return grid;
 		}

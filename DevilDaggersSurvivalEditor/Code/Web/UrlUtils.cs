@@ -15,6 +15,8 @@
 
 		public static string GetSpawnset(string fileName) => $"{baseUrl}/API/GetSpawnset?fileName={fileName}";
 
+		public static string CustomLeaderboard(string spawnsetFileName) => $"{baseUrl}/CustomLeaderboards/Leaderboard?spawnset={spawnsetFileName}";
+
 		public static string ApplicationDownloadUrl(string versionNumber) => $"{baseUrl}/tools/{ApplicationUtils.ApplicationName}/{ApplicationUtils.ApplicationName}{versionNumber}.zip";
 	}
 }
