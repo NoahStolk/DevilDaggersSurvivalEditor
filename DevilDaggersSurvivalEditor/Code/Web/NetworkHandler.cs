@@ -72,12 +72,14 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 		{
 			try
 			{
+				Spawnsets.Clear();
+				Authors.Clear();
+
 				string downloadString = string.Empty;
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
 					downloadString = client.DownloadString(UrlUtils.GetSpawnsets);
 				List<SpawnsetFile> spawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
 
-				Authors.Clear();
 				Authors.Add(new AuthorListEntry(SpawnsetListHandler.AllAuthors, spawnsetFiles.Count));
 				foreach (SpawnsetFile sf in spawnsetFiles)
 				{
