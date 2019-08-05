@@ -202,8 +202,24 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			for (int i = 0; i < 6; i++)
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 
-			Hyperlink nameElement = new Hyperlink(new Run(entry.SpawnsetFile.Name.Replace("_", "__")));
-			nameElement.Click += (sender, e) => Download_Click($"{entry.SpawnsetFile.Name}_{entry.SpawnsetFile.Author}");
+			Hyperlink nameHyperlink = new Hyperlink(new Run(entry.SpawnsetFile.Name.Replace("_", "__")));
+			nameHyperlink.Click += (sender, e) => Download_Click($"{entry.SpawnsetFile.Name}_{entry.SpawnsetFile.Author}");
+
+			UIElement nameElement;
+			if (string.IsNullOrEmpty(entry.SpawnsetFile.settings.Description))
+			{
+				nameElement = new Label { Content = nameHyperlink };
+			}
+			else
+			{
+				Label toolTipLabel = new Label { Content = "(?)", FontWeight = FontWeights.Bold, ToolTip = new TextBlock { Text = entry.SpawnsetFile.settings.Description, MaxWidth = 320 } };
+				ToolTipService.SetShowDuration(toolTipLabel, int.MaxValue);
+
+				nameElement = new StackPanel { Orientation = Orientation.Horizontal };
+				StackPanel nameStackPanel = nameElement as StackPanel;
+				nameStackPanel.Children.Add(new Label { Content = nameHyperlink });
+				nameStackPanel.Children.Add(toolTipLabel);
+			}
 
 			Span customLeaderboardElement;
 			if (entry.HasLeaderboard)
@@ -222,7 +238,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			List<UIElement> elements = new List<UIElement>
 			{
-				new Label { Content = nameElement },
+				nameElement,
 				new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__") },
 				new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy HH:mm") },
 				new Label { Content = customLeaderboardElement },
