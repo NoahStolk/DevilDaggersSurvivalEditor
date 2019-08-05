@@ -34,8 +34,6 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 		public void RetrieveVersion()
 		{
 			string url = UrlUtils.GetToolVersions;
-			string errorMessage = string.Empty;
-
 			try
 			{
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
@@ -51,7 +49,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 							if ((string)tool.Name == ApplicationUtils.ApplicationName)
 							{
 								string versionOnline = (string)tool.VersionNumber;
-								VersionResult = new VersionResult(!string.IsNullOrEmpty(errorMessage) ? null : (bool?)(Version.Parse(versionOnline) <= ApplicationUtils.ApplicationVersionNumber), versionOnline, errorMessage);
+								VersionResult = new VersionResult(Version.Parse(versionOnline) <= ApplicationUtils.ApplicationVersionNumber, versionOnline, string.Empty);
 								break;
 							}
 						}
@@ -60,12 +58,16 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			}
 			catch (WebException ex)
 			{
-				errorMessage = $"Could not connect to '{url}'.";
+				string errorMessage = $"Could not connect to '{url}'.";
+
+				VersionResult = new VersionResult(null, string.Empty, errorMessage);
 				Program.App.ShowError("Error retrieving latest version number", errorMessage, ex);
 			}
 			catch (Exception ex)
 			{
-				errorMessage = $"An unexpected error occured while trying to retrieve the latest version number from '{url}'.";
+				string errorMessage = $"An unexpected error occured while trying to retrieve the latest version number from '{url}'.";
+
+				VersionResult = new VersionResult(null, string.Empty, errorMessage);
 				Program.App.ShowError("Unexpected error", errorMessage, ex);
 			}
 		}
