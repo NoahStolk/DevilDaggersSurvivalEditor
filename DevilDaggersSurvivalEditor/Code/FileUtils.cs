@@ -18,13 +18,13 @@ namespace DevilDaggersSurvivalEditor.Code
 				}
 				else
 				{
-					Program.App.ShowError("An unexpected error occurred", "Error while trying to convert spawnset to binary.");
+					Program.App.ShowError("Unexpected error", "Error while trying to convert spawnset to binary.");
 					return false;
 				}
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", $"Error while trying to write file to {destinationPath}.", ex);
+				Program.App.ShowError("Unexpected error", $"Error while trying to write file to {destinationPath}.", ex);
 				return false;
 			}
 		}
@@ -47,7 +47,7 @@ namespace DevilDaggersSurvivalEditor.Code
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", $"Error while trying to write file to {UserHandler.Instance.settings.SurvivalFileLocation}.", ex);
+				Program.App.ShowError("Unexpected error", $"Error while trying to write file to {UserHandler.Instance.settings.SurvivalFileLocation}.", ex);
 			}
 		}
 	}

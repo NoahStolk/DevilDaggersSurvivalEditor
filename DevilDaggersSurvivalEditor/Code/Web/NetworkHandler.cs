@@ -59,12 +59,12 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			catch (WebException ex)
 			{
 				errorMessage = $"Could not connect to '{url}'.";
-				Program.App.ShowError("Error", errorMessage, ex);
+				Program.App.ShowError("Error retrieving latest version number", errorMessage, ex);
 			}
 			catch (Exception ex)
 			{
 				errorMessage = $"An unexpected error occured while trying to retrieve the latest version number from '{url}'.";
-				Program.App.ShowError("Error", errorMessage, ex);
+				Program.App.ShowError("Unexpected error", errorMessage, ex);
 			}
 		}
 
@@ -100,7 +100,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+				Program.App.ShowError("Unexpected error", "An unexpected error occurred.", ex);
 				return false;
 			}
 		}
@@ -111,7 +111,10 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			{
 				// The spawnset list must be retrieved first.
 				if (Spawnsets.Count == 0)
+				{
+					Program.App.ShowError("Could not retrieve custom leaderboard list", "The internal spawnset list is empty. This must be initialized before retrieving the custom leaderboard list.");
 					return false;
+				}
 
 				string downloadString = string.Empty;
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
@@ -132,7 +135,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+				Program.App.ShowError("Unexpected error", "An unexpected error occurred.", ex);
 				return false;
 			}
 		}
@@ -160,7 +163,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("An unexpected error occurred", "An unexpected error occurred.", ex);
+				Program.App.ShowError("Unexpected error", "An unexpected error occurred.", ex);
 
 				return null;
 			}
