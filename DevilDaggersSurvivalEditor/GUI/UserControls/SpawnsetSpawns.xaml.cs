@@ -2,7 +2,6 @@
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
-using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using NetBase.Utils;
 using System;
@@ -15,7 +14,7 @@ using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnsetSpawnsControl : UserControl
+	public partial class SpawnsetSpawnsUserControl : UserControl
 	{
 		private const int MaxSpawns = 10000;
 
@@ -30,11 +29,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private readonly List<Spawn> clipboard = new List<Spawn>();
 
-		private readonly List<SpawnControl> spawnControls = new List<SpawnControl>();
+		private readonly List<SpawnUserControl> spawnControls = new List<SpawnUserControl>();
 
 		private int endLoopStartIndex = 0;
 
-		public SpawnsetSpawnsControl()
+		public SpawnsetSpawnsUserControl()
 			: base()
 		{
 			InitializeComponent();
@@ -55,7 +54,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
 				{
-					SpawnControl spawnControl = new SpawnControl { Spawn = kvp.Value };
+					SpawnUserControl spawnControl = new SpawnUserControl { Spawn = kvp.Value };
 					spawnControls.Add(spawnControl);
 					ListBoxSpawns.Items.Add(spawnControl);
 				}
@@ -68,7 +67,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			SpawnsetHandler.Instance.spawnset.Spawns[SpawnsetHandler.Instance.spawnset.Spawns.Count] = spawn;
 
-			SpawnControl spawnControl = new SpawnControl { Spawn = spawn };
+			SpawnUserControl spawnControl = new SpawnUserControl { Spawn = spawn };
 			spawnControls.Add(spawnControl);
 			ListBoxSpawns.Items.Add(spawnControl);
 		}
@@ -77,7 +76,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			SpawnsetHandler.Instance.spawnset.Spawns[index] = spawn;
 
-			SpawnControl spawnControl = new SpawnControl { Spawn = spawn };
+			SpawnUserControl spawnControl = new SpawnUserControl { Spawn = spawn };
 			spawnControls.Insert(index, spawnControl);
 			ListBoxSpawns.Items.Insert(index, spawnControl);
 		}
@@ -118,7 +117,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					seconds += kvp.Value.Delay;
 					totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
 
-					SpawnControl spawnControl = spawnControls[kvp.Key];
+					SpawnUserControl spawnControl = spawnControls[kvp.Key];
 					spawnControl.ID = kvp.Key + 1;
 					spawnControl.Seconds = seconds;
 					spawnControl.TotalGems = totalGems;

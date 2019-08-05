@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnControl : UserControl
+	public partial class SpawnUserControl : UserControl
 	{
 		private bool isInLoop;
 		public bool IsInLoop
@@ -78,7 +78,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		public SpawnControl()
+		public SpawnUserControl()
 		{
 			InitializeComponent();
 		}

@@ -18,7 +18,7 @@ using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class SpawnsetArenaControl : UserControl
+	public partial class SpawnsetArenaUserControl : UserControl
 	{
 		private readonly int arenaCanvasSize;
 		private readonly int arenaCanvasCenter;
@@ -46,7 +46,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private readonly WriteableBitmap normalMap = new WriteableBitmap(Spawnset.ArenaWidth * TileUtils.TileSize, Spawnset.ArenaHeight * TileUtils.TileSize, 96, 96, PixelFormats.BlackWhite, BitmapPalettes.BlackAndWhite);
 
-		public SpawnsetArenaControl()
+		public SpawnsetArenaUserControl()
 		{
 			InitializeComponent();
 

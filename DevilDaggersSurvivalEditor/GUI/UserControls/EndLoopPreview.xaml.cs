@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class EndLoopPreview : UserControl
+	public partial class EndLoopPreviewUserControl : UserControl
 	{
 		private const int MaxWaves = 2000;
 
@@ -34,7 +34,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		public EndLoopPreview()
+		public EndLoopPreviewUserControl()
 		{
 			InitializeComponent();
 
@@ -78,7 +78,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 					if (i == Wave - 1)
 					{
-						EndLoopSpawnControl spawnControl = new EndLoopSpawnControl
+						EndLoopSpawnUserControl spawnControl = new EndLoopSpawnUserControl
 						{
 							GigaBecomesGhost = gigaBecomesGhost,
 							Enemy = enemy,

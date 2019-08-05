@@ -16,9 +16,9 @@ using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class MenuBarControl : UserControl
+	public partial class MenuBarUserControl : UserControl
 	{
-		public MenuBarControl()
+		public MenuBarUserControl()
 		{
 			InitializeComponent();
 

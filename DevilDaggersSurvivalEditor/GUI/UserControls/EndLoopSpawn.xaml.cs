@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.GUI.UserControls
 {
-	public partial class EndLoopSpawnControl : UserControl
+	public partial class EndLoopSpawnUserControl : UserControl
 	{
 		public bool GigaBecomesGhost { get; set; }
 
@@ -86,7 +86,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			}
 		}
 
-		public EndLoopSpawnControl()
+		public EndLoopSpawnUserControl()
 		{
 			InitializeComponent();
 
