@@ -20,6 +20,8 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 		public List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
 		public List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
 
+		public List<CustomLeaderboardBase> CustomLeaderboards { get; private set; } = new List<CustomLeaderboardBase>();
+
 		public VersionResult VersionResult { get; set; } = new VersionResult(null, string.Empty, "Version has not yet been retrieved.");
 
 		private static readonly Lazy<NetworkHandler> lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
@@ -119,12 +121,10 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 				string downloadString = string.Empty;
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
 					downloadString = client.DownloadString(UrlUtils.GetCustomLeaderboards);
-				List<CustomLeaderboardBase> customLeaderboards = JsonConvert.DeserializeObject<List<CustomLeaderboardBase>>(downloadString);
-
-				// TODO: Store the custom leaderboard objects.
+				CustomLeaderboards = JsonConvert.DeserializeObject<List<CustomLeaderboardBase>>(downloadString);
 
 				foreach (SpawnsetListEntry entry in Spawnsets)
-					entry.HasLeaderboard = customLeaderboards.Any(l => l.SpawnsetFileName == entry.SpawnsetFile.FileName);
+					entry.HasLeaderboard = CustomLeaderboards.Any(l => l.SpawnsetFileName == entry.SpawnsetFile.FileName);
 
 				return true;
 			}
