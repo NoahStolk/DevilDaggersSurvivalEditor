@@ -36,10 +36,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 					UpdateItem.FontWeight = FontWeights.Bold;
 				}
 			}
-			else
-			{
-				Program.App.ShowMessage("Error checking for updates", NetworkHandler.Instance.VersionResult.ErrorMessage);
-			}
 
 #if DEBUG
 			MenuItem testException = new MenuItem { Header = "Test Exception", Background = new SolidColorBrush(Color.FromRgb(0, 255, 64)) };
@@ -212,10 +208,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				{
 					Program.App.ShowMessage("Up to date", $"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.");
 				}
-			}
-			else
-			{
-				Program.App.ShowMessage("Error checking for updates", NetworkHandler.Instance.VersionResult.ErrorMessage);
 			}
 		}
 

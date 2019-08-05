@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.CustomLeaderboards;
 using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Spawnsets.Web;
+using DevilDaggersCore.Tools;
 using DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList;
 using DevilDaggersSurvivalEditor.Code.Web.Models;
 using Newtonsoft.Json;
@@ -36,39 +37,35 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			string url = UrlUtils.GetToolVersions;
 			try
 			{
+				string downloadString = string.Empty;
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
-				{
-					using (MemoryStream stream = new MemoryStream(client.DownloadData(url)))
-					{
-						byte[] byteArray = new byte[1024];
-						stream.Read(byteArray, 0, 1024);
+					downloadString = client.DownloadString(url);
+				List<Tool> tools = JsonConvert.DeserializeObject<List<Tool>>(downloadString);
 
-						dynamic json = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(byteArray));
-						foreach (dynamic tool in json)
-						{
-							if ((string)tool.Name == ApplicationUtils.ApplicationName)
-							{
-								string versionOnline = (string)tool.VersionNumber;
-								VersionResult = new VersionResult(Version.Parse(versionOnline) <= ApplicationUtils.ApplicationVersionNumber, versionOnline, string.Empty);
-								break;
-							}
-						}
+				foreach (Tool tool in tools)
+				{
+					if (tool.Name == ApplicationUtils.ApplicationName)
+					{
+						VersionResult = new VersionResult(Version.Parse(tool.VersionNumber) <= ApplicationUtils.ApplicationVersionNumber, tool.VersionNumber, string.Empty);
+						return;
 					}
 				}
+
+				Error("Error retrieving latest version number", $"{ApplicationUtils.ApplicationName} not found in '{url}'.");
 			}
 			catch (WebException ex)
 			{
-				string errorMessage = $"Could not connect to '{url}'.";
-
-				VersionResult = new VersionResult(null, string.Empty, errorMessage);
-				Program.App.ShowError("Error retrieving latest version number", errorMessage, ex);
+				Error("Error retrieving latest version number", $"Could not connect to '{url}'.", ex);
 			}
 			catch (Exception ex)
 			{
-				string errorMessage = $"An unexpected error occured while trying to retrieve the latest version number from '{url}'.";
+				Error("Unexpected error", $"An unexpected error occured while trying to retrieve the latest version number from '{url}'.", ex);
+			}
 
-				VersionResult = new VersionResult(null, string.Empty, errorMessage);
-				Program.App.ShowError("Unexpected error", errorMessage, ex);
+			void Error(string title, string message, Exception ex = null)
+			{
+				VersionResult = new VersionResult(null, string.Empty, message);
+				Program.App.ShowError(title, message, ex);
 			}
 		}
 
