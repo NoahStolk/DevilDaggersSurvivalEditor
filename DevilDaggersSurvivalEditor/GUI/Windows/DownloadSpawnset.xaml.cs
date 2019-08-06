@@ -200,7 +200,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
-			for (int i = 0; i < 6; i++)
+			for (int i = 0; i < 5; i++)
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 
 			Hyperlink nameHyperlink = new Hyperlink(new Run(entry.SpawnsetFile.Name.Replace("_", "__")));
@@ -250,12 +250,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				nameElement,
 				new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__") },
-				new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy HH:mm") },
+				new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy") },
 				new Label { Content = customLeaderboardElement },
-				new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = !entry.SpawnsetFile.spawnsetData.NonLoopLength.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
 				new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopStart.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopLength == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = !entry.SpawnsetFile.spawnsetData.LoopLength.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.Value.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
 				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right }
 			};
 

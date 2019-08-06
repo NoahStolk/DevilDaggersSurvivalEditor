@@ -26,7 +26,6 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 			new SpawnsetListSorting<SpawnsetListEntry>("Custom leaderboard", "LB", s => s.HasLeaderboard, false) { Ascending = true },
 			new SpawnsetListSorting<SpawnsetListEntry>("Non-loop length", "Length", s => s.SpawnsetFile.spawnsetData.NonLoopLength, false),
 			new SpawnsetListSorting<SpawnsetListEntry>("Non-loop spawns", "Spawns", s => s.SpawnsetFile.spawnsetData.NonLoopSpawns, false),
-			new SpawnsetListSorting<SpawnsetListEntry>("Loop start", "Start", s => s.SpawnsetFile.spawnsetData.LoopStart, false),
 			new SpawnsetListSorting<SpawnsetListEntry>("Loop length", "Length", s => s.SpawnsetFile.spawnsetData.LoopLength, false),
 			new SpawnsetListSorting<SpawnsetListEntry>("Loop spawns", "Spawns", s => s.SpawnsetFile.spawnsetData.LoopSpawns, false)
 		};

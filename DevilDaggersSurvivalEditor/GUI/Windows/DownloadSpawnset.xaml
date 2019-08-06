@@ -56,7 +56,7 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="8*" />
 						<ColumnDefinition Width="2*" />
-						<ColumnDefinition Width="3*" />
+						<ColumnDefinition Width="2*" />
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="1" FontWeight="Bold">Non-loop</Label>
 					<Label Grid.Column="2" FontWeight="Bold">Loop</Label>
@@ -66,7 +66,6 @@
 						<ColumnDefinition Width="3*" />
 						<ColumnDefinition Width="2*" />
 						<ColumnDefinition Width="2*" />
-						<ColumnDefinition />
 						<ColumnDefinition />
 						<ColumnDefinition />
 						<ColumnDefinition />
