@@ -252,9 +252,9 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__") },
 				new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy") },
 				new Label { Content = customLeaderboardElement },
-				new Label { Content = !entry.SpawnsetFile.spawnsetData.NonLoopLength.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = !entry.SpawnsetFile.spawnsetData.NonLoopLengthNullable.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLengthNullable.Value.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
 				new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = !entry.SpawnsetFile.spawnsetData.LoopLength.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.Value.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = !entry.SpawnsetFile.spawnsetData.LoopLengthNullable.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLengthNullable.Value.ToString(SpawnUtils.Format), HorizontalAlignment = HorizontalAlignment.Right },
 				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawns.ToString(), HorizontalAlignment = HorizontalAlignment.Right }
 			};
 
