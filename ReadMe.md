@@ -36,6 +36,10 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 ## Changelog
 
+#### 2.x.x.x - WIP
+
+- Removed "Loop start" column from the online spawnset list.
+
 #### 2.4.0.0 - August 5, 2019
 
 - Added end loop preview which allows you to view spawn information for any wave. This includes Gigapedes changing into Ghostpedes every third wave. The end loop preview can also be turned off in the Settings window.

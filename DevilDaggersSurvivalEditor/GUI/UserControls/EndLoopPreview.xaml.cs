@@ -38,7 +38,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			InitializeComponent();
 
-			Visibility = Visibility.Hidden;
+			Visibility = Visibility.Collapsed;
 
 			NavigationStackPanel.DataContext = this;
 		}
@@ -49,13 +49,13 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (!UserHandler.Instance.settings.EnableEndLoopPreview)
 			{
-				Visibility = Visibility.Hidden;
+				Visibility = Visibility.Collapsed;
 				return;
 			}
 
 			List<Spawn> endLoop = SpawnsetHandler.Instance.spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.spawnset.GetEndLoopStartIndex()).ToList();
 			int endLoopSpawns = endLoop.Where(s => s.SpawnsetEnemy != Spawnset.Enemies[-1]).Count();
-			Visibility = endLoopSpawns == 0 ? Visibility.Hidden : Visibility.Visible;
+			Visibility = endLoopSpawns == 0 ? Visibility.Collapsed : Visibility.Visible;
 
 			if (endLoopSpawns == 0)
 				return;
