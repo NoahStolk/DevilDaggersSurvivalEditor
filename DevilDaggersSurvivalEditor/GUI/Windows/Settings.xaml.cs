@@ -61,13 +61,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void AutoDetectButton_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (Process process in Process.GetProcessesByName("dd"))
+			Process process = ProcessUtils.GetDevilDaggersProcess();
+			if (process != null)
 			{
-				if (process.MainWindowTitle == "Devil Daggers")
-				{
-					SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName), "dd"));
-					return;
-				}
+				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName), "dd"));
+				return;
 			}
 
 			Program.App.ShowMessage("Devil Daggers process not found", "Please make sure Devil Daggers is running and try again.");

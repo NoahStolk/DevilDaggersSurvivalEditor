@@ -138,7 +138,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				RadioButton radioButton = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesAction{tileAction}.png"))) },
+					Content = new Image { Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesAction{tileAction}.png"))) },
 					ToolTip = tileAction.ToUserFriendlyString(),
 					IsChecked = tileAction == 0
 				};
@@ -159,7 +159,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				RadioButton radioButton = new RadioButton
 				{
-					Content = new Image { Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesSelection{tileSelection}.png"))) },
+					Content = new Image { Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesSelection{tileSelection}.png"))) },
 					ToolTip = tileSelection.ToUserFriendlyString(),
 					IsChecked = tileSelection == 0
 				};

@@ -73,7 +73,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				Color color = spawn.SpawnsetEnemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.SpawnsetEnemy.ToEnemy(GameInfo.GameVersions[GameInfo.DEFAULT_GAME_VERSION]).ColorCode}");
 				LabelEnemy.Background = new SolidColorBrush(color);
 
-				if (MiscUtils.GetPerceivedBrightness(color) < 140)
+				if (UserInterfaceUtils.GetPerceivedBrightness(color) < 140)
 					LabelEnemy.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
 			}
 		}

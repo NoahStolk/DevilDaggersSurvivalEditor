@@ -8,7 +8,7 @@ namespace DevilDaggersSurvivalEditor.Code.Shaders
 {
 	public class SelectionEffect : ShaderEffect
 	{
-		private static readonly PixelShader pixelShader = new PixelShader { UriSource = MiscUtils.MakeUri(Path.Combine("Content", "Shaders", "Selection.ps")) };
+		private static readonly PixelShader pixelShader = new PixelShader { UriSource = ContentUtils.MakeUri(Path.Combine("Content", "Shaders", "Selection.ps")) };
 
 		public static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(SelectionEffect), 0);
 		public Brush Input

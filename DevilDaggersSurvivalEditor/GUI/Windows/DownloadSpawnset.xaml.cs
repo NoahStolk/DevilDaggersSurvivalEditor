@@ -61,7 +61,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			Image image = new Image
 			{
-				Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", sorting == activeSorting ? "SpawnsetSortActive.png" : "SpawnsetSort.png"))),
+				Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", sorting == activeSorting ? "SpawnsetSortActive.png" : "SpawnsetSort.png"))),
 				Stretch = Stretch.None,
 				RenderTransformOrigin = new Point(0.5, 0.5),
 				RenderTransform = new ScaleTransform
@@ -358,7 +358,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				if (image == button.Content as Image)
 				{
-					image.Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));
+					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));
 					image.RenderTransform = new ScaleTransform
 					{
 						ScaleY = -(image.RenderTransform as ScaleTransform).ScaleY
@@ -366,7 +366,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				}
 				else
 				{
-					image.Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSort.png")));
+					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSort.png")));
 				}
 			}
 
@@ -386,7 +386,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			{
 				if (image == button.Content as Image)
 				{
-					image.Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));
+					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));
 					image.RenderTransform = new ScaleTransform
 					{
 						ScaleY = -(image.RenderTransform as ScaleTransform).ScaleY
@@ -394,7 +394,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				}
 				else
 				{
-					image.Source = new BitmapImage(MiscUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSort.png")));
+					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSort.png")));
 				}
 			}
 

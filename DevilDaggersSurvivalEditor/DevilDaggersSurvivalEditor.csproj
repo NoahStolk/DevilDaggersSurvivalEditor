@@ -97,7 +97,9 @@
     <Compile Include="Code\Arena\Presets\Pyramid.cs" />
     <Compile Include="Code\Arena\TileSelection.cs" />
     <Compile Include="Code\Arena\TileAction.cs" />
+    <Compile Include="Code\ContentUtils.cs" />
     <Compile Include="Code\ExtensionMethods.cs" />
+    <Compile Include="Code\ProcessUtils.cs" />
     <Compile Include="Code\Shaders\SelectionEffect.cs" />
     <Compile Include="Code\Spawnsets\SpawnsetList\AbstractListEntry.cs" />
     <Compile Include="Code\Spawnsets\SpawnsetList\AuthorListEntry.cs" />
@@ -107,7 +109,7 @@
     <Compile Include="Code\Spawnsets\SpawnsetHandler.cs" />
     <Compile Include="Code\Spawns\DelayModificationFunction.cs" />
     <Compile Include="Code\Spawnsets\SpawnsetFileUtils.cs" />
-    <Compile Include="Code\MiscUtils.cs" />
+    <Compile Include="Code\UserInterfaceUtils.cs" />
     <Compile Include="Code\Arena\TileUtils.cs" />
     <Compile Include="Code\Spawns\SpawnUtils.cs" />
     <Compile Include="Code\User\UserHandler.cs" />

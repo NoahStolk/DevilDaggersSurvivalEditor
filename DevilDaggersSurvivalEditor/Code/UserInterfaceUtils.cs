@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Code
 {
-	public static class MiscUtils
+	public static class UserInterfaceUtils
 	{
 		public static string ToUserFriendlyString(this object input)
 		{
@@ -32,11 +32,6 @@ namespace DevilDaggersSurvivalEditor.Code
 				c.R * c.R * .299 +
 				c.G * c.G * .587 +
 				c.B * c.B * .114);
-		}
-
-		public static Uri MakeUri(string localPath)
-		{
-			return new Uri($"pack://application:,,,/{Program.App.Assembly.GetName().Name};component/{localPath}");
 		}
 	}
 }

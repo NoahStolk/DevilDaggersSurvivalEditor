@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			Splash.Source = new BitmapImage(MiscUtils.MakeUri(Path.Combine("Content", "Images", "SplashScreens", $"{RandomUtils.RandomInt(37)}.png")));
+			Splash.Source = new BitmapImage(ContentUtils.MakeUri(Path.Combine("Content", "Images", "SplashScreens", $"{RandomUtils.RandomInt(37)}.png")));
 
 			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber}";
 

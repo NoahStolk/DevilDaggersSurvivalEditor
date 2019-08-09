@@ -66,7 +66,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				Color enemyColor = enemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ToEnemy(GameInfo.GameVersions[GameInfo.DEFAULT_GAME_VERSION]).ColorCode}");
 				SolidColorBrush background = new SolidColorBrush(enemyColor);
-				SolidColorBrush foreground = new SolidColorBrush(MiscUtils.GetPerceivedBrightness(enemyColor) < 140 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(0, 0, 0));
+				SolidColorBrush foreground = new SolidColorBrush(UserInterfaceUtils.GetPerceivedBrightness(enemyColor) < 140 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(0, 0, 0));
 
 				if (GigaBecomesGhost)
 				{
