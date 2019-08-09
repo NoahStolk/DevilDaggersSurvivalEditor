@@ -5,11 +5,8 @@ using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
 using System;
 using System.ComponentModel;
-using System.Globalization;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
@@ -22,10 +19,6 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			Program.App.MainWindow = this;
 			Program.App.UpdateMainWindowTitle();
-
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-			Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-			LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
 			Closed += MainWindow_Closed;
 

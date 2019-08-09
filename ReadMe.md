@@ -39,6 +39,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 #### 2.x.x.x - WIP
 
 - Removed "Loop start" column from the online spawnset list.
+- Small layout improvements.
 
 #### 2.4.0.0 - August 5, 2019
 
