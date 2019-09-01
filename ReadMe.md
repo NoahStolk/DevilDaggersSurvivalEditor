@@ -1,4 +1,4 @@
-# Devil Daggers Survival Editor 2.4.0.0 ([Download](https://devildaggers.info/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor2.4.0.0.zip))
+# Devil Daggers Survival Editor 2.4.4.0 ([Download](https://devildaggers.info/tools/DevilDaggersSurvivalEditor/DevilDaggersSurvivalEditor2.4.4.0.zip))
 
 Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers. It is a .NET WPF application built using Visual Studio 2019.
 
@@ -36,7 +36,7 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 
 ## Changelog
 
-#### 2.x.x.x - WIP
+#### 2.4.4.0 - September 1, 2019
 
 - Removed "Loop start" column from the online spawnset list.
 - The Switch Enemy Type window now only displays enemy types that exist in the current spawn selection.
