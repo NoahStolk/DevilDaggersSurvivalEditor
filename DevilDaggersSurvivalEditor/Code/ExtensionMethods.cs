@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Text;
+using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
 namespace DevilDaggersSurvivalEditor.Code
@@ -18,6 +19,28 @@ namespace DevilDaggersSurvivalEditor.Code
 		public static Point4D ToPoint4D(this Color color, float alpha)
 		{
 			return new Point4D(color.R / 256f, color.G / 256f, color.B / 256f, alpha);
+		}
+
+		public static string HTMLToPlainText(this string html)
+		{
+			if (string.IsNullOrEmpty(html))
+				return string.Empty;
+
+			StringBuilder sb = new StringBuilder();
+			bool inside = false;
+			foreach (char c in html)
+			{
+				if (c == '<')
+					inside = true;
+
+				if (!inside)
+					sb.Append(c);
+
+				if (c == '>')
+					inside = false;
+
+			}
+			return sb.ToString();
 		}
 	}
 }
