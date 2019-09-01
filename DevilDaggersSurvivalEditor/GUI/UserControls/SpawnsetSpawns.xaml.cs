@@ -380,23 +380,30 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		private void SwitchEnemyTypesButton_Click(object sender, RoutedEventArgs e)
 		{
 			List<int> selections = GetSpawnSelectionIndices();
-			SwitchEnemyTypeWindow window = new SwitchEnemyTypeWindow(selections.Count);
+			selections.Sort();
+
+			List<int> enemyTypes = new List<int>();
+			foreach (int selection in selections)
+				enemyTypes.Add(Spawnset.GetEnemyID(SpawnsetHandler.Instance.spawnset.Spawns[selection].SpawnsetEnemy));
+			enemyTypes = enemyTypes.Distinct().ToList();
+
+			SwitchEnemyTypeWindow window = new SwitchEnemyTypeWindow(selections.Count, enemyTypes);
 
 			if (window.ShowDialog() == true)
 			{
 				foreach (int i in selections)
 				{
 					int current = 0;
-					foreach (KeyValuePair<int, SpawnsetEnemy> enemy in Spawnset.Enemies)
+					foreach (int enemyType in enemyTypes)
 					{
-						if (enemy.Value == SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy)
+						if (Spawnset.GetEnemyID(SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy) == enemyType)
 						{
-							current = enemy.Key;
+							current = enemyType;
 							break;
 						}
 					}
 
-					EditSpawnAt(i, new Spawn(Spawnset.Enemies[window.switchArray[current + 1] - 1], SpawnsetHandler.Instance.spawnset.Spawns[i].Delay));
+					EditSpawnAt(i, new Spawn(Spawnset.Enemies[window.switchDictionary[current]], SpawnsetHandler.Instance.spawnset.Spawns[i].Delay));
 				}
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
