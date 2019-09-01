@@ -416,7 +416,6 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			ScrollViewer sv = (ScrollViewer)sender;
 			sv.ScrollToVerticalOffset(sv.VerticalOffset - e.Delta);
-			e.Handled = true;
 		}
 	}
 }

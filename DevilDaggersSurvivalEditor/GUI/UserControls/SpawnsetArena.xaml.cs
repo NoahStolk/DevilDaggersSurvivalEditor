@@ -586,6 +586,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			SetHeightText(SpawnsetHandler.Instance.spawnset.ArenaTiles[focusedTile.X, focusedTile.Y]);
+
+			e.Handled = true;
 		}
 
 		private void ArenaTiles_MouseRightButtonDown(object sender, MouseButtonEventArgs e)

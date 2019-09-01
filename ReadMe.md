@@ -39,7 +39,11 @@ Devil Daggers Survival Editor is a tool that lets you create, view, and edit 'su
 #### 2.x.x.x - WIP
 
 - Removed "Loop start" column from the online spawnset list.
+- The Switch Enemy Type window now only displays enemy types that exist in the current spawn selection.
+- Removed minimum window size and added scrollbars that become active when the window size becomes smaller than 1366x768. This applies to the Main window and the Download Spawnset window.
 - Small layout improvements.
+- Improved logging.
+- Internal changes such as importing DDCL-specific code for memory scanning base functionality as preparation for possible custom leaderboard integration (DDCL probably won't be getting updates anymore), as well as general code refactoring and improvements.
 
 #### 2.4.0.0 - August 5, 2019
 

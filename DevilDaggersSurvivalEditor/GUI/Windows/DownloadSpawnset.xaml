@@ -4,24 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
-        Title="Download spawnset" Height="768" Width="1366" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<StackPanel Style="{StaticResource PaddingStackPanel}">
-		<Label Style="{StaticResource TitleLabel}">Spawnsets from DevilDaggers.info</Label>
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition Width="8*" />
-			</Grid.ColumnDefinitions>
-			<Button Name="ReloadButton" Click="ReloadButton_Click">Reload all</Button>
-		</Grid>
-		<Grid x:Name="Data">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition Width="4*" />
-			</Grid.ColumnDefinitions>
-			<StackPanel Grid.Column="0">
-				<Label FontWeight="Bold">Authors</Label>
-				<Grid>
+        Title="Download spawnset" WindowStartupLocation="CenterScreen">
+	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+		<StackPanel Height="768" Width="1366" Background="#eee" Style="{StaticResource PaddingStackPanel}">
+			<Label Style="{StaticResource TitleLabel}">Spawnsets from DevilDaggers.info</Label>
+			<Button Name="ReloadButton" Click="ReloadButton_Click" Width="128" HorizontalAlignment="Left">Reload all</Button>
+			<Grid x:Name="Data">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="4*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition Height="10*" />
+				</Grid.RowDefinitions>
+
+				<Label Grid.Column="0" Grid.Row="0" FontWeight="Bold">Authors</Label>
+				<Grid Grid.Column="0" Grid.Row="1">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="80" />
 						<ColumnDefinition Width="100" />
@@ -31,17 +33,16 @@
 					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" Text="{Binding AuthorSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="AuthorSearchTextBox_TextChanged" />
 					<Button Grid.Column="2" Name="ClearAuthorSearchButton" Content="X" Click="ClearAuthorSearchButton_Click" ToolTip="Clear author search" />
 				</Grid>
-				<Grid Name="AuthorHeaders" HorizontalAlignment="Stretch" Margin="6,20,22,0">
+				<Grid Grid.Column="0" Grid.Row="3" Name="AuthorHeaders" HorizontalAlignment="Stretch" Margin="0,0,20,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 				</Grid>
-				<ListBox Grid.Row="1" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" Height="560" HorizontalContentAlignment="Stretch" />
-			</StackPanel>
-			<StackPanel Grid.Column="1">
-				<Label FontWeight="Bold">Spawnsets</Label>
-				<Grid>
+				<ListBox Grid.Column="0" Grid.Row="4" Height="623" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" HorizontalContentAlignment="Stretch" BorderBrush="Transparent" />
+
+				<Label Grid.Column="1" Grid.Row="0" FontWeight="Bold">Spawnsets</Label>
+				<Grid Grid.Column="1" Grid.Row="1">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="80" />
 						<ColumnDefinition Width="100" />
@@ -52,7 +53,7 @@
 					<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" Text="{Binding SpawnsetSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="SpawnsetSearchTextBox_TextChanged" />
 					<Button Grid.Column="2" Name="ClearSpawnsetSearchButton" Content="X" Click="ClearSpawnsetSearchButton_Click" ToolTip="Clear spawnset search" />
 				</Grid>
-				<Grid HorizontalAlignment="Stretch" Margin="0,0,20,0">
+				<Grid Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0,0,20,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="8*" />
 						<ColumnDefinition Width="2*" />
@@ -61,7 +62,7 @@
 					<Label Grid.Column="1" FontWeight="Bold">Non-loop</Label>
 					<Label Grid.Column="2" FontWeight="Bold">Loop</Label>
 				</Grid>
-				<Grid Name="SpawnsetHeaders" HorizontalAlignment="Stretch" Margin="0,0,20,0">
+				<Grid Grid.Column="1" Grid.Row="3" Name="SpawnsetHeaders" HorizontalAlignment="Stretch" Margin="0,0,20,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="3*" />
 						<ColumnDefinition Width="2*" />
@@ -73,11 +74,10 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 				</Grid>
-				<!--TODO: Fix height-->
-				<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="560" Margin="0,1,0,0" Padding="0,1,0,0" Background="White">
+				<ScrollViewer Grid.Column="1" Grid.Row="4" Height="623" VerticalScrollBarVisibility="Visible" Margin="0,1,0,0" Padding="0,1,0,0" Background="White">
 					<StackPanel Name="SpawnsetsList" />
 				</ScrollViewer>
-			</StackPanel>
-		</Grid>
-	</StackPanel>
+			</Grid>
+		</StackPanel>
+	</ScrollViewer>
 </Window>
