@@ -1,14 +1,15 @@
-﻿using DevilDaggersSurvivalEditor.Code.Arena;
+﻿using DevilDaggersCore.MemoryHandling;
+using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Windows;
+using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using DevilDaggersSurvivalEditor.Code;
 using System.Runtime.InteropServices;
-using System;
+using System.Windows;
 using System.Windows.Interop;
-using System.ComponentModel;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
