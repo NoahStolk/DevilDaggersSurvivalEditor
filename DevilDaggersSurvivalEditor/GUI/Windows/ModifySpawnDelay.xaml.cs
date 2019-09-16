@@ -3,7 +3,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
@@ -26,15 +25,11 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			foreach (DelayModificationFunction dmf in (DelayModificationFunction[])Enum.GetValues(typeof(DelayModificationFunction)))
 				FunctionComboBox.Items.Add(new ComboBoxItem { Content = dmf.ToString() });
+		}
 
-			// No clue why this has to be done this way.
-			DispatcherTimer timer = new DispatcherTimer();
-			timer.Start();
-			timer.Tick += (sender, e) =>
-			{
-				FunctionComboBox.SelectedIndex = 0;
-				timer.Stop();
-			};
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			FunctionComboBox.SelectedIndex = 0;
 		}
 
 		private void OKButton_Click(object sender, RoutedEventArgs e)

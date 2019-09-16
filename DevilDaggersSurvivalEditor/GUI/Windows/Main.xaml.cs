@@ -7,7 +7,6 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace DevilDaggersSurvivalEditor.GUI.Windows
 {
@@ -28,17 +27,14 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			UpdateWarningNoSurvivalFile();
 
 			SpawnsetArena.Initialize();
+		}
 
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
 			if (NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue && !NetworkHandler.Instance.VersionResult.IsUpToDate.Value)
 			{
-				DispatcherTimer timer = new DispatcherTimer();
-				timer.Start();
-				timer.Tick += (sender, e) =>
-				{
-					UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
-					updateRecommendedWindow.ShowDialog();
-					timer.Stop();
-				};
+				UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
+				updateRecommendedWindow.ShowDialog();
 			}
 		}
 

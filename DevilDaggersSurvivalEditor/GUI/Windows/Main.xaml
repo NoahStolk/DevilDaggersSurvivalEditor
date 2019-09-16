@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.GUI.UserControls"
 		mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown" Closing="Window_Closing">
+        WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown" Closing="Window_Closing" Loaded="Window_Loaded">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="18"/>

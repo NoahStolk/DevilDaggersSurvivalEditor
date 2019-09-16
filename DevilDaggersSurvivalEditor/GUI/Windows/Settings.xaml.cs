@@ -49,15 +49,17 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void BrowseButton_Click(object sender, RoutedEventArgs e)
 		{
-			CommonOpenFileDialog dialog = new CommonOpenFileDialog
+			using (CommonOpenFileDialog dialog = new CommonOpenFileDialog
 			{
 				IsFolderPicker = true,
 				InitialDirectory = UserHandler.Instance.settings.SurvivalFileRootFolder
-			};
-			CommonFileDialogResult result = dialog.ShowDialog();
+			})
+			{
+				CommonFileDialogResult result = dialog.ShowDialog();
 
-			if (result == CommonFileDialogResult.Ok)
-				SetSurvivalFileRootFolder(dialog.FileName);
+				if (result == CommonFileDialogResult.Ok)
+					SetSurvivalFileRootFolder(dialog.FileName);
+			}
 		}
 
 		private void AutoDetectButton_Click(object sender, RoutedEventArgs e)
