@@ -70,7 +70,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 				}
 				catch (Exception ex)
 				{
-					Program.App.ShowError("Error", "Error while trying to read user settings.", ex);
+					App.Instance.ShowError("Error", "Error while trying to read user settings.", ex);
 				}
 			};
 			readUserSettingsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>

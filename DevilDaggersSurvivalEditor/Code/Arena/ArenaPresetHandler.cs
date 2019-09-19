@@ -18,8 +18,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			set
 			{
 				activePreset = value;
-				if (Program.App != null && Program.App.MainWindow != null && Program.App.MainWindow.SpawnsetArena != null)
-					Program.App.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !activePreset.IsFull;
+				if (App.Instance != null && App.Instance.MainWindow != null && App.Instance.MainWindow.SpawnsetArena != null)
+					App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !activePreset.IsFull;
 			}
 		}
 		public AbstractArena DefaultPreset { get; private set; }
@@ -33,7 +33,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 
 		private ArenaPresetHandler()
 		{
-			PresetTypes = Program.App.Assembly.GetTypes().Where(t => t.FullName.Contains("Arena.Presets") && !t.IsAbstract && !t.Attributes.HasFlag(TypeAttributes.NestedPrivate)).OrderBy(t => t.Name);
+			PresetTypes = App.Instance.Assembly.GetTypes().Where(t => t.FullName.Contains("Arena.Presets") && !t.IsAbstract && !t.Attributes.HasFlag(TypeAttributes.NestedPrivate)).OrderBy(t => t.Name);
 
 			foreach (Type type in PresetTypes)
 				if (Activator.CreateInstance(type) is AbstractArena arena)

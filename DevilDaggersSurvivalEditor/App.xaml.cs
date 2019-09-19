@@ -15,10 +15,10 @@ namespace DevilDaggersSurvivalEditor
 {
 	public partial class App : Application
 	{
+		public static App Instance => (App)Current;
 		public static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
 		public Assembly Assembly { get; private set; }
-
 		public new MainWindow MainWindow { get; set; }
 
 		public App()
@@ -45,7 +45,7 @@ namespace DevilDaggersSurvivalEditor
 			string spawnset = SpawnsetHandler.Instance.SpawnsetName.Contains("_") ? $"{SpawnsetFile.GetName(SpawnsetHandler.Instance.SpawnsetName)} by {SpawnsetFile.GetAuthor(SpawnsetHandler.Instance.SpawnsetName)}" : SpawnsetHandler.Instance.SpawnsetName;
 			Dispatcher.Invoke(() =>
 			{
-				MainWindow.Title = $"{ApplicationUtils.ApplicationDisplayName} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : "")}";
+				MainWindow.Title = $"{ApplicationUtils.ApplicationDisplayNameWithVersion} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : "")}";
 			});
 		}
 

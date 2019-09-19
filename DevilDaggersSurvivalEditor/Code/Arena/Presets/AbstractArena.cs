@@ -12,11 +12,11 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		protected float[,] CreateArenaArray()
 		{
 			// Startup of the application, return empty array.
-			if (Program.App == null || Program.App.MainWindow == null)
+			if (App.Instance == null || App.Instance.MainWindow == null)
 				return new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
 			// Clear previous is off, return the old arena.
-			if (!Program.App.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsChecked == true)
+			if (!App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsChecked == true)
 				return SpawnsetHandler.Instance.spawnset.ArenaTiles;
 
 			// Return void arena.

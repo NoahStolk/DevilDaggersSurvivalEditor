@@ -1,5 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Code;
-using DevilDaggersSurvivalEditor.Code.Arena;
+﻿using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Code.Web;
@@ -16,8 +15,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			Program.App.MainWindow = this;
-			Program.App.UpdateMainWindowTitle();
+			App.Instance.MainWindow = this;
+			App.Instance.UpdateMainWindowTitle();
 
 			Closed += MainWindow_Closed;
 

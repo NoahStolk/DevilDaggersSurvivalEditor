@@ -18,13 +18,13 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 				}
 				else
 				{
-					Program.App.ShowError("Unexpected error", "Error while trying to convert spawnset to binary.");
+					App.Instance.ShowError("Unexpected error", "Error while trying to convert spawnset to binary.");
 					return false;
 				}
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("Unexpected error", $"Error while trying to write file to {destinationPath}.", ex);
+				App.Instance.ShowError("Unexpected error", $"Error while trying to write file to {destinationPath}.", ex);
 				return false;
 			}
 		}
@@ -33,7 +33,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 		{
 			try
 			{
-				using (Stream stream = Program.App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival"))
+				using (Stream stream = App.Instance.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival"))
 				{
 					byte[] data = new byte[stream.Length];
 					using (BinaryReader reader = new BinaryReader(stream))
@@ -43,11 +43,11 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 						fileStream.Write(data, 0, data.Length);
 				}
 
-				Program.App.ShowMessage("Success", "Successfully restored 'survival' file.");
+				App.Instance.ShowMessage("Success", "Successfully restored 'survival' file.");
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("Unexpected error", $"Error while trying to write file to {UserHandler.Instance.settings.SurvivalFileLocation}.", ex);
+				App.Instance.ShowError("Unexpected error", $"Error while trying to write file to {UserHandler.Instance.settings.SurvivalFileLocation}.", ex);
 			}
 		}
 	}

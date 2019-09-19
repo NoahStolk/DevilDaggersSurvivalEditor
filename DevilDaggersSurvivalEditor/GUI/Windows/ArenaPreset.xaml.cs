@@ -81,7 +81,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			else
 			{
 				Exception ex = new Exception($"Type {t} not supported in ArenaPreset TextBox.");
-				Program.App.ShowError("Error", $"Type {t} not supported in ArenaPreset TextBox.", ex);
+				App.Instance.ShowError("Error", $"Type {t} not supported in ArenaPreset TextBox.", ex);
 				throw ex;
 			}
 
@@ -119,7 +119,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 									else
 									{
 										Exception ex = new Exception($"Type {t} not supported in ArenaPreset TextBox.");
-										Program.App.ShowError("Error", $"Type {t} not supported in ArenaPreset TextBox.", ex);
+										App.Instance.ShowError("Error", $"Type {t} not supported in ArenaPreset TextBox.", ex);
 										throw ex;
 									}
 								}

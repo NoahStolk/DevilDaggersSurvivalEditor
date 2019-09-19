@@ -364,14 +364,14 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				if (UserHandler.Instance.settings.LockGlitchTile)
 					SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y] = Math.Min(SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.GlitchTileMax);
 
-				Program.App.MainWindow.WarningGlitchTile.Visibility = SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? Visibility.Visible : Visibility.Collapsed;
+				App.Instance.MainWindow.WarningGlitchTile.Visibility = SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? Visibility.Visible : Visibility.Collapsed;
 			}
 			else if (tile == TileUtils.SpawnTile)
 			{
 				if (UserHandler.Instance.settings.LockSpawnTile)
 					SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y] = Math.Max(SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.TileMin);
 
-				Program.App.MainWindow.WarningVoidSpawn.Visibility = SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;
+				App.Instance.MainWindow.WarningVoidSpawn.Visibility = SpawnsetHandler.Instance.spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;
 			}
 
 			// Set tile color.

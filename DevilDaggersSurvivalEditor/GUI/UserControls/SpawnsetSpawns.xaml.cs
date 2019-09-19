@@ -108,7 +108,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			Dispatcher.Invoke(() =>
 			{
-				Program.App.MainWindow.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
+				App.Instance.MainWindow.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
 
 				double seconds = 0;
 				int totalGems = 0;
@@ -190,7 +190,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			if (SpawnsetHandler.Instance.spawnset.Spawns.Count >= MaxSpawns)
 			{
-				Program.App.ShowMessage("Too many spawns", $"You can have {MaxSpawns} spawns at most.");
+				App.Instance.ShowMessage("Too many spawns", $"You can have {MaxSpawns} spawns at most.");
 				return true;
 			}
 

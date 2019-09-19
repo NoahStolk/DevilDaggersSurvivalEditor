@@ -64,7 +64,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			void Error(string title, string message, Exception ex = null)
 			{
 				VersionResult = new VersionResult(null, string.Empty, message);
-				Program.App.ShowError(title, message, ex);
+				App.Instance.ShowError(title, message, ex);
 			}
 		}
 
@@ -95,12 +95,12 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			}
 			catch (WebException ex)
 			{
-				Program.App.ShowError("Error retrieving spawnset list", $"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
+				App.Instance.ShowError("Error retrieving spawnset list", $"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
 				return false;
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("Unexpected error", "An unexpected error occurred.", ex);
+				App.Instance.ShowError("Unexpected error", "An unexpected error occurred.", ex);
 				return false;
 			}
 		}
@@ -112,7 +112,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 				// The spawnset list must be retrieved first.
 				if (Spawnsets.Count == 0)
 				{
-					Program.App.ShowError("Could not retrieve custom leaderboard list", "The internal spawnset list is empty. This must be initialized before retrieving the custom leaderboard list.");
+					App.Instance.ShowError("Could not retrieve custom leaderboard list", "The internal spawnset list is empty. This must be initialized before retrieving the custom leaderboard list.");
 					return false;
 				}
 
@@ -128,12 +128,12 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			}
 			catch (WebException ex)
 			{
-				Program.App.ShowError("Error retrieving custom leaderboard list", $"Could not connect to '{UrlUtils.GetCustomLeaderboards}'.", ex);
+				App.Instance.ShowError("Error retrieving custom leaderboard list", $"Could not connect to '{UrlUtils.GetCustomLeaderboards}'.", ex);
 				return false;
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("Unexpected error", "An unexpected error occurred.", ex);
+				App.Instance.ShowError("Unexpected error", "An unexpected error occurred.", ex);
 				return false;
 			}
 		}
@@ -149,19 +149,19 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
 				using (Stream stream = new MemoryStream(client.DownloadData(url)))
 					if (!Spawnset.TryParse(stream, out spawnset))
-						Program.App.ShowError("Error parsing file", "Could not parse file.");
+						App.Instance.ShowError("Error parsing file", "Could not parse file.");
 
 				return spawnset;
 			}
 			catch (WebException ex)
 			{
-				Program.App.ShowError("Error downloading file", $"Could not connect to '{url}'.", ex);
+				App.Instance.ShowError("Error downloading file", $"Could not connect to '{url}'.", ex);
 
 				return null;
 			}
 			catch (Exception ex)
 			{
-				Program.App.ShowError("Unexpected error", "An unexpected error occurred.", ex);
+				App.Instance.ShowError("Unexpected error", "An unexpected error occurred.", ex);
 
 				return null;
 			}

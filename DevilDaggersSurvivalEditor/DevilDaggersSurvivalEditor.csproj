@@ -156,7 +156,6 @@
     <Compile Include="GUI\Windows\Message.xaml.cs">
       <DependentUpon>Message.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Code\Program.cs" />
     <Compile Include="Code\Web\Models\VersionResult.cs" />
     <Compile Include="Code\Web\UrlUtils.cs" />
     <Compile Include="Code\User\UserSettings.cs" />

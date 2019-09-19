@@ -16,7 +16,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 			set
 			{
 				unsavedChanges = value;
-				Program.App.UpdateMainWindowTitle();
+				App.Instance.UpdateMainWindowTitle();
 			}
 		}
 
@@ -41,7 +41,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 			SpawnsetName = name;
 			SpawnsetFileLocation = fileLocation;
 
-			Program.App.UpdateMainWindowTitle();
+			App.Instance.UpdateMainWindowTitle();
 		}
 
 		public void ProceedWithUnsavedChanges()

@@ -11,7 +11,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			Text.Content = $"Devil Daggers Survival Editor {NetworkHandler.Instance.VersionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.";
+			Text.Content = $"{ApplicationUtils.ApplicationDisplayName} {NetworkHandler.Instance.VersionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.";
 		}
 
 		private void DownloadButton_Click(object sender, RoutedEventArgs e)

@@ -57,8 +57,8 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
 			};
 
-			Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-			Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
+			App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
+			App.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
 
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(new spawnset)", string.Empty);
 		}
@@ -74,12 +74,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			{
 				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out SpawnsetHandler.Instance.spawnset))
 				{
-					Program.App.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
+					App.Instance.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
 					return;
 				}
 
-				Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-				Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
+				App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
+				App.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
 
 				SpawnsetHandler.Instance.UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
 			}
@@ -109,18 +109,18 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 			if (!UserHandler.Instance.settings.SurvivalFileExists)
 			{
-				Program.App.ShowError("Survival file does not exist", "Please make sure to correct the survival file location in the Options > Settings menu.");
+				App.Instance.ShowError("Survival file does not exist", "Please make sure to correct the survival file location in the Options > Settings menu.");
 				return;
 			}
 
 			if (!Spawnset.TryParse(new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out SpawnsetHandler.Instance.spawnset))
 			{
-				Program.App.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
+				App.Instance.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;
 			}
 
-			Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-			Program.App.MainWindow.SpawnsetArena.UpdateSpawnset();
+			App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
+			App.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
 
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.settings.SurvivalFileLocation);
 		}
@@ -130,7 +130,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?");
 			confirmWindow.ShowDialog();
 			if (confirmWindow.Confirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, UserHandler.Instance.settings.SurvivalFileLocation))
-				Program.App.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
+				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
 		}
 
 		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)
@@ -156,11 +156,11 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 				Dispatcher.Invoke(() =>
 				{
-					Program.App.MainWindow.UpdateWarningNoSurvivalFile();
-					Program.App.MainWindow.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
-					Program.App.MainWindow.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
-					Program.App.MainWindow.SpawnsetSpawns.UpdateSpawnControls(true);
-					Program.App.MainWindow.SpawnsetSpawns.EndLoopPreview.Update();
+					App.Instance.MainWindow.UpdateWarningNoSurvivalFile();
+					App.Instance.MainWindow.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
+					App.Instance.MainWindow.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
+					App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnControls(true);
+					App.Instance.MainWindow.SpawnsetSpawns.EndLoopPreview.Update();
 				});
 			}
 		}
@@ -206,7 +206,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 				else
 				{
-					Program.App.ShowMessage("Up to date", $"Devil Daggers Survival Editor {ApplicationUtils.ApplicationVersionNumber} is up to date.");
+					App.Instance.ShowMessage("Up to date", $"{ApplicationUtils.ApplicationDisplayNameWithVersion} is up to date.");
 				}
 			}
 		}
@@ -216,7 +216,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			if (File.Exists("DDSE.log"))
 				Process.Start("DDSE.log");
 			else
-				Program.App.ShowMessage("No log file", "Log file does not exist.");
+				App.Instance.ShowMessage("No log file", "Log file does not exist.");
 		}
 
 		private void TestException_Click(object sender, RoutedEventArgs e)
