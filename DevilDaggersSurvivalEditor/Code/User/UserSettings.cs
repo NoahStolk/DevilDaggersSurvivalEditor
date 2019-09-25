@@ -8,10 +8,9 @@ namespace DevilDaggersSurvivalEditor.Code.User
 	public class UserSettings
 	{
 		public const string FileName = "user.json";
-		public const string SurvivalFileRootFolderDefault = @"C:\Program Files (x86)\Steam\steamapps\common\devildaggers\dd";
 
 		[JsonProperty]
-		public string SurvivalFileRootFolder { get; set; } = SurvivalFileRootFolderDefault;
+		public string SurvivalFileRootFolder { get; set; } = @"C:\Program Files (x86)\Steam\steamapps\common\devildaggers\dd";
 		[JsonProperty]
 		public bool LockSpawnTile { get; set; }
 		[JsonProperty]
