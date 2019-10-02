@@ -17,6 +17,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		private void DownloadButton_Click(object sender, RoutedEventArgs e)
 		{
 			Process.Start(UrlUtils.ApplicationDownloadUrl(NetworkHandler.Instance.VersionResult.VersionNumberOnline));
+			Close();
 		}
 	}
 }
