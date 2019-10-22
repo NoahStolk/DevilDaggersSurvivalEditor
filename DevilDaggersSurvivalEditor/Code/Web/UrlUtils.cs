@@ -6,7 +6,7 @@
 
 		public static string DiscordInviteLink => "https://discord.gg/NF32j8S";
 
-		public static string GetToolVersions => $"{baseUrl}/API/GetToolVersions";
+		public static string GetTools => $"{baseUrl}/API/GetTools";
 		public static string GetSpawnsets => $"{baseUrl}/API/GetSpawnsets";
 		public static string GetCustomLeaderboards => $"{baseUrl}/API/GetCustomLeaderboards";
 		public static string Spawnsets => $"{baseUrl}/Spawnsets";

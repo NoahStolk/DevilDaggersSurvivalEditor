@@ -33,7 +33,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 
 		public void RetrieveVersion()
 		{
-			string url = UrlUtils.GetToolVersions;
+			string url = UrlUtils.GetTools;
 			try
 			{
 				string downloadString = string.Empty;
