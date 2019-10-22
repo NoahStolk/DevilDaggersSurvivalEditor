@@ -13,6 +13,12 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
+			if (NetworkHandler.Instance.Tool == null)
+			{
+				App.Instance.ShowError("Changelog not retrieved", "The changelog has not been retrieved from DevilDaggers.info.");
+				return;
+			}
+
 			int i = 0;
 			foreach (ChangeLogEntry entry in NetworkHandler.Instance.Tool.ChangeLog)
 			{
