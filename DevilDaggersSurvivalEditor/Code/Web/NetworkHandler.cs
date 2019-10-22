@@ -23,6 +23,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 		public List<CustomLeaderboardBase> CustomLeaderboards { get; private set; } = new List<CustomLeaderboardBase>();
 
 		public VersionResult VersionResult { get; set; } = new VersionResult(null, string.Empty, "Version has not yet been retrieved.");
+		public Tool Tool { get; private set; }
 
 		private static readonly Lazy<NetworkHandler> lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
 		public static NetworkHandler Instance => lazy.Value;
@@ -45,6 +46,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 				{
 					if (tool.Name == ApplicationUtils.ApplicationName)
 					{
+						Tool = tool;
 						VersionResult = new VersionResult(Version.Parse(tool.VersionNumber) <= ApplicationUtils.ApplicationVersionNumber, tool.VersionNumber, string.Empty);
 						return;
 					}

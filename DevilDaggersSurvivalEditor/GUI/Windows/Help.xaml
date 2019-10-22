@@ -13,10 +13,7 @@
 
 		<Label Style="{StaticResource TitleLabel}">Help with the application</Label>
 		<TextBlock Style="{StaticResource ParagraphTextBlock}">
-			Please let me know if anything is unclear, or if you have any issues with the editor. Reporting bugs is also appreciated as this really helps me improving the application. If the application crashes, there should be some information in the "DDSE.log" file (you can open it by clicking Help > Show log).
-		</TextBlock>
-		<TextBlock Style="{StaticResource ParagraphTextBlock}">
-			You can contact me at <Hyperlink NavigateUri="mailto:contact@devildaggers.info" RequestNavigate="Hyperlink_RequestNavigate">contact@devildaggers.info</Hyperlink>.
+			Reporting bugs can be done by sending an email to <Hyperlink NavigateUri="mailto:contact@devildaggers.info" RequestNavigate="Hyperlink_RequestNavigate">contact@devildaggers.info</Hyperlink>. If the application crashes, there should be some information in the "DDSE.log" file (you can open it by clicking Help > Show log).
 		</TextBlock>
 	</StackPanel>
 </Window>

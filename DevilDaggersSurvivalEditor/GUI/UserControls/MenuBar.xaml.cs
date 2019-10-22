@@ -187,6 +187,12 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			aboutWindow.ShowDialog();
 		}
 
+		private void Changelog_Click(object sender, RoutedEventArgs e)
+		{
+			ChangelogWindow changelogWindow = new ChangelogWindow();
+			changelogWindow.ShowDialog();
+		}
+
 		private void SourceCode_Click(object sender, RoutedEventArgs e)
 		{
 			Process.Start(UrlUtils.SourceCode);
