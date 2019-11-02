@@ -189,7 +189,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void Changelog_Click(object sender, RoutedEventArgs e)
 		{
-			if (NetworkHandler.Instance.VersionResult.Tool.ChangeLog != null)
+			if (NetworkHandler.Instance.VersionResult.Tool.Changelog != null)
 			{
 				ChangelogWindow changelogWindow = new ChangelogWindow();
 				changelogWindow.ShowDialog();

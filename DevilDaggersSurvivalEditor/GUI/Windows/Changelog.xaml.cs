@@ -14,7 +14,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			InitializeComponent();
 
 			int i = 0;
-			foreach (ChangeLogEntry entry in NetworkHandler.Instance.VersionResult.Tool.ChangeLog)
+			foreach (ChangelogEntry entry in NetworkHandler.Instance.VersionResult.Tool.Changelog)
 			{
 				bool isLocal = entry.VersionNumber == App.LocalVersion;
 				SolidColorBrush color = new SolidColorBrush(isLocal ? Color.FromRgb(208, 240, 208) : i++ % 2 == 0 ? Color.FromRgb(208, 208, 208) : Color.FromRgb(224, 224, 224));
