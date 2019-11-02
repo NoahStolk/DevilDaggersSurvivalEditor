@@ -6,7 +6,7 @@ namespace DevilDaggersSurvivalEditor.Code
 	{
 		public static Uri MakeUri(string localPath)
 		{
-			return new Uri($"pack://application:,,,/{App.Instance.Assembly.GetName().Name};component/{localPath}");
+			return new Uri($"pack://application:,,,/{App.Assembly.GetName().Name};component/{localPath}");
 		}
 	}
 }

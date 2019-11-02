@@ -1,5 +1,5 @@
-﻿using DevilDaggersCore.Tools;
-using DevilDaggersSurvivalEditor.Code.Web;
+﻿using DevilDaggersCore.Website.Models;
+using DevilDaggersSurvivalEditor.Code.Network;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,18 +13,15 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			if (NetworkHandler.Instance.Tool == null)
-			{
-				App.Instance.ShowError("Changelog not retrieved", "The changelog has not been retrieved from DevilDaggers.info.");
-				return;
-			}
-
 			int i = 0;
-			foreach (ChangeLogEntry entry in NetworkHandler.Instance.Tool.ChangeLog)
+			foreach (ChangeLogEntry entry in NetworkHandler.Instance.VersionResult.Tool.ChangeLog)
 			{
-				SolidColorBrush color = new SolidColorBrush(i++ % 2 == 0 ? Color.FromRgb(208, 208, 208) : Color.FromRgb(224, 224, 224));
+				bool isLocal = entry.VersionNumber == App.LocalVersion;
+				SolidColorBrush color = new SolidColorBrush(isLocal ? Color.FromRgb(208, 240, 208) : i++ % 2 == 0 ? Color.FromRgb(208, 208, 208) : Color.FromRgb(224, 224, 224));
 				Border border = new Border { Padding = new Thickness(8, 16, 8, 16), Background = color };
 				StackPanel entryStackPanel = new StackPanel { Background = color };
+				if (isLocal)
+					entryStackPanel.Children.Add(new TextBlock { Text = "Currently running", FontSize = 12, FontWeight = FontWeights.Bold, Padding = new Thickness(6, 0, 0, 6), Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0)) });
 				entryStackPanel.Children.Add(new TextBlock { Text = $"{entry.VersionNumber} - {entry.Date.ToString("MMMM dd, yyyy")}", FontSize = 16, FontWeight = FontWeights.Bold, Padding = new Thickness(6, 0, 0, 6) });
 				foreach (Change change in entry.Changes)
 					foreach (Grid stackPanel in GetGrids(change, 1))
@@ -34,7 +31,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			}
 		}
 
-		public static IEnumerable<Grid> GetGrids(Change change, int level)
+		private IEnumerable<Grid> GetGrids(Change change, int level)
 		{
 			Grid changeGrid = new Grid();
 			changeGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(level++ * 32) });

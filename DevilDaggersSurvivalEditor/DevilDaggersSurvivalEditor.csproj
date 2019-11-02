@@ -112,8 +112,7 @@
     <Compile Include="Code\Arena\TileUtils.cs" />
     <Compile Include="Code\Spawns\SpawnUtils.cs" />
     <Compile Include="Code\User\UserHandler.cs" />
-    <Compile Include="Code\Web\TimeoutWebClient.cs" />
-    <Compile Include="Code\Web\NetworkHandler.cs" />
+    <Compile Include="Code\Network\NetworkHandler.cs" />
     <Compile Include="GUI\UserControls\EndLoopPreview.xaml.cs">
       <DependentUpon>EndLoopPreview.xaml</DependentUpon>
     </Compile>
@@ -159,10 +158,7 @@
     <Compile Include="GUI\Windows\Message.xaml.cs">
       <DependentUpon>Message.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Code\Web\Models\VersionResult.cs" />
-    <Compile Include="Code\Web\UrlUtils.cs" />
     <Compile Include="Code\User\UserSettings.cs" />
-    <Compile Include="Code\ApplicationUtils.cs" />
     <Compile Include="GUI\Windows\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>

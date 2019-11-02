@@ -33,7 +33,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 		{
 			try
 			{
-				using (Stream stream = App.Instance.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival"))
+				using (Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival"))
 				{
 					byte[] data = new byte[stream.Length];
 					using (BinaryReader reader = new BinaryReader(stream))

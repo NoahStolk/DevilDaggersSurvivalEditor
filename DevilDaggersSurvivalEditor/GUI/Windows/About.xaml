@@ -7,7 +7,7 @@
         Title="About" Height="384" Width="384" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel Style="{StaticResource PaddingStackPanel}">
 		<Image Style="{StaticResource Logo}" />
-		<Label Style="{StaticResource TitleLabel}" HorizontalAlignment="Center">Devil Daggers Survival Editor</Label>
+		<Label Style="{StaticResource TitleLabel}" HorizontalAlignment="Center" Name="TitleLabel" />
 		<Label Style="{StaticResource TitleLabel}" HorizontalAlignment="Center" Name="VersionLabel" />
 		<Label HorizontalAlignment="Center">Developed by Noah Stolk</Label>
 		<Label HorizontalAlignment="Center">

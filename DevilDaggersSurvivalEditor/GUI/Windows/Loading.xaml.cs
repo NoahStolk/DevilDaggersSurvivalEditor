@@ -1,6 +1,7 @@
-﻿using DevilDaggersSurvivalEditor.Code;
+﻿using DevilDaggersCore.Tools;
+using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.User;
-using DevilDaggersSurvivalEditor.Code.Web;
 using NetBase.Utils;
 using Newtonsoft.Json;
 using System;
@@ -26,19 +27,17 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 			Splash.Source = new BitmapImage(ContentUtils.MakeUri(Path.Combine("Content", "Images", "SplashScreens", $"{RandomUtils.RandomInt(37)}.png")));
 
-			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber}";
+			VersionLabel.Content = $"Version {App.LocalVersion}";
 
 #if DEBUG
 			VersionLabel.Background = new SolidColorBrush(Color.FromRgb(0, 255, 64));
-			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber} DEBUG";
-#else
-			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber}";
+			VersionLabel.Content += " DEBUG";
 #endif
 
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				NetworkHandler.Instance.RetrieveVersion();
+				NetworkHandler.Instance.VersionResult = VersionHandler.Instance.GetOnlineVersion(App.ApplicationName, App.LocalVersion);
 			};
 			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{

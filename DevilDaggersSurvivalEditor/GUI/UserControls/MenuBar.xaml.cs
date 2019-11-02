@@ -1,9 +1,9 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersCore.Tools;
 using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
-using DevilDaggersSurvivalEditor.Code.Web;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
@@ -189,13 +189,20 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void Changelog_Click(object sender, RoutedEventArgs e)
 		{
-			ChangelogWindow changelogWindow = new ChangelogWindow();
-			changelogWindow.ShowDialog();
+			if (NetworkHandler.Instance.VersionResult.Tool.ChangeLog != null)
+			{
+				ChangelogWindow changelogWindow = new ChangelogWindow();
+				changelogWindow.ShowDialog();
+			}
+			else
+			{
+				App.Instance.ShowError("Changelog not retrieved", "The changelog has not been retrieved from DevilDaggers.info.");
+			}
 		}
 
 		private void SourceCode_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start(UrlUtils.SourceCode);
+			Process.Start(UrlUtils.SourceCodeUrl(App.ApplicationName));
 		}
 
 		private void Update_Click(object sender, RoutedEventArgs e)
@@ -212,7 +219,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				}
 				else
 				{
-					App.Instance.ShowMessage("Up to date", $"{ApplicationUtils.ApplicationDisplayNameWithVersion} is up to date.");
+					App.Instance.ShowMessage("Up to date", $"{App.ApplicationDisplayName} {App.LocalVersion} is up to date.");
 				}
 			}
 		}

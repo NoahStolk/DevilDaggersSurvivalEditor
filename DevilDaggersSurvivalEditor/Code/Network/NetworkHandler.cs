@@ -3,7 +3,6 @@ using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Spawnsets.Web;
 using DevilDaggersCore.Tools;
 using DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList;
-using DevilDaggersSurvivalEditor.Code.Web.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,63 +10,37 @@ using System.IO;
 using System.Linq;
 using System.Net;
 
-namespace DevilDaggersSurvivalEditor.Code.Web
+namespace DevilDaggersSurvivalEditor.Code.Network
 {
 	public sealed class NetworkHandler
 	{
-		private const int Timeout = 7500; // 7.5 seconds
+		/// <summary>
+		/// Timeout in milliseconds.
+		/// </summary>
+		private const int Timeout = 7500;
 
 		public List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
 		public List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
 
 		public List<CustomLeaderboardBase> CustomLeaderboards { get; private set; } = new List<CustomLeaderboardBase>();
 
-		public VersionResult VersionResult { get; set; } = new VersionResult(null, string.Empty, "Version has not yet been retrieved.");
-		public Tool Tool { get; private set; }
+		private VersionResult versionResult = new VersionResult(null, null, new Exception("Version has not yet been retrieved."));
+		public VersionResult VersionResult
+		{
+			get { return versionResult; }
+			set
+			{
+				versionResult = value;
+				if (versionResult.Exception != null)
+					App.Instance.ShowError($"Error retrieving version number for '{App.ApplicationName}'", versionResult.Exception.Message, versionResult.Exception.InnerException);
+			}
+		}
 
 		private static readonly Lazy<NetworkHandler> lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
 		public static NetworkHandler Instance => lazy.Value;
 
 		private NetworkHandler()
 		{
-		}
-
-		public void RetrieveVersion()
-		{
-			string url = UrlUtils.GetTools;
-			try
-			{
-				string downloadString = string.Empty;
-				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
-					downloadString = client.DownloadString(url);
-				List<Tool> tools = JsonConvert.DeserializeObject<List<Tool>>(downloadString);
-
-				foreach (Tool tool in tools)
-				{
-					if (tool.Name == ApplicationUtils.ApplicationName)
-					{
-						Tool = tool;
-						VersionResult = new VersionResult(Version.Parse(tool.VersionNumber) <= ApplicationUtils.ApplicationVersionNumber, tool.VersionNumber, string.Empty);
-						return;
-					}
-				}
-
-				Error("Error retrieving latest version number", $"{ApplicationUtils.ApplicationName} not found in '{url}'.");
-			}
-			catch (WebException ex)
-			{
-				Error("Error retrieving latest version number", $"Could not connect to '{url}'.", ex);
-			}
-			catch (Exception ex)
-			{
-				Error("Unexpected error", $"An unexpected error occured while trying to retrieve the latest version number from '{url}'.", ex);
-			}
-
-			void Error(string title, string message, Exception ex = null)
-			{
-				VersionResult = new VersionResult(null, string.Empty, message);
-				App.Instance.ShowError(title, message, ex);
-			}
 		}
 
 		public bool RetrieveSpawnsetList()
@@ -79,7 +52,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 
 				string downloadString = string.Empty;
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
-					downloadString = client.DownloadString(UrlUtils.GetSpawnsets);
+					downloadString = client.DownloadString(UrlUtils.ApiGetSpawnsets);
 				List<SpawnsetFile> spawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
 
 				Authors.Add(new AuthorListEntry(SpawnsetListHandler.AllAuthors, spawnsetFiles.Count));
@@ -90,14 +63,14 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 						Authors.Add(author);
 				}
 
-				foreach (SpawnsetFile sf in spawnsetFiles)
-					Spawnsets.Add(new SpawnsetListEntry { SpawnsetFile = sf });
+				foreach (SpawnsetFile spawnsetFile in spawnsetFiles)
+					Spawnsets.Add(new SpawnsetListEntry { SpawnsetFile = spawnsetFile });
 
 				return true;
 			}
 			catch (WebException ex)
 			{
-				App.Instance.ShowError("Error retrieving spawnset list", $"Could not connect to '{UrlUtils.GetSpawnsets}'.", ex);
+				App.Instance.ShowError("Error retrieving spawnset list", $"Could not connect to '{UrlUtils.ApiGetSpawnsets}'.", ex);
 				return false;
 			}
 			catch (Exception ex)
@@ -120,7 +93,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 
 				string downloadString = string.Empty;
 				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
-					downloadString = client.DownloadString(UrlUtils.GetCustomLeaderboards);
+					downloadString = client.DownloadString(UrlUtils.ApiGetCustomLeaderboards);
 				CustomLeaderboards = JsonConvert.DeserializeObject<List<CustomLeaderboardBase>>(downloadString);
 
 				foreach (SpawnsetListEntry entry in Spawnsets)
@@ -130,7 +103,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 			}
 			catch (WebException ex)
 			{
-				App.Instance.ShowError("Error retrieving custom leaderboard list", $"Could not connect to '{UrlUtils.GetCustomLeaderboards}'.", ex);
+				App.Instance.ShowError("Error retrieving custom leaderboard list", $"Could not connect to '{UrlUtils.ApiGetCustomLeaderboards}'.", ex);
 				return false;
 			}
 			catch (Exception ex)
@@ -142,7 +115,7 @@ namespace DevilDaggersSurvivalEditor.Code.Web
 
 		public Spawnset DownloadSpawnset(string fileName)
 		{
-			string url = UrlUtils.GetSpawnset(fileName);
+			string url = UrlUtils.ApiGetSpawnset(fileName);
 
 			try
 			{

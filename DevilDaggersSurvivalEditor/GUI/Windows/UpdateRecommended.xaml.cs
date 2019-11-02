@@ -1,5 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code;
-using DevilDaggersSurvivalEditor.Code.Web;
+﻿using DevilDaggersCore.Tools;
+using DevilDaggersSurvivalEditor.Code.Network;
 using System.Diagnostics;
 using System.Windows;
 
@@ -11,12 +11,12 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			Text.Content = $"{ApplicationUtils.ApplicationDisplayName} {NetworkHandler.Instance.VersionResult.VersionNumberOnline} is available. The current version is {ApplicationUtils.ApplicationVersionNumber}.";
+			Text.Content = $"{App.ApplicationDisplayName} {NetworkHandler.Instance.VersionResult.Tool.VersionNumber} is available. The current version is {App.LocalVersion}.";
 		}
 
 		private void DownloadButton_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start(UrlUtils.ApplicationDownloadUrl(NetworkHandler.Instance.VersionResult.VersionNumberOnline));
+			Process.Start(UrlUtils.ApiGetTool(App.ApplicationName));
 			Close();
 		}
 	}

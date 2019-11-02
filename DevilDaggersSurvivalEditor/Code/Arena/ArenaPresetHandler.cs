@@ -33,7 +33,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 
 		private ArenaPresetHandler()
 		{
-			PresetTypes = App.Instance.Assembly.GetTypes().Where(t => t.FullName.Contains("Arena.Presets") && !t.IsAbstract && !t.Attributes.HasFlag(TypeAttributes.NestedPrivate)).OrderBy(t => t.Name);
+			PresetTypes = App.Assembly.GetTypes().Where(t => t.FullName.Contains("Arena.Presets") && !t.IsAbstract && !t.Attributes.HasFlag(TypeAttributes.NestedPrivate)).OrderBy(t => t.Name);
 
 			foreach (Type type in PresetTypes)
 				if (Activator.CreateInstance(type) is AbstractArena arena)

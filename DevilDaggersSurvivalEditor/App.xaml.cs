@@ -1,5 +1,5 @@
 ﻿using DevilDaggersCore.Spawnsets.Web;
-using DevilDaggersSurvivalEditor.Code;
+using DevilDaggersCore.Tools;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.GUI.Windows;
 using log4net;
@@ -15,10 +15,15 @@ namespace DevilDaggersSurvivalEditor
 {
 	public partial class App : Application
 	{
-		public static App Instance => (App)Current;
+		public static string ApplicationName => "DevilDaggersSurvivalEditor";
+		public static string ApplicationDisplayName => "Devil Daggers Survival Editor";
+
 		public static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		public Assembly Assembly { get; private set; }
+		public static Assembly Assembly { get; private set; }
+		public static Version LocalVersion { get; private set; }
+
+		public static App Instance => (App)Current;
 		public new MainWindow MainWindow { get; set; }
 
 		public App()
@@ -27,6 +32,7 @@ namespace DevilDaggersSurvivalEditor
 			Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
 			Assembly = Assembly.GetExecutingAssembly();
+			LocalVersion = VersionHandler.Instance.GetLocalVersion(Assembly);
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
 			XmlConfigurator.Configure();
@@ -45,7 +51,7 @@ namespace DevilDaggersSurvivalEditor
 			string spawnset = SpawnsetHandler.Instance.SpawnsetName.Contains("_") ? $"{SpawnsetFile.GetName(SpawnsetHandler.Instance.SpawnsetName)} by {SpawnsetFile.GetAuthor(SpawnsetHandler.Instance.SpawnsetName)}" : SpawnsetHandler.Instance.SpawnsetName;
 			Dispatcher.Invoke(() =>
 			{
-				MainWindow.Title = $"{ApplicationUtils.ApplicationDisplayNameWithVersion} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : "")}";
+				MainWindow.Title = $"{ApplicationDisplayName} {LocalVersion} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : "")}";
 			});
 		}
 
@@ -54,21 +60,16 @@ namespace DevilDaggersSurvivalEditor
 		/// </summary>
 		public void ShowError(string title, string message, Exception ex = null)
 		{
-			LogError(message, ex);
+			if (ex != null)
+				Log.Error(message, ex);
+			else
+				Log.Error(message);
 
 			Dispatcher.Invoke(() =>
 			{
 				ErrorWindow errorWindow = new ErrorWindow(title, message, ex);
 				errorWindow.ShowDialog();
 			});
-		}
-
-		public void LogError(string message, Exception ex = null)
-		{
-			if (ex != null)
-				Log.Error(message, ex);
-			else
-				Log.Error(message);
 		}
 
 		public void ShowMessage(string title, string message)

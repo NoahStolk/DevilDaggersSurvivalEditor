@@ -1,5 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Code;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
 
@@ -11,7 +10,8 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			VersionLabel.Content = $"Version {ApplicationUtils.ApplicationVersionNumber}";
+			TitleLabel.Content = App.ApplicationDisplayName;
+			VersionLabel.Content = $"Version {App.LocalVersion}";
 		}
 
 		private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
