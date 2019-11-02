@@ -27,7 +27,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 		private VersionResult versionResult = new VersionResult(null, null, new Exception("Version has not yet been retrieved."));
 		public VersionResult VersionResult
 		{
-			get { return versionResult; }
+			get => versionResult;
 			set
 			{
 				versionResult = value;
