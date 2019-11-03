@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Height="256" Width="512" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<StackPanel x:Name="Error">
-		<TextBox Style="{StaticResource ParagraphTextBox}" Text="{Binding ErrorMessage, Mode=OneTime}" IsReadOnly="True" />
+	<StackPanel x:Name="Error" Background="#fdd" Style="{StaticResource PaddingStackPanel}">
+		<Label Margin="6,6,0,6" FontWeight="Bold">Error</Label>
+		<TextBox Margin="6,0,6,0" Style="{StaticResource ParagraphTextBox}" Text="{Binding ErrorMessage, Mode=OneTime}" IsReadOnly="True" />
 		<StackPanel x:Name="ExceptionStackPanel" Visibility="Hidden">
 			<Label Margin="6,6,0,6" FontWeight="Bold">Technical information</Label>
-			<TextBox Style="{StaticResource ParagraphTextBox}" Text="{Binding Message, Mode=OneTime}" TextWrapping="WrapWithOverflow" IsReadOnly="True" />
+			<TextBox Margin="6,0,6,0" Style="{StaticResource ParagraphTextBox}" Text="{Binding Message, Mode=OneTime}" TextWrapping="WrapWithOverflow" IsReadOnly="True" />
 		</StackPanel>
 		<Button Style="{StaticResource OKButton}" Name="OKButton" Click="OKButton_Click">OK</Button>
 	</StackPanel>
