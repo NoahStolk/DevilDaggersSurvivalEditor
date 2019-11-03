@@ -22,9 +22,9 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 		{
 			InitializeComponent();
 
-			if (NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue)
+			if (VersionHandler.Instance.VersionResult.IsUpToDate.HasValue)
 			{
-				if (!NetworkHandler.Instance.VersionResult.IsUpToDate.Value)
+				if (!VersionHandler.Instance.VersionResult.IsUpToDate.Value)
 				{
 					HelpItem.Header += " (Update available)";
 					HelpItem.FontWeight = FontWeights.Bold;
@@ -189,7 +189,7 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 
 		private void Changelog_Click(object sender, RoutedEventArgs e)
 		{
-			if (NetworkHandler.Instance.VersionResult.Tool.Changelog != null)
+			if (VersionHandler.Instance.VersionResult.Tool.Changelog != null)
 			{
 				ChangelogWindow changelogWindow = new ChangelogWindow();
 				changelogWindow.ShowDialog();
@@ -210,9 +210,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
 			window.ShowDialog();
 
-			if (NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue)
+			VersionResult versionResult = VersionHandler.Instance.VersionResult;
+			if (versionResult.IsUpToDate.HasValue)
 			{
-				if (!NetworkHandler.Instance.VersionResult.IsUpToDate.Value)
+				if (!versionResult.IsUpToDate.Value)
 				{
 					UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
 					updateRecommendedWindow.ShowDialog();
@@ -221,6 +222,10 @@ namespace DevilDaggersSurvivalEditor.GUI.UserControls
 				{
 					App.Instance.ShowMessage("Up to date", $"{App.ApplicationDisplayName} {App.LocalVersion} is up to date.");
 				}
+			}
+			else
+			{
+				App.Instance.ShowError($"Error retrieving version number for '{App.ApplicationName}'", versionResult.Exception.Message, versionResult.Exception.InnerException);
 			}
 		}
 

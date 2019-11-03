@@ -37,16 +37,21 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				NetworkHandler.Instance.VersionResult = VersionHandler.Instance.GetOnlineVersion(App.ApplicationName, App.LocalVersion);
+				VersionHandler.Instance.GetOnlineVersion(App.ApplicationName, App.LocalVersion);
 			};
 			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{
 				Dispatcher.Invoke(() =>
 				{
+					VersionResult versionResult = VersionHandler.Instance.VersionResult;
+
+					if (versionResult.Exception != null)
+						App.Instance.ShowError($"Error retrieving version number for '{App.ApplicationName}'", versionResult.Exception.Message, versionResult.Exception.InnerException);
+
 					TaskResultsStackPanel.Children.Add(new Label
 					{
-						Content = NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue ? NetworkHandler.Instance.VersionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
-						Foreground = new SolidColorBrush(NetworkHandler.Instance.VersionResult.IsUpToDate.HasValue ? NetworkHandler.Instance.VersionResult.IsUpToDate.Value ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 96, 0) : Color.FromRgb(255, 0, 0)),
+						Content = versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
+						Foreground = new SolidColorBrush(versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 96, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});

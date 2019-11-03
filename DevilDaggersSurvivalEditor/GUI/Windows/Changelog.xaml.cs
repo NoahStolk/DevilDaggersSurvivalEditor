@@ -1,5 +1,5 @@
-﻿using DevilDaggersCore.Website.Models;
-using DevilDaggersSurvivalEditor.Code.Network;
+﻿using DevilDaggersCore.Tools;
+using DevilDaggersCore.Website.Models;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,7 +14,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 			InitializeComponent();
 
 			int i = 0;
-			foreach (ChangelogEntry entry in NetworkHandler.Instance.VersionResult.Tool.Changelog)
+			foreach (ChangelogEntry entry in VersionHandler.Instance.VersionResult.Tool.Changelog)
 			{
 				bool isLocal = entry.VersionNumber == App.LocalVersion;
 				SolidColorBrush color = new SolidColorBrush(isLocal ? Color.FromRgb(208, 240, 208) : i++ % 2 == 0 ? Color.FromRgb(208, 208, 208) : Color.FromRgb(224, 224, 224));

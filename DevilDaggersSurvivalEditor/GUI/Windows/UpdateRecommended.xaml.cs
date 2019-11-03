@@ -1,5 +1,4 @@
 ﻿using DevilDaggersCore.Tools;
-using DevilDaggersSurvivalEditor.Code.Network;
 using System.Diagnostics;
 using System.Windows;
 
@@ -11,7 +10,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 		{
 			InitializeComponent();
 
-			Text.Content = $"{App.ApplicationDisplayName} {NetworkHandler.Instance.VersionResult.Tool.VersionNumber} is available. The current version is {App.LocalVersion}.";
+			Text.Content = $"{App.ApplicationDisplayName} {VersionHandler.Instance.VersionResult.Tool.VersionNumber} is available. The current version is {App.LocalVersion}.";
 		}
 
 		private void DownloadButton_Click(object sender, RoutedEventArgs e)

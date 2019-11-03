@@ -1,5 +1,4 @@
 ﻿using DevilDaggersCore.Tools;
-using DevilDaggersSurvivalEditor.Code.Network;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -21,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void Thread_DoWork(object sender, DoWorkEventArgs e)
 		{
-			NetworkHandler.Instance.VersionResult = VersionHandler.Instance.GetOnlineVersion(App.ApplicationName, App.LocalVersion);
+			VersionHandler.Instance.GetOnlineVersion(App.ApplicationName, App.LocalVersion);
 		}
 
 		private void Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -31,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.GUI.Windows
 
 		private void CancelButton_Click(object sender, RoutedEventArgs e)
 		{
-			NetworkHandler.Instance.VersionResult.Exception = new Exception("Canceled by user");
+			VersionHandler.Instance.VersionResult.Exception = new Exception("Canceled by user");
 			Close();
 		}
 	}

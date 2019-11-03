@@ -32,7 +32,7 @@ namespace DevilDaggersSurvivalEditor
 			Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
 			Assembly = Assembly.GetExecutingAssembly();
-			LocalVersion = VersionHandler.Instance.GetLocalVersion(Assembly);
+			LocalVersion = VersionHandler.GetLocalVersion(Assembly);
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
 			XmlConfigurator.Configure();
