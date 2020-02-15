@@ -44,7 +44,7 @@ While I've built this application myself, I'd like to thank everyone that has pu
 
 MIT License
 
-Copyright (c) 2018-2019 Noah Stolk
+Copyright (c) 2018-2020 Noah Stolk
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
