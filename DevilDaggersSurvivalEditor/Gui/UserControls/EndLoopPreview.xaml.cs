@@ -82,7 +82,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						{
 							GigaBecomesGhost = gigaBecomesGhost,
 							Enemy = enemy,
-							ID = SpawnsetHandler.Instance.spawnset.Spawns.Count() + 1 + endLoop.Count * (i - 1) + j,
+							Id = SpawnsetHandler.Instance.spawnset.Spawns.Count() + 1 + endLoop.Count * (i - 1) + j,
 							Seconds = seconds,
 							TotalGems = totalGems,
 							Delay = $"{endLoop[j].Delay.ToString(SpawnUtils.Format)} ({(seconds - secondsPrevious).ToString(SpawnUtils.Format)})"

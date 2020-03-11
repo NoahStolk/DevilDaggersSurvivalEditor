@@ -13,13 +13,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		public bool GigaBecomesGhost { get; set; }
 
 		private int id;
-		public int ID
+		public int Id
 		{
 			get => id;
 			set
 			{
 				id = value;
-				LabelID.Content = value;
+				LabelId.Content = value;
 			}
 		}
 

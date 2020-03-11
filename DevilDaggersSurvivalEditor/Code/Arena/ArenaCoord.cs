@@ -5,8 +5,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 {
 	/// <summary>
 	/// Provides a simple structure containing a read-only integer coordinate that is specific to the arena.
-	/// This struct should not be used for arena indexing (hence why there is no tile height property), as coordinates are useless in that case (indexing is done through a two-dimensional array of floats).
-	/// Use the struct for GUI-related tasks only.
+	/// This struct should not be used for arena indexing (hence why there is no tile height property), as coordinates are useless in that case.
+	/// Indexing is done explicitly using a two-dimensional array of floats, so use this struct for GUI-related tasks only.
 	/// </summary>
 	public struct ArenaCoord
 	{
@@ -16,9 +16,9 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 		public ArenaCoord(int x, int y)
 		{
 			if (x < 0 || x >= Spawnset.ArenaWidth)
-				throw new ArgumentOutOfRangeException("x", $"Parameter {nameof(x)} must be positive and not greater than {Spawnset.ArenaWidth - 1}. {nameof(x)} was {x}.");
+				throw new ArgumentOutOfRangeException(nameof(x), $"Parameter {nameof(x)} must be positive and not greater than {Spawnset.ArenaWidth - 1}. {nameof(x)} was {x}.");
 			if (y < 0 || y >= Spawnset.ArenaHeight)
-				throw new ArgumentOutOfRangeException("y", $"Parameter {nameof(y)} must be positive and not greater than {Spawnset.ArenaHeight - 1}. {nameof(y)} was {y}.");
+				throw new ArgumentOutOfRangeException(nameof(y), $"Parameter {nameof(y)} must be positive and not greater than {Spawnset.ArenaHeight - 1}. {nameof(y)} was {y}.");
 
 			X = x;
 			Y = y;
@@ -42,10 +42,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			return xFromCenter * xFromCenter + yFromCenter * yFromCenter;
 		}
 
-		public override string ToString()
-		{
-			return $"{{{X}, {Y}}}";
-		}
+		public override string ToString() => $"{{{X}, {Y}}}";
 
 		public override bool Equals(object obj)
 		{
@@ -68,14 +65,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			}
 		}
 
-		public static bool operator ==(ArenaCoord a, ArenaCoord b)
-		{
-			return Equals(a, b);
-		}
+		public static bool operator ==(ArenaCoord a, ArenaCoord b) => Equals(a, b);
 
-		public static bool operator !=(ArenaCoord a, ArenaCoord b)
-		{
-			return !(a == b);
-		}
+		public static bool operator !=(ArenaCoord a, ArenaCoord b) => !(a == b);
 	}
 }

@@ -26,13 +26,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private int id;
-		public int ID
+		public int Id
 		{
 			get => id;
 			set
 			{
 				id = value;
-				LabelID.Content = value.ToString();
+				LabelId.Content = value.ToString();
 			}
 		}
 

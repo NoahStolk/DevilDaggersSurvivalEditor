@@ -219,7 +219,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					FontWeight = FontWeights.Bold,
 					ToolTip = new TextBlock
 					{
-						Text = $"{entry.SpawnsetFile.Author}:\n\n{entry.SpawnsetFile.settings.Description.Trim(' ').Replace("<br />", "\n").Replace("<ul>", "\n").Replace("</ul>", "\n").Replace("<li>", "\n").HTMLToPlainText()}", // TODO: Use a proper HTML to XAML converter.
+						Text = $"{entry.SpawnsetFile.Author}:\n\n{entry.SpawnsetFile.settings.Description.Trim(' ').Replace("<br />", "\n").Replace("<ul>", "\n").Replace("</ul>", "\n").Replace("<li>", "\n").HtmlToPlainText()}", // TODO: Use a proper HTML to XAML converter.
 						MaxWidth = 320
 					}
 				};

@@ -117,7 +117,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
 
 					SpawnUserControl spawnControl = spawnControls[kvp.Key];
-					spawnControl.ID = kvp.Key + 1;
+					spawnControl.Id = kvp.Key + 1;
 					spawnControl.Seconds = seconds;
 					spawnControl.TotalGems = totalGems;
 					spawnControl.IsInLoop = kvp.Key >= endLoopStartIndex;
@@ -134,15 +134,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					select ListBoxSpawns.Items.IndexOf(obj)).ToList();
 		}
 
-		private bool IsDelayValid()
-		{
-			return float.TryParse(DelayTextBox.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
-		}
+		private bool IsDelayValid() => float.TryParse(DelayTextBox.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
 
-		private bool IsAmountValid()
-		{
-			return !Validation.GetHasError(AmountTextBox);
-		}
+		private bool IsAmountValid() => !Validation.GetHasError(AmountTextBox);
 
 		private void ListBoxSpawns_Selected(object sender, RoutedEventArgs e)
 		{
