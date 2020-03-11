@@ -8,7 +8,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Devil Daggers Survival Editor")]
-[assembly: AssemblyCopyright("Copyright © Noah Stolk 2018 - 2019")]
+[assembly: AssemblyCopyright("Copyright © Noah Stolk 2018 - 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
