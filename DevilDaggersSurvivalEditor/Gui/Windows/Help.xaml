@@ -1,0 +1,19 @@
+﻿<Window x:Class="DevilDaggersSurvivalEditor.Gui.Windows.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Help" Height="384" Width="384" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<StackPanel Style="{StaticResource PaddingStackPanel}">
+		<Label Style="{StaticResource TitleLabel}">General help with spawnsets</Label>
+		<TextBlock Style="{StaticResource ParagraphTextBlock}">
+			A lot of information about how spawnsets work is listed on the <Hyperlink NavigateUri="https://devildaggers.info/Wiki/SpawnsetGuide" RequestNavigate="Hyperlink_RequestNavigate">DevilDaggers.info website</Hyperlink>.
+		</TextBlock>
+
+		<Label Style="{StaticResource TitleLabel}">Help with the application</Label>
+		<TextBlock Style="{StaticResource ParagraphTextBlock}">
+			Reporting bugs can be done by sending an email to <Hyperlink NavigateUri="mailto:contact@devildaggers.info" RequestNavigate="Hyperlink_RequestNavigate">contact@devildaggers.info</Hyperlink>. If the application crashes, there should be some information in the "DDSE.log" file (you can open it by clicking Help > Show log).
+		</TextBlock>
+	</StackPanel>
+</Window>

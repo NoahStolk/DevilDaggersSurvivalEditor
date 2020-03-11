@@ -1,6 +1,6 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.Arena;
-using DevilDaggersSurvivalEditor.GUI.Windows;
+using DevilDaggersSurvivalEditor.Gui.Windows;
 using Microsoft.Win32;
 using System;
 using System.IO;

@@ -1,0 +1,24 @@
+﻿<Window x:Class="DevilDaggersSurvivalEditor.Gui.Windows.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="About" Height="384" Width="384" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+	<StackPanel Style="{StaticResource PaddingStackPanel}">
+		<Image Style="{StaticResource Logo}" />
+		<Label Style="{StaticResource TitleLabel}" HorizontalAlignment="Center" Name="TitleLabel" />
+		<Label Style="{StaticResource TitleLabel}" HorizontalAlignment="Center" Name="VersionLabel" />
+		<Label HorizontalAlignment="Center">Developed by Noah Stolk</Label>
+		<Label HorizontalAlignment="Center">
+			<Hyperlink NavigateUri="http://www.noahstolk.com" RequestNavigate="Hyperlink_RequestNavigate">
+				www.noahstolk.com
+			</Hyperlink>
+		</Label>
+		<Label HorizontalAlignment="Center">
+			<Hyperlink NavigateUri="mailto:contact@devildaggers.info" RequestNavigate="Hyperlink_RequestNavigate">
+				contact@devildaggers.info
+			</Hyperlink>
+		</Label>
+	</StackPanel>
+</Window>
