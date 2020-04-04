@@ -1,9 +1,17 @@
 # DevilDaggersSurvivalEditor ([Download](https://devildaggers.info/API/GetTool?toolName=DevilDaggersSurvivalEditor))
-
 DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers. It is a .NET WPF application built using Visual Studio 2019.
 
-## Main features
+## Framework
+.NET Framework 4.6.1
 
+## Language
+C# 7.3
+
+## Dependencies
+- [NetBase](https://github.com/NoahStolk/NetBase)
+- [DevilDaggersCore](https://github.com/NoahStolk/DevilDaggersCore)
+
+## Main features
 - Spawnset editor
 - Arena editor with the ability to change tile heights
 - Arena presets
@@ -12,23 +20,19 @@ DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survi
 - Downloading and importing spawnsets directly from [DevilDaggers.info](https://devildaggers.info)
 
 ## System requirements
-
 - Microsoft Windows
 - .NET Framework 4.6.1
 
 ## Installation
-
 1. Download the zip file.
 2. Unzip its contents.
 3. Run DevilDaggersSurvivalEditor.exe inside the folder.
 
 ## Running from source
-
 - DevilDaggersSurvivalEditor is dependent on [NetBase](https://github.com/NoahStolk/NetBase/) and [DevilDaggersCore](https://github.com/NoahStolk/DevilDaggersCore/). Their sources need to be within the same root folder as the source for DevilDaggersSurvivalEditor itself.
 - DevilDaggersSurvivalEditor uses pixel shaders. In order to build pixel shaders you will need Microsoft's DirectX SDK from June 2010, and use the FXC compiler tool. If you do not need to build pixel shaders (the build for the origin one is already included in the source), then you can skip this step and remove the pre-build event from Build Events in DevilDaggersSurvivalEditor.csproj's properties to prevent it from throwing an error.
 
 ## Links
-
 - [DevilDaggers.info website](https://devildaggers.info)
 - [Main web page for DevilDaggersSurvivalEditor](https://devildaggers.info/Tools/DevilDaggersSurvivalEditor)
 - [List of spawnsets](https://devildaggers.info/Spawnsets)
@@ -36,12 +40,10 @@ DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survi
 - [Discord server](https://discord.gg/NF32j8S)
 
 ## Credits
-
 While I've built this application myself, I'd like to thank everyone that has put effort into figuring out how the survival file actually works.
 [This thread](https://steamcommunity.com/sharedfiles/filedetails/?id=797571917) posted by ThePassiveDada has helped me a lot, as well as [these two editors](https://steamcommunity.com/app/422970/discussions/0/1483232961033779525/) created by bowsr and Sojk.
 
 ## License
-
 MIT License
 
 Copyright (c) 2018-2020 Noah Stolk
