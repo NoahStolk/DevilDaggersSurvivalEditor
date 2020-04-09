@@ -29,7 +29,7 @@ C# 7.3
 3. Run DevilDaggersSurvivalEditor.exe inside the folder.
 
 ## Running from source
-- DevilDaggersSurvivalEditor is dependent on [NetBase](https://github.com/NoahStolk/NetBase/) and [DevilDaggersCore](https://github.com/NoahStolk/DevilDaggersCore/). Their sources need to be within the same root folder as the source for DevilDaggersSurvivalEditor itself.
+- Make sure all the projects listed under "Dependencies" are properly referenced. The sources for the projects need to be within the same root folder as the source for DevilDaggersAssetEditor itself.
 - DevilDaggersSurvivalEditor uses pixel shaders. In order to build pixel shaders you will need Microsoft's DirectX SDK from June 2010, and use the FXC compiler tool. If you do not need to build pixel shaders (the build for the origin one is already included in the source), then you can skip this step and remove the pre-build event from Build Events in DevilDaggersSurvivalEditor.csproj's properties to prevent it from throwing an error.
 
 ## Links
