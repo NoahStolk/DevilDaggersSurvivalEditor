@@ -70,7 +70,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				LabelDelay.Content = spawn.Delay.ToString(SpawnUtils.Format);
 				LabelNoFarmGems.Content = spawn.SpawnsetEnemy.NoFarmGems;
 
-				Color color = spawn.SpawnsetEnemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.SpawnsetEnemy.ToEnemy(GameInfo.GameVersions[GameInfo.DEFAULT_GAME_VERSION]).ColorCode}");
+				Color color = spawn.SpawnsetEnemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.SpawnsetEnemy.ToEnemy(GameInfo.GameVersions[GameInfo.DefaultGameVersion]).ColorCode}");
 				LabelEnemy.Background = new SolidColorBrush(color);
 				LabelEnemy.Foreground = new SolidColorBrush(UserInterfaceUtils.GetPerceivedBrightness(color) < 140 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(0, 0, 0));
 			}
