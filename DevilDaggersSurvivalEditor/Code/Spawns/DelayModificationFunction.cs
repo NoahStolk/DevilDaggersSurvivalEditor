@@ -2,6 +2,9 @@
 {
 	public enum DelayModificationFunction
 	{
-		Add, Subtract, Multiply, Divide
+		Add,
+		Subtract,
+		Multiply,
+		Divide
 	}
 }

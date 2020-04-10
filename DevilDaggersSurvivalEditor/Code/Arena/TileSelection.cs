@@ -2,6 +2,8 @@
 {
 	public enum TileSelection
 	{
-		Once, Continuous, Rectangle
+		Once,
+		Continuous,
+		Rectangle
 	}
 }

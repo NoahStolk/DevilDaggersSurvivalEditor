@@ -2,6 +2,8 @@
 {
 	public enum TileAction
 	{
-		Height, Select, Deselect
+		Height,
+		Select,
+		Deselect
 	}
 }
