@@ -63,9 +63,6 @@ namespace DevilDaggersSurvivalEditor.Code.Shaders
 			UpdateShaderValue(MousePositionProperty);
 		}
 
-		public override string ToString()
-		{
-			return $"{nameof(FlashIntensity)}: {FlashIntensity}\n{nameof(HighlightColor)}: {HighlightColor}\n{nameof(HighlightRadiusSquared)}: {HighlightRadiusSquared}\n{nameof(MousePosition)}: {MousePosition}";
-		}
+		public override string ToString() => $"{nameof(FlashIntensity)}: {FlashIntensity}\n{nameof(HighlightColor)}: {HighlightColor}\n{nameof(HighlightRadiusSquared)}: {HighlightRadiusSquared}\n{nameof(MousePosition)}: {MousePosition}";
 	}
 }
