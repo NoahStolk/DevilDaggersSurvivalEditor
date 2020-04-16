@@ -345,25 +345,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				window.Value = Math.Abs(window.Value);
 				foreach (int i in selections)
 				{
-					double delay = SpawnsetHandler.Instance.spawnset.Spawns[i].Delay;
-					switch (window.Function)
+					double delay = window.Function switch
 					{
-						case DelayModificationFunction.Set:
-							delay = window.Value;
-							break;
-						case DelayModificationFunction.Add:
-							delay += window.Value;
-							break;
-						case DelayModificationFunction.Subtract:
-							delay -= window.Value;
-							break;
-						case DelayModificationFunction.Multiply:
-							delay *= window.Value;
-							break;
-						case DelayModificationFunction.Divide:
-							delay /= window.Value;
-							break;
-					}
+						DelayModificationFunction.Set => window.Value,
+						DelayModificationFunction.Add => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay + window.Value,
+						DelayModificationFunction.Subtract => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay - window.Value,
+						DelayModificationFunction.Multiply => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay * window.Value,
+						DelayModificationFunction.Divide => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay / window.Value,
+						_ => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay,
+					};
 					EditSpawnAt(i, new Spawn(SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy, MathUtils.Clamp(delay, 0, SpawnUtils.MaxDelay)));
 				}
 
