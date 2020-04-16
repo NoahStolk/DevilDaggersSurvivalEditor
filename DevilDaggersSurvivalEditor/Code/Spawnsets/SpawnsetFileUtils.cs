@@ -39,8 +39,8 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 					using (BinaryReader reader = new BinaryReader(stream))
 						reader.Read(data, 0, data.Length);
 
-					using (FileStream fileStream = new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Create))
-						fileStream.Write(data, 0, data.Length);
+					using FileStream fileStream = new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Create);
+					fileStream.Write(data, 0, data.Length);
 				}
 
 				App.Instance.ShowMessage("Success", "Successfully restored 'survival' file.");
