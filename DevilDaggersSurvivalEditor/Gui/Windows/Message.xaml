@@ -7,6 +7,6 @@
         Height="200" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel x:Name="StackPanel">
 		<TextBlock Style="{StaticResource ParagraphTextBlock}" Text="{Binding Message}" HorizontalAlignment="Center" />
-		<Button Style="{StaticResource OKButton}" Name="OKButton" Click="OKButton_Click">OK</Button>
+		<Button Style="{StaticResource OkButton}" Name="OkButton" Click="OkButton_Click">OK</Button>
 	</StackPanel>
 </Window>

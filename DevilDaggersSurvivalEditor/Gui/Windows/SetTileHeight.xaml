@@ -8,6 +8,6 @@
 	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">
 		<Label Style="{StaticResource BoldLabel}" Name="CoordinatesLabel" />
 		<TextBox Name="TileHeightTextBox" Text="{Binding TileHeight}" />
-		<Button Style="{StaticResource OKButton}" Name="OKButton" Click="OKButton_Click">OK</Button>
+		<Button Style="{StaticResource OkButton}" Name="OkButton" Click="OkButton_Click">OK</Button>
 	</StackPanel>
 </Window>

@@ -44,7 +44,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 		}
 
-		private void OKButton_Click(object sender, RoutedEventArgs e)
+		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
 			for (int i = 0; i < enemyTypes.Count; i++)
 				switchDictionary[enemyTypes[i]] = comboBoxes[i].SelectedIndex - 1;

@@ -32,7 +32,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			FunctionComboBox.SelectedIndex = 0;
 		}
 
-		private void OKButton_Click(object sender, RoutedEventArgs e)
+		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (IsValueValid())
 				DialogResult = true;
@@ -47,7 +47,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			TextBoxValue.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 128, 128));
 
-			OKButton.IsEnabled = valid;
+			OkButton.IsEnabled = valid;
 		}
 
 		private bool IsValueValid()

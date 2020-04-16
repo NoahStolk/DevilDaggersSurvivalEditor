@@ -12,6 +12,6 @@
 			<Label Margin="6,6,0,6" FontWeight="Bold">Technical information</Label>
 			<TextBox Margin="6,0,6,0" Style="{StaticResource ParagraphTextBox}" Text="{Binding Message, Mode=OneTime}" TextWrapping="WrapWithOverflow" IsReadOnly="True" />
 		</StackPanel>
-		<Button Style="{StaticResource OKButton}" Name="OKButton" Click="OKButton_Click">OK</Button>
+		<Button Style="{StaticResource OkButton}" Name="OkButton" Click="OkButton_Click">OK</Button>
 	</StackPanel>
 </Window>

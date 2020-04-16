@@ -25,7 +25,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Error.DataContext = this;
 		}
 
-		private void OKButton_Click(object sender, RoutedEventArgs e)
+		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
 			DialogResult = true;
 		}

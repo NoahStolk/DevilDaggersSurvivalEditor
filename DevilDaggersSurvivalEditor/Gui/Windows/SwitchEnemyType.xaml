@@ -8,6 +8,6 @@
 	<StackPanel Style="{StaticResource PaddingStackPanel}">
 		<Label Style="{StaticResource BoldLabel}" Name="SpawnsLabel" />
 		<StackPanel Name="SwitchStackPanel" />
-		<Button Style="{StaticResource OKButton}" Name="OKButton" Click="OKButton_Click">OK</Button>
+		<Button Style="{StaticResource OkButton}" Name="OkButton" Click="OkButton_Click">OK</Button>
 	</StackPanel>
 </Window>

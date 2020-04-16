@@ -9,6 +9,6 @@
 		<Label Style="{StaticResource BoldLabel}" Name="SpawnsLabel" />
 		<ComboBox Name="FunctionComboBox" SelectedIndex="{Binding Function}" />
 		<TextBox Name="TextBoxValue" TextChanged="TextBoxValue_TextChanged" />
-		<Button Style="{StaticResource OKButton}" Name="OKButton" Click="OKButton_Click">OK</Button>
+		<Button Style="{StaticResource OkButton}" Name="OkButton" Click="OkButton_Click">OK</Button>
 	</StackPanel>
 </Window>

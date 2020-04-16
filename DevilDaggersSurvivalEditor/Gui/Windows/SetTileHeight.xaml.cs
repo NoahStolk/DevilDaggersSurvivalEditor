@@ -31,7 +31,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			TileHeightTextBox.SelectAll();
 		}
 
-		private void OKButton_Click(object sender, RoutedEventArgs e)
+		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!float.TryParse(TileHeightTextBox.Text, out tileHeight))
 				return;
