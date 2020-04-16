@@ -4,9 +4,9 @@ using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Code
 {
-	public static class UserInterfaceUtils
+	internal static class UserInterfaceUtils
 	{
-		public static string ToUserFriendlyString(this object input)
+		internal static string ToUserFriendlyString(this object input)
 		{
 			StringBuilder sb = new StringBuilder();
 			bool first = true;
@@ -26,7 +26,7 @@ namespace DevilDaggersSurvivalEditor.Code
 		/// </summary>
 		/// <param name="c">The color.</param>
 		/// <returns>The perceived brightness between 0 and 255.</returns>
-		public static int GetPerceivedBrightness(Color c)
+		internal static int GetPerceivedBrightness(Color c)
 			=> (int)Math.Sqrt(
 				c.R * c.R * .299 +
 				c.G * c.G * .587 +

@@ -8,12 +8,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 	/// This struct should not be used for arena indexing (hence why there is no tile height property), as coordinates are useless in that case.
 	/// Indexing is done explicitly using a two-dimensional array of floats, so use this struct for GUI-related tasks only.
 	/// </summary>
-	public struct ArenaCoord
+	internal struct ArenaCoord
 	{
-		public int X { get; }
-		public int Y { get; }
+		internal int X { get; }
+		internal int Y { get; }
 
-		public ArenaCoord(int x, int y)
+		internal ArenaCoord(int x, int y)
 		{
 			if (x < 0 || x >= Spawnset.ArenaWidth)
 				throw new ArgumentOutOfRangeException(nameof(x), $"Parameter {nameof(x)} must be positive and not greater than {Spawnset.ArenaWidth - 1}. {nameof(x)} was {x}.");
@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			Y = y;
 		}
 
-		public double GetDistanceToCanvasPointSquared(int canvasPoint)
+		internal double GetDistanceToCanvasPointSquared(int canvasPoint)
 		{
 			int canvasX, canvasY;
 			if (X > Spawnset.ArenaWidth / 2)

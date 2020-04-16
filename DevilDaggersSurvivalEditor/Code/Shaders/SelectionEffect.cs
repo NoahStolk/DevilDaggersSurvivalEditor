@@ -10,43 +10,43 @@ namespace DevilDaggersSurvivalEditor.Code.Shaders
 	{
 		private static readonly PixelShader pixelShader = new PixelShader { UriSource = ContentUtils.MakeUri(Path.Combine("Content", "Shaders", "Selection.ps")) };
 
-		public static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(SelectionEffect), 0);
-		public Brush Input
+		internal static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(SelectionEffect), 0);
+		internal Brush Input
 		{
 			get => (Brush)GetValue(InputProperty);
 			set => SetValue(InputProperty, value);
 		}
 
-		public static readonly DependencyProperty NormalMapProperty = RegisterPixelShaderSamplerProperty("NormalMap", typeof(SelectionEffect), 1);
-		public Brush NormalMap
+		internal static readonly DependencyProperty NormalMapProperty = RegisterPixelShaderSamplerProperty("NormalMap", typeof(SelectionEffect), 1);
+		internal Brush NormalMap
 		{
 			get => (Brush)GetValue(NormalMapProperty);
 			set => SetValue(NormalMapProperty, value);
 		}
 
-		public static readonly DependencyProperty FlashIntensityProperty = DependencyProperty.Register("FlashIntensity", typeof(float), typeof(SelectionEffect), new UIPropertyMetadata(0f, PixelShaderConstantCallback(0)));
-		public float FlashIntensity
+		internal static readonly DependencyProperty FlashIntensityProperty = DependencyProperty.Register("FlashIntensity", typeof(float), typeof(SelectionEffect), new UIPropertyMetadata(0f, PixelShaderConstantCallback(0)));
+		internal float FlashIntensity
 		{
 			get => (float)GetValue(FlashIntensityProperty);
 			set => SetValue(FlashIntensityProperty, value);
 		}
 
-		public static readonly DependencyProperty HighlightColorProperty = DependencyProperty.Register("HighlightColor", typeof(Point4D), typeof(SelectionEffect), new UIPropertyMetadata(new Point4D(0, 0, 0, 1), PixelShaderConstantCallback(1)));
-		public Point4D HighlightColor
+		internal static readonly DependencyProperty HighlightColorProperty = DependencyProperty.Register("HighlightColor", typeof(Point4D), typeof(SelectionEffect), new UIPropertyMetadata(new Point4D(0, 0, 0, 1), PixelShaderConstantCallback(1)));
+		internal Point4D HighlightColor
 		{
 			get => (Point4D)GetValue(HighlightColorProperty);
 			set => SetValue(HighlightColorProperty, value);
 		}
 
-		public static readonly DependencyProperty HighlightRadiusSquaredProperty = DependencyProperty.Register("HighlightRadiusSquared", typeof(float), typeof(SelectionEffect), new UIPropertyMetadata(0.1f, PixelShaderConstantCallback(2)));
-		public float HighlightRadiusSquared
+		internal static readonly DependencyProperty HighlightRadiusSquaredProperty = DependencyProperty.Register("HighlightRadiusSquared", typeof(float), typeof(SelectionEffect), new UIPropertyMetadata(0.1f, PixelShaderConstantCallback(2)));
+		internal float HighlightRadiusSquared
 		{
 			get => (float)GetValue(HighlightRadiusSquaredProperty);
 			set => SetValue(HighlightRadiusSquaredProperty, value);
 		}
 
-		public static readonly DependencyProperty MousePositionProperty = DependencyProperty.Register("MousePosition", typeof(Point), typeof(SelectionEffect), new UIPropertyMetadata(new Point(0, 0), PixelShaderConstantCallback(3)));
-		public Point MousePosition
+		internal static readonly DependencyProperty MousePositionProperty = DependencyProperty.Register("MousePosition", typeof(Point), typeof(SelectionEffect), new UIPropertyMetadata(new Point(0, 0), PixelShaderConstantCallback(3)));
+		internal Point MousePosition
 		{
 			get => (Point)GetValue(MousePositionProperty);
 			set => SetValue(MousePositionProperty, value);

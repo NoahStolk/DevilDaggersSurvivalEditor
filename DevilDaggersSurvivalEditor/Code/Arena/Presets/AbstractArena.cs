@@ -3,13 +3,13 @@ using DevilDaggersSurvivalEditor.Code.Spawnsets;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	public abstract class AbstractArena
+	internal abstract class AbstractArena
 	{
-		public abstract bool IsFull { get; }
+		internal abstract bool IsFull { get; }
 
-		public abstract float[,] GetTiles();
+		internal abstract float[,] GetTiles();
 
-		protected float[,] CreateArenaArray()
+		private protected float[,] CreateArenaArray()
 		{
 			// Startup of the application, return empty array.
 			if (App.Instance == null || App.Instance.MainWindow == null)
@@ -25,7 +25,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			return voidArena;
 		}
 
-		protected void SetHeightGlobally(float[,] arenaArray, float height)
+		private protected void SetHeightGlobally(float[,] arenaArray, float height)
 		{
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)

@@ -1,6 +1,6 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.Arena
 {
-	public enum TileAction
+	internal enum TileAction
 	{
 		Height,
 		Select,

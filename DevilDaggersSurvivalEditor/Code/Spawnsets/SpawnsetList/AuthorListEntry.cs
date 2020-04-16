@@ -1,11 +1,11 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 {
-	public class AuthorListEntry : AbstractListEntry
+	internal class AuthorListEntry : AbstractListEntry
 	{
-		public string Name { get; set; }
-		public int SpawnsetCount { get; set; }
+		internal string Name { get; set; }
+		internal int SpawnsetCount { get; set; }
 
-		public AuthorListEntry(string name, int spawnsetCount)
+		internal AuthorListEntry(string name, int spawnsetCount)
 		{
 			Name = name;
 			SpawnsetCount = spawnsetCount;

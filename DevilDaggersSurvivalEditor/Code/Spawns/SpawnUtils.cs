@@ -1,9 +1,9 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.Spawns
 {
-	public static class SpawnUtils
+	internal static class SpawnUtils
 	{
-		public const double MaxDelay = 10000;
+		internal const double MaxDelay = 10000;
 
-		public const string Format = "0.00";
+		internal const string Format = "0.00";
 	}
 }

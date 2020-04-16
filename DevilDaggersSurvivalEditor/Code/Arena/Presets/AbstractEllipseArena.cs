@@ -4,7 +4,7 @@ using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	public abstract class AbstractEllipseArena : AbstractArena
+	internal abstract class AbstractEllipseArena : AbstractArena
 	{
 		private int offsetX;
 		private int offsetY;
@@ -12,35 +12,35 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		private float outerRadius = 10;
 		private float angleInDegrees;
 
-		public int OffsetX
+		internal int OffsetX
 		{
 			get => offsetX;
 			set => offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
-		public int OffsetY
+		internal int OffsetY
 		{
 			get => offsetY;
 			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
-		public float InnerRadius
+		internal float InnerRadius
 		{
 			get => innerRadius;
 			set => innerRadius = MathUtils.Clamp(value, 1, 100);
 		}
-		public float OuterRadius
+		internal float OuterRadius
 		{
 			get => outerRadius;
 			set => outerRadius = MathUtils.Clamp(value, 1, 100);
 		}
-		public float AngleInDegrees
+		internal float AngleInDegrees
 		{
 			get => angleInDegrees;
 			set => angleInDegrees = value % 360;
 		}
 
-		public override bool IsFull => false;
+		internal override bool IsFull => false;
 
-		protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius)
+		private protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius)
 		{
 			double cosA = Math.Cos(AngleInDegrees / 180 * Math.PI);
 			double sinA = Math.Sin(AngleInDegrees / 180 * Math.PI);

@@ -7,10 +7,10 @@ using System.IO;
 
 namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 {
-	public sealed class SpawnsetHandler
+	internal sealed class SpawnsetHandler
 	{
 		private bool unsavedChanges = false;
-		public bool HasUnsavedChanges
+		internal bool HasUnsavedChanges
 		{
 			get => unsavedChanges;
 			set
@@ -20,21 +20,21 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 			}
 		}
 
-		public string SpawnsetName { get; private set; } = "(new spawnset)";
-		public string SpawnsetFileLocation { get; private set; } = string.Empty;
+		internal string SpawnsetName { get; private set; } = "(new spawnset)";
+		internal string SpawnsetFileLocation { get; private set; } = string.Empty;
 
 		// Must be a field since properties can't be used as out parameters.
-		public Spawnset spawnset;
+		internal Spawnset spawnset;
 
 		private static readonly Lazy<SpawnsetHandler> lazy = new Lazy<SpawnsetHandler>(() => new SpawnsetHandler());
-		public static SpawnsetHandler Instance => lazy.Value;
+		internal static SpawnsetHandler Instance => lazy.Value;
 
 		private SpawnsetHandler()
 		{
 			spawnset = new Spawnset { ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles() };
 		}
 
-		public void UpdateSpawnsetState(string name, string fileLocation)
+		internal void UpdateSpawnsetState(string name, string fileLocation)
 		{
 			HasUnsavedChanges = false;
 
@@ -44,7 +44,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 			App.Instance.UpdateMainWindowTitle();
 		}
 
-		public void ProceedWithUnsavedChanges()
+		internal void ProceedWithUnsavedChanges()
 		{
 			if (!HasUnsavedChanges)
 				return;
@@ -56,7 +56,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 				FileSave();
 		}
 
-		public void FileSave()
+		internal void FileSave()
 		{
 			if (File.Exists(SpawnsetFileLocation))
 			{
@@ -69,7 +69,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 			}
 		}
 
-		public void FileSaveAs()
+		internal void FileSaveAs()
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
 			bool? result = dialog.ShowDialog();

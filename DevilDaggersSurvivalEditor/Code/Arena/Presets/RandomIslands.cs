@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	public class RandomIslands : AbstractRectangularArena
+	internal class RandomIslands : AbstractRectangularArena
 	{
 		private float minHeight;
 		private float maxHeight = 5;
@@ -12,33 +12,33 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		private int iterations = 2;
 		private float steepness = 0.1f;
 
-		public float MinHeight
+		internal float MinHeight
 		{
 			get => minHeight;
 			set => minHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		public float MaxHeight
+		internal float MaxHeight
 		{
 			get => maxHeight;
 			set => maxHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		public int Amount
+		internal int Amount
 		{
 			get => amount;
 			set => amount = MathUtils.Clamp(value, 1, 10);
 		}
-		public int Iterations
+		internal int Iterations
 		{
 			get => iterations;
 			set => iterations = MathUtils.Clamp(value, 1, 4);
 		}
-		public float Steepness
+		internal float Steepness
 		{
 			get => steepness;
 			set => steepness = MathUtils.Clamp(value, -5, 5);
 		}
 
-		public override float[,] GetTiles()
+		internal override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

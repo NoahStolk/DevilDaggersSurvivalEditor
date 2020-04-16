@@ -2,9 +2,9 @@
 
 namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 {
-	public class SpawnsetListEntry : AbstractListEntry
+	internal class SpawnsetListEntry : AbstractListEntry
 	{
-		public SpawnsetFile SpawnsetFile { get; set; }
-		public bool HasLeaderboard { get; set; }
+		internal SpawnsetFile SpawnsetFile { get; set; }
+		internal bool HasLeaderboard { get; set; }
 	}
 }

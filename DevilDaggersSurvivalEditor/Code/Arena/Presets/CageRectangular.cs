@@ -2,29 +2,29 @@
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	public class CageRectangular : AbstractOrientedRectangularArena
+	internal class CageRectangular : AbstractOrientedRectangularArena
 	{
 		private float insideHeight;
 		private float wallHeight = 8;
 		private int wallThickness = 1;
 
-		public float InsideHeight
+		internal float InsideHeight
 		{
 			get => insideHeight;
 			set => insideHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		public float WallHeight
+		internal float WallHeight
 		{
 			get => wallHeight;
 			set => wallHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		public int WallThickness
+		internal int WallThickness
 		{
 			get => wallThickness;
 			set => wallThickness = MathUtils.Clamp(value, 1, 20);
 		}
 
-		public override float[,] GetTiles()
+		internal override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 
