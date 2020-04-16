@@ -17,7 +17,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 		/// <summary>
 		/// Timeout in milliseconds.
 		/// </summary>
-		private const int Timeout = 7500;
+		private const int timeout = 7500;
 
 		internal List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
 		internal List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
@@ -39,7 +39,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 				Authors.Clear();
 
 				string downloadString = string.Empty;
-				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
+				using (TimeoutWebClient client = new TimeoutWebClient(timeout))
 					downloadString = client.DownloadString(UrlUtils.ApiGetSpawnsets);
 				List<SpawnsetFile> spawnsetFiles = JsonConvert.DeserializeObject<List<SpawnsetFile>>(downloadString);
 
@@ -80,7 +80,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 				}
 
 				string downloadString = string.Empty;
-				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
+				using (TimeoutWebClient client = new TimeoutWebClient(timeout))
 					downloadString = client.DownloadString(UrlUtils.ApiGetCustomLeaderboards);
 				CustomLeaderboards = JsonConvert.DeserializeObject<List<CustomLeaderboardBase>>(downloadString);
 
@@ -109,7 +109,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 			{
 				Spawnset spawnset;
 
-				using (TimeoutWebClient client = new TimeoutWebClient(Timeout))
+				using (TimeoutWebClient client = new TimeoutWebClient(timeout))
 				using (Stream stream = new MemoryStream(client.DownloadData(url)))
 					if (!Spawnset.TryParse(stream, out spawnset))
 						App.Instance.ShowError("Error parsing file", "Could not parse file.");
