@@ -50,9 +50,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			OkButton.IsEnabled = valid;
 		}
 
-		private bool IsValueValid()
-		{
-			return float.TryParse(TextBoxValue.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
-		}
+		private bool IsValueValid() => float.TryParse(TextBoxValue.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
 	}
 }
