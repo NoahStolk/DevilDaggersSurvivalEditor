@@ -348,6 +348,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					double delay = SpawnsetHandler.Instance.spawnset.Spawns[i].Delay;
 					switch (window.Function)
 					{
+						case DelayModificationFunction.Set:
+							delay = window.Value;
+							break;
 						case DelayModificationFunction.Add:
 							delay += window.Value;
 							break;

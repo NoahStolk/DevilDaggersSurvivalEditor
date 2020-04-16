@@ -2,6 +2,7 @@
 {
 	public enum DelayModificationFunction
 	{
+		Set,
 		Add,
 		Subtract,
 		Multiply,
