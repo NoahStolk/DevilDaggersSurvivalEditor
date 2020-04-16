@@ -14,8 +14,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class SettingsWindow : Window
 	{
+#pragma warning disable IDE1006
 		private const int GWL_STYLE = -16;
 		private const int WS_SYSMENU = 0x80000;
+#pragma warning restore IDE1006
 		[DllImport("user32.dll", SetLastError = true)]
 		private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 		[DllImport("user32.dll")]
