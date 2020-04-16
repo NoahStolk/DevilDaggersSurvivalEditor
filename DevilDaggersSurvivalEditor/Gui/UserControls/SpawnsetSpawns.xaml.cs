@@ -15,7 +15,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class SpawnsetSpawnsUserControl : UserControl
 	{
-		private const int MaxSpawns = 10000;
+		private const int maxSpawns = 10000;
 
 		public float Delay { get; set; } = 3;
 
@@ -181,9 +181,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private static bool HasTooManySpawns()
 		{
-			if (SpawnsetHandler.Instance.spawnset.Spawns.Count >= MaxSpawns)
+			if (SpawnsetHandler.Instance.spawnset.Spawns.Count >= maxSpawns)
 			{
-				App.Instance.ShowMessage("Too many spawns", $"You can have {MaxSpawns} spawns at most.");
+				App.Instance.ShowMessage("Too many spawns", $"You can have {maxSpawns} spawns at most.");
 				return true;
 			}
 
