@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.MemoryHandling;
+﻿using DevilDaggersCore.Processes;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
 using Microsoft.WindowsAPICodePack.Dialogs;
