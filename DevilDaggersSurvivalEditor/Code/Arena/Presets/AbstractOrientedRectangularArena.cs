@@ -1,11 +1,11 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	// TODO
-	internal abstract class AbstractOrientedRectangularArena : AbstractRectangularArena
+	public abstract class AbstractOrientedRectangularArena : AbstractRectangularArena
 	{
 		//private float angleInDegrees;
 
-		//internal float AngleInDegrees
+		//public float AngleInDegrees
 		//{
 		//	get => angleInDegrees;
 		//	set => angleInDegrees = value % 360;

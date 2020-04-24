@@ -1,6 +1,6 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.Spawns
 {
-	internal enum DelayModificationFunction
+	public enum DelayModificationFunction
 	{
 		Set,
 		Add,

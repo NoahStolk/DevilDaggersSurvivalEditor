@@ -3,17 +3,17 @@ using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class Ellipse : AbstractEllipseArena
+	public class Ellipse : AbstractEllipseArena
 	{
 		private float height;
 
-		internal float Height
+		public float Height
 		{
 			get => height;
 			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

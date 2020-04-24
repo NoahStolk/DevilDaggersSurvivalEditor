@@ -8,13 +8,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 	{
 		private float tileHeight;
 
-		internal float TileHeight
+		public float TileHeight
 		{
 			get => tileHeight;
 			set => tileHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
-		internal SetTileHeightWindow(float tileHeight, params ArenaCoord[] selections)
+		public SetTileHeightWindow(float tileHeight, params ArenaCoord[] selections)
 		{
 			this.tileHeight = tileHeight; // Avoid clamping in case of a void tile.
 

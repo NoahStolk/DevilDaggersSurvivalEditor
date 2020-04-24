@@ -8,7 +8,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class ModifySpawnDelayWindow : Window
 	{
-		internal DelayModificationFunction Function { get; set; }
+		public DelayModificationFunction Function { get; set; }
 		public double Value { get; set; } = 2;
 
 		public ModifySpawnDelayWindow(int spawnCount)

@@ -9,10 +9,10 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 	/// <summary>
 	/// Singleton class to create all arena presets automatically through reflection and keep them in memory rather than re-instantiating them every time so their settings are remembered.
 	/// </summary>
-	internal sealed class ArenaPresetHandler
+	public sealed class ArenaPresetHandler
 	{
 		private AbstractArena activePreset;
-		internal AbstractArena ActivePreset
+		public AbstractArena ActivePreset
 		{
 			get => activePreset;
 			set
@@ -22,14 +22,14 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 					App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !activePreset.IsFull;
 			}
 		}
-		internal AbstractArena DefaultPreset { get; private set; }
+		public AbstractArena DefaultPreset { get; private set; }
 
-		internal List<AbstractArena> ArenaPresets { get; private set; } = new List<AbstractArena>();
+		public List<AbstractArena> ArenaPresets { get; private set; } = new List<AbstractArena>();
 
-		internal IEnumerable<Type> PresetTypes { get; private set; }
+		public IEnumerable<Type> PresetTypes { get; private set; }
 
 		private static readonly Lazy<ArenaPresetHandler> lazy = new Lazy<ArenaPresetHandler>(() => new ArenaPresetHandler());
-		internal static ArenaPresetHandler Instance => lazy.Value;
+		public static ArenaPresetHandler Instance => lazy.Value;
 
 		private ArenaPresetHandler()
 		{

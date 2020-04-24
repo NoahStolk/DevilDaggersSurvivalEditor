@@ -4,7 +4,7 @@ using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class RandomPillars : AbstractRectangularArena
+	public class RandomPillars : AbstractRectangularArena
 	{
 		private float minHeight = 5;
 		private float maxHeight = 7;
@@ -12,33 +12,33 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		private int maxThickness = 2;
 		private int count = 5;
 
-		internal float MinHeight
+		public float MinHeight
 		{
 			get => minHeight;
 			set => minHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		internal float MaxHeight
+		public float MaxHeight
 		{
 			get => maxHeight;
 			set => maxHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		internal int MinThickness
+		public int MinThickness
 		{
 			get => minThickness;
 			set => minThickness = MathUtils.Clamp(value, 1, 15);
 		}
-		internal int MaxThickness
+		public int MaxThickness
 		{
 			get => maxThickness;
 			set => maxThickness = MathUtils.Clamp(value, 1, 15);
 		}
-		internal int Count
+		public int Count
 		{
 			get => count;
 			set => count = MathUtils.Clamp(value, 1, 200);
 		}
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

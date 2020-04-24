@@ -2,19 +2,19 @@
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class Full : AbstractArena
+	public class Full : AbstractArena
 	{
 		private float height;
 
-		internal float Height
+		public float Height
 		{
 			get => height;
 			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
-		internal override bool IsFull => true;
+		public override bool IsFull => true;
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

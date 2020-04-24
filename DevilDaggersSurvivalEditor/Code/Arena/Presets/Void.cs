@@ -1,10 +1,10 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class Void : AbstractArena
+	public class Void : AbstractArena
 	{
-		internal override bool IsFull => true;
+		public override bool IsFull => true;
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

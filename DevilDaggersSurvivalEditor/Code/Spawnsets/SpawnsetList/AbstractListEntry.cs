@@ -1,6 +1,6 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 {
-	internal abstract class AbstractListEntry
+	public abstract class AbstractListEntry
 	{
 	}
 }

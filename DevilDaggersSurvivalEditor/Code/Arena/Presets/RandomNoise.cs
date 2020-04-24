@@ -2,23 +2,23 @@
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class RandomNoise : AbstractRectangularArena
+	public class RandomNoise : AbstractRectangularArena
 	{
 		private float minHeight;
 		private float maxHeight = 16;
 
-		internal float MinHeight
+		public float MinHeight
 		{
 			get => minHeight;
 			set => minHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		internal float MaxHeight
+		public float MaxHeight
 		{
 			get => maxHeight;
 			set => maxHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

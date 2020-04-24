@@ -356,7 +356,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					UpdateTile(new ArenaCoord(i, j));
 		}
 
-		internal void UpdateTile(ArenaCoord tile)
+		public void UpdateTile(ArenaCoord tile)
 		{
 			// Lock special cases if set in settings.
 			if (tile == TileUtils.GlitchTile)

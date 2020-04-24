@@ -4,29 +4,29 @@ using System.Collections.Generic;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class RandomGaps : AbstractRectangularArena
+	public class RandomGaps : AbstractRectangularArena
 	{
 		private float height;
 		private int amount = 5;
 		private int iterations = 2;
 
-		internal float Height
+		public float Height
 		{
 			get => height;
 			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		internal int Amount
+		public int Amount
 		{
 			get => amount;
 			set => amount = MathUtils.Clamp(value, 1, 10);
 		}
-		internal int Iterations
+		public int Iterations
 		{
 			get => iterations;
 			set => iterations = MathUtils.Clamp(value, 1, 4);
 		}
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

@@ -3,29 +3,29 @@ using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class CageEllipse : AbstractEllipseArena
+	public class CageEllipse : AbstractEllipseArena
 	{
 		private float insideHeight;
 		private float wallHeight = 8;
 		private int wallThickness = 1;
 
-		internal float InsideHeight
+		public float InsideHeight
 		{
 			get => insideHeight;
 			set => insideHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		internal float WallHeight
+		public float WallHeight
 		{
 			get => wallHeight;
 			set => wallHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		internal int WallThickness
+		public int WallThickness
 		{
 			get => wallThickness;
 			set => wallThickness = MathUtils.Clamp(value, 1, 20);
 		}
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

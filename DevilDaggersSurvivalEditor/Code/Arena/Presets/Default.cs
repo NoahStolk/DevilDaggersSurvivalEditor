@@ -4,11 +4,11 @@ using System.IO;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class Default : AbstractArena
+	public class Default : AbstractArena
 	{
-		internal override bool IsFull => true;
+		public override bool IsFull => true;
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

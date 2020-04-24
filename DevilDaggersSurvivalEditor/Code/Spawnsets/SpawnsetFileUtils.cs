@@ -5,9 +5,9 @@ using System.IO;
 
 namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 {
-	internal static class SpawnsetFileUtils
+	public static class SpawnsetFileUtils
 	{
-		internal static bool TryWriteSpawnsetToFile(Spawnset spawnset, string destinationPath)
+		public static bool TryWriteSpawnsetToFile(Spawnset spawnset, string destinationPath)
 		{
 			try
 			{
@@ -29,7 +29,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 			}
 		}
 
-		internal static void TryRestoreSurvivalFile()
+		public static void TryRestoreSurvivalFile()
 		{
 			try
 			{

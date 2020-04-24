@@ -4,35 +4,35 @@ using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class Qbert : AbstractRectangularArena
+	public class Qbert : AbstractRectangularArena
 	{
 		private int offsetX;
 		private int offsetY;
 		private float startheight = -1;
 		private float endHeight = 17;
 
-		internal int OffsetX
+		public int OffsetX
 		{
 			get => offsetX;
 			set => offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
-		internal int OffsetY
+		public int OffsetY
 		{
 			get => offsetY;
 			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
-		internal float StartHeight
+		public float StartHeight
 		{
 			get => startheight;
 			set => startheight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		internal float EndHeight
+		public float EndHeight
 		{
 			get => endHeight;
 			set => endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

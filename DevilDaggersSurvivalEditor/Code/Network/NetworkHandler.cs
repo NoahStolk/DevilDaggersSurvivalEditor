@@ -12,26 +12,26 @@ using System.Net;
 
 namespace DevilDaggersSurvivalEditor.Code.Network
 {
-	internal sealed class NetworkHandler
+	public sealed class NetworkHandler
 	{
 		/// <summary>
 		/// Timeout in milliseconds.
 		/// </summary>
 		private const int timeout = 7500;
 
-		internal List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
-		internal List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
+		public List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
+		public List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
 
-		internal List<CustomLeaderboardBase> CustomLeaderboards { get; private set; } = new List<CustomLeaderboardBase>();
+		public List<CustomLeaderboardBase> CustomLeaderboards { get; private set; } = new List<CustomLeaderboardBase>();
 
 		private static readonly Lazy<NetworkHandler> lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
-		internal static NetworkHandler Instance => lazy.Value;
+		public static NetworkHandler Instance => lazy.Value;
 
 		private NetworkHandler()
 		{
 		}
 
-		internal bool RetrieveSpawnsetList()
+		public bool RetrieveSpawnsetList()
 		{
 			try
 			{
@@ -68,7 +68,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 			}
 		}
 
-		internal bool RetrieveCustomLeaderboardList()
+		public bool RetrieveCustomLeaderboardList()
 		{
 			try
 			{
@@ -101,7 +101,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 			}
 		}
 
-		internal Spawnset DownloadSpawnset(string fileName)
+		public Spawnset DownloadSpawnset(string fileName)
 		{
 			string url = UrlUtils.ApiGetSpawnset(fileName);
 

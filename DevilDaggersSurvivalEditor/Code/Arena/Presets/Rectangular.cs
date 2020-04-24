@@ -2,17 +2,17 @@
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class Rectangular : AbstractOrientedRectangularArena
+	public class Rectangular : AbstractOrientedRectangularArena
 	{
 		private float height;
 
-		internal float Height
+		public float Height
 		{
 			get => height;
 			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

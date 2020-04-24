@@ -1,6 +1,6 @@
 ﻿namespace DevilDaggersSurvivalEditor.Code.Arena
 {
-	internal enum TileSelection
+	public enum TileSelection
 	{
 		Once,
 		Continuous,

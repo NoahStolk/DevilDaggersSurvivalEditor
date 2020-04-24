@@ -4,24 +4,24 @@ using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class Hill : AbstractEllipseArena
+	public class Hill : AbstractEllipseArena
 	{
 		private float startHeight;
 		private float endHeight = 8;
 
-		internal float StartHeight
+		public float StartHeight
 		{
 			get => startHeight;
 			set => startHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
-		internal float EndHeight
+		public float EndHeight
 		{
 			get => endHeight;
 			set => endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 

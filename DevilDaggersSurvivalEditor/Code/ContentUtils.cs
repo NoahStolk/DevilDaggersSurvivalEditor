@@ -2,8 +2,8 @@
 
 namespace DevilDaggersSurvivalEditor.Code
 {
-	internal static class ContentUtils
+	public static class ContentUtils
 	{
-		internal static Uri MakeUri(string localPath) => new Uri($"pack://application:,,,/{App.Assembly.GetName().Name};component/{localPath}");
+		public static Uri MakeUri(string localPath) => new Uri($"pack://application:,,,/{App.Assembly.GetName().Name};component/{localPath}");
 	}
 }

@@ -3,7 +3,7 @@ using NetBase.Utils;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	internal class Pyramid : AbstractArena
+	public class Pyramid : AbstractArena
 	{
 		private int offsetX;
 		private int offsetY;
@@ -11,35 +11,35 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		private float endHeight = 6;
 		private int size = 16;
 
-		internal int OffsetX
+		public int OffsetX
 		{
 			get => offsetX;
 			set => offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
-		internal int OffsetY
+		public int OffsetY
 		{
 			get => offsetY;
 			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
-		internal float StartHeight
+		public float StartHeight
 		{
 			get => startheight;
 			set => startheight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		internal float EndHeight
+		public float EndHeight
 		{
 			get => endHeight;
 			set => endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
-		internal int Size
+		public int Size
 		{
 			get => size;
 			set => size = MathUtils.Clamp(value, 2, Spawnset.ArenaWidth);
 		}
 
-		internal override bool IsFull => false;
+		public override bool IsFull => false;
 
-		internal override float[,] GetTiles()
+		public override float[,] GetTiles()
 		{
 			float[,] tiles = CreateArenaArray();
 
