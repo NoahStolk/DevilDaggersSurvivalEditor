@@ -1,7 +1,6 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Tools;
 using DevilDaggersSurvivalEditor.Code.Arena;
-using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Gui.Windows;

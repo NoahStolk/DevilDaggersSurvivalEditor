@@ -12,7 +12,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class EndLoopPreviewUserControl : UserControl
 	{
-		private const int MaxWaves = 2000;
+		private const int maxWaves = 2000;
 
 		private int waveTextBoxValue = 2;
 		public int WaveTextBoxValue
@@ -20,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			get => waveTextBoxValue;
 			set
 			{
-				waveTextBoxValue = MathUtils.Clamp(value, 2, MaxWaves);
+				waveTextBoxValue = MathUtils.Clamp(value, 2, maxWaves);
 			}
 		}
 
@@ -30,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			get => wave;
 			set
 			{
-				wave = MathUtils.Clamp(value, 2, MaxWaves);
+				wave = MathUtils.Clamp(value, 2, maxWaves);
 			}
 		}
 

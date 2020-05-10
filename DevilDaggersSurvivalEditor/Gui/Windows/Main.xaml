@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown" Closing="Window_Closing" Loaded="Window_Loaded">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="18"/>
+			<RowDefinition Height="18" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
 		<DockPanel Grid.Row="0">
