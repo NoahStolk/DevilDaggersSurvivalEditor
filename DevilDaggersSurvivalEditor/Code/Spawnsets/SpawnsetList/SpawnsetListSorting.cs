@@ -2,16 +2,17 @@
 
 namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 {
-	public class SpawnsetListSorting<T> where T : AbstractListEntry
+	public class SpawnsetListSorting<TListEntry>
+		where TListEntry : IListEntry
 	{
 		public string FullName { get; }
 		public string DisplayName { get; }
-		public Func<T, object> SortingFunction { get; }
+		public Func<TListEntry, object> SortingFunction { get; }
 		public bool IsAscendingDefault { get; }
 
 		public bool Ascending { get; set; }
 
-		public SpawnsetListSorting(string fullName, string displayName, Func<T, object> sortingFunction, bool isAscendingDefault)
+		public SpawnsetListSorting(string fullName, string displayName, Func<TListEntry, object> sortingFunction, bool isAscendingDefault)
 		{
 			FullName = fullName;
 			DisplayName = displayName;

@@ -11,14 +11,14 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 		public string SpawnsetSearch { get; set; } = string.Empty;
 
 		public SpawnsetListSorting<AuthorListEntry> ActiveAuthorSorting { get; set; }
-		public IReadOnlyList<SpawnsetListSorting<AuthorListEntry>> AuthorSortings { get; set; } = new List<SpawnsetListSorting<AuthorListEntry>>
+		public IReadOnlyList<SpawnsetListSorting<AuthorListEntry>> AuthorSortings { get; } = new List<SpawnsetListSorting<AuthorListEntry>>
 		{
 			new SpawnsetListSorting<AuthorListEntry>("Name", "Name", s => s.Name, true) { Ascending = true },
 			new SpawnsetListSorting<AuthorListEntry>("Spawnset amount", "Spawnsets", s => s.SpawnsetCount, false)
 		};
 
 		public SpawnsetListSorting<SpawnsetListEntry> ActiveSpawnsetSorting { get; set; }
-		public IReadOnlyList<SpawnsetListSorting<SpawnsetListEntry>> SpawnsetSortings { get; set; } = new List<SpawnsetListSorting<SpawnsetListEntry>>
+		public IReadOnlyList<SpawnsetListSorting<SpawnsetListEntry>> SpawnsetSortings { get; } = new List<SpawnsetListSorting<SpawnsetListEntry>>
 		{
 			new SpawnsetListSorting<SpawnsetListEntry>("Name", "Name", s => s.SpawnsetFile.Name, true),
 			new SpawnsetListSorting<SpawnsetListEntry>("Author", "Author", s => s.SpawnsetFile.Author, true),

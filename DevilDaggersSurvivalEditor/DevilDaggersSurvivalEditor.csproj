@@ -102,7 +102,7 @@
     <Compile Include="Code\ContentUtils.cs" />
     <Compile Include="Code\ExtensionMethods.cs" />
     <Compile Include="Code\Shaders\SelectionEffect.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetList\AbstractListEntry.cs" />
+    <Compile Include="Code\Spawnsets\SpawnsetList\IListEntry.cs" />
     <Compile Include="Code\Spawnsets\SpawnsetList\AuthorListEntry.cs" />
     <Compile Include="Code\Spawnsets\SpawnsetList\SpawnsetListEntry.cs" />
     <Compile Include="Code\Spawnsets\SpawnsetList\SpawnsetListHandler.cs" />
