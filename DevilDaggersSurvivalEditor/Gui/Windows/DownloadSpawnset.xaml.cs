@@ -174,8 +174,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			{
 				Grid grid = CreateSpawnsetGrid(sf);
 				SpawnsetsStackPanel.Children.Add(grid);
-				SetBackgroundColor(grid);
 			}
+			SetSpawnsetsStackPanelBackgroundColors();
 		}
 
 		private Grid CreateAuthorGrid(AuthorListEntry author)
@@ -287,19 +287,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			if (authorSelection.Name == SpawnsetListHandler.AllAuthors)
 			{
 				foreach (Grid grid in SpawnsetsStackPanel.Children)
-				{
 					grid.Visibility = Visibility.Visible;
-					SetBackgroundColor(grid);
-				}
 			}
 			else
 			{
 				foreach (Grid grid in SpawnsetsStackPanel.Children)
-				{
 					grid.Visibility = (grid.Tag as SpawnsetListEntry).SpawnsetFile.Author == authorSelection.Name ? Visibility.Visible : Visibility.Collapsed;
-					SetBackgroundColor(grid);
-				}
 			}
+			SetSpawnsetsStackPanelBackgroundColors();
 		}
 
 		private void AuthorSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -321,10 +316,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void FilterSpawnsetsStackPanel()
 		{
 			foreach (Grid grid in SpawnsetsStackPanel.Children)
-			{
 				grid.Visibility = (grid.Tag as SpawnsetListEntry).SpawnsetFile.Name.ToLower().Contains(SpawnsetListHandler.Instance.SpawnsetSearch.ToLower()) ? Visibility.Visible : Visibility.Collapsed;
-				SetBackgroundColor(grid);
-			}
+
+			SetSpawnsetsStackPanelBackgroundColors();
 		}
 
 		private void SortAuthorsListBox(SpawnsetListSorting<AuthorListEntry> sorting)
@@ -350,14 +344,15 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				Grid grid = SpawnsetsStackPanel.Children.OfType<Grid>().FirstOrDefault(g => g.Tag as SpawnsetListEntry == sorted[i]);
 				SpawnsetsStackPanel.Children.Remove(grid);
 				SpawnsetsStackPanel.Children.Insert(i, grid);
-				SetBackgroundColor(grid);
 			}
+			SetSpawnsetsStackPanelBackgroundColors();
 		}
 
-		private void SetBackgroundColor(Grid grid)
+		private void SetSpawnsetsStackPanelBackgroundColors()
 		{
-			List<Grid> items = SpawnsetsStackPanel.Children.OfType<Grid>().Where(c => c.Visibility == Visibility.Visible).ToList();
-			grid.Background = new SolidColorBrush(items.IndexOf(grid) % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(223, 223, 223));
+			List<Grid> grids = SpawnsetsStackPanel.Children.OfType<Grid>().Where(c => c.Visibility == Visibility.Visible).ToList();
+			foreach (Grid grid in grids)
+				grid.Background = new SolidColorBrush(grids.IndexOf(grid) % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(223, 223, 223));
 		}
 
 		private void SortAuthorsButton_Click(object sender, RoutedEventArgs e)
