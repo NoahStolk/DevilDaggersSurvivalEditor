@@ -54,7 +54,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 			List<Spawn> endLoop = SpawnsetHandler.Instance.spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.spawnset.GetEndLoopStartIndex()).ToList();
-			int endLoopSpawns = endLoop.Where(s => s.SpawnsetEnemy != Spawnset.Enemies[-1]).Count();
+			int endLoopSpawns = endLoop.Count(s => s.SpawnsetEnemy != Spawnset.Enemies[-1]);
 			Visibility = endLoopSpawns == 0 ? Visibility.Collapsed : Visibility.Visible;
 
 			if (endLoopSpawns == 0)

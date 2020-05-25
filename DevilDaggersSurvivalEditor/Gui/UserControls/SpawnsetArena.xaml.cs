@@ -627,9 +627,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.Where(a => a.GetType().Name == (ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString()).FirstOrDefault();
+			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.FirstOrDefault(a => a.GetType().Name == (ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString());
 
-			ConfigureButton.IsEnabled = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Where(p => p.SetMethod != null).Count() != 0;
+			ConfigureButton.IsEnabled = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Count(p => p.SetMethod != null) != 0;
 		}
 
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)

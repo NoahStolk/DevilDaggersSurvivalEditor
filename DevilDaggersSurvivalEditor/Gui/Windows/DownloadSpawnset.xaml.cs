@@ -333,7 +333,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			for (int i = 0; i < AuthorsListBox.Items.Count; i++)
 			{
-				ListBoxItem lbi = AuthorsListBox.Items.OfType<ListBoxItem>().Where(g => (g.Content as Grid).Tag as AuthorListEntry == sorted[i]).FirstOrDefault();
+				ListBoxItem lbi = AuthorsListBox.Items.OfType<ListBoxItem>().FirstOrDefault(g => (g.Content as Grid).Tag as AuthorListEntry == sorted[i]);
 				AuthorsListBox.Items.Remove(lbi);
 				AuthorsListBox.Items.Insert(i, lbi);
 
@@ -347,7 +347,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			for (int i = 0; i < SpawnsetsStackPanel.Children.Count; i++)
 			{
-				Grid grid = SpawnsetsStackPanel.Children.OfType<Grid>().Where(g => g.Tag as SpawnsetListEntry == sorted[i]).FirstOrDefault();
+				Grid grid = SpawnsetsStackPanel.Children.OfType<Grid>().FirstOrDefault(g => g.Tag as SpawnsetListEntry == sorted[i]);
 				SpawnsetsStackPanel.Children.Remove(grid);
 				SpawnsetsStackPanel.Children.Insert(i, grid);
 				SetBackgroundColor(grid);

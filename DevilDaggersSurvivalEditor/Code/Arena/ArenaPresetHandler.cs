@@ -39,7 +39,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 				if (Activator.CreateInstance(type) is AbstractArena arena)
 					ArenaPresets.Add(arena);
 
-			DefaultPreset = ArenaPresets.Where(a => a.GetType().Name == "Default").FirstOrDefault();
+			DefaultPreset = ArenaPresets.FirstOrDefault(a => a.GetType().Name == "Default");
 			ActivePreset = DefaultPreset;
 		}
 	}
