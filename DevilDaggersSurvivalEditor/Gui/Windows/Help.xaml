@@ -8,7 +8,7 @@
 	<StackPanel Style="{StaticResource PaddingStackPanel}">
 		<Label Style="{StaticResource TitleLabel}">General help with spawnsets</Label>
 		<TextBlock Style="{StaticResource ParagraphTextBlock}">
-			A lot of information about how spawnsets work is listed on the <Hyperlink NavigateUri="https://devildaggers.info/Wiki/Guides/SurvivalEditor" RequestNavigate="Hyperlink_RequestNavigate">DevilDaggers.info website</Hyperlink>.
+			Check out the <Hyperlink NavigateUri="https://devildaggers.info/Wiki/Guides/SurvivalEditor" RequestNavigate="Hyperlink_RequestNavigate">survival editor guide</Hyperlink> on the DevilDaggers.info website.
 		</TextBlock>
 
 		<Label Style="{StaticResource TitleLabel}">Help with the application</Label>

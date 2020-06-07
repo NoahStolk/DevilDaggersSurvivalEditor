@@ -21,19 +21,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			InitializeComponent();
 
-			if (VersionHandler.Instance.VersionResult.IsUpToDate.HasValue)
+			if (VersionHandler.Instance.VersionResult.IsUpToDate.HasValue && !VersionHandler.Instance.VersionResult.IsUpToDate.Value)
 			{
-				if (!VersionHandler.Instance.VersionResult.IsUpToDate.Value)
-				{
-					HelpItem.Header += " (Update available)";
-					HelpItem.FontWeight = FontWeights.Bold;
+				HelpItem.Header += " (Update available)";
+				HelpItem.FontWeight = FontWeights.Bold;
 
-					foreach (MenuItem menuItem in HelpItem.Items)
-						menuItem.FontWeight = FontWeights.Normal;
+				foreach (MenuItem menuItem in HelpItem.Items)
+					menuItem.FontWeight = FontWeights.Normal;
 
-					UpdateItem.Header = "Update available";
-					UpdateItem.FontWeight = FontWeights.Bold;
-				}
+				UpdateItem.Header = "Update available";
+				UpdateItem.FontWeight = FontWeights.Bold;
 			}
 
 #if DEBUG
