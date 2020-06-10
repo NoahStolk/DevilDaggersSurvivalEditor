@@ -39,8 +39,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			foreach (SpawnsetListSorting<SpawnsetListEntry> sorting in SpawnsetListHandler.Instance.SpawnsetSortings)
 				SpawnsetHeaders.Children.Add(CreateHeaderStackPanel(index++, spawnsetSortingImages, sorting, SpawnsetListHandler.Instance.ActiveSpawnsetSorting, SortSpawnsetFilesButton_Click));
 
-			Data.DataContext = SpawnsetListHandler.Instance;
-
 			PopulateAuthorsListBox();
 			PopulateSpawnsetsStackPanel();
 
@@ -130,7 +128,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			SpawnsetsStackPanel.Children.Clear();
 
 			AuthorSearchTextBox.Text = string.Empty;
+			SpawnsetListHandler.Instance.AuthorSearch = string.Empty;
+
 			SpawnsetSearchTextBox.Text = string.Empty;
+			SpawnsetListHandler.Instance.SpawnsetSearch = string.Empty;
 
 			ReloadButton.IsEnabled = false;
 			ReloadButton.Content = "Loading...";
@@ -299,11 +300,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void AuthorSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
+			SpawnsetListHandler.Instance.AuthorSearch = AuthorSearchTextBox.Text;
 			FilterAuthorsListBox();
 		}
 
 		private void SpawnsetSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
+			SpawnsetListHandler.Instance.SpawnsetSearch = SpawnsetSearchTextBox.Text;
 			FilterSpawnsetsStackPanel();
 		}
 
@@ -414,11 +417,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void ClearAuthorSearchButton_Click(object sender, RoutedEventArgs e)
 		{
 			AuthorSearchTextBox.Text = string.Empty;
+			SpawnsetListHandler.Instance.AuthorSearch = string.Empty;
 		}
 
 		private void ClearSpawnsetSearchButton_Click(object sender, RoutedEventArgs e)
 		{
 			SpawnsetSearchTextBox.Text = string.Empty;
+			SpawnsetListHandler.Instance.SpawnsetSearch = string.Empty;
 		}
 	}
 }
