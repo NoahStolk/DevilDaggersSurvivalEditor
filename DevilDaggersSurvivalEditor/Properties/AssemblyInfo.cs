@@ -13,6 +13,6 @@ using System.Windows;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
-[assembly: AssemblyVersion("2.4.13.1")]
-[assembly: AssemblyFileVersion("2.4.13.1")]
+[assembly: AssemblyVersion("2.4.16.0")]
+[assembly: AssemblyFileVersion("2.4.16.0")]
 [assembly: XmlConfigurator(ConfigFile = "log4net.config")]
