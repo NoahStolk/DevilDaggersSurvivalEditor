@@ -20,7 +20,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 			}
 		}
 
-		public string SpawnsetName { get; private set; } = "(new spawnset)";
+		public string SpawnsetFileName { get; private set; } = "(new spawnset)";
 		public string SpawnsetFileLocation { get; private set; } = string.Empty;
 
 		// Must be a field since properties can't be used as out parameters.
@@ -38,7 +38,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 		{
 			HasUnsavedChanges = false;
 
-			SpawnsetName = name;
+			SpawnsetFileName = name;
 			SpawnsetFileLocation = fileLocation;
 
 			App.Instance.UpdateMainWindowTitle();
