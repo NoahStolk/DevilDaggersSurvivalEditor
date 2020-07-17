@@ -1,8 +1,8 @@
 ﻿using DevilDaggersCore.Spawnsets;
+using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
-using NetBase.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -18,20 +18,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		public int WaveTextBoxValue
 		{
 			get => waveTextBoxValue;
-			set
-			{
-				waveTextBoxValue = MathUtils.Clamp(value, 2, maxWaves);
-			}
+			set => waveTextBoxValue = MathUtils.Clamp(value, 2, maxWaves);
 		}
 
 		private int wave = 2;
 		public int Wave
 		{
 			get => wave;
-			set
-			{
-				wave = MathUtils.Clamp(value, 2, maxWaves);
-			}
+			set => wave = MathUtils.Clamp(value, 2, maxWaves);
 		}
 
 		public EndLoopPreviewUserControl()

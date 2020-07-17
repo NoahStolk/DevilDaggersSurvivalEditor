@@ -1,5 +1,5 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using NetBase.Utils;
+using DevilDaggersCore.Utils;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets

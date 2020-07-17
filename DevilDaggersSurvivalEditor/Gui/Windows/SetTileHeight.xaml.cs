@@ -1,5 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code.Arena;
-using NetBase.Utils;
+﻿using DevilDaggersCore.Utils;
+using DevilDaggersSurvivalEditor.Code.Arena;
 using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.Gui.Windows

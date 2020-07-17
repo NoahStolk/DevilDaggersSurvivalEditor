@@ -323,10 +323,6 @@
       <Project>{5593879a-1411-4e62-a682-9431da03898f}</Project>
       <Name>DevilDaggersCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetBase\NetBase\NetBase.csproj">
-      <Project>{99ba0c6a-5fa2-4f49-a692-694b97605096}</Project>
-      <Name>NetBase</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon24.ico" />

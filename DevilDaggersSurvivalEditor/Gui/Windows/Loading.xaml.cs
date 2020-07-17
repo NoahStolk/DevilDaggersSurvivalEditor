@@ -1,8 +1,8 @@
 ﻿using DevilDaggersCore.Tools;
+using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.User;
-using NetBase.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -104,7 +104,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						FontWeight = FontWeights.Bold
 					});
 				});
-
 			};
 			validateSurvivalFileThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{

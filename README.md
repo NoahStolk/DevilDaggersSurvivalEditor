@@ -8,7 +8,6 @@ DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survi
 C# 8.0
 
 ## Dependencies
-- [NetBase](https://github.com/NoahStolk/NetBase)
 - [DevilDaggersCore](https://github.com/NoahStolk/DevilDaggersCore)
 
 ## Main features
