@@ -91,14 +91,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void FileSave_Click(object sender, RoutedEventArgs e)
-		{
-			SpawnsetHandler.Instance.FileSave();
-		}
+			=> SpawnsetHandler.Instance.FileSave();
 
 		private void FileSaveAs_Click(object sender, RoutedEventArgs e)
-		{
-			SpawnsetHandler.Instance.FileSaveAs();
-		}
+			=> SpawnsetHandler.Instance.FileSaveAs();
 
 		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
 		{
@@ -139,9 +135,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void Exit_Click(object sender, RoutedEventArgs e)
-		{
-			Application.Current.Shutdown();
-		}
+			=> Application.Current.Shutdown();
 
 		private void Settings_Click(object sender, RoutedEventArgs e)
 		{
@@ -163,14 +157,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void Browse_Click(object sender, RoutedEventArgs e)
-		{
-			Process.Start(UrlUtils.Spawnsets);
-		}
+			=> Process.Start(UrlUtils.Spawnsets);
 
 		private void Discord_Click(object sender, RoutedEventArgs e)
-		{
-			Process.Start(UrlUtils.DiscordInviteLink);
-		}
+			=> Process.Start(UrlUtils.DiscordInviteLink);
 
 		private void Help_Click(object sender, RoutedEventArgs e)
 		{
@@ -198,9 +188,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void SourceCode_Click(object sender, RoutedEventArgs e)
-		{
-			Process.Start(UrlUtils.SourceCodeUrl(App.ApplicationName));
-		}
+			=> Process.Start(UrlUtils.SourceCodeUrl(App.ApplicationName).ToString());
 
 		private void Update_Click(object sender, RoutedEventArgs e)
 		{
@@ -235,8 +223,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void TestException_Click(object sender, RoutedEventArgs e)
-		{
-			throw new Exception("Test Exception");
-		}
+			=> throw new Exception("Test Exception");
 	}
 }
