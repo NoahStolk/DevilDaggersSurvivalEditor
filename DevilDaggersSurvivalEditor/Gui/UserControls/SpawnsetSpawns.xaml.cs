@@ -150,7 +150,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			if (valid)
 				Delay = float.Parse(DelayTextBox.Text);
 
-			DelayTextBox.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 128, 128));
+			DelayTextBox.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 127, 127));
 
 			UpdateButtons();
 		}

@@ -30,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			VersionLabel.Content = $"Version {App.LocalVersion}";
 
 #if DEBUG
-			VersionLabel.Background = new SolidColorBrush(Color.FromRgb(0, 255, 64));
+			VersionLabel.Background = new SolidColorBrush(Color.FromRgb(0, 255, 63));
 			VersionLabel.Content += " DEBUG";
 #endif
 
@@ -51,7 +51,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
-						Foreground = new SolidColorBrush(versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 96, 0) : Color.FromRgb(255, 0, 0)),
+						Foreground = new SolidColorBrush(versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 95, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});
@@ -84,7 +84,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = readUserSettingsSuccess ? userSettingsFileExists ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
-						Foreground = new SolidColorBrush(readUserSettingsSuccess ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
+						Foreground = new SolidColorBrush(readUserSettingsSuccess ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});
@@ -100,7 +100,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = UserHandler.Instance.settings.SurvivalFileExists ? UserHandler.Instance.settings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
-						Foreground = new SolidColorBrush(!UserHandler.Instance.settings.SurvivalFileExists || !UserHandler.Instance.settings.SurvivalFileIsValid ? Color.FromRgb(255, 0, 0) : Color.FromRgb(0, 128, 0)),
+						Foreground = new SolidColorBrush(!UserHandler.Instance.settings.SurvivalFileExists || !UserHandler.Instance.settings.SurvivalFileIsValid ? Color.FromRgb(255, 0, 0) : Color.FromRgb(0, 127, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});
@@ -123,7 +123,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = retrieveSpawnsetsSuccess ? "OK" : "Error",
-						Foreground = new SolidColorBrush(retrieveSpawnsetsSuccess ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
+						Foreground = new SolidColorBrush(retrieveSpawnsetsSuccess ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});
@@ -144,7 +144,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = retrieveCustomLeaderboardsSuccess ? "OK" : "Error",
-						Foreground = new SolidColorBrush(retrieveCustomLeaderboardsSuccess ? Color.FromRgb(0, 128, 0) : Color.FromRgb(255, 0, 0)),
+						Foreground = new SolidColorBrush(retrieveCustomLeaderboardsSuccess ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 0, 0)),
 						FontWeight = FontWeights.Bold
 					});
 				});

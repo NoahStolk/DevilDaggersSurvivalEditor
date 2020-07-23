@@ -28,9 +28,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
-		{
-			FunctionComboBox.SelectedIndex = 0;
-		}
+			=> FunctionComboBox.SelectedIndex = 0;
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -45,11 +43,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			if (valid)
 				Value = float.Parse(TextBoxValue.Text);
 
-			TextBoxValue.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 128, 128));
+			TextBoxValue.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 127, 127));
 
 			OkButton.IsEnabled = valid;
 		}
 
-		private bool IsValueValid() => float.TryParse(TextBoxValue.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
+		private bool IsValueValid()
+			=> float.TryParse(TextBoxValue.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
 	}
 }
