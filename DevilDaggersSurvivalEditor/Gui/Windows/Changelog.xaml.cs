@@ -1,5 +1,5 @@
 ﻿using DevilDaggersCore.Tools;
-using DevilDaggersCore.Tools.Website;
+using DevilDaggersCore.Website;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
