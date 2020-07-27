@@ -44,6 +44,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 				}
 
 				App.Instance.ShowMessage("Success", "Successfully restored 'survival' file.");
+				App.Instance.MainWindow.UpdateWarningNoSurvivalFile();
 			}
 			catch (Exception ex)
 			{
