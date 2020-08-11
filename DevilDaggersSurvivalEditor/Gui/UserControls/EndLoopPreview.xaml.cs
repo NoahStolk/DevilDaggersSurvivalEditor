@@ -1,4 +1,5 @@
-﻿using DevilDaggersCore.Spawnsets;
+﻿using DevilDaggersCore.Game;
+using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
@@ -48,7 +49,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 			List<Spawn> endLoop = SpawnsetHandler.Instance.spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.spawnset.GetEndLoopStartIndex()).ToList();
-			int endLoopSpawns = endLoop.Count(s => s.SpawnsetEnemy != Spawnset.Enemies[-1]);
+			int endLoopSpawns = endLoop.Count(s => s.Enemy != null);
 			Visibility = endLoopSpawns == 0 ? Visibility.Collapsed : Visibility.Visible;
 
 			if (endLoopSpawns == 0)
@@ -62,13 +63,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				double secondsPrevious = seconds;
 				foreach (double spawnSecond in waveTimes)
 				{
-					SpawnsetEnemy enemy = endLoop[j].SpawnsetEnemy;
-					bool gigaBecomesGhost = i % 3 == 2 && enemy == Spawnset.Enemies[5]; // Assumes V3.
+					Enemy enemy = endLoop[j].Enemy;
+					bool gigaBecomesGhost = i % 3 == 2 && enemy == GameData.V3Gigapede; // Assumes V3.
 					if (gigaBecomesGhost)
-						enemy = Spawnset.Enemies[9];
+						enemy = GameData.V3Ghostpede;
 
 					seconds = spawnSecond;
-					totalGems += enemy.NoFarmGems;
+					totalGems += enemy.Gems;
 
 					if (i == Wave - 1)
 					{
@@ -100,7 +101,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
 			{
 				seconds += kvp.Value.Delay;
-				totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
+				totalGems += kvp.Value.Enemy.Gems;
 			}
 
 			Update(seconds, totalGems);
