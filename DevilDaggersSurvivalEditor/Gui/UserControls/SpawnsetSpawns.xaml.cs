@@ -40,8 +40,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			DelayTextBox.Text = Delay.ToString();
 			AmountTextBox.DataContext = this;
 
-			foreach (KeyValuePair<int, SpawnsetEnemy> enemy in Spawnset.Enemies)
-				ComboBoxEnemy.Items.Add(new ComboBoxItem { Content = enemy.Value.Name });
+			foreach (SpawnsetEnemy e in (SpawnsetEnemy[])Enum.GetValues(typeof(SpawnsetEnemy)))
+				ComboBoxEnemy.Items.Add(new ComboBoxItem { Content = e });
 		}
 
 		public void UpdateSpawnset()
@@ -94,7 +94,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			for (int i = SpawnsetHandler.Instance.spawnset.Spawns.Count - 1; i >= 0; i--)
 			{
 				loopLength += SpawnsetHandler.Instance.spawnset.Spawns[i].Delay;
-				if (SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy == Spawnset.Enemies[-1] || i == 0)
+				if (SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy == null || i == 0)
 				{
 					endLoopStartIndex = i;
 					break;
@@ -114,7 +114,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
 				{
 					seconds += kvp.Value.Delay;
-					totalGems += kvp.Value.SpawnsetEnemy.NoFarmGems;
+					totalGems += kvp.Value.Enemy.NoFarmGems;
 
 					SpawnUserControl spawnControl = spawnControls[kvp.Key];
 					spawnControl.Id = kvp.Key + 1;
@@ -202,7 +202,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (HasTooManySpawns())
 					break;
 
-				AddSpawn(new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
+				AddSpawn(new Spawn(Spawnset.GetEnemy((SpawnsetEnemy)ComboBoxEnemy.SelectedIndex - 1), Delay));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -227,7 +227,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (HasTooManySpawns())
 					break;
 
-				InsertSpawnAt(originalSelection + i, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
+				InsertSpawnAt(originalSelection + i, new Spawn(Spawnset.GetEnemy((SpawnsetEnemy)ComboBoxEnemy.SelectedIndex - 1), Delay));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -284,7 +284,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			List<int> selections = GetSpawnSelectionIndices();
 			foreach (int i in selections)
-				EditSpawnAt(i, new Spawn(Spawnset.Enemies[ComboBoxEnemy.SelectedIndex - 1], Delay));
+				EditSpawnAt(i, new Spawn(Spawnset.GetEnemy((SpawnsetEnemy)ComboBoxEnemy.SelectedIndex - 1), Delay));
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
@@ -354,7 +354,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						DelayModificationFunction.Divide => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay / window.Value,
 						_ => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay,
 					};
-					EditSpawnAt(i, new Spawn(SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy, MathUtils.Clamp(delay, 0, SpawnUtils.MaxDelay)));
+					EditSpawnAt(i, new Spawn(SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy, MathUtils.Clamp(delay, 0, SpawnUtils.MaxDelay)));
 				}
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -368,9 +368,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			List<int> selections = GetSpawnSelectionIndices();
 			selections.Sort();
 
-			List<int> enemyTypes = new List<int>();
+			List<SpawnsetEnemy> enemyTypes = new List<SpawnsetEnemy>();
 			foreach (int selection in selections)
-				enemyTypes.Add(Spawnset.GetEnemyId(SpawnsetHandler.Instance.spawnset.Spawns[selection].SpawnsetEnemy));
+				enemyTypes.Add(Spawnset.GetSpawnsetEnemy(SpawnsetHandler.Instance.spawnset.Spawns[selection].Enemy));
 			enemyTypes = enemyTypes.Distinct().ToList();
 
 			SwitchEnemyTypeWindow window = new SwitchEnemyTypeWindow(selections.Count, enemyTypes);
@@ -379,17 +379,17 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				foreach (int i in selections)
 				{
-					int current = 0;
-					foreach (int enemyType in enemyTypes)
+					SpawnsetEnemy current = 0;
+					foreach (SpawnsetEnemy enemyType in enemyTypes)
 					{
-						if (Spawnset.GetEnemyId(SpawnsetHandler.Instance.spawnset.Spawns[i].SpawnsetEnemy) == enemyType)
+						if (Spawnset.GetSpawnsetEnemy(SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy) == enemyType)
 						{
 							current = enemyType;
 							break;
 						}
 					}
 
-					EditSpawnAt(i, new Spawn(Spawnset.Enemies[window.switchDictionary[current]], SpawnsetHandler.Instance.spawnset.Spawns[i].Delay));
+					EditSpawnAt(i, new Spawn(Spawnset.GetEnemy(window.switchDictionary[current]), SpawnsetHandler.Instance.spawnset.Spawns[i].Delay));
 				}
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;

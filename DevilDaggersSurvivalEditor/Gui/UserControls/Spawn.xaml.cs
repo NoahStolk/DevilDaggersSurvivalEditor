@@ -1,5 +1,4 @@
-﻿using DevilDaggersCore.Game;
-using DevilDaggersCore.Spawnsets;
+﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Spawns;
 using System.Windows;
@@ -66,11 +65,11 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				spawn = value;
 
-				LabelEnemy.Content = spawn.SpawnsetEnemy.Name;
+				LabelEnemy.Content = spawn.Enemy.Name;
 				LabelDelay.Content = spawn.Delay.ToString(SpawnUtils.Format);
-				LabelNoFarmGems.Content = spawn.SpawnsetEnemy.NoFarmGems;
+				LabelNoFarmGems.Content = spawn.Enemy.NoFarmGems;
 
-				Color color = spawn.SpawnsetEnemy == Spawnset.Enemies[-1] ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.SpawnsetEnemy.ToEnemy(GameInfo.GameVersions[GameInfo.DefaultGameVersion]).ColorCode}");
+				Color color = spawn.Enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.Enemy.ColorCode}");
 				LabelEnemy.Background = new SolidColorBrush(color);
 				LabelEnemy.Foreground = new SolidColorBrush(UserInterfaceUtils.GetPerceivedBrightness(color) < 140 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(0, 0, 0));
 			}
