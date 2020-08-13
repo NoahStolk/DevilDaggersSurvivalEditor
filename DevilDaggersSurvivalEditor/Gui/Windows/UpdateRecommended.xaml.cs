@@ -1,6 +1,5 @@
 ﻿using DevilDaggersCore.Tools;
 using DevilDaggersCore.Utils;
-using System.Diagnostics;
 using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.Gui.Windows
@@ -16,7 +15,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void DownloadButton_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start(UrlUtils.ApiGetTool(App.ApplicationName));
+			ProcessUtils.OpenUrl(UrlUtils.ApiGetTool(App.ApplicationName));
 			Close();
 		}
 	}

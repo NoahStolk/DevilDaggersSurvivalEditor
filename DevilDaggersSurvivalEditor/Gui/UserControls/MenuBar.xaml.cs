@@ -163,10 +163,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void Browse_Click(object sender, RoutedEventArgs e)
-			=> Process.Start(UrlUtils.Spawnsets);
+			=> ProcessUtils.OpenUrl(UrlUtils.Spawnsets);
 
 		private void Discord_Click(object sender, RoutedEventArgs e)
-			=> Process.Start(UrlUtils.DiscordInviteLink);
+			=> ProcessUtils.OpenUrl(UrlUtils.DiscordInviteLink);
 
 		private void Help_Click(object sender, RoutedEventArgs e)
 		{
@@ -194,7 +194,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void SourceCode_Click(object sender, RoutedEventArgs e)
-			=> Process.Start(UrlUtils.SourceCodeUrl(App.ApplicationName).ToString());
+			=> ProcessUtils.OpenUrl(UrlUtils.SourceCodeUrl(App.ApplicationName).ToString());
 
 		private void Update_Click(object sender, RoutedEventArgs e)
 		{

@@ -285,7 +285,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (!(AuthorsListBox.SelectedItem is ListBoxItem listBoxItem) || !(listBoxItem.Tag is AuthorListEntry authorListEntry))
-				throw new Exception($"AuthorsListBox SelectedItem tag was not of type {nameof(AuthorListEntry)}.");
+				return;
 
 			authorSelection = authorListEntry;
 
