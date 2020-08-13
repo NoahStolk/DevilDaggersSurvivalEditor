@@ -23,7 +23,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			InitializeComponent();
 
-			GlitchTileLabel.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range.";
+			GlitchTileCheckBox.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range.";
 
 			LabelSurvivalFileRootFolder.Content = UserHandler.Instance.settings.SurvivalFileRootFolder;
 
