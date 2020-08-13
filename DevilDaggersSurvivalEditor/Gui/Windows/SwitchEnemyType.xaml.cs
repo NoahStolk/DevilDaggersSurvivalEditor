@@ -8,12 +8,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class SwitchEnemyTypeWindow : Window
 	{
-		public readonly Dictionary<sbyte, sbyte> switchDictionary = new Dictionary<sbyte, sbyte>();
+		public readonly Dictionary<int, int> switchDictionary = new Dictionary<int, int>();
 
-		private readonly List<sbyte> enemyTypes;
+		private readonly List<int> enemyTypes;
 		private readonly ComboBox[] comboBoxes;
 
-		public SwitchEnemyTypeWindow(int spawnCount, List<sbyte> enemyTypes)
+		public SwitchEnemyTypeWindow(int spawnCount, List<int> enemyTypes)
 		{
 			this.enemyTypes = enemyTypes;
 
@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			comboBoxes = new ComboBox[enemyTypes.Count];
 
 			int i = 0;
-			foreach (sbyte enemyType in enemyTypes)
+			foreach (int enemyType in enemyTypes)
 			{
 				Grid grid = new Grid();
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -36,7 +36,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				ComboBox comboBox = new ComboBox { SelectedIndex = enemyType + 1 };
 
-				for (sbyte j = -1; j < 9; j++)
+				for (int j = -1; j < 9; j++)
 					comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == j) });
 				Grid.SetColumn(comboBox, 1);
 				grid.Children.Add(comboBox);
@@ -49,7 +49,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
 			for (int i = 0; i < enemyTypes.Count; i++)
-				switchDictionary[enemyTypes[i]] = (sbyte)(comboBoxes[i].SelectedIndex - 1);
+				switchDictionary[enemyTypes[i]] = comboBoxes[i].SelectedIndex - 1;
 
 			DialogResult = true;
 		}

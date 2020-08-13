@@ -64,9 +64,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				foreach (double spawnSecond in waveTimes)
 				{
 					Enemy enemy = endLoop[j].Enemy;
-					bool gigaBecomesGhost = i % 3 == 2 && enemy == GameData.V3Gigapede; // Assumes V3.
+					bool gigaBecomesGhost = i % 3 == 2 && enemy == GameInfo.V3Gigapede; // Assumes V3.
 					if (gigaBecomesGhost)
-						enemy = GameData.V3Ghostpede;
+						enemy = GameInfo.V3Ghostpede;
 
 					seconds = spawnSecond;
 					totalGems += enemy.Gems;

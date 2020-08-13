@@ -41,7 +41,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			DelayTextBox.Text = Delay.ToString();
 			AmountTextBox.DataContext = this;
 
-			for (sbyte i = -1; i < 9; i++)
+			for (int i = -1; i < 9; i++)
 				ComboBoxEnemy.Items.Add(new ComboBoxItem { Content = GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == i) });
 		}
 
@@ -369,9 +369,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			List<int> selections = GetSpawnSelectionIndices();
 			selections.Sort();
 
-			List<sbyte> enemyTypes = new List<sbyte>();
+			List<int> enemyTypes = new List<int>();
 			foreach (int selection in selections)
-				enemyTypes.Add((sbyte)(SpawnsetHandler.Instance.spawnset.Spawns[selection].Enemy?.SpawnsetType ?? -1));
+				enemyTypes.Add(SpawnsetHandler.Instance.spawnset.Spawns[selection].Enemy?.SpawnsetType ?? -1);
 			enemyTypes = enemyTypes.Distinct().ToList();
 
 			SwitchEnemyTypeWindow window = new SwitchEnemyTypeWindow(selections.Count, enemyTypes);
@@ -380,8 +380,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				foreach (int i in selections)
 				{
-					sbyte current = 0;
-					foreach (sbyte enemyType in enemyTypes)
+					int current = 0;
+					foreach (int enemyType in enemyTypes)
 					{
 						if (SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy.SpawnsetType == enemyType)
 						{
