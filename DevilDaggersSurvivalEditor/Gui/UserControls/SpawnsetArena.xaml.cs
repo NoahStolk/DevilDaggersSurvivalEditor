@@ -660,7 +660,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.FirstOrDefault(a => a.GetType().Name == (ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString());
 
-			ConfigureButton.IsEnabled = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Count(p => p.SetMethod != null) != 0;
+			ConfigureButton.IsEnabled = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Any(p => p.SetMethod != null);
 		}
 
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)
