@@ -12,6 +12,27 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 	public sealed class ArenaPresetHandler
 	{
 		private AbstractArena activePreset;
+		private static readonly Lazy<ArenaPresetHandler> lazy = new Lazy<ArenaPresetHandler>(() => new ArenaPresetHandler());
+
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+
+		private ArenaPresetHandler()
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+		{
+			PresetTypes = App.Assembly.GetTypes().Where(t => t.FullName.Contains("Arena.Presets", StringComparison.InvariantCulture) && !t.IsAbstract && !t.Attributes.HasFlag(TypeAttributes.NestedPrivate)).OrderBy(t => t.Name);
+
+			foreach (Type type in PresetTypes)
+			{
+				if (Activator.CreateInstance(type) is AbstractArena arena)
+					ArenaPresets.Add(arena);
+			}
+
+			DefaultPreset = ArenaPresets.FirstOrDefault(a => a.GetType().Name == "Default");
+			ActivePreset = DefaultPreset;
+		}
+
+		public static ArenaPresetHandler Instance => lazy.Value;
+
 		public AbstractArena ActivePreset
 		{
 			get => activePreset;
@@ -22,25 +43,11 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 					App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !activePreset.IsFull;
 			}
 		}
+
 		public AbstractArena DefaultPreset { get; private set; }
 
 		public List<AbstractArena> ArenaPresets { get; private set; } = new List<AbstractArena>();
 
 		public IEnumerable<Type> PresetTypes { get; private set; }
-
-		private static readonly Lazy<ArenaPresetHandler> lazy = new Lazy<ArenaPresetHandler>(() => new ArenaPresetHandler());
-		public static ArenaPresetHandler Instance => lazy.Value;
-
-		private ArenaPresetHandler()
-		{
-			PresetTypes = App.Assembly.GetTypes().Where(t => t.FullName.Contains("Arena.Presets") && !t.IsAbstract && !t.Attributes.HasFlag(TypeAttributes.NestedPrivate)).OrderBy(t => t.Name);
-
-			foreach (Type type in PresetTypes)
-				if (Activator.CreateInstance(type) is AbstractArena arena)
-					ArenaPresets.Add(arena);
-
-			DefaultPreset = ArenaPresets.FirstOrDefault(a => a.GetType().Name == "Default");
-			ActivePreset = DefaultPreset;
-		}
 	}
 }

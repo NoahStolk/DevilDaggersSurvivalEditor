@@ -52,7 +52,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						Content = versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
 						Foreground = new SolidColorBrush(versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 95, 0) : Color.FromRgb(255, 0, 0)),
-						FontWeight = FontWeights.Bold
+						FontWeight = FontWeights.Bold,
 					});
 				});
 
@@ -67,8 +67,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				try
 				{
 					if (userSettingsFileExists)
-						using (StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName)))
-							UserHandler.Instance.settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+					{
+						using StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName));
+						UserHandler.Instance.settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+					}
 
 					readUserSettingsSuccess = true;
 				}
@@ -85,7 +87,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						Content = readUserSettingsSuccess ? userSettingsFileExists ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
 						Foreground = new SolidColorBrush(readUserSettingsSuccess ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 0, 0)),
-						FontWeight = FontWeights.Bold
+						FontWeight = FontWeights.Bold,
 					});
 				});
 
@@ -101,7 +103,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						Content = UserHandler.Instance.settings.SurvivalFileExists ? UserHandler.Instance.settings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
 						Foreground = new SolidColorBrush(!UserHandler.Instance.settings.SurvivalFileExists || !UserHandler.Instance.settings.SurvivalFileIsValid ? Color.FromRgb(255, 0, 0) : Color.FromRgb(0, 127, 0)),
-						FontWeight = FontWeights.Bold
+						FontWeight = FontWeights.Bold,
 					});
 				});
 			};
@@ -124,7 +126,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						Content = retrieveSpawnsetsSuccess ? "OK" : "Error",
 						Foreground = new SolidColorBrush(retrieveSpawnsetsSuccess ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 0, 0)),
-						FontWeight = FontWeights.Bold
+						FontWeight = FontWeights.Bold,
 					});
 				});
 
@@ -145,7 +147,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						Content = retrieveCustomLeaderboardsSuccess ? "OK" : "Error",
 						Foreground = new SolidColorBrush(retrieveCustomLeaderboardsSuccess ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 0, 0)),
-						FontWeight = FontWeights.Bold
+						FontWeight = FontWeights.Bold,
 					});
 				});
 
@@ -194,7 +196,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			TasksStackPanel.Children.Add(new Label
 			{
-				Content = threadMessages[threadsComplete]
+				Content = threadMessages[threadsComplete],
 			});
 
 			worker.RunWorkerAsync();

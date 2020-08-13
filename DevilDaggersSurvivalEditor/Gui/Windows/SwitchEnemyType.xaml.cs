@@ -8,7 +8,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class SwitchEnemyTypeWindow : Window
 	{
-		public readonly Dictionary<int, int> switchDictionary = new Dictionary<int, int>();
+		public readonly Dictionary<int, int> SwitchDictionary = new Dictionary<int, int>();
 
 		private readonly List<int> enemyTypes;
 		private readonly ComboBox[] comboBoxes;
@@ -19,7 +19,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			InitializeComponent();
 
-			SpawnsLabel.Content = $"Switch enemy types for {spawnCount} spawn{(spawnCount == 1 ? "" : "s")}";
+			SpawnsLabel.Content = $"Switch enemy types for {spawnCount} spawn{(spawnCount == 1 ? string.Empty : "s")}";
 
 			comboBoxes = new ComboBox[enemyTypes.Count];
 
@@ -49,7 +49,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
 			for (int i = 0; i < enemyTypes.Count; i++)
-				switchDictionary[enemyTypes[i]] = comboBoxes[i].SelectedIndex - 1;
+				SwitchDictionary[enemyTypes[i]] = comboBoxes[i].SelectedIndex - 1;
 
 			DialogResult = true;
 		}

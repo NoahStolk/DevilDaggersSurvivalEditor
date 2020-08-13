@@ -14,16 +14,7 @@ namespace DevilDaggersSurvivalEditor
 {
 	public partial class App : Application
 	{
-		public static string ApplicationName => "DevilDaggersSurvivalEditor";
-		public static string ApplicationDisplayName => "Devil Daggers Survival Editor";
-
-		public static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-		public static Assembly Assembly { get; private set; }
-		public static Version LocalVersion { get; private set; }
-
-		public static App Instance => (App)Current;
-		public new MainWindow MainWindow { get; set; }
+		public static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType ?? throw new Exception("Could not get declaring type of current method."));
 
 		public App()
 		{
@@ -35,6 +26,15 @@ namespace DevilDaggersSurvivalEditor
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 		}
 
+		public static string ApplicationName => "DevilDaggersSurvivalEditor";
+		public static string ApplicationDisplayName => "Devil Daggers Survival Editor";
+
+		public static Assembly Assembly { get; private set; }
+		public static Version LocalVersion { get; private set; }
+
+		public static App Instance => (App)Current;
+		public new MainWindow MainWindow { get; set; }
+
 		private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
 			ShowError("Fatal error", "An unhandled exception occurred in the main thread.", e.Exception);
@@ -45,17 +45,17 @@ namespace DevilDaggersSurvivalEditor
 
 		public void UpdateMainWindowTitle()
 		{
-			string spawnset = SpawnsetHandler.Instance.SpawnsetFileName.Contains("_") ? $"{SpawnsetFile.GetName(SpawnsetHandler.Instance.SpawnsetFileName)} by {SpawnsetFile.GetAuthor(SpawnsetHandler.Instance.SpawnsetFileName)}" : SpawnsetHandler.Instance.SpawnsetFileName;
+			string spawnset = SpawnsetHandler.Instance.SpawnsetFileName.Contains("_", StringComparison.InvariantCulture) ? $"{SpawnsetFile.GetName(SpawnsetHandler.Instance.SpawnsetFileName)} by {SpawnsetFile.GetAuthor(SpawnsetHandler.Instance.SpawnsetFileName)}" : SpawnsetHandler.Instance.SpawnsetFileName;
 			Dispatcher.Invoke(() =>
 			{
-				MainWindow.Title = $"{ApplicationDisplayName} {LocalVersion} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : "")}";
+				MainWindow.Title = $"{ApplicationDisplayName} {LocalVersion} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : string.Empty)}";
 			});
 		}
 
 		/// <summary>
 		/// Shows the error using the <see cref="ErrorWindow">ErrorWindow</see> and logs the error message (and <see cref="Exception">Exception</see> if there is one).
 		/// </summary>
-		public void ShowError(string title, string message, Exception ex = null)
+		public void ShowError(string title, string message, Exception? ex = null)
 		{
 			if (ex != null)
 				Log.Error(message, ex);

@@ -4,6 +4,6 @@
 	{
 		Height,
 		Select,
-		Deselect
+		Deselect,
 	}
 }

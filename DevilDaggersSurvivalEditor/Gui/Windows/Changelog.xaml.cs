@@ -24,8 +24,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					entryStackPanel.Children.Add(new TextBlock { Text = "Currently running", FontSize = 12, FontWeight = FontWeights.Bold, Padding = new Thickness(6, 0, 0, 6), Foreground = new SolidColorBrush(Color.FromRgb(0, 127, 0)) });
 				entryStackPanel.Children.Add(new TextBlock { Text = $"{entry.VersionNumber} - {entry.Date:MMMM dd, yyyy}", FontSize = 16, FontWeight = FontWeights.Bold, Padding = new Thickness(6, 0, 0, 6) });
 				foreach (Change change in entry.Changes)
+				{
 					foreach (Grid stackPanel in GetGrids(change, 1))
 						entryStackPanel.Children.Add(stackPanel);
+				}
+
 				border.Child = entryStackPanel;
 				Main.Children.Add(border);
 			}
@@ -46,9 +49,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			yield return changeGrid;
 
 			if (change.SubChanges != null)
+			{
 				foreach (Change subChange in change.SubChanges)
+				{
 					foreach (Grid stackPanel in GetGrids(subChange, level))
 						yield return stackPanel;
+				}
+			}
 		}
 	}
 }

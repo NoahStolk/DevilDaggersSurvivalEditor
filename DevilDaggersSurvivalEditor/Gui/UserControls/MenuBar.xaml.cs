@@ -27,8 +27,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				HelpItem.Header += " (Update available)";
 				HelpItem.FontWeight = FontWeights.Bold;
 
-				foreach (MenuItem menuItem in HelpItem.Items)
+				foreach (MenuItem? menuItem in HelpItem.Items)
+				{
+					if (menuItem == null)
+						continue;
 					menuItem.FontWeight = FontWeights.Normal;
+				}
 
 				UpdateItem.Header = "Update available";
 				UpdateItem.FontWeight = FontWeights.Bold;
@@ -51,7 +55,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			SpawnsetHandler.Instance.spawnset = new Spawnset
 			{
-				ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
+				ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles(),
 			};
 
 			App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
@@ -69,7 +73,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			if (result.HasValue && result.Value)
 			{
-				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out SpawnsetHandler.Instance.spawnset))
+				using FileStream fs = new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read);
+				if (!Spawnset.TryParse(fs, out SpawnsetHandler.Instance.spawnset))
 				{
 					App.Instance.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
 					return;
@@ -106,7 +111,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				return;
 			}
 
-			if (!Spawnset.TryParse(new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out SpawnsetHandler.Instance.spawnset))
+			using FileStream fs = new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Open, FileAccess.Read);
+			if (!Spawnset.TryParse(fs, out SpawnsetHandler.Instance.spawnset))
 			{
 				App.Instance.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;

@@ -8,11 +8,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 	/// This struct should not be used for arena indexing (hence why there is no tile height property), as coordinates are useless in that case.
 	/// Indexing is done explicitly using a two-dimensional array of floats, so use this struct for GUI-related tasks only.
 	/// </summary>
-	public struct ArenaCoord
+	public struct ArenaCoord : IEquatable<ArenaCoord>
 	{
-		public int X { get; }
-		public int Y { get; }
-
 		public ArenaCoord(int x, int y)
 		{
 			if (x < 0 || x >= Spawnset.ArenaWidth)
@@ -23,6 +20,13 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			X = x;
 			Y = y;
 		}
+
+		public int X { get; }
+		public int Y { get; }
+
+		public static bool operator ==(ArenaCoord a, ArenaCoord b) => Equals(a, b);
+
+		public static bool operator !=(ArenaCoord a, ArenaCoord b) => !(a == b);
 
 		public double GetDistanceToCanvasPointSquared(int canvasPoint)
 		{
@@ -44,10 +48,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 
 		public override string ToString() => $"{{{X}, {Y}}}";
 
-		public override bool Equals(object obj)
+		public override bool Equals(object? obj)
 		{
-			ArenaCoord coord = (ArenaCoord)obj;
+			if (obj == null)
+				return false;
 
+			ArenaCoord coord = (ArenaCoord)obj;
 			return X == coord.X && Y == coord.Y;
 		}
 
@@ -65,8 +71,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			}
 		}
 
-		public static bool operator ==(ArenaCoord a, ArenaCoord b) => Equals(a, b);
-
-		public static bool operator !=(ArenaCoord a, ArenaCoord b) => !(a == b);
+		public bool Equals(ArenaCoord other)
+			=> Equals(other);
 	}
 }

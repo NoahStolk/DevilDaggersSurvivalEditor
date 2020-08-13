@@ -17,21 +17,25 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			get => minHeight;
 			set => minHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
+
 		public float MaxHeight
 		{
 			get => maxHeight;
 			set => maxHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
+
 		public int Amount
 		{
 			get => amount;
 			set => amount = MathUtils.Clamp(value, 1, 10);
 		}
+
 		public int Iterations
 		{
 			get => iterations;
 			set => iterations = MathUtils.Clamp(value, 1, 4);
 		}
+
 		public float Steepness
 		{
 			get => steepness;
@@ -67,18 +71,21 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
 									SetNeighbour(coord, height);
 							}
+
 							if (j < Spawnset.ArenaWidth - 1)
 							{
 								ArenaCoord coord = new ArenaCoord(j + 1, k);
 								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
 									SetNeighbour(coord, height);
 							}
+
 							if (k > 0)
 							{
 								ArenaCoord coord = new ArenaCoord(j, k - 1);
 								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
 									SetNeighbour(coord, height);
 							}
+
 							if (k < Spawnset.ArenaHeight - 1)
 							{
 								ArenaCoord coord = new ArenaCoord(j, k + 1);

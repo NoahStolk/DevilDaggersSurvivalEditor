@@ -20,17 +20,18 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 		/// </summary>
 		private const int timeout = 7500;
 
-		public List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
-		public List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
-
-		public List<CustomLeaderboardBase> CustomLeaderboards { get; private set; } = new List<CustomLeaderboardBase>();
-
 		private static readonly Lazy<NetworkHandler> lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
-		public static NetworkHandler Instance => lazy.Value;
 
 		private NetworkHandler()
 		{
 		}
+
+		public static NetworkHandler Instance => lazy.Value;
+
+		public List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
+		public List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
+
+		public List<CustomLeaderboardBase> CustomLeaderboards { get; private set; } = new List<CustomLeaderboardBase>();
 
 		public bool RetrieveSpawnsetList()
 		{
@@ -102,7 +103,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 			}
 		}
 
-		public Spawnset DownloadSpawnset(string fileName)
+		public static Spawnset? DownloadSpawnset(string fileName)
 		{
 			string url = UrlUtils.ApiGetSpawnset(fileName);
 
@@ -112,8 +113,10 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 
 				using (TimeoutWebClient client = new TimeoutWebClient(timeout))
 				using (Stream stream = new MemoryStream(client.DownloadData(url)))
+				{
 					if (!Spawnset.TryParse(stream, out spawnset))
 						App.Instance.ShowError("Error parsing file", "Could not parse file.");
+				}
 
 				return spawnset;
 			}

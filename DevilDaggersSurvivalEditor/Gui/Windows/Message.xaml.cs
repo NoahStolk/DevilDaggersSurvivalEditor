@@ -4,8 +4,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class MessageWindow : Window
 	{
-		public string Message { get; set; }
-
 		public MessageWindow(string title, string message)
 		{
 			InitializeComponent();
@@ -15,6 +13,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			StackPanel.DataContext = this;
 		}
+
+		public string Message { get; set; }
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{

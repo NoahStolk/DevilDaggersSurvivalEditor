@@ -16,21 +16,25 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			get => offsetX;
 			set => offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
+
 		public int OffsetY
 		{
 			get => offsetY;
 			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
+
 		public float StartHeight
 		{
 			get => startheight;
 			set => startheight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
+
 		public float EndHeight
 		{
 			get => endHeight;
 			set => endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
+
 		public int Size
 		{
 			get => size;

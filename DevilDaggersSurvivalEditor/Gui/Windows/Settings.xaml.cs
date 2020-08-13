@@ -14,16 +14,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class SettingsWindow : Window
 	{
-#pragma warning disable IDE1006
+#pragma warning disable IDE1006, SA1310
 		private const int GWL_STYLE = -16;
 		private const int WS_SYSMENU = 0x80000;
-#pragma warning restore IDE1006
-
-		[DllImport("user32.dll", SetLastError = true)]
-		private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-		[DllImport("user32.dll")]
-		private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+#pragma warning restore IDE1006, SA1310
 
 		public SettingsWindow()
 		{
@@ -35,6 +29,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			Data.DataContext = UserHandler.Instance.settings;
 		}
+
+		[DllImport("user32.dll", SetLastError = true)]
+		private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+		[DllImport("user32.dll")]
+		private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -54,7 +54,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog
 			{
-				SelectedPath = UserHandler.Instance.settings.SurvivalFileRootFolder
+				SelectedPath = UserHandler.Instance.settings.SurvivalFileRootFolder,
 			};
 
 			if (dialog.ShowDialog() == true)
@@ -66,7 +66,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Process process = ProcessUtils.GetDevilDaggersProcess();
 			if (process != null)
 			{
-				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName), "dd"));
+				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? throw new Exception("Could not get directory name from process."), "dd"));
 				return;
 			}
 
