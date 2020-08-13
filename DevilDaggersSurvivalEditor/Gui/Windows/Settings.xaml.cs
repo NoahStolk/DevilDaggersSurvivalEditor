@@ -1,7 +1,7 @@
 ﻿using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -52,15 +52,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void BrowseButton_Click(object sender, RoutedEventArgs e)
 		{
-			using CommonOpenFileDialog dialog = new CommonOpenFileDialog
+			VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog
 			{
-				IsFolderPicker = true,
-				InitialDirectory = UserHandler.Instance.settings.SurvivalFileRootFolder
+				SelectedPath = UserHandler.Instance.settings.SurvivalFileRootFolder
 			};
-			CommonFileDialogResult result = dialog.ShowDialog();
 
-			if (result == CommonFileDialogResult.Ok)
-				SetSurvivalFileRootFolder(dialog.FileName);
+			if (dialog.ShowDialog() == true)
+				SetSurvivalFileRootFolder(dialog.SelectedPath);
 		}
 
 		private void AutoDetectButton_Click(object sender, RoutedEventArgs e)

@@ -3,7 +3,6 @@ using DevilDaggersCore.Tools;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using log4net;
-using log4net.Config;
 using System;
 using System.Globalization;
 using System.Reflection;
@@ -34,8 +33,6 @@ namespace DevilDaggersSurvivalEditor
 			Assembly = Assembly.GetExecutingAssembly();
 			LocalVersion = VersionHandler.GetLocalVersion(Assembly);
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
-
-			XmlConfigurator.Configure();
 		}
 
 		private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
