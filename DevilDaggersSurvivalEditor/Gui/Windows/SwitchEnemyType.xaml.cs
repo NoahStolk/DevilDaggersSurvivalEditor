@@ -8,8 +8,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class SwitchEnemyTypeWindow : Window
 	{
-		public readonly Dictionary<int, int> SwitchDictionary = new Dictionary<int, int>();
-
 		private readonly List<int> enemyTypes;
 		private readonly ComboBox[] comboBoxes;
 
@@ -45,6 +43,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				SwitchStackPanel.Children.Add(grid);
 			}
 		}
+
+		public Dictionary<int, int> SwitchDictionary { get; } = new Dictionary<int, int>();
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{

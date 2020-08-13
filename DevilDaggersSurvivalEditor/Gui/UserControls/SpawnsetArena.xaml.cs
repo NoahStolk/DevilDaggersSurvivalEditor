@@ -652,13 +652,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
 		{
-			ArenaPresetWindow presetWindow = new ArenaPresetWindow((ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString());
+			string presetName = (ComboBoxArenaPreset.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? throw new Exception("Could not retrieve preset name.");
+			ArenaPresetWindow presetWindow = new ArenaPresetWindow(presetName);
 			presetWindow.ShowDialog();
 		}
 
 		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.FirstOrDefault(a => a.GetType().Name == (ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString());
+			string presetName = (ComboBoxArenaPreset.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? throw new Exception("Could not retrieve preset name.");
+			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.FirstOrDefault(a => a.GetType().Name == presetName);
 
 			ConfigureButton.IsEnabled = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Any(p => p.SetMethod != null);
 		}
