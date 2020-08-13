@@ -69,7 +69,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						enemy = GameInfo.V3Ghostpede;
 
 					seconds = spawnSecond;
-					totalGems += enemy.Gems;
+					totalGems += enemy.NoFarmGems;
 
 					if (i == Wave - 1)
 					{
@@ -101,7 +101,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
 			{
 				seconds += kvp.Value.Delay;
-				totalGems += kvp.Value.Enemy.Gems;
+				totalGems += kvp.Value.Enemy.NoFarmGems;
 			}
 
 			Update(seconds, totalGems);

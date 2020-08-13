@@ -383,7 +383,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					int current = 0;
 					foreach (int enemyType in enemyTypes)
 					{
-						if (SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy.SpawnsetType == enemyType)
+						if ((SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy?.SpawnsetType ?? -1) == enemyType)
 						{
 							current = enemyType;
 							break;
