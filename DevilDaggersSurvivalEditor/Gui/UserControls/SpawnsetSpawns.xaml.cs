@@ -34,7 +34,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			DelayTextBox.Text = Delay.ToString(CultureInfo.InvariantCulture);
 			AmountTextBox.DataContext = this;
 
-			for (int i = -1; i < 9; i++)
+			for (int i = -1; i < 10; i++)
 				ComboBoxEnemy.Items.Add(new ComboBoxItem { Content = GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == i)?.Name ?? "EMPTY" });
 		}
 

@@ -1,6 +1,5 @@
 ﻿using DevilDaggersCore.Game;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -28,14 +27,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 
-				Label label = new Label { Content = $"Turn {GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == enemyType).Name} into" };
+				Label label = new Label { Content = $"Turn {GameInfo.GetEnemyBySpawnsetType(enemyType, GameVersion.V3)?.Name ?? "EMPTY"} into" };
 				Grid.SetColumn(label, 0);
 				grid.Children.Add(label);
 
 				ComboBox comboBox = new ComboBox { SelectedIndex = enemyType + 1 };
 
-				for (int j = -1; j < 9; j++)
-					comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == j) });
+				for (int j = -1; j < 10; j++)
+					comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEnemyBySpawnsetType(j, GameVersion.V3)?.Name ?? "EMPTY" });
 				Grid.SetColumn(comboBox, 1);
 				grid.Children.Add(comboBox);
 				comboBoxes[i++] = comboBox;
