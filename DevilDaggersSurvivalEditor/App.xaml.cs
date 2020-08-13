@@ -3,8 +3,11 @@ using DevilDaggersCore.Tools;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using log4net;
+using log4net.Config;
+using log4net.Repository;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
@@ -24,6 +27,9 @@ namespace DevilDaggersSurvivalEditor
 			Assembly = Assembly.GetExecutingAssembly();
 			LocalVersion = VersionHandler.GetLocalVersion(Assembly);
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+
+			ILoggerRepository? logRepository = LogManager.GetRepository(Assembly.GetExecutingAssembly());
+			XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
 		}
 
 		public static string ApplicationName => "DevilDaggersSurvivalEditor";
