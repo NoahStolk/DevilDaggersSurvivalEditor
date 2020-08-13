@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Utils;
+using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
 using Ookii.Dialogs.Wpf;
@@ -6,7 +7,6 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
@@ -30,17 +30,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Data.DataContext = UserHandler.Instance.settings;
 		}
 
-		[DllImport("user32.dll", SetLastError = true)]
-		private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-		[DllImport("user32.dll")]
-		private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			// Removes Exit button.
 			IntPtr hwnd = new WindowInteropHelper(this).Handle;
-			SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
+#pragma warning disable CA1806 // Do not ignore method results
+			NativeMethods.SetWindowLong(hwnd, GWL_STYLE, NativeMethods.GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
+#pragma warning restore CA1806 // Do not ignore method results
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
