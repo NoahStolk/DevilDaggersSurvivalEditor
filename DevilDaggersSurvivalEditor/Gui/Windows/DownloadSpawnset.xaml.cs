@@ -267,10 +267,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__", StringComparison.InvariantCulture) },
 				new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) },
 				new Label { Content = customLeaderboardElement },
-				new Label { Content = !entry.SpawnsetFile.spawnsetData.NonLoopLengthNullable.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLengthNullable.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawns.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = !entry.SpawnsetFile.spawnsetData.LoopLengthNullable.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLengthNullable.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawns == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawns.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = !entry.SpawnsetFile.spawnsetData.NonLoopLength.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawnCount == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = !entry.SpawnsetFile.spawnsetData.LoopLength.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawnCount == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
 			};
 
 			for (int i = 0; i < elements.Count; i++)
