@@ -107,6 +107,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				}
 			}
 
+			if (!SpawnsetHandler.Instance.spawnset.Spawns.Any(s => s.Value.Enemy == null))
+				endLoopSpawns++;
+
 			Dispatcher.Invoke(() =>
 			{
 				App.Instance.MainWindow.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
