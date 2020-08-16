@@ -54,7 +54,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		public void UpdateWarningEndLoopLength(bool visible, double loopLength)
 		{
 			WarningEndLoopLength.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
-			WarningEndLoopLength.Text = visible ? $"The end loop is only {loopLength} seconds long, which will probably result in Devil Daggers lagging and becoming unstable." : string.Empty;
+			WarningEndLoopLength.Text = visible ? $"The end loop is only {loopLength:0.0000} seconds long, which will probably result in Devil Daggers lagging and becoming unstable." : string.Empty;
 		}
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
