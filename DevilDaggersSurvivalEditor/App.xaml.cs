@@ -23,8 +23,6 @@ namespace DevilDaggersSurvivalEditor
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 			Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
-			Assembly = Assembly.GetExecutingAssembly();
-			LocalVersion = Version.Parse(FileVersionInfo.GetVersionInfo(Assembly.Location).FileVersion);
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
 			ILoggerRepository? logRepository = LogManager.GetRepository(Assembly.GetExecutingAssembly());
@@ -34,8 +32,8 @@ namespace DevilDaggersSurvivalEditor
 		public static string ApplicationName => "DevilDaggersSurvivalEditor";
 		public static string ApplicationDisplayName => "Devil Daggers Survival Editor";
 
-		public static Assembly Assembly { get; private set; }
-		public static Version LocalVersion { get; private set; }
+		public static Assembly Assembly { get; private set; } = Assembly.GetExecutingAssembly();
+		public static Version LocalVersion { get; private set; } = Version.Parse(FileVersionInfo.GetVersionInfo(Assembly.Location).FileVersion);
 
 		public static App Instance => (App)Current;
 		public new MainWindow MainWindow { get; set; }
