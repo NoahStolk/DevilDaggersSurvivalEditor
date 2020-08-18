@@ -34,6 +34,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			VersionLabel.Content += " DEBUG";
 #endif
 
+			Loaded += RunThreads;
+		}
+
+		private void RunThreads(object? sender, EventArgs e)
+		{
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
@@ -190,10 +195,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					mainWindow.Show();
 				});
 			};
-			mainInitThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
-			{
-				Close();
-			};
+			mainInitThread.RunWorkerCompleted += (sender, e) => Close();
 
 			threads.Add(checkVersionThread);
 			threads.Add(readUserSettingsThread);
