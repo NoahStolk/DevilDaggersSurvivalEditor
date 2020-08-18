@@ -1,11 +1,10 @@
-﻿using DevilDaggersCore.Spawnsets.Web;
-using DevilDaggersCore.Tools;
-using DevilDaggersSurvivalEditor.Code.Spawnsets;
+﻿using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -25,7 +24,7 @@ namespace DevilDaggersSurvivalEditor
 			Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
 			Assembly = Assembly.GetExecutingAssembly();
-			LocalVersion = VersionHandler.GetLocalVersion(Assembly);
+			LocalVersion = Version.Parse(FileVersionInfo.GetVersionInfo(Assembly.Location).FileVersion);
 			Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
 			ILoggerRepository? logRepository = LogManager.GetRepository(Assembly.GetExecutingAssembly());
@@ -51,7 +50,7 @@ namespace DevilDaggersSurvivalEditor
 
 		public void UpdateMainWindowTitle()
 		{
-			string spawnset = SpawnsetHandler.Instance.SpawnsetFileName.Contains("_", StringComparison.InvariantCulture) ? $"{SpawnsetFile.GetName(SpawnsetHandler.Instance.SpawnsetFileName)} by {SpawnsetFile.GetAuthor(SpawnsetHandler.Instance.SpawnsetFileName)}" : SpawnsetHandler.Instance.SpawnsetFileName;
+			string spawnset = /*SpawnsetHandler.Instance.SpawnsetFileName.Contains("_", StringComparison.InvariantCulture) ? $"{SpawnsetFile.GetName(SpawnsetHandler.Instance.SpawnsetFileName)} by {SpawnsetFile.GetAuthor(SpawnsetHandler.Instance.SpawnsetFileName)}" :*/ SpawnsetHandler.Instance.SpawnsetFileName; // TODO
 			Dispatcher.Invoke(() =>
 			{
 				MainWindow.Title = $"{ApplicationDisplayName} {LocalVersion} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : string.Empty)}";

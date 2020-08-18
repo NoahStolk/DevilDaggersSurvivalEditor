@@ -1,7 +1,7 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Tools;
 using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Gui.Windows;
@@ -22,7 +22,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			InitializeComponent();
 
-			if (VersionHandler.Instance.VersionResult.IsUpToDate.HasValue && !VersionHandler.Instance.VersionResult.IsUpToDate.Value)
+			if (NetworkHandler.Instance.Tool != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 			{
 				HelpItem.Header += " (Update available)";
 				HelpItem.FontWeight = FontWeights.Bold;
@@ -163,7 +163,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void Browse_Click(object sender, RoutedEventArgs e)
-			=> ProcessUtils.OpenUrl(UrlUtils.Spawnsets);
+			=> ProcessUtils.OpenUrl(UrlUtils.SpawnsetsPage);
 
 		private void Discord_Click(object sender, RoutedEventArgs e)
 			=> ProcessUtils.OpenUrl(UrlUtils.DiscordInviteLink);
@@ -182,7 +182,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void Changelog_Click(object sender, RoutedEventArgs e)
 		{
-			if (VersionHandler.Instance.VersionResult.Tool.Changelog != null)
+			if (NetworkHandler.Instance.Tool != null)
 			{
 				ChangelogWindow changelogWindow = new ChangelogWindow();
 				changelogWindow.ShowDialog();
@@ -201,10 +201,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
 			window.ShowDialog();
 
-			VersionResult versionResult = VersionHandler.Instance.VersionResult;
-			if (versionResult.IsUpToDate.HasValue)
+			if (NetworkHandler.Instance.Tool != null)
 			{
-				if (!versionResult.IsUpToDate.Value)
+				if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 				{
 					UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
 					updateRecommendedWindow.ShowDialog();
@@ -216,7 +215,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 			else
 			{
-				App.Instance.ShowError($"Error retrieving version number for '{App.ApplicationName}'", versionResult.Exception.Message, versionResult.Exception.InnerException);
+				App.Instance.ShowError("Error retrieving tool information", "An error occurred while attempting to retrieve tool information from the API.");
 			}
 		}
 

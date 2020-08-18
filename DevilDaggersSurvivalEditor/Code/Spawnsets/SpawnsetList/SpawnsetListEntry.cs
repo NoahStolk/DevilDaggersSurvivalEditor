@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Spawnsets.Web;
+﻿using DevilDaggersSurvivalEditor.Code.Clients;
 
 namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 {

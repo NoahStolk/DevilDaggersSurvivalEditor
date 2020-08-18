@@ -1,5 +1,5 @@
-﻿using DevilDaggersCore.Tools;
-using DevilDaggersCore.Utils;
+﻿using DevilDaggersCore.Utils;
+using DevilDaggersSurvivalEditor.Code.Network;
 using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.Gui.Windows
@@ -10,7 +10,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			InitializeComponent();
 
-			Text.Content = $"{App.ApplicationDisplayName} {VersionHandler.Instance.VersionResult.Tool.VersionNumber} is available. The current version is {App.LocalVersion}.";
+			if (NetworkHandler.Instance.Tool == null)
+			{
+				App.Log.Warn($"{nameof(UpdateRecommendedWindow)} was opened but tool info was not received.");
+				Close();
+				return;
+			}
+
+			Text.Content = $"{App.ApplicationDisplayName} {NetworkHandler.Instance.Tool.VersionNumber} is available. The current version is {App.LocalVersion}.";
 		}
 
 		private void DownloadButton_Click(object sender, RoutedEventArgs e)

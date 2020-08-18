@@ -1,5 +1,4 @@
-﻿using DevilDaggersCore.Tools;
-using DevilDaggersCore.Utils;
+﻿using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.User;
@@ -8,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -37,21 +37,44 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				VersionHandler.Instance.GetOnlineVersion(App.ApplicationName, App.LocalVersion);
+				Task toolTask = NetworkHandler.Instance.GetOnlineTool();
+				toolTask.Wait();
 			};
 			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{
 				Dispatcher.Invoke(() =>
 				{
-					VersionResult versionResult = VersionHandler.Instance.VersionResult;
+					string message = string.Empty;
+					Color color = default;
 
-					if (versionResult.Exception != null)
-						App.Instance.ShowError($"Error retrieving version number for '{App.ApplicationName}'", versionResult.Exception.Message, versionResult.Exception.InnerException);
+					if (NetworkHandler.Instance.Tool == null)
+					{
+						message = "Error";
+						color = Color.FromRgb(255, 0, 0);
+					}
+					else
+					{
+						if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumberRequired))
+						{
+							message = "Warning (update required)";
+							color = Color.FromRgb(255, 63, 0);
+						}
+						else if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
+						{
+							message = "Warning (update recommended)";
+							color = Color.FromRgb(191, 191, 0);
+						}
+						else
+						{
+							message = "OK (up to date)";
+							color = Color.FromRgb(0, 127, 0);
+						}
+					}
 
 					TaskResultsStackPanel.Children.Add(new Label
 					{
-						Content = versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
-						Foreground = new SolidColorBrush(versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 95, 0) : Color.FromRgb(255, 0, 0)),
+						Content = message,
+						Foreground = new SolidColorBrush(color),
 						FontWeight = FontWeights.Bold,
 					});
 				});
@@ -116,7 +139,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			BackgroundWorker retrieveSpawnsetsThread = new BackgroundWorker();
 			retrieveSpawnsetsThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				retrieveSpawnsetsSuccess = NetworkHandler.Instance.RetrieveSpawnsetList();
+				Task<bool> spawnsetsTask = NetworkHandler.Instance.RetrieveSpawnsetList();
+				spawnsetsTask.Wait();
+				retrieveSpawnsetsSuccess = spawnsetsTask.Result;
 			};
 			retrieveSpawnsetsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{
@@ -137,7 +162,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			BackgroundWorker retrieveCustomLeaderboardsThread = new BackgroundWorker();
 			retrieveCustomLeaderboardsThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				retrieveCustomLeaderboardsSuccess = NetworkHandler.Instance.RetrieveCustomLeaderboardList();
+				Task<bool> customLeaderboardsTask = NetworkHandler.Instance.RetrieveCustomLeaderboardList();
+				customLeaderboardsTask.Wait();
+				retrieveCustomLeaderboardsSuccess = customLeaderboardsTask.Result;
 			};
 			retrieveCustomLeaderboardsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{

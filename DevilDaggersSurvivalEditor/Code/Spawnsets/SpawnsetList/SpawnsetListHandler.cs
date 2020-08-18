@@ -32,12 +32,12 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 		{
 			new SpawnsetListSorting<SpawnsetListEntry>("Name", "Name", s => s.SpawnsetFile.Name, true),
 			new SpawnsetListSorting<SpawnsetListEntry>("Author", "Author", s => s.SpawnsetFile.Author, true),
-			new SpawnsetListSorting<SpawnsetListEntry>("Last updated", "Last updated", s => s.SpawnsetFile.settings.LastUpdated, false),
+			new SpawnsetListSorting<SpawnsetListEntry>("Last updated", "Last updated", s => s.SpawnsetFile.Settings.LastUpdated, false),
 			new SpawnsetListSorting<SpawnsetListEntry>("Custom leaderboard", "LB", s => s.HasLeaderboard, false) { Ascending = true },
-			new SpawnsetListSorting<SpawnsetListEntry>("Non-loop length", "Length", s => s.SpawnsetFile.spawnsetData.NonLoopLength, false),
-			new SpawnsetListSorting<SpawnsetListEntry>("Non-loop spawns", "Spawns", s => s.SpawnsetFile.spawnsetData.NonLoopSpawnCount, false),
-			new SpawnsetListSorting<SpawnsetListEntry>("Loop length", "Length", s => s.SpawnsetFile.spawnsetData.LoopLength, false),
-			new SpawnsetListSorting<SpawnsetListEntry>("Loop spawns", "Spawns", s => s.SpawnsetFile.spawnsetData.LoopSpawnCount, false),
+			new SpawnsetListSorting<SpawnsetListEntry>("Non-loop length", "Length", s => s.SpawnsetFile.SpawnsetData.NonLoopLength ?? 0, false),
+			new SpawnsetListSorting<SpawnsetListEntry>("Non-loop spawns", "Spawns", s => s.SpawnsetFile.SpawnsetData.NonLoopSpawnCount, false),
+			new SpawnsetListSorting<SpawnsetListEntry>("Loop length", "Length", s => s.SpawnsetFile.SpawnsetData.LoopLength ?? 0, false),
+			new SpawnsetListSorting<SpawnsetListEntry>("Loop spawns", "Spawns", s => s.SpawnsetFile.SpawnsetData.LoopSpawnCount, false),
 		};
 	}
 }

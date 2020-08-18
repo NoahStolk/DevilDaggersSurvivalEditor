@@ -1,5 +1,4 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Spawnsets.Web;
 using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Network;
@@ -94,9 +93,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Spawnset? download = null;
 
 			using BackgroundWorker thread = new BackgroundWorker();
-			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
+			thread.DoWork += async (object senderDoWork, DoWorkEventArgs eDoWork) =>
 			{
-				download = NetworkHandler.DownloadSpawnset(fileName);
+				download = await NetworkHandler.Instance.DownloadSpawnset(fileName);
 				if (download != null)
 				{
 					SpawnsetHandler.Instance.spawnset = download;
@@ -116,7 +115,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Do you want to replace the currently active 'survival' file as well?");
 					confirmWindow.ShowDialog();
 					if (confirmWindow.Confirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, UserHandler.Instance.settings.SurvivalFileLocation))
-						App.Instance.ShowMessage("Success", $"Successfully replaced 'survival' file with '{SpawnsetFile.GetName(fileName)}'.");
+						App.Instance.ShowMessage("Success", $"Successfully replaced 'survival' file with '{fileName}'.");
 				});
 			};
 
@@ -138,10 +137,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			ReloadButton.Content = "Loading...";
 
 			using BackgroundWorker thread = new BackgroundWorker();
-			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
+			thread.DoWork += async (object senderDoWork, DoWorkEventArgs eDoWork) =>
 			{
-				NetworkHandler.Instance.RetrieveSpawnsetList();
-				NetworkHandler.Instance.RetrieveCustomLeaderboardList();
+				await NetworkHandler.Instance.RetrieveSpawnsetList();
+				await NetworkHandler.Instance.RetrieveCustomLeaderboardList();
 			};
 			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
 			{
@@ -211,7 +210,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			nameHyperlink.Click += (sender, e) => Download_Click($"{entry.SpawnsetFile.Name}_{entry.SpawnsetFile.Author}");
 
 			UIElement nameElement;
-			if (string.IsNullOrEmpty(entry.SpawnsetFile.settings.Description))
+			if (string.IsNullOrEmpty(entry.SpawnsetFile.Settings.Description))
 			{
 				Label label = new Label { Content = nameHyperlink };
 				nameElement = label;
@@ -219,7 +218,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			else
 			{
 				// TODO: Use a proper HTML to XAML converter.
-				string description = entry.SpawnsetFile.settings.Description
+				string description = entry.SpawnsetFile.Settings.Description
 					.Trim(' ')
 					.Replace("<br />", "\n", StringComparison.InvariantCulture)
 					.Replace("<ul>", "\n", StringComparison.InvariantCulture)
@@ -248,7 +247,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Span customLeaderboardElement;
 			if (entry.HasLeaderboard)
 			{
-				Hyperlink hyperlink = new Hyperlink(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboard(entry.SpawnsetFile.FileName)) };
+				Hyperlink hyperlink = new Hyperlink(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboardPage(entry.SpawnsetFile.FileName)) };
 				hyperlink.RequestNavigate += (sender, e) =>
 				{
 					Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
@@ -265,12 +264,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			{
 				nameElement,
 				new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__", StringComparison.InvariantCulture) },
-				new Label { Content = entry.SpawnsetFile.settings.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) },
+				new Label { Content = entry.SpawnsetFile.Settings.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) },
 				new Label { Content = customLeaderboardElement },
-				new Label { Content = !entry.SpawnsetFile.spawnsetData.NonLoopLength.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = entry.SpawnsetFile.spawnsetData.NonLoopSpawnCount == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = !entry.SpawnsetFile.spawnsetData.LoopLength.HasValue ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = entry.SpawnsetFile.spawnsetData.LoopSpawnCount == 0 ? "N/A" : entry.SpawnsetFile.spawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = !entry.SpawnsetFile.SpawnsetData.NonLoopLength.HasValue ? "N/A" : entry.SpawnsetFile.SpawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = entry.SpawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : entry.SpawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = !entry.SpawnsetFile.SpawnsetData.LoopLength.HasValue ? "N/A" : entry.SpawnsetFile.SpawnsetData.LoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
+				new Label { Content = entry.SpawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : entry.SpawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
 			};
 
 			for (int i = 0; i < elements.Count; i++)

@@ -1,5 +1,5 @@
-﻿using DevilDaggersCore.Tools;
-using DevilDaggersSurvivalEditor.Code.Arena;
+﻿using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using System;
@@ -30,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (VersionHandler.Instance.VersionResult.IsUpToDate.HasValue && !VersionHandler.Instance.VersionResult.IsUpToDate.Value)
+			if (NetworkHandler.Instance.Tool != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 			{
 				UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
 				updateRecommendedWindow.ShowDialog();
@@ -90,7 +90,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 		}
 
-		private void MainWindow_Closed(object sender, EventArgs e)
+		private void MainWindow_Closed(object? sender, EventArgs e)
 		{
 			Application.Current.Shutdown();
 		}
