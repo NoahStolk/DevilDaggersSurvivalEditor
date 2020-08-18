@@ -9,7 +9,6 @@ using DevilDaggersSurvivalEditor.Code.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -250,7 +249,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				Hyperlink hyperlink = new Hyperlink(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboardPage(entry.SpawnsetFile.FileName)) };
 				hyperlink.RequestNavigate += (sender, e) =>
 				{
-					Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+					ProcessUtils.OpenUrl(e.Uri.AbsoluteUri);
 					e.Handled = true;
 				};
 				customLeaderboardElement = hyperlink;
