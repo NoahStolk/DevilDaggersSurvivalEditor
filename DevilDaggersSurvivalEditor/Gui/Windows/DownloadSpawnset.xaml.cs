@@ -45,6 +45,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			SortAuthorsListBox(SpawnsetListHandler.Instance.ActiveAuthorSorting);
 			SortSpawnsetsStackPanel(SpawnsetListHandler.Instance.ActiveSpawnsetSorting);
 
+			AuthorSearchTextBox.Text = SpawnsetListHandler.Instance.AuthorSearch;
+			SpawnsetSearchTextBox.Text = SpawnsetListHandler.Instance.SpawnsetSearch;
+
 			FilterAuthorsListBox();
 			FilterSpawnsetsStackPanel();
 		}
