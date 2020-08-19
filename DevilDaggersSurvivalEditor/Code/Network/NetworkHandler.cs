@@ -39,8 +39,6 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 
 		public List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
 
-		public List<CustomLeaderboard> CustomLeaderboards { get; private set; } = new List<CustomLeaderboard>();
-
 		public async Task<bool> GetOnlineTool()
 		{
 			try
@@ -73,38 +71,13 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 				}
 
 				foreach (SpawnsetFile spawnsetFile in spawnsetFiles)
-					Spawnsets.Add(new SpawnsetListEntry { SpawnsetFile = spawnsetFile });
+					Spawnsets.Add(new SpawnsetListEntry { SpawnsetFile = spawnsetFile, HasCustomLeaderboard = spawnsetFile.HasCustomLeaderboard });
 
 				return true;
 			}
 			catch (Exception ex)
 			{
 				App.Instance.ShowError("Error retrieving spawnset list", "An error occurred while attempting to retrieve spawnsets from the API.", ex);
-				return false;
-			}
-		}
-
-		public async Task<bool> RetrieveCustomLeaderboardList()
-		{
-			try
-			{
-				// The spawnset list must be retrieved first.
-				if (Spawnsets.Count == 0)
-				{
-					App.Instance.ShowError("Could not retrieve custom leaderboard list", "The internal spawnset list is empty. This must be initialized before retrieving the custom leaderboard list.");
-					return false;
-				}
-
-				CustomLeaderboards = await ApiClient.CustomLeaderboards_GetCustomLeaderboardsAsync();
-
-				foreach (SpawnsetListEntry entry in Spawnsets)
-					entry.HasLeaderboard = CustomLeaderboards.Any(l => l.SpawnsetFileName == entry.SpawnsetFile.FileName);
-
-				return true;
-			}
-			catch (Exception ex)
-			{
-				App.Instance.ShowError("Error retrieving custom leaderboard list", "An error occurred while attempting to retrieve custom leaderboards from the API.", ex);
 				return false;
 			}
 		}

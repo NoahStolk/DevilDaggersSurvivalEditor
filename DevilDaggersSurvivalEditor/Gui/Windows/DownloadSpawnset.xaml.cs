@@ -143,10 +143,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			ReloadButton.Content = "Loading...";
 
 			using BackgroundWorker thread = new BackgroundWorker();
-			thread.DoWork += async (object senderDoWork, DoWorkEventArgs eDoWork) =>
+			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
 			{
-				await NetworkHandler.Instance.RetrieveSpawnsetList();
-				await NetworkHandler.Instance.RetrieveCustomLeaderboardList();
+				Task spawnsetsTask = NetworkHandler.Instance.RetrieveSpawnsetList();
+				spawnsetsTask.Wait();
 			};
 			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
 			{
@@ -251,7 +251,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 
 			Span customLeaderboardElement;
-			if (entry.HasLeaderboard)
+			if (entry.HasCustomLeaderboard)
 			{
 				Hyperlink hyperlink = new Hyperlink(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboardPage(entry.SpawnsetFile.FileName)) };
 				hyperlink.RequestNavigate += (sender, e) =>

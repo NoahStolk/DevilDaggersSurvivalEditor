@@ -2489,6 +2489,9 @@ namespace DevilDaggersSurvivalEditor.Code.Clients
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Author { get; set; }= default!;
     
+        [Newtonsoft.Json.JsonProperty("hasCustomLeaderboard", Required = Newtonsoft.Json.Required.Always)]
+        public bool HasCustomLeaderboard { get; set; }= default!;
+    
     
     }
     
