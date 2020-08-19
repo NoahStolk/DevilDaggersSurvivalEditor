@@ -90,7 +90,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": null,
+      "output": "DevilDaggersInfoApiClient.cs",
       "newLineBehavior": "Auto"
     }
   }
