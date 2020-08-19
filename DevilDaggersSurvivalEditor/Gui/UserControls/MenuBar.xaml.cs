@@ -73,8 +73,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			if (result.HasValue && result.Value)
 			{
-				using FileStream fs = new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read);
-				if (!Spawnset.TryParse(fs, out SpawnsetHandler.Instance.spawnset))
+				if (!Spawnset.TryParse(File.ReadAllBytes(dialog.FileName), out SpawnsetHandler.Instance.spawnset))
 				{
 					App.Instance.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
 					return;
@@ -111,8 +110,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				return;
 			}
 
-			using FileStream fs = new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Open, FileAccess.Read);
-			if (!Spawnset.TryParse(fs, out SpawnsetHandler.Instance.spawnset))
+			if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.settings.SurvivalFileLocation), out SpawnsetHandler.Instance.spawnset))
 			{
 				App.Instance.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;

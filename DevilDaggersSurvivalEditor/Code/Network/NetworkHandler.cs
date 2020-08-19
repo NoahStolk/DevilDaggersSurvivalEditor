@@ -113,14 +113,12 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 		{
 			try
 			{
-				Spawnset spawnset;
-
-				await ApiClient.Spawnsets_GetSpawnsetFileAsync(fileName); // TODO
-				using (Stream stream = new MemoryStream())
-				{
-					if (!Spawnset.TryParse(stream, out spawnset))
-						App.Instance.ShowError("Error parsing file", "Could not parse file.");
-				}
+				using FileResponse fileResponse = await ApiClient.Spawnsets_GetSpawnsetFileAsync(fileName);
+				using MemoryStream memoryStream = new MemoryStream();
+				fileResponse.Stream.CopyTo(memoryStream);
+				byte[] bytes = memoryStream.ToArray();
+				if (!Spawnset.TryParse(bytes, out Spawnset spawnset))
+					App.Instance.ShowError("Error parsing file", "Could not parse file.");
 
 				return spawnset;
 			}

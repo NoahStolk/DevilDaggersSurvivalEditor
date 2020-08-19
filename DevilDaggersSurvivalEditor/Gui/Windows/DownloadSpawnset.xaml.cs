@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -89,21 +90,24 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			Close();
 
-			Spawnset? download = null;
+			Spawnset? downloadedSpawnset = null;
 
 			using BackgroundWorker thread = new BackgroundWorker();
-			thread.DoWork += async (object senderDoWork, DoWorkEventArgs eDoWork) =>
+			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
 			{
-				download = await NetworkHandler.Instance.DownloadSpawnset(fileName);
-				if (download != null)
+				Task<Spawnset?> downloadTask = NetworkHandler.Instance.DownloadSpawnset(fileName);
+				downloadTask.Wait();
+				downloadedSpawnset = downloadTask.Result;
+
+				if (downloadedSpawnset != null)
 				{
-					SpawnsetHandler.Instance.spawnset = download;
+					SpawnsetHandler.Instance.spawnset = downloadedSpawnset;
 					SpawnsetHandler.Instance.UpdateSpawnsetState(fileName, string.Empty);
 				}
 			};
 			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
 			{
-				if (download == null)
+				if (downloadedSpawnset == null)
 					return;
 
 				Dispatcher.Invoke(() =>
