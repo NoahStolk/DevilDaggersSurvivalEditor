@@ -26,7 +26,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			{
 				Label label = new Label()
 				{
-					Content = p.Name.ToUserFriendlyString()
+					Content = p.Name.ToUserFriendlyString(),
 				};
 
 				Control control;
@@ -35,7 +35,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					control = new CheckBox()
 					{
 						Name = p.Name,
-						Tag = p.PropertyType
+						Tag = p.PropertyType,
 					};
 				}
 				else
@@ -44,7 +44,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						Name = p.Name,
 						Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset).ToString(),
-						Tag = p.PropertyType
+						Tag = p.PropertyType,
 					};
 					textBox.TextChanged += TextBox_TextChanged;
 

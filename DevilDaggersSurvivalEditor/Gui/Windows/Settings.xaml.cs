@@ -1,12 +1,12 @@
 ﻿using DevilDaggersCore.Utils;
+using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.User;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
@@ -14,22 +14,16 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class SettingsWindow : Window
 	{
-#pragma warning disable IDE1006
+#pragma warning disable IDE1006, SA1310
 		private const int GWL_STYLE = -16;
 		private const int WS_SYSMENU = 0x80000;
-#pragma warning restore IDE1006
-
-		[DllImport("user32.dll", SetLastError = true)]
-		private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-		[DllImport("user32.dll")]
-		private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+#pragma warning restore IDE1006, SA1310
 
 		public SettingsWindow()
 		{
 			InitializeComponent();
 
-			GlitchTileLabel.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range.";
+			GlitchTileCheckBox.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range.";
 
 			LabelSurvivalFileRootFolder.Content = UserHandler.Instance.settings.SurvivalFileRootFolder;
 
@@ -40,7 +34,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			// Removes Exit button.
 			IntPtr hwnd = new WindowInteropHelper(this).Handle;
-			SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
+#pragma warning disable CA1806 // Do not ignore method results
+			NativeMethods.SetWindowLong(hwnd, GWL_STYLE, NativeMethods.GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
+#pragma warning restore CA1806 // Do not ignore method results
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
@@ -52,15 +48,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void BrowseButton_Click(object sender, RoutedEventArgs e)
 		{
-			using CommonOpenFileDialog dialog = new CommonOpenFileDialog
+			VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog
 			{
-				IsFolderPicker = true,
-				InitialDirectory = UserHandler.Instance.settings.SurvivalFileRootFolder
+				SelectedPath = UserHandler.Instance.settings.SurvivalFileRootFolder,
 			};
-			CommonFileDialogResult result = dialog.ShowDialog();
 
-			if (result == CommonFileDialogResult.Ok)
-				SetSurvivalFileRootFolder(dialog.FileName);
+			if (dialog.ShowDialog() == true)
+				SetSurvivalFileRootFolder(dialog.SelectedPath);
 		}
 
 		private void AutoDetectButton_Click(object sender, RoutedEventArgs e)
@@ -68,7 +62,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Process process = ProcessUtils.GetDevilDaggersProcess();
 			if (process != null)
 			{
-				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName), "dd"));
+				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? throw new Exception("Could not get directory name from process."), "dd"));
 				return;
 			}
 

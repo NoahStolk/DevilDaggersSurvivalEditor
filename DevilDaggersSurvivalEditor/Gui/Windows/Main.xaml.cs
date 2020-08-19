@@ -1,5 +1,5 @@
-﻿using DevilDaggersCore.Tools;
-using DevilDaggersSurvivalEditor.Code.Arena;
+﻿using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using System;
@@ -18,7 +18,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			App.Instance.MainWindow = this;
 			App.Instance.UpdateMainWindowTitle();
 
-			Closed += MainWindow_Closed;
+			Closed += (sender, e) => Application.Current.Shutdown();
 
 			WarningVoidSpawn.Text = $"The tile at coordinate {TileUtils.SpawnTile} (player spawn) is void, meaning the player will die instantly. You can prevent this from happening in the Options > Settings menu.";
 			WarningGlitchTile.Text = $"The tile at coordinate {TileUtils.GlitchTile} has a height value greater than {TileUtils.GlitchTileMax}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to remain within its safe range in the Options > Settings menu.";
@@ -30,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (VersionHandler.Instance.VersionResult.IsUpToDate.HasValue && !VersionHandler.Instance.VersionResult.IsUpToDate.Value)
+			if (NetworkHandler.Instance.Tool != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 			{
 				UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
 				updateRecommendedWindow.ShowDialog();
@@ -47,14 +47,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			else
 			{
 				WarningNoSurvivalFile.Visibility = Visibility.Collapsed;
-				WarningNoSurvivalFile.Text = "";
+				WarningNoSurvivalFile.Text = string.Empty;
 			}
 		}
 
 		public void UpdateWarningEndLoopLength(bool visible, double loopLength)
 		{
 			WarningEndLoopLength.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
-			WarningEndLoopLength.Text = visible ? $"The end loop is only {loopLength} seconds long, which will probably result in Devil Daggers lagging and becoming unstable." : "";
+			WarningEndLoopLength.Text = visible ? $"The end loop is only {loopLength:0.0000} seconds long, which will probably result in Devil Daggers lagging and becoming unstable." : string.Empty;
 		}
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -88,11 +88,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
-		}
-
-		private void MainWindow_Closed(object sender, EventArgs e)
-		{
-			Application.Current.Shutdown();
 		}
 	}
 }

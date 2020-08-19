@@ -1,7 +1,7 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Tools;
 using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code.Arena;
+using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Gui.Windows;
@@ -22,13 +22,17 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			InitializeComponent();
 
-			if (VersionHandler.Instance.VersionResult.IsUpToDate.HasValue && !VersionHandler.Instance.VersionResult.IsUpToDate.Value)
+			if (NetworkHandler.Instance.Tool != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 			{
 				HelpItem.Header += " (Update available)";
 				HelpItem.FontWeight = FontWeights.Bold;
 
-				foreach (MenuItem menuItem in HelpItem.Items)
+				foreach (MenuItem? menuItem in HelpItem.Items)
+				{
+					if (menuItem == null)
+						continue;
 					menuItem.FontWeight = FontWeights.Normal;
+				}
 
 				UpdateItem.Header = "Update available";
 				UpdateItem.FontWeight = FontWeights.Bold;
@@ -36,7 +40,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 #if DEBUG
 			MenuItem testException = new MenuItem { Header = "Test Exception", Background = new SolidColorBrush(Color.FromRgb(0, 255, 63)) };
-			testException.Click += TestException_Click;
+			testException.Click += (sender, e) => throw new Exception("Test Exception");
 
 			MenuItem debug = new MenuItem { Header = "Debug", Background = new SolidColorBrush(Color.FromRgb(0, 255, 63)) };
 			debug.Items.Add(testException);
@@ -51,7 +55,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			SpawnsetHandler.Instance.spawnset = new Spawnset
 			{
-				ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles()
+				ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles(),
 			};
 
 			App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
@@ -69,7 +73,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			if (result.HasValue && result.Value)
 			{
-				if (!Spawnset.TryParse(new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read), out SpawnsetHandler.Instance.spawnset))
+				if (!Spawnset.TryParse(File.ReadAllBytes(dialog.FileName), out SpawnsetHandler.Instance.spawnset))
 				{
 					App.Instance.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
 					return;
@@ -106,7 +110,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				return;
 			}
 
-			if (!Spawnset.TryParse(new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Open, FileAccess.Read), out SpawnsetHandler.Instance.spawnset))
+			if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.settings.SurvivalFileLocation), out SpawnsetHandler.Instance.spawnset))
 			{
 				App.Instance.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;
@@ -157,10 +161,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void Browse_Click(object sender, RoutedEventArgs e)
-			=> Process.Start(UrlUtils.Spawnsets);
+			=> ProcessUtils.OpenUrl(UrlUtils.SpawnsetsPage);
 
 		private void Discord_Click(object sender, RoutedEventArgs e)
-			=> Process.Start(UrlUtils.DiscordInviteLink);
+			=> ProcessUtils.OpenUrl(UrlUtils.DiscordInviteLink);
 
 		private void Help_Click(object sender, RoutedEventArgs e)
 		{
@@ -176,7 +180,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void Changelog_Click(object sender, RoutedEventArgs e)
 		{
-			if (VersionHandler.Instance.VersionResult.Tool.Changelog != null)
+			if (NetworkHandler.Instance.Tool != null)
 			{
 				ChangelogWindow changelogWindow = new ChangelogWindow();
 				changelogWindow.ShowDialog();
@@ -188,17 +192,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void SourceCode_Click(object sender, RoutedEventArgs e)
-			=> Process.Start(UrlUtils.SourceCodeUrl(App.ApplicationName).ToString());
+			=> ProcessUtils.OpenUrl(UrlUtils.SourceCodeUrl(App.ApplicationName).ToString());
 
 		private void Update_Click(object sender, RoutedEventArgs e)
 		{
 			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
 			window.ShowDialog();
 
-			VersionResult versionResult = VersionHandler.Instance.VersionResult;
-			if (versionResult.IsUpToDate.HasValue)
+			if (NetworkHandler.Instance.Tool != null)
 			{
-				if (!versionResult.IsUpToDate.Value)
+				if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 				{
 					UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
 					updateRecommendedWindow.ShowDialog();
@@ -210,19 +213,23 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 			else
 			{
-				App.Instance.ShowError($"Error retrieving version number for '{App.ApplicationName}'", versionResult.Exception.Message, versionResult.Exception.InnerException);
+				App.Instance.ShowError("Error retrieving tool information", "An error occurred while attempting to retrieve tool information from the API.");
 			}
 		}
 
 		private void ShowLog_Click(object sender, RoutedEventArgs e)
 		{
-			if (File.Exists("DDSE.log"))
-				Process.Start("DDSE.log");
-			else
-				App.Instance.ShowMessage("No log file", "Log file does not exist.");
+			try
+			{
+				if (File.Exists("DDSE.log"))
+					Process.Start("DDSE.log");
+				else
+					App.Instance.ShowMessage("No log file", "Log file does not exist.");
+			}
+			catch (Exception ex)
+			{
+				App.Instance.ShowMessage("Could not open log file", ex.Message);
+			}
 		}
-
-		private void TestException_Click(object sender, RoutedEventArgs e)
-			=> throw new Exception("Test Exception");
 	}
 }

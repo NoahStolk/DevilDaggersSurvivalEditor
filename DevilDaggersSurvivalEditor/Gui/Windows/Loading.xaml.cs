@@ -1,5 +1,4 @@
-﻿using DevilDaggersCore.Tools;
-using DevilDaggersCore.Utils;
+﻿using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code;
 using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.User;
@@ -8,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -34,25 +34,53 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			VersionLabel.Content += " DEBUG";
 #endif
 
+			Loaded += RunThreads;
+		}
+
+		private void RunThreads(object? sender, EventArgs e)
+		{
 			BackgroundWorker checkVersionThread = new BackgroundWorker();
 			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				VersionHandler.Instance.GetOnlineVersion(App.ApplicationName, App.LocalVersion);
+				Task toolTask = NetworkHandler.Instance.GetOnlineTool();
+				toolTask.Wait();
 			};
 			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{
 				Dispatcher.Invoke(() =>
 				{
-					VersionResult versionResult = VersionHandler.Instance.VersionResult;
+					string message = string.Empty;
+					Color color = default;
 
-					if (versionResult.Exception != null)
-						App.Instance.ShowError($"Error retrieving version number for '{App.ApplicationName}'", versionResult.Exception.Message, versionResult.Exception.InnerException);
+					if (NetworkHandler.Instance.Tool == null)
+					{
+						message = "Error";
+						color = Color.FromRgb(255, 0, 0);
+					}
+					else
+					{
+						if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumberRequired))
+						{
+							message = "Warning (update required)";
+							color = Color.FromRgb(255, 63, 0);
+						}
+						else if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
+						{
+							message = "Warning (update recommended)";
+							color = Color.FromRgb(191, 191, 0);
+						}
+						else
+						{
+							message = "OK (up to date)";
+							color = Color.FromRgb(0, 127, 0);
+						}
+					}
 
 					TaskResultsStackPanel.Children.Add(new Label
 					{
-						Content = versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? "OK (up to date)" : "OK (update available)" : "Error",
-						Foreground = new SolidColorBrush(versionResult.IsUpToDate.HasValue ? versionResult.IsUpToDate.Value ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 95, 0) : Color.FromRgb(255, 0, 0)),
-						FontWeight = FontWeights.Bold
+						Content = message,
+						Foreground = new SolidColorBrush(color),
+						FontWeight = FontWeights.Bold,
 					});
 				});
 
@@ -67,8 +95,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				try
 				{
 					if (userSettingsFileExists)
-						using (StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName)))
-							UserHandler.Instance.settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+					{
+						using StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName));
+						UserHandler.Instance.settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+					}
 
 					readUserSettingsSuccess = true;
 				}
@@ -85,7 +115,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						Content = readUserSettingsSuccess ? userSettingsFileExists ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
 						Foreground = new SolidColorBrush(readUserSettingsSuccess ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 0, 0)),
-						FontWeight = FontWeights.Bold
+						FontWeight = FontWeights.Bold,
 					});
 				});
 
@@ -101,7 +131,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						Content = UserHandler.Instance.settings.SurvivalFileExists ? UserHandler.Instance.settings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
 						Foreground = new SolidColorBrush(!UserHandler.Instance.settings.SurvivalFileExists || !UserHandler.Instance.settings.SurvivalFileIsValid ? Color.FromRgb(255, 0, 0) : Color.FromRgb(0, 127, 0)),
-						FontWeight = FontWeights.Bold
+						FontWeight = FontWeights.Bold,
 					});
 				});
 			};
@@ -114,7 +144,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			BackgroundWorker retrieveSpawnsetsThread = new BackgroundWorker();
 			retrieveSpawnsetsThread.DoWork += (object sender, DoWorkEventArgs e) =>
 			{
-				retrieveSpawnsetsSuccess = NetworkHandler.Instance.RetrieveSpawnsetList();
+				Task<bool> spawnsetsTask = NetworkHandler.Instance.RetrieveSpawnsetList();
+				spawnsetsTask.Wait();
+				retrieveSpawnsetsSuccess = spawnsetsTask.Result;
 			};
 			retrieveSpawnsetsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{
@@ -124,28 +156,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						Content = retrieveSpawnsetsSuccess ? "OK" : "Error",
 						Foreground = new SolidColorBrush(retrieveSpawnsetsSuccess ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 0, 0)),
-						FontWeight = FontWeights.Bold
-					});
-				});
-
-				ThreadComplete();
-			};
-
-			bool retrieveCustomLeaderboardsSuccess = false;
-			BackgroundWorker retrieveCustomLeaderboardsThread = new BackgroundWorker();
-			retrieveCustomLeaderboardsThread.DoWork += (object sender, DoWorkEventArgs e) =>
-			{
-				retrieveCustomLeaderboardsSuccess = NetworkHandler.Instance.RetrieveCustomLeaderboardList();
-			};
-			retrieveCustomLeaderboardsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
-			{
-				Dispatcher.Invoke(() =>
-				{
-					TaskResultsStackPanel.Children.Add(new Label
-					{
-						Content = retrieveCustomLeaderboardsSuccess ? "OK" : "Error",
-						Foreground = new SolidColorBrush(retrieveCustomLeaderboardsSuccess ? Color.FromRgb(0, 127, 0) : Color.FromRgb(255, 0, 0)),
-						FontWeight = FontWeights.Bold
+						FontWeight = FontWeights.Bold,
 					});
 				});
 
@@ -161,23 +172,18 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					mainWindow.Show();
 				});
 			};
-			mainInitThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
-			{
-				Close();
-			};
+			mainInitThread.RunWorkerCompleted += (sender, e) => Close();
 
 			threads.Add(checkVersionThread);
 			threads.Add(readUserSettingsThread);
 			threads.Add(validateSurvivalFileThread);
 			threads.Add(retrieveSpawnsetsThread);
-			threads.Add(retrieveCustomLeaderboardsThread);
 			threads.Add(mainInitThread);
 
 			threadMessages.Add("Checking for updates...");
 			threadMessages.Add("Reading user settings...");
 			threadMessages.Add("Validating survival file...");
 			threadMessages.Add("Retrieving spawnsets...");
-			threadMessages.Add("Retrieving custom leaderboards...");
 			threadMessages.Add("Initializing application...");
 
 			RunThread(threads[0]);
@@ -194,7 +200,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			TasksStackPanel.Children.Add(new Label
 			{
-				Content = threadMessages[threadsComplete]
+				Content = threadMessages[threadsComplete],
 			});
 
 			worker.RunWorkerAsync();

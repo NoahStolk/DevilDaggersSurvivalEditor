@@ -31,8 +31,8 @@ namespace DevilDaggersSurvivalEditor.Code
 
 				if (c == '>')
 					inside = false;
-
 			}
+
 			return sb.ToString();
 		}
 	}

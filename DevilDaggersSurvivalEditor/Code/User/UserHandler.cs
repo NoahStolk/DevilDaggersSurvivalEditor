@@ -8,10 +8,11 @@ namespace DevilDaggersSurvivalEditor.Code.User
 		public UserSettings settings = new UserSettings();
 
 		private static readonly Lazy<UserHandler> lazy = new Lazy<UserHandler>(() => new UserHandler());
-		public static UserHandler Instance => lazy.Value;
 
 		private UserHandler()
 		{
 		}
+
+		public static UserHandler Instance => lazy.Value;
 	}
 }

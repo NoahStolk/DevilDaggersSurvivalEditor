@@ -1,9 +1,9 @@
 ﻿<Window x:Class="DevilDaggersSurvivalEditor.Gui.Windows.SettingsWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
         Title="Settings" Height="512" Width="768" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded" Closing="Window_Closing">
 	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">
 		<Label FontWeight="Bold" FontSize="14">General</Label>
@@ -19,20 +19,17 @@
 		<Label FontWeight="Bold" FontSize="14">Arena</Label>
 		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
 			<StackPanel Orientation="Horizontal">
-				<CheckBox IsChecked="{Binding LockGlitchTile}" />
-				<Label Name="GlitchTileLabel" />
+				<CheckBox Name="GlitchTileCheckBox" IsChecked="{Binding LockGlitchTile}" />
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<CheckBox IsChecked="{Binding LockSpawnTile}" />
-				<Label>Prevent spawn tile to be void.</Label>
+				<CheckBox IsChecked="{Binding LockSpawnTile}">Prevent spawn tile to be void.</CheckBox>
 			</StackPanel>
 		</StackPanel>
 
 		<Label FontWeight="Bold" FontSize="14">Spawns</Label>
 		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
 			<StackPanel Orientation="Horizontal">
-				<CheckBox IsChecked="{Binding EnableEndLoopPreview}" />
-				<Label>Enable end loop preview.</Label>
+				<CheckBox IsChecked="{Binding EnableEndLoopPreview}">Enable end loop preview.</CheckBox>
 			</StackPanel>
 		</StackPanel>
 

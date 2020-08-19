@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Windows.Media;
 
@@ -10,14 +11,15 @@ namespace DevilDaggersSurvivalEditor.Code
 		{
 			StringBuilder sb = new StringBuilder();
 			bool first = true;
-			foreach (char c in input.ToString())
+			foreach (char c in input.ToString() ?? string.Empty)
 			{
 				if (char.IsUpper(c) && !first)
-					sb.Append($" {c.ToString().ToLower()}");
+					sb.Append($" {c.ToString().ToLower(CultureInfo.InvariantCulture)}");
 				else
 					sb.Append(c);
 				first = false;
 			}
+
 			return sb.ToString();
 		}
 

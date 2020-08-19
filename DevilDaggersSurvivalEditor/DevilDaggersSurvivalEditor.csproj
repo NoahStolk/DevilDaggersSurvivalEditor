@@ -1,387 +1,96 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1F1E41AC-3DB2-4C00-B68D-692421DAE241}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>DevilDaggersSurvivalEditor</RootNamespace>
-    <AssemblyName>DevilDaggersSurvivalEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>8.0</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>8.0</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Icon24.ico</ApplicationIcon>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\DevilDaggersCore\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Code\Arena\ArenaCoord.cs" />
-    <Compile Include="Code\Arena\Presets\AbstractEllipseArena.cs" />
-    <Compile Include="Code\Arena\Presets\AbstractOrientedRectangularArena.cs" />
-    <Compile Include="Code\Arena\Presets\AbstractRectangularArena.cs" />
-    <Compile Include="Code\Arena\ArenaPresetHandler.cs" />
-    <Compile Include="Code\Arena\Presets\Hill.cs" />
-    <Compile Include="Code\Arena\Presets\RandomPillars.cs" />
-    <Compile Include="Code\Arena\Presets\Full.cs" />
-    <Compile Include="Code\Arena\Presets\Void.cs" />
-    <Compile Include="Code\Arena\Presets\Ellipse.cs" />
-    <Compile Include="Code\Arena\Presets\Default.cs" />
-    <Compile Include="Code\Arena\Presets\CageEllipse.cs" />
-    <Compile Include="Code\Arena\Presets\RandomIslands.cs" />
-    <Compile Include="Code\Arena\Presets\RandomGaps.cs" />
-    <Compile Include="Code\Arena\Presets\Pyramid.cs" />
-    <Compile Include="Code\Arena\TileSelection.cs" />
-    <Compile Include="Code\Arena\TileAction.cs" />
-    <Compile Include="Code\ContentUtils.cs" />
-    <Compile Include="Code\ExtensionMethods.cs" />
-    <Compile Include="Code\Shaders\SelectionEffect.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetList\IListEntry.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetList\AuthorListEntry.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetList\SpawnsetListEntry.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetList\SpawnsetListHandler.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetList\SpawnsetListSorting.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetHandler.cs" />
-    <Compile Include="Code\Spawns\DelayModificationFunction.cs" />
-    <Compile Include="Code\Spawnsets\SpawnsetFileUtils.cs" />
-    <Compile Include="Code\UserInterfaceUtils.cs" />
-    <Compile Include="Code\Arena\TileUtils.cs" />
-    <Compile Include="Code\Spawns\SpawnUtils.cs" />
-    <Compile Include="Code\User\UserHandler.cs" />
-    <Compile Include="Code\Network\NetworkHandler.cs" />
-    <Compile Include="Gui\UserControls\EndLoopPreview.xaml.cs">
-      <DependentUpon>EndLoopPreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\UserControls\MenuBar.xaml.cs">
-      <DependentUpon>MenuBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\UserControls\EndLoopSpawn.xaml.cs">
-      <DependentUpon>EndLoopSpawn.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\UserControls\Spawn.xaml.cs">
-      <DependentUpon>Spawn.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\UserControls\SpawnsetArena.xaml.cs">
-      <DependentUpon>SpawnsetArena.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\UserControls\SpawnsetSpawns.xaml.cs">
-      <DependentUpon>SpawnsetSpawns.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\ArenaPreset.xaml.cs">
-      <DependentUpon>ArenaPreset.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\Changelog.xaml.cs">
-      <DependentUpon>Changelog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\Confirm.xaml.cs">
-      <DependentUpon>Confirm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\DownloadSpawnset.xaml.cs">
-      <DependentUpon>DownloadSpawnset.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\Error.xaml.cs">
-      <DependentUpon>Error.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\CheckingForUpdates.xaml.cs">
-      <DependentUpon>CheckingForUpdates.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\Help.xaml.cs">
-      <DependentUpon>Help.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\Loading.xaml.cs">
-      <DependentUpon>Loading.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\Message.xaml.cs">
-      <DependentUpon>Message.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Code\User\UserSettings.cs" />
-    <Compile Include="Gui\Windows\Main.xaml.cs">
-      <DependentUpon>Main.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\ModifySpawnDelay.xaml.cs">
-      <DependentUpon>ModifySpawnDelay.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\SetTileHeight.xaml.cs">
-      <DependentUpon>SetTileHeight.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Gui\Themes\DevilDaggersSurvivalEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\UserControls\EndLoopPreview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\UserControls\MenuBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\UserControls\EndLoopSpawn.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Gui\UserControls\Spawn.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\UserControls\SpawnsetArena.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\UserControls\SpawnsetSpawns.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\ArenaPreset.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\Changelog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\Confirm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\DownloadSpawnset.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\Error.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\CheckingForUpdates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\Help.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\Loading.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\Message.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\Main.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Gui\Windows\About.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\ModifySpawnDelay.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\Settings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Code\Arena\Presets\AbstractArena.cs" />
-    <Compile Include="Code\Arena\Presets\RandomNoise.cs" />
-    <Compile Include="Code\Arena\Presets\CageRectangular.cs" />
-    <Compile Include="Code\Arena\Presets\Qbert.cs" />
-    <Compile Include="Gui\Windows\About.xaml.cs">
-      <DependentUpon>About.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Gui\Windows\SetTileHeight.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\SwitchEnemyType.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Gui\Windows\UpdateRecommended.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Code\Arena\Presets\Rectangular.cs" />
-    <Compile Include="Gui\Windows\SwitchEnemyType.xaml.cs">
-      <DependentUpon>SwitchEnemyType.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Windows\UpdateRecommended.xaml.cs">
-      <DependentUpon>UpdateRecommended.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Resource Include="Content\Shaders\Selection.ps">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <None Include="log4net.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <EmbeddedResource Include="Content\survival" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\DevilDaggersCore\DevilDaggersCore\DevilDaggersCore.csproj">
-      <Project>{5593879a-1411-4e62-a682-9431da03898f}</Project>
-      <Name>DevilDaggersCore</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon24.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Images\SplashScreens\0.png" />
-    <Resource Include="Content\Images\SplashScreens\1.png" />
-    <Resource Include="Content\Images\SplashScreens\10.png" />
-    <Resource Include="Content\Images\SplashScreens\11.png" />
-    <Resource Include="Content\Images\SplashScreens\12.png" />
-    <Resource Include="Content\Images\SplashScreens\13.png" />
-    <Resource Include="Content\Images\SplashScreens\14.png" />
-    <Resource Include="Content\Images\SplashScreens\15.png" />
-    <Resource Include="Content\Images\SplashScreens\16.png" />
-    <Resource Include="Content\Images\SplashScreens\17.png" />
-    <Resource Include="Content\Images\SplashScreens\18.png" />
-    <Resource Include="Content\Images\SplashScreens\19.png" />
-    <Resource Include="Content\Images\SplashScreens\2.png" />
-    <Resource Include="Content\Images\SplashScreens\20.png" />
-    <Resource Include="Content\Images\SplashScreens\21.png" />
-    <Resource Include="Content\Images\SplashScreens\22.png" />
-    <Resource Include="Content\Images\SplashScreens\23.png" />
-    <Resource Include="Content\Images\SplashScreens\24.png" />
-    <Resource Include="Content\Images\SplashScreens\25.png" />
-    <Resource Include="Content\Images\SplashScreens\26.png" />
-    <Resource Include="Content\Images\SplashScreens\27.png" />
-    <Resource Include="Content\Images\SplashScreens\28.png" />
-    <Resource Include="Content\Images\SplashScreens\29.png" />
-    <Resource Include="Content\Images\SplashScreens\3.png" />
-    <Resource Include="Content\Images\SplashScreens\30.png" />
-    <Resource Include="Content\Images\SplashScreens\31.png" />
-    <Resource Include="Content\Images\SplashScreens\32.png" />
-    <Resource Include="Content\Images\SplashScreens\33.png" />
-    <Resource Include="Content\Images\SplashScreens\34.png" />
-    <Resource Include="Content\Images\SplashScreens\35.png" />
-    <Resource Include="Content\Images\SplashScreens\36.png" />
-    <Resource Include="Content\Images\SplashScreens\4.png" />
-    <Resource Include="Content\Images\SplashScreens\5.png" />
-    <Resource Include="Content\Images\SplashScreens\6.png" />
-    <Resource Include="Content\Images\SplashScreens\7.png" />
-    <Resource Include="Content\Images\SplashScreens\8.png" />
-    <Resource Include="Content\Images\SplashScreens\9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Images\Icon\Icon24.png" />
-    <Resource Include="Content\Images\Icon\Icon32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Images\Buttons\SpawnsetSort.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Images\Buttons\ArenaFlipHorizontally.png" />
-    <Resource Include="Content\Images\Buttons\ArenaFlipVertically.png" />
-    <Resource Include="Content\Images\Buttons\ArenaRotateClockwise.png" />
-    <Resource Include="Content\Images\Buttons\ArenaRotateCounterClockwise.png" />
-    <Resource Include="Content\Images\Buttons\ArenaTilesActionDeselect.png" />
-    <Resource Include="Content\Images\Buttons\ArenaTilesActionSelect.png" />
-    <Resource Include="Content\Images\Buttons\ArenaTilesSelectionContinuous.png" />
-    <Resource Include="Content\Images\Buttons\ArenaTilesSelectionOnce.png" />
-    <Resource Include="Content\Images\Buttons\ArenaTilesSelectionRectangle.png" />
-    <Resource Include="Content\Images\Buttons\ArenaTilesDeselectAll.png" />
-    <Resource Include="Content\Images\Buttons\ArenaTilesSelectAll.png" />
-    <Resource Include="Content\Images\Buttons\SpawnsetSortActive.png" />
-    <Content Include="Content\Shaders\Selection.fx" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Utilities\bin\x86\fxc.exe" /T ps_3_0 /E main /Fo "$(ProjectDir)Content\Shaders\Selection.ps" "$(ProjectDir)Content\Shaders\Selection.fx"</PreBuildEvent>
-  </PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<Version>2.5.0.0</Version>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<ApplicationIcon>Icon24.ico</ApplicationIcon>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\DevilDaggersCore\DevilDaggersCore\DevilDaggersCore.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Content\Images\SplashScreens\0.png" />
+		<Resource Include="Content\Images\SplashScreens\1.png" />
+		<Resource Include="Content\Images\SplashScreens\10.png" />
+		<Resource Include="Content\Images\SplashScreens\11.png" />
+		<Resource Include="Content\Images\SplashScreens\12.png" />
+		<Resource Include="Content\Images\SplashScreens\13.png" />
+		<Resource Include="Content\Images\SplashScreens\14.png" />
+		<Resource Include="Content\Images\SplashScreens\15.png" />
+		<Resource Include="Content\Images\SplashScreens\16.png" />
+		<Resource Include="Content\Images\SplashScreens\17.png" />
+		<Resource Include="Content\Images\SplashScreens\18.png" />
+		<Resource Include="Content\Images\SplashScreens\19.png" />
+		<Resource Include="Content\Images\SplashScreens\2.png" />
+		<Resource Include="Content\Images\SplashScreens\20.png" />
+		<Resource Include="Content\Images\SplashScreens\21.png" />
+		<Resource Include="Content\Images\SplashScreens\22.png" />
+		<Resource Include="Content\Images\SplashScreens\23.png" />
+		<Resource Include="Content\Images\SplashScreens\24.png" />
+		<Resource Include="Content\Images\SplashScreens\25.png" />
+		<Resource Include="Content\Images\SplashScreens\26.png" />
+		<Resource Include="Content\Images\SplashScreens\27.png" />
+		<Resource Include="Content\Images\SplashScreens\28.png" />
+		<Resource Include="Content\Images\SplashScreens\29.png" />
+		<Resource Include="Content\Images\SplashScreens\3.png" />
+		<Resource Include="Content\Images\SplashScreens\30.png" />
+		<Resource Include="Content\Images\SplashScreens\31.png" />
+		<Resource Include="Content\Images\SplashScreens\32.png" />
+		<Resource Include="Content\Images\SplashScreens\33.png" />
+		<Resource Include="Content\Images\SplashScreens\34.png" />
+		<Resource Include="Content\Images\SplashScreens\35.png" />
+		<Resource Include="Content\Images\SplashScreens\36.png" />
+		<Resource Include="Content\Images\SplashScreens\4.png" />
+		<Resource Include="Content\Images\SplashScreens\5.png" />
+		<Resource Include="Content\Images\SplashScreens\6.png" />
+		<Resource Include="Content\Images\SplashScreens\7.png" />
+		<Resource Include="Content\Images\SplashScreens\8.png" />
+		<Resource Include="Content\Images\SplashScreens\9.png" />
+		<Resource Include="Content\Images\Icon\Icon24.png" />
+		<Resource Include="Content\Images\Icon\Icon32.png" />
+		<Resource Include="Content\Images\Buttons\SpawnsetSort.png" />
+		<Resource Include="Content\Images\Buttons\ArenaFlipHorizontally.png" />
+		<Resource Include="Content\Images\Buttons\ArenaFlipVertically.png" />
+		<Resource Include="Content\Images\Buttons\ArenaRotateClockwise.png" />
+		<Resource Include="Content\Images\Buttons\ArenaRotateCounterClockwise.png" />
+		<Resource Include="Content\Images\Buttons\ArenaTilesActionDeselect.png" />
+		<Resource Include="Content\Images\Buttons\ArenaTilesActionSelect.png" />
+		<Resource Include="Content\Images\Buttons\ArenaTilesSelectionContinuous.png" />
+		<Resource Include="Content\Images\Buttons\ArenaTilesSelectionOnce.png" />
+		<Resource Include="Content\Images\Buttons\ArenaTilesSelectionRectangle.png" />
+		<Resource Include="Content\Images\Buttons\ArenaTilesDeselectAll.png" />
+		<Resource Include="Content\Images\Buttons\ArenaTilesSelectAll.png" />
+		<Resource Include="Content\Images\Buttons\SpawnsetSortActive.png" />
+		<Resource Include="Content\Shaders\Selection.ps">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Content Include="Content\Shaders\Selection.fx" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Content\survival">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="log4net.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	<!--<PropertyGroup>
+		<PreBuildEvent>"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Utilities\bin\x86\fxc.exe" /T ps_3_0 /E main /Fo "$(ProjectDir)Content\Shaders\Selection.ps" "$(ProjectDir)Content\Shaders\Selection.fx"</PreBuildEvent>
+	</PropertyGroup>-->
 </Project>

@@ -7,6 +7,7 @@ using DevilDaggersSurvivalEditor.Code.User;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,20 +51,23 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			InitializeComponent();
 
-			(Resources["NormalMap"] as ImageBrush).ImageSource = normalMap;
+			const string normalMapName = "NormalMap";
+			if (!(Resources[normalMapName] is ImageBrush imageBrush))
+				throw new Exception($"Could not retrieve {nameof(ImageBrush)} '{normalMapName}'.");
+			imageBrush.ImageSource = normalMap;
 			arenaCanvasSize = (int)ArenaTiles.Width;
 			arenaCanvasCenter = arenaCanvasSize / 2;
 			arenaCenter = Spawnset.ArenaWidth / 2;
 
 			DispatcherTimer mainLoop = new DispatcherTimer
 			{
-				Interval = new TimeSpan(0, 0, 0, 0, 16)
+				Interval = new TimeSpan(0, 0, 0, 0, 16),
 			};
 			mainLoop.Tick += MainLoop_Tick;
 			mainLoop.Start();
 		}
 
-		private void MainLoop_Tick(object sender, EventArgs e)
+		private void MainLoop_Tick(object? sender, EventArgs e)
 		{
 			UpdateSelectionEffectContinuousValues();
 
@@ -88,16 +92,21 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				float height = i == 0 ? TileUtils.VoidDefault : -1.25f + i * 0.25f;
 				RadioButton heightRadioButton = height == TileUtils.VoidDefault
-					? new RadioButton { Margin = new Thickness(), Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)), ToolTip = new TextBlock { Text = "Void", FontWeight = FontWeights.Bold }, Tag = height, IsChecked = true }
-					: new RadioButton { Margin = new Thickness(), Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString("0.##"), Tag = height };
+					? new RadioButton { Margin = default, Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)), ToolTip = new TextBlock { Text = "Void", FontWeight = FontWeights.Bold }, Tag = height, IsChecked = true }
+					: new RadioButton { Margin = default, Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString("0.##", CultureInfo.InvariantCulture), Tag = height };
 				heightRadioButton.Checked += (sender, e) =>
 				{
-					RadioButton r = sender as RadioButton;
+					if (!(sender is RadioButton r))
+						return;
+
 					foreach (RadioButton rb in tileActionRadioButtons)
+					{
 						if (rb != r)
 							rb.IsChecked = false;
+					}
+
 					tileAction = TileAction.Height;
-					heightSelectorValue = float.Parse(r.Tag.ToString());
+					heightSelectorValue = float.Parse(r.Tag?.ToString() ?? "0", CultureInfo.InvariantCulture);
 				};
 
 				Grid.SetRow(heightRadioButton, 0);
@@ -112,15 +121,20 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				for (int j = 0; j < 9; j++)
 				{
 					float height = i * 9 + j + 1;
-					RadioButton heightRadioButton = new RadioButton { Margin = new Thickness(), Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString(), Tag = height };
+					RadioButton heightRadioButton = new RadioButton { Margin = default, Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString(CultureInfo.InvariantCulture), Tag = height };
 					heightRadioButton.Checked += (sender, e) =>
 					{
-						RadioButton r = sender as RadioButton;
+						if (!(sender is RadioButton r))
+							return;
+
 						foreach (RadioButton rb in tileActionRadioButtons)
+						{
 							if (rb != r)
 								rb.IsChecked = false;
+						}
+
 						tileAction = TileAction.Height;
-						heightSelectorValue = float.Parse(r.Tag.ToString());
+						heightSelectorValue = float.Parse(r.Tag?.ToString() ?? "0", CultureInfo.InvariantCulture);
 					};
 
 					Grid.SetRow(heightRadioButton, i + 1);
@@ -140,14 +154,19 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				{
 					Content = new Image { Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesAction{tileAction}.png"))) },
 					ToolTip = tileAction.ToUserFriendlyString(),
-					IsChecked = tileAction == 0
+					IsChecked = tileAction == 0,
 				};
 				radioButton.Checked += (sender, e) =>
 				{
-					RadioButton r = sender as RadioButton;
+					if (!(sender is RadioButton r))
+						return;
+
 					foreach (RadioButton rb in tileActionRadioButtons)
+					{
 						if (rb != r)
 							rb.IsChecked = false;
+					}
+
 					this.tileAction = tileAction;
 				};
 
@@ -161,7 +180,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				{
 					Content = new Image { Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesSelection{tileSelection}.png"))) },
 					ToolTip = tileSelection.ToUserFriendlyString(),
-					IsChecked = tileSelection == 0
+					IsChecked = tileSelection == 0,
 				};
 				radioButton.Checked += (sender, e) =>
 				{
@@ -179,7 +198,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				ComboBoxItem item = new ComboBoxItem()
 				{
 					Content = typeName.ToUserFriendlyString(),
-					Tag = typeName
+					Tag = typeName,
 				};
 				if (typeName == "Default")
 					ComboBoxArenaPreset.SelectedItem = item;
@@ -194,7 +213,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					Rectangle tileRectangle = new Rectangle
 					{
 						Width = TileUtils.TileSize,
-						Height = TileUtils.TileSize
+						Height = TileUtils.TileSize,
 					};
 					Canvas.SetLeft(tileRectangle, i * TileUtils.TileSize);
 					Canvas.SetTop(tileRectangle, j * TileUtils.TileSize);
@@ -227,15 +246,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void SetSettingTextBoxes()
 		{
-			TextBoxShrinkStart.Text = SpawnsetHandler.Instance.spawnset.ShrinkStart.ToString();
-			TextBoxShrinkEnd.Text = SpawnsetHandler.Instance.spawnset.ShrinkEnd.ToString();
-			TextBoxShrinkRate.Text = SpawnsetHandler.Instance.spawnset.ShrinkRate.ToString();
-			TextBoxBrightness.Text = SpawnsetHandler.Instance.spawnset.Brightness.ToString();
+			TextBoxShrinkStart.Text = SpawnsetHandler.Instance.spawnset.ShrinkStart.ToString(CultureInfo.InvariantCulture);
+			TextBoxShrinkEnd.Text = SpawnsetHandler.Instance.spawnset.ShrinkEnd.ToString(CultureInfo.InvariantCulture);
+			TextBoxShrinkRate.Text = SpawnsetHandler.Instance.spawnset.ShrinkRate.ToString(CultureInfo.InvariantCulture);
+			TextBoxBrightness.Text = SpawnsetHandler.Instance.spawnset.Brightness.ToString(CultureInfo.InvariantCulture);
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
 		}
 
-		private bool ValidateTextBox(TextBox textBox)
+		private static bool ValidateTextBox(TextBox textBox)
 		{
 			bool valid = float.TryParse(textBox.Text, out _);
 
@@ -248,7 +267,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (ValidateTextBox(TextBoxShrinkStart))
 			{
-				SpawnsetHandler.Instance.spawnset.ShrinkStart = float.Parse(TextBoxShrinkStart.Text);
+				SpawnsetHandler.Instance.spawnset.ShrinkStart = float.Parse(TextBoxShrinkStart.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				UpdateShrinkStart();
@@ -261,7 +280,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (ValidateTextBox(TextBoxShrinkEnd))
 			{
-				SpawnsetHandler.Instance.spawnset.ShrinkEnd = float.Parse(TextBoxShrinkEnd.Text);
+				SpawnsetHandler.Instance.spawnset.ShrinkEnd = float.Parse(TextBoxShrinkEnd.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				UpdateShrinkEnd();
@@ -274,7 +293,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (ValidateTextBox(TextBoxShrinkRate))
 			{
-				SpawnsetHandler.Instance.spawnset.ShrinkRate = float.Parse(TextBoxShrinkRate.Text);
+				SpawnsetHandler.Instance.spawnset.ShrinkRate = float.Parse(TextBoxShrinkRate.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				UpdateShrinkCurrent();
@@ -286,7 +305,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (ValidateTextBox(TextBoxBrightness))
 			{
-				SpawnsetHandler.Instance.spawnset.Brightness = float.Parse(TextBoxBrightness.Text);
+				SpawnsetHandler.Instance.spawnset.Brightness = float.Parse(TextBoxBrightness.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 			}
 		}
@@ -305,9 +324,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			double shrinkEndContainedSquareHalfSize = Math.Sqrt(shrinkEndRadius * shrinkEndRadius * 2) / 2;
 
 			for (int i = arenaCenter - shrinkStartRadius; i < arenaCenter + shrinkStartRadius; i++)
+			{
 				for (int j = arenaCenter - shrinkStartRadius; j < arenaCenter + shrinkStartRadius; j++)
+				{
 					if (i < arenaCenter - shrinkEndContainedSquareHalfSize || i > arenaCenter + shrinkEndContainedSquareHalfSize || j < arenaCenter - shrinkEndContainedSquareHalfSize || j > arenaCenter + shrinkEndContainedSquareHalfSize)
 						UpdateTile(new ArenaCoord(i, j));
+				}
+			}
 		}
 
 		private void UpdateShrinkStart()
@@ -352,8 +375,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void UpdateAllTiles()
 		{
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+			{
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
 					UpdateTile(new ArenaCoord(i, j));
+			}
 		}
 
 		public void UpdateTile(ArenaCoord tile)
@@ -383,6 +408,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				rect.Visibility = Visibility.Hidden;
 				return;
 			}
+
 			rect.Visibility = Visibility.Visible;
 
 			Color color = TileUtils.GetColorFromHeight(height);
@@ -433,7 +459,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			bool voidTile = height < TileUtils.TileMin;
 
 			TileHeightLabel.FontWeight = voidTile ? FontWeights.Bold : FontWeights.Normal;
-			TileHeightLabel.Content = voidTile ? "Void" : height.ToString("0.00");
+			TileHeightLabel.Content = voidTile ? "Void" : height.ToString("0.00", CultureInfo.InvariantCulture);
 		}
 
 		private void ExecuteTileAction(ArenaCoord tile)
@@ -454,6 +480,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						selections.Add(tile);
 						UpdateTileSelection(tile);
 					}
+
 					break;
 				case TileAction.Deselect:
 					if (selections.Contains(tile))
@@ -461,6 +488,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						selections.Remove(tile);
 						UpdateTileSelection(tile);
 					}
+
 					break;
 			}
 		}
@@ -554,8 +582,11 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						break;
 
 					for (int i = Math.Min(rectangleStart.Value.X, focusedTile.X); i <= Math.Max(rectangleStart.Value.X, focusedTile.X); i++)
+					{
 						for (int j = Math.Min(rectangleStart.Value.Y, focusedTile.Y); j <= Math.Max(rectangleStart.Value.Y, focusedTile.Y); j++)
 							ExecuteTileAction(new ArenaCoord(i, j));
+					}
+
 					rectangleStart = null;
 					MultiSelectRectLeft.Visibility = Visibility.Hidden;
 					MultiSelectRectRight.Visibility = Visibility.Hidden;
@@ -621,15 +652,17 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
 		{
-			ArenaPresetWindow presetWindow = new ArenaPresetWindow((ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString());
+			string presetName = (ComboBoxArenaPreset.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? throw new Exception("Could not retrieve preset name.");
+			ArenaPresetWindow presetWindow = new ArenaPresetWindow(presetName);
 			presetWindow.ShowDialog();
 		}
 
 		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.FirstOrDefault(a => a.GetType().Name == (ComboBoxArenaPreset.SelectedItem as ComboBoxItem).Tag.ToString());
+			string presetName = (ComboBoxArenaPreset.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? throw new Exception("Could not retrieve preset name.");
+			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.FirstOrDefault(a => a.GetType().Name == presetName);
 
-			ConfigureButton.IsEnabled = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Count(p => p.SetMethod != null) != 0;
+			ConfigureButton.IsEnabled = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Any(p => p.SetMethod != null);
 		}
 
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)
@@ -650,8 +683,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+			{
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
 					newTiles[i, j] = SpawnsetHandler.Instance.spawnset.ArenaTiles[j, Spawnset.ArenaWidth - 1 - i];
+			}
 
 			SpawnsetHandler.Instance.spawnset.ArenaTiles = newTiles;
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -664,8 +699,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+			{
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
 					newTiles[i, j] = SpawnsetHandler.Instance.spawnset.ArenaTiles[Spawnset.ArenaHeight - 1 - j, i];
+			}
 
 			SpawnsetHandler.Instance.spawnset.ArenaTiles = newTiles;
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -678,8 +715,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+			{
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
 					newTiles[i, j] = SpawnsetHandler.Instance.spawnset.ArenaTiles[i, Spawnset.ArenaHeight - 1 - j];
+			}
 
 			SpawnsetHandler.Instance.spawnset.ArenaTiles = newTiles;
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -692,8 +731,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
+			{
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
 					newTiles[i, j] = SpawnsetHandler.Instance.spawnset.ArenaTiles[Spawnset.ArenaWidth - 1 - i, j];
+			}
 
 			SpawnsetHandler.Instance.spawnset.ArenaTiles = newTiles;
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -708,6 +749,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				SpawnsetHandler.Instance.spawnset.ArenaTiles[selection.X, selection.Y] = (float)Math.Round(SpawnsetHandler.Instance.spawnset.ArenaTiles[selection.X, selection.Y]);
 				UpdateTile(selection);
 			}
+
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 		}
 
@@ -718,6 +760,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				SpawnsetHandler.Instance.spawnset.ArenaTiles[selection.X, selection.Y] += RandomUtils.RandomFloat(-0.1f, 0.1f);
 				UpdateTile(selection);
 			}
+
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 		}
 

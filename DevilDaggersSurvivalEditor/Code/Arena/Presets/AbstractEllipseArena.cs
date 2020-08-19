@@ -17,21 +17,25 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			get => offsetX;
 			set => offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
+
 		public int OffsetY
 		{
 			get => offsetY;
 			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
+
 		public float InnerRadius
 		{
 			get => innerRadius;
 			set => innerRadius = MathUtils.Clamp(value, 1, 100);
 		}
+
 		public float OuterRadius
 		{
 			get => outerRadius;
 			set => outerRadius = MathUtils.Clamp(value, 1, 100);
 		}
+
 		public float AngleInDegrees
 		{
 			get => angleInDegrees;

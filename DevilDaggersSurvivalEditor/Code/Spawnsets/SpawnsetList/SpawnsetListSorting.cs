@@ -5,13 +5,6 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 	public class SpawnsetListSorting<TListEntry>
 		where TListEntry : IListEntry
 	{
-		public string FullName { get; }
-		public string DisplayName { get; }
-		public Func<TListEntry, object> SortingFunction { get; }
-		public bool IsAscendingDefault { get; }
-
-		public bool Ascending { get; set; }
-
 		public SpawnsetListSorting(string fullName, string displayName, Func<TListEntry, object> sortingFunction, bool isAscendingDefault)
 		{
 			FullName = fullName;
@@ -19,5 +12,12 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 			SortingFunction = sortingFunction;
 			IsAscendingDefault = isAscendingDefault;
 		}
+
+		public string FullName { get; }
+		public string DisplayName { get; }
+		public Func<TListEntry, object> SortingFunction { get; }
+		public bool IsAscendingDefault { get; }
+
+		public bool Ascending { get; set; }
 	}
 }

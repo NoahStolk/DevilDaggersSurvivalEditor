@@ -1,5 +1,4 @@
-﻿using DevilDaggersCore.Tools;
-using System;
+﻿using DevilDaggersSurvivalEditor.Code.Network;
 using System.ComponentModel;
 using System.Windows;
 
@@ -11,27 +10,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			InitializeComponent();
 
-			BackgroundWorker thread = new BackgroundWorker();
-			thread.DoWork += Thread_DoWork;
-			thread.RunWorkerCompleted += Thread_RunWorkerCompleted;
+			using BackgroundWorker thread = new BackgroundWorker();
+			thread.DoWork += async (sender, e) => await NetworkHandler.Instance.GetOnlineTool();
+			thread.RunWorkerCompleted += (sender, e) => Close();
 
 			thread.RunWorkerAsync();
 		}
 
-		private void Thread_DoWork(object sender, DoWorkEventArgs e)
-		{
-			VersionHandler.Instance.GetOnlineVersion(App.ApplicationName, App.LocalVersion);
-		}
-
-		private void Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-		{
-			Close();
-		}
-
 		private void CancelButton_Click(object sender, RoutedEventArgs e)
-		{
-			VersionHandler.Instance.VersionResult.Exception = new Exception("Canceled by user");
-			Close();
-		}
+			=> Close();
 	}
 }

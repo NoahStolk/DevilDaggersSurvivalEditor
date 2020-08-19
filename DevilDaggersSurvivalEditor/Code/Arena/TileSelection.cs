@@ -4,6 +4,6 @@
 	{
 		Once,
 		Continuous,
-		Rectangle
+		Rectangle,
 	}
 }

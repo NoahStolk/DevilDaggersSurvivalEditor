@@ -1,6 +1,5 @@
 ﻿using DevilDaggersCore.Game;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,8 +7,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class SwitchEnemyTypeWindow : Window
 	{
-		public readonly Dictionary<int, int> switchDictionary = new Dictionary<int, int>();
-
 		private readonly List<int> enemyTypes;
 		private readonly ComboBox[] comboBoxes;
 
@@ -19,7 +16,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			InitializeComponent();
 
-			SpawnsLabel.Content = $"Switch enemy types for {spawnCount} spawn{(spawnCount == 1 ? "" : "s")}";
+			SpawnsLabel.Content = $"Switch enemy types for {spawnCount} spawn{(spawnCount == 1 ? string.Empty : "s")}";
 
 			comboBoxes = new ComboBox[enemyTypes.Count];
 
@@ -30,14 +27,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 
-				Label label = new Label { Content = $"Turn {GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == enemyType).Name} into" };
+				Label label = new Label { Content = $"Turn {GameInfo.GetEnemyBySpawnsetType(enemyType, GameVersion.V3)?.Name ?? "EMPTY"} into" };
 				Grid.SetColumn(label, 0);
 				grid.Children.Add(label);
 
 				ComboBox comboBox = new ComboBox { SelectedIndex = enemyType + 1 };
 
-				for (int j = -1; j < 9; j++)
-					comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == j) });
+				for (int j = -1; j < 10; j++)
+					comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEnemyBySpawnsetType(j, GameVersion.V3)?.Name ?? "EMPTY" });
 				Grid.SetColumn(comboBox, 1);
 				grid.Children.Add(comboBox);
 				comboBoxes[i++] = comboBox;
@@ -46,10 +43,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 		}
 
+		public Dictionary<int, int> SwitchDictionary { get; } = new Dictionary<int, int>();
+
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
 			for (int i = 0; i < enemyTypes.Count; i++)
-				switchDictionary[enemyTypes[i]] = comboBoxes[i].SelectedIndex - 1;
+				SwitchDictionary[enemyTypes[i]] = comboBoxes[i].SelectedIndex - 1;
 
 			DialogResult = true;
 		}

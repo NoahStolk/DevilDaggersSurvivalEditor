@@ -15,11 +15,13 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			get => height;
 			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
+
 		public int Amount
 		{
 			get => amount;
 			set => amount = MathUtils.Clamp(value, 1, 10);
 		}
+
 		public int Iterations
 		{
 			get => iterations;
@@ -31,8 +33,10 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			float[,] tiles = CreateArenaArray();
 
 			for (int i = X1; i < X2; i++)
+			{
 				for (int j = Y1; j < Y2; j++)
 					tiles[i, j] = Height;
+			}
 
 			List<ArenaCoord> gapTiles = new List<ArenaCoord>();
 
@@ -57,18 +61,21 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
 									SetNeighbour(coord);
 							}
+
 							if (j < Spawnset.ArenaWidth - 1)
 							{
 								ArenaCoord coord = new ArenaCoord(j + 1, k);
 								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
 									SetNeighbour(coord);
 							}
+
 							if (k > 0)
 							{
 								ArenaCoord coord = new ArenaCoord(j, k - 1);
 								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
 									SetNeighbour(coord);
 							}
+
 							if (k < Spawnset.ArenaHeight - 1)
 							{
 								ArenaCoord coord = new ArenaCoord(j, k + 1);

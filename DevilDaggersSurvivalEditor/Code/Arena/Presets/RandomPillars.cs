@@ -17,21 +17,25 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			get => minHeight;
 			set => minHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
+
 		public float MaxHeight
 		{
 			get => maxHeight;
 			set => maxHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
+
 		public int MinThickness
 		{
 			get => minThickness;
 			set => minThickness = MathUtils.Clamp(value, 1, 15);
 		}
+
 		public int MaxThickness
 		{
 			get => maxThickness;
 			set => maxThickness = MathUtils.Clamp(value, 1, 15);
 		}
+
 		public int Count
 		{
 			get => count;
@@ -53,8 +57,10 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 				int min = -(int)Math.Floor((double)thickness / 2);
 				int max = (int)Math.Ceiling((double)thickness / 2);
 				for (int j = min; j < max; j++)
+				{
 					for (int k = min; k < max; k++)
 						tiles[MathUtils.Clamp(x + j, 0, Spawnset.ArenaWidth - 1), MathUtils.Clamp(y + k, 0, Spawnset.ArenaHeight - 1)] = height;
+				}
 			}
 
 			return tiles;

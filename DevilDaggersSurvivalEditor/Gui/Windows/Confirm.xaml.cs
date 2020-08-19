@@ -4,8 +4,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class ConfirmWindow : Window
 	{
-		public bool Confirmed { get; set; }
-
 		public ConfirmWindow(string title, string question)
 		{
 			InitializeComponent();
@@ -13,6 +11,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Title = title;
 			Question.Text = question;
 		}
+
+		public bool Confirmed { get; set; }
 
 		private void YesButton_Click(object sender, RoutedEventArgs e)
 		{
