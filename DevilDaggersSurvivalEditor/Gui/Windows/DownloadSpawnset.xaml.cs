@@ -213,10 +213,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 
 			Hyperlink nameHyperlink = new Hyperlink(new Run(entry.SpawnsetFile.Name.Replace("_", "__", StringComparison.InvariantCulture)));
-			nameHyperlink.Click += (sender, e) => Download_Click($"{entry.SpawnsetFile.Name}_{entry.SpawnsetFile.Author}");
+			nameHyperlink.Click += (sender, e) => Download_Click(entry.SpawnsetFile.Name);
 
 			UIElement nameElement;
-			if (string.IsNullOrEmpty(entry.SpawnsetFile.Settings.Description))
+			if (string.IsNullOrEmpty(entry.SpawnsetFile.HtmlDescription))
 			{
 				Label label = new Label { Content = nameHyperlink };
 				nameElement = label;
@@ -224,7 +224,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			else
 			{
 				// TODO: Use a proper HTML to XAML converter.
-				string description = entry.SpawnsetFile.Settings.Description
+				string description = entry.SpawnsetFile.HtmlDescription
 					.Trim(' ')
 					.Replace("<br />", "\n", StringComparison.InvariantCulture)
 					.Replace("<ul>", "\n", StringComparison.InvariantCulture)
@@ -238,7 +238,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					FontWeight = FontWeights.Bold,
 					ToolTip = new TextBlock
 					{
-						Text = $"{entry.SpawnsetFile.Author}:\n\n{description}",
+						Text = $"{entry.SpawnsetFile.AuthorName}:\n\n{description}",
 						MaxWidth = 320,
 					},
 				};
@@ -253,7 +253,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Span customLeaderboardElement;
 			if (entry.HasCustomLeaderboard)
 			{
-				Hyperlink hyperlink = new Hyperlink(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboardPage(entry.SpawnsetFile.FileName)) };
+				Hyperlink hyperlink = new Hyperlink(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboardPage(entry.SpawnsetFile.Name)) };
 				hyperlink.RequestNavigate += (sender, e) =>
 				{
 					ProcessUtils.OpenUrl(e.Uri.AbsoluteUri);
@@ -269,8 +269,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			List<UIElement> elements = new List<UIElement>
 			{
 				nameElement,
-				new Label { Content = entry.SpawnsetFile.Author.Replace("_", "__", StringComparison.InvariantCulture) },
-				new Label { Content = entry.SpawnsetFile.Settings.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) },
+				new Label { Content = entry.SpawnsetFile.AuthorName.Replace("_", "__", StringComparison.InvariantCulture) },
+				new Label { Content = entry.SpawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) },
 				new Label { Content = customLeaderboardElement },
 				new Label { Content = !entry.SpawnsetFile.SpawnsetData.NonLoopLength.HasValue ? "N/A" : entry.SpawnsetFile.SpawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
 				new Label { Content = entry.SpawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : entry.SpawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
@@ -311,7 +311,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						continue;
 					if (!(grid.Tag is SpawnsetListEntry spawnsetListEntry))
 						throw new Exception($"Grid tag was not of type {nameof(SpawnsetListEntry)}.");
-					grid.Visibility = spawnsetListEntry.SpawnsetFile.Author == authorSelection.Name ? Visibility.Visible : Visibility.Collapsed;
+					grid.Visibility = spawnsetListEntry.SpawnsetFile.AuthorName == authorSelection.Name ? Visibility.Visible : Visibility.Collapsed;
 				}
 			}
 
