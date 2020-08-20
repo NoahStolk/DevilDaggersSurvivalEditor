@@ -71,7 +71,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Content\survival">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
