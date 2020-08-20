@@ -20,7 +20,7 @@ C# 8.0
 
 ## System requirements
 - Microsoft Windows
-- .NET Core 3.1 Runtime
+- .NET Core 3.1 Desktop Runtime
 
 ## Installation
 1. Download the zip file.
