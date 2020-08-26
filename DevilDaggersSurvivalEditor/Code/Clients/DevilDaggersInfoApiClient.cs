@@ -1935,6 +1935,33 @@ namespace DevilDaggersSurvivalEditor.Code.Clients
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Validation { get; set; }= default!;
     
+        [Newtonsoft.Json.JsonProperty("gameStates", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<GameState>? GameStates { get; set; }= default!;
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.24.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class GameState 
+    {
+        [Newtonsoft.Json.JsonProperty("kills", Required = Newtonsoft.Json.Required.Always)]
+        public int Kills { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("gems", Required = Newtonsoft.Json.Required.Always)]
+        public int Gems { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("homing", Required = Newtonsoft.Json.Required.Always)]
+        public int Homing { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("enemiesAlive", Required = Newtonsoft.Json.Required.Always)]
+        public int EnemiesAlive { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("daggersHit", Required = Newtonsoft.Json.Required.Always)]
+        public int DaggersHit { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("daggersFired", Required = Newtonsoft.Json.Required.Always)]
+        public int DaggersFired { get; set; }= default!;
+    
     
     }
     
