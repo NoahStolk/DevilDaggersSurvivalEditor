@@ -18,7 +18,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 		public static readonly string BaseUrl = "https://devildaggers.info";
 #endif
 
-		private static readonly Lazy<NetworkHandler> lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
+		private static readonly Lazy<NetworkHandler> _lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
 
 		private NetworkHandler()
 		{
@@ -29,7 +29,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 			ApiClient = new DevilDaggersInfoApiClient(httpClient);
 		}
 
-		public static NetworkHandler Instance => lazy.Value;
+		public static NetworkHandler Instance => _lazy.Value;
 
 		public DevilDaggersInfoApiClient ApiClient { get; }
 

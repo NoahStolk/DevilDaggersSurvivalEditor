@@ -52,7 +52,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				_spawnControls.Clear();
 				ListBoxSpawns.Items.Clear();
 
-				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
+				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance._spawnset.Spawns)
 				{
 					SpawnUserControl spawnControl = new SpawnUserControl(kvp.Value);
 					_spawnControls.Add(spawnControl);
@@ -65,7 +65,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void AddSpawn(Spawn spawn)
 		{
-			SpawnsetHandler.Instance.spawnset.Spawns[SpawnsetHandler.Instance.spawnset.Spawns.Count] = spawn;
+			SpawnsetHandler.Instance._spawnset.Spawns[SpawnsetHandler.Instance._spawnset.Spawns.Count] = spawn;
 
 			SpawnUserControl spawnControl = new SpawnUserControl(spawn);
 			_spawnControls.Add(spawnControl);
@@ -74,7 +74,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void InsertSpawnAt(int index, Spawn spawn)
 		{
-			SpawnsetHandler.Instance.spawnset.Spawns[index] = spawn;
+			SpawnsetHandler.Instance._spawnset.Spawns[index] = spawn;
 
 			SpawnUserControl spawnControl = new SpawnUserControl(spawn);
 			_spawnControls.Insert(index, spawnControl);
@@ -83,7 +83,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void EditSpawnAt(int index, Spawn spawn)
 		{
-			SpawnsetHandler.Instance.spawnset.Spawns[index] = spawn;
+			SpawnsetHandler.Instance._spawnset.Spawns[index] = spawn;
 
 			_spawnControls[index].Spawn = spawn;
 		}
@@ -92,10 +92,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			double loopLength = 0;
 			int endLoopSpawns = 0;
-			for (int i = SpawnsetHandler.Instance.spawnset.Spawns.Count - 1; i >= 0; i--)
+			for (int i = SpawnsetHandler.Instance._spawnset.Spawns.Count - 1; i >= 0; i--)
 			{
-				loopLength += SpawnsetHandler.Instance.spawnset.Spawns[i].Delay;
-				if (SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy == null || i == 0)
+				loopLength += SpawnsetHandler.Instance._spawnset.Spawns[i].Delay;
+				if (SpawnsetHandler.Instance._spawnset.Spawns[i].Enemy == null || i == 0)
 				{
 					_endLoopStartIndex = i;
 					break;
@@ -106,7 +106,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				}
 			}
 
-			if (!SpawnsetHandler.Instance.spawnset.Spawns.Any(s => s.Value.Enemy == null) && SpawnsetHandler.Instance.spawnset.Spawns.Any())
+			if (!SpawnsetHandler.Instance._spawnset.Spawns.Any(s => s.Value.Enemy == null) && SpawnsetHandler.Instance._spawnset.Spawns.Any())
 				endLoopSpawns++;
 
 			Dispatcher.Invoke(() =>
@@ -115,7 +115,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				double seconds = 0;
 				int totalGems = 0;
-				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
+				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance._spawnset.Spawns)
 				{
 					seconds += kvp.Value.Delay;
 					totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
@@ -185,7 +185,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private static bool HasTooManySpawns()
 		{
-			if (SpawnsetHandler.Instance.spawnset.Spawns.Count >= _maxSpawns)
+			if (SpawnsetHandler.Instance._spawnset.Spawns.Count >= _maxSpawns)
 			{
 				App.Instance.ShowMessage("Too many spawns", $"You can have {_maxSpawns} spawns at most.");
 				return true;
@@ -196,7 +196,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void ScrollToEnd()
 		{
-			ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(SpawnsetHandler.Instance.spawnset.Spawns.Count - 1));
+			ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(SpawnsetHandler.Instance._spawnset.Spawns.Count - 1));
 		}
 
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -218,12 +218,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void InsertSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			int originalCount = SpawnsetHandler.Instance.spawnset.Spawns.Count;
+			int originalCount = SpawnsetHandler.Instance._spawnset.Spawns.Count;
 			int originalSelection = ListBoxSpawns.SelectedIndex;
 
 			// Shift the spawns after the selection.
 			for (int i = originalCount - 1; i >= originalSelection; i--)
-				SpawnsetHandler.Instance.spawnset.Spawns[i + Amount] = SpawnsetHandler.Instance.spawnset.Spawns[i];
+				SpawnsetHandler.Instance._spawnset.Spawns[i + Amount] = SpawnsetHandler.Instance._spawnset.Spawns[i];
 
 			// Insert new spawns.
 			for (int i = 0; i < Amount; i++)
@@ -263,12 +263,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void PasteInsertSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			int originalCount = SpawnsetHandler.Instance.spawnset.Spawns.Count;
+			int originalCount = SpawnsetHandler.Instance._spawnset.Spawns.Count;
 			int originalSelection = ListBoxSpawns.SelectedIndex;
 
 			// Shift the spawns after the selection.
 			for (int i = originalCount - 1; i >= originalSelection; i--)
-				SpawnsetHandler.Instance.spawnset.Spawns[i + _clipboard.Count] = SpawnsetHandler.Instance.spawnset.Spawns[i];
+				SpawnsetHandler.Instance._spawnset.Spawns[i + _clipboard.Count] = SpawnsetHandler.Instance._spawnset.Spawns[i];
 
 			// Insert new spawns.
 			for (int i = 0; i < _clipboard.Count; i++)
@@ -306,13 +306,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			selections.Sort();
 			SortedDictionary<int, Spawn> newSpawns = new SortedDictionary<int, Spawn>();
 			int i = 0;
-			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
+			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance._spawnset.Spawns)
 			{
 				if (!selections.Contains(kvp.Key))
-					newSpawns.Add(i++, SpawnsetHandler.Instance.spawnset.Spawns[kvp.Key]);
+					newSpawns.Add(i++, SpawnsetHandler.Instance._spawnset.Spawns[kvp.Key]);
 			}
 
-			SpawnsetHandler.Instance.spawnset.Spawns = newSpawns;
+			SpawnsetHandler.Instance._spawnset.Spawns = newSpawns;
 
 			for (int j = selections.Count - 1; j >= 0; j--)
 			{
@@ -337,7 +337,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			_clipboard.Clear();
 			foreach (int i in GetSpawnSelectionIndices())
-				_clipboard.Add(SpawnsetHandler.Instance.spawnset.Spawns[i]);
+				_clipboard.Add(SpawnsetHandler.Instance._spawnset.Spawns[i]);
 
 			UpdateButtons();
 		}
@@ -355,13 +355,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					double delay = window.Function switch
 					{
 						DelayModificationFunction.Set => window.Value,
-						DelayModificationFunction.Add => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay + window.Value,
-						DelayModificationFunction.Subtract => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay - window.Value,
-						DelayModificationFunction.Multiply => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay * window.Value,
-						DelayModificationFunction.Divide => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay / window.Value,
-						_ => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay,
+						DelayModificationFunction.Add => SpawnsetHandler.Instance._spawnset.Spawns[i].Delay + window.Value,
+						DelayModificationFunction.Subtract => SpawnsetHandler.Instance._spawnset.Spawns[i].Delay - window.Value,
+						DelayModificationFunction.Multiply => SpawnsetHandler.Instance._spawnset.Spawns[i].Delay * window.Value,
+						DelayModificationFunction.Divide => SpawnsetHandler.Instance._spawnset.Spawns[i].Delay / window.Value,
+						_ => SpawnsetHandler.Instance._spawnset.Spawns[i].Delay,
 					};
-					EditSpawnAt(i, new Spawn(SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy, Math.Clamp(delay, 0, SpawnUtils.MaxDelay)));
+					EditSpawnAt(i, new Spawn(SpawnsetHandler.Instance._spawnset.Spawns[i].Enemy, Math.Clamp(delay, 0, SpawnUtils.MaxDelay)));
 				}
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -377,7 +377,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			List<int> enemyTypes = new List<int>();
 			foreach (int selection in selections)
-				enemyTypes.Add(SpawnsetHandler.Instance.spawnset.Spawns[selection].Enemy?.SpawnsetType ?? -1);
+				enemyTypes.Add(SpawnsetHandler.Instance._spawnset.Spawns[selection].Enemy?.SpawnsetType ?? -1);
 			enemyTypes = enemyTypes.Distinct().ToList();
 
 			SwitchEnemyTypeWindow window = new SwitchEnemyTypeWindow(selections.Count, enemyTypes);
@@ -389,14 +389,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					int current = 0;
 					foreach (int enemyType in enemyTypes)
 					{
-						if ((SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy?.SpawnsetType ?? -1) == enemyType)
+						if ((SpawnsetHandler.Instance._spawnset.Spawns[i].Enemy?.SpawnsetType ?? -1) == enemyType)
 						{
 							current = enemyType;
 							break;
 						}
 					}
 
-					EditSpawnAt(i, new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == window.SwitchDictionary[current]), SpawnsetHandler.Instance.spawnset.Spawns[i].Delay));
+					EditSpawnAt(i, new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == window.SwitchDictionary[current]), SpawnsetHandler.Instance._spawnset.Spawns[i].Delay));
 				}
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;

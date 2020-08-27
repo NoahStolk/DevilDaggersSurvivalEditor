@@ -8,7 +8,7 @@ namespace DevilDaggersSurvivalEditor.Code.Shaders
 {
 	public class SelectionEffect : ShaderEffect
 	{
-		private static readonly PixelShader pixelShader = new PixelShader { UriSource = ContentUtils.MakeUri(Path.Combine("Content", "Shaders", "Selection.ps")) };
+		private static readonly PixelShader _pixelShader = new PixelShader { UriSource = ContentUtils.MakeUri(Path.Combine("Content", "Shaders", "Selection.ps")) };
 
 		public static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(SelectionEffect), 0);
 		public static readonly DependencyProperty NormalMapProperty = RegisterPixelShaderSamplerProperty("NormalMap", typeof(SelectionEffect), 1);
@@ -19,7 +19,7 @@ namespace DevilDaggersSurvivalEditor.Code.Shaders
 
 		public SelectionEffect()
 		{
-			PixelShader = pixelShader;
+			PixelShader = _pixelShader;
 			UpdateShaderValue(InputProperty);
 			UpdateShaderValue(NormalMapProperty);
 			UpdateShaderValue(FlashIntensityProperty);

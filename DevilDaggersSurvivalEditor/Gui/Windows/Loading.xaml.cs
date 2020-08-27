@@ -17,9 +17,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class LoadingWindow : Window
 	{
-		private int threadsComplete;
-		private readonly List<BackgroundWorker> threads = new List<BackgroundWorker>();
-		private readonly List<string> threadMessages = new List<string>();
+		private int _threadsComplete;
+		private readonly List<BackgroundWorker> _threads = new List<BackgroundWorker>();
+		private readonly List<string> _threadMessages = new List<string>();
 
 		public LoadingWindow()
 		{
@@ -97,7 +97,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					if (userSettingsFileExists)
 					{
 						using StreamReader sr = new StreamReader(File.OpenRead(UserSettings.FileName));
-						UserHandler.Instance.settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+						UserHandler.Instance._settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
 					}
 
 					readUserSettingsSuccess = true;
@@ -129,8 +129,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				{
 					TaskResultsStackPanel.Children.Add(new Label
 					{
-						Content = UserHandler.Instance.settings.SurvivalFileExists ? UserHandler.Instance.settings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
-						Foreground = new SolidColorBrush(!UserHandler.Instance.settings.SurvivalFileExists || !UserHandler.Instance.settings.SurvivalFileIsValid ? Color.FromRgb(255, 0, 0) : Color.FromRgb(0, 127, 0)),
+						Content = UserHandler.Instance._settings.SurvivalFileExists ? UserHandler.Instance._settings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
+						Foreground = new SolidColorBrush(!UserHandler.Instance._settings.SurvivalFileExists || !UserHandler.Instance._settings.SurvivalFileIsValid ? Color.FromRgb(255, 0, 0) : Color.FromRgb(0, 127, 0)),
 						FontWeight = FontWeights.Bold,
 					});
 				});
@@ -174,33 +174,33 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			};
 			mainInitThread.RunWorkerCompleted += (sender, e) => Close();
 
-			threads.Add(checkVersionThread);
-			threads.Add(readUserSettingsThread);
-			threads.Add(validateSurvivalFileThread);
-			threads.Add(retrieveSpawnsetsThread);
-			threads.Add(mainInitThread);
+			_threads.Add(checkVersionThread);
+			_threads.Add(readUserSettingsThread);
+			_threads.Add(validateSurvivalFileThread);
+			_threads.Add(retrieveSpawnsetsThread);
+			_threads.Add(mainInitThread);
 
-			threadMessages.Add("Checking for updates...");
-			threadMessages.Add("Reading user settings...");
-			threadMessages.Add("Validating survival file...");
-			threadMessages.Add("Retrieving spawnsets...");
-			threadMessages.Add("Initializing application...");
+			_threadMessages.Add("Checking for updates...");
+			_threadMessages.Add("Reading user settings...");
+			_threadMessages.Add("Validating survival file...");
+			_threadMessages.Add("Retrieving spawnsets...");
+			_threadMessages.Add("Initializing application...");
 
-			RunThread(threads[0]);
+			RunThread(_threads[0]);
 		}
 
 		private void ThreadComplete()
 		{
-			threadsComplete++;
+			_threadsComplete++;
 
-			RunThread(threads[threadsComplete]);
+			RunThread(_threads[_threadsComplete]);
 		}
 
 		private void RunThread(BackgroundWorker worker)
 		{
 			TasksStackPanel.Children.Add(new Label
 			{
-				Content = threadMessages[threadsComplete],
+				Content = _threadMessages[_threadsComplete],
 			});
 
 			worker.RunWorkerAsync();

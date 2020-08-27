@@ -22,10 +22,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class DownloadSpawnsetWindow : Window
 	{
-		private readonly List<Image> authorSortingImages = new List<Image>();
-		private readonly List<Image> spawnsetSortingImages = new List<Image>();
+		private readonly List<Image> _authorSortingImages = new List<Image>();
+		private readonly List<Image> _spawnsetSortingImages = new List<Image>();
 
-		private AuthorListEntry? authorSelection;
+		private AuthorListEntry? _authorSelection;
 
 		public DownloadSpawnsetWindow()
 		{
@@ -33,11 +33,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			int index = 0;
 			foreach (SpawnsetListSorting<AuthorListEntry> sorting in SpawnsetListHandler.Instance.AuthorSortings)
-				AuthorHeaders.Children.Add(CreateHeaderStackPanel(index++, authorSortingImages, sorting, SpawnsetListHandler.Instance.ActiveAuthorSorting, SortAuthorsButton_Click));
+				AuthorHeaders.Children.Add(CreateHeaderStackPanel(index++, _authorSortingImages, sorting, SpawnsetListHandler.Instance.ActiveAuthorSorting, SortAuthorsButton_Click));
 
 			index = 0;
 			foreach (SpawnsetListSorting<SpawnsetListEntry> sorting in SpawnsetListHandler.Instance.SpawnsetSortings)
-				SpawnsetHeaders.Children.Add(CreateHeaderStackPanel(index++, spawnsetSortingImages, sorting, SpawnsetListHandler.Instance.ActiveSpawnsetSorting, SortSpawnsetFilesButton_Click));
+				SpawnsetHeaders.Children.Add(CreateHeaderStackPanel(index++, _spawnsetSortingImages, sorting, SpawnsetListHandler.Instance.ActiveSpawnsetSorting, SortSpawnsetFilesButton_Click));
 
 			PopulateAuthorsListBox();
 			PopulateSpawnsetsStackPanel();
@@ -104,7 +104,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				if (downloadedSpawnset != null)
 				{
-					SpawnsetHandler.Instance.spawnset = downloadedSpawnset;
+					SpawnsetHandler.Instance._spawnset = downloadedSpawnset;
 					SpawnsetHandler.Instance.UpdateSpawnsetState(fileName, string.Empty);
 				}
 			};
@@ -120,7 +120,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 					ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Do you want to replace the currently active 'survival' file as well?");
 					confirmWindow.ShowDialog();
-					if (confirmWindow.Confirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.spawnset, UserHandler.Instance.settings.SurvivalFileLocation))
+					if (confirmWindow.Confirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance._spawnset, UserHandler.Instance._settings.SurvivalFileLocation))
 						App.Instance.ShowMessage("Success", $"Successfully replaced 'survival' file with '{fileName}'.");
 				});
 			};
@@ -292,9 +292,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			if (!(AuthorsListBox.SelectedItem is ListBoxItem listBoxItem) || !(listBoxItem.Tag is AuthorListEntry authorListEntry))
 				return;
 
-			authorSelection = authorListEntry;
+			_authorSelection = authorListEntry;
 
-			if (authorSelection.Name == SpawnsetListHandler.AllAuthors)
+			if (_authorSelection.Name == SpawnsetListHandler.AllAuthors)
 			{
 				foreach (Grid? grid in SpawnsetsStackPanel.Children)
 				{
@@ -311,7 +311,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						continue;
 					if (!(grid.Tag is SpawnsetListEntry spawnsetListEntry))
 						throw new Exception($"Grid tag was not of type {nameof(SpawnsetListEntry)}.");
-					grid.Visibility = spawnsetListEntry.SpawnsetFile.AuthorName == authorSelection.Name ? Visibility.Visible : Visibility.Collapsed;
+					grid.Visibility = spawnsetListEntry.SpawnsetFile.AuthorName == _authorSelection.Name ? Visibility.Visible : Visibility.Collapsed;
 				}
 			}
 
@@ -366,7 +366,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				if (!(AuthorsListBox.Items[i] is ListBoxItem listBoxItem))
 					throw new Exception($"{nameof(listBoxItem)} was not of type {nameof(ListBoxItem)}.");
-				listBoxItem.IsSelected = sorted[i] == authorSelection;
+				listBoxItem.IsSelected = sorted[i] == _authorSelection;
 			}
 		}
 
@@ -395,7 +395,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			Button? button = sender as Button;
 
-			foreach (Image image in authorSortingImages)
+			foreach (Image image in _authorSortingImages)
 			{
 				if (image == button?.Content as Image)
 				{
@@ -428,7 +428,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			if (!(sender is Button button))
 				throw new Exception($"Button was not of type {nameof(Button)}.");
 
-			foreach (Image image in spawnsetSortingImages)
+			foreach (Image image in _spawnsetSortingImages)
 			{
 				if (image == button.Content as Image)
 				{

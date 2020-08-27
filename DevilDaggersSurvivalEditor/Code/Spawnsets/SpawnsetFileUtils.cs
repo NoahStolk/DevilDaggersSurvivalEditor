@@ -39,7 +39,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 					using (BinaryReader reader = new BinaryReader(stream))
 						reader.Read(data, 0, data.Length);
 
-					using FileStream fileStream = new FileStream(UserHandler.Instance.settings.SurvivalFileLocation, FileMode.Create);
+					using FileStream fileStream = new FileStream(UserHandler.Instance._settings.SurvivalFileLocation, FileMode.Create);
 					fileStream.Write(data, 0, data.Length);
 				}
 
@@ -48,7 +48,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 			}
 			catch (Exception ex)
 			{
-				App.Instance.ShowError("Unexpected error", $"Error while trying to write file to {UserHandler.Instance.settings.SurvivalFileLocation}.", ex);
+				App.Instance.ShowError("Unexpected error", $"Error while trying to write file to {UserHandler.Instance._settings.SurvivalFileLocation}.", ex);
 			}
 		}
 	}

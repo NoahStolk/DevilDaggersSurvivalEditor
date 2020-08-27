@@ -4,12 +4,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Full : AbstractArena
 	{
-		private float height;
+		private float _height;
 
 		public float Height
 		{
-			get => height;
-			set => height = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _height;
+			set => _height = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override bool IsFull => true;

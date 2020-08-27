@@ -10,16 +10,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class SpawnUserControl : UserControl
 	{
-		private bool isInLoop;
-		private int id;
-		private double seconds;
-		private int totalGems;
-		private Spawn spawn;
-
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+		private bool _isInLoop;
+		private int _id;
+		private double _seconds;
+		private int _totalGems;
+		private Spawn _spawn;
 
 		public SpawnUserControl(Spawn spawn)
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		{
 			InitializeComponent();
 
@@ -28,60 +25,60 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public bool IsInLoop
 		{
-			get => isInLoop;
+			get => _isInLoop;
 			set
 			{
-				if (isInLoop != value)
+				if (_isInLoop != value)
 				{
-					isInLoop = value;
-					FontWeight = isInLoop ? FontWeights.Bold : FontWeights.Normal;
-					Background = new SolidColorBrush(isInLoop ? Color.FromArgb(128, 255, 255, 128) : Color.FromArgb(0, 0, 0, 0));
+					_isInLoop = value;
+					FontWeight = _isInLoop ? FontWeights.Bold : FontWeights.Normal;
+					Background = new SolidColorBrush(_isInLoop ? Color.FromArgb(128, 255, 255, 128) : Color.FromArgb(0, 0, 0, 0));
 				}
 			}
 		}
 
 		public int Id
 		{
-			get => id;
+			get => _id;
 			set
 			{
-				id = value;
+				_id = value;
 				LabelId.Content = value.ToString(CultureInfo.InvariantCulture);
 			}
 		}
 
 		public double Seconds
 		{
-			get => seconds;
+			get => _seconds;
 			set
 			{
-				seconds = value;
+				_seconds = value;
 				LabelSeconds.Content = value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
 			}
 		}
 
 		public int TotalGems
 		{
-			get => totalGems;
+			get => _totalGems;
 			set
 			{
-				totalGems = value;
+				_totalGems = value;
 				LabelTotalGems.Content = value.ToString(CultureInfo.InvariantCulture);
 			}
 		}
 
 		public Spawn Spawn
 		{
-			get => spawn;
+			get => _spawn;
 			set
 			{
-				spawn = value;
+				_spawn = value;
 
-				LabelEnemy.Content = spawn.Enemy?.Name ?? "EMPTY";
-				LabelDelay.Content = spawn.Delay.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
-				LabelNoFarmGems.Content = spawn.Enemy?.NoFarmGems ?? 0;
+				LabelEnemy.Content = _spawn.Enemy?.Name ?? "EMPTY";
+				LabelDelay.Content = _spawn.Delay.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+				LabelNoFarmGems.Content = _spawn.Enemy?.NoFarmGems ?? 0;
 
-				Color color = spawn.Enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.Enemy.ColorCode}");
+				Color color = _spawn.Enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{_spawn.Enemy.ColorCode}");
 				LabelEnemy.Background = new SolidColorBrush(color);
 				LabelEnemy.Foreground = new SolidColorBrush(UserInterfaceUtils.GetPerceivedBrightness(color) < 140 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(0, 0, 0));
 			}

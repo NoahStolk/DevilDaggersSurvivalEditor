@@ -11,8 +11,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 	/// </summary>
 	public sealed class ArenaPresetHandler
 	{
-		private AbstractArena activePreset;
-		private static readonly Lazy<ArenaPresetHandler> lazy = new Lazy<ArenaPresetHandler>(() => new ArenaPresetHandler());
+		private AbstractArena _activePreset;
+		private static readonly Lazy<ArenaPresetHandler> _lazy = new Lazy<ArenaPresetHandler>(() => new ArenaPresetHandler());
 
 #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
@@ -31,16 +31,16 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			ActivePreset = DefaultPreset;
 		}
 
-		public static ArenaPresetHandler Instance => lazy.Value;
+		public static ArenaPresetHandler Instance => _lazy.Value;
 
 		public AbstractArena ActivePreset
 		{
-			get => activePreset;
+			get => _activePreset;
 			set
 			{
-				activePreset = value;
+				_activePreset = value;
 				if (App.Instance != null && App.Instance.MainWindow != null && App.Instance.MainWindow.SpawnsetArena != null)
-					App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !activePreset.IsFull;
+					App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !_activePreset.IsFull;
 			}
 		}
 

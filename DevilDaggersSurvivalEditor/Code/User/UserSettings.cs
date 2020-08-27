@@ -20,6 +20,6 @@ namespace DevilDaggersSurvivalEditor.Code.User
 
 		public string SurvivalFileLocation => Path.Combine(SurvivalFileRootFolder, "survival");
 		public bool SurvivalFileExists => File.Exists(SurvivalFileLocation);
-		public bool SurvivalFileIsValid => SurvivalFileExists && Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.settings.SurvivalFileLocation), out _);
+		public bool SurvivalFileIsValid => SurvivalFileExists && Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance._settings.SurvivalFileLocation), out _);
 	}
 }

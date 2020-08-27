@@ -12,7 +12,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class ArenaPresetWindow : Window
 	{
-		private readonly IEnumerable<PropertyInfo> properties;
+		private readonly IEnumerable<PropertyInfo> _properties;
 
 		public ArenaPresetWindow(string presetName)
 		{
@@ -20,9 +20,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			Title = $"{presetName.ToUserFriendlyString()} arena preset";
 
-			properties = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Where(p => p.SetMethod != null);
+			_properties = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Where(p => p.SetMethod != null);
 
-			foreach (PropertyInfo p in properties)
+			foreach (PropertyInfo p in _properties)
 			{
 				Label label = new Label()
 				{
@@ -90,7 +90,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (PropertyInfo p in properties)
+			foreach (PropertyInfo p in _properties)
 			{
 				foreach (UIElement child in Options.Children)
 				{

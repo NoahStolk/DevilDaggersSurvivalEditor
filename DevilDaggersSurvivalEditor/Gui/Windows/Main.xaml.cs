@@ -39,10 +39,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		public void UpdateWarningNoSurvivalFile()
 		{
-			if (!UserHandler.Instance.settings.SurvivalFileExists || !UserHandler.Instance.settings.SurvivalFileIsValid)
+			if (!UserHandler.Instance._settings.SurvivalFileExists || !UserHandler.Instance._settings.SurvivalFileIsValid)
 			{
 				WarningNoSurvivalFile.Visibility = Visibility.Visible;
-				WarningNoSurvivalFile.Text = $"The survival file {(!UserHandler.Instance.settings.SurvivalFileExists ? "does not exist" : "could not be parsed")}. Please make sure to correct the survival file location in the Options > Settings menu.";
+				WarningNoSurvivalFile.Text = $"The survival file {(!UserHandler.Instance._settings.SurvivalFileExists ? "does not exist" : "could not be parsed")}. Please make sure to correct the survival file location in the Options > Settings menu.";
 			}
 			else
 			{

@@ -4,10 +4,7 @@ using System.IO;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-#pragma warning disable CA1716 // Identifiers should not match keywords
-
 	public class Default : AbstractArena
-#pragma warning restore CA1716 // Identifiers should not match keywords
 	{
 		public override bool IsFull => true;
 

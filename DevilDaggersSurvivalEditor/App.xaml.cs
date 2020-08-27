@@ -48,7 +48,7 @@ namespace DevilDaggersSurvivalEditor
 
 		public void UpdateMainWindowTitle()
 		{
-			string spawnset = /*SpawnsetHandler.Instance.SpawnsetFileName.Contains("_", StringComparison.InvariantCulture) ? $"{SpawnsetFile.GetName(SpawnsetHandler.Instance.SpawnsetFileName)} by {SpawnsetFile.GetAuthor(SpawnsetHandler.Instance.SpawnsetFileName)}" :*/ SpawnsetHandler.Instance.SpawnsetFileName; // TODO
+			string spawnset = SpawnsetHandler.Instance.SpawnsetFileName;
 			Dispatcher.Invoke(() =>
 			{
 				MainWindow.Title = $"{ApplicationDisplayName} {LocalVersion} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : string.Empty)}";

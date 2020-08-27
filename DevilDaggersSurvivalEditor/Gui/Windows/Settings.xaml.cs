@@ -25,9 +25,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			GlitchTileCheckBox.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range.";
 
-			LabelSurvivalFileRootFolder.Content = UserHandler.Instance.settings.SurvivalFileRootFolder;
+			LabelSurvivalFileRootFolder.Content = UserHandler.Instance._settings.SurvivalFileRootFolder;
 
-			Data.DataContext = UserHandler.Instance.settings;
+			Data.DataContext = UserHandler.Instance._settings;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog
 			{
-				SelectedPath = UserHandler.Instance.settings.SurvivalFileRootFolder,
+				SelectedPath = UserHandler.Instance._settings.SurvivalFileRootFolder,
 			};
 
 			if (dialog.ShowDialog() == true)
@@ -76,8 +76,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void SetSurvivalFileRootFolder(string path)
 		{
-			UserHandler.Instance.settings.SurvivalFileRootFolder = path;
-			LabelSurvivalFileRootFolder.Content = UserHandler.Instance.settings.SurvivalFileRootFolder;
+			UserHandler.Instance._settings.SurvivalFileRootFolder = path;
+			LabelSurvivalFileRootFolder.Content = UserHandler.Instance._settings.SurvivalFileRootFolder;
 		}
 	}
 }

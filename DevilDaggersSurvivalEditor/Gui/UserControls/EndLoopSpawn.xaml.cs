@@ -10,17 +10,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class EndLoopSpawnUserControl : UserControl
 	{
-		private int id;
-		private double seconds;
-		private string delay;
-		private int totalGems;
-		private Enemy? enemy;
-		private readonly bool gigaBecomesGhost;
-
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+		private int _id;
+		private double _seconds;
+		private string _delay;
+		private int _totalGems;
+		private Enemy? _enemy;
+		private readonly bool _gigaBecomesGhost;
 
 		public EndLoopSpawnUserControl(int id, double seconds, string delay, int totalGems, Enemy? enemy, bool gigaBecomesGhost)
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		{
 			InitializeComponent();
 
@@ -29,61 +26,61 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			Delay = delay;
 			TotalGems = totalGems;
 			Enemy = enemy;
-			this.gigaBecomesGhost = gigaBecomesGhost;
+			_gigaBecomesGhost = gigaBecomesGhost;
 		}
 
 		public int Id
 		{
-			get => id;
+			get => _id;
 			set
 			{
-				id = value;
+				_id = value;
 				LabelId.Content = value;
 			}
 		}
 
 		public double Seconds
 		{
-			get => seconds;
+			get => _seconds;
 			set
 			{
-				seconds = value;
+				_seconds = value;
 				LabelSeconds.Content = value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
 			}
 		}
 
 		public string Delay
 		{
-			get => delay;
+			get => _delay;
 			set
 			{
-				delay = value;
+				_delay = value;
 				LabelDelay.Content = value;
 			}
 		}
 
 		public int TotalGems
 		{
-			get => totalGems;
+			get => _totalGems;
 			set
 			{
-				totalGems = value;
+				_totalGems = value;
 				LabelTotalGems.Content = value;
 			}
 		}
 
 		public Enemy? Enemy
 		{
-			get => enemy;
+			get => _enemy;
 			set
 			{
-				enemy = value;
+				_enemy = value;
 
-				Color enemyColor = enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ColorCode}");
+				Color enemyColor = _enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{_enemy.ColorCode}");
 				SolidColorBrush background = new SolidColorBrush(enemyColor);
 				SolidColorBrush foreground = new SolidColorBrush(UserInterfaceUtils.GetPerceivedBrightness(enemyColor) < 140 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(0, 0, 0));
 
-				if (gigaBecomesGhost)
+				if (_gigaBecomesGhost)
 				{
 					StackPanel stackPanel = new StackPanel
 					{
@@ -92,7 +89,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					};
 					stackPanel.Children.Add(new Label
 					{
-						Content = enemy?.Name ?? "EMPTY",
+						Content = _enemy?.Name ?? "EMPTY",
 						Foreground = foreground,
 					});
 					stackPanel.Children.Add(new Label
@@ -107,13 +104,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				{
 					EnemyControl.Content = new Label
 					{
-						Content = enemy?.Name ?? "EMPTY",
+						Content = _enemy?.Name ?? "EMPTY",
 						Background = background,
 						Foreground = foreground,
 					};
 				}
 
-				LabelNoFarmGems.Content = enemy?.NoFarmGems ?? 0;
+				LabelNoFarmGems.Content = _enemy?.NoFarmGems ?? 0;
 			}
 		}
 	}

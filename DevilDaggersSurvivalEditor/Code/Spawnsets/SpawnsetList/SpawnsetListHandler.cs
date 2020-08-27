@@ -7,7 +7,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 	{
 		public const string AllAuthors = "[All]";
 
-		private static readonly Lazy<SpawnsetListHandler> lazy = new Lazy<SpawnsetListHandler>(() => new SpawnsetListHandler());
+		private static readonly Lazy<SpawnsetListHandler> _lazy = new Lazy<SpawnsetListHandler>(() => new SpawnsetListHandler());
 
 		private SpawnsetListHandler()
 		{
@@ -15,7 +15,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets.SpawnsetList
 			ActiveSpawnsetSorting = SpawnsetSortings[2];
 		}
 
-		public static SpawnsetListHandler Instance => lazy.Value;
+		public static SpawnsetListHandler Instance => _lazy.Value;
 
 		public string AuthorSearch { get; set; } = string.Empty;
 		public string SpawnsetSearch { get; set; } = string.Empty;
