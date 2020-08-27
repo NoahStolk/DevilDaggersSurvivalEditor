@@ -1,4 +1,6 @@
-# Files
+# Spawnset Binary
+
+## Files
 
 There are 3 files in Devil Daggers which use this format. These are "survival", "dagger", and "menu", although only "survival" makes use of all the features.
 
@@ -6,7 +8,7 @@ There are 3 files in Devil Daggers which use this format. These are "survival", 
 - `devildaggers/dd/menu` contains the menu.
 - `devildaggers/dd/survival` contains the game.
 	
-# Format
+## Format
 
 The internal structure of spawnset binaries consists of 4 parts:
 
@@ -17,7 +19,7 @@ The internal structure of spawnset binaries consists of 4 parts:
 | Spawns header buffer | 40 |
 | Spawns buffer | 28 x the amount of spawns |
 
-## Overview of known values
+### Overview of known values
 
 - Header buffer
     - Shrinking controls
@@ -32,7 +34,7 @@ The internal structure of spawnset binaries consists of 4 parts:
         - Spawn enemy type
         - Spawn delay
 
-## Header buffer
+### Header buffer
 
 Fixed-length buffer of 36 bytes. Contains shrinking control and brightness values as well as presumably a version number and some unknown miscellaneous values that usually cause the game to crash or behave oddly when modified.
 
@@ -50,11 +52,11 @@ The header buffer for the default spawnset looks like this:
 | `33000000` | ? | ? | ? |
 | `01000000` | ? | ? | ? |
 
-## Arena buffer
+### Arena buffer
 
 Fixed-length one-dimensional array of 2601 (51 x 51 = 2601 tiles) 32-bit floating point numbers (2601 x 32 / 8 = 10404 bytes) representing the height of each tile in the arena.
 
-## Spawns header buffer
+### Spawns header buffer
 
 Fixed-length buffer of 40 bytes. Contains the amount of spawns, but mainly unknown values.
 
@@ -73,7 +75,7 @@ The spawns header buffer for the default spawnset looks like this:
 | `00000000` | ? | ? | ? |
 | `76000000` | 32-bit unsigned integer | Spawn count | 118 |
 
-## Spawns buffer
+### Spawns buffer
 
 This is the only part of the file with a variable length. It represents the list of spawns. Each spawn buffer consists of 28 bytes that include the enemy type as a 32-bit integer and the delay value as a 32-bit floating point number. The other bytes in each of the spawn buffers seem to be the same for all of them and appear to have no meaning.
 
@@ -109,7 +111,11 @@ These are the first 3 spawns in the original game:
 | `0000F041` | ? | ? | ? |
 | `0A000000` | ? | ? | ? |
 
+### Enemy types
+
 Here's the list of enemy types that the survival file defines:
+
+#### V3 (current)
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|---------|
@@ -123,4 +129,31 @@ Here's the list of enemy types that the survival file defines:
 | `07000000` | 32-bit signed integer | Thorn | 7 |
 | `08000000` | 32-bit signed integer | Spider II | 8 |
 | `09000000` | 32-bit signed integer | Ghostpede | 9 |
+| `FFFFFFFF` | 32-bit signed integer | Empty | -1 |
+
+#### V2
+
+| Binary (hex) | Data type | Meaning | Value |
+|--------------|-----------|---------|---------|
+| `00000000` | 32-bit signed integer | Squid I | 0 |
+| `01000000` | 32-bit signed integer | Squid II | 1 |
+| `02000000` | 32-bit signed integer | Centipede | 2 |
+| `03000000` | 32-bit signed integer | Spider I | 3 |
+| `04000000` | 32-bit signed integer | Leviathan | 4 |
+| `05000000` | 32-bit signed integer | Gigapede | 5 |
+| `06000000` | 32-bit signed integer | Squid III | 6 |
+| `07000000` | 32-bit signed integer | Andras | 7 |
+| `08000000` | 32-bit signed integer | Spider II | 8 |
+| `FFFFFFFF` | 32-bit signed integer | Empty | -1 |
+
+#### V1
+
+| Binary (hex) | Data type | Meaning | Value |
+|--------------|-----------|---------|---------|
+| `00000000` | 32-bit signed integer | Squid I | 0 |
+| `01000000` | 32-bit signed integer | Squid II | 1 |
+| `02000000` | 32-bit signed integer | Centipede | 2 |
+| `03000000` | 32-bit signed integer | Spider I | 3 |
+| `04000000` | 32-bit signed integer | Leviathan | 4 |
+| `05000000` | 32-bit signed integer | Gigapede | 5 |
 | `FFFFFFFF` | 32-bit signed integer | Empty | -1 |
