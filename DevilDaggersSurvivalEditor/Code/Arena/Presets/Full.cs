@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Utils;
+﻿using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
@@ -9,7 +9,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float Height
 		{
 			get => height;
-			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			set => height = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override bool IsFull => true;

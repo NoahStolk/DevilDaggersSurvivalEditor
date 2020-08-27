@@ -1,31 +1,32 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class RandomGaps : AbstractRectangularArena
 	{
-		private float height;
-		private int amount = 5;
-		private int iterations = 2;
+		private float _height;
+		private int _amount = 5;
+		private int _iterations = 2;
 
 		public float Height
 		{
-			get => height;
-			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _height;
+			set => _height = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public int Amount
 		{
-			get => amount;
-			set => amount = MathUtils.Clamp(value, 1, 10);
+			get => _amount;
+			set => _amount = Math.Clamp(value, 1, 10);
 		}
 
 		public int Iterations
 		{
-			get => iterations;
-			set => iterations = MathUtils.Clamp(value, 1, 4);
+			get => _iterations;
+			set => _iterations = Math.Clamp(value, 1, 4);
 		}
 
 		public override float[,] GetTiles()

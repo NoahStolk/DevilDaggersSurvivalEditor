@@ -1,44 +1,44 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
+using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Pyramid : AbstractArena
 	{
-		private int offsetX;
-		private int offsetY;
-		private float startheight;
-		private float endHeight = 6;
-		private int size = 16;
+		private int _offsetX;
+		private int _offsetY;
+		private float _startheight;
+		private float _endHeight = 6;
+		private int _size = 16;
 
 		public int OffsetX
 		{
-			get => offsetX;
-			set => offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+			get => _offsetX;
+			set => _offsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
 
 		public int OffsetY
 		{
-			get => offsetY;
-			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+			get => _offsetY;
+			set => _offsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
 
 		public float StartHeight
 		{
-			get => startheight;
-			set => startheight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _startheight;
+			set => _startheight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public float EndHeight
 		{
-			get => endHeight;
-			set => endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _endHeight;
+			set => _endHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public int Size
 		{
-			get => size;
-			set => size = MathUtils.Clamp(value, 2, Spawnset.ArenaWidth);
+			get => _size;
+			set => _size = Math.Clamp(value, 2, Spawnset.ArenaWidth);
 		}
 
 		public override bool IsFull => false;

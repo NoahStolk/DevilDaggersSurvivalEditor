@@ -1,29 +1,29 @@
-﻿using DevilDaggersCore.Utils;
+﻿using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
-	public class CageRectangular : AbstractOrientedRectangularArena
+	public class CageRectangular : AbstractRectangularArena
 	{
-		private float insideHeight;
-		private float wallHeight = 8;
-		private int wallThickness = 1;
+		private float _insideHeight;
+		private float _wallHeight = 8;
+		private int _wallThickness = 1;
 
 		public float InsideHeight
 		{
-			get => insideHeight;
-			set => insideHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _insideHeight;
+			set => _insideHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public float WallHeight
 		{
-			get => wallHeight;
-			set => wallHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _wallHeight;
+			set => _wallHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public int WallThickness
 		{
-			get => wallThickness;
-			set => wallThickness = MathUtils.Clamp(value, 1, 20);
+			get => _wallThickness;
+			set => _wallThickness = Math.Clamp(value, 1, 20);
 		}
 
 		public override float[,] GetTiles()

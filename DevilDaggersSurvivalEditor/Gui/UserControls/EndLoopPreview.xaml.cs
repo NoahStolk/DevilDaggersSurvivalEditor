@@ -1,9 +1,9 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -14,10 +14,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class EndLoopPreviewUserControl : UserControl
 	{
-		private const int maxWaves = 2000;
+		private const int _maxWaves = 2000;
 
-		private int waveTextBoxValue = 2;
-		private int wave = 2;
+		private int _waveTextBoxValue = 2;
+		private int _wave = 2;
 
 		public EndLoopPreviewUserControl()
 		{
@@ -30,14 +30,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public int WaveTextBoxValue
 		{
-			get => waveTextBoxValue;
-			set => waveTextBoxValue = MathUtils.Clamp(value, 2, maxWaves);
+			get => _waveTextBoxValue;
+			set => _waveTextBoxValue = Math.Clamp(value, 2, _maxWaves);
 		}
 
 		public int Wave
 		{
-			get => wave;
-			set => wave = MathUtils.Clamp(value, 2, maxWaves);
+			get => _wave;
+			set => _wave = Math.Clamp(value, 2, _maxWaves);
 		}
 
 		public void Update(double seconds, int totalGems)

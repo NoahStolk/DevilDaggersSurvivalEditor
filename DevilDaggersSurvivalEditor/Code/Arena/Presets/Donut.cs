@@ -1,5 +1,5 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
+using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
@@ -15,31 +15,31 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float Height
 		{
 			get => _height;
-			set => _height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			set => _height = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public int HoleOffsetX
 		{
 			get => _holeOffsetX;
-			set => _holeOffsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+			set => _holeOffsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
 
 		public int HoleOffsetY
 		{
 			get => _holeOffsetY;
-			set => _holeOffsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+			set => _holeOffsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
 
 		public float HoleInnerRadius
 		{
 			get => _holeInnerRadius;
-			set => _holeInnerRadius = MathUtils.Clamp(value, 1, 100);
+			set => _holeInnerRadius = Math.Clamp(value, 1, 100);
 		}
 
 		public float HoleOuterRadius
 		{
 			get => _holeOuterRadius;
-			set => _holeOuterRadius = MathUtils.Clamp(value, 1, 100);
+			set => _holeOuterRadius = Math.Clamp(value, 1, 100);
 		}
 
 		public float HoleAngleInDegrees

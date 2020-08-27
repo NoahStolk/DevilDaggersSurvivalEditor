@@ -1,16 +1,16 @@
-﻿using DevilDaggersCore.Utils;
-using DevilDaggersSurvivalEditor.Code.Arena;
+﻿using DevilDaggersSurvivalEditor.Code.Arena;
+using System;
 using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class SetTileHeightWindow : Window
 	{
-		private float tileHeight;
+		private float _tileHeight;
 
 		public SetTileHeightWindow(float tileHeight, params ArenaCoord[] selections)
 		{
-			this.tileHeight = tileHeight; // Avoid clamping in case of a void tile.
+			_tileHeight = tileHeight; // Avoid clamping in case of a void tile.
 
 			InitializeComponent();
 
@@ -21,8 +21,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		public float TileHeight
 		{
-			get => tileHeight;
-			set => tileHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _tileHeight;
+			set => _tileHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -33,7 +33,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!float.TryParse(TileHeightTextBox.Text, out tileHeight))
+			if (!float.TryParse(TileHeightTextBox.Text, out _tileHeight))
 				return;
 
 			DialogResult = true;

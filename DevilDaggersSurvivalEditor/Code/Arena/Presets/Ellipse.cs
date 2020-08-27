@@ -1,5 +1,5 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
+using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
@@ -10,7 +10,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float Height
 		{
 			get => _height;
-			set => _height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			set => _height = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override float[,] GetTiles()

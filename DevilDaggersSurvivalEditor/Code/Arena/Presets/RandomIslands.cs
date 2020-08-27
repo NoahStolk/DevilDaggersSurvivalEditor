@@ -1,45 +1,46 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class RandomIslands : AbstractRectangularArena
 	{
-		private float minHeight;
-		private float maxHeight = 5;
-		private int amount = 5;
-		private int iterations = 2;
-		private float steepness = 0.1f;
+		private float _minHeight;
+		private float _maxHeight = 5;
+		private int _amount = 5;
+		private int _iterations = 2;
+		private float _steepness = 0.1f;
 
 		public float MinHeight
 		{
-			get => minHeight;
-			set => minHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _minHeight;
+			set => _minHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public float MaxHeight
 		{
-			get => maxHeight;
-			set => maxHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _maxHeight;
+			set => _maxHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public int Amount
 		{
-			get => amount;
-			set => amount = MathUtils.Clamp(value, 1, 10);
+			get => _amount;
+			set => _amount = Math.Clamp(value, 1, 10);
 		}
 
 		public int Iterations
 		{
-			get => iterations;
-			set => iterations = MathUtils.Clamp(value, 1, 4);
+			get => _iterations;
+			set => _iterations = Math.Clamp(value, 1, 4);
 		}
 
 		public float Steepness
 		{
-			get => steepness;
-			set => steepness = MathUtils.Clamp(value, -5, 5);
+			get => _steepness;
+			set => _steepness = Math.Clamp(value, -5, 5);
 		}
 
 		public override float[,] GetTiles()

@@ -1,5 +1,4 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
@@ -15,25 +14,25 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public int OffsetX
 		{
 			get => _offsetX;
-			set => _offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+			set => _offsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
 
 		public int OffsetY
 		{
 			get => _offsetY;
-			set => _offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+			set => _offsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
 
 		public float InnerRadius
 		{
 			get => _innerRadius;
-			set => _innerRadius = MathUtils.Clamp(value, 1, 100);
+			set => _innerRadius = Math.Clamp(value, 1, 100);
 		}
 
 		public float OuterRadius
 		{
 			get => _outerRadius;
-			set => _outerRadius = MathUtils.Clamp(value, 1, 100);
+			set => _outerRadius = Math.Clamp(value, 1, 100);
 		}
 
 		public float AngleInDegrees

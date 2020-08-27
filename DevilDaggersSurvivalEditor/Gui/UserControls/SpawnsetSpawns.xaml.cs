@@ -1,6 +1,5 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Code.Spawns;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Gui.Windows;
@@ -17,15 +16,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class SpawnsetSpawnsUserControl : UserControl
 	{
-		private const int maxSpawns = 10000;
+		private const int _maxSpawns = 10000;
 
-		private int amount = 1;
+		private int _amount = 1;
 
-		private readonly List<Spawn> clipboard = new List<Spawn>();
+		private readonly List<Spawn> _clipboard = new List<Spawn>();
 
-		private readonly List<SpawnUserControl> spawnControls = new List<SpawnUserControl>();
+		private readonly List<SpawnUserControl> _spawnControls = new List<SpawnUserControl>();
 
-		private int endLoopStartIndex;
+		private int _endLoopStartIndex;
 
 		public SpawnsetSpawnsUserControl()
 		{
@@ -42,21 +41,21 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public int Amount
 		{
-			get => amount;
-			set => amount = MathUtils.Clamp(value, 1, 100);
+			get => _amount;
+			set => _amount = Math.Clamp(value, 1, 100);
 		}
 
 		public void UpdateSpawnset()
 		{
 			Dispatcher.Invoke(() =>
 			{
-				spawnControls.Clear();
+				_spawnControls.Clear();
 				ListBoxSpawns.Items.Clear();
 
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.spawnset.Spawns)
 				{
 					SpawnUserControl spawnControl = new SpawnUserControl(kvp.Value);
-					spawnControls.Add(spawnControl);
+					_spawnControls.Add(spawnControl);
 					ListBoxSpawns.Items.Add(spawnControl);
 				}
 			});
@@ -69,7 +68,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.spawnset.Spawns[SpawnsetHandler.Instance.spawnset.Spawns.Count] = spawn;
 
 			SpawnUserControl spawnControl = new SpawnUserControl(spawn);
-			spawnControls.Add(spawnControl);
+			_spawnControls.Add(spawnControl);
 			ListBoxSpawns.Items.Add(spawnControl);
 		}
 
@@ -78,7 +77,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.spawnset.Spawns[index] = spawn;
 
 			SpawnUserControl spawnControl = new SpawnUserControl(spawn);
-			spawnControls.Insert(index, spawnControl);
+			_spawnControls.Insert(index, spawnControl);
 			ListBoxSpawns.Items.Insert(index, spawnControl);
 		}
 
@@ -86,7 +85,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.spawnset.Spawns[index] = spawn;
 
-			spawnControls[index].Spawn = spawn;
+			_spawnControls[index].Spawn = spawn;
 		}
 
 		public void UpdateSpawnControls(bool endLoopModified)
@@ -98,7 +97,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				loopLength += SpawnsetHandler.Instance.spawnset.Spawns[i].Delay;
 				if (SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy == null || i == 0)
 				{
-					endLoopStartIndex = i;
+					_endLoopStartIndex = i;
 					break;
 				}
 				else
@@ -121,11 +120,11 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					seconds += kvp.Value.Delay;
 					totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
 
-					SpawnUserControl spawnControl = spawnControls[kvp.Key];
+					SpawnUserControl spawnControl = _spawnControls[kvp.Key];
 					spawnControl.Id = kvp.Key + 1;
 					spawnControl.Seconds = seconds;
 					spawnControl.TotalGems = totalGems;
-					spawnControl.IsInLoop = kvp.Key >= endLoopStartIndex;
+					spawnControl.IsInLoop = kvp.Key >= _endLoopStartIndex;
 				}
 
 				if (endLoopModified)
@@ -169,7 +168,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			bool textBoxesValid = IsDelayValid() && IsAmountValid();
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
-			bool hasClipboard = clipboard.Count != 0;
+			bool hasClipboard = _clipboard.Count != 0;
 
 			AddSpawnButton.IsEnabled = textBoxesValid;
 			InsertSpawnButton.IsEnabled = hasSelection && textBoxesValid;
@@ -186,9 +185,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private static bool HasTooManySpawns()
 		{
-			if (SpawnsetHandler.Instance.spawnset.Spawns.Count >= maxSpawns)
+			if (SpawnsetHandler.Instance.spawnset.Spawns.Count >= _maxSpawns)
 			{
-				App.Instance.ShowMessage("Too many spawns", $"You can have {maxSpawns} spawns at most.");
+				App.Instance.ShowMessage("Too many spawns", $"You can have {_maxSpawns} spawns at most.");
 				return true;
 			}
 
@@ -237,7 +236,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls(originalSelection >= endLoopStartIndex);
+			UpdateSpawnControls(originalSelection >= _endLoopStartIndex);
 		}
 
 		private void PasteAddSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -247,12 +246,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public void PasteAdd()
 		{
-			for (int i = 0; i < clipboard.Count; i++)
+			for (int i = 0; i < _clipboard.Count; i++)
 			{
 				if (HasTooManySpawns())
 					break;
 
-				AddSpawn(clipboard[i].Copy());
+				AddSpawn(_clipboard[i].Copy());
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -269,20 +268,20 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			// Shift the spawns after the selection.
 			for (int i = originalCount - 1; i >= originalSelection; i--)
-				SpawnsetHandler.Instance.spawnset.Spawns[i + clipboard.Count] = SpawnsetHandler.Instance.spawnset.Spawns[i];
+				SpawnsetHandler.Instance.spawnset.Spawns[i + _clipboard.Count] = SpawnsetHandler.Instance.spawnset.Spawns[i];
 
 			// Insert new spawns.
-			for (int i = 0; i < clipboard.Count; i++)
+			for (int i = 0; i < _clipboard.Count; i++)
 			{
 				if (HasTooManySpawns())
 					break;
 
-				InsertSpawnAt(originalSelection + i, clipboard[i].Copy());
+				InsertSpawnAt(originalSelection + i, _clipboard[i].Copy());
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls(originalSelection >= endLoopStartIndex);
+			UpdateSpawnControls(originalSelection >= _endLoopStartIndex);
 		}
 
 		private void EditSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -293,7 +292,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls(selections.Any(s => s >= endLoopStartIndex));
+			UpdateSpawnControls(selections.Any(s => s >= _endLoopStartIndex));
 		}
 
 		private void DeleteSpawnButton_Click(object sender, RoutedEventArgs e)
@@ -319,12 +318,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				int index = selections[j];
 				ListBoxSpawns.Items.RemoveAt(index);
-				spawnControls.RemoveAt(index);
+				_spawnControls.RemoveAt(index);
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			UpdateSpawnControls(selections.Any(s => s >= endLoopStartIndex));
+			UpdateSpawnControls(selections.Any(s => s >= _endLoopStartIndex));
 
 			ListBoxSpawns.SelectedItems.Clear();
 		}
@@ -336,9 +335,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public void Copy()
 		{
-			clipboard.Clear();
+			_clipboard.Clear();
 			foreach (int i in GetSpawnSelectionIndices())
-				clipboard.Add(SpawnsetHandler.Instance.spawnset.Spawns[i]);
+				_clipboard.Add(SpawnsetHandler.Instance.spawnset.Spawns[i]);
 
 			UpdateButtons();
 		}
@@ -362,12 +361,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						DelayModificationFunction.Divide => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay / window.Value,
 						_ => SpawnsetHandler.Instance.spawnset.Spawns[i].Delay,
 					};
-					EditSpawnAt(i, new Spawn(SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy, MathUtils.Clamp(delay, 0, SpawnUtils.MaxDelay)));
+					EditSpawnAt(i, new Spawn(SpawnsetHandler.Instance.spawnset.Spawns[i].Enemy, Math.Clamp(delay, 0, SpawnUtils.MaxDelay)));
 				}
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-				UpdateSpawnControls(selections.Any(s => s >= endLoopStartIndex));
+				UpdateSpawnControls(selections.Any(s => s >= _endLoopStartIndex));
 			}
 		}
 
@@ -402,7 +401,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-				UpdateSpawnControls(selections.Any(s => s >= endLoopStartIndex));
+				UpdateSpawnControls(selections.Any(s => s >= _endLoopStartIndex));
 			}
 		}
 

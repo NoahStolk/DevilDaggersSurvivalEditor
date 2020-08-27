@@ -12,13 +12,13 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 		public float StartHeight
 		{
 			get => _startHeight;
-			set => _startHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			set => _startHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public float EndHeight
 		{
 			get => _endHeight;
-			set => _endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			set => _endHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override float[,] GetTiles()

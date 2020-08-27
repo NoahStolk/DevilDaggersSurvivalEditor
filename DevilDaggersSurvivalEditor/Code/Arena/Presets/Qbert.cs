@@ -1,38 +1,37 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Qbert : AbstractRectangularArena
 	{
-		private int offsetX;
-		private int offsetY;
-		private float startheight = -1;
-		private float endHeight = 17;
+		private int _offsetX;
+		private int _offsetY;
+		private float _startheight = -1;
+		private float _endHeight = 17;
 
 		public int OffsetX
 		{
-			get => offsetX;
-			set => offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+			get => _offsetX;
+			set => _offsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
 
 		public int OffsetY
 		{
-			get => offsetY;
-			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+			get => _offsetY;
+			set => _offsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
 
 		public float StartHeight
 		{
-			get => startheight;
-			set => startheight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _startheight;
+			set => _startheight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public float EndHeight
 		{
-			get => endHeight;
-			set => endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _endHeight;
+			set => _endHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override float[,] GetTiles()
