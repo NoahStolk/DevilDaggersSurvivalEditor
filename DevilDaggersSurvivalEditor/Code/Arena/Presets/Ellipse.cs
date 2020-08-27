@@ -5,12 +5,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Ellipse : AbstractEllipseArena
 	{
-		private float height;
+		private float _height;
 
 		public float Height
 		{
-			get => height;
-			set => height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _height;
+			set => _height = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override float[,] GetTiles()
@@ -21,7 +21,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			{
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
 				{
-					if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius, OuterRadius))
+					if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius, OuterRadius, AngleInDegrees))
 						tiles[i, j] = Height;
 				}
 			}

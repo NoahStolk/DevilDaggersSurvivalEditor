@@ -6,19 +6,19 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public class Hill : AbstractEllipseArena
 	{
-		private float startHeight;
-		private float endHeight = 8;
+		private float _startHeight;
+		private float _endHeight = 8;
 
 		public float StartHeight
 		{
-			get => startHeight;
-			set => startHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _startHeight;
+			set => _startHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public float EndHeight
 		{
-			get => endHeight;
-			set => endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
+			get => _endHeight;
+			set => _endHeight = MathUtils.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
 		}
 
 		public override float[,] GetTiles()
@@ -31,12 +31,12 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			{
 				for (int j = 0; j < Spawnset.ArenaHeight; j++)
 				{
-					if (IsPointInEllipse(center.X, center.Y, i, j, InnerRadius, OuterRadius))
+					if (IsPointInEllipse(center.X, center.Y, i, j, InnerRadius, OuterRadius, AngleInDegrees))
 					{
 						int deltaX = i - center.X;
 						int deltaY = j - center.Y;
 						float distance = (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
-						tiles[i, j] = MathUtils.Lerp(startHeight, endHeight, 1 - distance / OuterRadius);
+						tiles[i, j] = MathUtils.Lerp(_startHeight, _endHeight, 1 - distance / OuterRadius);
 					}
 				}
 			}

@@ -6,48 +6,48 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 {
 	public abstract class AbstractEllipseArena : AbstractArena
 	{
-		private int offsetX;
-		private int offsetY;
-		private float innerRadius = 10;
-		private float outerRadius = 10;
-		private float angleInDegrees;
+		private int _offsetX;
+		private int _offsetY;
+		private float _innerRadius = 10;
+		private float _outerRadius = 10;
+		private float _angleInDegrees;
 
 		public int OffsetX
 		{
-			get => offsetX;
-			set => offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+			get => _offsetX;
+			set => _offsetX = MathUtils.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
 		}
 
 		public int OffsetY
 		{
-			get => offsetY;
-			set => offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+			get => _offsetY;
+			set => _offsetY = MathUtils.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
 
 		public float InnerRadius
 		{
-			get => innerRadius;
-			set => innerRadius = MathUtils.Clamp(value, 1, 100);
+			get => _innerRadius;
+			set => _innerRadius = MathUtils.Clamp(value, 1, 100);
 		}
 
 		public float OuterRadius
 		{
-			get => outerRadius;
-			set => outerRadius = MathUtils.Clamp(value, 1, 100);
+			get => _outerRadius;
+			set => _outerRadius = MathUtils.Clamp(value, 1, 100);
 		}
 
 		public float AngleInDegrees
 		{
-			get => angleInDegrees;
-			set => angleInDegrees = value % 360;
+			get => _angleInDegrees;
+			set => _angleInDegrees = value % 360;
 		}
 
 		public override bool IsFull => false;
 
-		protected bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius)
+		protected static bool IsPointInEllipse(float ellipseX, float ellipseY, float pointX, float pointY, float innerRadius, float outerRadius, float angleInDegrees)
 		{
-			double cosA = Math.Cos(AngleInDegrees / 180 * Math.PI);
-			double sinA = Math.Sin(AngleInDegrees / 180 * Math.PI);
+			double cosA = Math.Cos(angleInDegrees / 180 * Math.PI);
+			double sinA = Math.Sin(angleInDegrees / 180 * Math.PI);
 
 			double a = Math.Pow(cosA * (pointX - ellipseX) + sinA * (pointY - ellipseY), 2);
 			double b = Math.Pow(sinA * (pointX - ellipseX) - cosA * (pointY - ellipseY), 2);
