@@ -9,7 +9,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 
 		public abstract float[,] GetTiles();
 
-		protected float[,] CreateArenaArray()
+		protected static float[,] CreateArenaArray()
 		{
 			// Startup of the application, return empty array.
 			if (App.Instance == null || App.Instance.MainWindow == null)
@@ -25,7 +25,7 @@ namespace DevilDaggersSurvivalEditor.Code.Arena.Presets
 			return voidArena;
 		}
 
-		protected void SetHeightGlobally(float[,] arenaArray, float height)
+		protected static void SetHeightGlobally(float[,] arenaArray, float height)
 		{
 			for (int i = 0; i < Spawnset.ArenaWidth; i++)
 			{
