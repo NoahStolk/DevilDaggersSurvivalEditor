@@ -41,7 +41,7 @@ Fixed-length buffer of 36 bytes. Contains shrinking control and brightness value
 The header buffer for the default spawnset looks like this:
 
 | Binary (hex) | Data type | Meaning | Value |
-|--------------|-----------|---------|---------|
+|--------------|-----------|---------|-------|
 | `04000000` | ? | ? | ? |
 | `09000000` | ? | ? | ? |
 | `0000A041` | 32-bit floating point | Shrink end radius | 20 |
@@ -63,7 +63,7 @@ Fixed-length buffer of 40 bytes. Contains the amount of spawns, but mainly unkno
 The spawns header buffer for the default spawnset looks like this:
 
 | Binary (hex) | Data type | Meaning | Value |
-|--------------|-----------|---------|---------|
+|--------------|-----------|---------|-------|
 | `00000000` | ? | ? | ? |
 | `00000000` | ? | ? | ? |
 | `00000000` | ? | ? | ? |
@@ -82,7 +82,7 @@ This is the only part of the file with a variable length. It represents the list
 These are the first 3 spawns in the original game:
 
 | Binary (hex) | Data type | Meaning | Value |
-|--------------|-----------|---------|---------|
+|--------------|-----------|---------|-------|
 | `00000000` | 32-bit signed integer | Enemy type | 0 |
 | `00004040` | 32-bit floating point | Spawn delay | 3 |
 | `00000000` | ? | ? | ? |
@@ -92,7 +92,7 @@ These are the first 3 spawns in the original game:
 | `0A000000` | ? | ? | ? |
 
 | Binary (hex) | Data type | Meaning | Value |
-|--------------|-----------|---------|---------|
+|--------------|-----------|---------|-------|
 | `FFFFFFFF` | 32-bit signed integer | Enemy type | -1 |
 | `0000C040` | 32-bit floating point | Spawn delay | 6 |
 | `00000000` | ? | ? | ? |
@@ -102,7 +102,7 @@ These are the first 3 spawns in the original game:
 | `0A000000` | ? | ? | ? |
 
 | Binary (hex) | Data type | Meaning | Value |
-|--------------|-----------|---------|---------|
+|--------------|-----------|---------|-------|
 | `00000000` | 32-bit signed integer | Enemy type | 0 |
 | `0000A040` | 32-bit floating point | Spawn delay | 5 |
 | `00000000` | ? | ? | ? |
@@ -118,7 +118,7 @@ Here's the list of enemy types that the survival file defines:
 #### V3 (current)
 
 | Binary (hex) | Data type | Meaning | Value |
-|--------------|-----------|---------|---------|
+|--------------|-----------|---------|-------|
 | `00000000` | 32-bit signed integer | Squid I | 0 |
 | `01000000` | 32-bit signed integer | Squid II | 1 |
 | `02000000` | 32-bit signed integer | Centipede | 2 |
@@ -134,7 +134,7 @@ Here's the list of enemy types that the survival file defines:
 #### V2
 
 | Binary (hex) | Data type | Meaning | Value |
-|--------------|-----------|---------|---------|
+|--------------|-----------|---------|-------|
 | `00000000` | 32-bit signed integer | Squid I | 0 |
 | `01000000` | 32-bit signed integer | Squid II | 1 |
 | `02000000` | 32-bit signed integer | Centipede | 2 |
@@ -149,7 +149,7 @@ Here's the list of enemy types that the survival file defines:
 #### V1
 
 | Binary (hex) | Data type | Meaning | Value |
-|--------------|-----------|---------|---------|
+|--------------|-----------|---------|-------|
 | `00000000` | 32-bit signed integer | Squid I | 0 |
 | `01000000` | 32-bit signed integer | Squid II | 1 |
 | `02000000` | 32-bit signed integer | Centipede | 2 |
