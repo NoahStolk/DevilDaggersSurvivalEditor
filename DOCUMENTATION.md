@@ -2,18 +2,20 @@
 
 There are 3 files in Devil Daggers which use this format. These are "survival", "dagger", and "menu", although only "survival" makes use of all the features.
 
-- devildaggers/dd/dagger contains the dagger lobby.
-- devildaggers/dd/menu contains the menu.
-- devildaggers/dd/survival contains the game.
+- `devildaggers/dd/dagger` contains the dagger lobby.
+- `devildaggers/dd/menu` contains the menu.
+- `devildaggers/dd/survival` contains the game.
 	
 # Format
 
 The internal structure of spawnset binaries consists of 4 parts:
 
-- Header buffer (36 bytes)
-- Arena buffer (10404 bytes)
-- Spawns header buffer (40 bytes)
-- Spawns buffer (28 bytes x the amount of spawns)
+| Name | Size in bytes |
+|------|---------------|
+| Header buffer | 36 |
+| Arena buffer | 10404 |
+| Spawns header buffer | 40 |
+| Spawns buffer | 28 x the amount of spawns |
 
 ## Overview of known values
 
@@ -36,8 +38,8 @@ Fixed-length buffer of 36 bytes. Contains shrinking control and brightness value
 
 The header buffer for the default spawnset looks like this:
 
-| Binary | Data type | Meaning | Value |
-|--------|-----------|---------|---------|
+| Binary (hex) | Data type | Meaning | Value |
+|--------------|-----------|---------|---------|
 | `04000000` | ? | ? | ? |
 | `09000000` | ? | ? | ? |
 | `0000A041` | 32-bit floating point | Shrink end radius | 20 |
@@ -58,8 +60,8 @@ Fixed-length buffer of 40 bytes. Contains the amount of spawns, but mainly unkno
 
 The spawns header buffer for the default spawnset looks like this:
 
-| Binary | Data type | Meaning | Value |
-|--------|-----------|---------|---------|
+| Binary (hex) | Data type | Meaning | Value |
+|--------------|-----------|---------|---------|
 | `00000000` | ? | ? | ? |
 | `00000000` | ? | ? | ? |
 | `00000000` | ? | ? | ? |
@@ -77,8 +79,8 @@ This is the only part of the file with a variable length. It represents the list
 
 These are the first 3 spawns in the original game:
 
-| Binary | Data type | Meaning | Value |
-|--------|-----------|---------|---------|
+| Binary (hex) | Data type | Meaning | Value |
+|--------------|-----------|---------|---------|
 | `00000000` | 32-bit signed integer | Enemy type | 0 |
 | `00004040` | 32-bit floating point | Spawn delay | 3 |
 | `00000000` | ? | ? | ? |
@@ -87,8 +89,8 @@ These are the first 3 spawns in the original game:
 | `0000F041` | ? | ? | ? |
 | `0A000000` | ? | ? | ? |
 
-| Binary | Data type | Meaning | Value |
-|--------|-----------|---------|---------|
+| Binary (hex) | Data type | Meaning | Value |
+|--------------|-----------|---------|---------|
 | `FFFFFFFF` | 32-bit signed integer | Enemy type | -1 |
 | `0000C040` | 32-bit floating point | Spawn delay | 6 |
 | `00000000` | ? | ? | ? |
@@ -97,8 +99,8 @@ These are the first 3 spawns in the original game:
 | `0000F041` | ? | ? | ? |
 | `0A000000` | ? | ? | ? |
 
-| Binary | Data type | Meaning | Value |
-|--------|-----------|---------|---------|
+| Binary (hex) | Data type | Meaning | Value |
+|--------------|-----------|---------|---------|
 | `00000000` | 32-bit signed integer | Enemy type | 0 |
 | `0000A040` | 32-bit floating point | Spawn delay | 5 |
 | `00000000` | ? | ? | ? |
@@ -109,8 +111,8 @@ These are the first 3 spawns in the original game:
 
 Here's the list of enemy types that the survival file defines:
 
-| Binary | Data type | Meaning | Value |
-|--------|-----------|---------|---------|
+| Binary (hex) | Data type | Meaning | Value |
+|--------------|-----------|---------|---------|
 | `00000000` | 32-bit signed integer | Squid I | 0 |
 | `01000000` | 32-bit signed integer | Squid II | 1 |
 | `02000000` | 32-bit signed integer | Centipede | 2 |
