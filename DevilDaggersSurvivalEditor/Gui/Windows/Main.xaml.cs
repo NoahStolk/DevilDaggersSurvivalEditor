@@ -1,4 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code.Arena;
+﻿using DevilDaggersCore.Wpf.Windows;
+using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Code.User;
@@ -32,7 +33,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			if (NetworkHandler.Instance.Tool != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 			{
-				UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
+				UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow(NetworkHandler.Instance.Tool.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
 				updateRecommendedWindow.ShowDialog();
 			}
 		}

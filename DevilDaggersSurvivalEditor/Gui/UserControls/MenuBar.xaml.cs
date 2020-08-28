@@ -1,5 +1,7 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
+using DevilDaggersCore.Wpf.Models;
+using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Code.Arena;
 using DevilDaggersSurvivalEditor.Code.Network;
 using DevilDaggersSurvivalEditor.Code.Spawnsets;
@@ -8,8 +10,10 @@ using DevilDaggersSurvivalEditor.Gui.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -182,12 +186,19 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (NetworkHandler.Instance.Tool != null)
 			{
-				ChangelogWindow changelogWindow = new ChangelogWindow();
+				List<ChangelogEntry> changes = NetworkHandler.Instance.Tool.Changelog.Select(c => new ChangelogEntry(Version.Parse(c.VersionNumber), c.Date, MapToSharedModel(c.Changes).ToList())).ToList();
+				ChangelogWindow changelogWindow = new ChangelogWindow(changes, App.LocalVersion);
 				changelogWindow.ShowDialog();
 			}
 			else
 			{
 				App.Instance.ShowError("Changelog not retrieved", "The changelog has not been retrieved from DevilDaggers.info.");
+			}
+
+			static IEnumerable<Change>? MapToSharedModel(List<Code.Clients.Change>? changes)
+			{
+				foreach (Code.Clients.Change change in changes ?? new List<Code.Clients.Change>())
+					yield return new Change(change.Description, MapToSharedModel(change.SubChanges)?.ToList() ?? null);
 			}
 		}
 
@@ -196,14 +207,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void Update_Click(object sender, RoutedEventArgs e)
 		{
-			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow();
+			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow(NetworkHandler.Instance.GetOnlineTool);
 			window.ShowDialog();
 
 			if (NetworkHandler.Instance.Tool != null)
 			{
 				if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 				{
-					UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow();
+					UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow(NetworkHandler.Instance.Tool.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
 					updateRecommendedWindow.ShowDialog();
 				}
 				else
