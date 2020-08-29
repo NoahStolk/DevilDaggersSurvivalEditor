@@ -59,7 +59,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void AutoDetectButton_Click(object sender, RoutedEventArgs e)
 		{
-			Process process = ProcessUtils.GetDevilDaggersProcess();
+			Process? process = ProcessUtils.GetDevilDaggersProcess();
 			if (process != null)
 			{
 				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? throw new Exception("Could not get directory name from process."), "dd"));

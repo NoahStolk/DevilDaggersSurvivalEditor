@@ -57,6 +57,9 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			return X == coord.X && Y == coord.Y;
 		}
 
+		public bool Equals(ArenaCoord other)
+			=> Equals((object)other);
+
 		public override int GetHashCode()
 		{
 			unchecked
@@ -70,8 +73,5 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 				return hash;
 			}
 		}
-
-		public bool Equals(ArenaCoord other)
-			=> Equals(other);
 	}
 }

@@ -18,19 +18,13 @@
 
 		<Label FontWeight="Bold" FontSize="14">Arena</Label>
 		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
-			<StackPanel Orientation="Horizontal">
-				<CheckBox Name="GlitchTileCheckBox" IsChecked="{Binding LockGlitchTile}" />
-			</StackPanel>
-			<StackPanel Orientation="Horizontal">
-				<CheckBox IsChecked="{Binding LockSpawnTile}">Prevent spawn tile to be void.</CheckBox>
-			</StackPanel>
+			<CheckBox Name="GlitchTileCheckBox" IsChecked="{Binding LockGlitchTile}" />
+			<CheckBox IsChecked="{Binding LockSpawnTile}">Prevent spawn tile to be void.</CheckBox>
 		</StackPanel>
 
 		<Label FontWeight="Bold" FontSize="14">Spawns</Label>
 		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
-			<StackPanel Orientation="Horizontal">
-				<CheckBox IsChecked="{Binding EnableEndLoopPreview}">Enable end loop preview.</CheckBox>
-			</StackPanel>
+			<CheckBox IsChecked="{Binding EnableEndLoopPreview}">Enable end loop preview.</CheckBox>
 		</StackPanel>
 
 		<Button HorizontalAlignment="Left" Grid.Column="2" Click="OkButton_Click" Style="{StaticResource OkButton}">OK</Button>
