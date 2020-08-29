@@ -24,9 +24,11 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 		public int X { get; }
 		public int Y { get; }
 
-		public static bool operator ==(ArenaCoord a, ArenaCoord b) => Equals(a, b);
+		public static bool operator ==(ArenaCoord a, ArenaCoord b)
+			=> Equals(a, b);
 
-		public static bool operator !=(ArenaCoord a, ArenaCoord b) => !(a == b);
+		public static bool operator !=(ArenaCoord a, ArenaCoord b)
+			=> !(a == b);
 
 		public double GetDistanceToCanvasPointSquared(int canvasPoint)
 		{
@@ -46,7 +48,8 @@ namespace DevilDaggersSurvivalEditor.Code.Arena
 			return xFromCenter * xFromCenter + yFromCenter * yFromCenter;
 		}
 
-		public override string ToString() => $"{{{X}, {Y}}}";
+		public override string ToString()
+			=> $"{{{X}, {Y}}}";
 
 		public override bool Equals(object? obj)
 		{
