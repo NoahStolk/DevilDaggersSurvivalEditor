@@ -14,6 +14,7 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 				if (spawnset.TryGetBytes(out byte[] bytes))
 				{
 					File.WriteAllBytes(destinationPath, bytes);
+					App.Instance.MainWindow.UpdateWarningNoSurvivalFile();
 					return true;
 				}
 				else
