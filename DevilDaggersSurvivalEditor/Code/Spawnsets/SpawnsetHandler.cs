@@ -51,10 +51,10 @@ namespace DevilDaggersSurvivalEditor.Code.Spawnsets
 			if (!HasUnsavedChanges)
 				return;
 
-			ConfirmWindow confirmWindow = new ConfirmWindow("Save changes?", "The current spawnset has unsaved changes. Save before proceeding?");
+			ConfirmWindow confirmWindow = new ConfirmWindow("Save changes?", "The current spawnset has unsaved changes. Save before proceeding?", false);
 			confirmWindow.ShowDialog();
 
-			if (confirmWindow.Confirmed)
+			if (confirmWindow.IsConfirmed)
 				FileSave();
 		}
 

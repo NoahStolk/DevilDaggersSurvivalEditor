@@ -128,17 +128,17 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void SurvivalReplace_Click(object sender, RoutedEventArgs e)
 		{
-			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?");
+			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?", false);
 			confirmWindow.ShowDialog();
-			if (confirmWindow.Confirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance._spawnset, UserHandler.Instance._settings.SurvivalFileLocation))
+			if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance._spawnset, UserHandler.Instance._settings.SurvivalFileLocation))
 				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
 		}
 
 		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)
 		{
-			ConfirmWindow confirmWindow = new ConfirmWindow("Restore 'survival' file", "Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?");
+			ConfirmWindow confirmWindow = new ConfirmWindow("Restore 'survival' file", "Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", false);
 			confirmWindow.ShowDialog();
-			if (confirmWindow.Confirmed)
+			if (confirmWindow.IsConfirmed)
 				SpawnsetFileUtils.TryRestoreSurvivalFile();
 		}
 

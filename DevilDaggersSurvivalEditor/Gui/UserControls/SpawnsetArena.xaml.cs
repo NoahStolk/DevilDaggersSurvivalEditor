@@ -668,9 +668,25 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)
 		{
-			ConfirmWindow confirmWindow = new ConfirmWindow("Generate arena", "Are you sure you want to overwrite the arena with this preset? This cannot be undone.");
-			confirmWindow.ShowDialog();
-			if (confirmWindow.Confirmed)
+			if (UserHandler.Instance._settings.AskToConfirmArenaGeneration)
+			{
+				ConfirmWindow confirmWindow = new ConfirmWindow("Generate arena", "Are you sure you want to overwrite the arena with this preset? This cannot be undone.", true);
+				confirmWindow.ShowDialog();
+
+				if (confirmWindow.IsConfirmed)
+				{
+					if (confirmWindow.DoNotAskAgain)
+						UserHandler.Instance._settings.AskToConfirmArenaGeneration = false;
+
+					Generate();
+				}
+			}
+			else
+			{
+				Generate();
+			}
+
+			void Generate()
 			{
 				SpawnsetHandler.Instance._spawnset.ArenaTiles = ArenaPresetHandler.Instance.ActivePreset.GetTiles();
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;

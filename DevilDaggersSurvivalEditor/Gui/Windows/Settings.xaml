@@ -20,6 +20,7 @@
 		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
 			<CheckBox Name="GlitchTileCheckBox" IsChecked="{Binding LockGlitchTile}" />
 			<CheckBox IsChecked="{Binding LockSpawnTile}">Prevent spawn tile to be void.</CheckBox>
+			<CheckBox IsChecked="{Binding AskToConfirmArenaGeneration}">Ask to confirm arena generation.</CheckBox>
 		</StackPanel>
 
 		<Label FontWeight="Bold" FontSize="14">Spawns</Label>

@@ -17,6 +17,8 @@ namespace DevilDaggersSurvivalEditor.Code.User
 		public bool LockGlitchTile { get; set; }
 		[JsonProperty]
 		public bool EnableEndLoopPreview { get; set; } = true;
+		[JsonProperty]
+		public bool AskToConfirmArenaGeneration { get; set; } = true;
 
 		public string SurvivalFileLocation => Path.Combine(SurvivalFileRootFolder, "survival");
 		public bool SurvivalFileExists => File.Exists(SurvivalFileLocation);
