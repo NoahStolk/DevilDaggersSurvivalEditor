@@ -1,0 +1,7 @@
+language: csharp
+solution: DevilDaggersSurvivalEditor.sln
+mono: none
+dotnet: 3.1.401
+script:
+  - dotnet restore
+  - dotnet test
