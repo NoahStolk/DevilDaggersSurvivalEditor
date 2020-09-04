@@ -4,8 +4,13 @@ root = true
 [*]
 indent_style = tab
 
+# Csproj files
+[*.csproj]
+indent_style = space
+indent_size  = 2
+
 # Files with newline at end of file
-[*.{editorconfig,gitattributes,gitignore,md}]
+[*.{editorconfig,gitattributes,gitignore,md,csproj}]
 insert_final_newline = true
 
 # Code files for C#

@@ -1,101 +1,99 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
-		<UseWPF>true</UseWPF>
-		<Version>2.7.6.1</Version>
-		<Nullable>enable</Nullable>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<ApplicationIcon>Icon24.ico</ApplicationIcon>
-	</PropertyGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\DevilDaggersCore\DevilDaggersCore.Wpf\DevilDaggersCore.Wpf.csproj" />
-		<ProjectReference Include="..\..\DevilDaggersCore\DevilDaggersCore\DevilDaggersCore.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<Resource Include="Content\Images\SplashScreens\0.png" />
-		<Resource Include="Content\Images\SplashScreens\1.png" />
-		<Resource Include="Content\Images\SplashScreens\10.png" />
-		<Resource Include="Content\Images\SplashScreens\11.png" />
-		<Resource Include="Content\Images\SplashScreens\12.png" />
-		<Resource Include="Content\Images\SplashScreens\13.png" />
-		<Resource Include="Content\Images\SplashScreens\14.png" />
-		<Resource Include="Content\Images\SplashScreens\15.png" />
-		<Resource Include="Content\Images\SplashScreens\16.png" />
-		<Resource Include="Content\Images\SplashScreens\17.png" />
-		<Resource Include="Content\Images\SplashScreens\18.png" />
-		<Resource Include="Content\Images\SplashScreens\19.png" />
-		<Resource Include="Content\Images\SplashScreens\2.png" />
-		<Resource Include="Content\Images\SplashScreens\20.png" />
-		<Resource Include="Content\Images\SplashScreens\21.png" />
-		<Resource Include="Content\Images\SplashScreens\22.png" />
-		<Resource Include="Content\Images\SplashScreens\23.png" />
-		<Resource Include="Content\Images\SplashScreens\24.png" />
-		<Resource Include="Content\Images\SplashScreens\25.png" />
-		<Resource Include="Content\Images\SplashScreens\26.png" />
-		<Resource Include="Content\Images\SplashScreens\27.png" />
-		<Resource Include="Content\Images\SplashScreens\28.png" />
-		<Resource Include="Content\Images\SplashScreens\29.png" />
-		<Resource Include="Content\Images\SplashScreens\3.png" />
-		<Resource Include="Content\Images\SplashScreens\30.png" />
-		<Resource Include="Content\Images\SplashScreens\31.png" />
-		<Resource Include="Content\Images\SplashScreens\32.png" />
-		<Resource Include="Content\Images\SplashScreens\33.png" />
-		<Resource Include="Content\Images\SplashScreens\34.png" />
-		<Resource Include="Content\Images\SplashScreens\35.png" />
-		<Resource Include="Content\Images\SplashScreens\36.png" />
-		<Resource Include="Content\Images\SplashScreens\4.png" />
-		<Resource Include="Content\Images\SplashScreens\5.png" />
-		<Resource Include="Content\Images\SplashScreens\6.png" />
-		<Resource Include="Content\Images\SplashScreens\7.png" />
-		<Resource Include="Content\Images\SplashScreens\8.png" />
-		<Resource Include="Content\Images\SplashScreens\9.png" />
-		<Resource Include="Content\Images\Icon\Icon24.png" />
-		<Resource Include="Content\Images\Icon\Icon32.png" />
-		<Resource Include="Content\Images\Buttons\SpawnsetSort.png" />
-		<Resource Include="Content\Images\Buttons\ArenaFlipHorizontally.png" />
-		<Resource Include="Content\Images\Buttons\ArenaFlipVertically.png" />
-		<Resource Include="Content\Images\Buttons\ArenaRotateClockwise.png" />
-		<Resource Include="Content\Images\Buttons\ArenaRotateCounterClockwise.png" />
-		<Resource Include="Content\Images\Buttons\ArenaTilesActionDeselect.png" />
-		<Resource Include="Content\Images\Buttons\ArenaTilesActionSelect.png" />
-		<Resource Include="Content\Images\Buttons\ArenaTilesSelectionContinuous.png" />
-		<Resource Include="Content\Images\Buttons\ArenaTilesSelectionOnce.png" />
-		<Resource Include="Content\Images\Buttons\ArenaTilesSelectionRectangle.png" />
-		<Resource Include="Content\Images\Buttons\ArenaTilesDeselectAll.png" />
-		<Resource Include="Content\Images\Buttons\ArenaTilesSelectAll.png" />
-		<Resource Include="Content\Images\Buttons\SpawnsetSortActive.png" />
-		<Resource Include="Content\Shaders\Selection.ps">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Resource>
-		<Content Include="Content\Shaders\Selection.fx" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Content\survival">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.12.0.21095">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
-	<ItemGroup>
-		<None Update="log4net.config">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-	<!--<PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Version>2.7.6.1</Version>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ApplicationIcon>Icon24.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\SplashScreens\0.png" />
+    <Resource Include="Content\Images\SplashScreens\1.png" />
+    <Resource Include="Content\Images\SplashScreens\10.png" />
+    <Resource Include="Content\Images\SplashScreens\11.png" />
+    <Resource Include="Content\Images\SplashScreens\12.png" />
+    <Resource Include="Content\Images\SplashScreens\13.png" />
+    <Resource Include="Content\Images\SplashScreens\14.png" />
+    <Resource Include="Content\Images\SplashScreens\15.png" />
+    <Resource Include="Content\Images\SplashScreens\16.png" />
+    <Resource Include="Content\Images\SplashScreens\17.png" />
+    <Resource Include="Content\Images\SplashScreens\18.png" />
+    <Resource Include="Content\Images\SplashScreens\19.png" />
+    <Resource Include="Content\Images\SplashScreens\2.png" />
+    <Resource Include="Content\Images\SplashScreens\20.png" />
+    <Resource Include="Content\Images\SplashScreens\21.png" />
+    <Resource Include="Content\Images\SplashScreens\22.png" />
+    <Resource Include="Content\Images\SplashScreens\23.png" />
+    <Resource Include="Content\Images\SplashScreens\24.png" />
+    <Resource Include="Content\Images\SplashScreens\25.png" />
+    <Resource Include="Content\Images\SplashScreens\26.png" />
+    <Resource Include="Content\Images\SplashScreens\27.png" />
+    <Resource Include="Content\Images\SplashScreens\28.png" />
+    <Resource Include="Content\Images\SplashScreens\29.png" />
+    <Resource Include="Content\Images\SplashScreens\3.png" />
+    <Resource Include="Content\Images\SplashScreens\30.png" />
+    <Resource Include="Content\Images\SplashScreens\31.png" />
+    <Resource Include="Content\Images\SplashScreens\32.png" />
+    <Resource Include="Content\Images\SplashScreens\33.png" />
+    <Resource Include="Content\Images\SplashScreens\34.png" />
+    <Resource Include="Content\Images\SplashScreens\35.png" />
+    <Resource Include="Content\Images\SplashScreens\36.png" />
+    <Resource Include="Content\Images\SplashScreens\4.png" />
+    <Resource Include="Content\Images\SplashScreens\5.png" />
+    <Resource Include="Content\Images\SplashScreens\6.png" />
+    <Resource Include="Content\Images\SplashScreens\7.png" />
+    <Resource Include="Content\Images\SplashScreens\8.png" />
+    <Resource Include="Content\Images\SplashScreens\9.png" />
+    <Resource Include="Content\Images\Icon\Icon24.png" />
+    <Resource Include="Content\Images\Icon\Icon32.png" />
+    <Resource Include="Content\Images\Buttons\SpawnsetSort.png" />
+    <Resource Include="Content\Images\Buttons\ArenaFlipHorizontally.png" />
+    <Resource Include="Content\Images\Buttons\ArenaFlipVertically.png" />
+    <Resource Include="Content\Images\Buttons\ArenaRotateClockwise.png" />
+    <Resource Include="Content\Images\Buttons\ArenaRotateCounterClockwise.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesActionDeselect.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesActionSelect.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesSelectionContinuous.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesSelectionOnce.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesSelectionRectangle.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesDeselectAll.png" />
+    <Resource Include="Content\Images\Buttons\ArenaTilesSelectAll.png" />
+    <Resource Include="Content\Images\Buttons\SpawnsetSortActive.png" />
+    <Resource Include="Content\Shaders\Selection.ps">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Content\Shaders\Selection.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\survival">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DevilDaggersCore" Version="1.0.0" />
+    <PackageReference Include="DevilDaggersCore.Wpf" Version="1.0.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.12.0.21095">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <!--<PropertyGroup>
 		<PreBuildEvent>"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Utilities\bin\x86\fxc.exe" /T ps_3_0 /E main /Fo "$(ProjectDir)Content\Shaders\Selection.ps" "$(ProjectDir)Content\Shaders\Selection.fx"</PreBuildEvent>
 	</PropertyGroup>-->
 </Project>

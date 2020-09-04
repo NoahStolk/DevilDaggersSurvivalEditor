@@ -3,13 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevilDaggersSurvivalEditor", "DevilDaggersSurvivalEditor\DevilDaggersSurvivalEditor.csproj", "{1F1E41AC-3DB2-4C00-B68D-692421DAE241}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevilDaggersCore", "..\DevilDaggersCore\DevilDaggersCore\DevilDaggersCore.csproj", "{5593879A-1411-4E62-A682-9431DA03898F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBase", "..\NetBase\NetBase\NetBase.csproj", "{99BA0C6A-5FA2-4F49-A692-694B97605096}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{EE5F97D7-553A-4720-A713-F6AADDDEE697}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevilDaggersSurvivalEditor", "DevilDaggersSurvivalEditor\DevilDaggersSurvivalEditor.csproj", "{1F1E41AC-3DB2-4C00-B68D-692421DAE241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,29 +21,9 @@ Global
 		{1F1E41AC-3DB2-4C00-B68D-692421DAE241}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F1E41AC-3DB2-4C00-B68D-692421DAE241}.Release|x86.ActiveCfg = Release|Any CPU
 		{1F1E41AC-3DB2-4C00-B68D-692421DAE241}.Release|x86.Build.0 = Release|Any CPU
-		{5593879A-1411-4E62-A682-9431DA03898F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5593879A-1411-4E62-A682-9431DA03898F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5593879A-1411-4E62-A682-9431DA03898F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5593879A-1411-4E62-A682-9431DA03898F}.Debug|x86.Build.0 = Debug|Any CPU
-		{5593879A-1411-4E62-A682-9431DA03898F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5593879A-1411-4E62-A682-9431DA03898F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5593879A-1411-4E62-A682-9431DA03898F}.Release|x86.ActiveCfg = Release|Any CPU
-		{5593879A-1411-4E62-A682-9431DA03898F}.Release|x86.Build.0 = Release|Any CPU
-		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Debug|x86.Build.0 = Debug|Any CPU
-		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Release|x86.ActiveCfg = Release|Any CPU
-		{99BA0C6A-5FA2-4F49-A692-694B97605096}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{5593879A-1411-4E62-A682-9431DA03898F} = {EE5F97D7-553A-4720-A713-F6AADDDEE697}
-		{99BA0C6A-5FA2-4F49-A692-694B97605096} = {EE5F97D7-553A-4720-A713-F6AADDDEE697}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E48D29D9-9C75-4046-AF85-84FA49B5C1EA}
