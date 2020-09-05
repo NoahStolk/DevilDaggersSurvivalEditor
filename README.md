@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/NoahStolk/DevilDaggersSurvivalEditor.svg?branch=master)](https://travis-ci.org/NoahStolk/DevilDaggersSurvivalEditor)
+[![Scc Count Badge](https://sloc.xyz/github/NoahStolk/DevilDaggersSurvivalEditor/)](https://github.com/NoahStolk/DevilDaggersSurvivalEditor/)
 
 # DevilDaggersSurvivalEditor ([Download](https://devildaggers.info/api/tools/DevilDaggersSurvivalEditor/file))
 DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers. It is a .NET WPF application built using Visual Studio 2019.
