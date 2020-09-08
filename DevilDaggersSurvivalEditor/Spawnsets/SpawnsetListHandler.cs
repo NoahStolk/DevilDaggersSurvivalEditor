@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevilDaggersSurvivalEditor.Clients;
+using System;
 using System.Collections.Generic;
 
 namespace DevilDaggersSurvivalEditor.Spawnsets
@@ -27,17 +28,17 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 			new SpawnsetListSorting<AuthorListEntry>("Spawnset amount", "Spawnsets", s => s.SpawnsetCount, false),
 		};
 
-		public SpawnsetListSorting<SpawnsetListEntry> ActiveSpawnsetSorting { get; set; }
-		public IReadOnlyList<SpawnsetListSorting<SpawnsetListEntry>> SpawnsetSortings { get; } = new List<SpawnsetListSorting<SpawnsetListEntry>>
+		public SpawnsetListSorting<SpawnsetFile> ActiveSpawnsetSorting { get; set; }
+		public IReadOnlyList<SpawnsetListSorting<SpawnsetFile>> SpawnsetSortings { get; } = new List<SpawnsetListSorting<SpawnsetFile>>
 		{
-			new SpawnsetListSorting<SpawnsetListEntry>("Name", "Name", s => s.SpawnsetFile.Name, true),
-			new SpawnsetListSorting<SpawnsetListEntry>("Author", "Author", s => s.SpawnsetFile.AuthorName, true),
-			new SpawnsetListSorting<SpawnsetListEntry>("Last updated", "Last updated", s => s.SpawnsetFile.LastUpdated, false),
-			new SpawnsetListSorting<SpawnsetListEntry>("Custom leaderboard", "LB", s => s.HasCustomLeaderboard, false) { Ascending = true },
-			new SpawnsetListSorting<SpawnsetListEntry>("Non-loop length", "Length", s => s.SpawnsetFile.SpawnsetData.NonLoopLength ?? 0, false),
-			new SpawnsetListSorting<SpawnsetListEntry>("Non-loop spawns", "Spawns", s => s.SpawnsetFile.SpawnsetData.NonLoopSpawnCount, false),
-			new SpawnsetListSorting<SpawnsetListEntry>("Loop length", "Length", s => s.SpawnsetFile.SpawnsetData.LoopLength ?? 0, false),
-			new SpawnsetListSorting<SpawnsetListEntry>("Loop spawns", "Spawns", s => s.SpawnsetFile.SpawnsetData.LoopSpawnCount, false),
+			new SpawnsetListSorting<SpawnsetFile>("Name", "Name", s => s.Name, true),
+			new SpawnsetListSorting<SpawnsetFile>("Author", "Author", s => s.AuthorName, true),
+			new SpawnsetListSorting<SpawnsetFile>("Last updated", "Last updated", s => s.LastUpdated, false),
+			new SpawnsetListSorting<SpawnsetFile>("Custom leaderboard", "LB", s => s.HasCustomLeaderboard, false) { Ascending = true },
+			new SpawnsetListSorting<SpawnsetFile>("Non-loop length", "Length", s => s.SpawnsetData.NonLoopLength ?? 0, false),
+			new SpawnsetListSorting<SpawnsetFile>("Non-loop spawns", "Spawns", s => s.SpawnsetData.NonLoopSpawnCount, false),
+			new SpawnsetListSorting<SpawnsetFile>("Loop length", "Length", s => s.SpawnsetData.LoopLength ?? 0, false),
+			new SpawnsetListSorting<SpawnsetFile>("Loop spawns", "Spawns", s => s.SpawnsetData.LoopSpawnCount, false),
 		};
 	}
 }

@@ -37,7 +37,7 @@ namespace DevilDaggersSurvivalEditor.Network
 
 		public List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
 
-		public List<SpawnsetListEntry> Spawnsets { get; private set; } = new List<SpawnsetListEntry>();
+		public List<SpawnsetFile> Spawnsets { get; private set; } = new List<SpawnsetFile>();
 
 		public async Task<bool> GetOnlineTool()
 		{
@@ -70,8 +70,7 @@ namespace DevilDaggersSurvivalEditor.Network
 						Authors.Add(author);
 				}
 
-				foreach (SpawnsetFile spawnsetFile in spawnsetFiles)
-					Spawnsets.Add(new SpawnsetListEntry(spawnsetFile, spawnsetFile.HasCustomLeaderboard));
+				Spawnsets.AddRange(spawnsetFiles);
 
 				return true;
 			}

@@ -1,6 +1,6 @@
 ﻿namespace DevilDaggersSurvivalEditor.Spawnsets
 {
-	public class AuthorListEntry : IListEntry
+	public class AuthorListEntry
 	{
 		public AuthorListEntry(string name, int spawnsetCount)
 		{

@@ -3,7 +3,6 @@
 namespace DevilDaggersSurvivalEditor.Spawnsets
 {
 	public class SpawnsetListSorting<TListEntry>
-		where TListEntry : IListEntry
 	{
 		public SpawnsetListSorting(string fullName, string displayName, Func<TListEntry, object> sortingFunction, bool isAscendingDefault)
 		{
