@@ -251,3 +251,9 @@ dotnet_diagnostic.SA1615.severity                                        = none
 dotnet_diagnostic.SA1623.severity                                        = none
 dotnet_diagnostic.SA1633.severity                                        = none
 dotnet_diagnostic.SA1642.severity                                        = none
+
+# SonarAnalyzers suppressions
+
+# S3358: Extract this nested ternary operation into an independent statement.
+
+dotnet_diagnostic.S3358.severity                                         = none

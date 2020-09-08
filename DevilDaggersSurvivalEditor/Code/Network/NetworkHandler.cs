@@ -65,7 +65,7 @@ namespace DevilDaggersSurvivalEditor.Code.Network
 				Authors.Add(new AuthorListEntry(SpawnsetListHandler.AllAuthors, spawnsetFiles.Count));
 				foreach (SpawnsetFile sf in spawnsetFiles)
 				{
-					AuthorListEntry author = new AuthorListEntry(sf.AuthorName, spawnsetFiles.Where(s => s.AuthorName == sf.AuthorName).Count());
+					AuthorListEntry author = new AuthorListEntry(sf.AuthorName, spawnsetFiles.Count(s => s.AuthorName == sf.AuthorName));
 					if (!Authors.Any(a => a.Name == author.Name))
 						Authors.Add(author);
 				}
