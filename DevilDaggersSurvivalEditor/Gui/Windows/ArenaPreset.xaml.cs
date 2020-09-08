@@ -1,5 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Code;
-using DevilDaggersSurvivalEditor.Code.Arena;
+﻿using DevilDaggersSurvivalEditor.Arena;
+using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

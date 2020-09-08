@@ -1,11 +1,12 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
 using DevilDaggersCore.Wpf.Windows;
-using DevilDaggersSurvivalEditor.Code;
-using DevilDaggersSurvivalEditor.Code.Arena;
-using DevilDaggersSurvivalEditor.Code.Spawnsets;
-using DevilDaggersSurvivalEditor.Code.User;
+using DevilDaggersSurvivalEditor.Arena;
+using DevilDaggersSurvivalEditor.Extensions;
 using DevilDaggersSurvivalEditor.Gui.Windows;
+using DevilDaggersSurvivalEditor.Spawnsets;
+using DevilDaggersSurvivalEditor.User;
+using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -277,6 +278,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 		}
 
+		private void UpdateShrinkStart()
+		{
+			_shrinkStartRadius = SpawnsetHandler.Instance._spawnset.ShrinkStart * 0.25;
+			ShrinkStart.Width = _shrinkStartRadius * TileUtils.TileSize * 2;
+			ShrinkStart.Height = _shrinkStartRadius * TileUtils.TileSize * 2;
+			Canvas.SetLeft(ShrinkStart, _arenaCanvasCenter - ShrinkStart.Width * 0.5);
+			Canvas.SetTop(ShrinkStart, _arenaCanvasCenter - ShrinkStart.Height * 0.5);
+		}
+
 		private void UpdateShrinkEnd(object sender, TextChangedEventArgs e)
 		{
 			if (ValidateTextBox(TextBoxShrinkEnd))
@@ -288,6 +298,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				UpdateShrinkCurrent();
 				UpdateAllTiles();
 			}
+		}
+
+		private void UpdateShrinkEnd()
+		{
+			_shrinkEndRadius = SpawnsetHandler.Instance._spawnset.ShrinkEnd * 0.25;
+			ShrinkEnd.Width = _shrinkEndRadius * TileUtils.TileSize * 2;
+			ShrinkEnd.Height = _shrinkEndRadius * TileUtils.TileSize * 2;
+			Canvas.SetLeft(ShrinkEnd, _arenaCanvasCenter - ShrinkEnd.Width * 0.5);
+			Canvas.SetTop(ShrinkEnd, _arenaCanvasCenter - ShrinkEnd.Height * 0.5);
 		}
 
 		private void UpdateShrinkRate(object sender, TextChangedEventArgs e)
@@ -334,24 +353,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 		}
 
-		private void UpdateShrinkStart()
-		{
-			_shrinkStartRadius = SpawnsetHandler.Instance._spawnset.ShrinkStart * 0.25;
-			ShrinkStart.Width = _shrinkStartRadius * TileUtils.TileSize * 2;
-			ShrinkStart.Height = _shrinkStartRadius * TileUtils.TileSize * 2;
-			Canvas.SetLeft(ShrinkStart, _arenaCanvasCenter - ShrinkStart.Width * 0.5);
-			Canvas.SetTop(ShrinkStart, _arenaCanvasCenter - ShrinkStart.Height * 0.5);
-		}
-
-		private void UpdateShrinkEnd()
-		{
-			_shrinkEndRadius = SpawnsetHandler.Instance._spawnset.ShrinkEnd * 0.25;
-			ShrinkEnd.Width = _shrinkEndRadius * TileUtils.TileSize * 2;
-			ShrinkEnd.Height = _shrinkEndRadius * TileUtils.TileSize * 2;
-			Canvas.SetLeft(ShrinkEnd, _arenaCanvasCenter - ShrinkEnd.Width * 0.5);
-			Canvas.SetTop(ShrinkEnd, _arenaCanvasCenter - ShrinkEnd.Height * 0.5);
-		}
-
 		private void UpdateShrinkCurrent()
 		{
 			if (SpawnsetHandler.Instance._spawnset.ShrinkRate > 0 && SpawnsetHandler.Instance._spawnset.ShrinkStart - SpawnsetHandler.Instance._spawnset.ShrinkEnd > 0)
@@ -387,14 +388,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			// Lock special cases if set in settings.
 			if (tile == TileUtils.GlitchTile)
 			{
-				if (UserHandler.Instance._settings.LockGlitchTile)
+				if (UserHandler.Instance.Settings.LockGlitchTile)
 					SpawnsetHandler.Instance._spawnset.ArenaTiles[tile.X, tile.Y] = Math.Min(SpawnsetHandler.Instance._spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.GlitchTileMax);
 
 				App.Instance.MainWindow.WarningGlitchTile.Visibility = SpawnsetHandler.Instance._spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? Visibility.Visible : Visibility.Collapsed;
 			}
 			else if (tile == TileUtils.SpawnTile)
 			{
-				if (UserHandler.Instance._settings.LockSpawnTile)
+				if (UserHandler.Instance.Settings.LockSpawnTile)
 					SpawnsetHandler.Instance._spawnset.ArenaTiles[tile.X, tile.Y] = Math.Max(SpawnsetHandler.Instance._spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.TileMin);
 
 				App.Instance.MainWindow.WarningVoidSpawn.Visibility = SpawnsetHandler.Instance._spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;
@@ -668,7 +669,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void GenerateButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (UserHandler.Instance._settings.AskToConfirmArenaGeneration)
+			if (UserHandler.Instance.Settings.AskToConfirmArenaGeneration)
 			{
 				ConfirmWindow confirmWindow = new ConfirmWindow("Generate arena", "Are you sure you want to overwrite the arena with this preset? This cannot be undone.", true);
 				confirmWindow.ShowDialog();
@@ -676,7 +677,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (confirmWindow.IsConfirmed)
 				{
 					if (confirmWindow.DoNotAskAgain)
-						UserHandler.Instance._settings.AskToConfirmArenaGeneration = false;
+						UserHandler.Instance.Settings.AskToConfirmArenaGeneration = false;
 
 					Generate();
 				}

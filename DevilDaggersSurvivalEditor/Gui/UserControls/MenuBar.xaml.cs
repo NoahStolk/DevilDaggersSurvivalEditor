@@ -2,11 +2,11 @@
 using DevilDaggersCore.Utils;
 using DevilDaggersCore.Wpf.Models;
 using DevilDaggersCore.Wpf.Windows;
-using DevilDaggersSurvivalEditor.Code.Arena;
-using DevilDaggersSurvivalEditor.Code.Network;
-using DevilDaggersSurvivalEditor.Code.Spawnsets;
-using DevilDaggersSurvivalEditor.Code.User;
+using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Gui.Windows;
+using DevilDaggersSurvivalEditor.Network;
+using DevilDaggersSurvivalEditor.Spawnsets;
+using DevilDaggersSurvivalEditor.User;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -108,13 +108,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
-			if (!UserHandler.Instance._settings.SurvivalFileExists)
+			if (!UserHandler.Instance.Settings.SurvivalFileExists)
 			{
 				App.Instance.ShowError("Survival file does not exist", "Please make sure to correct the survival file location in the Options > Settings menu.");
 				return;
 			}
 
-			if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance._settings.SurvivalFileLocation), out SpawnsetHandler.Instance._spawnset))
+			if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.Settings.SurvivalFileLocation), out SpawnsetHandler.Instance._spawnset))
 			{
 				App.Instance.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;
@@ -123,14 +123,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
 			App.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
 
-			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance._settings.SurvivalFileLocation);
+			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
 		}
 
 		private void SurvivalReplace_Click(object sender, RoutedEventArgs e)
 		{
 			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?", false);
 			confirmWindow.ShowDialog();
-			if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance._spawnset, UserHandler.Instance._settings.SurvivalFileLocation))
+			if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance._spawnset, UserHandler.Instance.Settings.SurvivalFileLocation))
 				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
 		}
 
@@ -151,7 +151,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			if (settingsWindow.ShowDialog() == true)
 			{
 				using (StreamWriter sw = new StreamWriter(File.Create(UserSettings.FileName)))
-					sw.Write(JsonConvert.SerializeObject(UserHandler.Instance._settings, Formatting.Indented));
+					sw.Write(JsonConvert.SerializeObject(UserHandler.Instance.Settings, Formatting.Indented));
 
 				Dispatcher.Invoke(() =>
 				{
@@ -195,9 +195,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				App.Instance.ShowError("Changelog not retrieved", "The changelog has not been retrieved from DevilDaggers.info.");
 			}
 
-			static IEnumerable<Change>? MapToSharedModel(List<Code.Clients.Change>? changes)
+			static IEnumerable<Change>? MapToSharedModel(List<Clients.Change>? changes)
 			{
-				foreach (Code.Clients.Change change in changes ?? new List<Code.Clients.Change>())
+				foreach (Clients.Change change in changes ?? new List<Clients.Change>())
 					yield return new Change(change.Description, MapToSharedModel(change.SubChanges)?.ToList() ?? null);
 			}
 		}

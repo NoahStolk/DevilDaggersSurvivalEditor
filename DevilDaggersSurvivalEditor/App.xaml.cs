@@ -1,6 +1,6 @@
 ﻿using DevilDaggersCore.Wpf.Windows;
-using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Gui.Windows;
+using DevilDaggersSurvivalEditor.Spawnsets;
 using log4net;
 using log4net.Config;
 using log4net.Repository;

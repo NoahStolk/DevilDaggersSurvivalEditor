@@ -1,8 +1,8 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersSurvivalEditor.Code.Spawns;
-using DevilDaggersSurvivalEditor.Code.Spawnsets;
 using DevilDaggersSurvivalEditor.Gui.Windows;
+using DevilDaggersSurvivalEditor.Spawns;
+using DevilDaggersSurvivalEditor.Spawnsets;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

@@ -1,6 +1,6 @@
 ﻿using DevilDaggersCore.Game;
-using DevilDaggersSurvivalEditor.Code;
-using DevilDaggersSurvivalEditor.Code.Spawns;
+using DevilDaggersSurvivalEditor.Spawns;
+using DevilDaggersSurvivalEditor.Utils;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;

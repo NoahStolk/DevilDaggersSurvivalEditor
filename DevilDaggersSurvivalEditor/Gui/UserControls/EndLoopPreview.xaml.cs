@@ -1,8 +1,8 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersSurvivalEditor.Code.Spawns;
-using DevilDaggersSurvivalEditor.Code.Spawnsets;
-using DevilDaggersSurvivalEditor.Code.User;
+using DevilDaggersSurvivalEditor.Spawns;
+using DevilDaggersSurvivalEditor.Spawnsets;
+using DevilDaggersSurvivalEditor.User;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -44,7 +44,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			EndLoopSpawns.Items.Clear();
 
-			if (!UserHandler.Instance._settings.EnableEndLoopPreview)
+			if (!UserHandler.Instance.Settings.EnableEndLoopPreview)
 			{
 				Visibility = Visibility.Collapsed;
 				return;

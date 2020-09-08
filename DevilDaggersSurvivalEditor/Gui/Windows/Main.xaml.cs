@@ -1,8 +1,8 @@
 ﻿using DevilDaggersCore.Wpf.Windows;
-using DevilDaggersSurvivalEditor.Code.Arena;
-using DevilDaggersSurvivalEditor.Code.Network;
-using DevilDaggersSurvivalEditor.Code.Spawnsets;
-using DevilDaggersSurvivalEditor.Code.User;
+using DevilDaggersSurvivalEditor.Arena;
+using DevilDaggersSurvivalEditor.Network;
+using DevilDaggersSurvivalEditor.Spawnsets;
+using DevilDaggersSurvivalEditor.User;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -40,10 +40,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		public void UpdateWarningNoSurvivalFile()
 		{
-			if (!UserHandler.Instance._settings.SurvivalFileExists || !UserHandler.Instance._settings.SurvivalFileIsValid)
+			if (!UserHandler.Instance.Settings.SurvivalFileExists || !UserHandler.Instance.Settings.SurvivalFileIsValid)
 			{
 				WarningNoSurvivalFile.Visibility = Visibility.Visible;
-				WarningNoSurvivalFile.Text = $"The survival file {(!UserHandler.Instance._settings.SurvivalFileExists ? "does not exist" : "could not be parsed")}. Please make sure to correct the survival file location in the Options > Settings menu.";
+				WarningNoSurvivalFile.Text = $"The survival file {(!UserHandler.Instance.Settings.SurvivalFileExists ? "does not exist" : "could not be parsed")}. Please make sure to correct the survival file location in the Options > Settings menu.";
 			}
 			else
 			{
