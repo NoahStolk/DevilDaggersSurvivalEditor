@@ -50,7 +50,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				Dispatcher.Invoke(() =>
 				{
 					string message = string.Empty;
-					Color color = default;
+					Color color;
 
 					if (NetworkHandler.Instance.Tool == null)
 					{

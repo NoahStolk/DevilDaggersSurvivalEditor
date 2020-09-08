@@ -104,7 +104,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				if (downloadedSpawnset != null)
 				{
-					SpawnsetHandler.Instance._spawnset = downloadedSpawnset;
+					SpawnsetHandler.Instance.Spawnset = downloadedSpawnset;
 					SpawnsetHandler.Instance.UpdateSpawnsetState(fileName, string.Empty);
 				}
 			};
@@ -115,12 +115,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				Dispatcher.Invoke(() =>
 				{
-					App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-					App.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
+					App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
+					App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
 
 					ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Do you want to replace the currently active 'survival' file as well?", false);
 					confirmWindow.ShowDialog();
-					if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance._spawnset, UserHandler.Instance.Settings.SurvivalFileLocation))
+					if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.Spawnset, UserHandler.Instance.Settings.SurvivalFileLocation))
 						App.Instance.ShowMessage("Success", $"Successfully replaced 'survival' file with '{fileName}'.");
 				});
 			};

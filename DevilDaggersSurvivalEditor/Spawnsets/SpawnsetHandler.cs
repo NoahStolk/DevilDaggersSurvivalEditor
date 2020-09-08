@@ -12,17 +12,16 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 	{
 		private bool _hasUnsavedChanges;
 
-		// Must be a field since properties can't be used as out parameters.
-		public Spawnset _spawnset;
-
 		private static readonly Lazy<SpawnsetHandler> _lazy = new Lazy<SpawnsetHandler>(() => new SpawnsetHandler());
 
 		private SpawnsetHandler()
 		{
-			_spawnset = new Spawnset { ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles() };
+			Spawnset = new Spawnset { ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles() };
 		}
 
 		public static SpawnsetHandler Instance => _lazy.Value;
+
+		public Spawnset Spawnset { get; set; }
 
 		public bool HasUnsavedChanges
 		{
@@ -63,7 +62,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 		{
 			if (File.Exists(SpawnsetFileLocation))
 			{
-				if (SpawnsetFileUtils.TryWriteSpawnsetToFile(_spawnset, SpawnsetFileLocation))
+				if (SpawnsetFileUtils.TryWriteSpawnsetToFile(Spawnset, SpawnsetFileLocation))
 					HasUnsavedChanges = false;
 			}
 			else
@@ -76,7 +75,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
 			bool? result = dialog.ShowDialog();
-			if (result.HasValue && result.Value && SpawnsetFileUtils.TryWriteSpawnsetToFile(_spawnset, dialog.FileName))
+			if (result.HasValue && result.Value && SpawnsetFileUtils.TryWriteSpawnsetToFile(Spawnset, dialog.FileName))
 				UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
 		}
 	}

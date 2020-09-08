@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			foreach (PropertyInfo p in _properties)
 			{
-				Label label = new Label()
+				Label label = new Label
 				{
 					Content = p.Name.ToUserFriendlyString(),
 				};
@@ -32,7 +32,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				Control control;
 				if (p.PropertyType == typeof(bool))
 				{
-					control = new CheckBox()
+					control = new CheckBox
 					{
 						Name = p.Name,
 						Tag = p.PropertyType,
@@ -40,10 +40,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				}
 				else
 				{
-					TextBox textBox = new TextBox()
+					TextBox textBox = new TextBox
 					{
 						Name = p.Name,
-						Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset).ToString(),
+						Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset)?.ToString(),
 						Tag = p.PropertyType,
 					};
 					textBox.TextChanged += TextBox_TextChanged;
@@ -66,37 +66,39 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			TextBox textBox = sender as TextBox;
+			if (!(sender is TextBox textBox))
+				return;
 
-			Type t = textBox.Tag as Type;
-			bool valid;
-			if (t == typeof(float))
+			Type? type = textBox.Tag as Type;
+
+			bool isValid;
+			if (type == typeof(float))
 			{
-				valid = float.TryParse(textBox.Text, out _);
+				isValid = float.TryParse(textBox.Text, out _);
 			}
-			else if (t == typeof(int))
+			else if (type == typeof(int))
 			{
-				valid = int.TryParse(textBox.Text, out _);
+				isValid = int.TryParse(textBox.Text, out _);
 			}
 			else
 			{
-				Exception ex = new Exception($"Type {t} not supported in ArenaPreset TextBox.");
-				App.Instance.ShowError("Error", $"Type {t} not supported in ArenaPreset TextBox.", ex);
+				Exception ex = new Exception($"Type {type} not supported in ArenaPreset TextBox.");
+				App.Instance.ShowError("Error", $"Type {type} not supported in ArenaPreset TextBox.", ex);
 				throw ex;
 			}
 
-			textBox.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 127, 127));
+			textBox.Background = isValid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 127, 127));
 		}
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (PropertyInfo p in _properties)
 			{
-				foreach (UIElement child in Options.Children)
+				foreach (UIElement? child in Options.Children)
 				{
 					if (child is Grid grid)
 					{
-						foreach (UIElement gridChild in grid.Children)
+						foreach (UIElement? gridChild in grid.Children)
 						{
 							if (gridChild is TextBox textBox)
 							{
@@ -124,12 +126,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 									}
 								}
 							}
-							else if (gridChild is CheckBox checkBox)
+							else if (gridChild is CheckBox checkBox && checkBox.Name == p.Name)
 							{
-								if (checkBox.Name == p.Name)
-								{
-									p.SetValue(ArenaPresetHandler.Instance.ActivePreset, checkBox.IsChecked);
-								}
+								p.SetValue(ArenaPresetHandler.Instance.ActivePreset, checkBox.IsChecked);
 							}
 						}
 					}

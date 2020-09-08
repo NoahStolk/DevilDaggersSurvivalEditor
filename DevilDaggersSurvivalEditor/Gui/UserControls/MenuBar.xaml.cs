@@ -58,13 +58,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
-			SpawnsetHandler.Instance._spawnset = new Spawnset
+			SpawnsetHandler.Instance.Spawnset = new Spawnset
 			{
 				ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles(),
 			};
 
-			App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-			App.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
+			App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
+			App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
 
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(new spawnset)", string.Empty);
 		}
@@ -78,14 +78,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			if (result.HasValue && result.Value)
 			{
-				if (!Spawnset.TryParse(File.ReadAllBytes(dialog.FileName), out SpawnsetHandler.Instance._spawnset))
+				if (!Spawnset.TryParse(File.ReadAllBytes(dialog.FileName), out Spawnset spawnset))
 				{
 					App.Instance.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
 					return;
 				}
 
-				App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-				App.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
+				SpawnsetHandler.Instance.Spawnset = spawnset;
+
+				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
+				App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
 
 				SpawnsetHandler.Instance.UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
 			}
@@ -115,14 +117,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				return;
 			}
 
-			if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.Settings.SurvivalFileLocation), out SpawnsetHandler.Instance._spawnset))
+			if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.Settings.SurvivalFileLocation), out Spawnset spawnset))
 			{
 				App.Instance.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
 				return;
 			}
 
-			App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnset();
-			App.Instance.MainWindow.SpawnsetArena.UpdateSpawnset();
+			SpawnsetHandler.Instance.Spawnset = spawnset;
+
+			App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
+			App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
 
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
 		}
@@ -131,7 +135,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?", false);
 			confirmWindow.ShowDialog();
-			if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance._spawnset, UserHandler.Instance.Settings.SurvivalFileLocation))
+			if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.Spawnset, UserHandler.Instance.Settings.SurvivalFileLocation))
 				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
 		}
 
@@ -156,11 +160,11 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				Dispatcher.Invoke(() =>
 				{
-					App.Instance.MainWindow.UpdateWarningNoSurvivalFile();
-					App.Instance.MainWindow.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
-					App.Instance.MainWindow.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
-					App.Instance.MainWindow.SpawnsetSpawns.UpdateSpawnControls(true);
-					App.Instance.MainWindow.SpawnsetSpawns.EndLoopPreview.Update();
+					App.Instance.MainWindow!.UpdateWarningNoSurvivalFile();
+					App.Instance.MainWindow!.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
+					App.Instance.MainWindow!.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
+					App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnControls(true);
+					App.Instance.MainWindow!.SpawnsetSpawns.EndLoopPreview.Update();
 				});
 			}
 		}

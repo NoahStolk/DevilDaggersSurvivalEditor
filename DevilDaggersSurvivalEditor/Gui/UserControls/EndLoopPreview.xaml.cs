@@ -50,7 +50,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				return;
 			}
 
-			List<Spawn> endLoop = SpawnsetHandler.Instance._spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance._spawnset.GetEndLoopStartIndex()).ToList();
+			List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex()).ToList();
 			int endLoopSpawns = endLoop.Count(s => s.Enemy != null);
 			Visibility = endLoopSpawns == 0 ? Visibility.Collapsed : Visibility.Visible;
 
@@ -60,7 +60,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			// Start at 1 to skip the first wave as it is already included in the regular spawns.
 			for (int i = 1; i < Wave; i++)
 			{
-				IEnumerable<double> waveTimes = SpawnsetHandler.Instance._spawnset.GenerateEndWaveTimes(seconds, i);
+				IEnumerable<double> waveTimes = SpawnsetHandler.Instance.Spawnset.GenerateEndWaveTimes(seconds, i);
 
 				int j = 0;
 				double secondsPrevious = seconds;
@@ -77,7 +77,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					if (i == Wave - 1)
 					{
 						EndLoopSpawnUserControl spawnControl = new EndLoopSpawnUserControl(
-							id: SpawnsetHandler.Instance._spawnset.Spawns.Count + 1 + endLoop.Count * (i - 1) + j,
+							id: SpawnsetHandler.Instance.Spawnset.Spawns.Count + 1 + endLoop.Count * (i - 1) + j,
 							seconds: seconds,
 							delay: $"{endLoop[j].Delay.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture)} ({(seconds - secondsPrevious).ToString(SpawnUtils.Format, CultureInfo.InvariantCulture)})",
 							totalGems: totalGems,
@@ -99,7 +99,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			double seconds = 0;
 			int totalGems = 0;
-			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance._spawnset.Spawns)
+			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 			{
 				seconds += kvp.Value.Delay;
 				totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;

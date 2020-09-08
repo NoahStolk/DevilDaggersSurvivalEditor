@@ -37,7 +37,7 @@ namespace DevilDaggersSurvivalEditor
 		public static Version LocalVersion { get; } = Version.Parse(FileVersionInfo.GetVersionInfo(Assembly.Location).FileVersion);
 
 		public static App Instance => (App)Current;
-		public new MainWindow MainWindow { get; set; }
+		public new MainWindow? MainWindow { get; set; }
 
 		private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
 		{
@@ -52,7 +52,7 @@ namespace DevilDaggersSurvivalEditor
 			string spawnset = SpawnsetHandler.Instance.SpawnsetFileName;
 			Dispatcher.Invoke(() =>
 			{
-				MainWindow.Title = $"{ApplicationDisplayName} {LocalVersion} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : string.Empty)}";
+				MainWindow!.Title = $"{ApplicationDisplayName} {LocalVersion} - {spawnset}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : string.Empty)}";
 			});
 		}
 

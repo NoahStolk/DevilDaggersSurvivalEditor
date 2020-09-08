@@ -14,7 +14,7 @@ namespace DevilDaggersSurvivalEditor.Utils
 				if (spawnset.TryGetBytes(out byte[] bytes))
 				{
 					File.WriteAllBytes(destinationPath, bytes);
-					App.Instance.MainWindow.UpdateWarningNoSurvivalFile();
+					App.Instance.MainWindow!.UpdateWarningNoSurvivalFile();
 					return true;
 				}
 				else
@@ -34,7 +34,7 @@ namespace DevilDaggersSurvivalEditor.Utils
 		{
 			try
 			{
-				using (Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival"))
+				using (Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival") ?? throw new Exception("Could not retrieve default survival file resource stream."))
 				{
 					byte[] data = new byte[stream.Length];
 					using (BinaryReader reader = new BinaryReader(stream))
@@ -45,7 +45,7 @@ namespace DevilDaggersSurvivalEditor.Utils
 				}
 
 				App.Instance.ShowMessage("Success", "Successfully restored 'survival' file.");
-				App.Instance.MainWindow.UpdateWarningNoSurvivalFile();
+				App.Instance.MainWindow!.UpdateWarningNoSurvivalFile();
 			}
 			catch (Exception ex)
 			{
