@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DevilDaggersSurvivalEditor.Spawnsets.SpawnsetList
+namespace DevilDaggersSurvivalEditor.Spawnsets
 {
 	public class SpawnsetListSorting<TListEntry>
 		where TListEntry : IListEntry

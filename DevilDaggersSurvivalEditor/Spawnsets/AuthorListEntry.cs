@@ -1,4 +1,4 @@
-﻿namespace DevilDaggersSurvivalEditor.Spawnsets.SpawnsetList
+﻿namespace DevilDaggersSurvivalEditor.Spawnsets
 {
 	public class AuthorListEntry : IListEntry
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DevilDaggersSurvivalEditor.Spawnsets.SpawnsetList
+namespace DevilDaggersSurvivalEditor.Spawnsets
 {
 	public sealed class SpawnsetListHandler
 	{

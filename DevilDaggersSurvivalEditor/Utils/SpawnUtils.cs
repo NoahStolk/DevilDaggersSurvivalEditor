@@ -1,4 +1,4 @@
-﻿namespace DevilDaggersSurvivalEditor.Spawns
+﻿namespace DevilDaggersSurvivalEditor.Utils
 {
 	public static class SpawnUtils
 	{

@@ -1,4 +1,4 @@
-﻿namespace DevilDaggersSurvivalEditor.Arena
+﻿namespace DevilDaggersSurvivalEditor.Enumerators
 {
 	public enum TileAction
 	{

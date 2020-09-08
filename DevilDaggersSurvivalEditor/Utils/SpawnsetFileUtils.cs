@@ -3,7 +3,7 @@ using DevilDaggersSurvivalEditor.User;
 using System;
 using System.IO;
 
-namespace DevilDaggersSurvivalEditor.Spawnsets
+namespace DevilDaggersSurvivalEditor.Utils
 {
 	public static class SpawnsetFileUtils
 	{

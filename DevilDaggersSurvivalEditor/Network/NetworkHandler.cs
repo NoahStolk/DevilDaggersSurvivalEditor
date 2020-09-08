@@ -1,6 +1,6 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Clients;
-using DevilDaggersSurvivalEditor.Spawnsets.SpawnsetList;
+using DevilDaggersSurvivalEditor.Spawnsets;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -71,7 +71,7 @@ namespace DevilDaggersSurvivalEditor.Network
 				}
 
 				foreach (SpawnsetFile spawnsetFile in spawnsetFiles)
-					Spawnsets.Add(new SpawnsetListEntry { SpawnsetFile = spawnsetFile, HasCustomLeaderboard = spawnsetFile.HasCustomLeaderboard });
+					Spawnsets.Add(new SpawnsetListEntry(spawnsetFile, spawnsetFile.HasCustomLeaderboard));
 
 				return true;
 			}
