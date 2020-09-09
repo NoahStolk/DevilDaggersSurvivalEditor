@@ -87,6 +87,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.Spawnset.Spawns[index] = spawn;
 
 			_spawnControls[index].Spawn = spawn;
+			_spawnControls[index].UpdateGui();
 		}
 
 		public void UpdateSpawnControls(bool endLoopModified)
@@ -112,7 +113,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			Dispatcher.Invoke(() =>
 			{
-				App.Instance.MainWindow.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
+				App.Instance.MainWindow!.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
 
 				double seconds = 0;
 				int totalGems = 0;
@@ -126,6 +127,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					spawnControl.Seconds = seconds;
 					spawnControl.TotalGems = totalGems;
 					spawnControl.IsInLoop = kvp.Key >= _endLoopStartIndex;
+
+					spawnControl.UpdateGui();
 				}
 
 				if (endLoopModified)
