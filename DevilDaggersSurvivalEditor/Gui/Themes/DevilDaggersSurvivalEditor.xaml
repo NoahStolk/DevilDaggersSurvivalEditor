@@ -95,6 +95,11 @@
 			<Setter Property="Margin" Value="2" />
 			<Setter Property="Padding" Value="4,1,0,0" />
 			<Setter Property="MinHeight" Value="20" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="ComboBoxItem">
+		<Style.Setters>
 			<Setter Property="Background" Value="#222" />
 			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
