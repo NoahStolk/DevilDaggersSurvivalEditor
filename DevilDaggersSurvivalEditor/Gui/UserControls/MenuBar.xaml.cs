@@ -13,7 +13,6 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -232,21 +231,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			else
 			{
 				App.Instance.ShowError("Error retrieving tool information", "An error occurred while attempting to retrieve tool information from the API.");
-			}
-		}
-
-		private void ShowLog_Click(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				if (File.Exists("DDSE.log"))
-					Process.Start("DDSE.log");
-				else
-					App.Instance.ShowMessage("No log file", "Log file does not exist.");
-			}
-			catch (Exception ex)
-			{
-				App.Instance.ShowMessage("Could not open log file", ex.Message);
 			}
 		}
 	}
