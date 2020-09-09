@@ -33,7 +33,7 @@
 
 	<Style TargetType="StackPanel" x:Key="PaddingStackPanel">
 		<Style.Setters>
-			<Setter Property="Margin" Value="12,12,12,12" />
+			<Setter Property="Margin" Value="12" />
 		</Style.Setters>
 	</Style>
 
@@ -45,7 +45,7 @@
 	</Style>
 	<Style TargetType="Grid" x:Key="PaddingGrid">
 		<Style.Setters>
-			<Setter Property="Margin" Value="12,12,12,12" />
+			<Setter Property="Margin" Value="12" />
 		</Style.Setters>
 	</Style>
 
@@ -53,7 +53,7 @@
 		<Style.Setters>
 			<Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
 			<Setter Property="HorizontalAlignment" Value="Stretch" />
-			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="Margin" Value="2" />
 			<Setter Property="Height" Value="20" />
 			<Setter Property="Background" Value="#222" />
 			<Setter Property="Foreground" Value="#ddd" />
@@ -73,7 +73,7 @@
 
 	<Style TargetType="CheckBox">
 		<Style.Setters>
-			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="Margin" Value="2" />
 			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
 	</Style>
@@ -92,7 +92,7 @@
 
 	<Style TargetType="ComboBox">
 		<Style.Setters>
-			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="Margin" Value="2" />
 			<Setter Property="Padding" Value="4,1,0,0" />
 			<Setter Property="MinHeight" Value="20" />
 			<Setter Property="Background" Value="#222" />
@@ -102,8 +102,8 @@
 
 	<Style TargetType="Label">
 		<Style.Setters>
-			<Setter Property="Padding" Value="2,2,2,2" />
-			<Setter Property="Margin" Value="0,0,0,0" />
+			<Setter Property="Padding" Value="2" />
+			<Setter Property="Margin" Value="0" />
 			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
 	</Style>
@@ -128,7 +128,7 @@
 
 	<Style TargetType="Button">
 		<Style.Setters>
-			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="Margin" Value="2" />
 			<Setter Property="Background" Value="#222" />
 			<Setter Property="Foreground" Value="#ddd" />
 			<Setter Property="Template">
@@ -178,7 +178,7 @@
 
 	<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
 		<Style.Setters>
-			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="Margin" Value="2" />
 		</Style.Setters>
 	</Style>
 

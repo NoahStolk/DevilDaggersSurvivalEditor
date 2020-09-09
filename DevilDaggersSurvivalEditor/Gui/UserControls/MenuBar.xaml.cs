@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
 using DevilDaggersCore.Wpf.Models;
+using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Gui.Windows;
@@ -44,11 +45,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 #if DEBUG
-			MenuItem testException = new MenuItem { Header = "Test Exception", Background = new SolidColorBrush(Color.FromRgb(0, 127, 63)) };
-			testException.Click += (sender, e) => throw new Exception("Test Exception");
-
-			MenuItem debug = new MenuItem { Header = "Debug", Background = new SolidColorBrush(Color.FromRgb(0, 127, 63)) };
-			debug.Items.Add(testException);
+			MenuItem debug = new MenuItem { Header = "Debug", Background = new SolidColorBrush(ColorUtils.ColorSuccess) };
+			debug.Click += (sender, e) =>
+			{
+				DebugWindow debugWindow = new DebugWindow();
+				debugWindow.ShowDialog();
+			};
 
 			MenuPanel.Items.Add(debug);
 #endif

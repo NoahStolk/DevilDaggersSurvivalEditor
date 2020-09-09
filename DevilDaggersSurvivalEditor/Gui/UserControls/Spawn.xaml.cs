@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Spawnsets;
+using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Utils;
 using System.Globalization;
 using System.Windows;
@@ -44,7 +45,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			Color color = Spawn.Enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{Spawn.Enemy.ColorCode}");
 			LabelEnemy.Background = new SolidColorBrush(color);
-			LabelEnemy.Foreground = new SolidColorBrush(GuiUtils.GetPerceivedBrightness(color) < 140 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(0, 0, 0));
+			LabelEnemy.Foreground = new SolidColorBrush(ColorUtils.GetPerceivedBrightness(color) < 140 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(0, 0, 0));
 		}
 	}
 }

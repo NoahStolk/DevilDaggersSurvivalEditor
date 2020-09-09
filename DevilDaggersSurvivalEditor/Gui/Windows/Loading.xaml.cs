@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Utils;
+using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Network;
 using DevilDaggersSurvivalEditor.User;
 using DevilDaggersSurvivalEditor.Utils;
@@ -30,7 +31,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			VersionLabel.Content = $"Version {App.LocalVersion}";
 
 #if DEBUG
-			VersionLabel.Background = new SolidColorBrush(GuiUtils.ColorSuccess);
+			VersionLabel.Background = new SolidColorBrush(ColorUtils.ColorSuccess);
 			VersionLabel.Content += " DEBUG";
 #endif
 
@@ -55,24 +56,24 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					if (NetworkHandler.Instance.Tool == null)
 					{
 						message = "Error";
-						color = GuiUtils.ColorError;
+						color = ColorUtils.ColorError;
 					}
 					else
 					{
 						if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumberRequired))
 						{
 							message = "Warning (update required)";
-							color = GuiUtils.ColorWarning;
+							color = ColorUtils.ColorWarning;
 						}
 						else if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 						{
 							message = "Warning (update recommended)";
-							color = GuiUtils.ColorSuggestion;
+							color = ColorUtils.ColorSuggestion;
 						}
 						else
 						{
 							message = "OK (up to date)";
-							color = GuiUtils.ColorSuccess;
+							color = ColorUtils.ColorSuccess;
 						}
 					}
 
@@ -114,7 +115,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = readUserSettingsSuccess ? userSettingsFileExists ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
-						Foreground = new SolidColorBrush(readUserSettingsSuccess ? GuiUtils.ColorSuccess : GuiUtils.ColorError),
+						Foreground = new SolidColorBrush(readUserSettingsSuccess ? ColorUtils.ColorSuccess : ColorUtils.ColorError),
 						FontWeight = FontWeights.Bold,
 					});
 				});
@@ -130,7 +131,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = UserHandler.Instance.Settings.SurvivalFileExists ? UserHandler.Instance.Settings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
-						Foreground = new SolidColorBrush(!UserHandler.Instance.Settings.SurvivalFileExists || !UserHandler.Instance.Settings.SurvivalFileIsValid ? GuiUtils.ColorError : GuiUtils.ColorSuccess),
+						Foreground = new SolidColorBrush(!UserHandler.Instance.Settings.SurvivalFileExists || !UserHandler.Instance.Settings.SurvivalFileIsValid ? ColorUtils.ColorError : ColorUtils.ColorSuccess),
 						FontWeight = FontWeights.Bold,
 					});
 				});
@@ -155,7 +156,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = retrieveSpawnsetsSuccess ? "OK" : "Error",
-						Foreground = new SolidColorBrush(retrieveSpawnsetsSuccess ? GuiUtils.ColorSuccess : GuiUtils.ColorError),
+						Foreground = new SolidColorBrush(retrieveSpawnsetsSuccess ? ColorUtils.ColorSuccess : ColorUtils.ColorError),
 						FontWeight = FontWeights.Bold,
 					});
 				});
