@@ -223,7 +223,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 			else
 			{
-				// TODO: Use a proper HTML to XAML converter.
 				string description = spawnsetFile.HtmlDescription
 					.Trim(' ')
 					.Replace("<br />", "\n", StringComparison.InvariantCulture)
