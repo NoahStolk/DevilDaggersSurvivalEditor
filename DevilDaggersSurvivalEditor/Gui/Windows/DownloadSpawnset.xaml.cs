@@ -397,6 +397,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			foreach (Image image in _authorSortingImages)
 			{
+				if (image == null)
+					continue;
+
 				if (image == button?.Content as Image)
 				{
 					if (!(image.RenderTransform is ScaleTransform scaleTransform))

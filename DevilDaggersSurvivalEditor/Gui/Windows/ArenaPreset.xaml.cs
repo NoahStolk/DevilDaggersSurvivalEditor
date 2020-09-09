@@ -82,9 +82,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 			else
 			{
-				Exception ex = new Exception($"Type {type} not supported in ArenaPreset TextBox.");
-				App.Instance.ShowError("Error", $"Type {type} not supported in ArenaPreset TextBox.", ex);
-				throw ex;
+				throw new Exception($"Type {type} not supported in ArenaPreset TextBox.");
 			}
 
 			textBox.Background = isValid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
