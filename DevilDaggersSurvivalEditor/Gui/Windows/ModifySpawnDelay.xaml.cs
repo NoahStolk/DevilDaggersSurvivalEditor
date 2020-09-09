@@ -48,7 +48,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			if (valid)
 				Value = float.Parse(TextBoxValue.Text, CultureInfo.InvariantCulture);
 
-			TextBoxValue.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 127, 127));
+			TextBoxValue.Background = valid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
 
 			OkButton.IsEnabled = valid;
 		}

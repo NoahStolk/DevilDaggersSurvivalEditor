@@ -87,7 +87,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				throw ex;
 			}
 
-			textBox.Background = isValid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 127, 127));
+			textBox.Background = isValid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
 		}
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
