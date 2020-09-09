@@ -30,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			VersionLabel.Content = $"Version {App.LocalVersion}";
 
 #if DEBUG
-			VersionLabel.Background = new SolidColorBrush(Color.FromRgb(0, 255, 63));
+			VersionLabel.Background = new SolidColorBrush(Color.FromRgb(0, 127, 63));
 			VersionLabel.Content += " DEBUG";
 #endif
 

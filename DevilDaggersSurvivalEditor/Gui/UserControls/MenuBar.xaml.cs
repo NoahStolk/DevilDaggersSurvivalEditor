@@ -44,10 +44,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 #if DEBUG
-			MenuItem testException = new MenuItem { Header = "Test Exception", Background = new SolidColorBrush(Color.FromRgb(0, 255, 63)) };
+			MenuItem testException = new MenuItem { Header = "Test Exception", Background = new SolidColorBrush(Color.FromRgb(0, 127, 63)) };
 			testException.Click += (sender, e) => throw new Exception("Test Exception");
 
-			MenuItem debug = new MenuItem { Header = "Debug", Background = new SolidColorBrush(Color.FromRgb(0, 255, 63)) };
+			MenuItem debug = new MenuItem { Header = "Debug", Background = new SolidColorBrush(Color.FromRgb(0, 127, 63)) };
 			debug.Items.Add(testException);
 
 			MenuPanel.Items.Add(debug);

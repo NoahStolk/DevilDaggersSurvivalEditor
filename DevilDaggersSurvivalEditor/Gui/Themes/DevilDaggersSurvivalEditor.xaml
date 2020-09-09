@@ -3,7 +3,7 @@
 					xmlns:windows="clr-namespace:DevilDaggersSurvivalEditor.Gui.Windows">
 	<Style TargetType="Window">
 		<Style.Setters>
-			<Setter Property="Background" Value="#bbb" />
+			<Setter Property="Background" Value="#222" />
 		</Style.Setters>
 	</Style>
 	<Style TargetType="{x:Type windows:AboutWindow}" BasedOn="{StaticResource {x:Type Window}}" />
@@ -36,17 +36,19 @@
 	</Style>
 
 	<Style TargetType="TextBox">
-		<Style.Triggers>
-			<Trigger Property="Validation.HasError" Value="True">
-				<Setter Property="Background" Value="#f88" />
-			</Trigger>
-		</Style.Triggers>
 		<Style.Setters>
 			<Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
 			<Setter Property="HorizontalAlignment" Value="Stretch" />
 			<Setter Property="Margin" Value="2,2,2,2" />
 			<Setter Property="Height" Value="20" />
+			<Setter Property="Background" Value="#222" />
+			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
+		<Style.Triggers>
+			<Trigger Property="Validation.HasError" Value="True">
+				<Setter Property="Background" Value="#f88" />
+			</Trigger>
+		</Style.Triggers>
 	</Style>
 	<Style TargetType="TextBox" x:Key="ParagraphTextBox">
 		<Style.Setters>
@@ -55,9 +57,17 @@
 		</Style.Setters>
 	</Style>
 
+	<Style TargetType="Menu">
+		<Style.Setters>
+			<Setter Property="Background" Value="#111" />
+			<Setter Property="Foreground" Value="#ddd" />
+		</Style.Setters>
+	</Style>
+
 	<Style TargetType="CheckBox">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
 	</Style>
 
@@ -78,6 +88,8 @@
 			<Setter Property="Margin" Value="2,2,2,2" />
 			<Setter Property="Padding" Value="4,1,0,0" />
 			<Setter Property="MinHeight" Value="20" />
+			<Setter Property="Background" Value="#222" />
+			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
 	</Style>
 
@@ -85,11 +97,13 @@
 		<Style.Setters>
 			<Setter Property="Padding" Value="2,2,2,2" />
 			<Setter Property="Margin" Value="0,0,0,0" />
+			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
 	</Style>
 	<Style TargetType="Label" x:Key="TitleLabel">
 		<Style.Setters>
 			<Setter Property="FontSize" Value="20" />
+			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
 	</Style>
 	<Style TargetType="Label" x:Key="BoldLabel">
@@ -97,18 +111,49 @@
 			<Setter Property="Margin" Value="0,0,0,6" />
 			<Setter Property="Padding" Value="3,2,2,2" />
 			<Setter Property="FontWeight" Value="Bold" />
+			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
 	</Style>
 	<Style TargetType="Label" x:Key="NumericSpawnLabel">
 		<Style.Setters>
 			<Setter Property="Padding" Value="6,2,6,2" />
 			<Setter Property="HorizontalContentAlignment" Value="Right" />
+			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
 	</Style>
 
 	<Style TargetType="Button">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2,2,2,2" />
+			<Setter Property="Background" Value="#222" />
+			<Setter Property="Foreground" Value="#ddd" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+							<ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsDefaulted" Value="True">
+								<Setter Property="BorderBrush" TargetName="border" Value="#080" />
+							</Trigger>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="Background" TargetName="border" Value="#468" />
+								<Setter Property="BorderBrush" TargetName="border" Value="#08f" />
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter Property="Background" TargetName="border" Value="#68a" />
+								<Setter Property="BorderBrush" TargetName="border" Value="#0af" />
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter Property="Background" TargetName="border" Value="#555" />
+								<Setter Property="BorderBrush" TargetName="border" Value="#444" />
+								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#999" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
 		</Style.Setters>
 	</Style>
 	<Style TargetType="Button" x:Key="OkButton">
@@ -116,6 +161,8 @@
 			<Setter Property="Width" Value="128" />
 			<Setter Property="Margin" Value="2,6,2,2" />
 			<Setter Property="IsDefault" Value="True" />
+			<Setter Property="Background" Value="#222" />
+			<Setter Property="Foreground" Value="#ddd" />
 		</Style.Setters>
 	</Style>
 
