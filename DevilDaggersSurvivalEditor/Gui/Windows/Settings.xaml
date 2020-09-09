@@ -7,7 +7,7 @@
         Title="Settings" Height="512" Width="768" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded" Closing="Window_Closing">
 	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">
 		<Label FontWeight="Bold" FontSize="14">General</Label>
-		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
+		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#333">
 			<Label>Survival file root folder</Label>
 			<Label Name="LabelSurvivalFileRootFolder" />
 			<StackPanel Orientation="Horizontal">
@@ -17,14 +17,14 @@
 		</StackPanel>
 
 		<Label FontWeight="Bold" FontSize="14">Arena</Label>
-		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
+		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#333">
 			<CheckBox Name="GlitchTileCheckBox" IsChecked="{Binding LockGlitchTile}" />
 			<CheckBox IsChecked="{Binding LockSpawnTile}">Prevent spawn tile to be void.</CheckBox>
 			<CheckBox IsChecked="{Binding AskToConfirmArenaGeneration}">Ask to confirm arena generation.</CheckBox>
 		</StackPanel>
 
 		<Label FontWeight="Bold" FontSize="14">Spawns</Label>
-		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#eee">
+		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="#333">
 			<CheckBox IsChecked="{Binding EnableEndLoopPreview}">Enable end loop preview.</CheckBox>
 		</StackPanel>
 
