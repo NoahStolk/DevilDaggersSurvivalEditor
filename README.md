@@ -2,16 +2,13 @@
 [![Scc Count Badge](https://sloc.xyz/github/NoahStolk/DevilDaggersSurvivalEditor/)](https://github.com/NoahStolk/DevilDaggersSurvivalEditor/)
 
 # DevilDaggersSurvivalEditor ([Download](https://devildaggers.info/api/tools/DevilDaggersSurvivalEditor/file))
-DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers. It is a .NET WPF application built using Visual Studio 2019.
+DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
 ## Framework
 .NET Core 3.1
 
 ## Language
 C# 8.0
-
-## Dependencies
-- [DevilDaggersCore](https://github.com/NoahStolk/DevilDaggersCore)
 
 ## Main features
 - Spawnset editor
@@ -31,7 +28,6 @@ C# 8.0
 3. Run DevilDaggersSurvivalEditor.exe inside the folder.
 
 ## Running from source
-- Make sure all the projects listed under "Dependencies" are properly referenced. The sources for the projects need to be within the same root folder as the source for DevilDaggersAssetEditor itself.
 - DevilDaggersSurvivalEditor uses pixel shaders. In order to build pixel shaders you will need Microsoft's DirectX SDK from June 2010, and use the FXC compiler tool. If you do not need to build pixel shaders (the build for the origin one is already included in the source), then you can skip this step and remove the pre-build event from Build Events in DevilDaggersSurvivalEditor.csproj's properties to prevent it from throwing an error.
 
 ## Links
