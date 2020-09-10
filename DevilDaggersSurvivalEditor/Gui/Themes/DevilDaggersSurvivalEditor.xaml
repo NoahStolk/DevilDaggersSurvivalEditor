@@ -260,82 +260,67 @@
 		<GradientStop Color="#666" Offset="0.0"/>
 		<GradientStop Color="#444" Offset="1.0"/>
 	</LinearGradientBrush>
-	<SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#46a"/>
-	<SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#FF000000"/>
-	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#222"/>
-	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#46a"/>
 	<LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
 		<GradientStop Color="#444" Offset="0.0"/>
 		<GradientStop Color="#222" Offset="1.0"/>
 	</LinearGradientBrush>
-	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#46a"/>
 	<LinearGradientBrush x:Key="ComboBox.Pressed.Background" EndPoint="0,1" StartPoint="0,0">
 		<GradientStop Color="#444" Offset="0.0"/>
 		<GradientStop Color="#222" Offset="1.0"/>
 	</LinearGradientBrush>
-	<SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#46a"/>
-	<SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="#FF000000"/>
-	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Background" Color="#222"/>
-	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Border" Color="#46a"/>
 	<LinearGradientBrush x:Key="ComboBox.Pressed.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
 		<GradientStop Color="#444" Offset="0.0"/>
 		<GradientStop Color="#222" Offset="1.0"/>
 	</LinearGradientBrush>
-	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="#46a"/>
-	<SolidColorBrush x:Key="ComboBox.Disabled.Background" Color="#222"/>
-	<SolidColorBrush x:Key="ComboBox.Disabled.Border" Color="#222"/>
-	<SolidColorBrush x:Key="ComboBox.Disabled.Glyph" Color="#222"/>
-	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Background" Color="#222"/>
-	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Border" Color="#222"/>
 	<Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
-		<Setter Property="OverridesDefaultStyle" Value="true"/>
-		<Setter Property="IsTabStop" Value="false"/>
-		<Setter Property="Focusable" Value="false"/>
+		<Setter Property="OverridesDefaultStyle" Value="True"/>
+		<Setter Property="IsTabStop" Value="False"/>
+		<Setter Property="Focusable" Value="False"/>
 		<Setter Property="ClickMode" Value="Press"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ToggleButton}">
-					<Border x:Name="templateRoot" Background="{StaticResource ComboBox.Static.Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{StaticResource Gray5}" SnapsToDevicePixels="true">
-						<Border x:Name="splitBorder" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0" SnapsToDevicePixels="true" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
+					<Border x:Name="templateRoot" Background="{StaticResource ComboBox.Static.Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{StaticResource Gray5}" SnapsToDevicePixels="True">
+						<Border x:Name="splitBorder" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0" SnapsToDevicePixels="True" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
 							<Path x:Name="arrow" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" Fill="{StaticResource Gray6}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
 						</Border>
 					</Border>
 					<ControlTemplate.Triggers>
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
-								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
-								<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="false"/>
-								<Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="false"/>
-								<Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="true"/>
+								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="True"/>
+								<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="False"/>
+								<Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="False"/>
+								<Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="True"/>
 							</MultiDataTrigger.Conditions>
 							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
 							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
 							<Setter Property="Background" TargetName="splitBorder" Value="Transparent"/>
 							<Setter Property="BorderBrush" TargetName="splitBorder" Value="Transparent"/>
 						</MultiDataTrigger>
-						<Trigger Property="IsMouseOver" Value="true">
-							<Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.MouseOver.Glyph}"/>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Fill" TargetName="arrow" Value="{StaticResource Gray1}"/>
 						</Trigger>
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
-								<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
-								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
+								<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True"/>
+								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="False"/>
 							</MultiDataTrigger.Conditions>
 							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Background}"/>
-							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Border}"/>
+							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource BorderHighlight1}"/>
 						</MultiDataTrigger>
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
-								<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
-								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
+								<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True"/>
+								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="True"/>
 							</MultiDataTrigger.Conditions>
-							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Editable.Background}"/>
-							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Editable.Border}"/>
+							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
+							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource BorderHighlight1}"/>
 							<Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.MouseOver.Editable.Button.Background}"/>
-							<Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.MouseOver.Editable.Button.Border}"/>
+							<Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource BorderHighlight1}"/>
 						</MultiDataTrigger>
 						<Trigger Property="IsPressed" Value="true">
-							<Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.Pressed.Glyph}"/>
+							<Setter Property="Fill" TargetName="arrow" Value="{StaticResource Gray1}"/>
 						</Trigger>
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
@@ -343,36 +328,36 @@
 								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
 							</MultiDataTrigger.Conditions>
 							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Background}"/>
-							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Border}"/>
+							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource BorderHighlight1}"/>
 						</MultiDataTrigger>
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
 								<Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="true"/>
 								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
 							</MultiDataTrigger.Conditions>
-							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Editable.Background}"/>
-							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Editable.Border}"/>
+							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
+							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource BorderHighlight1}"/>
 							<Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Pressed.Editable.Button.Background}"/>
-							<Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Pressed.Editable.Button.Border}"/>
+							<Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource BorderHighlight1}"/>
 						</MultiDataTrigger>
 						<Trigger Property="IsEnabled" Value="false">
-							<Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.Disabled.Glyph}"/>
+							<Setter Property="Fill" TargetName="arrow" Value="{StaticResource Gray2}"/>
 						</Trigger>
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
 								<Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
 								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
 							</MultiDataTrigger.Conditions>
-							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Background}"/>
-							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Border}"/>
+							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
+							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
 						</MultiDataTrigger>
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
 								<Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
 								<Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
 							</MultiDataTrigger.Conditions>
-							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Editable.Background}"/>
-							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Editable.Border}"/>
+							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
+							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
 							<Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Disabled.Editable.Button.Background}"/>
 							<Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Disabled.Editable.Button.Border}"/>
 						</MultiDataTrigger>
@@ -469,17 +454,6 @@
 	</Style>
 
 	<!-- MENU -->
-	<SolidColorBrush x:Key="Menu.Static.Background" Color="#222" />
-	<SolidColorBrush x:Key="Menu.Static.Border" Color="#444" />
-	<SolidColorBrush x:Key="Menu.Static.Foreground" Color="#ddd" />
-	<SolidColorBrush x:Key="Menu.Static.Separator" Color="#444" />
-	<SolidColorBrush x:Key="Menu.Disabled.Foreground" Color="#aaa" />
-	<SolidColorBrush x:Key="MenuItem.Selected.Background" Color="#68a" />
-	<SolidColorBrush x:Key="MenuItem.Selected.Border" Color="#0af" />
-	<SolidColorBrush x:Key="MenuItem.Highlight.Background" Color="#468" />
-	<SolidColorBrush x:Key="MenuItem.Highlight.Border" Color="#08f" />
-	<SolidColorBrush x:Key="MenuItem.Highlight.Disabled.Background" Color="#666" />
-	<SolidColorBrush x:Key="MenuItem.Highlight.Disabled.Border" Color="#888" />
 	<MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter" />
 	<Geometry x:Key="DownArrow">M 0,0 L 3.5,4 L 7,0 Z</Geometry>
 	<Geometry x:Key="UpArrow">M 0,4 L 3.5,0 L 7,4 Z</Geometry>
@@ -490,7 +464,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type RepeatButton}">
-					<Border x:Name="templateRoot" Background="Transparent" BorderThickness="1" BorderBrush="Transparent" SnapsToDevicePixels="true">
+					<Border x:Name="templateRoot" Background="Transparent" BorderThickness="1" BorderBrush="Transparent" SnapsToDevicePixels="True">
 						<ContentPresenter HorizontalAlignment="Center" Margin="6" VerticalAlignment="Center" />
 					</Border>
 				</ControlTemplate>
@@ -503,7 +477,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ScrollViewer}">
-					<Grid SnapsToDevicePixels="true">
+					<Grid SnapsToDevicePixels="True">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
@@ -524,7 +498,7 @@
 									<Binding Path="ViewportHeight" RelativeSource="{RelativeSource TemplatedParent}" />
 								</MultiBinding>
 							</RepeatButton.Visibility>
-							<Path Data="{StaticResource UpArrow}" Fill="{StaticResource Menu.Static.Foreground}" />
+							<Path Data="{StaticResource UpArrow}" Fill="{StaticResource Text}" />
 						</RepeatButton>
 						<RepeatButton Command="{x:Static ScrollBar.LineDownCommand}" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" Grid.Column="0" Focusable="false" Grid.Row="2" Style="{StaticResource MenuScrollButton}">
 							<RepeatButton.Visibility>
@@ -535,7 +509,7 @@
 									<Binding Path="ViewportHeight" RelativeSource="{RelativeSource TemplatedParent}" />
 								</MultiBinding>
 							</RepeatButton.Visibility>
-							<Path Data="{StaticResource DownArrow}" Fill="{StaticResource Menu.Static.Foreground}" />
+							<Path Data="{StaticResource DownArrow}" Fill="{StaticResource Text}" />
 						</RepeatButton>
 					</Grid>
 				</ControlTemplate>
@@ -550,7 +524,7 @@
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<ContentPresenter x:Name="Icon" ContentSource="Icon" HorizontalAlignment="Center" Height="16" Margin="3" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Width="16" />
-				<Path x:Name="GlyphPanel" Data="{StaticResource Checkmark}" FlowDirection="LeftToRight" Fill="{StaticResource Menu.Static.Foreground}" Margin="3" VerticalAlignment="Center" Visibility="Collapsed" />
+				<Path x:Name="GlyphPanel" Data="{StaticResource Checkmark}" FlowDirection="LeftToRight" Fill="{StaticResource Text}" Margin="3" VerticalAlignment="Center" Visibility="Collapsed" />
 				<ContentPresenter ContentSource="Header" Grid.Column="1" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 			</Grid>
 		</Border>
@@ -563,20 +537,20 @@
 				<Setter Property="Visibility" TargetName="Icon" Value="Collapsed" />
 			</Trigger>
 			<Trigger Property="IsHighlighted" Value="True">
-				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Background}" />
-				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Border}" />
+				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource BackgroundHighlight1}" />
+				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource BorderHighlight1}" />
 			</Trigger>
 			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource Menu.Disabled.Foreground}" />
-				<Setter Property="Fill" TargetName="GlyphPanel" Value="{StaticResource Menu.Disabled.Foreground}" />
+				<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource Gray9}" />
+				<Setter Property="Fill" TargetName="GlyphPanel" Value="{StaticResource Gray9}" />
 			</Trigger>
 			<MultiTrigger>
 				<MultiTrigger.Conditions>
 					<Condition Property="IsHighlighted" Value="True" />
 					<Condition Property="IsEnabled" Value="False" />
 				</MultiTrigger.Conditions>
-				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Disabled.Background}" />
-				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Disabled.Border}" />
+				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource Gray6}" />
+				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource Gray9}" />
 			</MultiTrigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
@@ -591,13 +565,13 @@
 				<Path x:Name="GlyphPanel" Data="{StaticResource Checkmark}" FlowDirection="LeftToRight" Fill="{TemplateBinding Foreground}" Margin="3" VerticalAlignment="Center" Visibility="Collapsed" />
 				<ContentPresenter ContentSource="Header" Grid.Column="1" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 				<Popup x:Name="PART_Popup" AllowsTransparency="true" Focusable="false" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" PlacementTarget="{Binding ElementName=templateRoot}">
-					<Border x:Name="SubMenuBorder" Background="{StaticResource Menu.Static.Background}" BorderThickness="1" BorderBrush="{StaticResource Menu.Static.Border}" Padding="2">
+					<Border x:Name="SubMenuBorder" Background="{StaticResource Gray2}" BorderThickness="1" BorderBrush="{StaticResource Gray4}" Padding="2">
 						<ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
 							<Grid RenderOptions.ClearTypeHint="Enabled">
 								<Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
 									<Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=SubMenuBorder}" Height="{Binding ActualHeight, ElementName=SubMenuBorder}" Width="{Binding ActualWidth, ElementName=SubMenuBorder}" />
 								</Canvas>
-								<Rectangle Fill="{StaticResource Menu.Static.Separator}" HorizontalAlignment="Left" Margin="29,2,0,2" Width="1" />
+								<Rectangle Fill="{StaticResource Gray4}" HorizontalAlignment="Left" Margin="29,2,0,2" Width="1" />
 								<ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle" Grid.IsSharedSizeScope="true" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.TabNavigation="Cycle" />
 							</Grid>
 						</ScrollViewer>
@@ -617,12 +591,12 @@
 				<Setter Property="Visibility" TargetName="Icon" Value="Collapsed" />
 			</Trigger>
 			<Trigger Property="IsHighlighted" Value="True">
-				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Background}" />
-				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Border}" />
+				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource BackgroundHighlight1}" />
+				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource BorderHighlight1}" />
 			</Trigger>
 			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource Menu.Disabled.Foreground}" />
-				<Setter Property="Fill" TargetName="GlyphPanel" Value="{StaticResource Menu.Disabled.Foreground}" />
+				<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource Gray9}" />
+				<Setter Property="Fill" TargetName="GlyphPanel" Value="{StaticResource Gray9}" />
 			</Trigger>
 			<Trigger Property="ScrollViewer.CanContentScroll" SourceName="SubMenuScrollViewer" Value="false">
 				<Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=SubMenuScrollViewer}" />
@@ -642,8 +616,8 @@
 					<ColumnDefinition Width="20" />
 				</Grid.ColumnDefinitions>
 				<ContentPresenter x:Name="Icon" ContentSource="Icon" HorizontalAlignment="Center" Height="16" Margin="3" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Width="16" />
-				<Border x:Name="GlyphPanel" Background="{StaticResource MenuItem.Selected.Background}" BorderThickness="1" BorderBrush="{StaticResource MenuItem.Selected.Border}" ClipToBounds="False" HorizontalAlignment="Center" Height="22" Margin="-1,0,0,0" VerticalAlignment="Center" Visibility="Hidden" Width="22">
-					<Path x:Name="Glyph" Data="{StaticResource Checkmark}" FlowDirection="LeftToRight" Fill="{StaticResource Menu.Static.Foreground}" Height="11" Width="10" />
+				<Border x:Name="GlyphPanel" Background="{StaticResource BackgroundHighlight2}" BorderThickness="1" BorderBrush="{StaticResource BorderHighlight2}" ClipToBounds="False" HorizontalAlignment="Center" Height="22" Margin="-1,0,0,0" VerticalAlignment="Center" Visibility="Hidden" Width="22">
+					<Path x:Name="Glyph" Data="{StaticResource Checkmark}" FlowDirection="LeftToRight" Fill="{StaticResource Text}" Height="11" Width="10" />
 				</Border>
 				<ContentPresenter x:Name="menuHeaderContainer" ContentSource="Header" Grid.Column="2" HorizontalAlignment="Left" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" />
 				<TextBlock x:Name="menuGestureText" Grid.Column="4" Margin="{TemplateBinding Padding}" Opacity="0.7" Text="{TemplateBinding InputGestureText}" VerticalAlignment="Center" />
@@ -658,20 +632,20 @@
 				<Setter Property="Visibility" TargetName="Icon" Value="Collapsed" />
 			</Trigger>
 			<Trigger Property="IsHighlighted" Value="True">
-				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Background}" />
-				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Border}" />
+				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource BackgroundHighlight1}" />
+				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource BorderHighlight1}" />
 			</Trigger>
 			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource Menu.Disabled.Foreground}" />
-				<Setter Property="Fill" TargetName="Glyph" Value="{StaticResource Menu.Disabled.Foreground}" />
+				<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource Gray9}" />
+				<Setter Property="Fill" TargetName="Glyph" Value="{StaticResource Gray9}" />
 			</Trigger>
 			<MultiTrigger>
 				<MultiTrigger.Conditions>
 					<Condition Property="IsHighlighted" Value="True" />
 					<Condition Property="IsEnabled" Value="False" />
 				</MultiTrigger.Conditions>
-				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Disabled.Background}" />
-				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Disabled.Border}" />
+				<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource Gray6}" />
+				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource Gray9}" />
 			</MultiTrigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
@@ -687,14 +661,14 @@
 					<ColumnDefinition Width="20" />
 				</Grid.ColumnDefinitions>
 				<ContentPresenter x:Name="Icon" ContentSource="Icon" HorizontalAlignment="Center" Height="16" Margin="3" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Width="16" />
-				<Border x:Name="GlyphPanel" Background="{StaticResource MenuItem.Highlight.Background}" BorderThickness="1" BorderBrush="{StaticResource MenuItem.Highlight.Border}" Height="22" Margin="-1,0,0,0" VerticalAlignment="Center" Visibility="Hidden" Width="22">
-					<Path x:Name="Glyph" Data="{DynamicResource Checkmark}" FlowDirection="LeftToRight" Fill="{StaticResource Menu.Static.Foreground}" Height="11" Width="9" />
+				<Border x:Name="GlyphPanel" Background="{StaticResource BackgroundHighlight1}" BorderThickness="1" BorderBrush="{StaticResource BorderHighlight1}" Height="22" Margin="-1,0,0,0" VerticalAlignment="Center" Visibility="Hidden" Width="22">
+					<Path x:Name="Glyph" Data="{DynamicResource Checkmark}" FlowDirection="LeftToRight" Fill="{StaticResource Text}" Height="11" Width="9" />
 				</Border>
 				<ContentPresenter ContentSource="Header" Grid.Column="2" HorizontalAlignment="Left" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" />
 				<TextBlock Grid.Column="4" Margin="{TemplateBinding Padding}" Opacity="0.7" Text="{TemplateBinding InputGestureText}" VerticalAlignment="Center" />
-				<Path x:Name="RightArrow" Grid.Column="5" Data="{StaticResource RightArrow}" Fill="{StaticResource Menu.Static.Foreground}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" />
+				<Path x:Name="RightArrow" Grid.Column="5" Data="{StaticResource RightArrow}" Fill="{StaticResource Text}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" />
 				<Popup x:Name="PART_Popup" AllowsTransparency="true" Focusable="false" HorizontalOffset="-2" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" Placement="Right" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" VerticalOffset="-3">
-					<Border x:Name="SubMenuBorder" Background="{StaticResource Menu.Static.Background}" BorderThickness="1" BorderBrush="{StaticResource Menu.Static.Border}" Padding="2">
+					<Border x:Name="SubMenuBorder" Background="{StaticResource Gray2}" BorderThickness="1" BorderBrush="{StaticResource Gray4}" Padding="2">
 						<ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
 							<Grid RenderOptions.ClearTypeHint="Enabled">
 								<Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -721,12 +695,12 @@
 			</Trigger>
 			<Trigger Property="IsHighlighted" Value="True">
 				<Setter Property="Background" TargetName="templateRoot" Value="Transparent" />
-				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource MenuItem.Highlight.Border}" />
+				<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource BorderHighlight1}" />
 			</Trigger>
 			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource Menu.Disabled.Foreground}" />
-				<Setter Property="Fill" TargetName="Glyph" Value="{StaticResource Menu.Disabled.Foreground}" />
-				<Setter Property="Fill" TargetName="RightArrow" Value="{StaticResource Menu.Disabled.Foreground}" />
+				<Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource Gray9}" />
+				<Setter Property="Fill" TargetName="Glyph" Value="{StaticResource Gray9}" />
+				<Setter Property="Fill" TargetName="RightArrow" Value="{StaticResource Gray9}" />
 			</Trigger>
 			<Trigger Property="ScrollViewer.CanContentScroll" SourceName="SubMenuScrollViewer" Value="false">
 				<Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=SubMenuScrollViewer}" />
@@ -747,14 +721,14 @@
 			<Trigger Property="Role" Value="TopLevelHeader">
 				<Setter Property="Background" Value="Transparent" />
 				<Setter Property="BorderBrush" Value="Transparent" />
-				<Setter Property="Foreground" Value="{StaticResource Menu.Static.Foreground}" />
+				<Setter Property="Foreground" Value="{StaticResource Text}" />
 				<Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=TopLevelHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
 				<Setter Property="Padding" Value="6,0" />
 			</Trigger>
 			<Trigger Property="Role" Value="TopLevelItem">
-				<Setter Property="Background" Value="{StaticResource Menu.Static.Background}" />
-				<Setter Property="BorderBrush" Value="{StaticResource Menu.Static.Border}" />
-				<Setter Property="Foreground" Value="{StaticResource Menu.Static.Foreground}" />
+				<Setter Property="Background" Value="{StaticResource Gray2}" />
+				<Setter Property="BorderBrush" Value="{StaticResource Gray4}" />
+				<Setter Property="Foreground" Value="{StaticResource Text}" />
 				<Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=TopLevelItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
 				<Setter Property="Padding" Value="6,0" />
 			</Trigger>
@@ -784,18 +758,6 @@
 	</Style>
 
 	<!-- SCROLLBAR -->
-	<SolidColorBrush x:Key="StandardBorderBrush" Color="#888" />
-	<SolidColorBrush x:Key="StandardBackgroundBrush" Color="Black" />
-	<SolidColorBrush x:Key="HoverBorderBrush" Color="#DDD" />
-	<SolidColorBrush x:Key="SelectedBackgroundBrush" Color="Gray" />
-	<SolidColorBrush x:Key="SelectedForegroundBrush" Color="White" />
-	<SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
-	<SolidColorBrush x:Key="GlyphBrush" Color="#444" />
-	<SolidColorBrush x:Key="NormalBrush" Color="#888" />
-	<SolidColorBrush x:Key="NormalBorderBrush" Color="#888" />
-	<SolidColorBrush x:Key="HorizontalNormalBrush" Color="#FF686868" />
-	<SolidColorBrush x:Key="HorizontalNormalBorderBrush" Color="#888" />
-
 	<LinearGradientBrush x:Key="ListBoxBackgroundBrush" StartPoint="0,0" EndPoint="1,0.001">
 		<GradientBrush.GradientStops>
 			<GradientStopCollection>
@@ -832,15 +794,15 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type RepeatButton}">
-					<Border Name="Border" Margin="1" CornerRadius="2" Background="{StaticResource NormalBrush}" BorderBrush="{StaticResource NormalBorderBrush}" BorderThickness="1">
-						<Path HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource GlyphBrush}" Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}" />
+					<Border Name="Border" Margin="1" CornerRadius="2" Background="{StaticResource Gray9}" BorderBrush="{StaticResource Gray9}" BorderThickness="1">
+						<Path HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource Gray4}" Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}" />
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsPressed" Value="True">
 							<Setter TargetName="Border" Property="Background" Value="{StaticResource PressedBrush}" />
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="False">
-							<Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
+							<Setter Property="Foreground" Value="{StaticResource Gray9}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -904,7 +866,7 @@
 					<RepeatButton Style="{StaticResource ScrollBarPageButton}" Command="ScrollBar.PageUpCommand" />
 				</Track.DecreaseRepeatButton>
 				<Track.Thumb>
-					<Thumb Style="{StaticResource ScrollBarThumb}" Margin="1,0,1,0" Background="{StaticResource HorizontalNormalBrush}" BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+					<Thumb Style="{StaticResource ScrollBarThumb}" Margin="1,0,1,0" Background="{StaticResource Gray6}" BorderBrush="{StaticResource Gray9}" />
 				</Track.Thumb>
 				<Track.IncreaseRepeatButton>
 					<RepeatButton Style="{StaticResource ScrollBarPageButton}" Command="ScrollBar.PageDownCommand" />
@@ -927,7 +889,7 @@
 					<RepeatButton Style="{StaticResource ScrollBarPageButton}" Command="ScrollBar.PageLeftCommand" />
 				</Track.DecreaseRepeatButton>
 				<Track.Thumb>
-					<Thumb Style="{StaticResource ScrollBarThumbHor}" Margin="0,1,0,1" Background="{StaticResource HorizontalNormalBrush}" BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+					<Thumb Style="{StaticResource ScrollBarThumbHor}" Margin="0,1,0,1" Background="{StaticResource Gray6}" BorderBrush="{StaticResource Gray9}" />
 				</Track.Thumb>
 				<Track.IncreaseRepeatButton>
 					<RepeatButton Style="{StaticResource ScrollBarPageButton}" Command="ScrollBar.PageRightCommand" />
