@@ -1,7 +1,6 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Utils;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -15,7 +14,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			InitializeComponent();
 
 			LabelId.Content = id;
-			LabelSeconds.Content = seconds.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+			LabelSeconds.Content = SpawnUtils.GameTimeToString(seconds);
 			LabelDelay.Content = delay;
 			LabelTotalGems.Content = totalGems;
 
