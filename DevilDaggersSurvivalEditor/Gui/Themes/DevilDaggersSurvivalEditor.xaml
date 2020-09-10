@@ -12,15 +12,13 @@
 	<SolidColorBrush x:Key="Gray9" Color="#999" />
 	<SolidColorBrush x:Key="Text" Color="#ddd" />
 	<SolidColorBrush x:Key="ErrorBackground" Color="#800" />
-	<SolidColorBrush x:Key="Hyperlink" Color="#48b" />
-	<SolidColorBrush x:Key="HyperlinkHover" Color="#6bf" />
-	<SolidColorBrush x:Key="ButtonDefaultBorder" Color="#88f" />
-	<SolidColorBrush x:Key="ButtonBackgroundHover" Color="#468" />
-	<SolidColorBrush x:Key="ButtonBorderHover" Color="#08f" />
-	<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#68a" />
-	<SolidColorBrush x:Key="ButtonBorderPressed" Color="#0af" />
-	<SolidColorBrush x:Key="RadioButtonBackgroundChecked" Color="#68a" />
-	<SolidColorBrush x:Key="RadioButtonBorderChecked" Color="#0af" />
+	<SolidColorBrush x:Key="Hyperlink" Color="#08f" />
+	<SolidColorBrush x:Key="HyperlinkHover" Color="#0af" />
+	<SolidColorBrush x:Key="BorderIsDefaulted" Color="#88f" />
+	<SolidColorBrush x:Key="BorderHighlight1" Color="#08f" />
+	<SolidColorBrush x:Key="BorderHighlight2" Color="#0af" />
+	<SolidColorBrush x:Key="BackgroundHighlight1" Color="#468" />
+	<SolidColorBrush x:Key="BackgroundHighlight2" Color="#68a" />
 
 	<!-- WINDOWS -->
 	<Style TargetType="Window">
@@ -181,15 +179,15 @@
 						</Border>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsDefaulted" Value="True">
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonDefaultBorder}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderIsDefaulted}" />
 							</Trigger>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundHover}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderHover}" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource BackgroundHighlight1}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderHighlight1}" />
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundPressed}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderPressed}" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource BackgroundHighlight2}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderHighlight2}" />
 							</Trigger>
 							<Trigger Property="IsEnabled" Value="False">
 								<Setter Property="Background" TargetName="border" Value="{StaticResource Gray5}" />
@@ -230,12 +228,12 @@
 						</Border>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundHover}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderHover}" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource BackgroundHighlight1}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderHighlight1}" />
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundPressed}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderPressed}" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource BackgroundHighlight2}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderHighlight2}" />
 							</Trigger>
 							<Trigger Property="IsEnabled" Value="False">
 								<Setter Property="Background" TargetName="border" Value="{StaticResource Gray5}" />
@@ -243,8 +241,8 @@
 								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Gray9}" />
 							</Trigger>
 							<Trigger Property="IsChecked" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource RadioButtonBackgroundChecked}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource RadioButtonBorderChecked}" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource BackgroundHighlight2}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderHighlight2}" />
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
@@ -460,8 +458,8 @@
 								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
 							</Trigger>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" Value="{StaticResource ButtonBackgroundHover}" />
-								<Setter Property="BorderBrush" Value="{StaticResource ButtonBorderHover}" />
+								<Setter Property="Background" Value="{StaticResource BackgroundHighlight1}" />
+								<Setter Property="BorderBrush" Value="{StaticResource BorderHighlight1}" />
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
