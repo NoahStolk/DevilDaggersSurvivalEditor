@@ -3,7 +3,7 @@
 	<SolidColorBrush x:Key="Menu.Static.Background" Color="#222" />
 	<SolidColorBrush x:Key="Menu.Static.Border" Color="#444" />
 	<SolidColorBrush x:Key="Menu.Static.Foreground" Color="#ddd" />
-	<SolidColorBrush x:Key="Menu.Static.Separator" Color="#bbb" />
+	<SolidColorBrush x:Key="Menu.Static.Separator" Color="#444" />
 	<SolidColorBrush x:Key="Menu.Disabled.Foreground" Color="#aaa" />
 	<SolidColorBrush x:Key="MenuItem.Selected.Background" Color="#68a" />
 	<SolidColorBrush x:Key="MenuItem.Selected.Border" Color="#0af" />
