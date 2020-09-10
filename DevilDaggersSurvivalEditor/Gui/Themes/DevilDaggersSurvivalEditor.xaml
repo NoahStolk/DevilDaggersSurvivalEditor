@@ -758,23 +758,6 @@
 	</Style>
 
 	<!-- SCROLLBAR -->
-	<LinearGradientBrush x:Key="ListBoxBackgroundBrush" StartPoint="0,0" EndPoint="1,0.001">
-		<GradientBrush.GradientStops>
-			<GradientStopCollection>
-				<GradientStop Color="White" Offset="0.0" />
-				<GradientStop Color="White" Offset="0.6" />
-				<GradientStop Color="#DDDDDD" Offset="1.2" />
-			</GradientStopCollection>
-		</GradientBrush.GradientStops>
-	</LinearGradientBrush>
-	<LinearGradientBrush x:Key="StandardBrush" StartPoint="0,0" EndPoint="0,1">
-		<GradientBrush.GradientStops>
-			<GradientStopCollection>
-				<GradientStop Color="#FFF" Offset="0.0" />
-				<GradientStop Color="#CCC" Offset="1.0" />
-			</GradientStopCollection>
-		</GradientBrush.GradientStops>
-	</LinearGradientBrush>
 	<LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
 		<GradientBrush.GradientStops>
 			<GradientStopCollection>
