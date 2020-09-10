@@ -41,10 +41,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void RunThreads(object? sender, EventArgs e)
 		{
 			using BackgroundWorker checkVersionThread = new BackgroundWorker();
-			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) =>
-			{
-				NetworkHandler.Instance.GetOnlineTool();
-			};
+			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) => NetworkHandler.Instance.GetOnlineTool();
 			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
 			{
 				Dispatcher.Invoke(() =>
