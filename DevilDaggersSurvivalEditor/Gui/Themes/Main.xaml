@@ -40,6 +40,17 @@
 		</Setter>
 	</Style>
 
+	<Style TargetType="{x:Type Hyperlink}">
+		<Style.Setters>
+			<Setter Property="Foreground" Value="#48b" />
+		</Style.Setters>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Foreground" Value="#6bf" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
 	<Style TargetType="StackPanel" x:Key="PaddingStackPanel">
 		<Style.Setters>
 			<Setter Property="Margin" Value="12" />
