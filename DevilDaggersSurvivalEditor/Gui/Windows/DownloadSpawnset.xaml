@@ -6,7 +6,7 @@
 		mc:Ignorable="d"
         Title="Download spawnset" WindowStartupLocation="CenterScreen">
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-		<StackPanel Height="768" Width="1366" Style="{StaticResource PaddingStackPanel}">
+		<StackPanel Height="768" Width="1366" Style="{StaticResource PaddingStackPanel}" Background="#333">
 			<Label Style="{StaticResource TitleLabel}">Spawnsets from DevilDaggers.info</Label>
 			<Button Name="ReloadButton" Click="ReloadButton_Click" Width="128" HorizontalAlignment="Left">Reload all</Button>
 			<Grid x:Name="Data">

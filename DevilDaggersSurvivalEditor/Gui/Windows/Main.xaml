@@ -15,7 +15,7 @@
 			<usercontrols:MenuBarUserControl x:Name="MenuBar" />
 		</DockPanel>
 		<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-			<Grid Height="768" Width="1366" Background="#444">
+			<Grid Height="768" Width="1366" Background="#333">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="7*" />
 					<RowDefinition />
