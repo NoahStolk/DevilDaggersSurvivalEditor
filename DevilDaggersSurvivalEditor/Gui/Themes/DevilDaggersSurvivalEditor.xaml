@@ -11,4 +11,18 @@
 	<Style TargetType="{x:Type windows:SetTileHeightWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:SettingsWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:SwitchEnemyTypeWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+
+	<Style TargetType="Grid" x:Key="SpawnsetHeader">
+		<Style.Setters>
+			<Setter Property="Margin" Value="7,8,0,0" />
+			<Setter Property="Height" Value="30" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="Label" x:Key="NumericSpawnLabel" BasedOn="{StaticResource {x:Type Label}}">
+		<Style.Setters>
+			<Setter Property="Padding" Value="6,2,6,2" />
+			<Setter Property="HorizontalContentAlignment" Value="Right" />
+		</Style.Setters>
+	</Style>
 </ResourceDictionary>

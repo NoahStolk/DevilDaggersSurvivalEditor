@@ -31,7 +31,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			VersionLabel.Content = $"Version {App.LocalVersion}";
 
 #if DEBUG
-			VersionLabel.Background = new SolidColorBrush(ColorUtils.ColorSuccess);
+			VersionLabel.Background = ColorUtils.ThemeColors["SuccessText"];
 			VersionLabel.Content += " DEBUG";
 #endif
 
@@ -51,36 +51,36 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				Dispatcher.Invoke(() =>
 				{
 					string message = string.Empty;
-					Color color;
+					SolidColorBrush color;
 
 					if (NetworkHandler.Instance.Tool == null)
 					{
 						message = "Error";
-						color = ColorUtils.ColorError;
+						color = ColorUtils.ThemeColors["ErrorText"];
 					}
 					else
 					{
 						if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumberRequired))
 						{
 							message = "Warning (update required)";
-							color = ColorUtils.ColorWarning;
+							color = ColorUtils.ThemeColors["WarningText"];
 						}
 						else if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 						{
 							message = "Warning (update recommended)";
-							color = ColorUtils.ColorSuggestion;
+							color = ColorUtils.ThemeColors["SuggestionText"];
 						}
 						else
 						{
 							message = "OK (up to date)";
-							color = ColorUtils.ColorSuccess;
+							color = ColorUtils.ThemeColors["SuccessText"];
 						}
 					}
 
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = message,
-						Foreground = new SolidColorBrush(color),
+						Foreground = color,
 						FontWeight = FontWeights.Bold,
 					});
 				});
@@ -115,7 +115,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = readUserSettingsSuccess ? userSettingsFileExists ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
-						Foreground = new SolidColorBrush(readUserSettingsSuccess ? ColorUtils.ColorSuccess : ColorUtils.ColorError),
+						Foreground = readUserSettingsSuccess ? ColorUtils.ThemeColors["SuccessText"] : ColorUtils.ThemeColors["ErrorText"],
 						FontWeight = FontWeights.Bold,
 					});
 				});
@@ -131,7 +131,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = UserHandler.Instance.Settings.SurvivalFileExists ? UserHandler.Instance.Settings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
-						Foreground = new SolidColorBrush(!UserHandler.Instance.Settings.SurvivalFileExists || !UserHandler.Instance.Settings.SurvivalFileIsValid ? ColorUtils.ColorError : ColorUtils.ColorSuccess),
+						Foreground = !UserHandler.Instance.Settings.SurvivalFileExists || !UserHandler.Instance.Settings.SurvivalFileIsValid ? ColorUtils.ThemeColors["ErrorText"] : ColorUtils.ThemeColors["SuccessText"],
 						FontWeight = FontWeights.Bold,
 					});
 				});
@@ -156,7 +156,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					TaskResultsStackPanel.Children.Add(new Label
 					{
 						Content = retrieveSpawnsetsSuccess ? "OK" : "Error",
-						Foreground = new SolidColorBrush(retrieveSpawnsetsSuccess ? ColorUtils.ColorSuccess : ColorUtils.ColorError),
+						Foreground = retrieveSpawnsetsSuccess ? ColorUtils.ThemeColors["SuccessText"] : ColorUtils.ThemeColors["ErrorText"],
 						FontWeight = FontWeights.Bold,
 					});
 				});
