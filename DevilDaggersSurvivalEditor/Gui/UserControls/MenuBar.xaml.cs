@@ -1,7 +1,6 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
 using DevilDaggersCore.Wpf.Models;
-using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Gui.Windows;
@@ -17,7 +16,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
@@ -44,14 +42,17 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 #if DEBUG
-			MenuItem debug = new MenuItem { Header = "Debug", Background = new SolidColorBrush(ColorUtils.ColorSuccess) };
-			debug.Click += (sender, e) =>
+			MenuItem debugItem = new MenuItem { Header = "Open debug window" };
+			debugItem.Click += (sender, e) =>
 			{
 				DebugWindow debugWindow = new DebugWindow();
 				debugWindow.ShowDialog();
 			};
 
-			MenuPanel.Items.Add(debug);
+			MenuItem debugHeader = new MenuItem { Header = "Debug" };
+			debugHeader.Items.Add(debugItem);
+
+			MenuPanel.Items.Add(debugHeader);
 #endif
 		}
 

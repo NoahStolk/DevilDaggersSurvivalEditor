@@ -5,7 +5,8 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Gui/Themes/DevilDaggersSurvivalEditor.xaml" />
+				<ResourceDictionary Source="Gui/Themes/Main.xaml" />
+				<ResourceDictionary Source="Gui/Themes/Menu.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
