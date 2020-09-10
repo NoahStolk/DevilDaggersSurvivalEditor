@@ -5,10 +5,7 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Gui/Themes/ComboBox.xaml" />
-				<ResourceDictionary Source="Gui/Themes/Main.xaml" />
-				<ResourceDictionary Source="Gui/Themes/Menu.xaml" />
-				<ResourceDictionary Source="Gui/Themes/ScrollBar.xaml" />
+				<ResourceDictionary Source="Gui/Themes/DevilDaggersSurvivalEditor.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
