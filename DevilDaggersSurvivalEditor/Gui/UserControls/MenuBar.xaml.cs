@@ -214,7 +214,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void Update_Click(object sender, RoutedEventArgs e)
 		{
-			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow(NetworkHandler.Instance.GetOnlineTool);
+			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow(NetworkHandler.Instance.GetOnlineToolSync);
 			window.ShowDialog();
 
 			if (NetworkHandler.Instance.Tool != null)
