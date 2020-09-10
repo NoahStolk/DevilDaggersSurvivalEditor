@@ -254,6 +254,10 @@ dotnet_diagnostic.SA1642.severity                                        = none
 
 # SonarAnalyzers suppressions
 
+# S112: 'System.Exception' should not be thrown by user code.
+# S2368: Make this method private or simplify its parameters to not use multidimensional arrays.
 # S3358: Extract this nested ternary operation into an independent statement.
 
+dotnet_diagnostic.S112.severity                                          = none
+dotnet_diagnostic.S2368.severity                                         = none
 dotnet_diagnostic.S3358.severity                                         = none

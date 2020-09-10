@@ -6,7 +6,7 @@
 		mc:Ignorable="d"
         Title="Download spawnset" WindowStartupLocation="CenterScreen">
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-		<StackPanel Height="768" Width="1366" Background="#eee" Style="{StaticResource PaddingStackPanel}">
+		<StackPanel Height="768" Width="1366" Style="{StaticResource PaddingStackPanel}" Background="{StaticResource Gray3}">
 			<Label Style="{StaticResource TitleLabel}">Spawnsets from DevilDaggers.info</Label>
 			<Button Name="ReloadButton" Click="ReloadButton_Click" Width="128" HorizontalAlignment="Left">Reload all</Button>
 			<Grid x:Name="Data">
@@ -39,7 +39,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 				</Grid>
-				<ListBox Grid.Column="0" Grid.Row="4" Height="623" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" HorizontalContentAlignment="Stretch" BorderBrush="Transparent" />
+				<ListBox Grid.Column="0" Grid.Row="4" Height="623" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" HorizontalContentAlignment="Stretch" BorderBrush="Transparent" Background="{StaticResource Gray2}" />
 
 				<Label Grid.Column="1" Grid.Row="0" FontWeight="Bold">Spawnsets</Label>
 				<Grid Grid.Column="1" Grid.Row="1">
@@ -74,7 +74,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 				</Grid>
-				<ScrollViewer Grid.Column="1" Grid.Row="4" Height="623" VerticalScrollBarVisibility="Visible" Margin="0,1,0,0" Padding="0,1,0,0" Background="White">
+				<ScrollViewer Grid.Column="1" Grid.Row="4" Height="623" VerticalScrollBarVisibility="Visible" Margin="0,1,0,0" Padding="0,1,0,0">
 					<StackPanel Name="SpawnsetsStackPanel" />
 				</ScrollViewer>
 			</Grid>

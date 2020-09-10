@@ -3,7 +3,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d" 
+			 mc:Ignorable="d"
              d:DesignHeight="20" d:DesignWidth="800">
 	<Menu Name="MenuPanel" DockPanel.Dock="Top">
 		<MenuItem Header="File">
@@ -23,8 +23,8 @@
 			<MenuItem Header="Settings" Click="Settings_Click" />
 		</MenuItem>
 		<MenuItem Header="Community">
-			<MenuItem Header="Browse spawnsets online" Click="Browse_Click"/>
-			<MenuItem Header="Open Discord server" Click="Discord_Click"/>
+			<MenuItem Header="Browse spawnsets online" Click="Browse_Click" />
+			<MenuItem Header="Open Discord server" Click="Discord_Click" />
 		</MenuItem>
 		<MenuItem Header="Help" Name="HelpItem">
 			<MenuItem Header="Help" Click="Help_Click" />
@@ -32,7 +32,6 @@
 			<MenuItem Header="Changelog" Click="Changelog_Click" />
 			<MenuItem Header="View source code" Click="SourceCode_Click" />
 			<MenuItem Header="Check for updates" Name="UpdateItem" Click="Update_Click" />
-			<MenuItem Header="Show log" Click="ShowLog_Click" />
 		</MenuItem>
 	</Menu>
 </UserControl>

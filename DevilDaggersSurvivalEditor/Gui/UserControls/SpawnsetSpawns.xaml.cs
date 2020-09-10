@@ -87,6 +87,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.Spawnset.Spawns[index] = spawn;
 
 			_spawnControls[index].Spawn = spawn;
+			_spawnControls[index].UpdateGui();
 		}
 
 		public void UpdateSpawnControls(bool endLoopModified)
@@ -112,7 +113,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			Dispatcher.Invoke(() =>
 			{
-				App.Instance.MainWindow.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
+				App.Instance.MainWindow!.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
 
 				double seconds = 0;
 				int totalGems = 0;
@@ -126,6 +127,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					spawnControl.Seconds = seconds;
 					spawnControl.TotalGems = totalGems;
 					spawnControl.IsInLoop = kvp.Key >= _endLoopStartIndex;
+
+					spawnControl.UpdateGui();
 				}
 
 				if (endLoopModified)
@@ -134,47 +137,42 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private List<int> GetSpawnSelectionIndices()
-		{
-			return (from object obj in ListBoxSpawns.SelectedItems
-					select ListBoxSpawns.Items.IndexOf(obj)).ToList();
-		}
+			=> (from object obj in ListBoxSpawns.SelectedItems select ListBoxSpawns.Items.IndexOf(obj)).ToList();
 
-		private bool IsDelayValid() => float.TryParse(DelayTextBox.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
+		private bool IsDelayValid()
+			=> float.TryParse(DelayTextBox.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
 
-		private bool IsAmountValid() => !Validation.GetHasError(AmountTextBox);
+		private bool IsAmountValid()
+			=> !Validation.GetHasError(AmountTextBox);
 
 		private void ListBoxSpawns_Selected(object sender, RoutedEventArgs e)
-		{
-			UpdateButtons();
-		}
+			=> UpdateButtons();
 
 		private void TextBoxDelay_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			bool valid = IsDelayValid();
+			bool isValid = IsDelayValid();
 
-			if (valid)
+			if (isValid)
 				Delay = float.Parse(DelayTextBox.Text, CultureInfo.InvariantCulture);
 
-			DelayTextBox.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 127, 127));
+			DelayTextBox.Background = isValid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
 
 			UpdateButtons();
 		}
 
 		private void TextBoxAmount_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			UpdateButtons();
-		}
+			=> UpdateButtons();
 
 		private void UpdateButtons()
 		{
-			bool textBoxesValid = IsDelayValid() && IsAmountValid();
+			bool areTextBoxesValid = IsDelayValid() && IsAmountValid();
 			bool hasSelection = ListBoxSpawns.SelectedItems.Count != 0;
 			bool hasClipboard = _clipboard.Count != 0;
 
-			AddSpawnButton.IsEnabled = textBoxesValid;
-			InsertSpawnButton.IsEnabled = hasSelection && textBoxesValid;
+			AddSpawnButton.IsEnabled = areTextBoxesValid;
+			InsertSpawnButton.IsEnabled = hasSelection && areTextBoxesValid;
 
-			EditSpawnButton.IsEnabled = hasSelection && textBoxesValid;
+			EditSpawnButton.IsEnabled = hasSelection && areTextBoxesValid;
 			DeleteSpawnButton.IsEnabled = hasSelection;
 			CopySpawnButton.IsEnabled = hasSelection;
 			ModifyDelaysButton.IsEnabled = hasSelection;
@@ -196,9 +194,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void ScrollToEnd()
-		{
-			ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(SpawnsetHandler.Instance.Spawnset.Spawns.Count - 1));
-		}
+			=> ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(SpawnsetHandler.Instance.Spawnset.Spawns.Count - 1));
 
 		private void AddSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -241,9 +237,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void PasteAddSpawnButton_Click(object sender, RoutedEventArgs e)
-		{
-			PasteAdd();
-		}
+			=> PasteAdd();
 
 		public void PasteAdd()
 		{
@@ -297,9 +291,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void DeleteSpawnButton_Click(object sender, RoutedEventArgs e)
-		{
-			Delete();
-		}
+			=> Delete();
 
 		public void Delete()
 		{
@@ -330,9 +322,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void CopySpawnButton_Click(object sender, RoutedEventArgs e)
-		{
-			Copy();
-		}
+			=> Copy();
 
 		public void Copy()
 		{

@@ -80,9 +80,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void UpdateSelectionEffectContinuousValues()
-		{
-			SelectionEffect.FlashIntensity = Math.Abs(DateTime.Now.Millisecond / 1000f - 0.5f);
-		}
+			=> SelectionEffect.FlashIntensity = Math.Abs(DateTime.Now.Millisecond / 1000f - 0.5f);
 
 		public void Initialize()
 		{
@@ -261,7 +259,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			bool valid = float.TryParse(textBox.Text, out _);
 
-			textBox.Background = valid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 127, 127));
+			textBox.Background = valid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
 
 			return valid;
 		}

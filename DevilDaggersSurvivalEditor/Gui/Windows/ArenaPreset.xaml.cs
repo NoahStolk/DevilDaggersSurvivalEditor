@@ -1,5 +1,5 @@
 ﻿using DevilDaggersSurvivalEditor.Arena;
-using DevilDaggersSurvivalEditor.Utils;
+using DevilDaggersSurvivalEditor.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,21 +73,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			bool isValid;
 			if (type == typeof(float))
-			{
 				isValid = float.TryParse(textBox.Text, out _);
-			}
 			else if (type == typeof(int))
-			{
 				isValid = int.TryParse(textBox.Text, out _);
-			}
 			else
-			{
-				Exception ex = new Exception($"Type {type} not supported in ArenaPreset TextBox.");
-				App.Instance.ShowError("Error", $"Type {type} not supported in ArenaPreset TextBox.", ex);
-				throw ex;
-			}
+				throw new Exception($"Type {type} not supported in ArenaPreset TextBox.");
 
-			textBox.Background = isValid ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 127, 127));
+			textBox.Background = isValid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
 		}
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
@@ -120,9 +112,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 									}
 									else
 									{
-										Exception ex = new Exception($"Type {t} not supported in ArenaPreset TextBox.");
-										App.Instance.ShowError("Error", $"Type {t} not supported in ArenaPreset TextBox.", ex);
-										throw ex;
+										throw new Exception($"Type {t} not supported in ArenaPreset TextBox.");
 									}
 								}
 							}

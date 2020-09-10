@@ -223,7 +223,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 			else
 			{
-				// TODO: Use a proper HTML to XAML converter.
 				string description = spawnsetFile.HtmlDescription
 					.Trim(' ')
 					.Replace("<br />", "\n", StringComparison.InvariantCulture)
@@ -388,7 +387,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			List<Grid> grids = SpawnsetsStackPanel.Children.OfType<Grid>().Where(c => c.Visibility == Visibility.Visible).ToList();
 			foreach (Grid grid in grids)
-				grid.Background = new SolidColorBrush(grids.IndexOf(grid) % 2 == 0 ? Color.FromRgb(255, 255, 255) : Color.FromRgb(223, 223, 223));
+				grid.Background = new SolidColorBrush(grids.IndexOf(grid) % 2 == 0 ? Color.FromRgb(68, 68, 68) : Color.FromRgb(34, 34, 34));
 		}
 
 		private void SortAuthorsButton_Click(object sender, RoutedEventArgs e)
@@ -397,6 +396,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			foreach (Image image in _authorSortingImages)
 			{
+				if (image == null)
+					continue;
+
 				if (image == button?.Content as Image)
 				{
 					if (!(image.RenderTransform is ScaleTransform scaleTransform))

@@ -12,12 +12,10 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
@@ -44,13 +42,17 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 #if DEBUG
-			MenuItem testException = new MenuItem { Header = "Test Exception", Background = new SolidColorBrush(Color.FromRgb(0, 255, 63)) };
-			testException.Click += (sender, e) => throw new Exception("Test Exception");
+			MenuItem debugItem = new MenuItem { Header = "Open debug window" };
+			debugItem.Click += (sender, e) =>
+			{
+				DebugWindow debugWindow = new DebugWindow();
+				debugWindow.ShowDialog();
+			};
 
-			MenuItem debug = new MenuItem { Header = "Debug", Background = new SolidColorBrush(Color.FromRgb(0, 255, 63)) };
-			debug.Items.Add(testException);
+			MenuItem debugHeader = new MenuItem { Header = "Debug" };
+			debugHeader.Items.Add(debugItem);
 
-			MenuPanel.Items.Add(debug);
+			MenuPanel.Items.Add(debugHeader);
 #endif
 		}
 
@@ -230,21 +232,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			else
 			{
 				App.Instance.ShowError("Error retrieving tool information", "An error occurred while attempting to retrieve tool information from the API.");
-			}
-		}
-
-		private void ShowLog_Click(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				if (File.Exists("DDSE.log"))
-					Process.Start("DDSE.log");
-				else
-					App.Instance.ShowMessage("No log file", "Log file does not exist.");
-			}
-			catch (Exception ex)
-			{
-				App.Instance.ShowMessage("Could not open log file", ex.Message);
 			}
 		}
 	}

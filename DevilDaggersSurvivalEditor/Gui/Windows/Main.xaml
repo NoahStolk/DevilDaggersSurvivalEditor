@@ -15,7 +15,7 @@
 			<usercontrols:MenuBarUserControl x:Name="MenuBar" />
 		</DockPanel>
 		<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-			<Grid Height="768" Width="1366" Background="#eee">
+			<Grid Height="768" Width="1366" Background="{StaticResource Gray3}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="7*" />
 					<RowDefinition />
@@ -34,7 +34,7 @@
 						<usercontrols:SpawnsetArenaUserControl x:Name="SpawnsetArena" />
 					</StackPanel>
 				</Grid>
-				<StackPanel Grid.Row="1" Background="DarkGray">
+				<StackPanel Grid.Row="1">
 					<Label FontWeight="Bold">Warnings</Label>
 					<TextBlock Name="WarningNoSurvivalFile" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />
 					<TextBlock Name="WarningVoidSpawn" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />
