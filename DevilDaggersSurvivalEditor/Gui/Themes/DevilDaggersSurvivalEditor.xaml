@@ -28,6 +28,237 @@
 	<SolidColorBrush x:Key="RadioButtonBackgroundChecked" Color="#68a" />
 	<SolidColorBrush x:Key="RadioButtonBorderChecked" Color="#0af" />
 
+	<!-- WINDOWS -->
+	<Style TargetType="Window">
+		<Style.Setters>
+			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+		</Style.Setters>
+	</Style>
+	<Style TargetType="{x:Type windows:AboutWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:ArenaPresetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:DownloadSpawnsetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:HelpWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:LoadingWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:MainWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:ModifySpawnDelayWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:SetTileHeightWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:SettingsWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+	<Style TargetType="{x:Type windows:SwitchEnemyTypeWindow}" BasedOn="{StaticResource {x:Type Window}}" />
+
+	<!-- CONTROLS -->
+	<Style TargetType="{x:Type Hyperlink}">
+		<Style.Setters>
+			<Setter Property="Foreground" Value="{StaticResource Hyperlink}" />
+		</Style.Setters>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Foreground" Value="{StaticResource HyperlinkHover}" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<Style TargetType="StackPanel" x:Key="PaddingStackPanel">
+		<Style.Setters>
+			<Setter Property="Margin" Value="12" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="Grid" x:Key="SpawnsetHeader">
+		<Style.Setters>
+			<Setter Property="Margin" Value="7,8,0,0" />
+			<Setter Property="Height" Value="30" />
+		</Style.Setters>
+	</Style>
+	<Style TargetType="Grid" x:Key="PaddingGrid">
+		<Style.Setters>
+			<Setter Property="Margin" Value="12" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="TextBox">
+		<Style.Setters>
+			<Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="Margin" Value="2" />
+			<Setter Property="Height" Value="20" />
+			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
+		</Style.Setters>
+		<Style.Triggers>
+			<Trigger Property="Validation.HasError" Value="True">
+				<Setter Property="Background" Value="{StaticResource Error}" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+	<Style TargetType="TextBox" x:Key="ParagraphTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+		<Style.Setters>
+			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
+			<Setter Property="Padding" Value="6,8,6,8" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="CheckBox">
+		<Style.Setters>
+			<Setter Property="Margin" Value="2" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="TextBlock">
+		<Style.Setters>
+			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
+		</Style.Setters>
+	</Style>
+	<Style TargetType="TextBlock" x:Key="ParagraphTextBlock">
+		<Style.Setters>
+			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
+			<Setter Property="Padding" Value="6,8,6,8" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="{x:Type Slider}">
+		<Setter Property="Margin" Value="4,0,4,0" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Slider}">
+					<Grid VerticalAlignment="Center">
+						<Border x:Name="borderBackground" Margin="6,0" Height="4" Background="{StaticResource SliderLine}" />
+						<Track x:Name="PART_Track">
+							<Track.Thumb>
+								<Thumb Width="10" Height="20">
+									<Thumb.Style>
+										<Style TargetType="Thumb">
+											<Setter Property="Template">
+												<Setter.Value>
+													<ControlTemplate TargetType="Thumb">
+														<Rectangle Fill="{StaticResource SliderFill}" Width="10" Height="{TemplateBinding Height}" StrokeThickness="1.5" Stroke="{StaticResource SliderStroke}" />
+													</ControlTemplate>
+												</Setter.Value>
+											</Setter>
+										</Style>
+									</Thumb.Style>
+								</Thumb>
+							</Track.Thumb>
+						</Track>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="Label">
+		<Style.Setters>
+			<Setter Property="Padding" Value="2" />
+			<Setter Property="Margin" Value="0" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
+		</Style.Setters>
+	</Style>
+	<Style TargetType="Label" x:Key="TitleLabel" BasedOn="{StaticResource {x:Type Label}}">
+		<Style.Setters>
+			<Setter Property="FontSize" Value="20" />
+		</Style.Setters>
+	</Style>
+	<Style TargetType="Label" x:Key="BoldLabel" BasedOn="{StaticResource {x:Type Label}}">
+		<Style.Setters>
+			<Setter Property="Margin" Value="0,0,0,6" />
+			<Setter Property="Padding" Value="3,2,2,2" />
+			<Setter Property="FontWeight" Value="Bold" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="Label" x:Key="NumericSpawnLabel" BasedOn="{StaticResource {x:Type Label}}">
+		<Style.Setters>
+			<Setter Property="Padding" Value="6,2,6,2" />
+			<Setter Property="HorizontalContentAlignment" Value="Right" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="Button">
+		<Style.Setters>
+			<Setter Property="Margin" Value="2" />
+			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+							<ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsDefaulted" Value="True">
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonDefaultBorder}" />
+							</Trigger>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundHover}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderHover}" />
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundPressed}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderPressed}" />
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundDisabled}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderDisabled}" />
+								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource ButtonTextDisabled}" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style.Setters>
+	</Style>
+	<Style TargetType="Button" x:Key="OkButton" BasedOn="{StaticResource {x:Type Button}}">
+		<Style.Setters>
+			<Setter Property="Width" Value="128" />
+			<Setter Property="Margin" Value="2,6,2,2" />
+			<Setter Property="IsDefault" Value="True" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="Image" x:Key="Logo">
+		<Style.Setters>
+			<Setter Property="Width" Value="96" />
+			<Setter Property="Source" Value="/Content/Images/Icon/Icon32.png" />
+			<Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
+		</Style.Setters>
+	</Style>
+
+	<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+		<Style.Setters>
+			<Setter Property="Margin" Value="2" />
+			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type RadioButton}">
+						<Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+							<ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundHover}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderHover}" />
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundPressed}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderPressed}" />
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundDisabled}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderDisabled}" />
+								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource ButtonTextDisabled}" />
+							</Trigger>
+							<Trigger Property="IsChecked" Value="True">
+								<Setter Property="Background" TargetName="border" Value="{StaticResource RadioButtonBackgroundChecked}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource RadioButtonBorderChecked}" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style.Setters>
+	</Style>
+
 	<!-- COMBOBOX -->
 	<LinearGradientBrush x:Key="ComboBox.Static.Background" EndPoint="0,1" StartPoint="0,0">
 		<GradientStop Color="#444" Offset="0.0"/>
@@ -211,114 +442,6 @@
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 
-	<!-- WINDOWS -->
-	<Style TargetType="Window">
-		<Style.Setters>
-			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
-		</Style.Setters>
-	</Style>
-	<Style TargetType="{x:Type windows:AboutWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:ArenaPresetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:DownloadSpawnsetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:HelpWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:LoadingWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:MainWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:ModifySpawnDelayWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:SetTileHeightWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:SettingsWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:SwitchEnemyTypeWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-
-	<!-- CONTROLS -->
-	<Style TargetType="Menu">
-		<Style.Setters>
-			<Setter Property="Background" Value="{StaticResource MenuBackground}" />
-			<Setter Property="Foreground" Value="{StaticResource Text}" />
-		</Style.Setters>
-	</Style>
-
-	<Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
-		<Setter Property="Height" Value="1" />
-		<Setter Property="Margin" Value="0,4,0,4" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Separator}">
-					<Border BorderThickness="1" BorderBrush="{StaticResource Separator}" />
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style TargetType="{x:Type Hyperlink}">
-		<Style.Setters>
-			<Setter Property="Foreground" Value="{StaticResource Hyperlink}" />
-		</Style.Setters>
-		<Style.Triggers>
-			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Foreground" Value="{StaticResource HyperlinkHover}" />
-			</Trigger>
-		</Style.Triggers>
-	</Style>
-
-	<Style TargetType="StackPanel" x:Key="PaddingStackPanel">
-		<Style.Setters>
-			<Setter Property="Margin" Value="12" />
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="Grid" x:Key="SpawnsetHeader">
-		<Style.Setters>
-			<Setter Property="Margin" Value="7,8,0,0" />
-			<Setter Property="Height" Value="30" />
-		</Style.Setters>
-	</Style>
-	<Style TargetType="Grid" x:Key="PaddingGrid">
-		<Style.Setters>
-			<Setter Property="Margin" Value="12" />
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="TextBox">
-		<Style.Setters>
-			<Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
-			<Setter Property="HorizontalAlignment" Value="Stretch" />
-			<Setter Property="Margin" Value="2" />
-			<Setter Property="Height" Value="20" />
-			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
-			<Setter Property="Foreground" Value="{StaticResource Text}" />
-		</Style.Setters>
-		<Style.Triggers>
-			<Trigger Property="Validation.HasError" Value="True">
-				<Setter Property="Background" Value="{StaticResource Error}" />
-			</Trigger>
-		</Style.Triggers>
-	</Style>
-	<Style TargetType="TextBox" x:Key="ParagraphTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-		<Style.Setters>
-			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
-			<Setter Property="Padding" Value="6,8,6,8" />
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="CheckBox">
-		<Style.Setters>
-			<Setter Property="Margin" Value="2" />
-			<Setter Property="Foreground" Value="{StaticResource Text}" />
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="TextBlock">
-		<Style.Setters>
-			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
-		</Style.Setters>
-	</Style>
-	<Style TargetType="TextBlock" x:Key="ParagraphTextBlock">
-		<Style.Setters>
-			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
-			<Setter Property="Padding" Value="6,8,6,8" />
-			<Setter Property="Foreground" Value="{StaticResource Text}" />
-		</Style.Setters>
-	</Style>
-
 	<Style TargetType="ComboBox">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2" />
@@ -353,148 +476,6 @@
 							<Trigger Property="IsMouseOver" Value="True">
 								<Setter Property="Background" Value="{StaticResource ComboBoxBackgroundHover}" />
 								<Setter Property="BorderBrush" Value="{StaticResource ComboBoxBorderHover}" />
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="{x:Type Slider}">
-		<Setter Property="Margin" Value="4,0,4,0" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Slider}">
-					<Grid VerticalAlignment="Center">
-						<Border x:Name="borderBackground" Margin="6,0" Height="4" Background="{StaticResource SliderLine}" />
-						<Track x:Name="PART_Track">
-							<Track.Thumb>
-								<Thumb Width="10" Height="20">
-									<Thumb.Style>
-										<Style TargetType="Thumb">
-											<Setter Property="Template">
-												<Setter.Value>
-													<ControlTemplate TargetType="Thumb">
-														<Rectangle Fill="{StaticResource SliderFill}" Width="10" Height="{TemplateBinding Height}" StrokeThickness="1.5" Stroke="{StaticResource SliderStroke}" />
-													</ControlTemplate>
-												</Setter.Value>
-											</Setter>
-										</Style>
-									</Thumb.Style>
-								</Thumb>
-							</Track.Thumb>
-						</Track>
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style TargetType="Label">
-		<Style.Setters>
-			<Setter Property="Padding" Value="2" />
-			<Setter Property="Margin" Value="0" />
-			<Setter Property="Foreground" Value="{StaticResource Text}" />
-		</Style.Setters>
-	</Style>
-	<Style TargetType="Label" x:Key="TitleLabel" BasedOn="{StaticResource {x:Type Label}}">
-		<Style.Setters>
-			<Setter Property="FontSize" Value="20" />
-		</Style.Setters>
-	</Style>
-	<Style TargetType="Label" x:Key="BoldLabel" BasedOn="{StaticResource {x:Type Label}}">
-		<Style.Setters>
-			<Setter Property="Margin" Value="0,0,0,6" />
-			<Setter Property="Padding" Value="3,2,2,2" />
-			<Setter Property="FontWeight" Value="Bold" />
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="Label" x:Key="NumericSpawnLabel" BasedOn="{StaticResource {x:Type Label}}">
-		<Style.Setters>
-			<Setter Property="Padding" Value="6,2,6,2" />
-			<Setter Property="HorizontalContentAlignment" Value="Right" />
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="Button">
-		<Style.Setters>
-			<Setter Property="Margin" Value="2" />
-			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
-			<Setter Property="Foreground" Value="{StaticResource Text}" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
-						<Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-							<ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsDefaulted" Value="True">
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonDefaultBorder}" />
-							</Trigger>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundHover}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderHover}" />
-							</Trigger>
-							<Trigger Property="IsPressed" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundPressed}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderPressed}" />
-							</Trigger>
-							<Trigger Property="IsEnabled" Value="False">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundDisabled}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderDisabled}" />
-								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource ButtonTextDisabled}" />
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style.Setters>
-	</Style>
-	<Style TargetType="Button" x:Key="OkButton" BasedOn="{StaticResource {x:Type Button}}">
-		<Style.Setters>
-			<Setter Property="Width" Value="128" />
-			<Setter Property="Margin" Value="2,6,2,2" />
-			<Setter Property="IsDefault" Value="True" />
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="Image" x:Key="Logo">
-		<Style.Setters>
-			<Setter Property="Width" Value="96" />
-			<Setter Property="Source" Value="/Content/Images/Icon/Icon32.png" />
-			<Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
-		<Style.Setters>
-			<Setter Property="Margin" Value="2" />
-			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type RadioButton}">
-						<Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-							<ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundHover}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderHover}" />
-							</Trigger>
-							<Trigger Property="IsPressed" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundPressed}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderPressed}" />
-							</Trigger>
-							<Trigger Property="IsEnabled" Value="False">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundDisabled}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderDisabled}" />
-								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource ButtonTextDisabled}" />
-							</Trigger>
-							<Trigger Property="IsChecked" Value="True">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource RadioButtonBackgroundChecked}" />
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource RadioButtonBorderChecked}" />
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
@@ -797,6 +778,25 @@
 				<Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=SubmenuHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
 			</Trigger>
 		</Style.Triggers>
+	</Style>
+
+	<Style TargetType="Menu">
+		<Style.Setters>
+			<Setter Property="Background" Value="{StaticResource MenuBackground}" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
+		</Style.Setters>
+	</Style>
+
+	<Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
+		<Setter Property="Height" Value="1" />
+		<Setter Property="Margin" Value="0,4,0,4" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Separator}">
+					<Border BorderThickness="1" BorderBrush="{StaticResource Separator}" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
 	</Style>
 
 	<!-- SCROLLBAR -->
