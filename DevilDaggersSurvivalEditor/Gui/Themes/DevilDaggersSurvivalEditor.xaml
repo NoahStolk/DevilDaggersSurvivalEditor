@@ -3,10 +3,13 @@
 					xmlns:windows="clr-namespace:DevilDaggersSurvivalEditor.Gui.Windows"
 					xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 	<!-- COLORS -->
-	<SolidColorBrush x:Key="WindowBackground" Color="#222" />
-	<SolidColorBrush x:Key="MenuBackground" Color="#111" />
+	<SolidColorBrush x:Key="Gray1" Color="#111" />
+	<SolidColorBrush x:Key="Gray2" Color="#222" />
+	<SolidColorBrush x:Key="Gray3" Color="#333" />
+	<SolidColorBrush x:Key="Gray4" Color="#444" />
+	<SolidColorBrush x:Key="Gray5" Color="#555" />
+	<SolidColorBrush x:Key="Gray6" Color="#666" />
 	<SolidColorBrush x:Key="Text" Color="#ddd" />
-	<SolidColorBrush x:Key="Separator" Color="#444" />
 	<SolidColorBrush x:Key="Hyperlink" Color="#48b" />
 	<SolidColorBrush x:Key="HyperlinkHover" Color="#6bf" />
 	<SolidColorBrush x:Key="Error" Color="#800" />
@@ -31,7 +34,7 @@
 	<!-- WINDOWS -->
 	<Style TargetType="Window">
 		<Style.Setters>
-			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Background" Value="{StaticResource Gray2}" />
 		</Style.Setters>
 	</Style>
 	<Style TargetType="{x:Type windows:AboutWindow}" BasedOn="{StaticResource {x:Type Window}}" />
@@ -81,7 +84,7 @@
 			<Setter Property="HorizontalAlignment" Value="Stretch" />
 			<Setter Property="Margin" Value="2" />
 			<Setter Property="Height" Value="20" />
-			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Background" Value="{StaticResource Gray2}" />
 			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 		<Style.Triggers>
@@ -177,7 +180,7 @@
 	<Style TargetType="Button">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2" />
-			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Background" Value="{StaticResource Gray2}" />
 			<Setter Property="Foreground" Value="{StaticResource Text}" />
 			<Setter Property="Template">
 				<Setter.Value>
@@ -227,7 +230,7 @@
 	<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2" />
-			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Background" Value="{StaticResource Gray2}" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type RadioButton}">
@@ -264,12 +267,6 @@
 		<GradientStop Color="#444" Offset="0.0"/>
 		<GradientStop Color="#222" Offset="1.0"/>
 	</LinearGradientBrush>
-	<SolidColorBrush x:Key="ComboBox.Static.Border" Color="#555"/>
-	<SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#666"/>
-	<SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#222"/>
-	<SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#222"/>
-	<SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>
-	<SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent"/>
 	<LinearGradientBrush x:Key="ComboBox.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
 		<GradientStop Color="#666" Offset="0.0"/>
 		<GradientStop Color="#444" Offset="1.0"/>
@@ -301,8 +298,6 @@
 	<SolidColorBrush x:Key="ComboBox.Disabled.Glyph" Color="#222"/>
 	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Background" Color="#222"/>
 	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Border" Color="#222"/>
-	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Background" Color="Transparent"/>
-	<SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Border" Color="Transparent"/>
 	<Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
 		<Setter Property="OverridesDefaultStyle" Value="true"/>
 		<Setter Property="IsTabStop" Value="false"/>
@@ -311,9 +306,9 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ToggleButton}">
-					<Border x:Name="templateRoot" Background="{StaticResource ComboBox.Static.Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{StaticResource ComboBox.Static.Border}" SnapsToDevicePixels="true">
+					<Border x:Name="templateRoot" Background="{StaticResource ComboBox.Static.Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{StaticResource Gray5}" SnapsToDevicePixels="true">
 						<Border x:Name="splitBorder" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0" SnapsToDevicePixels="true" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
-							<Path x:Name="arrow" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" Fill="{StaticResource ComboBox.Static.Glyph}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
+							<Path x:Name="arrow" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" Fill="{StaticResource Gray6}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
 						</Border>
 					</Border>
 					<ControlTemplate.Triggers>
@@ -324,10 +319,10 @@
 								<Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="false"/>
 								<Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="true"/>
 							</MultiDataTrigger.Conditions>
-							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Static.Editable.Background}"/>
-							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Static.Editable.Border}"/>
-							<Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Static.Editable.Button.Background}"/>
-							<Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Static.Editable.Button.Border}"/>
+							<Setter Property="Background" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
+							<Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource Gray2}"/>
+							<Setter Property="Background" TargetName="splitBorder" Value="Transparent"/>
+							<Setter Property="BorderBrush" TargetName="splitBorder" Value="Transparent"/>
 						</MultiDataTrigger>
 						<Trigger Property="IsMouseOver" Value="true">
 							<Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.MouseOver.Glyph}"/>
@@ -454,9 +449,9 @@
 
 	<Style TargetType="{x:Type ComboBoxItem}">
 		<Style.Setters>
-			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Background" Value="{StaticResource Gray2}" />
 			<Setter Property="Foreground" Value="{StaticResource Text}" />
-			<Setter Property="BorderBrush" Value="{StaticResource WindowBackground}" />
+			<Setter Property="BorderBrush" Value="{StaticResource Gray2}" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type ComboBoxItem}">
@@ -782,7 +777,7 @@
 
 	<Style TargetType="Menu">
 		<Style.Setters>
-			<Setter Property="Background" Value="{StaticResource MenuBackground}" />
+			<Setter Property="Background" Value="{StaticResource Gray1}" />
 			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 	</Style>
@@ -793,7 +788,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Separator}">
-					<Border BorderThickness="1" BorderBrush="{StaticResource Separator}" />
+					<Border BorderThickness="1" BorderBrush="{StaticResource Gray4}" />
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
