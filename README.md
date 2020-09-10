@@ -27,9 +27,6 @@ C# 8.0
 2. Unzip its contents.
 3. Run DevilDaggersSurvivalEditor.exe inside the folder.
 
-## Running from source
-- DevilDaggersSurvivalEditor uses pixel shaders. In order to build pixel shaders you will need Microsoft's DirectX SDK from June 2010, and use the FXC compiler tool. If you do not need to build pixel shaders (the build for the origin one is already included in the source), then you can skip this step and remove the pre-build event from Build Events in DevilDaggersSurvivalEditor.csproj's properties to prevent it from throwing an error.
-
 ## Links
 - [DevilDaggers.info website](https://devildaggers.info)
 - [Main web page for DevilDaggersSurvivalEditor](https://devildaggers.info/Tools/DevilDaggersSurvivalEditor)
