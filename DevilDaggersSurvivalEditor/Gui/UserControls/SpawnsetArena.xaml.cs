@@ -63,21 +63,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			_arenaCanvasCenter = _arenaCanvasSize / 2;
 			_arenaCenter = Spawnset.ArenaWidth / 2;
 
-			DispatcherTimer mainLoop = new DispatcherTimer
+			DispatcherTimer mainLoop = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 16) };
+			mainLoop.Tick += (sender, e) =>
 			{
-				Interval = new TimeSpan(0, 0, 0, 0, 16),
+				UpdateSelectionEffectContinuousValues();
+
+				CursorRectangle.Visibility = ArenaTiles.IsMouseOver ? Visibility.Visible : Visibility.Hidden;
+				if (!ArenaTiles.IsMouseOver && Mouse.LeftButton == MouseButtonState.Released)
+					ArenaRelease();
 			};
-			mainLoop.Tick += MainLoop_Tick;
 			mainLoop.Start();
-		}
-
-		private void MainLoop_Tick(object? sender, EventArgs e)
-		{
-			UpdateSelectionEffectContinuousValues();
-
-			CursorRectangle.Visibility = ArenaTiles.IsMouseOver ? Visibility.Visible : Visibility.Hidden;
-			if (!ArenaTiles.IsMouseOver && Mouse.LeftButton == MouseButtonState.Released)
-				ArenaRelease();
 		}
 
 		private void UpdateSelectionEffectContinuousValues()
@@ -129,11 +124,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						if (!(sender is RadioButton r))
 							return;
 
-						foreach (RadioButton rb in _tileActionRadioButtons)
-						{
-							if (rb != r)
-								rb.IsChecked = false;
-						}
+						foreach (RadioButton rb in _tileActionRadioButtons.Where(rb => rb != r))
+							rb.IsChecked = false;
 
 						_tileAction = TileAction.Height;
 						_heightSelectorValue = float.Parse(r.Tag?.ToString() ?? "0", CultureInfo.InvariantCulture);
@@ -163,11 +155,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					if (!(sender is RadioButton r))
 						return;
 
-					foreach (RadioButton rb in _tileActionRadioButtons)
-					{
-						if (rb != r)
-							rb.IsChecked = false;
-					}
+					foreach (RadioButton rb in _tileActionRadioButtons.Where(rb => rb != r))
+						rb.IsChecked = false;
 
 					_tileAction = tileAction;
 				};
@@ -184,10 +173,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					ToolTip = tileSelection.ToUserFriendlyString(),
 					IsChecked = tileSelection == 0,
 				};
-				radioButton.Checked += (sender, e) =>
-				{
-					_tileSelection = tileSelection;
-				};
+				radioButton.Checked += (sender, e) => _tileSelection = tileSelection;
 
 				_tileSelectionRadioButtons.Add(radioButton);
 				TileSelectionsStackPanel.Children.Add(radioButton);
@@ -475,20 +461,18 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					SetHeightText(SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y]);
 					break;
 				case TileAction.Select:
-					if (!_selections.Contains(tile))
-					{
-						_selections.Add(tile);
-						UpdateTileSelection(tile);
-					}
+					if (_selections.Contains(tile))
+						break;
 
+					_selections.Add(tile);
+					UpdateTileSelection(tile);
 					break;
 				case TileAction.Deselect:
-					if (_selections.Contains(tile))
-					{
-						_selections.Remove(tile);
-						UpdateTileSelection(tile);
-					}
+					if (!_selections.Contains(tile))
+						break;
 
+					_selections.Remove(tile);
+					UpdateTileSelection(tile);
 					break;
 			}
 		}
@@ -566,9 +550,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void ArenaTiles_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-		{
-			ArenaRelease();
-		}
+			=> ArenaRelease();
 
 		private void ArenaRelease()
 		{
@@ -823,8 +805,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void ArenaTiles_MouseEnter(object sender, MouseEventArgs e)
-		{
-			SelectionEffect.HighlightRadiusSquared = 0.005f;
-		}
+			=> SelectionEffect.HighlightRadiusSquared = 0.005f;
 	}
 }
