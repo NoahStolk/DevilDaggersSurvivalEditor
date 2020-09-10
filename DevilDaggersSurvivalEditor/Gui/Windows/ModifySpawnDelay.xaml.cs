@@ -1,10 +1,10 @@
-﻿using DevilDaggersSurvivalEditor.Enumerators;
+﻿using DevilDaggersCore.Wpf.Utils;
+using DevilDaggersSurvivalEditor.Enumerators;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
@@ -43,14 +43,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void TextBoxValue_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			bool valid = IsValueValid();
+			bool isValid = IsValueValid();
 
-			if (valid)
+			if (isValid)
 				Value = float.Parse(TextBoxValue.Text, CultureInfo.InvariantCulture);
 
-			TextBoxValue.Background = valid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
+			TextBoxValue.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 
-			OkButton.IsEnabled = valid;
+			OkButton.IsEnabled = isValid;
 		}
 
 		private bool IsValueValid()

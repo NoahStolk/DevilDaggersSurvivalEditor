@@ -1,4 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Arena;
+﻿using DevilDaggersCore.Wpf.Utils;
+using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Extensions;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
@@ -79,7 +79,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			else
 				throw new Exception($"Type {type} not supported in ArenaPreset TextBox.");
 
-			textBox.Background = isValid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
+			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 		}
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)

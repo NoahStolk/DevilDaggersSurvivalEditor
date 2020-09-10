@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
+using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Enumerators;
@@ -227,7 +228,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			CursorRectangle.Width = TileUtils.TileSize;
 			CursorRectangle.Height = TileUtils.TileSize;
-			CursorRectangle.Stroke = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255));
+			CursorRectangle.Stroke = new SolidColorBrush(Color.FromArgb(127, 255, 255, 255));
 
 			SetSettingTextBoxes();
 		}
@@ -257,11 +258,11 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private static bool ValidateTextBox(TextBox textBox)
 		{
-			bool valid = float.TryParse(textBox.Text, out _);
+			bool isValid = float.TryParse(textBox.Text, out _);
 
-			textBox.Background = valid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
+			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 
-			return valid;
+			return isValid;
 		}
 
 		private void UpdateShrinkStart(object sender, TextChangedEventArgs e)

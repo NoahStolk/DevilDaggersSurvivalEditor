@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
+using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Clients;
 using DevilDaggersSurvivalEditor.Extensions;
@@ -387,7 +388,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			List<Grid> grids = SpawnsetsStackPanel.Children.OfType<Grid>().Where(c => c.Visibility == Visibility.Visible).ToList();
 			foreach (Grid grid in grids)
-				grid.Background = new SolidColorBrush(grids.IndexOf(grid) % 2 == 0 ? Color.FromRgb(68, 68, 68) : Color.FromRgb(34, 34, 34));
+				grid.Background = grids.IndexOf(grid) % 2 == 0 ? ColorUtils.ThemeColors["Gray3"] : ColorUtils.ThemeColors["Gray2"];
 		}
 
 		private void SortAuthorsButton_Click(object sender, RoutedEventArgs e)

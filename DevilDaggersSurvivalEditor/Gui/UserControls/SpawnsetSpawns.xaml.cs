@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnsets;
+using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Enumerators;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using DevilDaggersSurvivalEditor.Spawnsets;
@@ -11,7 +12,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
@@ -155,7 +155,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			if (isValid)
 				Delay = float.Parse(DelayTextBox.Text, CultureInfo.InvariantCulture);
 
-			DelayTextBox.Background = isValid ? new SolidColorBrush(Color.FromRgb(34, 34, 34)) : new SolidColorBrush(Color.FromRgb(136, 0, 0));
+			DelayTextBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 
 			UpdateButtons();
 		}
