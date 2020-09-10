@@ -23,7 +23,7 @@
 			<Label Grid.Column="4" FontWeight="Bold">No farm gems</Label>
 			<Label Grid.Column="5" FontWeight="Bold">Total gems</Label>
 		</Grid>
-		<ScrollViewer Height="408" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" Background="#333">
+		<ScrollViewer Height="408" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" Background="{StaticResource Gray3}">
 			<StackPanel>
 				<ListBox Name="ListBoxSpawns" SelectionMode="Extended" SelectionChanged="ListBoxSpawns_Selected" BorderBrush="Transparent" Background="Transparent" />
 				<usercontrols:EndLoopPreviewUserControl x:Name="EndLoopPreview" />
