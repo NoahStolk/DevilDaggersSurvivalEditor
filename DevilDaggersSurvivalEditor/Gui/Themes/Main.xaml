@@ -153,6 +153,36 @@
 		</Style.Setters>
 	</Style>
 
+	<Style TargetType="{x:Type Slider}">
+		<Setter Property="Margin" Value="4,0,4,0" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Slider}">
+					<Grid VerticalAlignment="Center">
+						<Border x:Name="borderBackground" Margin="6,0" Height="4" Background="#666" />
+						<Track x:Name="PART_Track">
+							<Track.Thumb>
+								<Thumb Width="10" Height="20" Background="#333">
+									<Thumb.Style>
+										<Style TargetType="Thumb">
+											<Setter Property="Template">
+												<Setter.Value>
+													<ControlTemplate TargetType="Thumb">
+														<Rectangle Fill="#444" Width="10" Height="{TemplateBinding Height}" StrokeThickness="1.5" Stroke="#666" />
+													</ControlTemplate>
+												</Setter.Value>
+											</Setter>
+										</Style>
+									</Thumb.Style>
+								</Thumb>
+							</Track.Thumb>
+						</Track>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style TargetType="Label">
 		<Style.Setters>
 			<Setter Property="Padding" Value="2" />
@@ -262,12 +292,6 @@
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="Slider">
-		<Style.Setters>
-			<Setter Property="Margin" Value="4,0,4,0" />
 		</Style.Setters>
 	</Style>
 </ResourceDictionary>
