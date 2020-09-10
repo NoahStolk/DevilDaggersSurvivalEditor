@@ -39,29 +39,13 @@ namespace DevilDaggersSurvivalEditor.Network
 
 		public List<SpawnsetFile> Spawnsets { get; private set; } = new List<SpawnsetFile>();
 
-		public bool GetOnlineToolSync()
+		public bool GetOnlineTool()
 		{
 			try
 			{
-				Task.Delay(100).Wait();
-
 				List<Tool> tools = ApiClient.Tools_GetToolsAsync(App.ApplicationName).Result;
 				Tool = tools.First();
 
-				return true;
-			}
-			catch (Exception ex)
-			{
-				App.Instance.ShowError("Error retrieving tool information", "An error occurred while attempting to retrieve tool information from the API.", ex);
-				return false;
-			}
-		}
-
-		public async Task<bool> GetOnlineTool()
-		{
-			try
-			{
-				Tool = (await ApiClient.Tools_GetToolsAsync(App.ApplicationName)).First();
 				return true;
 			}
 			catch (Exception ex)
