@@ -205,6 +205,35 @@
 	<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2" />
+			<Setter Property="Background" Value="#222" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type RadioButton}">
+						<Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+							<ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="Background" TargetName="border" Value="#357" />
+								<Setter Property="BorderBrush" TargetName="border" Value="#06b" />
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter Property="Background" TargetName="border" Value="#468" />
+								<Setter Property="BorderBrush" TargetName="border" Value="#08f" />
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter Property="Background" TargetName="border" Value="#555" />
+								<Setter Property="BorderBrush" TargetName="border" Value="#444" />
+								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#999" />
+							</Trigger>
+							<Trigger Property="IsChecked" Value="True">
+								<Setter Property="Background" TargetName="border" Value="#68a" />
+								<Setter Property="BorderBrush" TargetName="border" Value="#0af" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
 		</Style.Setters>
 	</Style>
 

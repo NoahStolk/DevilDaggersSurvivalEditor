@@ -80,9 +80,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void UpdateSelectionEffectContinuousValues()
-		{
-			SelectionEffect.FlashIntensity = Math.Abs(DateTime.Now.Millisecond / 1000f - 0.5f);
-		}
+			=> SelectionEffect.FlashIntensity = Math.Abs(DateTime.Now.Millisecond / 1000f - 0.5f);
 
 		public void Initialize()
 		{
