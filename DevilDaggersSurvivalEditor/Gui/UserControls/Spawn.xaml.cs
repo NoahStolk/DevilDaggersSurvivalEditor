@@ -31,7 +31,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		public void UpdateGui()
 		{
 			FontWeight = IsInLoop ? FontWeights.Bold : FontWeights.Normal;
-			Background = new SolidColorBrush(IsInLoop ? Color.FromArgb(127, 191, 127, 63) : Color.FromArgb(0, 0, 0, 0));
+			Background = new SolidColorBrush(IsInLoop ? Color.FromArgb(127, 127, 63, 63) : Color.FromArgb(0, 0, 0, 0));
 
 			LabelId.Content = Id.ToString(CultureInfo.InvariantCulture);
 
