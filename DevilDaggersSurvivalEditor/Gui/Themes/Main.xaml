@@ -1,9 +1,33 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:windows="clr-namespace:DevilDaggersSurvivalEditor.Gui.Windows">
+	<SolidColorBrush x:Key="WindowBackground" Color="#222" />
+	<SolidColorBrush x:Key="MenuBackground" Color="#111" />
+	<SolidColorBrush x:Key="Text" Color="#ddd" />
+	<SolidColorBrush x:Key="Separator" Color="#444" />
+	<SolidColorBrush x:Key="Hyperlink" Color="#48b" />
+	<SolidColorBrush x:Key="HyperlinkHover" Color="#6bf" />
+	<SolidColorBrush x:Key="Error" Color="#800" />
+	<SolidColorBrush x:Key="ComboBoxBackgroundHover" Color="#468" />
+	<SolidColorBrush x:Key="ComboBoxBorderHover" Color="#08f" />
+	<SolidColorBrush x:Key="ComboBoxItemBackgroundHighlight" Color="#666" />
+	<SolidColorBrush x:Key="ComboBoxItemBorderHighlight" Color="#999" />
+	<SolidColorBrush x:Key="SliderLine" Color="#666" />
+	<SolidColorBrush x:Key="SliderFill" Color="#444" />
+	<SolidColorBrush x:Key="SliderStroke" Color="#666" />
+	<SolidColorBrush x:Key="ButtonDefaultBorder" Color="#88f" />
+	<SolidColorBrush x:Key="ButtonBackgroundHover" Color="#468" />
+	<SolidColorBrush x:Key="ButtonBorderHover" Color="#08f" />
+	<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#68a" />
+	<SolidColorBrush x:Key="ButtonBorderPressed" Color="#0af" />
+	<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#555" />
+	<SolidColorBrush x:Key="ButtonBorderDisabled" Color="#444" />
+	<SolidColorBrush x:Key="ButtonTextDisabled" Color="#999" />
+	<SolidColorBrush x:Key="RadioButtonBackgroundChecked" Color="#68a" />
+	<SolidColorBrush x:Key="RadioButtonBorderChecked" Color="#0af" />
 	<Style TargetType="Window">
 		<Style.Setters>
-			<Setter Property="Background" Value="#222" />
+			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
 		</Style.Setters>
 	</Style>
 	<Style TargetType="{x:Type windows:AboutWindow}" BasedOn="{StaticResource {x:Type Window}}" />
@@ -19,8 +43,8 @@
 
 	<Style TargetType="Menu">
 		<Style.Setters>
-			<Setter Property="Background" Value="#111" />
-			<Setter Property="Foreground" Value="#ddd" />
+			<Setter Property="Background" Value="{StaticResource MenuBackground}" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 	</Style>
 
@@ -30,11 +54,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Separator}">
-					<Border BorderThickness="1">
-						<Border.BorderBrush>
-							<SolidColorBrush Color="#444" />
-						</Border.BorderBrush>
-					</Border>
+					<Border BorderThickness="1" BorderBrush="{StaticResource Separator}" />
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -42,11 +62,11 @@
 
 	<Style TargetType="{x:Type Hyperlink}">
 		<Style.Setters>
-			<Setter Property="Foreground" Value="#48b" />
+			<Setter Property="Foreground" Value="{StaticResource Hyperlink}" />
 		</Style.Setters>
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Foreground" Value="#6bf" />
+				<Setter Property="Foreground" Value="{StaticResource HyperlinkHover}" />
 			</Trigger>
 		</Style.Triggers>
 	</Style>
@@ -75,12 +95,12 @@
 			<Setter Property="HorizontalAlignment" Value="Stretch" />
 			<Setter Property="Margin" Value="2" />
 			<Setter Property="Height" Value="20" />
-			<Setter Property="Background" Value="#222" />
-			<Setter Property="Foreground" Value="#ddd" />
+			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 		<Style.Triggers>
 			<Trigger Property="Validation.HasError" Value="True">
-				<Setter Property="Background" Value="#800" />
+				<Setter Property="Background" Value="{StaticResource Error}" />
 			</Trigger>
 		</Style.Triggers>
 	</Style>
@@ -94,7 +114,7 @@
 	<Style TargetType="CheckBox">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2" />
-			<Setter Property="Foreground" Value="#ddd" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 	</Style>
 
@@ -107,7 +127,7 @@
 		<Style.Setters>
 			<Setter Property="TextWrapping" Value="WrapWithOverflow" />
 			<Setter Property="Padding" Value="6,8,6,8" />
-			<Setter Property="Foreground" Value="#ddd" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 	</Style>
 
@@ -116,35 +136,35 @@
 			<Setter Property="Margin" Value="2" />
 			<Setter Property="Padding" Value="4,1,0,0" />
 			<Setter Property="MinHeight" Value="20" />
-			<Setter Property="Foreground" Value="#ddd" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
 			<Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
 		</Style.Setters>
 	</Style>
 
 	<Style TargetType="{x:Type ComboBoxItem}">
 		<Style.Setters>
-			<Setter Property="Background" Value="#222" />
-			<Setter Property="Foreground" Value="#ddd" />
-			<Setter Property="BorderBrush" Value="#222" />
+			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
+			<Setter Property="BorderBrush" Value="{StaticResource WindowBackground}" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type ComboBoxItem}">
-						<Border x:Name="Bd" SnapsToDevicePixels="true" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+						<Border x:Name="Bd" SnapsToDevicePixels="True" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
 							<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 						</Border>
 						<ControlTemplate.Triggers>
-							<Trigger Property="IsHighlighted" Value="true">
-								<Setter Property="Background" Value="#666" />
+							<Trigger Property="IsHighlighted" Value="True">
+								<Setter Property="Background" Value="{StaticResource ComboBoxItemBackgroundHighlight}" />
 								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
 								<Setter Property="BorderThickness" Value="1" />
-								<Setter Property="BorderBrush" Value="#999" />
+								<Setter Property="BorderBrush" Value="{StaticResource ComboBoxItemBorderHighlight}" />
 							</Trigger>
-							<Trigger Property="IsEnabled" Value="false">
+							<Trigger Property="IsEnabled" Value="False">
 								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
 							</Trigger>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" Value="#468" />
-								<Setter Property="BorderBrush" Value="#08f" />
+								<Setter Property="Background" Value="{StaticResource ComboBoxBackgroundHover}" />
+								<Setter Property="BorderBrush" Value="{StaticResource ComboBoxBorderHover}" />
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
@@ -159,16 +179,16 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Slider}">
 					<Grid VerticalAlignment="Center">
-						<Border x:Name="borderBackground" Margin="6,0" Height="4" Background="#666" />
+						<Border x:Name="borderBackground" Margin="6,0" Height="4" Background="{StaticResource SliderLine}" />
 						<Track x:Name="PART_Track">
 							<Track.Thumb>
-								<Thumb Width="10" Height="20" Background="#333">
+								<Thumb Width="10" Height="20">
 									<Thumb.Style>
 										<Style TargetType="Thumb">
 											<Setter Property="Template">
 												<Setter.Value>
 													<ControlTemplate TargetType="Thumb">
-														<Rectangle Fill="#444" Width="10" Height="{TemplateBinding Height}" StrokeThickness="1.5" Stroke="#666" />
+														<Rectangle Fill="{StaticResource SliderFill}" Width="10" Height="{TemplateBinding Height}" StrokeThickness="1.5" Stroke="{StaticResource SliderStroke}" />
 													</ControlTemplate>
 												</Setter.Value>
 											</Setter>
@@ -187,7 +207,7 @@
 		<Style.Setters>
 			<Setter Property="Padding" Value="2" />
 			<Setter Property="Margin" Value="0" />
-			<Setter Property="Foreground" Value="#ddd" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 	</Style>
 	<Style TargetType="Label" x:Key="TitleLabel" BasedOn="{StaticResource {x:Type Label}}">
@@ -213,8 +233,8 @@
 	<Style TargetType="Button">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2" />
-			<Setter Property="Background" Value="#222" />
-			<Setter Property="Foreground" Value="#ddd" />
+			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Button}">
@@ -223,20 +243,20 @@
 						</Border>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsDefaulted" Value="True">
-								<Setter Property="BorderBrush" TargetName="border" Value="#88f" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonDefaultBorder}" />
 							</Trigger>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" TargetName="border" Value="#468" />
-								<Setter Property="BorderBrush" TargetName="border" Value="#08f" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundHover}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderHover}" />
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
-								<Setter Property="Background" TargetName="border" Value="#68a" />
-								<Setter Property="BorderBrush" TargetName="border" Value="#0af" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundPressed}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderPressed}" />
 							</Trigger>
 							<Trigger Property="IsEnabled" Value="False">
-								<Setter Property="Background" TargetName="border" Value="#555" />
-								<Setter Property="BorderBrush" TargetName="border" Value="#444" />
-								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#999" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundDisabled}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderDisabled}" />
+								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource ButtonTextDisabled}" />
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
@@ -263,7 +283,7 @@
 	<Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
 		<Style.Setters>
 			<Setter Property="Margin" Value="2" />
-			<Setter Property="Background" Value="#222" />
+			<Setter Property="Background" Value="{StaticResource WindowBackground}" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type RadioButton}">
@@ -272,21 +292,21 @@
 						</Border>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" TargetName="border" Value="#357" />
-								<Setter Property="BorderBrush" TargetName="border" Value="#06b" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundHover}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderHover}" />
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
-								<Setter Property="Background" TargetName="border" Value="#468" />
-								<Setter Property="BorderBrush" TargetName="border" Value="#08f" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundPressed}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderPressed}" />
 							</Trigger>
 							<Trigger Property="IsEnabled" Value="False">
-								<Setter Property="Background" TargetName="border" Value="#555" />
-								<Setter Property="BorderBrush" TargetName="border" Value="#444" />
-								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#999" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackgroundDisabled}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ButtonBorderDisabled}" />
+								<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource ButtonTextDisabled}" />
 							</Trigger>
 							<Trigger Property="IsChecked" Value="True">
-								<Setter Property="Background" TargetName="border" Value="#68a" />
-								<Setter Property="BorderBrush" TargetName="border" Value="#0af" />
+								<Setter Property="Background" TargetName="border" Value="{StaticResource RadioButtonBackgroundChecked}" />
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource RadioButtonBorderChecked}" />
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
