@@ -24,13 +24,6 @@
 		</Style.Setters>
 	</Style>
 
-	<Style TargetType="MenuItem">
-		<Style.Setters>
-			<Setter Property="Background" Value="#111" />
-			<Setter Property="Foreground" Value="#ddd" />
-		</Style.Setters>
-	</Style>
-
 	<Style TargetType="StackPanel" x:Key="PaddingStackPanel">
 		<Style.Setters>
 			<Setter Property="Margin" Value="12" />
