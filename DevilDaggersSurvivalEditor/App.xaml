@@ -7,6 +7,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="Gui/Themes/Main.xaml" />
 				<ResourceDictionary Source="Gui/Themes/Menu.xaml" />
+				<ResourceDictionary Source="Gui/Themes/ScrollBar.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
