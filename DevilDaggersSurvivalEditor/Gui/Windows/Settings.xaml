@@ -16,9 +16,9 @@
 			</StackPanel>
 			<Label>Replace survival file with downloaded spawnset</Label>
 			<StackPanel Orientation="Horizontal">
-				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}">Always</RadioButton>
-				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}">Ask</RadioButton>
-				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}">Never</RadioButton>
+				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" x:Name="ReplaceSurvivalActionAlways">Always</RadioButton>
+				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" x:Name="ReplaceSurvivalActionAsk">Ask</RadioButton>
+				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" x:Name="ReplaceSurvivalActionNever">Never</RadioButton>
 			</StackPanel>
 		</StackPanel>
 
