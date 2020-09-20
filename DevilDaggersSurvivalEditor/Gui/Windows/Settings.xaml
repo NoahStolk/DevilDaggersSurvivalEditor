@@ -15,9 +15,11 @@
 				<Button Content="Auto-detect" Click="AutoDetectButton_Click" Width="128" />
 			</StackPanel>
 			<Label>Replace survival file with downloaded spawnset</Label>
-			<RadioButton GroupName="ReplaceSurvivalAction">Always</RadioButton>
-			<RadioButton GroupName="ReplaceSurvivalAction">Ask</RadioButton>
-			<RadioButton GroupName="ReplaceSurvivalAction">Never</RadioButton>
+			<StackPanel Orientation="Horizontal">
+				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}">Always</RadioButton>
+				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}">Ask</RadioButton>
+				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}">Never</RadioButton>
+			</StackPanel>
 		</StackPanel>
 
 		<Label FontWeight="Bold" FontSize="14">Arena</Label>
