@@ -22,6 +22,8 @@ namespace DevilDaggersSurvivalEditor.User
 		public bool AskToConfirmArenaGeneration { get; set; } = true;
 		[JsonProperty]
 		public ReplaceSurvivalAction ReplaceSurvivalAction { get; set; } = ReplaceSurvivalAction.Ask;
+		[JsonProperty]
+		public bool LoadSurvivalFileOnStartUp { get; set; }
 
 		public string SurvivalFileLocation => Path.Combine(SurvivalFileRootFolder, "survival");
 		public bool SurvivalFileExists => File.Exists(SurvivalFileLocation);

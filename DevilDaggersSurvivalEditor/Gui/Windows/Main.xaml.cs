@@ -1,10 +1,12 @@
-﻿using DevilDaggersCore.Wpf.Windows;
+﻿using DevilDaggersCore.Spawnsets;
+using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Network;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -27,6 +29,22 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			UpdateWarningNoSurvivalFile();
 
 			SpawnsetArena.Initialize();
+
+			if (UserHandler.Instance.Settings.LoadSurvivalFileOnStartUp && UserHandler.Instance.Settings.SurvivalFileIsValid)
+			{
+				if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.Settings.SurvivalFileLocation), out Spawnset spawnset))
+				{
+					App.Instance.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
+					return;
+				}
+
+				SpawnsetHandler.Instance.Spawnset = spawnset;
+
+				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
+				App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
+
+				SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
+			}
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
