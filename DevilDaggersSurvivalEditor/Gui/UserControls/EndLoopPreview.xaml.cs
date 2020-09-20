@@ -2,10 +2,8 @@
 using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;
-using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -60,11 +58,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			// Start at 1 to skip the first wave as it is already included in the regular spawns.
 			for (int i = 1; i < Wave; i++)
 			{
-				IEnumerable<double> waveTimes = SpawnsetHandler.Instance.Spawnset.GenerateEndWaveTimes(seconds, i);
-
 				int j = 0;
 				double secondsPrevious = seconds;
-				foreach (double spawnSecond in waveTimes)
+				foreach (double spawnSecond in SpawnsetHandler.Instance.Spawnset.GenerateEndWaveTimes(seconds, i))
 				{
 					Enemy? enemy = endLoop[j].Enemy;
 					bool gigaBecomesGhost = i % 3 == 2 && enemy == GameInfo.V3Gigapede; // Assumes V3.
@@ -79,7 +75,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						EndLoopSpawnUserControl spawnControl = new EndLoopSpawnUserControl(
 							id: SpawnsetHandler.Instance.Spawnset.Spawns.Count + 1 + endLoop.Count * (i - 1) + j,
 							seconds: seconds,
-							delay: $"{endLoop[j].Delay.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture)} ({(seconds - secondsPrevious).ToString(SpawnUtils.Format, CultureInfo.InvariantCulture)})",
+							delay: seconds - secondsPrevious,
 							totalGems: totalGems,
 							enemy: enemy,
 							gigaBecomesGhost: gigaBecomesGhost);

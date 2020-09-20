@@ -35,7 +35,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			LabelId.Content = Id.ToString(CultureInfo.InvariantCulture);
 
-			LabelSeconds.Content = SpawnUtils.GameTimeToString(Seconds);
+			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(Seconds);
 
 			LabelTotalGems.Content = TotalGems.ToString(CultureInfo.InvariantCulture);
 

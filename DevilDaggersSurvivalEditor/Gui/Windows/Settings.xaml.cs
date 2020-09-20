@@ -35,7 +35,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			{
 				ReplaceSurvivalAction.Always => ReplaceSurvivalActionAlways,
 				ReplaceSurvivalAction.Ask => ReplaceSurvivalActionAsk,
-				ReplaceSurvivalAction.Never => ReplaceSurvivalActionNever,
+				_ => ReplaceSurvivalActionNever,
 			};
 			selectedRadioButton.IsChecked = true;
 		}

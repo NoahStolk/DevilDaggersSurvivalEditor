@@ -9,7 +9,10 @@ namespace DevilDaggersSurvivalEditor.Utils
 
 		public const string Format = "0.0000";
 
-		public static string GameTimeToString(double gameTimeInSeconds)
-			=> (Math.Ceiling(gameTimeInSeconds * 60) / 60).ToString(Format, CultureInfo.InvariantCulture);
+		public static double ToFramedGameTime(double gameTimeInSeconds)
+			=> Math.Ceiling(gameTimeInSeconds * 60) / 60;
+
+		public static string ToFramedGameTimeString(double gameTimeInSeconds)
+			=> ToFramedGameTime(gameTimeInSeconds).ToString(Format, CultureInfo.InvariantCulture);
 	}
 }

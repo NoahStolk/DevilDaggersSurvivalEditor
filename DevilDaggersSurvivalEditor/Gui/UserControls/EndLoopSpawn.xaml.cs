@@ -9,13 +9,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class EndLoopSpawnUserControl : UserControl
 	{
-		public EndLoopSpawnUserControl(int id, double seconds, string delay, int totalGems, Enemy? enemy, bool gigaBecomesGhost)
+		public EndLoopSpawnUserControl(int id, double seconds, double delay, int totalGems, Enemy? enemy, bool gigaBecomesGhost)
 		{
 			InitializeComponent();
 
 			LabelId.Content = id;
-			LabelSeconds.Content = SpawnUtils.GameTimeToString(seconds);
-			LabelDelay.Content = delay;
+			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds);
+			LabelDelay.Content = SpawnUtils.ToFramedGameTimeString(delay);
 			LabelTotalGems.Content = totalGems;
 
 			Color enemyColor = enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ColorCode}");
