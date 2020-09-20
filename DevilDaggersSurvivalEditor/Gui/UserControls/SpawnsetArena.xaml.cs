@@ -51,6 +51,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private readonly WriteableBitmap _normalMap = new WriteableBitmap(Spawnset.ArenaWidth * TileUtils.TileSize, Spawnset.ArenaHeight * TileUtils.TileSize, 96, 96, PixelFormats.BlackWhite, BitmapPalettes.BlackAndWhite);
 
+		private static readonly Style _toggleRadioButtonStyle = Application.Current.Resources["ToggleRadioButton"] as Style ?? throw new Exception("Could not retrieve style for ToggleRadioButton.");
+
 		public SpawnsetArenaUserControl()
 		{
 			InitializeComponent();
@@ -89,8 +91,23 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				float height = i == 0 ? TileUtils.VoidDefault : -1.25f + i * 0.25f;
 				RadioButton heightRadioButton = height == TileUtils.VoidDefault
-					? new RadioButton { Margin = default, Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)), ToolTip = new TextBlock { Text = "Void", FontWeight = FontWeights.Bold }, Tag = height, IsChecked = true }
-					: new RadioButton { Margin = default, Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString("0.##", CultureInfo.InvariantCulture), Tag = height };
+					? new RadioButton
+					{
+						Margin = default,
+						Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)),
+						ToolTip = new TextBlock { Text = "Void", FontWeight = FontWeights.Bold },
+						Tag = height,
+						IsChecked = true,
+						Style = _toggleRadioButtonStyle,
+					}
+					: new RadioButton
+					{
+						Margin = default,
+						Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)),
+						ToolTip = height.ToString("0.##", CultureInfo.InvariantCulture),
+						Tag = height,
+						Style = _toggleRadioButtonStyle,
+					};
 				heightRadioButton.Checked += (sender, e) =>
 				{
 					if (!(sender is RadioButton r))
@@ -118,7 +135,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				for (int j = 0; j < 9; j++)
 				{
 					float height = i * 9 + j + 1;
-					RadioButton heightRadioButton = new RadioButton { Margin = default, Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString(CultureInfo.InvariantCulture), Tag = height };
+					RadioButton heightRadioButton = new RadioButton { Margin = default, Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString(CultureInfo.InvariantCulture), Tag = height, Style = _toggleRadioButtonStyle };
 					heightRadioButton.Checked += (sender, e) =>
 					{
 						if (!(sender is RadioButton r))
@@ -149,6 +166,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					Content = new Image { Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesAction{tileAction}.png"))) },
 					ToolTip = tileAction.ToUserFriendlyString(),
 					IsChecked = tileAction == 0,
+					Style = _toggleRadioButtonStyle,
 				};
 				radioButton.Checked += (sender, e) =>
 				{
@@ -172,6 +190,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					Content = new Image { Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", $"ArenaTilesSelection{tileSelection}.png"))) },
 					ToolTip = tileSelection.ToUserFriendlyString(),
 					IsChecked = tileSelection == 0,
+					Style = _toggleRadioButtonStyle,
 				};
 				radioButton.Checked += (sender, e) => _tileSelection = tileSelection;
 
