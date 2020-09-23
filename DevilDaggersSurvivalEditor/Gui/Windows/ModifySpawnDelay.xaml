@@ -18,13 +18,13 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 			<StackPanel>
-				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Set}}">Set</RadioButton>
-				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Add}}">Add</RadioButton>
-				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Subtract}}">Subtract</RadioButton>
+				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Set}}" Checked="RadioButton_Changed" Unchecked="RadioButton_Changed">Set</RadioButton>
+				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Add}}" Checked="RadioButton_Changed" Unchecked="RadioButton_Changed">Add</RadioButton>
+				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Subtract}}" Checked="RadioButton_Changed" Unchecked="RadioButton_Changed">Subtract</RadioButton>
 			</StackPanel>
 			<StackPanel Grid.Column="1">
-				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Multiply}}">Multiply</RadioButton>
-				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Divide}}">Divide</RadioButton>
+				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Multiply}}" Checked="RadioButton_Changed" Unchecked="RadioButton_Changed">Multiply</RadioButton>
+				<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="Functions" IsChecked="{Binding Path=Function, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:DelayModificationFunction.Divide}}" Checked="RadioButton_Changed" Unchecked="RadioButton_Changed">Divide</RadioButton>
 			</StackPanel>
 		</Grid>
 		<TextBox Name="TextBoxValue" TextChanged="TextBoxValue_TextChanged" />

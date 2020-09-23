@@ -35,6 +35,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		}
 
 		private void TextBoxValue_TextChanged(object sender, TextChangedEventArgs e)
+			=> ValidateValue();
+
+		private void ValidateValue()
 		{
 			bool isValid = IsValueValid();
 
@@ -47,6 +50,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		}
 
 		private bool IsValueValid()
-			=> float.TryParse(TextBoxValue.Text, out float parsed) && parsed >= 0 && parsed < SpawnUtils.MaxDelay;
+			=> float.TryParse(TextBoxValue.Text, out float parsed) && parsed < SpawnUtils.MaxDelay && (Function == DelayModificationFunction.Divide ? parsed > 0 : parsed >= 0);
+
+		private void RadioButton_Changed(object sender, RoutedEventArgs e)
+			=> ValidateValue();
 	}
 }
