@@ -34,9 +34,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			DelayTextBox.Text = Delay.ToString(CultureInfo.InvariantCulture);
 			AmountTextBox.DataContext = this;
 
-			for (int i = -1; i < 10; i++)
-				ComboBoxEnemy.Items.Add(new ComboBoxItem { Content = GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == i)?.Name ?? "EMPTY" });
+			Data.DataContext = this;
 		}
+
+		public SpawnsetEnemy SelectedEnemy { get; set; } = SpawnsetEnemy.Squid1;
 
 		public float Delay { get; set; } = 3;
 
@@ -203,7 +204,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (HasTooManySpawns())
 					break;
 
-				AddSpawn(new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == ComboBoxEnemy.SelectedIndex - 1), Delay));
+				AddSpawn(new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -228,7 +229,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (HasTooManySpawns())
 					break;
 
-				InsertSpawnAt(originalSelection + i, new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == ComboBoxEnemy.SelectedIndex - 1), Delay));
+				InsertSpawnAt(originalSelection + i, new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -283,7 +284,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			List<int> selections = GetSpawnSelectionIndices();
 			foreach (int i in selections)
-				EditSpawnAt(i, new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == ComboBoxEnemy.SelectedIndex - 1), Delay));
+				EditSpawnAt(i, new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).FirstOrDefault(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 

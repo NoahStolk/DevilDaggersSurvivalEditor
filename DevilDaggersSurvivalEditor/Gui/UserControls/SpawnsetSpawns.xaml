@@ -3,10 +3,12 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:converters="clr-namespace:DevilDaggersSurvivalEditor.Converters"
+			 xmlns:enums="clr-namespace:DevilDaggersSurvivalEditor.Enumerators"
 			 xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.Gui.UserControls"
 			 mc:Ignorable="d"
              d:DesignHeight="768" d:DesignWidth="683">
-	<StackPanel>
+	<StackPanel x:Name="Data">
 		<Grid HorizontalAlignment="Left" Width="652" Style="{StaticResource SpawnsetHeader}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*" />
@@ -29,59 +31,88 @@
 				<usercontrols:EndLoopPreviewUserControl x:Name="EndLoopPreview" />
 			</StackPanel>
 		</ScrollViewer>
-		<StackPanel>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition />
-					<ColumnDefinition Width="2*" />
-				</Grid.ColumnDefinitions>
-				<Label Grid.Column="0">Enemy</Label>
-				<ComboBox Grid.Column="1" Name="ComboBoxEnemy" SelectedIndex="1" />
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<StackPanel>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Enemy</Label>
+					<Grid Grid.Column="1">
+						<Grid.Resources>
+							<converters:ComparisonConverter x:Key="ComparisonConverter" />
+						</Grid.Resources>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<StackPanel>
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Squid1}}">Squid I</RadioButton>
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Squid2}}">Squid II</RadioButton>
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Squid3}}">Squid III</RadioButton>
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Leviathan}}">Leviathan</RadioButton>
+						</StackPanel>
+						<StackPanel Grid.Column="1">
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Centipede}}">Centipede</RadioButton>
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Gigapede}}">Gigapede</RadioButton>
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Ghostpede}}">Ghostpede</RadioButton>
+						</StackPanel>
+						<StackPanel Grid.Column="2">
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Empty}}">Empty</RadioButton>
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Spider1}}">Spider I</RadioButton>
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Spider2}}">Spider II</RadioButton>
+							<RadioButton Style="{StaticResource ToggleRadioButton}" GroupName="SelectedEnemy" IsChecked="{Binding Path=SelectedEnemy, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:SpawnsetEnemy.Thorn}}">Thorn</RadioButton>
+						</StackPanel>
+					</Grid>
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Delay</Label>
+					<TextBox Grid.Column="1" Name="DelayTextBox" TextChanged="TextBoxDelay_TextChanged" />
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Amount</Label>
+					<TextBox Grid.Column="1" x:Name="AmountTextBox" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxAmount_TextChanged" />
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Button Grid.Column="1" Name="AddSpawnButton" Click="AddSpawnButton_Click">Add</Button>
+					<Button Grid.Column="2" Name="InsertSpawnButton" Click="InsertSpawnButton_Click" IsEnabled="False">Insert</Button>
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Button Grid.Column="1" Name="PasteAddSpawnButton" Click="PasteAddSpawnButton_Click" IsEnabled="False">Paste</Button>
+					<Button Grid.Column="2" Name="PasteInsertSpawnButton" Click="PasteInsertSpawnButton_Click" IsEnabled="False">Paste (insert)</Button>
+				</Grid>
+			</StackPanel>
+			<StackPanel Grid.Column="1">
 				<Button Grid.Column="2" Name="EditSpawnButton" Click="EditSpawnButton_Click" IsEnabled="False">Edit selected spawn(s)</Button>
-			</Grid>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition />
-					<ColumnDefinition Width="2*" />
-				</Grid.ColumnDefinitions>
-				<Label Grid.Column="0">Delay</Label>
-				<TextBox Grid.Column="1" Name="DelayTextBox" TextChanged="TextBoxDelay_TextChanged" />
 				<Button Grid.Column="2" Name="DeleteSpawnButton" Click="DeleteSpawnButton_Click" IsEnabled="False">Delete selected spawn(s)</Button>
-			</Grid>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition />
-					<ColumnDefinition Width="2*" />
-				</Grid.ColumnDefinitions>
-				<Label Grid.Column="0">Amount</Label>
-				<TextBox Grid.Column="1" x:Name="AmountTextBox" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxAmount_TextChanged" />
 				<Button Grid.Column="2" Name="CopySpawnButton" Click="CopySpawnButton_Click" IsEnabled="False">Copy selected spawn(s)</Button>
-			</Grid>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="2*" />
-					<ColumnDefinition />
-					<ColumnDefinition />
-					<ColumnDefinition Width="4*" />
-				</Grid.ColumnDefinitions>
-				<Button Grid.Column="1" Name="AddSpawnButton" Click="AddSpawnButton_Click">Add</Button>
-				<Button Grid.Column="2" Name="InsertSpawnButton" Click="InsertSpawnButton_Click" IsEnabled="False">Insert</Button>
 				<Button Grid.Column="3" Name="ModifyDelaysButton" Click="ModifyDelaysButton_Click" IsEnabled="False">Modify delays for selected spawn(s)</Button>
-			</Grid>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="2*" />
-					<ColumnDefinition />
-					<ColumnDefinition />
-					<ColumnDefinition Width="4*" />
-				</Grid.ColumnDefinitions>
-				<Button Grid.Column="1" Name="PasteAddSpawnButton" Click="PasteAddSpawnButton_Click" IsEnabled="False">Paste</Button>
-				<Button Grid.Column="2" Name="PasteInsertSpawnButton" Click="PasteInsertSpawnButton_Click" IsEnabled="False">Paste (insert)</Button>
 				<Button Grid.Column="3" Name="SwitchEnemyTypesButton" Click="SwitchEnemyTypesButton_Click" IsEnabled="False">Switch enemy types for selected spawn(s)</Button>
-			</Grid>
-		</StackPanel>
+			</StackPanel>
+		</Grid>
 	</StackPanel>
 </UserControl>
