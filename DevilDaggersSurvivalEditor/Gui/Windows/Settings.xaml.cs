@@ -1,5 +1,4 @@
 ﻿using DevilDaggersCore.Utils;
-using DevilDaggersSurvivalEditor.Enumerators;
 using DevilDaggersSurvivalEditor.Native;
 using DevilDaggersSurvivalEditor.User;
 using DevilDaggersSurvivalEditor.Utils;
@@ -9,7 +8,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Interop;
 
 namespace DevilDaggersSurvivalEditor.Gui.Windows
@@ -30,14 +28,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			LabelSurvivalFileRootFolder.Content = UserHandler.Instance.Settings.SurvivalFileRootFolder;
 
 			Data.DataContext = UserHandler.Instance.Settings;
-
-			RadioButton selectedRadioButton = UserHandler.Instance.Settings.ReplaceSurvivalAction switch
-			{
-				ReplaceSurvivalAction.Always => ReplaceSurvivalActionAlways,
-				ReplaceSurvivalAction.Ask => ReplaceSurvivalActionAsk,
-				_ => ReplaceSurvivalActionNever,
-			};
-			selectedRadioButton.IsChecked = true;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -80,17 +70,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		}
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
-		{
-			ReplaceSurvivalAction replaceSurvivalAction = ReplaceSurvivalAction.Ask;
-			if (ReplaceSurvivalActionAlways.IsChecked ?? false)
-				replaceSurvivalAction = ReplaceSurvivalAction.Always;
-			else if (ReplaceSurvivalActionNever.IsChecked ?? false)
-				replaceSurvivalAction = ReplaceSurvivalAction.Never;
-
-			UserHandler.Instance.Settings.ReplaceSurvivalAction = replaceSurvivalAction;
-
-			DialogResult = true;
-		}
+			=> DialogResult = true;
 
 		private void SetSurvivalFileRootFolder(string path)
 		{

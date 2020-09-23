@@ -3,6 +3,8 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:converters="clr-namespace:DevilDaggersSurvivalEditor.Converters"
+		xmlns:enums="clr-namespace:DevilDaggersSurvivalEditor.Enumerators"
 		mc:Ignorable="d"
         Title="Settings" Height="512" Width="768" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded" Closing="Window_Closing">
 	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">
@@ -16,9 +18,12 @@
 			</StackPanel>
 			<Label>Replace survival file with downloaded spawnset.</Label>
 			<StackPanel Orientation="Horizontal">
-				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" x:Name="ReplaceSurvivalActionAlways">Always</RadioButton>
-				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" x:Name="ReplaceSurvivalActionAsk">Ask</RadioButton>
-				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" x:Name="ReplaceSurvivalActionNever">Never</RadioButton>
+				<StackPanel.Resources>
+					<converters:ComparisonConverter x:Key="ComparisonConverter" />
+				</StackPanel.Resources>
+				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" IsChecked="{Binding Path=ReplaceSurvivalAction, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:ReplaceSurvivalAction.Always}}">Always</RadioButton>
+				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" IsChecked="{Binding Path=ReplaceSurvivalAction, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:ReplaceSurvivalAction.Ask}}">Ask</RadioButton>
+				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" IsChecked="{Binding Path=ReplaceSurvivalAction, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:ReplaceSurvivalAction.Never}}">Never</RadioButton>
 			</StackPanel>
 			<CheckBox IsChecked="{Binding LoadSurvivalFileOnStartUp}">Load current survival file on start up.</CheckBox>
 		</StackPanel>
