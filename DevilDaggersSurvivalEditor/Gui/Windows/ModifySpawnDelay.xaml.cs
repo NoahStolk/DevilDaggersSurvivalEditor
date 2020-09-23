@@ -1,7 +1,6 @@
 ﻿using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Enumerators;
 using DevilDaggersSurvivalEditor.Utils;
-using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,9 +20,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			TextBoxValue.Text = Value.ToString(CultureInfo.InvariantCulture);
 			TextBoxValue.Focus();
 			TextBoxValue.SelectAll();
-
-			foreach (DelayModificationFunction dmf in (DelayModificationFunction[])Enum.GetValues(typeof(DelayModificationFunction)))
-				FunctionComboBox.Items.Add(new ComboBoxItem { Content = dmf.ToString() });
 		}
 
 		public DelayModificationFunction Function { get; set; }
@@ -31,9 +27,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 #pragma warning disable CA1721 // Property names should not match get methods
 		public double Value { get; set; } = 2;
 #pragma warning restore CA1721 // Property names should not match get methods
-
-		private void Window_Loaded(object sender, RoutedEventArgs e)
-			=> FunctionComboBox.SelectedIndex = 0;
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
