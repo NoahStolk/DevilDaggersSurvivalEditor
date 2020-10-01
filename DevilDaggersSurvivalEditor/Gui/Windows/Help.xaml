@@ -13,7 +13,7 @@
 
 		<Label Style="{StaticResource TitleLabel}">Help with the application</Label>
 		<TextBlock Style="{StaticResource ParagraphTextBlock}">
-			Reporting bugs can be done by sending an email to <Hyperlink NavigateUri="mailto:contact@devildaggers.info" RequestNavigate="Hyperlink_RequestNavigate">contact@devildaggers.info</Hyperlink>. If the application crashes, there should be some information in the "DDSE.log" file (you can open it by clicking Help > Show log).
+			Reporting bugs can be done by sending an email to <Hyperlink NavigateUri="mailto:contact@devildaggers.info" RequestNavigate="Hyperlink_RequestNavigate">contact@devildaggers.info</Hyperlink>. If the application crashes, there should be some information in the "DDSE.log" file.
 		</TextBlock>
 
 		<!--TODO: List controls etc-->
