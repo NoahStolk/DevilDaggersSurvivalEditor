@@ -12,7 +12,7 @@ namespace DevilDaggersSurvivalEditor.Extensions
 			foreach (char c in input.ToString() ?? string.Empty)
 			{
 				if (char.IsUpper(c) && !first)
-					sb.Append($" {c.ToString().ToLower(CultureInfo.InvariantCulture)}");
+					sb.Append(' ').Append(c.ToString().ToLower(CultureInfo.InvariantCulture));
 				else
 					sb.Append(c);
 				first = false;

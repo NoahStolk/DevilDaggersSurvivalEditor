@@ -35,16 +35,16 @@ namespace DevilDaggersSurvivalEditor.Network
 
 		public Tool? Tool { get; private set; }
 
-		public List<AuthorListEntry> Authors { get; private set; } = new List<AuthorListEntry>();
+		public List<AuthorListEntry> Authors { get; } = new List<AuthorListEntry>();
 
-		public List<SpawnsetFile> Spawnsets { get; private set; } = new List<SpawnsetFile>();
+		public List<SpawnsetFile> Spawnsets { get; } = new List<SpawnsetFile>();
 
 		public bool GetOnlineTool()
 		{
 			try
 			{
 				List<Tool> tools = ApiClient.Tools_GetToolsAsync(App.ApplicationName).Result;
-				Tool = tools.First();
+				Tool = tools[0];
 
 				return true;
 			}

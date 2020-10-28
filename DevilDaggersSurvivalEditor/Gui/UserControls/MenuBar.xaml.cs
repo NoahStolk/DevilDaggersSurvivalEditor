@@ -78,7 +78,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			OpenFileDialog dialog = new OpenFileDialog();
 			bool? result = dialog.ShowDialog();
 
-			if (result.HasValue && result.Value)
+			if (result == true)
 			{
 				if (!Spawnset.TryParse(File.ReadAllBytes(dialog.FileName), out Spawnset spawnset))
 				{

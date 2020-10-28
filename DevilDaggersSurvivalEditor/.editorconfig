@@ -267,3 +267,11 @@ dotnet_diagnostic.SA1011.severity                                        = none
 dotnet_diagnostic.S112.severity                                          = none
 dotnet_diagnostic.S2368.severity                                         = none
 dotnet_diagnostic.S3358.severity                                         = none
+
+# RoslynatorAnalyzers suppressions
+
+# RCS1090: Call 'ConfigureAwait(false)'.
+# RCS1123: Add parentheses when necessary.
+
+dotnet_diagnostic.RCS1090.severity                                       = none
+dotnet_diagnostic.RCS1123.severity                                       = none

@@ -59,7 +59,9 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 				{
 					if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius, OuterRadius, AngleInDegrees) &&
 						!IsPointInEllipse(Spawnset.ArenaWidth / 2 + HoleOffsetX, Spawnset.ArenaHeight / 2 + HoleOffsetY, i, j, HoleInnerRadius, HoleOuterRadius, HoleAngleInDegrees))
+					{
 						tiles[i, j] = Height;
+					}
 				}
 			}
 

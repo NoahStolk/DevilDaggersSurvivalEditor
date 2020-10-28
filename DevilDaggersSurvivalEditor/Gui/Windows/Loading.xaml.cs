@@ -132,10 +132,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					});
 				});
 			};
-			validateSurvivalFileThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
-			{
-				ThreadComplete();
-			};
+			validateSurvivalFileThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) => ThreadComplete();
 
 			bool retrieveSpawnsetsSuccess = false;
 			using BackgroundWorker retrieveSpawnsetsThread = new BackgroundWorker();

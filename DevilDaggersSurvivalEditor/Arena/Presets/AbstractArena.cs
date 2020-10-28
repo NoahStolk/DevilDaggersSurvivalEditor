@@ -17,7 +17,7 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 				return new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
 
 			// Clear previous is off, return the old arena.
-			if (!App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsChecked == true)
+			if (App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsChecked == false)
 				return SpawnsetHandler.Instance.Spawnset.ArenaTiles;
 
 			// Return void arena.

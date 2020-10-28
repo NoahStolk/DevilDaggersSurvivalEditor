@@ -75,7 +75,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
 			bool? result = dialog.ShowDialog();
-			if (result.HasValue && result.Value && SpawnsetFileUtils.TryWriteSpawnsetToFile(Spawnset, dialog.FileName))
+			if (result == true && SpawnsetFileUtils.TryWriteSpawnsetToFile(Spawnset, dialog.FileName))
 				UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
 		}
 	}

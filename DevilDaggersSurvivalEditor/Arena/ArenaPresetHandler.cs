@@ -22,10 +22,9 @@ namespace DevilDaggersSurvivalEditor.Arena
 			PresetTypes = App.Assembly
 				.GetTypes()
 				.Where(t =>
-					t.FullName != null &&
-					t.FullName.Contains("Arena.Presets", StringComparison.InvariantCulture) &&
+					t.FullName?.Contains("Arena.Presets", StringComparison.InvariantCulture) == true &&
 					!t.IsAbstract &&
-					!t.Attributes.HasFlag(TypeAttributes.NestedPrivate))
+					(t.Attributes & TypeAttributes.NestedPrivate) == 0)
 				.OrderBy(t => t.Name);
 
 			foreach (Type type in PresetTypes)
@@ -34,7 +33,7 @@ namespace DevilDaggersSurvivalEditor.Arena
 					ArenaPresets.Add(arena);
 			}
 
-			DefaultPreset = ArenaPresets.FirstOrDefault(a => a.GetType().Name == "Default");
+			DefaultPreset = ArenaPresets.Find(a => a.GetType().Name == "Default")!;
 			ActivePreset = DefaultPreset;
 		}
 
@@ -46,15 +45,15 @@ namespace DevilDaggersSurvivalEditor.Arena
 			set
 			{
 				_activePreset = value;
-				if (App.Instance != null && App.Instance.MainWindow != null && App.Instance.MainWindow.SpawnsetArena != null)
+				if (App.Instance?.MainWindow?.SpawnsetArena != null)
 					App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !_activePreset.IsFull;
 			}
 		}
 
-		public AbstractArena DefaultPreset { get; private set; }
+		public AbstractArena DefaultPreset { get; }
 
-		public List<AbstractArena> ArenaPresets { get; private set; } = new List<AbstractArena>();
+		public List<AbstractArena> ArenaPresets { get; } = new List<AbstractArena>();
 
-		public IEnumerable<Type> PresetTypes { get; private set; }
+		public IEnumerable<Type> PresetTypes { get; }
 	}
 }

@@ -200,7 +200,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			foreach (Type type in ArenaPresetHandler.Instance.PresetTypes)
 			{
-				string typeName = type.Name.ToString();
+				string typeName = type.Name;
 
 				ComboBoxItem item = new ComboBoxItem()
 				{
@@ -440,7 +440,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				rect.Width = TileUtils.TileSizeShrunk;
 				rect.Height = TileUtils.TileSizeShrunk;
 
-				int offset = (TileUtils.TileSize - TileUtils.TileSizeShrunk) / 2;
+				const int offset = (TileUtils.TileSize - TileUtils.TileSizeShrunk) / 2;
 				Canvas.SetLeft(rect, tile.X * TileUtils.TileSize + offset);
 				Canvas.SetTop(rect, tile.Y * TileUtils.TileSize + offset);
 			}
@@ -661,7 +661,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			string presetName = (ComboBoxArenaPreset.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? throw new Exception("Could not retrieve preset name.");
-			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.FirstOrDefault(a => a.GetType().Name == presetName);
+			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.Find(a => a.GetType().Name == presetName)!;
 
 			ConfigureButton.IsEnabled = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Any(p => p.SetMethod != null);
 		}
