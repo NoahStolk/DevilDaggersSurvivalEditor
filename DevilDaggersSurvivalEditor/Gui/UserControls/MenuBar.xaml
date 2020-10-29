@@ -13,8 +13,8 @@
 			<MenuItem Header="Save" Click="FileSave_Click" />
 			<MenuItem Header="Save as" Click="FileSaveAs_Click" />
 			<Separator />
-			<MenuItem Header="Open 'survival' file" Click="SurvivalOpen_Click" />
-			<MenuItem Header="Replace 'survival' file" Click="SurvivalReplace_Click" />
+			<MenuItem Header="Open current 'survival' file" Click="SurvivalOpen_Click" />
+			<MenuItem Header="Replace current 'survival' file" Click="SurvivalReplace_Click" />
 			<MenuItem Header="Restore 'survival' file (V3)" Click="SurvivalRestore_Click" />
 			<Separator />
 			<MenuItem Header="Exit" Click="Exit_Click" />
@@ -30,8 +30,8 @@
 			<MenuItem Header="Help" Click="Help_Click" />
 			<MenuItem Header="About" Click="About_Click" />
 			<MenuItem Header="Changelog" Click="Changelog_Click" />
-			<MenuItem Header="View source code" Click="SourceCode_Click" />
-			<MenuItem Header="Check for updates" Name="UpdateItem" Click="Update_Click" />
+			<MenuItem Header="View source code" Click="ViewSourceCode_Click" />
+			<MenuItem Header="Check for updates" Name="UpdateItem" Click="CheckForUpdates_Click" />
 		</MenuItem>
 	</Menu>
 </UserControl>

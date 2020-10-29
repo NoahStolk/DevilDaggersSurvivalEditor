@@ -209,10 +209,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 		}
 
-		private void SourceCode_Click(object sender, RoutedEventArgs e)
+		private void ViewSourceCode_Click(object sender, RoutedEventArgs e)
 			=> ProcessUtils.OpenUrl(UrlUtils.SourceCodeUrl(App.ApplicationName).ToString());
 
-		private void Update_Click(object sender, RoutedEventArgs e)
+		private void CheckForUpdates_Click(object sender, RoutedEventArgs e)
 		{
 			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow(NetworkHandler.Instance.GetOnlineTool);
 			window.ShowDialog();
