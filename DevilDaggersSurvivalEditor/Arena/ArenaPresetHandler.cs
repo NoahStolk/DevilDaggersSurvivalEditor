@@ -22,8 +22,8 @@ namespace DevilDaggersSurvivalEditor.Arena
 				.GetTypes()
 				.Where(t =>
 					t.FullName?.Contains("Arena.Presets", StringComparison.InvariantCulture) == true &&
-					!t.IsAbstract &&
-					(t.Attributes & TypeAttributes.NestedPrivate) == 0)
+					t.FullName?.Contains("DisplayClass", StringComparison.InvariantCulture) == false &&
+					!t.IsAbstract)
 				.OrderBy(t => t.Name);
 
 			foreach (Type type in PresetTypes)
