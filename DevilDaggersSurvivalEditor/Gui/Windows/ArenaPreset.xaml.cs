@@ -77,7 +77,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			else if (type == typeof(int))
 				isValid = int.TryParse(textBox.Text, out _);
 			else
-				throw new Exception($"Type {type} not supported in ArenaPreset TextBox.");
+				throw new($"Type {type} not supported in ArenaPreset TextBox.");
 
 			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 		}
@@ -112,7 +112,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 									}
 									else
 									{
-										throw new Exception($"Type {t} not supported in ArenaPreset TextBox.");
+										throw new($"Type {t} not supported in ArenaPreset TextBox.");
 									}
 								}
 							}

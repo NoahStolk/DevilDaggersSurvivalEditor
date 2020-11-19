@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace DevilDaggersSurvivalEditor.Arena
 {
@@ -33,7 +32,7 @@ namespace DevilDaggersSurvivalEditor.Arena
 					ArenaPresets.Add(arena);
 			}
 
-			DefaultPreset = ArenaPresets.Find(a => a.GetType().Name == "Default")!;
+			DefaultPreset = ArenaPresets.FirstOrDefault(a => a.GetType().Name == "Default") ?? throw new("Could not find default arena preset.");
 			ActivePreset = DefaultPreset;
 		}
 

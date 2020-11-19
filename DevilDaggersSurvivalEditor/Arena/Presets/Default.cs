@@ -17,7 +17,7 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 
 			byte[] defaultArenaBuffer = new byte[Spawnset.ArenaBufferSize];
 
-			using (Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival") ?? throw new Exception("Could not retrieve resource stream."))
+			using (Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival") ?? throw new("Could not retrieve resource stream."))
 			using (BinaryReader reader = new BinaryReader(stream))
 			{
 				reader.BaseStream.Seek(Spawnset.HeaderBufferSize, SeekOrigin.Begin);

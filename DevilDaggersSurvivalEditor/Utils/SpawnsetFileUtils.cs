@@ -34,7 +34,7 @@ namespace DevilDaggersSurvivalEditor.Utils
 		{
 			try
 			{
-				using (Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival") ?? throw new Exception("Could not retrieve default survival file resource stream."))
+				using (Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival") ?? throw new("Could not retrieve default survival file resource stream."))
 				{
 					byte[] data = new byte[stream.Length];
 					using (BinaryReader reader = new BinaryReader(stream))

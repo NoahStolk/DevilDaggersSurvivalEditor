@@ -51,7 +51,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private readonly WriteableBitmap _normalMap = new WriteableBitmap(Spawnset.ArenaWidth * TileUtils.TileSize, Spawnset.ArenaHeight * TileUtils.TileSize, 96, 96, PixelFormats.BlackWhite, BitmapPalettes.BlackAndWhite);
 
-		private static readonly Style _toggleRadioButtonStyle = Application.Current.Resources["ToggleRadioButton"] as Style ?? throw new Exception("Could not retrieve style for ToggleRadioButton.");
+		private static readonly Style _toggleRadioButtonStyle = Application.Current.Resources["ToggleRadioButton"] as Style ?? throw new("Could not retrieve style for ToggleRadioButton.");
 
 		public SpawnsetArenaUserControl()
 		{
@@ -59,7 +59,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			const string normalMapName = "NormalMap";
 			if (!(Resources[normalMapName] is ImageBrush imageBrush))
-				throw new Exception($"Could not retrieve {nameof(ImageBrush)} '{normalMapName}'.");
+				throw new($"Could not retrieve {nameof(ImageBrush)} '{normalMapName}'.");
 			imageBrush.ImageSource = _normalMap;
 			_arenaCanvasSize = (int)ArenaTiles.Width;
 			_arenaCanvasCenter = _arenaCanvasSize / 2;
@@ -653,14 +653,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void ArenaPresetConfigureButton_Click(object sender, RoutedEventArgs e)
 		{
-			string presetName = (ComboBoxArenaPreset.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? throw new Exception("Could not retrieve preset name.");
+			string presetName = (ComboBoxArenaPreset.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? throw new("Could not retrieve preset name.");
 			ArenaPresetWindow presetWindow = new ArenaPresetWindow(presetName);
 			presetWindow.ShowDialog();
 		}
 
 		private void ComboBoxArenaPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			string presetName = (ComboBoxArenaPreset.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? throw new Exception("Could not retrieve preset name.");
+			string presetName = (ComboBoxArenaPreset.SelectedItem as ComboBoxItem)?.Tag.ToString() ?? throw new("Could not retrieve preset name.");
 			ArenaPresetHandler.Instance.ActivePreset = ArenaPresetHandler.Instance.ArenaPresets.Find(a => a.GetType().Name == presetName)!;
 
 			ConfigureButton.IsEnabled = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Any(p => p.SetMethod != null);

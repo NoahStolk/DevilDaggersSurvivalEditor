@@ -193,7 +193,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (NetworkHandler.Instance.Tool != null)
 			{
-				List<ChangelogEntry> changes = NetworkHandler.Instance.Tool.Changelog.Select(c => new ChangelogEntry(Version.Parse(c.VersionNumber), c.Date, MapToSharedModel(c.Changes).ToList())).ToList();
+				List<ChangelogEntry> changes = NetworkHandler.Instance.Tool.Changelog.Select(c => new ChangelogEntry(Version.Parse(c.VersionNumber), c.Date, MapToSharedModel(c.Changes)?.ToList() ?? new List<Change>())).ToList();
 				ChangelogWindow changelogWindow = new ChangelogWindow(changes, App.LocalVersion);
 				changelogWindow.ShowDialog();
 			}
@@ -205,7 +205,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			static IEnumerable<Change>? MapToSharedModel(List<Clients.Change>? changes)
 			{
 				foreach (Clients.Change change in changes ?? new List<Clients.Change>())
-					yield return new Change(change.Description, MapToSharedModel(change.SubChanges)?.ToList() ?? null);
+					yield return new Change(change.Description, MapToSharedModel(change.SubChanges)?.ToList());
 			}
 		}
 

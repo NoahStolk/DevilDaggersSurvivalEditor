@@ -5,10 +5,10 @@
 DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
 ## Framework
-.NET Core 3.1
+.NET 5.0
 
 ## Language
-C# 8.0
+C# 9.0
 
 ## Main features
 - Spawnset editor

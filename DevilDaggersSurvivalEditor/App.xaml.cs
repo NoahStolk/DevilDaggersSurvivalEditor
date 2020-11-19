@@ -17,7 +17,7 @@ namespace DevilDaggersSurvivalEditor
 {
 	public partial class App : Application
 	{
-		public static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType ?? throw new Exception("Could not get declaring type of current method."));
+		public static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType ?? throw new("Could not get declaring type of current method."));
 
 		public App()
 		{

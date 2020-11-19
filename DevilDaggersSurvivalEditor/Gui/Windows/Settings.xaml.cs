@@ -62,7 +62,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Process? process = ProcessUtils.GetDevilDaggersProcess();
 			if (process != null)
 			{
-				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? throw new Exception("Could not get directory name from process."), "dd"));
+				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? throw new("Could not get directory name from process."), "dd"));
 				return;
 			}
 

@@ -320,8 +320,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				{
 					if (grid == null)
 						continue;
-					if (!(grid.Tag is SpawnsetFile spawnsetFile))
-						throw new Exception($"Grid tag was not of type {nameof(SpawnsetFile)}.");
+					if (grid.Tag is not SpawnsetFile spawnsetFile)
+						throw new($"Grid tag was not of type {nameof(SpawnsetFile)}.");
 					grid.Visibility = spawnsetFile.AuthorName == _authorSelection.Name ? Visibility.Visible : Visibility.Collapsed;
 				}
 			}
@@ -345,7 +345,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			foreach (ListBoxItem? lbi in AuthorsListBox.Items)
 			{
-				if (lbi == null || !(lbi?.Tag is AuthorListEntry authorListEntry))
+				if (lbi == null || lbi?.Tag is not AuthorListEntry authorListEntry)
 					continue;
 
 				lbi.Visibility = authorListEntry.Name.ToLower(CultureInfo.InvariantCulture).Contains(SpawnsetListHandler.Instance.AuthorSearch.ToLower(CultureInfo.InvariantCulture), StringComparison.InvariantCulture) ? Visibility.Visible : Visibility.Collapsed;
@@ -376,7 +376,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				AuthorsListBox.Items.Insert(i, lbi);
 
 				if (!(AuthorsListBox.Items[i] is ListBoxItem listBoxItem))
-					throw new Exception($"{nameof(listBoxItem)} was not of type {nameof(ListBoxItem)}.");
+					throw new($"{nameof(listBoxItem)} was not of type {nameof(ListBoxItem)}.");
 				listBoxItem.IsSelected = sorted[i] == _authorSelection;
 			}
 		}
@@ -414,7 +414,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				if (image == button?.Content as Image)
 				{
 					if (!(image.RenderTransform is ScaleTransform scaleTransform))
-						throw new Exception($"{nameof(image.RenderTransform)} was not of type {nameof(ScaleTransform)}.");
+						throw new($"{nameof(image.RenderTransform)} was not of type {nameof(ScaleTransform)}.");
 
 					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));
 					image.RenderTransform = new ScaleTransform
@@ -428,8 +428,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				}
 			}
 
-			if (!(button?.Tag is SpawnsetListSorting<AuthorListEntry> sorting))
-				throw new Exception($"Button tag was not of type {nameof(SpawnsetListSorting<AuthorListEntry>)}.");
+			if (button?.Tag is not SpawnsetListSorting<AuthorListEntry> sorting)
+				throw new($"Button tag was not of type {nameof(SpawnsetListSorting<AuthorListEntry>)}.");
 
 			SpawnsetListHandler.Instance.ActiveAuthorSorting = sorting;
 			SpawnsetListHandler.Instance.ActiveAuthorSorting.Ascending = !SpawnsetListHandler.Instance.ActiveAuthorSorting.Ascending;
@@ -439,15 +439,15 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void SortSpawnsetFilesButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!(sender is Button button))
-				throw new Exception($"Button was not of type {nameof(Button)}.");
+			if (sender is not Button button)
+				throw new($"Button was not of type {nameof(Button)}.");
 
 			foreach (Image image in _spawnsetSortingImages)
 			{
 				if (image == button.Content as Image)
 				{
-					if (!(image.RenderTransform is ScaleTransform scaleTransform))
-						throw new Exception($"{nameof(image.RenderTransform)} was not of type {nameof(ScaleTransform)}.");
+					if (image.RenderTransform is not ScaleTransform scaleTransform)
+						throw new($"{nameof(image.RenderTransform)} was not of type {nameof(ScaleTransform)}.");
 
 					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));
 					image.RenderTransform = new ScaleTransform
@@ -461,8 +461,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				}
 			}
 
-			if (!(button?.Tag is SpawnsetListSorting<SpawnsetFile> sorting))
-				throw new Exception($"Button tag was not of type {nameof(SpawnsetListSorting<SpawnsetFile>)}.");
+			if (button?.Tag is not SpawnsetListSorting<SpawnsetFile> sorting)
+				throw new($"Button tag was not of type {nameof(SpawnsetListSorting<SpawnsetFile>)}.");
 
 			SpawnsetListHandler.Instance.ActiveSpawnsetSorting = sorting;
 			SpawnsetListHandler.Instance.ActiveSpawnsetSorting.Ascending = !SpawnsetListHandler.Instance.ActiveSpawnsetSorting.Ascending;
