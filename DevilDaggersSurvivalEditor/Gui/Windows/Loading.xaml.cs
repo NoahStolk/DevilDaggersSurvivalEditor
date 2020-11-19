@@ -41,8 +41,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void RunThreads(object? sender, EventArgs e)
 		{
 			using BackgroundWorker checkVersionThread = new BackgroundWorker();
-			checkVersionThread.DoWork += (object sender, DoWorkEventArgs e) => NetworkHandler.Instance.GetOnlineTool();
-			checkVersionThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+			checkVersionThread.DoWork += (sender, e) => NetworkHandler.Instance.GetOnlineTool();
+			checkVersionThread.RunWorkerCompleted += (sender, e) =>
 			{
 				Dispatcher.Invoke(() =>
 				{
@@ -87,7 +87,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			bool readUserSettingsSuccess = false;
 			bool userSettingsFileExists = File.Exists(UserSettings.FileName);
 			using BackgroundWorker readUserSettingsThread = new BackgroundWorker();
-			readUserSettingsThread.DoWork += (object sender, DoWorkEventArgs e) =>
+			readUserSettingsThread.DoWork += (sender, e) =>
 			{
 				try
 				{
@@ -104,7 +104,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					App.Instance.ShowError("Error", "Error while trying to read user settings.", ex);
 				}
 			};
-			readUserSettingsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+			readUserSettingsThread.RunWorkerCompleted += (sender, e) =>
 			{
 				Dispatcher.Invoke(() =>
 				{
@@ -120,7 +120,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			};
 
 			using BackgroundWorker validateSurvivalFileThread = new BackgroundWorker();
-			validateSurvivalFileThread.DoWork += (object sender, DoWorkEventArgs e) =>
+			validateSurvivalFileThread.DoWork += (sender, e) =>
 			{
 				Dispatcher.Invoke(() =>
 				{
@@ -132,17 +132,17 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					});
 				});
 			};
-			validateSurvivalFileThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) => ThreadComplete();
+			validateSurvivalFileThread.RunWorkerCompleted += (sender, e) => ThreadComplete();
 
 			bool retrieveSpawnsetsSuccess = false;
 			using BackgroundWorker retrieveSpawnsetsThread = new BackgroundWorker();
-			retrieveSpawnsetsThread.DoWork += (object sender, DoWorkEventArgs e) =>
+			retrieveSpawnsetsThread.DoWork += (sender, e) =>
 			{
 				Task<bool> spawnsetsTask = NetworkHandler.Instance.RetrieveSpawnsetList();
 				spawnsetsTask.Wait();
 				retrieveSpawnsetsSuccess = spawnsetsTask.Result;
 			};
-			retrieveSpawnsetsThread.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+			retrieveSpawnsetsThread.RunWorkerCompleted += (sender, e) =>
 			{
 				Dispatcher.Invoke(() =>
 				{
@@ -158,7 +158,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			};
 
 			using BackgroundWorker mainInitThread = new BackgroundWorker();
-			mainInitThread.DoWork += (object sender, DoWorkEventArgs e) =>
+			mainInitThread.DoWork += (sender, e) =>
 			{
 				Dispatcher.Invoke(() =>
 				{

@@ -66,7 +66,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			if (!(sender is TextBox textBox))
+			if (sender is not TextBox textBox)
 				return;
 
 			Type? type = textBox.Tag as Type;

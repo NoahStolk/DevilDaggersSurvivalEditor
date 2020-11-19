@@ -58,7 +58,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			InitializeComponent();
 
 			const string normalMapName = "NormalMap";
-			if (!(Resources[normalMapName] is ImageBrush imageBrush))
+			if (Resources[normalMapName] is not ImageBrush imageBrush)
 				throw new($"Could not retrieve {nameof(ImageBrush)} '{normalMapName}'.");
 			imageBrush.ImageSource = _normalMap;
 			_arenaCanvasSize = (int)ArenaTiles.Width;
@@ -110,7 +110,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					};
 				heightRadioButton.Checked += (sender, e) =>
 				{
-					if (!(sender is RadioButton r))
+					if (sender is not RadioButton r)
 						return;
 
 					foreach (RadioButton rb in _tileActionRadioButtons)
@@ -138,7 +138,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					RadioButton heightRadioButton = new RadioButton { Margin = default, Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString(CultureInfo.InvariantCulture), Tag = height, Style = _toggleRadioButtonStyle };
 					heightRadioButton.Checked += (sender, e) =>
 					{
-						if (!(sender is RadioButton r))
+						if (sender is not RadioButton r)
 							return;
 
 						foreach (RadioButton rb in _tileActionRadioButtons.Where(rb => rb != r))
@@ -170,7 +170,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				};
 				radioButton.Checked += (sender, e) =>
 				{
-					if (!(sender is RadioButton r))
+					if (sender is not RadioButton r)
 						return;
 
 					foreach (RadioButton rb in _tileActionRadioButtons.Where(rb => rb != r))

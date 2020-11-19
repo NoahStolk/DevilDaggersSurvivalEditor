@@ -98,7 +98,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Spawnset? downloadedSpawnset = null;
 
 			using BackgroundWorker thread = new BackgroundWorker();
-			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
+			thread.DoWork += (senderDoWork, eDoWork) =>
 			{
 				Task<Spawnset?> downloadTask = NetworkHandler.Instance.DownloadSpawnset(fileName);
 				downloadTask.Wait();
@@ -110,7 +110,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					SpawnsetHandler.Instance.UpdateSpawnsetState(fileName, string.Empty);
 				}
 			};
-			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
+			thread.RunWorkerCompleted += (senderRunWorkerCompleted, eRunWorkerCompleted) =>
 			{
 				if (downloadedSpawnset == null)
 					return;
@@ -155,12 +155,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			ReloadButton.Content = "Loading...";
 
 			using BackgroundWorker thread = new BackgroundWorker();
-			thread.DoWork += (object senderDoWork, DoWorkEventArgs eDoWork) =>
+			thread.DoWork += (senderDoWork, eDoWork) =>
 			{
 				Task spawnsetsTask = NetworkHandler.Instance.RetrieveSpawnsetList();
 				spawnsetsTask.Wait();
 			};
-			thread.RunWorkerCompleted += (object senderRunWorkerCompleted, RunWorkerCompletedEventArgs eRunWorkerCompleted) =>
+			thread.RunWorkerCompleted += (senderRunWorkerCompleted, eRunWorkerCompleted) =>
 			{
 				PopulateAuthorsListBox();
 				PopulateSpawnsetsStackPanel();
@@ -300,7 +300,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (!(AuthorsListBox.SelectedItem is ListBoxItem listBoxItem) || !(listBoxItem.Tag is AuthorListEntry authorListEntry))
+			if (AuthorsListBox.SelectedItem is not ListBoxItem listBoxItem || listBoxItem.Tag is not AuthorListEntry authorListEntry)
 				return;
 
 			_authorSelection = authorListEntry;
@@ -356,7 +356,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			foreach (Grid? grid in SpawnsetsStackPanel.Children)
 			{
-				if (grid == null || !(grid.Tag is SpawnsetFile spawnsetFile))
+				if (grid == null || grid.Tag is not SpawnsetFile spawnsetFile)
 					continue;
 
 				grid.Visibility = spawnsetFile.Name.ToLower(CultureInfo.InvariantCulture).Contains(SpawnsetListHandler.Instance.SpawnsetSearch.ToLower(CultureInfo.InvariantCulture), StringComparison.InvariantCulture) ? Visibility.Visible : Visibility.Collapsed;
@@ -371,11 +371,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			for (int i = 0; i < AuthorsListBox.Items.Count; i++)
 			{
-				ListBoxItem lbi = AuthorsListBox.Items.OfType<ListBoxItem>().FirstOrDefault(g => (g.Content as Grid)?.Tag as AuthorListEntry == sorted[i]);
+				ListBoxItem lbi = AuthorsListBox.Items.OfType<ListBoxItem>().First(g => (g.Content as Grid)?.Tag as AuthorListEntry == sorted[i]);
 				AuthorsListBox.Items.Remove(lbi);
 				AuthorsListBox.Items.Insert(i, lbi);
 
-				if (!(AuthorsListBox.Items[i] is ListBoxItem listBoxItem))
+				if (AuthorsListBox.Items[i] is not ListBoxItem listBoxItem)
 					throw new($"{nameof(listBoxItem)} was not of type {nameof(ListBoxItem)}.");
 				listBoxItem.IsSelected = sorted[i] == _authorSelection;
 			}
@@ -387,7 +387,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			for (int i = 0; i < SpawnsetsStackPanel.Children.Count; i++)
 			{
-				Grid grid = SpawnsetsStackPanel.Children.OfType<Grid>().FirstOrDefault(g => g.Tag as SpawnsetFile == sorted[i]);
+				Grid grid = SpawnsetsStackPanel.Children.OfType<Grid>().First(g => g.Tag as SpawnsetFile == sorted[i]);
 				SpawnsetsStackPanel.Children.Remove(grid);
 				SpawnsetsStackPanel.Children.Insert(i, grid);
 			}
@@ -413,7 +413,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				if (image == button?.Content as Image)
 				{
-					if (!(image.RenderTransform is ScaleTransform scaleTransform))
+					if (image.RenderTransform is not ScaleTransform scaleTransform)
 						throw new($"{nameof(image.RenderTransform)} was not of type {nameof(ScaleTransform)}.");
 
 					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));

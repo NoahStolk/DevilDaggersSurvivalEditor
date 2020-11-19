@@ -34,7 +34,7 @@ namespace DevilDaggersSurvivalEditor
 		public static string ApplicationDisplayName => "Devil Daggers Survival Editor";
 
 		public static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
-		public static Version LocalVersion { get; } = Version.Parse(FileVersionInfo.GetVersionInfo(Assembly.Location).FileVersion);
+		public static Version LocalVersion { get; } = Version.Parse(FileVersionInfo.GetVersionInfo(Assembly.Location).FileVersion ?? throw new("Could not get file version from current assembly."));
 
 		public static App Instance => (App)Current;
 		public new MainWindow? MainWindow { get; set; }

@@ -32,7 +32,7 @@ namespace DevilDaggersSurvivalEditor.Arena
 					ArenaPresets.Add(arena);
 			}
 
-			DefaultPreset = ArenaPresets.FirstOrDefault(a => a.GetType().Name == "Default") ?? throw new("Could not find default arena preset.");
+			DefaultPreset = ArenaPresets.Find(a => a.GetType().Name == "Default") ?? throw new("Could not find default arena preset.");
 			ActivePreset = DefaultPreset;
 		}
 

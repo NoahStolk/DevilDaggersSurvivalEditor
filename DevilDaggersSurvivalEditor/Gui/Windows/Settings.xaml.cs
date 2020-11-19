@@ -60,13 +60,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void AutoDetectButton_Click(object sender, RoutedEventArgs e)
 		{
 			Process? process = ProcessUtils.GetDevilDaggersProcess();
-			if (process != null)
-			{
-				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? throw new("Could not get directory name from process."), "dd"));
-				return;
-			}
-
-			App.Instance.ShowMessage("Devil Daggers process not found", "Please make sure Devil Daggers is running and try again.");
+			if (!string.IsNullOrWhiteSpace(process?.MainModule?.FileName))
+				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? string.Empty, "dd"));
+			else
+				App.Instance.ShowMessage("Devil Daggers process not found", "Please make sure Devil Daggers is running and try again.");
 		}
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
