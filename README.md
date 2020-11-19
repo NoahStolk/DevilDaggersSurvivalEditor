@@ -20,7 +20,7 @@ C# 9.0
 
 ## System requirements
 - Microsoft Windows
-- [.NET Core 3.1 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-desktop-3.1.7-windows-x64-installer)
+- [.NET 5.0 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/5.0)
 
 ## Installation
 1. Download the zip file.
