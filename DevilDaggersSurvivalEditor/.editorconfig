@@ -2,21 +2,17 @@ root = true
 
 # All files
 [*]
-indent_style = tab
+indent_style         = tab
+insert_final_newline = true
 
 # Csproj files
 [*.csproj]
 indent_style = space
 indent_size  = 2
 
-# Files with newline at end of file
-[*.{editorconfig,gitattributes,gitignore,md,csproj}]
-insert_final_newline = true
-
 # Code files for C#
 [*.{cs}]
 charset                                                                  = utf-8-bom
-insert_final_newline                                                     = false
 indent_size                                                              = 4
 trim_trailing_whitespace                                                 = true
 
@@ -181,7 +177,9 @@ dotnet_diagnostic.CS1591.severity                                        = none
 
 # StyleCopAnalyzers suppressions
 
-# SA1000: The keyword 'new' should be followed by a space.
+# SA1000: The keyword 'new' should be followed by a space. (C# 9)
+# SA1003: Operator should be preceded by whitespace. (C# 9)
+# SA1008: Opening parenthesis should be preceded by a space. (C# 9)
 # SA1027: Replace tabs with spaces.
 # SA1101: Prefix local calls with this.
 # SA1124: Do not use regions.
@@ -207,6 +205,8 @@ dotnet_diagnostic.CS1591.severity                                        = none
 # SA1642: Constructor summary documentation should begin with standard text.
 
 dotnet_diagnostic.SA1000.severity                                        = none
+dotnet_diagnostic.SA1003.severity                                        = none
+dotnet_diagnostic.SA1008.severity                                        = none
 dotnet_diagnostic.SA1027.severity                                        = none
 dotnet_diagnostic.SA1101.severity                                        = none
 dotnet_diagnostic.SA1124.severity                                        = none
