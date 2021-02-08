@@ -15,7 +15,7 @@
 			<Separator />
 			<MenuItem Header="Open current 'survival' file" Click="SurvivalOpen_Click" />
 			<MenuItem Header="Replace current 'survival' file" Click="SurvivalReplace_Click" />
-			<MenuItem Header="Restore 'survival' file (V3)" Click="SurvivalRestore_Click" />
+			<MenuItem Header="Restore original 'survival' file" Click="SurvivalRestore_Click" />
 			<Separator />
 			<MenuItem Header="Exit" Click="Exit_Click" />
 		</MenuItem>
