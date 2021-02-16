@@ -75,7 +75,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
-			OpenFileDialog dialog = new OpenFileDialog();
+			OpenFileDialog dialog = new();
 			bool? result = dialog.ShowDialog();
 
 			if (result == true)
@@ -99,7 +99,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
-			DownloadSpawnsetWindow window = new DownloadSpawnsetWindow();
+			DownloadSpawnsetWindow window = new();
 			window.ShowDialog();
 		}
 
@@ -135,7 +135,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void SurvivalReplace_Click(object sender, RoutedEventArgs e)
 		{
-			ConfirmWindow confirmWindow = new ConfirmWindow("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?", false);
+			ConfirmWindow confirmWindow = new("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?", false);
 			confirmWindow.ShowDialog();
 			if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(SpawnsetHandler.Instance.Spawnset, UserHandler.Instance.Settings.SurvivalFileLocation))
 				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
@@ -143,7 +143,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)
 		{
-			ConfirmWindow confirmWindow = new ConfirmWindow("Restore 'survival' file", "Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", false);
+			ConfirmWindow confirmWindow = new("Restore 'survival' file", "Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", false);
 			confirmWindow.ShowDialog();
 			if (confirmWindow.IsConfirmed)
 				SpawnsetFileUtils.TryRestoreSurvivalFile();
@@ -154,10 +154,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void Settings_Click(object sender, RoutedEventArgs e)
 		{
-			SettingsWindow settingsWindow = new SettingsWindow();
+			SettingsWindow settingsWindow = new();
 			if (settingsWindow.ShowDialog() == true)
 			{
-				using (StreamWriter sw = new StreamWriter(File.Create(UserSettings.FileName)))
+				using (StreamWriter sw = new(File.Create(UserSettings.FileName)))
 					sw.Write(JsonConvert.SerializeObject(UserHandler.Instance.Settings, Formatting.Indented));
 
 				Dispatcher.Invoke(() =>
@@ -179,13 +179,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void Help_Click(object sender, RoutedEventArgs e)
 		{
-			HelpWindow helpWindow = new HelpWindow();
+			HelpWindow helpWindow = new();
 			helpWindow.ShowDialog();
 		}
 
 		private void About_Click(object sender, RoutedEventArgs e)
 		{
-			AboutWindow aboutWindow = new AboutWindow();
+			AboutWindow aboutWindow = new();
 			aboutWindow.ShowDialog();
 		}
 
@@ -194,7 +194,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			if (NetworkHandler.Instance.Tool != null)
 			{
 				List<ChangelogEntry> changes = NetworkHandler.Instance.Tool.Changelog.Select(c => new ChangelogEntry(Version.Parse(c.VersionNumber), c.Date, MapToSharedModel(c.Changes)?.ToList() ?? new List<Change>())).ToList();
-				ChangelogWindow changelogWindow = new ChangelogWindow(changes, App.LocalVersion);
+				ChangelogWindow changelogWindow = new(changes, App.LocalVersion);
 				changelogWindow.ShowDialog();
 			}
 			else
@@ -214,14 +214,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void CheckForUpdates_Click(object sender, RoutedEventArgs e)
 		{
-			CheckingForUpdatesWindow window = new CheckingForUpdatesWindow(NetworkHandler.Instance.GetOnlineTool);
+			CheckingForUpdatesWindow window = new(NetworkHandler.Instance.GetOnlineTool);
 			window.ShowDialog();
 
 			if (NetworkHandler.Instance.Tool != null)
 			{
 				if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
 				{
-					UpdateRecommendedWindow updateRecommendedWindow = new UpdateRecommendedWindow(NetworkHandler.Instance.Tool.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
+					UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Tool.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
 					updateRecommendedWindow.ShowDialog();
 				}
 				else

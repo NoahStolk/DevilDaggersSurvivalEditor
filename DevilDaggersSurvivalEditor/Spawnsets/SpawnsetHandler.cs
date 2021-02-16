@@ -12,7 +12,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 	{
 		private bool _hasUnsavedChanges;
 
-		private static readonly Lazy<SpawnsetHandler> _lazy = new Lazy<SpawnsetHandler>(() => new SpawnsetHandler());
+		private static readonly Lazy<SpawnsetHandler> _lazy = new(() => new());
 
 		private SpawnsetHandler()
 		{
@@ -51,7 +51,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 			if (!HasUnsavedChanges)
 				return;
 
-			ConfirmWindow confirmWindow = new ConfirmWindow("Save changes?", "The current spawnset has unsaved changes. Save before proceeding?", false);
+			ConfirmWindow confirmWindow = new("Save changes?", "The current spawnset has unsaved changes. Save before proceeding?", false);
 			confirmWindow.ShowDialog();
 
 			if (confirmWindow.IsConfirmed)
@@ -73,7 +73,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 
 		public void FileSaveAs()
 		{
-			SaveFileDialog dialog = new SaveFileDialog();
+			SaveFileDialog dialog = new();
 			bool? result = dialog.ShowDialog();
 			if (result == true && SpawnsetFileUtils.TryWriteSpawnsetToFile(Spawnset, dialog.FileName))
 				UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
