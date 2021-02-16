@@ -91,6 +91,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					case Key.V:
 						SpawnsetSpawns.PasteAdd();
 						break;
+					case Key.R:
+						SpawnsetHandler.Instance.SurvivalReplace();
+						break;
+					case Key.T:
+						SpawnsetHandler.Instance.SurvivalRestore();
+						break;
 				}
 			}
 			else

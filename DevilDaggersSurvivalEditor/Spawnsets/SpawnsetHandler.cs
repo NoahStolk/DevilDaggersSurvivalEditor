@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Arena;
+using DevilDaggersSurvivalEditor.User;
 using DevilDaggersSurvivalEditor.Utils;
 using Microsoft.Win32;
 using System;
@@ -77,6 +78,22 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 			bool? result = dialog.ShowDialog();
 			if (result == true && SpawnsetFileUtils.TryWriteSpawnsetToFile(Spawnset, dialog.FileName))
 				UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
+		}
+
+		public void SurvivalReplace()
+		{
+			ConfirmWindow confirmWindow = new("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?", false);
+			confirmWindow.ShowDialog();
+			if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(Spawnset, UserHandler.Instance.Settings.SurvivalFileLocation))
+				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
+		}
+
+		public void SurvivalRestore()
+		{
+			ConfirmWindow confirmWindow = new("Restore 'survival' file", "Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", false);
+			confirmWindow.ShowDialog();
+			if (confirmWindow.IsConfirmed)
+				SpawnsetFileUtils.TryRestoreSurvivalFile();
 		}
 	}
 }
