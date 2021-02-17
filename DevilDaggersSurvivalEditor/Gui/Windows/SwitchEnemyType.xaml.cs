@@ -23,15 +23,15 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			int i = 0;
 			foreach (int enemyType in enemyTypes)
 			{
-				Grid grid = new Grid();
-				grid.ColumnDefinitions.Add(new ColumnDefinition());
-				grid.ColumnDefinitions.Add(new ColumnDefinition());
+				Grid grid = new();
+				grid.ColumnDefinitions.Add(new());
+				grid.ColumnDefinitions.Add(new());
 
-				Label label = new Label { Content = $"Turn {GameInfo.GetEnemyBySpawnsetType(enemyType, GameVersion.V3)?.Name ?? "EMPTY"} into" };
+				Label label = new() { Content = $"Turn {GameInfo.GetEnemyBySpawnsetType(enemyType, GameVersion.V3)?.Name ?? "EMPTY"} into" };
 				Grid.SetColumn(label, 0);
 				grid.Children.Add(label);
 
-				ComboBox comboBox = new ComboBox { SelectedIndex = enemyType + 1 };
+				ComboBox comboBox = new() { SelectedIndex = enemyType + 1 };
 
 				for (int j = -1; j < 10; j++)
 					comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEnemyBySpawnsetType(j, GameVersion.V3)?.Name ?? "EMPTY" });
@@ -43,7 +43,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 		}
 
-		public Dictionary<int, int> SwitchDictionary { get; } = new Dictionary<int, int>();
+		public Dictionary<int, int> SwitchDictionary { get; } = new();
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{

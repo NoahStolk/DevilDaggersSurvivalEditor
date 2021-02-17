@@ -16,8 +16,8 @@ namespace DevilDaggersSurvivalEditor.Utils
 
 		public const float GlitchTileMax = 0.4973333f;
 
-		public static readonly ArenaCoord SpawnTile = new ArenaCoord(25, 25);
-		public static readonly ArenaCoord GlitchTile = new ArenaCoord(25, 27);
+		public static readonly ArenaCoord SpawnTile = new(25, 25);
+		public static readonly ArenaCoord GlitchTile = new(25, 27);
 
 		public static Color GetColorFromHeight(float height)
 		{

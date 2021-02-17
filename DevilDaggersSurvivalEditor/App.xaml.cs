@@ -70,7 +70,7 @@ namespace DevilDaggersSurvivalEditor
 
 			Dispatcher.Invoke(() =>
 			{
-				ErrorWindow errorWindow = new ErrorWindow(title, message, ex);
+				ErrorWindow errorWindow = new(title, message, ex);
 				errorWindow.ShowDialog();
 			});
 		}
@@ -79,7 +79,7 @@ namespace DevilDaggersSurvivalEditor
 		{
 			Dispatcher.Invoke(() =>
 			{
-				MessageWindow messageWindow = new MessageWindow(title, message);
+				MessageWindow messageWindow = new(title, message);
 				messageWindow.ShowDialog();
 			});
 		}

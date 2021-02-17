@@ -11,12 +11,9 @@ namespace DevilDaggersSurvivalEditor.Arena
 	public sealed class ArenaPresetHandler
 	{
 		private AbstractArena _activePreset;
-		private static readonly Lazy<ArenaPresetHandler> _lazy = new Lazy<ArenaPresetHandler>(() => new ArenaPresetHandler());
-
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+		private static readonly Lazy<ArenaPresetHandler> _lazy = new(() => new());
 
 		private ArenaPresetHandler()
-#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		{
 			PresetTypes = App.Assembly
 				.GetTypes()
@@ -33,7 +30,9 @@ namespace DevilDaggersSurvivalEditor.Arena
 			}
 
 			DefaultPreset = ArenaPresets.Find(a => a.GetType().Name == "Default") ?? throw new("Could not find default arena preset.");
-			ActivePreset = DefaultPreset;
+
+			_activePreset = DefaultPreset;
+			UpdateClearPreviousCheckBox();
 		}
 
 		public static ArenaPresetHandler Instance => _lazy.Value;
@@ -44,15 +43,20 @@ namespace DevilDaggersSurvivalEditor.Arena
 			set
 			{
 				_activePreset = value;
-				if (App.Instance?.MainWindow?.SpawnsetArena != null)
-					App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !_activePreset.IsFull;
+				UpdateClearPreviousCheckBox();
 			}
 		}
 
 		public AbstractArena DefaultPreset { get; }
 
-		public List<AbstractArena> ArenaPresets { get; } = new List<AbstractArena>();
+		public List<AbstractArena> ArenaPresets { get; } = new();
 
 		public IEnumerable<Type> PresetTypes { get; }
+
+		private void UpdateClearPreviousCheckBox()
+		{
+			if (App.Instance?.MainWindow?.SpawnsetArena != null)
+				App.Instance.MainWindow.SpawnsetArena.ClearPreviousCheckBox.IsEnabled = !_activePreset.IsFull;
+		}
 	}
 }

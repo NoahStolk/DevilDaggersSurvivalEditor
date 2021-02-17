@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			foreach (PropertyInfo p in _properties)
 			{
-				Label label = new Label
+				Label label = new()
 				{
 					Content = p.Name.ToUserFriendlyString(),
 				};
@@ -40,7 +40,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				}
 				else
 				{
-					TextBox textBox = new TextBox
+					TextBox textBox = new()
 					{
 						Name = p.Name,
 						Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset)?.ToString(),
@@ -53,9 +53,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				Grid.SetColumn(control, 1);
 
-				Grid grid = new Grid();
-				grid.ColumnDefinitions.Add(new ColumnDefinition());
-				grid.ColumnDefinitions.Add(new ColumnDefinition());
+				Grid grid = new();
+				grid.ColumnDefinitions.Add(new());
+				grid.ColumnDefinitions.Add(new());
 
 				grid.Children.Add(label);
 				grid.Children.Add(control);

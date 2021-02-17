@@ -48,11 +48,11 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 		{
 			float[,] tiles = CreateArenaArray();
 
-			List<ArenaCoord> islandTiles = new List<ArenaCoord>();
+			List<ArenaCoord> islandTiles = new();
 
 			for (int i = 0; i < Amount; i++)
 			{
-				ArenaCoord coord = new ArenaCoord(RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2));
+				ArenaCoord coord = new(RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2));
 				islandTiles.Add(coord);
 				tiles[coord.X, coord.Y] = RandomUtils.RandomFloat(MinHeight, MaxHeight);
 			}
@@ -63,34 +63,34 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 				{
 					for (int k = Y1; k < Y2; k++)
 					{
-						if (islandTiles.Contains(new ArenaCoord(j, k)))
+						if (islandTiles.Contains(new(j, k)))
 						{
 							float height = tiles[j, k];
 
 							if (j > 0)
 							{
-								ArenaCoord coord = new ArenaCoord(j - 1, k);
+								ArenaCoord coord = new(j - 1, k);
 								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
 									SetNeighbour(coord, height);
 							}
 
 							if (j < Spawnset.ArenaWidth - 1)
 							{
-								ArenaCoord coord = new ArenaCoord(j + 1, k);
+								ArenaCoord coord = new(j + 1, k);
 								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
 									SetNeighbour(coord, height);
 							}
 
 							if (k > 0)
 							{
-								ArenaCoord coord = new ArenaCoord(j, k - 1);
+								ArenaCoord coord = new(j, k - 1);
 								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
 									SetNeighbour(coord, height);
 							}
 
 							if (k < Spawnset.ArenaHeight - 1)
 							{
-								ArenaCoord coord = new ArenaCoord(j, k + 1);
+								ArenaCoord coord = new(j, k + 1);
 								if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
 									SetNeighbour(coord, height);
 							}

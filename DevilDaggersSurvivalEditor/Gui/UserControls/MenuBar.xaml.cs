@@ -42,14 +42,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 #if DEBUG
-			MenuItem debugItem = new MenuItem { Header = "Open debug window" };
+			MenuItem debugItem = new() { Header = "Open debug window" };
 			debugItem.Click += (sender, e) =>
 			{
-				DebugWindow debugWindow = new DebugWindow();
+				DebugWindow debugWindow = new();
 				debugWindow.ShowDialog();
 			};
 
-			MenuItem debugHeader = new MenuItem { Header = "Debug" };
+			MenuItem debugHeader = new() { Header = "Debug" };
 			debugHeader.Items.Add(debugItem);
 
 			MenuPanel.Items.Add(debugHeader);
@@ -60,7 +60,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
-			SpawnsetHandler.Instance.Spawnset = new Spawnset
+			SpawnsetHandler.Instance.Spawnset = new()
 			{
 				ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles(),
 			};
@@ -194,8 +194,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			static IEnumerable<Change>? MapToSharedModel(List<Clients.Change>? changes)
 			{
-				foreach (Clients.Change change in changes ?? new List<Clients.Change>())
-					yield return new Change(change.Description, MapToSharedModel(change.SubChanges)?.ToList());
+				foreach (Clients.Change change in changes ?? new())
+					yield return new(change.Description, MapToSharedModel(change.SubChanges)?.ToList());
 			}
 		}
 

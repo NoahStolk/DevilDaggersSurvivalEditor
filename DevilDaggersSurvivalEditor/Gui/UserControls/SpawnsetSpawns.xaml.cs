@@ -23,7 +23,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private readonly List<Spawn> _clipboard = new List<Spawn>();
 
-		private readonly List<SpawnUserControl> _spawnControls = new List<SpawnUserControl>();
+		private readonly List<SpawnUserControl> _spawnControls = new();
 
 		private int _endLoopStartIndex;
 
@@ -37,7 +37,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			Data.DataContext = this;
 		}
 
-		public SpawnsetEnemy SelectedEnemy { get; set; } = SpawnsetEnemy.Squid1;
+		public SpawnsetEnemy SelectedEnemy { get; set; }
 
 		public float Delay { get; set; } = 3;
 
@@ -56,7 +56,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 				{
-					SpawnUserControl spawnControl = new SpawnUserControl(kvp.Value);
+					SpawnUserControl spawnControl = new(kvp.Value);
 					_spawnControls.Add(spawnControl);
 					ListBoxSpawns.Items.Add(spawnControl);
 				}
@@ -69,7 +69,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.Spawnset.Spawns[SpawnsetHandler.Instance.Spawnset.Spawns.Count] = spawn;
 
-			SpawnUserControl spawnControl = new SpawnUserControl(spawn);
+			SpawnUserControl spawnControl = new(spawn);
 			_spawnControls.Add(spawnControl);
 			ListBoxSpawns.Items.Add(spawnControl);
 		}
@@ -78,7 +78,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.Spawnset.Spawns[index] = spawn;
 
-			SpawnUserControl spawnControl = new SpawnUserControl(spawn);
+			SpawnUserControl spawnControl = new(spawn);
 			_spawnControls.Insert(index, spawnControl);
 			ListBoxSpawns.Items.Insert(index, spawnControl);
 		}
@@ -204,7 +204,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (HasTooManySpawns())
 					break;
 
-				AddSpawn(new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
+				AddSpawn(new(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -229,7 +229,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (HasTooManySpawns())
 					break;
 
-				InsertSpawnAt(originalSelection + i, new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
+				InsertSpawnAt(originalSelection + i, new(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -284,7 +284,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			List<int> selections = GetSpawnSelectionIndices();
 			foreach (int i in selections)
-				EditSpawnAt(i, new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
+				EditSpawnAt(i, new(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
@@ -298,7 +298,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			List<int> selections = GetSpawnSelectionIndices();
 			selections.Sort();
-			SortedDictionary<int, Spawn> newSpawns = new SortedDictionary<int, Spawn>();
+			SortedDictionary<int, Spawn> newSpawns = new();
 			int i = 0;
 			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 			{
@@ -337,7 +337,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void ModifyDelaysButton_Click(object sender, RoutedEventArgs e)
 		{
 			List<int> selections = GetSpawnSelectionIndices();
-			ModifySpawnDelayWindow window = new ModifySpawnDelayWindow(selections.Count);
+			ModifySpawnDelayWindow window = new(selections.Count);
 
 			if (window.ShowDialog() == true)
 			{
@@ -367,12 +367,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			List<int> selections = GetSpawnSelectionIndices();
 			selections.Sort();
 
-			List<int> enemyTypes = new List<int>();
+			List<int> enemyTypes = new();
 			foreach (int selection in selections)
 				enemyTypes.Add(SpawnsetHandler.Instance.Spawnset.Spawns[selection].Enemy?.SpawnsetType ?? -1);
 			enemyTypes = enemyTypes.Distinct().ToList();
 
-			SwitchEnemyTypeWindow window = new SwitchEnemyTypeWindow(selections.Count, enemyTypes);
+			SwitchEnemyTypeWindow window = new(selections.Count, enemyTypes);
 
 			if (window.ShowDialog() == true)
 			{

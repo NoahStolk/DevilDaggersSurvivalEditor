@@ -48,7 +48,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void BrowseButton_Click(object sender, RoutedEventArgs e)
 		{
-			VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog
+			VistaFolderBrowserDialog dialog = new()
 			{
 				SelectedPath = UserHandler.Instance.Settings.SurvivalFileRootFolder,
 			};

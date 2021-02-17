@@ -9,7 +9,7 @@ namespace DevilDaggersSurvivalEditor.Extensions
 			if (string.IsNullOrEmpty(html))
 				return string.Empty;
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 			bool inside = false;
 			foreach (char c in html)
 			{

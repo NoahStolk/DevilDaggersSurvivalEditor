@@ -19,12 +19,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			LabelTotalGems.Content = totalGems;
 
 			Color enemyColor = enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ColorCode}");
-			SolidColorBrush background = new SolidColorBrush(enemyColor);
+			SolidColorBrush background = new(enemyColor);
 			SolidColorBrush foreground = ColorUtils.GetPerceivedBrightness(enemyColor) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
 
 			if (gigaBecomesGhost)
 			{
-				StackPanel stackPanel = new StackPanel
+				StackPanel stackPanel = new()
 				{
 					Orientation = Orientation.Horizontal,
 					Background = background,

@@ -9,7 +9,7 @@ namespace DevilDaggersSurvivalEditor.Shaders
 {
 	public class SelectionEffect : ShaderEffect
 	{
-		private static readonly PixelShader _pixelShader = new PixelShader { UriSource = ContentUtils.MakeUri(Path.Combine("Content", "Shaders", "Selection.ps")) };
+		private static readonly PixelShader _pixelShader = new() { UriSource = ContentUtils.MakeUri(Path.Combine("Content", "Shaders", "Selection.ps")) };
 
 		public static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(SelectionEffect), 0);
 		public static readonly DependencyProperty NormalMapProperty = RegisterPixelShaderSamplerProperty("NormalMap", typeof(SelectionEffect), 1);
@@ -65,6 +65,7 @@ namespace DevilDaggersSurvivalEditor.Shaders
 			set => SetValue(MousePositionProperty, value);
 		}
 
-		public override string ToString() => $"{nameof(FlashIntensity)}: {FlashIntensity}\n{nameof(HighlightColor)}: {HighlightColor}\n{nameof(HighlightRadiusSquared)}: {HighlightRadiusSquared}\n{nameof(MousePosition)}: {MousePosition}";
+		public override string ToString()
+			=> $"{nameof(FlashIntensity)}: {FlashIntensity}\n{nameof(HighlightColor)}: {HighlightColor}\n{nameof(HighlightRadiusSquared)}: {HighlightRadiusSquared}\n{nameof(MousePosition)}: {MousePosition}";
 	}
 }

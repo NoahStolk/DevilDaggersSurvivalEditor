@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DevilDaggersSurvivalEditor.Network
@@ -18,15 +17,11 @@ namespace DevilDaggersSurvivalEditor.Network
 		public static readonly string BaseUrl = "https://devildaggers.info";
 #endif
 
-		private static readonly Lazy<NetworkHandler> _lazy = new Lazy<NetworkHandler>(() => new NetworkHandler());
+		private static readonly Lazy<NetworkHandler> _lazy = new(() => new());
 
 		private NetworkHandler()
 		{
-			HttpClient httpClient = new HttpClient
-			{
-				BaseAddress = new Uri(BaseUrl),
-			};
-			ApiClient = new DevilDaggersInfoApiClient(httpClient);
+			ApiClient = new(new() { BaseAddress = new(BaseUrl) });
 		}
 
 		public static NetworkHandler Instance => _lazy.Value;
@@ -35,9 +30,9 @@ namespace DevilDaggersSurvivalEditor.Network
 
 		public Tool? Tool { get; private set; }
 
-		public List<AuthorListEntry> Authors { get; } = new List<AuthorListEntry>();
+		public List<AuthorListEntry> Authors { get; } = new();
 
-		public List<SpawnsetFile> Spawnsets { get; } = new List<SpawnsetFile>();
+		public List<SpawnsetFile> Spawnsets { get; } = new();
 
 		public bool GetOnlineTool()
 		{

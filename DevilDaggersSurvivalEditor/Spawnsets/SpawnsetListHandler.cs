@@ -8,7 +8,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 	{
 		public const string AllAuthors = "[All]";
 
-		private static readonly Lazy<SpawnsetListHandler> _lazy = new Lazy<SpawnsetListHandler>(() => new SpawnsetListHandler());
+		private static readonly Lazy<SpawnsetListHandler> _lazy = new(() => new());
 
 		private SpawnsetListHandler()
 		{
@@ -24,21 +24,21 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 		public SpawnsetListSorting<AuthorListEntry> ActiveAuthorSorting { get; set; }
 		public IReadOnlyList<SpawnsetListSorting<AuthorListEntry>> AuthorSortings { get; } = new List<SpawnsetListSorting<AuthorListEntry>>
 		{
-			new SpawnsetListSorting<AuthorListEntry>("Name", "Name", s => s.Name, true) { Ascending = true },
-			new SpawnsetListSorting<AuthorListEntry>("Spawnset amount", "Spawnsets", s => s.SpawnsetCount, false),
+			new("Name", "Name", s => s.Name, true) { Ascending = true },
+			new("Spawnset amount", "Spawnsets", s => s.SpawnsetCount, false),
 		};
 
 		public SpawnsetListSorting<SpawnsetFile> ActiveSpawnsetSorting { get; set; }
 		public IReadOnlyList<SpawnsetListSorting<SpawnsetFile>> SpawnsetSortings { get; } = new List<SpawnsetListSorting<SpawnsetFile>>
 		{
-			new SpawnsetListSorting<SpawnsetFile>("Name", "Name", s => s.Name, true),
-			new SpawnsetListSorting<SpawnsetFile>("Author", "Author", s => s.AuthorName, true),
-			new SpawnsetListSorting<SpawnsetFile>("Last updated", "Last updated", s => s.LastUpdated, false),
-			new SpawnsetListSorting<SpawnsetFile>("Custom leaderboard", "LB", s => s.HasCustomLeaderboard, false) { Ascending = true },
-			new SpawnsetListSorting<SpawnsetFile>("Non-loop length", "Length", s => s.SpawnsetData.NonLoopLength ?? 0, false),
-			new SpawnsetListSorting<SpawnsetFile>("Non-loop spawns", "Spawns", s => s.SpawnsetData.NonLoopSpawnCount, false),
-			new SpawnsetListSorting<SpawnsetFile>("Loop length", "Length", s => s.SpawnsetData.LoopLength ?? 0, false),
-			new SpawnsetListSorting<SpawnsetFile>("Loop spawns", "Spawns", s => s.SpawnsetData.LoopSpawnCount, false),
+			new("Name", "Name", s => s.Name, true),
+			new("Author", "Author", s => s.AuthorName, true),
+			new("Last updated", "Last updated", s => s.LastUpdated, false),
+			new("Custom leaderboard", "LB", s => s.HasCustomLeaderboard, false) { Ascending = true },
+			new("Non-loop length", "Length", s => s.SpawnsetData.NonLoopLength ?? 0, false),
+			new("Non-loop spawns", "Spawns", s => s.SpawnsetData.NonLoopSpawnCount, false),
+			new("Loop length", "Length", s => s.SpawnsetData.LoopLength ?? 0, false),
+			new("Loop spawns", "Spawns", s => s.SpawnsetData.LoopSpawnCount, false),
 		};
 	}
 }

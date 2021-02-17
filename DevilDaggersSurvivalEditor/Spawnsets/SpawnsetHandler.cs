@@ -17,7 +17,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 
 		private SpawnsetHandler()
 		{
-			Spawnset = new Spawnset { ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles() };
+			Spawnset = new() { ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles() };
 		}
 
 		public static SpawnsetHandler Instance => _lazy.Value;

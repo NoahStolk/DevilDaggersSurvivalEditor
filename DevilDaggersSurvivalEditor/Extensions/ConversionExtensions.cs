@@ -8,12 +8,12 @@ namespace DevilDaggersSurvivalEditor.Extensions
 		private const float _byteValueAmount = byte.MaxValue + 1;
 
 		public static Point3D ToPoint3D(this Color color)
-			=> new Point3D(color.R / _byteValueAmount, color.G / _byteValueAmount, color.B / _byteValueAmount);
+			=> new(color.R / _byteValueAmount, color.G / _byteValueAmount, color.B / _byteValueAmount);
 
 		public static Point4D ToPoint4D(this Color color)
-			=> new Point4D(color.R / _byteValueAmount, color.G / _byteValueAmount, color.B / _byteValueAmount, color.A / _byteValueAmount);
+			=> new(color.R / _byteValueAmount, color.G / _byteValueAmount, color.B / _byteValueAmount, color.A / _byteValueAmount);
 
 		public static Point4D ToPoint4D(this Color color, float alpha)
-			=> new Point4D(color.R / _byteValueAmount, color.G / _byteValueAmount, color.B / _byteValueAmount, alpha);
+			=> new(color.R / _byteValueAmount, color.G / _byteValueAmount, color.B / _byteValueAmount, alpha);
 	}
 }

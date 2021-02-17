@@ -7,7 +7,7 @@ namespace DevilDaggersSurvivalEditor.Extensions
 	{
 		public static string ToUserFriendlyString(this object input)
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 			bool first = true;
 			foreach (char c in input.ToString() ?? string.Empty)
 			{

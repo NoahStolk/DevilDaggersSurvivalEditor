@@ -4,7 +4,7 @@ namespace DevilDaggersSurvivalEditor.User
 {
 	public sealed class UserHandler
 	{
-		private static readonly Lazy<UserHandler> _lazy = new Lazy<UserHandler>(() => new UserHandler());
+		private static readonly Lazy<UserHandler> _lazy = new(() => new());
 
 		private UserHandler()
 		{
@@ -12,6 +12,6 @@ namespace DevilDaggersSurvivalEditor.User
 
 		public static UserHandler Instance => _lazy.Value;
 
-		public UserSettings Settings { get; set; } = new UserSettings();
+		public UserSettings Settings { get; set; } = new();
 	}
 }

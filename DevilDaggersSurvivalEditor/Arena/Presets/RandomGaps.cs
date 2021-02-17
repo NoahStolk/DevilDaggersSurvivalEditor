@@ -40,11 +40,11 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 					tiles[i, j] = Height;
 			}
 
-			List<ArenaCoord> gapTiles = new List<ArenaCoord>();
+			List<ArenaCoord> gapTiles = new();
 
 			for (int i = 0; i < Amount; i++)
 			{
-				ArenaCoord coord = new ArenaCoord(RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2));
+				ArenaCoord coord = new(RandomUtils.RandomInt(X1, X2), RandomUtils.RandomInt(Y1, Y2));
 				gapTiles.Add(coord);
 				tiles[coord.X, coord.Y] = TileUtils.VoidDefault;
 			}
@@ -55,32 +55,32 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 				{
 					for (int k = Y1; k < Y2; k++)
 					{
-						if (gapTiles.Contains(new ArenaCoord(j, k)))
+						if (gapTiles.Contains(new(j, k)))
 						{
 							if (j > 0)
 							{
-								ArenaCoord coord = new ArenaCoord(j - 1, k);
+								ArenaCoord coord = new(j - 1, k);
 								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
 									SetNeighbour(coord);
 							}
 
 							if (j < Spawnset.ArenaWidth - 1)
 							{
-								ArenaCoord coord = new ArenaCoord(j + 1, k);
+								ArenaCoord coord = new(j + 1, k);
 								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
 									SetNeighbour(coord);
 							}
 
 							if (k > 0)
 							{
-								ArenaCoord coord = new ArenaCoord(j, k - 1);
+								ArenaCoord coord = new(j, k - 1);
 								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
 									SetNeighbour(coord);
 							}
 
 							if (k < Spawnset.ArenaHeight - 1)
 							{
-								ArenaCoord coord = new ArenaCoord(j, k + 1);
+								ArenaCoord coord = new(j, k + 1);
 								if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
 									SetNeighbour(coord);
 							}

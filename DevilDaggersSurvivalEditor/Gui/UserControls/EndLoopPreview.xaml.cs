@@ -72,7 +72,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 					if (i == Wave - 1)
 					{
-						EndLoopSpawnUserControl spawnControl = new EndLoopSpawnUserControl(
+						EndLoopSpawnUserControl spawnControl = new(
 							id: SpawnsetHandler.Instance.Spawnset.Spawns.Count + 1 + endLoop.Count * (i - 1) + j,
 							seconds: seconds,
 							delay: seconds - secondsPrevious,

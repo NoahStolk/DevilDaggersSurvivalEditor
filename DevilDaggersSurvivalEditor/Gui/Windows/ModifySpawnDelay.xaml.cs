@@ -24,9 +24,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		public DelayModificationFunction Function { get; set; }
 
-#pragma warning disable CA1721 // Property names should not match get methods
 		public double Value { get; set; } = 2;
-#pragma warning restore CA1721 // Property names should not match get methods
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
