@@ -119,21 +119,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				ThreadComplete();
 			};
 
-			using BackgroundWorker validateSurvivalFileThread = new();
-			validateSurvivalFileThread.DoWork += (sender, e) =>
-			{
-				Dispatcher.Invoke(() =>
-				{
-					TaskResultsStackPanel.Children.Add(new Label
-					{
-						Content = UserHandler.Instance.Settings.SurvivalFileExists ? UserHandler.Instance.Settings.SurvivalFileIsValid ? "OK" : "Error (could not parse file)" : "Error (file not found)",
-						Foreground = !UserHandler.Instance.Settings.SurvivalFileExists || !UserHandler.Instance.Settings.SurvivalFileIsValid ? ColorUtils.ThemeColors["ErrorText"] : ColorUtils.ThemeColors["SuccessText"],
-						FontWeight = FontWeights.Bold,
-					});
-				});
-			};
-			validateSurvivalFileThread.RunWorkerCompleted += (sender, e) => ThreadComplete();
-
 			bool retrieveSpawnsetsSuccess = false;
 			using BackgroundWorker retrieveSpawnsetsThread = new();
 			retrieveSpawnsetsThread.DoWork += (sender, e) =>
@@ -170,13 +155,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			_threads.Add(checkVersionThread);
 			_threads.Add(readUserSettingsThread);
-			_threads.Add(validateSurvivalFileThread);
 			_threads.Add(retrieveSpawnsetsThread);
 			_threads.Add(mainInitThread);
 
 			_threadMessages.Add("Checking for updates...");
 			_threadMessages.Add("Reading user settings...");
-			_threadMessages.Add("Validating survival file...");
 			_threadMessages.Add("Retrieving spawnsets...");
 			_threadMessages.Add("Initializing application...");
 

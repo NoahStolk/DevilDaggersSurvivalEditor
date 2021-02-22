@@ -1,5 +1,4 @@
-﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersSurvivalEditor.Enumerators;
+﻿using DevilDaggersSurvivalEditor.Enumerators;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -11,7 +10,7 @@ namespace DevilDaggersSurvivalEditor.User
 		public const string FileName = "user.json";
 
 		[JsonProperty]
-		public string SurvivalFileRootFolder { get; set; } = @"C:\Program Files (x86)\Steam\steamapps\common\devildaggers\dd";
+		public string DevilDaggersRootFolder { get; set; } = @"C:\Program Files (x86)\Steam\steamapps\common\devildaggers";
 		[JsonProperty]
 		public bool LockSpawnTile { get; set; }
 		[JsonProperty]
@@ -25,8 +24,7 @@ namespace DevilDaggersSurvivalEditor.User
 		[JsonProperty]
 		public bool LoadSurvivalFileOnStartUp { get; set; }
 
-		public string SurvivalFileLocation => Path.Combine(SurvivalFileRootFolder, "survival");
+		public string SurvivalFileLocation => Path.Combine(DevilDaggersRootFolder, "dd", "mods", "survival");
 		public bool SurvivalFileExists => File.Exists(SurvivalFileLocation);
-		public bool SurvivalFileIsValid => SurvivalFileExists && Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.Settings.SurvivalFileLocation), out _);
 	}
 }

@@ -26,11 +26,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			WarningVoidSpawn.Text = $"The tile at coordinate {TileUtils.SpawnTile} (player spawn) is void, meaning the player will die instantly. You can prevent this from happening in the Options > Settings menu.";
 			WarningGlitchTile.Text = $"The tile at coordinate {TileUtils.GlitchTile} has a height value greater than {TileUtils.GlitchTileMax}, which causes glitches in Devil Daggers for some strange reason. You can lock the tile to remain within its safe range in the Options > Settings menu.";
 
-			UpdateWarningNoSurvivalFile();
+			UpdateWarningDevilDaggersRootFolder();
 
 			SpawnsetArena.Initialize();
 
-			if (UserHandler.Instance.Settings.LoadSurvivalFileOnStartUp && UserHandler.Instance.Settings.SurvivalFileIsValid)
+			if (UserHandler.Instance.Settings.LoadSurvivalFileOnStartUp && UserHandler.Instance.Settings.SurvivalFileExists)
 			{
 				if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.Settings.SurvivalFileLocation), out Spawnset spawnset))
 				{
@@ -56,17 +56,17 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 		}
 
-		public void UpdateWarningNoSurvivalFile()
+		public void UpdateWarningDevilDaggersRootFolder()
 		{
-			if (!UserHandler.Instance.Settings.SurvivalFileExists || !UserHandler.Instance.Settings.SurvivalFileIsValid)
+			if (File.Exists(Path.Combine(UserHandler.Instance.Settings.DevilDaggersRootFolder, "dd.exe")))
 			{
-				WarningNoSurvivalFile.Visibility = Visibility.Visible;
-				WarningNoSurvivalFile.Text = $"The survival file {(!UserHandler.Instance.Settings.SurvivalFileExists ? "does not exist" : "could not be parsed")}. Please make sure to correct the survival file location in the Options > Settings menu.";
+				WarningDevilDaggersRootFolder.Visibility = Visibility.Visible;
+				WarningDevilDaggersRootFolder.Text = $"The path {UserHandler.Instance.Settings.DevilDaggersRootFolder} does not seem to be the path where Devil Daggers is installed. Please correct this in the Options > Settings menu.";
 			}
 			else
 			{
-				WarningNoSurvivalFile.Visibility = Visibility.Collapsed;
-				WarningNoSurvivalFile.Text = string.Empty;
+				WarningDevilDaggersRootFolder.Visibility = Visibility.Collapsed;
+				WarningDevilDaggersRootFolder.Text = string.Empty;
 			}
 		}
 
@@ -92,10 +92,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						SpawnsetSpawns.PasteAdd();
 						break;
 					case Key.R:
-						SpawnsetHandler.Instance.SurvivalReplace();
+						SpawnsetHandler.Instance.SurvivalModReplace();
 						break;
-					case Key.T:
-						SpawnsetHandler.Instance.SurvivalRestore();
+					case Key.D:
+						SpawnsetHandler.Instance.SurvivalModDelete();
 						break;
 				}
 			}

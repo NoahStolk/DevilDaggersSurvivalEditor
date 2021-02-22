@@ -10,12 +10,12 @@
 			<MenuItem Header="New" Click="FileNew_Click" />
 			<MenuItem Header="Open" Click="FileOpen_Click" />
 			<MenuItem Header="Open from DevilDaggers.info" Click="FileOpenFromWeb_Click" />
-			<MenuItem Header="Save (CTRL S)" Click="FileSave_Click" />
+			<MenuItem Header="Save (ctrl S)" Click="FileSave_Click" />
 			<MenuItem Header="Save as" Click="FileSaveAs_Click" />
 			<Separator />
-			<MenuItem Header="Open current 'survival' file" Click="SurvivalOpen_Click" />
-			<MenuItem Header="Replace current 'survival' file (CTRL R)" Click="SurvivalReplace_Click" />
-			<MenuItem Header="Restore original 'survival' file (CTRL T)" Click="SurvivalRestore_Click" />
+			<MenuItem Header="Open modded 'survival' file" Click="SurvivalModOpen_Click" />
+			<MenuItem Header="Replace modded 'survival' file (ctrl R)" Click="SurvivalModReplace_Click" />
+			<MenuItem Header="Delete modded 'survival' file (ctrl D)" Click="SurvivalModDelete_Click" />
 			<Separator />
 			<MenuItem Header="Exit" Click="Exit_Click" />
 		</MenuItem>

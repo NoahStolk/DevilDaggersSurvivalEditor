@@ -82,7 +82,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				if (!Spawnset.TryParse(File.ReadAllBytes(dialog.FileName), out Spawnset spawnset))
 				{
-					App.Instance.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 spawnset file.");
+					App.Instance.ShowError("Could not parse file", "Please open a valid Devil Daggers V3 'survival' file.");
 					return;
 				}
 
@@ -109,19 +109,19 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void FileSaveAs_Click(object sender, RoutedEventArgs e)
 			=> SpawnsetHandler.Instance.FileSaveAs();
 
-		private void SurvivalOpen_Click(object sender, RoutedEventArgs e)
+		private void SurvivalModOpen_Click(object sender, RoutedEventArgs e)
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 
 			if (!UserHandler.Instance.Settings.SurvivalFileExists)
 			{
-				App.Instance.ShowError("Survival file does not exist", "Please make sure to correct the survival file location in the Options > Settings menu.");
+				App.Instance.ShowError("'survival' mod file does not exist", $"Please make sure a 'survival' mod file exists in {UserHandler.Instance.Settings.SurvivalFileLocation}.");
 				return;
 			}
 
 			if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.Settings.SurvivalFileLocation), out Spawnset spawnset))
 			{
-				App.Instance.ShowError("Could not parse file", "Failed to parse the 'survival' file.");
+				App.Instance.ShowError("Could not parse 'survival' mod file", $"Failed to parse the 'survival' mod file found in {UserHandler.Instance.Settings.SurvivalFileLocation}.");
 				return;
 			}
 
@@ -133,11 +133,11 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
 		}
 
-		private void SurvivalReplace_Click(object sender, RoutedEventArgs e)
-			=> SpawnsetHandler.Instance.SurvivalReplace();
+		private void SurvivalModReplace_Click(object sender, RoutedEventArgs e)
+			=> SpawnsetHandler.Instance.SurvivalModReplace();
 
-		private void SurvivalRestore_Click(object sender, RoutedEventArgs e)
-			=> SpawnsetHandler.Instance.SurvivalRestore();
+		private void SurvivalModDelete_Click(object sender, RoutedEventArgs e)
+			=> SpawnsetHandler.Instance.SurvivalModDelete();
 
 		private void Exit_Click(object sender, RoutedEventArgs e)
 			=> Application.Current.Shutdown();
@@ -152,7 +152,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				Dispatcher.Invoke(() =>
 				{
-					App.Instance.MainWindow!.UpdateWarningNoSurvivalFile();
+					App.Instance.MainWindow!.UpdateWarningDevilDaggersRootFolder();
 					App.Instance.MainWindow!.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
 					App.Instance.MainWindow!.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
 					App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnControls(true);

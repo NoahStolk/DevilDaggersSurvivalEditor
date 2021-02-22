@@ -10,8 +10,8 @@
 	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">
 		<Label FontWeight="Bold" FontSize="14">General</Label>
 		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="{StaticResource Gray3}">
-			<Label>Survival file root folder</Label>
-			<Label Name="LabelSurvivalFileRootFolder" />
+			<Label>Devil Daggers root folder</Label>
+			<Label Name="LabelDevilDaggersRootFolder" />
 			<StackPanel Orientation="Horizontal">
 				<Button Content="Browse" Click="BrowseButton_Click" Width="128" />
 				<Button Content="Auto-detect" Click="AutoDetectButton_Click" Width="128" />

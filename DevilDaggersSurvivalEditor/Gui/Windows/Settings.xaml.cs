@@ -25,7 +25,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			GlitchTileCheckBox.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range.";
 
-			LabelSurvivalFileRootFolder.Content = UserHandler.Instance.Settings.SurvivalFileRootFolder;
+			LabelDevilDaggersRootFolder.Content = UserHandler.Instance.Settings.DevilDaggersRootFolder;
 
 			Data.DataContext = UserHandler.Instance.Settings;
 		}
@@ -50,18 +50,18 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			VistaFolderBrowserDialog dialog = new()
 			{
-				SelectedPath = UserHandler.Instance.Settings.SurvivalFileRootFolder,
+				SelectedPath = UserHandler.Instance.Settings.DevilDaggersRootFolder,
 			};
 
 			if (dialog.ShowDialog() == true)
-				SetSurvivalFileRootFolder(dialog.SelectedPath);
+				SetDevilDaggersRootFolder(dialog.SelectedPath);
 		}
 
 		private void AutoDetectButton_Click(object sender, RoutedEventArgs e)
 		{
 			Process? process = ProcessUtils.GetDevilDaggersProcess();
 			if (!string.IsNullOrWhiteSpace(process?.MainModule?.FileName))
-				SetSurvivalFileRootFolder(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? string.Empty, "dd"));
+				SetDevilDaggersRootFolder(Path.GetDirectoryName(process.MainModule.FileName) ?? string.Empty);
 			else
 				App.Instance.ShowMessage("Devil Daggers process not found", "Please make sure Devil Daggers is running and try again.");
 		}
@@ -69,10 +69,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 			=> DialogResult = true;
 
-		private void SetSurvivalFileRootFolder(string path)
+		private void SetDevilDaggersRootFolder(string path)
 		{
-			UserHandler.Instance.Settings.SurvivalFileRootFolder = path;
-			LabelSurvivalFileRootFolder.Content = UserHandler.Instance.Settings.SurvivalFileRootFolder;
+			UserHandler.Instance.Settings.DevilDaggersRootFolder = path;
+			LabelDevilDaggersRootFolder.Content = UserHandler.Instance.Settings.DevilDaggersRootFolder;
 		}
 	}
 }

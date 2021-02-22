@@ -36,7 +36,7 @@
 				</Grid>
 				<StackPanel Grid.Row="1">
 					<Label FontWeight="Bold">Warnings</Label>
-					<TextBlock Name="WarningNoSurvivalFile" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />
+					<TextBlock Name="WarningDevilDaggersRootFolder" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />
 					<TextBlock Name="WarningVoidSpawn" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />
 					<TextBlock Name="WarningGlitchTile" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />
 					<TextBlock Name="WarningEndLoopLength" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />

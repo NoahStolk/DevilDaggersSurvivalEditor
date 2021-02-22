@@ -80,20 +80,23 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 				UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
 		}
 
-		public void SurvivalReplace()
+		public void SurvivalModReplace()
 		{
-			ConfirmWindow confirmWindow = new("Replace 'survival' file", "Are you sure you want to replace the currently active 'survival' file with this spawnset?", false);
+			ConfirmWindow confirmWindow = new("Replace 'survival' mod file", "Are you sure you want to replace the current 'survival' mod file with this spawnset?", false);
 			confirmWindow.ShowDialog();
 			if (confirmWindow.IsConfirmed && SpawnsetFileUtils.TryWriteSpawnsetToFile(Spawnset, UserHandler.Instance.Settings.SurvivalFileLocation))
-				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
+				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' mod file with this spawnset.");
 		}
 
-		public void SurvivalRestore()
+		public void SurvivalModDelete()
 		{
-			ConfirmWindow confirmWindow = new("Restore 'survival' file", "Are you sure you want to replace the currently active 'survival' file with the original Devil Daggers V3 spawnset?", false);
+			ConfirmWindow confirmWindow = new("Delete 'survival' mod file", "Are you sure you want to delete the current 'survival' mod file? This means the original Devil Daggers V3 spawnset will be re-enabled.", false);
 			confirmWindow.ShowDialog();
 			if (confirmWindow.IsConfirmed)
-				SpawnsetFileUtils.TryRestoreSurvivalFile();
+			{
+				File.Delete(UserHandler.Instance.Settings.SurvivalFileLocation);
+				App.Instance.ShowMessage("Success", "Successfully deleted 'survival' mod file.");
+			}
 		}
 	}
 }
