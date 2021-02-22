@@ -362,7 +362,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (ValidatePositiveIntTextBox(TextBoxAdditionalGems))
 			{
-				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.Parse(TextBoxAdditionalGems.Text, CultureInfo.InvariantCulture);
+				int max = SpawnsetHandler.Instance.Spawnset.Hand switch
+				{
+					2 => 59,
+					3 => 149,
+					4 => 1000000,
+					_ => 9,
+				};
+
+				SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text, CultureInfo.InvariantCulture), 0, max);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnControls(true);
