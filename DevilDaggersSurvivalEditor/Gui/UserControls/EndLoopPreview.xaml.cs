@@ -63,9 +63,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				foreach (double spawnSecond in SpawnsetHandler.Instance.Spawnset.GenerateEndWaveTimes(seconds, i))
 				{
 					Enemy? enemy = endLoop[j].Enemy;
-					bool gigaBecomesGhost = i % 3 == 2 && enemy == GameInfo.V3Gigapede; // Assumes V3.
+					bool gigaBecomesGhost = i % 3 == 2 && (enemy == GameInfo.V3Gigapede || enemy == GameInfo.V31Gigapede); // Assumes V3.
 					if (gigaBecomesGhost)
-						enemy = GameInfo.V3Ghostpede;
+						enemy = GameInfo.V31Ghostpede;
 
 					seconds = spawnSecond;
 					totalGems += enemy?.NoFarmGems ?? 0;
