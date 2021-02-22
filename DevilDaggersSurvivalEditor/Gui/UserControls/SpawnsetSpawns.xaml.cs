@@ -117,7 +117,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				App.Instance.MainWindow!.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
 
 				double seconds = 0;
-				int totalGems = 0;
+
+				int totalGems = SpawnsetHandler.Instance.Spawnset.Hand switch
+				{
+					2 => 10,
+					3 => 70,
+					4 => 220,
+					_ => 0,
+				};
+				totalGems += SpawnsetHandler.Instance.Spawnset.AdditionalGems;
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 				{
 					seconds += kvp.Value.Delay;

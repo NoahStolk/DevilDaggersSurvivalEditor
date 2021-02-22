@@ -353,6 +353,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				SpawnsetHandler.Instance.Spawnset.Hand = (byte)(ComboBoxHand.SelectedIndex + 1);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+
+				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnControls(true);
 			}
 		}
 
@@ -362,6 +364,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.Parse(TextBoxAdditionalGems.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+
+				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnControls(true);
 			}
 		}
 
