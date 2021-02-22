@@ -78,12 +78,15 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (Keyboard.Modifiers == ModifierKeys.Control)
+			if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
 			{
 				switch (e.Key)
 				{
 					case Key.S:
-						SpawnsetHandler.Instance.FileSave();
+						if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
+							SpawnsetHandler.Instance.FileSaveAs();
+						else
+							SpawnsetHandler.Instance.FileSave();
 						break;
 					case Key.C:
 						SpawnsetSpawns.Copy();
