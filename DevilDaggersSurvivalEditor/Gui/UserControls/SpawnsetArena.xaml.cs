@@ -275,9 +275,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			return isValid;
 		}
 
-		private static bool ValidateIntTextBox(TextBox textBox)
+		private static bool ValidatePositiveIntTextBox(TextBox textBox)
 		{
-			bool isValid = int.TryParse(textBox.Text, out _);
+			bool isValid = int.TryParse(textBox.Text, out int result) && result >= 0;
 			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 			return isValid;
 		}
@@ -360,7 +360,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)
 		{
-			if (ValidateIntTextBox(TextBoxAdditionalGems))
+			if (ValidatePositiveIntTextBox(TextBoxAdditionalGems))
 			{
 				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.Parse(TextBoxAdditionalGems.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
