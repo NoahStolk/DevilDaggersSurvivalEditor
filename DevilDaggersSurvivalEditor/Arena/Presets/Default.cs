@@ -4,10 +4,7 @@ using System.IO;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets
 {
-#pragma warning disable CA1716 // Identifiers should not match keywords
-
 	public class Default : AbstractArena
-#pragma warning restore CA1716 // Identifiers should not match keywords
 	{
 		public override bool IsFull => true;
 
@@ -17,7 +14,7 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 
 			byte[] defaultArenaBuffer = new byte[Spawnset.ArenaBufferSize];
 
-			using (Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival") ?? throw new("Could not retrieve resource stream."))
+			using (Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival") ?? throw new("Could not retrieve default survival file resource stream."))
 			using (BinaryReader reader = new(stream))
 			{
 				reader.BaseStream.Seek(Spawnset.HeaderBufferSize, SeekOrigin.Begin);
