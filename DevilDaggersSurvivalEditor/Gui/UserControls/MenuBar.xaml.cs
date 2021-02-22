@@ -115,13 +115,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			if (!UserHandler.Instance.Settings.SurvivalFileExists)
 			{
-				App.Instance.ShowError("'survival' mod file does not exist", $"Please make sure a 'survival' mod file exists in {UserHandler.Instance.Settings.SurvivalFileLocation}.");
+				App.Instance.ShowMessage("'survival' mod file does not exist", $"Please make sure the 'survival' mod file at {UserHandler.Instance.Settings.SurvivalFileLocation} exists.");
 				return;
 			}
 
 			if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.Settings.SurvivalFileLocation), out Spawnset spawnset))
 			{
-				App.Instance.ShowError("Could not parse 'survival' mod file", $"Failed to parse the 'survival' mod file found in {UserHandler.Instance.Settings.SurvivalFileLocation}.");
+				App.Instance.ShowError("Could not parse 'survival' mod file", $"Failed to parse the 'survival' mod file at {UserHandler.Instance.Settings.SurvivalFileLocation}.");
 				return;
 			}
 

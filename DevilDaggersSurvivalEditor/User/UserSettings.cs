@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.User
 		[JsonProperty]
 		public bool LoadSurvivalFileOnStartUp { get; set; }
 
-		public string SurvivalFileLocation => Path.Combine(DevilDaggersRootFolder, "dd", "mods", "survival");
+		public string SurvivalFileLocation => Path.Combine(DevilDaggersRootFolder, "mods", "survival");
 		public bool SurvivalFileExists => File.Exists(SurvivalFileLocation);
 	}
 }

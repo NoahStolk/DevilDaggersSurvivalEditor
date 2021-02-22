@@ -58,7 +58,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		public void UpdateWarningDevilDaggersRootFolder()
 		{
-			if (File.Exists(Path.Combine(UserHandler.Instance.Settings.DevilDaggersRootFolder, "dd.exe")))
+			if (!File.Exists(Path.Combine(UserHandler.Instance.Settings.DevilDaggersRootFolder, "dd.exe")))
 			{
 				WarningDevilDaggersRootFolder.Visibility = Visibility.Visible;
 				WarningDevilDaggersRootFolder.Text = $"The path {UserHandler.Instance.Settings.DevilDaggersRootFolder} does not seem to be the path where Devil Daggers is installed. Please correct this in the Options > Settings menu.";
