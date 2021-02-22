@@ -75,6 +75,11 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					ArenaRelease();
 			};
 			mainLoop.Start();
+
+			for (int i = 0; i < 4; i++)
+				ComboBoxHand.Items.Add($"Level {i + 1}");
+
+			ComboBoxHand.SelectedIndex = 0;
 		}
 
 		private void UpdateSelectionEffectContinuousValues()
@@ -261,18 +266,23 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
 		}
 
-		private static bool ValidateTextBox(TextBox textBox)
+		private static bool ValidateFloatTextBox(TextBox textBox)
 		{
 			bool isValid = float.TryParse(textBox.Text, out _);
-
 			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
+			return isValid;
+		}
 
+		private static bool ValidateIntTextBox(TextBox textBox)
+		{
+			bool isValid = int.TryParse(textBox.Text, out _);
+			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 			return isValid;
 		}
 
 		private void UpdateShrinkStart(object sender, TextChangedEventArgs e)
 		{
-			if (ValidateTextBox(TextBoxShrinkStart))
+			if (ValidateFloatTextBox(TextBoxShrinkStart))
 			{
 				SpawnsetHandler.Instance.Spawnset.ShrinkStart = float.Parse(TextBoxShrinkStart.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -294,7 +304,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateShrinkEnd(object sender, TextChangedEventArgs e)
 		{
-			if (ValidateTextBox(TextBoxShrinkEnd))
+			if (ValidateFloatTextBox(TextBoxShrinkEnd))
 			{
 				SpawnsetHandler.Instance.Spawnset.ShrinkEnd = float.Parse(TextBoxShrinkEnd.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -316,7 +326,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateShrinkRate(object sender, TextChangedEventArgs e)
 		{
-			if (ValidateTextBox(TextBoxShrinkRate))
+			if (ValidateFloatTextBox(TextBoxShrinkRate))
 			{
 				SpawnsetHandler.Instance.Spawnset.ShrinkRate = float.Parse(TextBoxShrinkRate.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -328,9 +338,27 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateBrightness(object sender, TextChangedEventArgs e)
 		{
-			if (ValidateTextBox(TextBoxBrightness))
+			if (ValidateFloatTextBox(TextBoxBrightness))
 			{
 				SpawnsetHandler.Instance.Spawnset.Brightness = float.Parse(TextBoxBrightness.Text, CultureInfo.InvariantCulture);
+				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+			}
+		}
+
+		private void UpdateHand(object sender, SelectionChangedEventArgs e)
+		{
+			if (App.Instance.MainWindow != null)
+			{
+				SpawnsetHandler.Instance.Spawnset.Hand = (byte)(ComboBoxHand.SelectedIndex + 1);
+				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+			}
+		}
+
+		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)
+		{
+			if (ValidateIntTextBox(TextBoxAdditionalGems))
+			{
+				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.Parse(TextBoxAdditionalGems.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 			}
 		}

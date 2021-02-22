@@ -103,6 +103,22 @@
 					<Label Grid.Column="0">Brightness</Label>
 					<TextBox Grid.Column="1" Name="TextBoxBrightness" TextChanged="UpdateBrightness" />
 				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Hand</Label>
+					<ComboBox Grid.Column="1" Name="ComboBoxHand" SelectionChanged="UpdateHand" />
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0">Additional gems</Label>
+					<TextBox Grid.Column="1" Name="TextBoxAdditionalGems" TextChanged="UpdateAdditionalGems" />
+				</Grid>
 
 				<Label Style="{StaticResource BoldLabel}">Shrink preview</Label>
 				<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
