@@ -262,6 +262,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			TextBoxShrinkEnd.Text = SpawnsetHandler.Instance.Spawnset.ShrinkEnd.ToString(CultureInfo.InvariantCulture);
 			TextBoxShrinkRate.Text = SpawnsetHandler.Instance.Spawnset.ShrinkRate.ToString(CultureInfo.InvariantCulture);
 			TextBoxBrightness.Text = SpawnsetHandler.Instance.Spawnset.Brightness.ToString(CultureInfo.InvariantCulture);
+			ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
+			TextBoxAdditionalGems.Text = SpawnsetHandler.Instance.Spawnset.AdditionalGems.ToString(CultureInfo.InvariantCulture);
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
 		}
