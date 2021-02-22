@@ -20,6 +20,10 @@ namespace DevilDaggersSurvivalEditor.User
 		[JsonProperty]
 		public bool AskToConfirmArenaGeneration { get; set; } = true;
 		[JsonProperty]
+		public bool AskToReplaceSurvivalFile { get; set; } = true;
+		[JsonProperty]
+		public bool AskToDeleteSurvivalFile { get; set; } = true;
+		[JsonProperty]
 		public ReplaceSurvivalAction ReplaceSurvivalAction { get; set; } = ReplaceSurvivalAction.Ask;
 		[JsonProperty]
 		public bool LoadSurvivalFileOnStartUp { get; set; }

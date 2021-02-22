@@ -98,7 +98,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						SpawnsetHandler.Instance.SurvivalModReplace();
 						break;
 					case Key.D:
-						SpawnsetHandler.Instance.SurvivalModDelete();
+						SpawnsetHandler.SurvivalModDelete();
 						break;
 				}
 			}

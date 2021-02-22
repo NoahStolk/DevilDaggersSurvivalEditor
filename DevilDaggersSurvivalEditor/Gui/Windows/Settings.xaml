@@ -26,6 +26,8 @@
 				<RadioButton GroupName="ReplaceSurvivalAction" Width="60" Style="{StaticResource ToggleRadioButton}" IsChecked="{Binding Path=ReplaceSurvivalAction, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static enums:ReplaceSurvivalAction.Never}}">Never</RadioButton>
 			</StackPanel>
 			<CheckBox IsChecked="{Binding LoadSurvivalFileOnStartUp}">Load current survival file on start up.</CheckBox>
+			<CheckBox IsChecked="{Binding AskToReplaceSurvivalFile}">Ask to replace 'survival' mod file.</CheckBox>
+			<CheckBox IsChecked="{Binding AskToDeleteSurvivalFile}">Ask to delete 'survival' mod file.</CheckBox>
 		</StackPanel>
 
 		<Label FontWeight="Bold" FontSize="14">Arena</Label>

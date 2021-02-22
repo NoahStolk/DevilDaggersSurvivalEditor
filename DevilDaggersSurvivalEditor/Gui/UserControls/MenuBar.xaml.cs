@@ -137,7 +137,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			=> SpawnsetHandler.Instance.SurvivalModReplace();
 
 		private void SurvivalModDelete_Click(object sender, RoutedEventArgs e)
-			=> SpawnsetHandler.Instance.SurvivalModDelete();
+			=> SpawnsetHandler.SurvivalModDelete();
 
 		private void Exit_Click(object sender, RoutedEventArgs e)
 			=> Application.Current.Shutdown();
