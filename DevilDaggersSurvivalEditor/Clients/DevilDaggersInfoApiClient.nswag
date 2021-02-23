@@ -1,5 +1,5 @@
 {
-  "runtime": "NetCore31",
+  "runtime": "Net50",
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
@@ -27,6 +27,7 @@
       "useBaseUrl": false,
       "generateBaseUrlProperty": true,
       "generateSyncMethods": false,
+      "generatePrepareRequestAndProcessResponseAsAsyncMethods": false,
       "exposeJsonSerializerSettings": false,
       "clientClassAccessModifier": "public",
       "typeAccessModifier": "public",
@@ -69,6 +70,7 @@
       "arrayBaseType": "System.Collections.Generic.List",
       "dictionaryBaseType": "System.Collections.Generic.Dictionary",
       "classStyle": "Poco",
+      "jsonLibrary": "NewtonsoftJson",
       "generateDefaultValues": true,
       "generateDataAnnotations": true,
       "excludedTypeNames": [],
