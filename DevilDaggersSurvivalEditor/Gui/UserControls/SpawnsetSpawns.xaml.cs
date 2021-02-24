@@ -134,6 +134,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					SpawnUserControl spawnControl = _spawnControls[kvp.Key];
 					spawnControl.Id = kvp.Key + 1;
 					spawnControl.Seconds = seconds;
+					spawnControl.TimerStart = SpawnsetHandler.Instance.Spawnset.TimerStart;
 					spawnControl.TotalGems = totalGems;
 					spawnControl.IsInLoop = kvp.Key >= _endLoopStartIndex;
 
