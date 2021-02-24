@@ -10,11 +10,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class SpawnUserControl : UserControl
 	{
-		public SpawnUserControl(Spawn spawn)
+		public SpawnUserControl(Spawn spawn, float timerStart)
 		{
 			InitializeComponent();
 
 			Spawn = spawn;
+			TimerStart = timerStart;
 			UpdateGui();
 		}
 
@@ -28,6 +29,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public Spawn Spawn { get; set; }
 
+		public float TimerStart { get; set; }
+
 		public void UpdateGui()
 		{
 			FontWeight = IsInLoop ? FontWeights.Bold : FontWeights.Normal;
@@ -35,7 +38,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			LabelId.Content = Id.ToString(CultureInfo.InvariantCulture);
 
-			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(Seconds);
+			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(Seconds + TimerStart);
 
 			LabelTotalGems.Content = TotalGems.ToString(CultureInfo.InvariantCulture);
 

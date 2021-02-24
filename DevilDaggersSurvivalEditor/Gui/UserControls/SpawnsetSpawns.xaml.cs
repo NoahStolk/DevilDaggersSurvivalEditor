@@ -21,7 +21,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private int _amount = 1;
 
-		private readonly List<Spawn> _clipboard = new List<Spawn>();
+		private readonly List<Spawn> _clipboard = new();
 
 		private readonly List<SpawnUserControl> _spawnControls = new();
 
@@ -56,7 +56,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 				{
-					SpawnUserControl spawnControl = new(kvp.Value);
+					SpawnUserControl spawnControl = new(kvp.Value, SpawnsetHandler.Instance.Spawnset.TimerStart);
 					_spawnControls.Add(spawnControl);
 					ListBoxSpawns.Items.Add(spawnControl);
 				}
@@ -69,7 +69,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.Spawnset.Spawns[SpawnsetHandler.Instance.Spawnset.Spawns.Count] = spawn;
 
-			SpawnUserControl spawnControl = new(spawn);
+			SpawnUserControl spawnControl = new(spawn, SpawnsetHandler.Instance.Spawnset.TimerStart);
 			_spawnControls.Add(spawnControl);
 			ListBoxSpawns.Items.Add(spawnControl);
 		}
@@ -78,7 +78,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.Spawnset.Spawns[index] = spawn;
 
-			SpawnUserControl spawnControl = new(spawn);
+			SpawnUserControl spawnControl = new(spawn, SpawnsetHandler.Instance.Spawnset.TimerStart);
 			_spawnControls.Insert(index, spawnControl);
 			ListBoxSpawns.Items.Insert(index, spawnControl);
 		}

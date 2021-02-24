@@ -78,7 +78,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 							delay: seconds - secondsPrevious,
 							totalGems: totalGems,
 							enemy: enemy,
-							gigaBecomesGhost: gigaBecomesGhost);
+							gigaBecomesGhost: gigaBecomesGhost,
+							timerStart: SpawnsetHandler.Instance.Spawnset.TimerStart);
 						EndLoopSpawns.Items.Add(spawnControl);
 					}
 
