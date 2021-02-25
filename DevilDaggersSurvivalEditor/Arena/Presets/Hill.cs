@@ -1,5 +1,4 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 
@@ -37,12 +36,15 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 						int deltaX = i - center.X;
 						int deltaY = j - center.Y;
 						float distance = (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
-						tiles[i, j] = MathUtils.Lerp(_startHeight, _endHeight, 1 - distance / OuterRadius);
+						tiles[i, j] = Lerp(_startHeight, _endHeight, 1 - distance / OuterRadius);
 					}
 				}
 			}
 
 			return tiles;
+
+			static float Lerp(float value1, float value2, float amount)
+				=> value1 + (value2 - value1) * amount;
 		}
 	}
 }

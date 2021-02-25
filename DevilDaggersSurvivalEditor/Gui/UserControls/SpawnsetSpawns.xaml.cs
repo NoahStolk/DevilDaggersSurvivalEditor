@@ -213,7 +213,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (HasTooManySpawns())
 					break;
 
-				AddSpawn(new(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
+				AddSpawn(new(GameInfo.GetEnemies(GameVersion.V31).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -238,7 +238,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (HasTooManySpawns())
 					break;
 
-				InsertSpawnAt(originalSelection + i, new(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
+				InsertSpawnAt(originalSelection + i, new(GameInfo.GetEnemies(GameVersion.V31).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -293,7 +293,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			List<int> selections = GetSpawnSelectionIndices();
 			foreach (int i in selections)
-				EditSpawnAt(i, new(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
+				EditSpawnAt(i, new(GameInfo.GetEnemies(GameVersion.V31).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
@@ -397,7 +397,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 						}
 					}
 
-					EditSpawnAt(i, new Spawn(GameInfo.GetEntities<Enemy>(GameVersion.V3).Find(e => e.SpawnsetType == window.SwitchDictionary[current]), SpawnsetHandler.Instance.Spawnset.Spawns[i].Delay));
+					EditSpawnAt(i, new Spawn(GameInfo.GetEnemies(GameVersion.V31).Find(e => e.SpawnsetType == window.SwitchDictionary[current]), SpawnsetHandler.Instance.Spawnset.Spawns[i].Delay));
 				}
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;

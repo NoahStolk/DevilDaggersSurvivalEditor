@@ -27,14 +27,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.ColumnDefinitions.Add(new());
 				grid.ColumnDefinitions.Add(new());
 
-				Label label = new() { Content = $"Turn {GameInfo.GetEnemyBySpawnsetType(enemyType, GameVersion.V3)?.Name ?? "EMPTY"} into" };
+				Label label = new() { Content = $"Turn {GameInfo.GetEnemyBySpawnsetType(GameVersion.V31, enemyType)?.Name ?? "EMPTY"} into" };
 				Grid.SetColumn(label, 0);
 				grid.Children.Add(label);
 
 				ComboBox comboBox = new() { SelectedIndex = enemyType + 1 };
 
 				for (int j = -1; j < 10; j++)
-					comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEnemyBySpawnsetType(j, GameVersion.V3)?.Name ?? "EMPTY" });
+					comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEnemyBySpawnsetType(GameVersion.V31, j)?.Name ?? "EMPTY" });
 				Grid.SetColumn(comboBox, 1);
 				grid.Children.Add(comboBox);
 				_comboBoxes[i++] = comboBox;
