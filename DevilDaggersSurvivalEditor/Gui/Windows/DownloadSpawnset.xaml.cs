@@ -263,7 +263,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Span customLeaderboardElement;
 			if (spawnsetFile.HasCustomLeaderboard)
 			{
-				Hyperlink hyperlink = new Hyperlink(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboardPage(spawnsetFile.Name)) };
+				Hyperlink hyperlink = new(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboardPage(spawnsetFile.Name)) };
 				hyperlink.RequestNavigate += (sender, e) =>
 				{
 					ProcessUtils.OpenUrl(e.Uri.AbsoluteUri);

@@ -6,7 +6,7 @@
 		xmlns:converters="clr-namespace:DevilDaggersSurvivalEditor.Converters"
 		xmlns:enums="clr-namespace:DevilDaggersSurvivalEditor.Enumerators"
 		mc:Ignorable="d"
-        Title="Settings" Height="512" Width="768" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Settings" Height="512" Width="768" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">
 		<Label FontWeight="Bold" FontSize="14">General</Label>
 		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="{StaticResource Gray3}">

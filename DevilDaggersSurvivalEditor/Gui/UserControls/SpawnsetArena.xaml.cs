@@ -506,7 +506,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			byte[] pixelBytes = new byte[TileUtils.TileSize * TileUtils.TileSize];
 			for (int i = 0; i < pixelBytes.Length; i++)
-				pixelBytes[i] = selected ? 0xFF : 0x00;
+				pixelBytes[i] = (byte)(selected ? 0xFF : 0x00);
 			_normalMap.WritePixels(new(tile.X * TileUtils.TileSize, tile.Y * TileUtils.TileSize, TileUtils.TileSize, TileUtils.TileSize), pixelBytes, TileUtils.TileSize, 0);
 
 			RandomizeHeightsButton.IsEnabled = _selections.Count != 0;
