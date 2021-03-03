@@ -95,6 +95,26 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 		}
 
+		private void FileOpenDefault_Click(object sender, RoutedEventArgs e)
+		{
+			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
+
+			using Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival") ?? throw new("Could not retrieve default survival file resource stream.");
+			using BinaryReader reader = new(stream);
+			if (!Spawnset.TryParse(reader.ReadBytes((int)stream.Length), out Spawnset spawnset))
+			{
+				App.Instance.ShowError("Could not parse file", "Default internal 'survival' file is invalid.");
+				return;
+			}
+
+			SpawnsetHandler.Instance.Spawnset = spawnset;
+
+			App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
+			App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
+
+			SpawnsetHandler.Instance.UpdateSpawnsetState("(new spawnset)", string.Empty);
+		}
+
 		private void FileOpenFromWeb_Click(object sender, RoutedEventArgs e)
 		{
 			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
@@ -183,7 +203,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (NetworkHandler.Instance.Tool != null)
 			{
-				List<ChangelogEntry> changes = NetworkHandler.Instance.Tool.Changelog.Select(c => new ChangelogEntry(Version.Parse(c.VersionNumber), c.Date, MapToSharedModel(c.Changes)?.ToList() ?? new List<Change>())).ToList();
+				List<ChangelogEntry> changes = NetworkHandler.Instance.Tool.Changelog.ConvertAll(c => new ChangelogEntry(Version.Parse(c.VersionNumber), c.Date, MapToSharedModel(c.Changes)?.ToList() ?? new List<Change>()));
 				ChangelogWindow changelogWindow = new(changes, App.LocalVersion);
 				changelogWindow.ShowDialog();
 			}

@@ -10,6 +10,7 @@
 			<MenuItem Header="New" Click="FileNew_Click" />
 			<MenuItem Header="Open" Click="FileOpen_Click" />
 			<MenuItem Header="Open from DevilDaggers.info" Click="FileOpenFromWeb_Click" />
+			<MenuItem Header="Open default (V3)" Click="FileOpenDefault_Click" />
 			<MenuItem Header="Save (ctrl S)" Click="FileSave_Click" />
 			<MenuItem Header="Save as (ctrl shift S)" Click="FileSaveAs_Click" />
 			<Separator />
