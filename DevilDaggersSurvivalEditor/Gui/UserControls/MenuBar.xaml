@@ -3,22 +3,32 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:DevilDaggersSurvivalEditor.Gui.UserControls"
 			 mc:Ignorable="d"
              d:DesignHeight="20" d:DesignWidth="800">
+	<UserControl.CommandBindings>
+		<CommandBinding Command="local:MenuBarUserControl.New" CanExecute="CanExecute" Executed="New_Executed" />
+		<CommandBinding Command="local:MenuBarUserControl.Open" CanExecute="CanExecute" Executed="Open_Executed" />
+		<CommandBinding Command="local:MenuBarUserControl.Save" CanExecute="CanExecute" Executed="Save_Executed" />
+		<CommandBinding Command="local:MenuBarUserControl.SaveAs" CanExecute="CanExecute" Executed="SaveAs_Executed" />
+		<CommandBinding Command="local:MenuBarUserControl.Replace" CanExecute="CanExecute" Executed="Replace_Executed" />
+		<CommandBinding Command="local:MenuBarUserControl.Delete" CanExecute="CanExecute" Executed="Delete_Executed" />
+		<CommandBinding Command="local:MenuBarUserControl.Exit" CanExecute="CanExecute" Executed="Exit_Executed" />
+	</UserControl.CommandBindings>
 	<Menu Name="MenuPanel" DockPanel.Dock="Top">
 		<MenuItem Header="File">
-			<MenuItem Header="New" Click="FileNew_Click" />
-			<MenuItem Header="Open" Click="FileOpen_Click" />
+			<MenuItem Command="local:MenuBarUserControl.New" />
+			<MenuItem Command="local:MenuBarUserControl.Open" />
 			<MenuItem Header="Open from DevilDaggers.info" Click="FileOpenFromWeb_Click" />
 			<MenuItem Header="Open default (V3)" Click="FileOpenDefault_Click" />
-			<MenuItem Header="Save (ctrl S)" Click="FileSave_Click" />
-			<MenuItem Header="Save as (ctrl shift S)" Click="FileSaveAs_Click" />
+			<MenuItem Command="local:MenuBarUserControl.Save" />
+			<MenuItem Command="local:MenuBarUserControl.SaveAs" />
 			<Separator />
 			<MenuItem Header="Open modded 'survival' file" Click="SurvivalModOpen_Click" />
-			<MenuItem Header="Replace modded 'survival' file (ctrl R)" Click="SurvivalModReplace_Click" />
-			<MenuItem Header="Delete modded 'survival' file (ctrl D)" Click="SurvivalModDelete_Click" />
+			<MenuItem Command="local:MenuBarUserControl.Replace" />
+			<MenuItem Command="local:MenuBarUserControl.Delete" />
 			<Separator />
-			<MenuItem Header="Exit" Click="Exit_Click" />
+			<MenuItem Command="local:MenuBarUserControl.Exit" />
 		</MenuItem>
 		<MenuItem Header="Options">
 			<MenuItem Header="Settings" Click="Settings_Click" />

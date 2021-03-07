@@ -4,13 +4,8 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.Gui.UserControls"
-		xmlns:commands="clr-namespace:DevilDaggersSurvivalEditor.Utils"
 		mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" Closing="Window_Closing" Loaded="Window_Loaded">
-	<Window.CommandBindings>
-		<CommandBinding Command="commands:CommandUtils.Save" CanExecute="CanExecute" Executed="SaveCommand_Executed" />
-		<CommandBinding Command="commands:CommandUtils.Exit" CanExecute="CanExecute" Executed="ExitCommand_Executed" />
-	</Window.CommandBindings>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="18" />

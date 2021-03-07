@@ -16,11 +16,20 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class MenuBarUserControl : UserControl
 	{
+		public static readonly RoutedUICommand New = new("New", "New", typeof(MenuBarUserControl), new InputGestureCollection { new KeyGesture(Key.N, ModifierKeys.Control) });
+		public static readonly RoutedUICommand Open = new("Open", "Open", typeof(MenuBarUserControl), new InputGestureCollection { new KeyGesture(Key.O, ModifierKeys.Control) });
+		public static readonly RoutedUICommand Save = new("Save", "Save", typeof(MenuBarUserControl), new InputGestureCollection { new KeyGesture(Key.S, ModifierKeys.Control) });
+		public static readonly RoutedUICommand SaveAs = new("Save as", "SaveAs", typeof(MenuBarUserControl), new InputGestureCollection { new KeyGesture(Key.S, ModifierKeys.Control | ModifierKeys.Shift) });
+		public static readonly RoutedUICommand Replace = new("Replace modded 'survival' file", "Replace", typeof(MenuBarUserControl), new InputGestureCollection { new KeyGesture(Key.R, ModifierKeys.Control) });
+		public static readonly RoutedUICommand Delete = new("Delete modded 'survival' file", "Delete", typeof(MenuBarUserControl), new InputGestureCollection { new KeyGesture(Key.D, ModifierKeys.Control) });
+		public static readonly RoutedUICommand Exit = new("Exit", "Exit", typeof(MenuBarUserControl), new InputGestureCollection { new KeyGesture(Key.F4, ModifierKeys.Alt) });
+
 		public MenuBarUserControl()
 		{
 			InitializeComponent();
@@ -56,7 +65,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 #endif
 		}
 
-		private void FileNew_Click(object sender, RoutedEventArgs e)
+		private void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+			=> e.CanExecute = true;
+
+		private void New_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
 				return;
@@ -73,7 +85,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(new spawnset)", string.Empty);
 		}
 
-		private void FileOpen_Click(object sender, RoutedEventArgs e)
+		private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
 				return;
@@ -98,6 +110,21 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				SpawnsetHandler.Instance.UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
 			}
 		}
+
+		private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
+			=> SpawnsetHandler.Instance.FileSave();
+
+		private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
+			=> SpawnsetHandler.Instance.FileSaveAs();
+
+		private void Replace_Executed(object sender, ExecutedRoutedEventArgs e)
+			=> SpawnsetHandler.Instance.SurvivalModReplace();
+
+		private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
+			=> SpawnsetHandler.SurvivalModDelete();
+
+		private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
+			=> Application.Current.Shutdown();
 
 		private void FileOpenDefault_Click(object sender, RoutedEventArgs e)
 		{
@@ -130,12 +157,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			window.ShowDialog();
 		}
 
-		private void FileSave_Click(object sender, RoutedEventArgs e)
-			=> SpawnsetHandler.Instance.FileSave();
-
-		private void FileSaveAs_Click(object sender, RoutedEventArgs e)
-			=> SpawnsetHandler.Instance.FileSaveAs();
-
 		private void SurvivalModOpen_Click(object sender, RoutedEventArgs e)
 		{
 			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
@@ -161,15 +182,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
 		}
-
-		private void SurvivalModReplace_Click(object sender, RoutedEventArgs e)
-			=> SpawnsetHandler.Instance.SurvivalModReplace();
-
-		private void SurvivalModDelete_Click(object sender, RoutedEventArgs e)
-			=> SpawnsetHandler.SurvivalModDelete();
-
-		private void Exit_Click(object sender, RoutedEventArgs e)
-			=> Application.Current.Shutdown();
 
 		private void Settings_Click(object sender, RoutedEventArgs e)
 		{

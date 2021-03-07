@@ -8,7 +8,6 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
 
 namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
@@ -45,21 +44,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
 			}
-		}
-
-		private void CanExecute(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = true;
-		}
-
-		private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-		{
-			Application.Current.Shutdown();
-		}
-
-		private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-		{
-			SpawnsetHandler.Instance.FileSave();
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
