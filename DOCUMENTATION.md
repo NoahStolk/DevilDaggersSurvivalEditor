@@ -10,18 +10,20 @@ There are 3 files in Devil Daggers which use this format. These are "survival", 
 	
 ## Format
 
-The internal structure of spawnset binaries consists of 4 parts:
+The internal structure of spawnset binaries consists of 5 parts:
 
 | Name | Size in bytes |
 |------|---------------|
 | Header buffer | 36 |
 | Arena buffer | 10404 |
-| Spawns header buffer | 40 |
+| Spawns header buffer | 36 or 40 depending on version |
 | Spawns buffer | 28 x the amount of spawns |
+| Settings buffer | 0, 5, or 9 depending on version |
 
 ### Overview of known values
 
 - Header buffer
+    - Versions
     - Shrinking controls
     - Brightness
 - Arena buffer
@@ -33,6 +35,10 @@ The internal structure of spawnset binaries consists of 4 parts:
     - For every spawn:
         - Spawn enemy type
         - Spawn delay
+- Settings buffer
+    - Initial hand
+    - Additional gems
+    - Timer start
 
 ### Header buffer
 
@@ -42,8 +48,8 @@ The header buffer for the default spawnset looks like this:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `04000000` | ? | ? | ? |
-| `09000000` | ? | ? | ? |
+| `04000000` | 32-bit integer | Spawn version | 4 |
+| `09000000` | 32-bit integer | World version | 9 |
 | `0000A041` | 32-bit floating point | Shrink end radius | 20 |
 | `01004842` | 32-bit floating point | Shrink start radius | 50 |
 | `CDCCCC3C` | 32-bit floating point | Shrink rate | 0.025 |
@@ -115,7 +121,7 @@ These are the first 3 spawns in the original game:
 
 Here's the list of enemy types that the survival file defines:
 
-#### V3 (current)
+#### V3 / V3.1 (current)
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
@@ -157,3 +163,13 @@ Here's the list of enemy types that the survival file defines:
 | `04000000` | 32-bit signed integer | Leviathan | 4 |
 | `05000000` | 32-bit signed integer | Gigapede | 5 |
 | `FFFFFFFF` | 32-bit signed integer | Empty | -1 |
+
+### Settings buffer
+
+Fixed-length buffer of 9 bytes. It was added to the game's V3.1 update which released on February 2021, specifically for spawnset and modding purposes, and is not used in the default spawnset. It only works when the header's spawn version is 5 or 6. The last value, TimerStart, only works on spawn version 6.
+
+| Binary (hex) | Data type | Meaning | Value |
+|--------------|-----------|---------|-------|
+| `04` | Byte | Initial hand upgrade | 4 |
+| `05000000` | 32-bit integer | Additional gems | 5 |
+| `0000A041` | 32-bit floating point | Timer start | 20 |
