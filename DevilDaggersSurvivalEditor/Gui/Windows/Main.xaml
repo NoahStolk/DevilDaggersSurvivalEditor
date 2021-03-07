@@ -41,9 +41,9 @@
 				</Grid>
 				<StackPanel Grid.Row="1">
 					<Label FontWeight="Bold">Warnings</Label>
-					<TextBlock Name="WarningDevilDaggersRootFolder" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />
-					<TextBlock Name="WarningVoidSpawn" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />
-					<TextBlock Name="WarningEndLoopLength" FontWeight="Bold" Foreground="Red" Visibility="Collapsed" />
+					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningDevilDaggersRootFolder" Visibility="Collapsed" />
+					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningVoidSpawn" Visibility="Collapsed" />
+					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningEndLoopLength" Visibility="Collapsed" />
 				</StackPanel>
 			</Grid>
 		</ScrollViewer>
