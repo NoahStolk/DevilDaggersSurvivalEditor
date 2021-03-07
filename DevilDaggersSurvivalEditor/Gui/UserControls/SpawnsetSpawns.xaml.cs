@@ -166,8 +166,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					spawnControl.LabelTotalGems.Content = totalGems.ToString(CultureInfo.InvariantCulture);
 				}
 
-				// TODO:
-				// EndLoopPreview.Update(seconds, totalGems);
+				EndLoopPreview.UpdateGems(totalGems);
 			});
 		}
 

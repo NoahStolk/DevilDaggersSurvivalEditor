@@ -40,6 +40,19 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			set => _wave = Math.Clamp(value, 2, _maxWaves);
 		}
 
+		public void Update()
+		{
+			double seconds = 0;
+			int totalGems = 0;
+			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+			{
+				seconds += kvp.Value.Delay;
+				totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
+			}
+
+			Update(seconds, totalGems);
+		}
+
 		public void Update(double seconds, int totalGems)
 		{
 			_spawnControls.Clear();
@@ -96,17 +109,35 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 		}
 
-		public void Update()
+		public void UpdateGems(int totalGems)
 		{
-			double seconds = 0;
-			int totalGems = 0;
-			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
-			{
-				seconds += kvp.Value.Delay;
-				totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
-			}
+			List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex()).ToList();
+			int endLoopSpawns = endLoop.Count(s => s.Enemy != null);
+			if (endLoopSpawns == 0)
+				return;
 
-			Update(seconds, totalGems);
+			// Start at 1 to skip the first wave as it is already included in the regular spawns.
+			for (int i = 1; i < Wave; i++)
+			{
+				int j = 0;
+				foreach (Spawn spawn in endLoop)
+				{
+					Enemy? enemy = spawn.Enemy;
+					bool gigaBecomesGhost = i % 3 == 2 && (enemy == GameInfo.V3Gigapede || enemy == GameInfo.V31Gigapede); // Assumes V3.
+					if (gigaBecomesGhost)
+						enemy = GameInfo.V31Ghostpede;
+
+					totalGems += enemy?.NoFarmGems ?? 0;
+
+					if (i == Wave - 1)
+					{
+						EndLoopSpawnUserControl spawnControl = _spawnControls[j];
+						spawnControl.LabelTotalGems.Content = totalGems;
+					}
+
+					j++;
+				}
+			}
 		}
 
 		private void NextTenWaves_Click(object sender, RoutedEventArgs e)
