@@ -103,14 +103,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						break;
 				}
 			}
-			else
+
+			switch (e.Key)
 			{
-				switch (e.Key)
-				{
-					case Key.Delete:
-						SpawnsetSpawns.Delete();
-						break;
-				}
+				case Key.Delete:
+					SpawnsetSpawns.Delete();
+					break;
 			}
 		}
 
