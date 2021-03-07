@@ -4,15 +4,57 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.Gui.UserControls"
+		xmlns:windows="clr-namespace:DevilDaggersSurvivalEditor.Gui.Windows"
 		mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" Closing="Window_Closing" Loaded="Window_Loaded">
+	<Window.CommandBindings>
+		<CommandBinding Command="windows:MainWindow.New" CanExecute="CanExecute" Executed="New_Executed" />
+		<CommandBinding Command="windows:MainWindow.Open" CanExecute="CanExecute" Executed="Open_Executed" />
+		<CommandBinding Command="windows:MainWindow.OpenWeb" CanExecute="CanExecute" Executed="OpenWeb_Executed" />
+		<CommandBinding Command="windows:MainWindow.OpenDefault" CanExecute="CanExecute" Executed="OpenDefault_Executed" />
+		<CommandBinding Command="windows:MainWindow.Save" CanExecute="CanExecute" Executed="Save_Executed" />
+		<CommandBinding Command="windows:MainWindow.SaveAs" CanExecute="CanExecute" Executed="SaveAs_Executed" />
+		<CommandBinding Command="windows:MainWindow.OpenMod" CanExecute="CanExecute" Executed="OpenMod_Executed" />
+		<CommandBinding Command="windows:MainWindow.Replace" CanExecute="CanExecute" Executed="Replace_Executed" />
+		<CommandBinding Command="windows:MainWindow.Delete" CanExecute="CanExecute" Executed="Delete_Executed" />
+		<CommandBinding Command="windows:MainWindow.Exit" CanExecute="CanExecute" Executed="Exit_Executed" />
+	</Window.CommandBindings>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="18" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
 		<DockPanel Grid.Row="0">
-			<usercontrols:MenuBarUserControl x:Name="MenuBar" />
+			<Menu Name="MenuPanel" DockPanel.Dock="Top">
+				<MenuItem Header="File">
+					<MenuItem Command="windows:MainWindow.New" />
+					<MenuItem Command="windows:MainWindow.Open" />
+					<MenuItem Command="windows:MainWindow.OpenWeb" />
+					<MenuItem Command="windows:MainWindow.OpenDefault" />
+					<MenuItem Command="windows:MainWindow.Save" />
+					<MenuItem Command="windows:MainWindow.SaveAs" />
+					<Separator />
+					<MenuItem Command="windows:MainWindow.OpenMod" />
+					<MenuItem Command="windows:MainWindow.Replace" />
+					<MenuItem Command="windows:MainWindow.Delete" />
+					<Separator />
+					<MenuItem Command="windows:MainWindow.Exit" />
+				</MenuItem>
+				<MenuItem Header="Options">
+					<MenuItem Header="Settings" Click="Settings_Click" />
+				</MenuItem>
+				<MenuItem Header="Community">
+					<MenuItem Header="Browse spawnsets online" Click="Browse_Click" />
+					<MenuItem Header="Open Discord server" Click="Discord_Click" />
+				</MenuItem>
+				<MenuItem Header="Help" Name="HelpItem">
+					<MenuItem Header="Help" Click="Help_Click" />
+					<MenuItem Header="About" Click="About_Click" />
+					<MenuItem Header="Changelog" Click="Changelog_Click" />
+					<MenuItem Header="View source code" Click="ViewSourceCode_Click" />
+					<MenuItem Header="Check for updates" Name="UpdateItem" Click="CheckForUpdates_Click" />
+				</MenuItem>
+			</Menu>
 		</DockPanel>
 		<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 			<Grid Height="768" Width="1540" Background="{StaticResource Gray3}">
