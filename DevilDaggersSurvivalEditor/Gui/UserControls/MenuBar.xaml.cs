@@ -179,13 +179,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				using (StreamWriter sw = new(File.Create(UserSettings.FileName)))
 					sw.Write(JsonConvert.SerializeObject(UserHandler.Instance.Settings, Formatting.Indented));
 
-				Dispatcher.Invoke(() =>
+				if (App.Instance.MainWindow != null)
 				{
-					App.Instance.MainWindow?.UpdateWarningDevilDaggersRootFolder();
-					App.Instance.MainWindow?.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
-					App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControls(true);
-					App.Instance.MainWindow?.SpawnsetSpawns.EndLoopPreview.Update();
-				});
+					Dispatcher.Invoke(() =>
+					{
+						App.Instance.MainWindow.UpdateWarningDevilDaggersRootFolder();
+						App.Instance.MainWindow.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
+						App.Instance.MainWindow.SpawnsetSpawns.EndLoopPreview.Visibility = UserHandler.Instance.Settings.EnableEndLoopPreview ? Visibility.Visible : Visibility.Collapsed;
+					});
+				}
 			}
 		}
 
