@@ -52,7 +52,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				SpawnsetHandler.Instance.Spawnset.TimerStart = float.Parse(TextBoxTimerStart.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControls(true);
+				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlSeconds();
 			}
 		}
 

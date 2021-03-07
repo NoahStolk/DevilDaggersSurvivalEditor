@@ -2,6 +2,7 @@
 using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;
+using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,8 +95,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 							delay: seconds - secondsPrevious,
 							totalGems: totalGems,
 							enemy: enemy,
-							gigaBecomesGhost: gigaBecomesGhost,
-							timerStart: SpawnsetHandler.Instance.Spawnset.TimerStart);
+							gigaBecomesGhost: gigaBecomesGhost);
 						_spawnControls.Add(spawnControl);
 						EndLoopSpawns.Items.Add(spawnControl);
 					}
@@ -106,6 +106,32 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				if (i == Wave - 1)
 					EndWaveHeaderLabel.Content = $"Wave {i + 1}";
+			}
+		}
+
+		public void UpdateSeconds(double seconds)
+		{
+			List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex()).ToList();
+			int endLoopSpawns = endLoop.Count(s => s.Enemy != null);
+			if (endLoopSpawns == 0)
+				return;
+
+			// Start at 1 to skip the first wave as it is already included in the regular spawns.
+			for (int i = 1; i < Wave; i++)
+			{
+				int j = 0;
+				foreach (double spawnSecond in SpawnsetHandler.Instance.Spawnset.GenerateEndWaveTimes(seconds, i))
+				{
+					seconds = spawnSecond;
+
+					if (i == Wave - 1)
+					{
+						EndLoopSpawnUserControl spawnControl = _spawnControls[j];
+						spawnControl.LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
+					}
+
+					j++;
+				}
 			}
 		}
 

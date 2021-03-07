@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Game;
 using DevilDaggersCore.Wpf.Utils;
+using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.Utils;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,12 +10,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class EndLoopSpawnUserControl : UserControl
 	{
-		public EndLoopSpawnUserControl(int id, double seconds, double delay, int totalGems, Enemy? enemy, bool gigaBecomesGhost, float timerStart)
+		public EndLoopSpawnUserControl(int id, double seconds, double delay, int totalGems, Enemy? enemy, bool gigaBecomesGhost)
 		{
 			InitializeComponent();
 
 			LabelId.Content = id;
-			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + timerStart);
+			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
 			LabelDelay.Content = SpawnUtils.ToFramedGameTimeString(delay);
 			LabelTotalGems.Content = totalGems;
 

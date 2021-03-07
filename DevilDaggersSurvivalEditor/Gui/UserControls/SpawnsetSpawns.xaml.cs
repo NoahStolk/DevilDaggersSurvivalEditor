@@ -138,6 +138,25 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			});
 		}
 
+		public void UpdateSpawnControlSeconds()
+		{
+			Dispatcher.Invoke(() =>
+			{
+				double seconds = 0;
+
+				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+				{
+					seconds += kvp.Value.Delay;
+
+					SpawnUserControl spawnControl = _spawnControls[kvp.Key];
+					spawnControl.Seconds = seconds;
+					spawnControl.LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
+				}
+
+				EndLoopPreview.UpdateSeconds(seconds);
+			});
+		}
+
 		public void UpdateSpawnControlGems()
 		{
 			Dispatcher.Invoke(() =>
