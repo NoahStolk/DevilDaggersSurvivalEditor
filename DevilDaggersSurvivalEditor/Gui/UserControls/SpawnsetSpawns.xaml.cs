@@ -118,14 +118,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				double seconds = 0;
 
-				int totalGems = SpawnsetHandler.Instance.Spawnset.Hand switch
-				{
-					2 => 10,
-					3 => 70,
-					4 => 220,
-					_ => 0,
-				};
-				totalGems += SpawnsetHandler.Instance.Spawnset.AdditionalGems;
+				int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 				{
 					seconds += kvp.Value.Delay;
@@ -149,14 +142,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			Dispatcher.Invoke(() =>
 			{
-				int totalGems = SpawnsetHandler.Instance.Spawnset.Hand switch
-				{
-					2 => 10,
-					3 => 70,
-					4 => 220,
-					_ => 0,
-				};
-				totalGems += SpawnsetHandler.Instance.Spawnset.AdditionalGems;
+				int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 				{
 					totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
