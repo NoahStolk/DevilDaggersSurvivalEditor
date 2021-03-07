@@ -8,6 +8,11 @@
 			 xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.Gui.UserControls"
 			 mc:Ignorable="d"
              d:DesignHeight="768" d:DesignWidth="683">
+	<UserControl.CommandBindings>
+		<CommandBinding Command="usercontrols:SpawnsetSpawnsUserControl.CopyCommand" CanExecute="CanExecute" Executed="Copy_Executed" />
+		<CommandBinding Command="usercontrols:SpawnsetSpawnsUserControl.PasteCommand" CanExecute="CanExecute" Executed="Paste_Executed" />
+		<CommandBinding Command="usercontrols:SpawnsetSpawnsUserControl.DeleteCommand" CanExecute="CanExecute" Executed="Delete_Executed" />
+	</UserControl.CommandBindings>
 	<StackPanel x:Name="Data">
 		<Grid HorizontalAlignment="Left" Width="652" Style="{StaticResource SpawnsetHeader}">
 			<Grid.ColumnDefinitions>

@@ -17,6 +17,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class SpawnsetSpawnsUserControl : UserControl
 	{
+		public static readonly RoutedUICommand CopyCommand = new("Copy", "Copy", typeof(SpawnsetSpawnsUserControl), new() { new KeyGesture(Key.C, ModifierKeys.Control) });
+		public static readonly RoutedUICommand PasteCommand = new("Paste", "Paste", typeof(SpawnsetSpawnsUserControl), new() { new KeyGesture(Key.V, ModifierKeys.Control) });
+		public static readonly RoutedUICommand DeleteCommand = new("Delete", "Delete", typeof(SpawnsetSpawnsUserControl), new() { new KeyGesture(Key.Delete) });
+
 		private const int _maxSpawns = 10000;
 
 		private int _amount = 1;
@@ -46,6 +50,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			get => _amount;
 			set => _amount = Math.Clamp(value, 1, 100);
 		}
+
+		private void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+			=> e.CanExecute = true;
 
 		public void UpdateSpawnset()
 		{
@@ -278,6 +285,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void PasteAddSpawnButton_Click(object sender, RoutedEventArgs e)
 			=> PasteAdd();
 
+		private void Paste_Executed(object sender, RoutedEventArgs e)
+			=> PasteAdd();
+
 		public void PasteAdd()
 		{
 			for (int i = 0; i < _clipboard.Count; i++)
@@ -332,6 +342,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void DeleteSpawnButton_Click(object sender, RoutedEventArgs e)
 			=> Delete();
 
+		private void Delete_Executed(object sender, RoutedEventArgs e)
+			=> Delete();
+
 		public void Delete()
 		{
 			List<int> selections = GetSpawnSelectionIndices();
@@ -361,6 +374,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void CopySpawnButton_Click(object sender, RoutedEventArgs e)
+			=> Copy();
+
+		private void Copy_Executed(object sender, RoutedEventArgs e)
 			=> Copy();
 
 		public void Copy()
