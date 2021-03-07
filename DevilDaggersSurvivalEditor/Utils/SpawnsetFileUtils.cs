@@ -10,7 +10,6 @@ namespace DevilDaggersSurvivalEditor.Utils
 		{
 			try
 			{
-				spawnset.Version = 0x06;
 				if (spawnset.TryGetBytes(out byte[] bytes))
 				{
 					File.WriteAllBytes(destinationPath, bytes);
