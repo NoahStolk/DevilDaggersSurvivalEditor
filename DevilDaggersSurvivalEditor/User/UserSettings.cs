@@ -14,8 +14,6 @@ namespace DevilDaggersSurvivalEditor.User
 		[JsonProperty]
 		public bool LockSpawnTile { get; set; }
 		[JsonProperty]
-		public bool LockGlitchTile { get; set; }
-		[JsonProperty]
 		public bool EnableEndLoopPreview { get; set; } = true;
 		[JsonProperty]
 		public bool AskToConfirmArenaGeneration { get; set; } = true;

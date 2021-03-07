@@ -379,15 +379,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		public void UpdateTile(ArenaCoord tile)
 		{
 			// Lock special cases if set in settings.
-			if (tile == TileUtils.GlitchTile)
-			{
-				if (UserHandler.Instance.Settings.LockGlitchTile)
-					SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] = Math.Min(SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.GlitchTileMax);
-
-				if (App.Instance.MainWindow != null)
-					App.Instance.MainWindow.WarningGlitchTile.Visibility = SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? Visibility.Visible : Visibility.Collapsed;
-			}
-			else if (tile == TileUtils.SpawnTile)
+			if (tile == TileUtils.SpawnTile)
 			{
 				if (UserHandler.Instance.Settings.LockSpawnTile)
 					SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] = Math.Max(SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.TileMin);

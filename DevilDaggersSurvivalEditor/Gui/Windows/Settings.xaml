@@ -32,7 +32,6 @@
 
 		<Label FontWeight="Bold" FontSize="14">Arena</Label>
 		<StackPanel Style="{StaticResource PaddingStackPanel}" Background="{StaticResource Gray3}">
-			<CheckBox Name="GlitchTileCheckBox" IsChecked="{Binding LockGlitchTile}" />
 			<CheckBox IsChecked="{Binding LockSpawnTile}">Prevent spawn tile to be void.</CheckBox>
 			<CheckBox IsChecked="{Binding AskToConfirmArenaGeneration}">Ask to confirm arena generation.</CheckBox>
 		</StackPanel>

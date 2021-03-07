@@ -1,6 +1,5 @@
 ﻿using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.User;
-using DevilDaggersSurvivalEditor.Utils;
 using Ookii.Dialogs.Wpf;
 using System.Diagnostics;
 using System.IO;
@@ -13,8 +12,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		public SettingsWindow()
 		{
 			InitializeComponent();
-
-			GlitchTileCheckBox.Content = $"Lock tile {TileUtils.GlitchTile} to remain within the safe range.";
 
 			LabelDevilDaggersRootFolder.Content = UserHandler.Instance.Settings.DevilDaggersRootFolder;
 
