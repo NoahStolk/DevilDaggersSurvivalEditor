@@ -114,7 +114,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			Dispatcher.Invoke(() =>
 			{
-				App.Instance.MainWindow!.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
+				App.Instance.MainWindow?.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength);
 
 				double seconds = 0;
 

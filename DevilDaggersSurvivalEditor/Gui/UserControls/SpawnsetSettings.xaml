@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="DevilDaggersSurvivalEditor.Gui.UserControls.SpawnsetSettingsUserControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="151">
+	<StackPanel>
+		<Grid Style="{StaticResource SpawnsetHeader}">
+			<Label Style="{StaticResource BoldLabel}">Player settings</Label>
+		</Grid>
+		<StackPanel Style="{StaticResource Section}">
+			<Label>Hand</Label>
+			<ComboBox Name="ComboBoxHand" SelectionChanged="UpdateHand" />
+			<Label>Additional gems</Label>
+			<TextBox Name="TextBoxAdditionalGems" TextChanged="UpdateAdditionalGems">0</TextBox>
+		</StackPanel>
+		<Grid Style="{StaticResource SpawnsetHeader}">
+			<Label Style="{StaticResource BoldLabel}">Timer settings</Label>
+		</Grid>
+		<StackPanel Style="{StaticResource Section}">
+			<Label>Timer start</Label>
+			<TextBox Name="TextBoxTimerStart" TextChanged="UpdateTimerStart">0.0000</TextBox>
+		</StackPanel>
+	</StackPanel>
+</UserControl>

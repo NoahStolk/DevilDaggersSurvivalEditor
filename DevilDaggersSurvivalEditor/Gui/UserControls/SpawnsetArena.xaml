@@ -10,9 +10,10 @@
 		<ImageBrush x:Key="NormalMap" />
 	</UserControl.Resources>
 	<StackPanel>
-		<Grid Style="{StaticResource SpawnsetHeader}" Width="408" HorizontalAlignment="Left">
+		<Grid Style="{StaticResource SpawnsetHeader}" HorizontalAlignment="Left">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
+				<ColumnDefinition Width="204" />
+				<ColumnDefinition Width="204" />
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 			<StackPanel Orientation="Horizontal" Grid.Column="0">
@@ -23,6 +24,7 @@
 				<Label>Height:</Label>
 				<Label Name="TileHeightLabel">-</Label>
 			</StackPanel>
+			<Label Grid.Column="2" Style="{StaticResource BoldLabel}">Arena settings</Label>
 		</Grid>
 		<Grid>
 			<Grid.ColumnDefinitions>
@@ -70,100 +72,96 @@
 				</Grid>
 			</StackPanel>
 			<StackPanel Grid.Column="1">
-				<Label Style="{StaticResource BoldLabel}">Settings</Label>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Shrink start</Label>
-					<TextBox Grid.Column="1" Name="TextBoxShrinkStart" TextChanged="UpdateShrinkStart" />
+				<StackPanel Style="{StaticResource Section}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0">Shrink start</Label>
+						<TextBox Grid.Column="1" Name="TextBoxShrinkStart" TextChanged="UpdateShrinkStart" />
+					</Grid>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0">Shrink end</Label>
+						<TextBox Grid.Column="1" Name="TextBoxShrinkEnd" TextChanged="UpdateShrinkEnd" />
+					</Grid>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0">Shrink rate</Label>
+						<TextBox Grid.Column="1" Name="TextBoxShrinkRate" TextChanged="UpdateShrinkRate" />
+					</Grid>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0">Brightness</Label>
+						<TextBox Grid.Column="1" Name="TextBoxBrightness" TextChanged="UpdateBrightness" />
+					</Grid>
+				</StackPanel>
+
+				<Grid Style="{StaticResource SpawnsetHeader}">
+					<Label Style="{StaticResource BoldLabel}">Arena shrink preview</Label>
 				</Grid>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Shrink end</Label>
-					<TextBox Grid.Column="1" Name="TextBoxShrinkEnd" TextChanged="UpdateShrinkEnd" />
-				</Grid>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Shrink rate</Label>
-					<TextBox Grid.Column="1" Name="TextBoxShrinkRate" TextChanged="UpdateShrinkRate" />
-				</Grid>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Brightness</Label>
-					<TextBox Grid.Column="1" Name="TextBoxBrightness" TextChanged="UpdateBrightness" />
-				</Grid>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Hand</Label>
-					<ComboBox Grid.Column="1" Name="ComboBoxHand" SelectionChanged="UpdateHand" />
-				</Grid>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Additional gems</Label>
-					<TextBox Grid.Column="1" Name="TextBoxAdditionalGems" TextChanged="UpdateAdditionalGems" />
-				</Grid>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Timer start</Label>
-					<TextBox Grid.Column="1" Name="TextBoxTimerStart" TextChanged="UpdateTimerStart" />
+				<StackPanel Style="{StaticResource Section}">
+					<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+				</StackPanel>
+
+				<Grid Style="{StaticResource SpawnsetHeader}">
+					<Label Style="{StaticResource BoldLabel}">Arena presets</Label>
 				</Grid>
 
-				<Label Style="{StaticResource BoldLabel}">Shrink preview</Label>
-				<Slider Name="ShrinkCurrentSlider" Minimum="0" Maximum="1200" ValueChanged="ShrinkCurrentSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+				<StackPanel Style="{StaticResource Section}">
+					<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
+					<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
+					<CheckBox Name="ClearPreviousCheckBox" IsChecked="True" IsEnabled="False">Clear previous tiles</CheckBox>
+					<Button Click="GenerateButton_Click">Generate</Button>
+				</StackPanel>
 
-				<Label Style="{StaticResource BoldLabel}">Arena presets</Label>
-				<ComboBox Name="ComboBoxArenaPreset" SelectionChanged="ComboBoxArenaPreset_SelectionChanged" />
-				<Button Click="ArenaPresetConfigureButton_Click" Name="ConfigureButton">Configure</Button>
-				<CheckBox Name="ClearPreviousCheckBox" IsChecked="True" IsEnabled="False">Clear previous tiles</CheckBox>
-				<Button Click="GenerateButton_Click">Generate</Button>
-
-				<Label Style="{StaticResource BoldLabel}">Arena tools</Label>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0">
-						<Button Click="RotateClockwise_Click" ToolTip="Rotate clockwise">
-							<Image Source="/Content/Images/Buttons/ArenaRotateClockwise.png" Stretch="None" />
-						</Button>
-						<Button Click="FlipHorizontal_Click" ToolTip="Flip horizontally">
-							<Image Source="/Content/Images/Buttons/ArenaFlipHorizontally.png" Stretch="None" />
-						</Button>
-					</StackPanel>
-					<StackPanel Grid.Column="1">
-						<Button Click="RotateCounterClockwise_Click" ToolTip="Rotate counter-clockwise">
-							<Image Source="/Content/Images/Buttons/ArenaRotateCounterClockwise.png" Stretch="None" />
-						</Button>
-						<Button Click="FlipVertical_Click" ToolTip="Flip vertically">
-							<Image Source="/Content/Images/Buttons/ArenaFlipVertically.png" Stretch="None" />
-						</Button>
-					</StackPanel>
+				<Grid Style="{StaticResource SpawnsetHeader}">
+					<Label Style="{StaticResource BoldLabel}">Arena tools</Label>
 				</Grid>
 
-				<Label Style="{StaticResource BoldLabel}">Tile tools</Label>
-				<Button Name="RoundHeightsButton" Click="RoundHeights_Click" IsEnabled="False">Round heights</Button>
-				<Button Name="RandomizeHeightsButton" Click="RandomizeHeights_Click" IsEnabled="False">Randomize heights</Button>
+				<StackPanel Style="{StaticResource Section}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0">
+							<Button Click="RotateClockwise_Click" ToolTip="Rotate clockwise">
+								<Image Source="/Content/Images/Buttons/ArenaRotateClockwise.png" Stretch="None" />
+							</Button>
+							<Button Click="FlipHorizontal_Click" ToolTip="Flip horizontally">
+								<Image Source="/Content/Images/Buttons/ArenaFlipHorizontally.png" Stretch="None" />
+							</Button>
+						</StackPanel>
+						<StackPanel Grid.Column="1">
+							<Button Click="RotateCounterClockwise_Click" ToolTip="Rotate counter-clockwise">
+								<Image Source="/Content/Images/Buttons/ArenaRotateCounterClockwise.png" Stretch="None" />
+							</Button>
+							<Button Click="FlipVertical_Click" ToolTip="Flip vertically">
+								<Image Source="/Content/Images/Buttons/ArenaFlipVertically.png" Stretch="None" />
+							</Button>
+						</StackPanel>
+					</Grid>
+				</StackPanel>
+
+				<Grid Style="{StaticResource SpawnsetHeader}">
+					<Label Style="{StaticResource BoldLabel}">Tile tools</Label>
+				</Grid>
+
+				<StackPanel Style="{StaticResource Section}">
+					<Button Name="RoundHeightsButton" Click="RoundHeights_Click" IsEnabled="False">Round heights</Button>
+					<Button Name="RandomizeHeightsButton" Click="RandomizeHeights_Click" IsEnabled="False">Randomize heights</Button>
+				</StackPanel>
 			</StackPanel>
 		</Grid>
 	</StackPanel>

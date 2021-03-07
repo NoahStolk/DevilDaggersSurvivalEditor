@@ -40,8 +40,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				SpawnsetHandler.Instance.Spawnset = spawnset;
 
-				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
-				App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
+				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnset();
+				App.Instance.MainWindow?.SpawnsetArena.UpdateSpawnset();
+				App.Instance.MainWindow?.SpawnsetSettings.UpdateSpawnset();
 
 				SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
 			}

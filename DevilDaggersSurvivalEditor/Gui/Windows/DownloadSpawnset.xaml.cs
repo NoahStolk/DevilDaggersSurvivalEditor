@@ -117,8 +117,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				Dispatcher.Invoke(() =>
 				{
-					App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
-					App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
+					App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnset();
+					App.Instance.MainWindow?.SpawnsetArena.UpdateSpawnset();
+					App.Instance.MainWindow?.SpawnsetSettings.UpdateSpawnset();
 
 					ReplaceSurvivalAction action = UserHandler.Instance.Settings.ReplaceSurvivalAction;
 					if (action == ReplaceSurvivalAction.Never)

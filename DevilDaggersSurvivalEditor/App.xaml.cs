@@ -48,7 +48,13 @@ namespace DevilDaggersSurvivalEditor
 		}
 
 		public void UpdateMainWindowTitle()
-			=> Dispatcher.Invoke(() => MainWindow!.Title = $"{ApplicationDisplayName} {LocalVersion} - {SpawnsetHandler.Instance.SpawnsetFileName}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : string.Empty)}");
+		{
+			Dispatcher.Invoke(() =>
+			{
+				if (MainWindow != null)
+					MainWindow.Title = $"{ApplicationDisplayName} {LocalVersion} - {SpawnsetHandler.Instance.SpawnsetFileName}{(SpawnsetHandler.Instance.HasUnsavedChanges ? "*" : string.Empty)}";
+			});
+		}
 
 		/// <summary>
 		/// Logs the error message (and <see cref="Exception" /> if there is one).

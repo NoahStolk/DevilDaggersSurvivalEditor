@@ -65,8 +65,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles(),
 			};
 
-			App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
-			App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
+			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnset();
+			App.Instance.MainWindow?.SpawnsetArena.UpdateSpawnset();
+			App.Instance.MainWindow?.SpawnsetSettings.UpdateSpawnset();
 
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(new spawnset)", string.Empty);
 		}
@@ -88,8 +89,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				SpawnsetHandler.Instance.Spawnset = spawnset;
 
-				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
-				App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
+				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnset();
+				App.Instance.MainWindow?.SpawnsetArena.UpdateSpawnset();
+				App.Instance.MainWindow?.SpawnsetSettings.UpdateSpawnset();
 
 				SpawnsetHandler.Instance.UpdateSpawnsetState(Path.GetFileName(dialog.FileName), dialog.FileName);
 			}
@@ -109,8 +111,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			SpawnsetHandler.Instance.Spawnset = spawnset;
 
-			App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
-			App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
+			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnset();
+			App.Instance.MainWindow?.SpawnsetArena.UpdateSpawnset();
+			App.Instance.MainWindow?.SpawnsetSettings.UpdateSpawnset();
 
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(new spawnset)", string.Empty);
 		}
@@ -147,8 +150,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			SpawnsetHandler.Instance.Spawnset = spawnset;
 
-			App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnset();
-			App.Instance.MainWindow!.SpawnsetArena.UpdateSpawnset();
+			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnset();
+			App.Instance.MainWindow?.SpawnsetArena.UpdateSpawnset();
+			App.Instance.MainWindow?.SpawnsetSettings.UpdateSpawnset();
 
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
 		}
@@ -172,11 +176,11 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				Dispatcher.Invoke(() =>
 				{
-					App.Instance.MainWindow!.UpdateWarningDevilDaggersRootFolder();
-					App.Instance.MainWindow!.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
-					App.Instance.MainWindow!.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
-					App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnControls(true);
-					App.Instance.MainWindow!.SpawnsetSpawns.EndLoopPreview.Update();
+					App.Instance.MainWindow?.UpdateWarningDevilDaggersRootFolder();
+					App.Instance.MainWindow?.SpawnsetArena.UpdateTile(TileUtils.GlitchTile);
+					App.Instance.MainWindow?.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
+					App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControls(true);
+					App.Instance.MainWindow?.SpawnsetSpawns.EndLoopPreview.Update();
 				});
 			}
 		}

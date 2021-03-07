@@ -1,6 +1,5 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Utils;
-using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Enumerators;
@@ -75,11 +74,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					ArenaRelease();
 			};
 			mainLoop.Start();
-
-			for (int i = 0; i < 4; i++)
-				ComboBoxHand.Items.Add($"Level {i + 1}");
-
-			ComboBoxHand.SelectedIndex = 0;
 		}
 
 		private void UpdateSelectionEffectContinuousValues()
@@ -262,30 +256,13 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			TextBoxShrinkEnd.Text = SpawnsetHandler.Instance.Spawnset.ShrinkEnd.ToString(CultureInfo.InvariantCulture);
 			TextBoxShrinkRate.Text = SpawnsetHandler.Instance.Spawnset.ShrinkRate.ToString(CultureInfo.InvariantCulture);
 			TextBoxBrightness.Text = SpawnsetHandler.Instance.Spawnset.Brightness.ToString(CultureInfo.InvariantCulture);
-			ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
-			TextBoxAdditionalGems.Text = SpawnsetHandler.Instance.Spawnset.AdditionalGems.ToString(CultureInfo.InvariantCulture);
-			TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString(CultureInfo.InvariantCulture);
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
 		}
 
-		private static bool ValidatePositiveFloatTextBox(TextBox textBox)
-		{
-			bool isValid = float.TryParse(textBox.Text, out float result) && result >= 0;
-			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
-			return isValid;
-		}
-
-		private static bool ValidatePositiveIntTextBox(TextBox textBox)
-		{
-			bool isValid = int.TryParse(textBox.Text, out int result) && result >= 0;
-			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
-			return isValid;
-		}
-
 		private void UpdateShrinkStart(object sender, TextChangedEventArgs e)
 		{
-			if (ValidatePositiveFloatTextBox(TextBoxShrinkStart))
+			if (TextBoxShrinkStart.ValidatePositiveFloatTextBox())
 			{
 				SpawnsetHandler.Instance.Spawnset.ShrinkStart = float.Parse(TextBoxShrinkStart.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -307,7 +284,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateShrinkEnd(object sender, TextChangedEventArgs e)
 		{
-			if (ValidatePositiveFloatTextBox(TextBoxShrinkEnd))
+			if (TextBoxShrinkEnd.ValidatePositiveFloatTextBox())
 			{
 				SpawnsetHandler.Instance.Spawnset.ShrinkEnd = float.Parse(TextBoxShrinkEnd.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -329,7 +306,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateShrinkRate(object sender, TextChangedEventArgs e)
 		{
-			if (ValidatePositiveFloatTextBox(TextBoxShrinkRate))
+			if (TextBoxShrinkRate.ValidatePositiveFloatTextBox())
 			{
 				SpawnsetHandler.Instance.Spawnset.ShrinkRate = float.Parse(TextBoxShrinkRate.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -341,51 +318,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateBrightness(object sender, TextChangedEventArgs e)
 		{
-			if (ValidatePositiveFloatTextBox(TextBoxBrightness))
+			if (TextBoxBrightness.ValidatePositiveFloatTextBox())
 			{
 				SpawnsetHandler.Instance.Spawnset.Brightness = float.Parse(TextBoxBrightness.Text, CultureInfo.InvariantCulture);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
-			}
-		}
-
-		private void UpdateHand(object sender, SelectionChangedEventArgs e)
-		{
-			if (App.Instance.MainWindow != null)
-			{
-				SpawnsetHandler.Instance.Spawnset.Hand = (byte)(ComboBoxHand.SelectedIndex + 1);
-				SpawnsetHandler.Instance.HasUnsavedChanges = true;
-
-				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnControls(true);
-			}
-		}
-
-		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)
-		{
-			if (ValidatePositiveIntTextBox(TextBoxAdditionalGems))
-			{
-				int max = SpawnsetHandler.Instance.Spawnset.Hand switch
-				{
-					2 => 59,
-					3 => 149,
-					4 => 1000000,
-					_ => 9,
-				};
-
-				SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text, CultureInfo.InvariantCulture), 0, max);
-				SpawnsetHandler.Instance.HasUnsavedChanges = true;
-
-				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnControls(true);
-			}
-		}
-
-		private void UpdateTimerStart(object sender, TextChangedEventArgs e)
-		{
-			if (ValidatePositiveFloatTextBox(TextBoxTimerStart))
-			{
-				SpawnsetHandler.Instance.Spawnset.TimerStart = float.Parse(TextBoxTimerStart.Text, CultureInfo.InvariantCulture);
-				SpawnsetHandler.Instance.HasUnsavedChanges = true;
-
-				App.Instance.MainWindow!.SpawnsetSpawns.UpdateSpawnControls(true);
 			}
 		}
 
@@ -448,14 +384,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				if (UserHandler.Instance.Settings.LockGlitchTile)
 					SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] = Math.Min(SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.GlitchTileMax);
 
-				App.Instance.MainWindow!.WarningGlitchTile.Visibility = SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? Visibility.Visible : Visibility.Collapsed;
+				if (App.Instance.MainWindow != null)
+					App.Instance.MainWindow.WarningGlitchTile.Visibility = SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] > TileUtils.GlitchTileMax ? Visibility.Visible : Visibility.Collapsed;
 			}
 			else if (tile == TileUtils.SpawnTile)
 			{
 				if (UserHandler.Instance.Settings.LockSpawnTile)
 					SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] = Math.Max(SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y], TileUtils.TileMin);
 
-				App.Instance.MainWindow!.WarningVoidSpawn.Visibility = SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;
+				if (App.Instance.MainWindow != null)
+					App.Instance.MainWindow.WarningVoidSpawn.Visibility = SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin ? Visibility.Visible : Visibility.Collapsed;
 			}
 
 			// Set tile color.
