@@ -48,8 +48,8 @@ The header buffer for the default spawnset looks like this:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `04000000` | 32-bit integer | Spawn version | 4 |
-| `09000000` | 32-bit integer | World version | 9 |
+| `04000000` | 32-bit signed integer | Spawn version | 4 |
+| `09000000` | 32-bit signed integer | World version | 9 |
 | `0000A041` | 32-bit floating point | Shrink end radius | 20 |
 | `01004842` | 32-bit floating point | Shrink start radius | 50 |
 | `CDCCCC3C` | 32-bit floating point | Shrink rate | 0.025 |
@@ -83,7 +83,7 @@ The spawns header buffer for the default spawnset looks like this:
 
 ### Spawns buffer
 
-This is the only part of the file with a variable length. It represents the list of spawns. Each spawn buffer consists of 28 bytes that include the enemy type as a 32-bit integer and the delay value as a 32-bit floating point number. The other bytes in each of the spawn buffers seem to be the same for all of them and appear to have no meaning.
+This is the only part of the file with a variable length. It represents the list of spawns. Each spawn buffer consists of 28 bytes that include the enemy type as a 32-bit signed integer and the delay value as a 32-bit floating point number. The other bytes in each of the spawn buffers seem to be the same for all of them and appear to have no meaning.
 
 These are the first 3 spawns in the original game:
 
@@ -171,5 +171,5 @@ Fixed-length buffer of 9 bytes. It was added to the game's V3.1 update which rel
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
 | `04` | Byte | Initial hand upgrade | 4 |
-| `05000000` | 32-bit integer | Additional gems | 5 |
+| `05000000` | 32-bit signed integer | Additional gems | 5 |
 | `0000A041` | 32-bit floating point | Timer start | 20 |
