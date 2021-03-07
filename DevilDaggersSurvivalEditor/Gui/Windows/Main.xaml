@@ -8,16 +8,16 @@
 		mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" Closing="Window_Closing" Loaded="Window_Loaded">
 	<Window.CommandBindings>
-		<CommandBinding Command="windows:MainWindow.New" CanExecute="CanExecute" Executed="New_Executed" />
-		<CommandBinding Command="windows:MainWindow.Open" CanExecute="CanExecute" Executed="Open_Executed" />
-		<CommandBinding Command="windows:MainWindow.OpenWeb" CanExecute="CanExecute" Executed="OpenWeb_Executed" />
-		<CommandBinding Command="windows:MainWindow.OpenDefault" CanExecute="CanExecute" Executed="OpenDefault_Executed" />
-		<CommandBinding Command="windows:MainWindow.Save" CanExecute="CanExecute" Executed="Save_Executed" />
-		<CommandBinding Command="windows:MainWindow.SaveAs" CanExecute="CanExecute" Executed="SaveAs_Executed" />
-		<CommandBinding Command="windows:MainWindow.OpenMod" CanExecute="CanExecute" Executed="OpenMod_Executed" />
-		<CommandBinding Command="windows:MainWindow.Replace" CanExecute="CanExecute" Executed="Replace_Executed" />
-		<CommandBinding Command="windows:MainWindow.Delete" CanExecute="CanExecute" Executed="Delete_Executed" />
-		<CommandBinding Command="windows:MainWindow.Exit" CanExecute="CanExecute" Executed="Exit_Executed" />
+		<CommandBinding Command="windows:MainWindow.NewCommand" CanExecute="CanExecute" Executed="New_Executed" />
+		<CommandBinding Command="windows:MainWindow.OpenCommand" CanExecute="CanExecute" Executed="Open_Executed" />
+		<CommandBinding Command="windows:MainWindow.OpenWebCommand" CanExecute="CanExecute" Executed="OpenWeb_Executed" />
+		<CommandBinding Command="windows:MainWindow.OpenDefaultCommand" CanExecute="CanExecute" Executed="OpenDefault_Executed" />
+		<CommandBinding Command="windows:MainWindow.SaveCommand" CanExecute="CanExecute" Executed="Save_Executed" />
+		<CommandBinding Command="windows:MainWindow.SaveAsCommand" CanExecute="CanExecute" Executed="SaveAs_Executed" />
+		<CommandBinding Command="windows:MainWindow.OpenModCommand" CanExecute="CanExecute" Executed="OpenMod_Executed" />
+		<CommandBinding Command="windows:MainWindow.ReplaceCommand" CanExecute="CanExecute" Executed="Replace_Executed" />
+		<CommandBinding Command="windows:MainWindow.DeleteCommand" CanExecute="CanExecute" Executed="Delete_Executed" />
+		<CommandBinding Command="windows:MainWindow.ExitCommand" CanExecute="CanExecute" Executed="Exit_Executed" />
 	</Window.CommandBindings>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -27,18 +27,18 @@
 		<DockPanel Grid.Row="0">
 			<Menu Name="MenuPanel" DockPanel.Dock="Top">
 				<MenuItem Header="File">
-					<MenuItem Command="windows:MainWindow.New" />
-					<MenuItem Command="windows:MainWindow.Open" />
-					<MenuItem Command="windows:MainWindow.OpenWeb" />
-					<MenuItem Command="windows:MainWindow.OpenDefault" />
-					<MenuItem Command="windows:MainWindow.Save" />
-					<MenuItem Command="windows:MainWindow.SaveAs" />
+					<MenuItem Command="windows:MainWindow.NewCommand" />
+					<MenuItem Command="windows:MainWindow.OpenCommand" />
+					<MenuItem Command="windows:MainWindow.OpenWebCommand" />
+					<MenuItem Command="windows:MainWindow.OpenDefaultCommand" />
+					<MenuItem Command="windows:MainWindow.SaveCommand" />
+					<MenuItem Command="windows:MainWindow.SaveAsCommand" />
 					<Separator />
-					<MenuItem Command="windows:MainWindow.OpenMod" />
-					<MenuItem Command="windows:MainWindow.Replace" />
-					<MenuItem Command="windows:MainWindow.Delete" />
+					<MenuItem Command="windows:MainWindow.OpenModCommand" />
+					<MenuItem Command="windows:MainWindow.ReplaceCommand" />
+					<MenuItem Command="windows:MainWindow.DeleteCommand" />
 					<Separator />
-					<MenuItem Command="windows:MainWindow.Exit" />
+					<MenuItem Command="windows:MainWindow.ExitCommand" />
 				</MenuItem>
 				<MenuItem Header="Options">
 					<MenuItem Header="Settings" Click="Settings_Click" />

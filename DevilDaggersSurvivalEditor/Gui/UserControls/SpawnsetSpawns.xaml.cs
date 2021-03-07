@@ -17,9 +17,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class SpawnsetSpawnsUserControl : UserControl
 	{
-		public static readonly RoutedUICommand CopyCommand = new("Copy", "Copy", typeof(SpawnsetSpawnsUserControl), new() { new KeyGesture(Key.C, ModifierKeys.Control) });
-		public static readonly RoutedUICommand PasteCommand = new("Paste", "Paste", typeof(SpawnsetSpawnsUserControl), new() { new KeyGesture(Key.V, ModifierKeys.Control) });
-		public static readonly RoutedUICommand DeleteCommand = new("Delete", "Delete", typeof(SpawnsetSpawnsUserControl), new() { new KeyGesture(Key.Delete) });
+		public static readonly RoutedUICommand CopyCommand = new("Copy", nameof(CopyCommand), typeof(SpawnsetSpawnsUserControl), new() { new KeyGesture(Key.C, ModifierKeys.Control) });
+		public static readonly RoutedUICommand PasteCommand = new("Paste", nameof(PasteCommand), typeof(SpawnsetSpawnsUserControl), new() { new KeyGesture(Key.V, ModifierKeys.Control) });
+		public static readonly RoutedUICommand DeleteCommand = new("Delete", nameof(DeleteCommand), typeof(SpawnsetSpawnsUserControl), new() { new KeyGesture(Key.Delete) });
 
 		private const int _maxSpawns = 10000;
 
