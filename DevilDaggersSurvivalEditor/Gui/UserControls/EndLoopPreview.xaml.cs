@@ -17,6 +17,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private int _waveTextBoxValue = 2;
 		private int _wave = 2;
 
+		private readonly List<EndLoopSpawnUserControl> _spawnControls = new();
+
 		public EndLoopPreviewUserControl()
 		{
 			InitializeComponent();
@@ -40,6 +42,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public void Update(double seconds, int totalGems)
 		{
+			_spawnControls.Clear();
 			EndLoopSpawns.Items.Clear();
 
 			if (!UserHandler.Instance.Settings.EnableEndLoopPreview)
@@ -80,6 +83,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 							enemy: enemy,
 							gigaBecomesGhost: gigaBecomesGhost,
 							timerStart: SpawnsetHandler.Instance.Spawnset.TimerStart);
+						_spawnControls.Add(spawnControl);
 						EndLoopSpawns.Items.Add(spawnControl);
 					}
 
