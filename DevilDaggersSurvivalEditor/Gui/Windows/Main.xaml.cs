@@ -47,6 +47,21 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 		}
 
+		private void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+
+		private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			SpawnsetHandler.Instance.FileSave();
+		}
+
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			if (NetworkHandler.Instance.Tool != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
@@ -74,41 +89,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			WarningEndLoopLength.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
 			WarningEndLoopLength.Text = visible ? $"The end loop is only {loopLength:0.0000} seconds long, which will probably result in Devil Daggers lagging and becoming unstable." : string.Empty;
-		}
-
-		private void Window_KeyDown(object sender, KeyEventArgs e)
-		{
-			if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
-			{
-				switch (e.Key)
-				{
-					case Key.S:
-						if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
-							SpawnsetHandler.Instance.FileSaveAs();
-						else
-							SpawnsetHandler.Instance.FileSave();
-						break;
-					case Key.C:
-						SpawnsetSpawns.Copy();
-						break;
-					case Key.V:
-						SpawnsetSpawns.PasteAdd();
-						break;
-					case Key.R:
-						SpawnsetHandler.Instance.SurvivalModReplace();
-						break;
-					case Key.D:
-						SpawnsetHandler.SurvivalModDelete();
-						break;
-				}
-			}
-
-			switch (e.Key)
-			{
-				case Key.Delete:
-					SpawnsetSpawns.Delete();
-					break;
-			}
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
