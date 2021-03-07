@@ -146,6 +146,32 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			});
 		}
 
+		public void UpdateSpawnControlGems()
+		{
+			Dispatcher.Invoke(() =>
+			{
+				int totalGems = SpawnsetHandler.Instance.Spawnset.Hand switch
+				{
+					2 => 10,
+					3 => 70,
+					4 => 220,
+					_ => 0,
+				};
+				totalGems += SpawnsetHandler.Instance.Spawnset.AdditionalGems;
+				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+				{
+					totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
+
+					SpawnUserControl spawnControl = _spawnControls[kvp.Key];
+					spawnControl.TotalGems = totalGems;
+					spawnControl.LabelTotalGems.Content = totalGems.ToString(CultureInfo.InvariantCulture);
+				}
+
+				// TODO:
+				// EndLoopPreview.Update(seconds, totalGems);
+			});
+		}
+
 		private List<int> GetSpawnSelectionIndices()
 			=> (from object obj in ListBoxSpawns.SelectedItems select ListBoxSpawns.Items.IndexOf(obj)).ToList();
 

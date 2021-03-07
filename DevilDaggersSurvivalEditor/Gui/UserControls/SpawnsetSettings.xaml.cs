@@ -23,7 +23,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.Spawnset.Hand = (byte)(ComboBoxHand.SelectedIndex + 1);
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControls(true);
+			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
 		}
 
 		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)
@@ -41,7 +41,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text, CultureInfo.InvariantCulture), 0, max);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
-				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControls(true);
+				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
 			}
 		}
 
