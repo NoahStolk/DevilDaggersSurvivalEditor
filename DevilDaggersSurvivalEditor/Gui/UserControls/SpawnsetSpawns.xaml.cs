@@ -56,7 +56,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 				{
-					SpawnUserControl spawnControl = new(kvp.Value, SpawnsetHandler.Instance.Spawnset.TimerStart);
+					SpawnUserControl spawnControl = new(kvp.Value);
 					_spawnControls.Add(spawnControl);
 					ListBoxSpawns.Items.Add(spawnControl);
 				}
@@ -69,7 +69,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.Spawnset.Spawns[SpawnsetHandler.Instance.Spawnset.Spawns.Count] = spawn;
 
-			SpawnUserControl spawnControl = new(spawn, SpawnsetHandler.Instance.Spawnset.TimerStart);
+			SpawnUserControl spawnControl = new(spawn);
 			_spawnControls.Add(spawnControl);
 			ListBoxSpawns.Items.Add(spawnControl);
 		}
@@ -78,7 +78,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			SpawnsetHandler.Instance.Spawnset.Spawns[index] = spawn;
 
-			SpawnUserControl spawnControl = new(spawn, SpawnsetHandler.Instance.Spawnset.TimerStart);
+			SpawnUserControl spawnControl = new(spawn);
 			_spawnControls.Insert(index, spawnControl);
 			ListBoxSpawns.Items.Insert(index, spawnControl);
 		}
@@ -134,7 +134,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					SpawnUserControl spawnControl = _spawnControls[kvp.Key];
 					spawnControl.Id = kvp.Key + 1;
 					spawnControl.Seconds = seconds;
-					spawnControl.TimerStart = SpawnsetHandler.Instance.Spawnset.TimerStart;
 					spawnControl.TotalGems = totalGems;
 					spawnControl.IsInLoop = kvp.Key >= _endLoopStartIndex;
 
