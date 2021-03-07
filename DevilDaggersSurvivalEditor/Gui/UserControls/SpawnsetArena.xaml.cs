@@ -657,7 +657,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				ConfirmWindow confirmWindow = new("Generate arena", "Are you sure you want to overwrite the arena with this preset? This cannot be undone.", true);
 				confirmWindow.ShowDialog();
 
-				if (confirmWindow.IsConfirmed)
+				if (confirmWindow.IsConfirmed == true)
 				{
 					if (confirmWindow.DoNotAskAgain)
 						UserHandler.Instance.Settings.AskToConfirmArenaGeneration = false;

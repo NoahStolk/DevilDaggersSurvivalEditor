@@ -58,7 +58,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void FileNew_Click(object sender, RoutedEventArgs e)
 		{
-			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
+			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
+				return;
 
 			SpawnsetHandler.Instance.Spawnset = new()
 			{
@@ -74,7 +75,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void FileOpen_Click(object sender, RoutedEventArgs e)
 		{
-			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
+			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
+				return;
 
 			OpenFileDialog dialog = new();
 			bool? result = dialog.ShowDialog();
@@ -99,7 +101,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void FileOpenDefault_Click(object sender, RoutedEventArgs e)
 		{
-			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
+			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
+				return;
 
 			using Stream stream = App.Assembly.GetManifestResourceStream("DevilDaggersSurvivalEditor.Content.survival") ?? throw new("Could not retrieve default survival file resource stream.");
 			using BinaryReader reader = new(stream);
@@ -120,7 +123,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void FileOpenFromWeb_Click(object sender, RoutedEventArgs e)
 		{
-			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
+			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
+				return;
 
 			DownloadSpawnsetWindow window = new();
 			window.ShowDialog();
@@ -134,7 +138,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void SurvivalModOpen_Click(object sender, RoutedEventArgs e)
 		{
-			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
+			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
+				return;
 
 			if (!UserHandler.Instance.Settings.SurvivalFileExists)
 			{

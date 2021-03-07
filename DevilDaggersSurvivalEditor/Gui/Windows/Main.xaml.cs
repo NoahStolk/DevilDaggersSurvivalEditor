@@ -113,7 +113,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
+			e.Cancel = SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 		}
 	}
 }

@@ -47,16 +47,22 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 			App.Instance.UpdateMainWindowTitle();
 		}
 
-		public void ProceedWithUnsavedChanges()
+		/// <summary>
+		/// Asks the user to save the file before proceeding.
+		/// </summary>
+		/// <returns><see langword="true"/> if the following action should be cancelled.</returns>
+		public bool ProceedWithUnsavedChanges()
 		{
 			if (!HasUnsavedChanges)
-				return;
+				return false;
 
 			ConfirmWindow confirmWindow = new("Save changes?", "The current spawnset has unsaved changes. Save before proceeding?", false);
 			confirmWindow.ShowDialog();
 
-			if (confirmWindow.IsConfirmed)
+			if (confirmWindow.IsConfirmed == true)
 				FileSave();
+
+			return confirmWindow.IsConfirmed == null;
 		}
 
 		public void FileSave()
@@ -87,7 +93,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 				ConfirmWindow confirmWindow = new("Replace 'survival' mod file", "Are you sure you want to replace the current 'survival' mod file with this spawnset?", true);
 				confirmWindow.ShowDialog();
 
-				if (confirmWindow.IsConfirmed)
+				if (confirmWindow.IsConfirmed == true)
 				{
 					if (confirmWindow.DoNotAskAgain)
 						UserHandler.Instance.Settings.AskToReplaceSurvivalFile = false;
@@ -114,7 +120,7 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 				ConfirmWindow confirmWindow = new("Delete 'survival' mod file", "Are you sure you want to delete the current 'survival' mod file? This means the original Devil Daggers V3 spawnset will be re-enabled.", true);
 				confirmWindow.ShowDialog();
 
-				if (confirmWindow.IsConfirmed)
+				if (confirmWindow.IsConfirmed == true)
 				{
 					if (confirmWindow.DoNotAskAgain)
 						UserHandler.Instance.Settings.AskToDeleteSurvivalFile = false;
