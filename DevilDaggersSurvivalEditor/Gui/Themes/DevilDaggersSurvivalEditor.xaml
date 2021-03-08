@@ -12,6 +12,14 @@
 	<Style TargetType="{x:Type windows:SettingsWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:SwitchEnemyTypeWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 
+	<Style TargetType="Image" x:Key="Logo">
+		<Style.Setters>
+			<Setter Property="Width" Value="96" />
+			<Setter Property="Source" Value="/Content/Images/Icon/Icon.png" />
+			<Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
+		</Style.Setters>
+	</Style>
+
 	<Style TargetType="Grid" x:Key="SpawnsetHeader">
 		<Style.Setters>
 			<Setter Property="Margin" Value="7,8,0,0" />

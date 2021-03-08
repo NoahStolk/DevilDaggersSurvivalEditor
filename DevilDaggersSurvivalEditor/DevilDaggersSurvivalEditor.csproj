@@ -6,7 +6,7 @@
     <Version>2.15.0.0</Version>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <ApplicationIcon>Icon24.ico</ApplicationIcon>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
   <ItemGroup>
@@ -47,8 +47,7 @@
     <Resource Include="Content\Images\SplashScreens\7.png" />
     <Resource Include="Content\Images\SplashScreens\8.png" />
     <Resource Include="Content\Images\SplashScreens\9.png" />
-    <Resource Include="Content\Images\Icon\Icon24.png" />
-    <Resource Include="Content\Images\Icon\Icon32.png" />
+    <Resource Include="Content\Images\Icon\Icon.png" />
     <Resource Include="Content\Images\Buttons\SpawnsetSort.png" />
     <Resource Include="Content\Images\Buttons\ArenaFlipHorizontally.png" />
     <Resource Include="Content\Images\Buttons\ArenaFlipVertically.png" />
