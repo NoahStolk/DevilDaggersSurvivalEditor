@@ -10,15 +10,23 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class EndLoopSpawnUserControl : UserControl
 	{
-		public EndLoopSpawnUserControl(int id, double seconds, double delay, int totalGems, Enemy? enemy, bool gigaBecomesGhost)
+		public EndLoopSpawnUserControl()
+			=> InitializeComponent();
+
+		public void SetId(int id)
+			=> LabelId.Content = id;
+
+		public void SetSeconds(double seconds)
+			=> LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
+
+		public void SetDelay(double delay)
+			=> LabelDelay.Content = SpawnUtils.ToFramedGameTimeString(delay);
+
+		public void SetTotalGems(int totalGems)
+			=> LabelTotalGems.Content = totalGems;
+
+		public void SetEnemy(Enemy? enemy, bool gigaBecomesGhost)
 		{
-			InitializeComponent();
-
-			LabelId.Content = id;
-			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
-			LabelDelay.Content = SpawnUtils.ToFramedGameTimeString(delay);
-			LabelTotalGems.Content = totalGems;
-
 			Color enemyColor = enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ColorCode}");
 			SolidColorBrush background = new(enemyColor);
 			SolidColorBrush foreground = ColorUtils.GetPerceivedBrightness(enemyColor) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];

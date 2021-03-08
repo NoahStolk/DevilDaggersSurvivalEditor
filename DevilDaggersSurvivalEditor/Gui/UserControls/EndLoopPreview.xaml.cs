@@ -2,7 +2,6 @@
 using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;
-using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,13 +88,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 					if (i == Wave - 1)
 					{
-						EndLoopSpawnUserControl spawnControl = new(
-							id: SpawnsetHandler.Instance.Spawnset.Spawns.Count + 1 + endLoop.Count * (i - 1) + j,
-							seconds: seconds,
-							delay: seconds - secondsPrevious,
-							totalGems: totalGems,
-							enemy: enemy,
-							gigaBecomesGhost: gigaBecomesGhost);
+						EndLoopSpawnUserControl spawnControl = new();
+						spawnControl.SetId(SpawnsetHandler.Instance.Spawnset.Spawns.Count + 1 + endLoop.Count * (i - 1) + j);
+						spawnControl.SetSeconds(seconds);
+						spawnControl.SetDelay(seconds - secondsPrevious);
+						spawnControl.SetTotalGems(totalGems);
+						spawnControl.SetEnemy(enemy, gigaBecomesGhost);
 						_spawnControls.Add(spawnControl);
 						EndLoopSpawns.Items.Add(spawnControl);
 					}
@@ -127,7 +125,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					if (i == Wave - 1)
 					{
 						EndLoopSpawnUserControl spawnControl = _spawnControls[j];
-						spawnControl.LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
+						spawnControl.SetSeconds(seconds);
 					}
 
 					j++;
@@ -158,7 +156,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					if (i == Wave - 1)
 					{
 						EndLoopSpawnUserControl spawnControl = _spawnControls[j];
-						spawnControl.LabelTotalGems.Content = totalGems;
+						spawnControl.SetTotalGems(totalGems);
 					}
 
 					j++;
