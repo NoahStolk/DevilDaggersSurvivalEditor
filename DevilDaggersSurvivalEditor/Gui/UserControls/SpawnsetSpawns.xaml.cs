@@ -81,6 +81,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					_spawnControls.Add(spawnControl);
 					ListBoxSpawns.Items.Add(spawnControl);
 				}
+
+				EndLoopPreview.Update(seconds, totalGems);
+				UpdateEndLoopWarning();
 			});
 		}
 
