@@ -57,12 +57,8 @@
 			</Menu>
 		</DockPanel>
 		<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-			<Grid Height="768" Width="1540" Background="{StaticResource Gray3}">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="7*" />
-					<RowDefinition />
-				</Grid.RowDefinitions>
-				<Grid Grid.Row="0">
+			<StackPanel Height="768" Width="1540" Background="{StaticResource Gray3}">
+				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="4*" />
 						<ColumnDefinition />
@@ -81,13 +77,13 @@
 						<usercontrols:SpawnsetArenaUserControl x:Name="SpawnsetArena" />
 					</StackPanel>
 				</Grid>
-				<StackPanel Grid.Row="1">
+				<StackPanel Name="WarningStackPanel">
 					<Label FontWeight="Bold">Warnings</Label>
 					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningDevilDaggersRootFolder" Visibility="Collapsed" />
 					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningVoidSpawn" Visibility="Collapsed" />
 					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningEndLoopLength" Visibility="Collapsed" />
 				</StackPanel>
-			</Grid>
+			</StackPanel>
 		</ScrollViewer>
 	</Grid>
 </Window>

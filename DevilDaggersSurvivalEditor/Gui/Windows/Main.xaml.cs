@@ -309,22 +309,32 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		public void UpdateWarningDevilDaggersRootFolder()
 		{
-			if (!File.Exists(Path.Combine(UserHandler.Instance.Settings.DevilDaggersRootFolder, "dd.exe")))
-			{
-				WarningDevilDaggersRootFolder.Visibility = Visibility.Visible;
-				WarningDevilDaggersRootFolder.Text = $"The path {UserHandler.Instance.Settings.DevilDaggersRootFolder} does not seem to be the path where Devil Daggers is installed. Please correct this in the Options > Settings menu.";
-			}
-			else
-			{
-				WarningDevilDaggersRootFolder.Visibility = Visibility.Collapsed;
-				WarningDevilDaggersRootFolder.Text = string.Empty;
-			}
+			bool visible = !File.Exists(Path.Combine(UserHandler.Instance.Settings.DevilDaggersRootFolder, "dd.exe"));
+			WarningDevilDaggersRootFolder.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+			WarningDevilDaggersRootFolder.Text = visible ? $"The path {UserHandler.Instance.Settings.DevilDaggersRootFolder} does not seem to be the path where Devil Daggers is installed. Please correct this in the Options > Settings menu." : string.Empty;
+
+			UpdateWarningStackPanel();
 		}
 
 		public void UpdateWarningEndLoopLength(bool visible, double loopLength)
 		{
 			WarningEndLoopLength.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
 			WarningEndLoopLength.Text = visible ? $"The end loop is only {loopLength:0.0000} seconds long, which will probably result in Devil Daggers lagging and becoming unstable." : string.Empty;
+
+			UpdateWarningStackPanel();
+		}
+
+		public void UpdateWarningVoidSpawn(bool visible)
+		{
+			WarningVoidSpawn.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+
+			UpdateWarningStackPanel();
+		}
+
+		private void UpdateWarningStackPanel()
+		{
+			bool visible = WarningDevilDaggersRootFolder.Visibility == Visibility.Visible || WarningEndLoopLength.Visibility == Visibility.Visible || WarningVoidSpawn.Visibility == Visibility.Visible;
+			WarningStackPanel.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
