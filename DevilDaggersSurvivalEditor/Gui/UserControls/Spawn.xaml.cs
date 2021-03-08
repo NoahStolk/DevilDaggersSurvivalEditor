@@ -11,42 +11,52 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class SpawnUserControl : UserControl
 	{
-		public SpawnUserControl(Spawn spawn)
-		{
-			InitializeComponent();
+		public SpawnUserControl()
+			=> InitializeComponent();
 
-			Spawn = spawn;
-			UpdateGui();
+		public int Id { get; private set; }
+		public double Seconds { get; private set; }
+		public int TotalGems { get; private set; }
+		public Spawn? Spawn { get; private set; }
+		public bool IsInLoop { get; private set; }
+
+		public void SetId(int id)
+		{
+			Id = id;
+			LabelId.Content = id.ToString(CultureInfo.InvariantCulture);
 		}
 
-		public bool IsInLoop { get; set; }
-
-		public int Id { get; set; }
-
-		public double Seconds { get; set; }
-
-		public int TotalGems { get; set; }
-
-		public Spawn Spawn { get; set; }
-
-		public void UpdateGui()
+		public void SetSeconds(double seconds)
 		{
-			FontWeight = IsInLoop ? FontWeights.Bold : FontWeights.Normal;
-			Background = new SolidColorBrush(IsInLoop ? Color.FromArgb(127, 127, 63, 63) : Color.FromArgb(0, 0, 0, 0));
+			Seconds = seconds;
+			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
+		}
 
-			LabelId.Content = Id.ToString(CultureInfo.InvariantCulture);
+		public void SetTotalGems(int totalGems)
+		{
+			TotalGems = totalGems;
+			LabelTotalGems.Content = totalGems.ToString(CultureInfo.InvariantCulture);
+		}
 
-			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(Seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
+		public void SetSpawn(Spawn spawn)
+		{
+			Spawn = spawn;
 
-			LabelTotalGems.Content = TotalGems.ToString(CultureInfo.InvariantCulture);
+			LabelEnemy.Content = spawn.Enemy?.Name ?? "EMPTY";
+			LabelDelay.Content = spawn.Delay.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+			LabelNoFarmGems.Content = spawn.Enemy?.NoFarmGems ?? 0;
 
-			LabelEnemy.Content = Spawn.Enemy?.Name ?? "EMPTY";
-			LabelDelay.Content = Spawn.Delay.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
-			LabelNoFarmGems.Content = Spawn.Enemy?.NoFarmGems ?? 0;
-
-			Color color = Spawn.Enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{Spawn.Enemy.ColorCode}");
+			Color color = spawn.Enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.Enemy.ColorCode}");
 			LabelEnemy.Background = new SolidColorBrush(color);
 			LabelEnemy.Foreground = ColorUtils.GetPerceivedBrightness(color) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
+		}
+
+		public void SetIsInLoop(bool isInLoop)
+		{
+			IsInLoop = isInLoop;
+
+			FontWeight = isInLoop ? FontWeights.Bold : FontWeights.Normal;
+			Background = new SolidColorBrush(isInLoop ? Color.FromArgb(127, 127, 63, 63) : Color.FromArgb(0, 0, 0, 0));
 		}
 	}
 }
