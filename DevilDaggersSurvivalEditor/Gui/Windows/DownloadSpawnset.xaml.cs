@@ -4,7 +4,6 @@ using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Clients;
 using DevilDaggersSurvivalEditor.Enumerators;
-using DevilDaggersSurvivalEditor.Extensions;
 using DevilDaggersSurvivalEditor.Network;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;
@@ -228,39 +227,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Hyperlink nameHyperlink = new(new Run(spawnsetFile.Name.Replace("_", "__", StringComparison.InvariantCulture)));
 			nameHyperlink.Click += (sender, e) => Download_Click(spawnsetFile.Name);
 
-			UIElement nameElement;
-			if (string.IsNullOrEmpty(spawnsetFile.HtmlDescription))
-			{
-				nameElement = new Label { Content = nameHyperlink };
-			}
-			else
-			{
-				string description = spawnsetFile.HtmlDescription
-					.Trim(' ')
-					.Replace("<br />", "\n", StringComparison.InvariantCulture)
-					.Replace("<ul>", "\n", StringComparison.InvariantCulture)
-					.Replace("</ul>", "\n", StringComparison.InvariantCulture)
-					.Replace("<li>", "\n", StringComparison.InvariantCulture)
-					.HtmlToPlainText();
-
-				Label toolTipLabel = new()
-				{
-					Content = "(?)",
-					FontWeight = FontWeights.Bold,
-					ToolTip = new TextBlock
-					{
-						Text = $"{spawnsetFile.AuthorName}:\n\n{description}",
-						MaxWidth = 320,
-					},
-				};
-				ToolTipService.SetShowDuration(toolTipLabel, int.MaxValue);
-
-				StackPanel stackPanel = new() { Orientation = Orientation.Horizontal };
-				stackPanel.Children.Add(new Label { Content = nameHyperlink });
-				stackPanel.Children.Add(toolTipLabel);
-				nameElement = stackPanel;
-			}
-
 			Span customLeaderboardElement;
 			if (spawnsetFile.HasCustomLeaderboard)
 			{
@@ -279,7 +245,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			List<UIElement> elements = new()
 			{
-				nameElement,
+				new Label { Content = nameHyperlink },
 				new Label { Content = spawnsetFile.AuthorName.Replace("_", "__", StringComparison.InvariantCulture) },
 				new Label { Content = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) },
 				new Label { Content = customLeaderboardElement },
