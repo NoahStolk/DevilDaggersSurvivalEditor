@@ -2,6 +2,7 @@
 using DevilDaggersSurvivalEditor.Spawnsets;
 using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace DevilDaggersSurvivalEditor.Gui.UserControls
@@ -14,8 +15,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			for (int i = 0; i < 4; i++)
 				ComboBoxHand.Items.Add($"Level {i + 1}");
-
 			ComboBoxHand.SelectedIndex = 0;
+
+			ComboBoxVersion.Items.Add("Pre-release / V1");
+			ComboBoxVersion.Items.Add("V2 / V3");
+			ComboBoxVersion.Items.Add("V3.1");
+			ComboBoxVersion.SelectedIndex = 2;
 		}
 
 		private void UpdateHand(object sender, SelectionChangedEventArgs e)
@@ -24,6 +29,20 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
+		}
+
+		private void UpdateVersion(object sender, SelectionChangedEventArgs e)
+		{
+			// Pre-release / V1: 8 - 4
+			// V2 / V3:          9 - 4
+			// V3.1:             9 - 6
+			SpawnsetHandler.Instance.Spawnset.WorldVersion = ComboBoxVersion.SelectedIndex == 0 ? 8 : 9;
+			SpawnsetHandler.Instance.Spawnset.SpawnVersion = ComboBoxVersion.SelectedIndex == 2 ? 6 : 4;
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
+
+			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+
+			// TODO: Update spawn controls.
 		}
 
 		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)
@@ -64,6 +83,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void SetTextBoxes()
 		{
 			ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
+			ComboBoxVersion.SelectedIndex = SpawnsetHandler.Instance.Spawnset.WorldVersion == 8 ? 0 : SpawnsetHandler.Instance.Spawnset.SpawnVersion == 4 ? 1 : 2;
+			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
 			TextBoxAdditionalGems.Text = SpawnsetHandler.Instance.Spawnset.AdditionalGems.ToString(CultureInfo.InvariantCulture);
 			TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString(CultureInfo.InvariantCulture);
 

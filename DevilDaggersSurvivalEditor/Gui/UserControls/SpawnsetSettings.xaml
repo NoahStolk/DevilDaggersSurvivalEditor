@@ -7,20 +7,29 @@
              d:DesignHeight="450" d:DesignWidth="151">
 	<StackPanel>
 		<Grid Style="{StaticResource SpawnsetHeader}">
-			<Label Style="{StaticResource BoldLabel}">Player settings</Label>
+			<Label Style="{StaticResource BoldLabel}">Format</Label>
 		</Grid>
 		<StackPanel Style="{StaticResource Section}">
-			<Label>Hand</Label>
-			<ComboBox Name="ComboBoxHand" SelectionChanged="UpdateHand" />
-			<Label>Additional gems</Label>
-			<TextBox Name="TextBoxAdditionalGems" TextChanged="UpdateAdditionalGems">0</TextBox>
+			<Label>Version</Label>
+			<ComboBox Name="ComboBoxVersion" SelectionChanged="UpdateVersion" />
 		</StackPanel>
-		<Grid Style="{StaticResource SpawnsetHeader}">
-			<Label Style="{StaticResource BoldLabel}">Timer settings</Label>
-		</Grid>
-		<StackPanel Style="{StaticResource Section}">
-			<Label>Timer start</Label>
-			<TextBox Name="TextBoxTimerStart" TextChanged="UpdateTimerStart">0.0000</TextBox>
+		<StackPanel Name="StackPanelV31">
+			<Grid Style="{StaticResource SpawnsetHeader}">
+				<Label Style="{StaticResource BoldLabel}">Player settings</Label>
+			</Grid>
+			<StackPanel Style="{StaticResource Section}">
+				<Label>Hand</Label>
+				<ComboBox Name="ComboBoxHand" SelectionChanged="UpdateHand" />
+				<Label>Additional gems</Label>
+				<TextBox Name="TextBoxAdditionalGems" TextChanged="UpdateAdditionalGems">0</TextBox>
+			</StackPanel>
+			<Grid Style="{StaticResource SpawnsetHeader}">
+				<Label Style="{StaticResource BoldLabel}">Timer settings</Label>
+			</Grid>
+			<StackPanel Style="{StaticResource Section}">
+				<Label>Timer start</Label>
+				<TextBox Name="TextBoxTimerStart" TextChanged="UpdateTimerStart">0.0000</TextBox>
+			</StackPanel>
 		</StackPanel>
 	</StackPanel>
 </UserControl>
