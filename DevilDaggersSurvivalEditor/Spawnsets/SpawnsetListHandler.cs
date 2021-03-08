@@ -34,7 +34,6 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 			new("Name", "Name", s => s.Name, true),
 			new("Author", "Author", s => s.AuthorName, true),
 			new("Last updated", "Last updated", s => s.LastUpdated, false),
-			new("Custom leaderboard", "LB", s => s.HasCustomLeaderboard, false) { Ascending = true },
 			new("Non-loop length", "Length", s => s.SpawnsetData.NonLoopLength ?? 0, false),
 			new("Non-loop spawns", "Spawns", s => s.SpawnsetData.NonLoopSpawnCount, false),
 			new("Loop length", "Length", s => s.SpawnsetData.LoopLength ?? 0, false),

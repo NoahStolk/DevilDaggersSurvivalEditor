@@ -1,5 +1,4 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Clients;
@@ -221,34 +220,17 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			grid.ColumnDefinitions.Add(new() { Width = new(3, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new() { Width = new(2, GridUnitType.Star) });
 			grid.ColumnDefinitions.Add(new() { Width = new(2, GridUnitType.Star) });
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 4; i++)
 				grid.ColumnDefinitions.Add(new());
 
 			Hyperlink nameHyperlink = new(new Run(spawnsetFile.Name.Replace("_", "__", StringComparison.InvariantCulture)));
 			nameHyperlink.Click += (sender, e) => Download_Click(spawnsetFile.Name);
-
-			Span customLeaderboardElement;
-			if (spawnsetFile.HasCustomLeaderboard)
-			{
-				Hyperlink hyperlink = new(new Run("Yes")) { NavigateUri = new Uri(UrlUtils.CustomLeaderboardPage(spawnsetFile.Name)) };
-				hyperlink.RequestNavigate += (sender, e) =>
-				{
-					ProcessUtils.OpenUrl(e.Uri.AbsoluteUri);
-					e.Handled = true;
-				};
-				customLeaderboardElement = hyperlink;
-			}
-			else
-			{
-				customLeaderboardElement = new(new Run("No"));
-			}
 
 			List<UIElement> elements = new()
 			{
 				new Label { Content = nameHyperlink },
 				new Label { Content = spawnsetFile.AuthorName.Replace("_", "__", StringComparison.InvariantCulture) },
 				new Label { Content = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) },
-				new Label { Content = customLeaderboardElement },
 				new Label { Content = !spawnsetFile.SpawnsetData.NonLoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
 				new Label { Content = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
 				new Label { Content = !spawnsetFile.SpawnsetData.LoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.LoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },

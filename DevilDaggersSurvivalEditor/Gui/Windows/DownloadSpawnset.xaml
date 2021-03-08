@@ -55,7 +55,7 @@
 				</Grid>
 				<Grid Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0,0,20,0">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="8*" />
+						<ColumnDefinition Width="7*" />
 						<ColumnDefinition Width="2*" />
 						<ColumnDefinition Width="2*" />
 					</Grid.ColumnDefinitions>
@@ -67,7 +67,6 @@
 						<ColumnDefinition Width="3*" />
 						<ColumnDefinition Width="2*" />
 						<ColumnDefinition Width="2*" />
-						<ColumnDefinition />
 						<ColumnDefinition />
 						<ColumnDefinition />
 						<ColumnDefinition />
