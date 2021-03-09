@@ -40,16 +40,16 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			// Set sorting values and GUI header.
 			List<SpawnsetSorting> sortings = new()
 			{
-				new("Name", "Name", s => s.Name, true),
-				new("Author", "Author", s => s.AuthorName, true),
-				new("Last updated", "Last updated", s => s.LastUpdated, false),
-				new("Hand", "Hand", s => s.SpawnsetData.Hand, false),
-				new("Additional gems", "Gems", s => s.SpawnsetData.AdditionalGems, false),
-				new("Timer start", "Timer", s => s.SpawnsetData.TimerStart, false),
-				new("Non-loop length", "Length", s => s.SpawnsetData.NonLoopLength ?? 0, false),
-				new("Non-loop spawns", "Spawns", s => s.SpawnsetData.NonLoopSpawnCount, false),
-				new("Loop length", "Length", s => s.SpawnsetData.LoopLength ?? 0, false),
-				new("Loop spawns", "Spawns", s => s.SpawnsetData.LoopSpawnCount, false),
+				new("Name", "Name", true, s => s.Name),
+				new("Author", "Author", true, s => s.AuthorName, s => s.Name),
+				new("Last updated", "Last updated", false, s => s.LastUpdated, s => s.Name),
+				new("Hand", "Hand", false, s => s.SpawnsetData.Hand, s => s.SpawnsetData.AdditionalGems),
+				new("Additional gems", "Gems", false, s => s.SpawnsetData.AdditionalGems, s => s.SpawnsetData.Hand),
+				new("Timer start", "Timer", false, s => s.SpawnsetData.TimerStart, s => s.Name),
+				new("Non-loop length", "Length", false, s => s.SpawnsetData.NonLoopLength ?? 0, s => s.SpawnsetData.NonLoopSpawnCount),
+				new("Non-loop spawns", "Spawns", false, s => s.SpawnsetData.NonLoopSpawnCount),
+				new("Loop length", "Length", false, s => s.SpawnsetData.LoopLength ?? 0, s => s.SpawnsetData.LoopSpawnCount),
+				new("Loop spawns", "Spawns", false, s => s.SpawnsetData.LoopSpawnCount),
 			};
 
 			int index = 0;
@@ -112,7 +112,17 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			IEnumerable<SpawnsetFile> spawnsets = NetworkHandler.Instance.Spawnsets;
 
 			// Sorting
-			spawnsets = _activeSpawnsetSorting.Ascending ? spawnsets.OrderBy(_activeSpawnsetSorting.SortingFunction) : spawnsets.OrderByDescending(_activeSpawnsetSorting.SortingFunction);
+			int sortIndex = 0;
+			foreach (Func<SpawnsetFile, object?> sortingFunction in _activeSpawnsetSorting.SortingFunctions)
+			{
+				if (sortIndex == 0)
+					spawnsets = _activeSpawnsetSorting.Ascending ? spawnsets.OrderBy(sortingFunction) : spawnsets.OrderByDescending(sortingFunction);
+				else if (spawnsets is IOrderedEnumerable<SpawnsetFile> orderedSpawnsets)
+					spawnsets = _activeSpawnsetSorting.Ascending ? orderedSpawnsets.ThenBy(sortingFunction) : orderedSpawnsets.ThenByDescending(sortingFunction);
+				else
+					throw new("Could not apply sorting.");
+				sortIndex++;
+			}
 
 			// Filtering
 			if (!string.IsNullOrWhiteSpace(SpawnsetSearchTextBox.Text))
@@ -278,18 +288,18 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private class SpawnsetSorting
 		{
-			public SpawnsetSorting(string fullName, string displayName, Func<SpawnsetFile, object?> sortingFunction, bool isAscendingDefault)
+			public SpawnsetSorting(string fullName, string displayName, bool isAscendingDefault, params Func<SpawnsetFile, object?>[] sortingFunctions)
 			{
 				FullName = fullName;
 				DisplayName = displayName;
-				SortingFunction = sortingFunction;
 				IsAscendingDefault = isAscendingDefault;
+				SortingFunctions = sortingFunctions;
 			}
 
 			public string FullName { get; }
 			public string DisplayName { get; }
-			public Func<SpawnsetFile, object?> SortingFunction { get; }
 			public bool IsAscendingDefault { get; }
+			public Func<SpawnsetFile, object?>[] SortingFunctions { get; }
 
 			public bool Ascending { get; set; }
 		}
