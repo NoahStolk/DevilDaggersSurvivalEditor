@@ -20,9 +20,16 @@
 		</Style.Setters>
 	</Style>
 
+	<Style TargetType="Label" x:Key="TitleLabel" BasedOn="{StaticResource {x:Type Label}}">
+		<Style.Setters>
+			<Setter Property="FontSize" Value="20" />
+			<Setter Property="Margin" Value="4" />
+		</Style.Setters>
+	</Style>
+
 	<Style TargetType="Grid" x:Key="SpawnsetHeader">
 		<Style.Setters>
-			<Setter Property="Margin" Value="7,8,0,0" />
+			<Setter Property="Margin" Value="4,8,0,0" />
 			<Setter Property="Height" Value="30" />
 		</Style.Setters>
 	</Style>
