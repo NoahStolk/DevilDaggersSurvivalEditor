@@ -6,17 +6,17 @@
 		mc:Ignorable="d"
         Title="Download spawnset" WindowStartupLocation="CenterScreen">
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-		<StackPanel Height="696" Width="1366" Background="{StaticResource Gray3}">
-			<Label Style="{StaticResource TitleLabel}">Spawnsets from DevilDaggers.info</Label>
+		<StackPanel Height="714" Width="1366" Background="{StaticResource Gray3}">
+			<TextBlock Style="{StaticResource TitleTextBlock}">Spawnsets from DevilDaggers.info</TextBlock>
 			<Grid Margin="8">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
 					<ColumnDefinition Width="5*" />
 				</Grid.ColumnDefinitions>
-				<StackPanel>
+				<StackPanel Margin="0,0,8,0">
 					<Button Name="ReloadButton" Click="ReloadButton_Click" Width="128" HorizontalAlignment="Left">Reload all</Button>
 
-					<Label Style="{StaticResource BoldLabel}">Filters</Label>
+					<Label Style="{StaticResource BoldLabel}" Background="{StaticResource Gray28}" Margin="0,10,0,0">Filters</Label>
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
@@ -40,7 +40,7 @@
 					<CheckBox Name="CustomLeaderboardCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Custom leaderboard</CheckBox>
 					<CheckBox Name="PracticeCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Practice</CheckBox>
 
-					<Label Style="{StaticResource BoldLabel}">Paging</Label>
+					<Label Style="{StaticResource BoldLabel}" Background="{StaticResource Gray28}" Margin="0,10,0,0">Paging</Label>
 					<Label Name="PageLabel" />
 					<StackPanel Orientation="Horizontal">
 						<Button Width="32" Click="FirstPage_Click" ToolTip="First page">&lt;&lt;</Button>
@@ -49,8 +49,8 @@
 						<Button Width="32" Click="LastPage_Click" ToolTip="Last page">&gt;&gt;</Button>
 					</StackPanel>
 				</StackPanel>
-				<StackPanel Grid.Column="1" Background="#282828">
-					<Grid HorizontalAlignment="Stretch">
+				<StackPanel Grid.Column="1" Background="{StaticResource Gray28}">
+					<Grid HorizontalAlignment="Stretch" Background="{StaticResource Gray2}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="10*" />
 							<ColumnDefinition Width="2*" />
@@ -59,7 +59,7 @@
 						<Label Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center">Non-loop</Label>
 						<Label Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center">Loop</Label>
 					</Grid>
-					<Grid Name="SpawnsetHeaders" HorizontalAlignment="Stretch">
+					<Grid Name="SpawnsetHeaders" HorizontalAlignment="Stretch" Background="{StaticResource Gray2}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="3*" />
 							<ColumnDefinition Width="2*" />
@@ -73,7 +73,7 @@
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 					</Grid>
-					<StackPanel Height="600" Name="SpawnsetsStackPanel" />
+					<StackPanel Height="622" Name="SpawnsetsStackPanel" />
 				</StackPanel>
 			</Grid>
 		</StackPanel>

@@ -20,13 +20,6 @@
 		</Style.Setters>
 	</Style>
 
-	<Style TargetType="TextBlock" x:Key="TitleTextBlock">
-		<Style.Setters>
-			<Setter Property="FontSize" Value="20" />
-			<Setter Property="Margin" Value="4" />
-		</Style.Setters>
-	</Style>
-
 	<Style TargetType="Grid" x:Key="SpawnsetHeader">
 		<Style.Setters>
 			<Setter Property="Margin" Value="4,8,0,0" />
@@ -34,24 +27,24 @@
 		</Style.Setters>
 	</Style>
 
-	<Style TargetType="TextBlock">
+	<Style TargetType="TextBlock" x:Key="TitleTextBlock">
 		<Style.Setters>
+			<Setter Property="FontSize" Value="20" />
+			<Setter Property="Margin" Value="4" />
 			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 	</Style>
-
 	<Style TargetType="TextBlock" x:Key="SpawnTextBlock">
 		<Style.Setters>
 			<Setter Property="Padding" Value="2" />
 			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 	</Style>
-
 	<Style TargetType="TextBlock" x:Key="WarningTextBlock">
 		<Style.Setters>
 			<Setter Property="FontWeight" Value="Bold" />
-			<Setter Property="Foreground" Value="#f00" />
-			<Setter Property="Background" Value="#111" />
+			<Setter Property="Foreground" Value="{StaticResource ErrorText}" />
+			<Setter Property="Background" Value="{StaticResource Gray1}" />
 			<Setter Property="Margin" Value="4" />
 			<Setter Property="FontSize" Value="14" />
 			<Setter Property="HorizontalAlignment" Value="Left" />

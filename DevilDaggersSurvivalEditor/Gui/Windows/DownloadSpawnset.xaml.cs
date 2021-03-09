@@ -1,5 +1,6 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Wpf.Extensions;
+using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Clients;
 using DevilDaggersSurvivalEditor.Enumerators;
@@ -24,7 +25,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class DownloadSpawnsetWindow : Window
 	{
-		private const int _pageSize = 30;
+		private const int _pageSize = 40;
 
 		private int _pageIndex;
 
@@ -33,7 +34,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private SpawnsetSorting _activeSpawnsetSorting;
 		private readonly Dictionary<SpawnsetSorting, Button> _spawnsetSortings = new();
 
-		private readonly Dictionary<Grid, List<Label>> _spawnsetGrids = new();
+		private readonly List<SpawnsetGrid> _spawnsetGrids = new();
 
 		public DownloadSpawnsetWindow()
 		{
@@ -55,6 +56,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			};
 
 			int i = 0;
+			Uri sortImageUri = ContentUtils.MakeUri(Path.Combine("Content", "Images", "Buttons", "Sort.png"));
 			foreach (SpawnsetSorting sorting in sortings)
 			{
 				Button button = new()
@@ -63,7 +65,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					Width = 18,
 					Content = new Image
 					{
-						Source = new BitmapImage(ContentUtils.MakeUri(Path.Combine("Content", "Images", "Buttons", "Sort.png"))),
+						Source = new BitmapImage(sortImageUri),
 						Stretch = Stretch.None,
 					},
 					Tag = sorting,
@@ -76,10 +78,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					Orientation = Orientation.Horizontal,
 					HorizontalAlignment = i < 2 ? HorizontalAlignment.Left : HorizontalAlignment.Right,
 				};
-				stackPanel.Children.Add(new Label
+				stackPanel.Children.Add(new TextBlock
 				{
 					FontWeight = FontWeights.Bold,
-					Content = sorting.DisplayName,
+					Text = sorting.DisplayName,
 				});
 				stackPanel.Children.Add(button);
 				Grid.SetColumn(stackPanel, i++);
@@ -91,23 +93,35 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			// Set spawnset GUI grids.
 			for (i = 0; i < _pageSize; i++)
 			{
-				Grid grid = new();
-				List<Label> labels = new();
+				Grid grid = new()
+				{
+					Background = (i % 2 == 0) ? ColorUtils.ThemeColors["Gray28"] : ColorUtils.ThemeColors["Gray2"],
+					Margin = new(2, 0, 2, 0),
+				};
+				Hyperlink hyperlink = new();
+				List<TextBlock> textBlocks = new();
+
 				for (int j = 0; j < 10; j++)
 				{
 					grid.ColumnDefinitions.Add(new() { Width = new GridLength(j == 0 ? 3 : j < 3 ? 2 : 1, GridUnitType.Star) });
 
-					Label label = new()
+					// First element is hyperlink.
+					if (j == 0)
 					{
-						HorizontalAlignment = j < 2 ? HorizontalAlignment.Left : HorizontalAlignment.Right,
-					};
-					Grid.SetColumn(label, j);
+						TextBlock hyperlinkTextBlock = new();
+						hyperlinkTextBlock.Inlines.Add(hyperlink);
+						grid.Children.Add(hyperlinkTextBlock);
+						continue;
+					}
 
-					labels.Add(label);
-					grid.Children.Add(label);
+					TextBlock textBlock = new() { HorizontalAlignment = j < 2 ? HorizontalAlignment.Left : HorizontalAlignment.Right };
+					Grid.SetColumn(textBlock, j);
+
+					textBlocks.Add(textBlock);
+					grid.Children.Add(textBlock);
 				}
 
-				_spawnsetGrids.Add(grid, labels);
+				_spawnsetGrids.Add(new(grid, hyperlink, textBlocks));
 				SpawnsetsStackPanel.Children.Add(grid);
 			}
 
@@ -156,35 +170,40 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void FillSpawnsetGrid(int index, SpawnsetFile? spawnsetFile)
 		{
-			KeyValuePair<Grid, List<Label>> grid = _spawnsetGrids.ElementAt(index);
+			SpawnsetGrid grid = _spawnsetGrids[index];
+			grid.Hyperlink.Inlines.Clear();
 			if (spawnsetFile == null)
 			{
-				grid.Value[0].Content = string.Empty;
-				grid.Value[1].Content = string.Empty;
-				grid.Value[2].Content = string.Empty;
-				grid.Value[3].Content = string.Empty;
-				grid.Value[4].Content = string.Empty;
-				grid.Value[5].Content = string.Empty;
-				grid.Value[6].Content = string.Empty;
-				grid.Value[7].Content = string.Empty;
-				grid.Value[8].Content = string.Empty;
-				grid.Value[9].Content = string.Empty;
+				grid.TextBlocks[0].Text = string.Empty;
+				grid.TextBlocks[1].Text = string.Empty;
+				grid.TextBlocks[2].Text = string.Empty;
+				grid.TextBlocks[3].Text = string.Empty;
+				grid.TextBlocks[4].Text = string.Empty;
+				grid.TextBlocks[5].Text = string.Empty;
+				grid.TextBlocks[6].Text = string.Empty;
+				grid.TextBlocks[7].Text = string.Empty;
+				grid.TextBlocks[8].Text = string.Empty;
 			}
 			else
 			{
-				Hyperlink nameHyperlink = new(new Run(spawnsetFile.Name));
-				nameHyperlink.Click += (sender, e) => Download_Click(spawnsetFile.Name);
+				grid.Hyperlink.Inlines.Add(new Run(spawnsetFile.Name));
 
-				grid.Value[0].Content = nameHyperlink;
-				grid.Value[1].Content = spawnsetFile.AuthorName;
-				grid.Value[2].Content = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
-				grid.Value[3].Content = spawnsetFile.SpawnsetData.Hand?.ToString() ?? "N/A";
-				grid.Value[4].Content = spawnsetFile.SpawnsetData.AdditionalGems?.ToString() ?? "N/A";
-				grid.Value[5].Content = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
-				grid.Value[6].Content = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
-				grid.Value[7].Content = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture);
-				grid.Value[8].Content = spawnsetFile.SpawnsetData.LoopLength?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
-				grid.Value[9].Content = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture);
+				if (grid.Hyperlink.Tag is RoutedEventHandler oldEvent)
+					grid.Hyperlink.Click -= oldEvent;
+
+				RoutedEventHandler newEvent = (_, _) => Download_Click(spawnsetFile.Name);
+				grid.Hyperlink.Tag = newEvent;
+				grid.Hyperlink.Click += newEvent;
+
+				grid.TextBlocks[0].Text = spawnsetFile.AuthorName;
+				grid.TextBlocks[1].Text = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
+				grid.TextBlocks[2].Text = spawnsetFile.SpawnsetData.Hand?.ToString() ?? "N/A";
+				grid.TextBlocks[3].Text = spawnsetFile.SpawnsetData.AdditionalGems?.ToString() ?? "N/A";
+				grid.TextBlocks[4].Text = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
+				grid.TextBlocks[5].Text = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
+				grid.TextBlocks[6].Text = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture);
+				grid.TextBlocks[7].Text = spawnsetFile.SpawnsetData.LoopLength?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
+				grid.TextBlocks[8].Text = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture);
 			}
 		}
 
@@ -352,6 +371,20 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			public Func<SpawnsetFile, object?>[] SortingFunctions { get; }
 
 			public bool Ascending { get; set; }
+		}
+
+		private class SpawnsetGrid
+		{
+			public SpawnsetGrid(Grid grid, Hyperlink hyperlink, List<TextBlock> textBlocks)
+			{
+				Grid = grid;
+				Hyperlink = hyperlink;
+				TextBlocks = textBlocks;
+			}
+
+			public Grid Grid { get; }
+			public Hyperlink Hyperlink { get; }
+			public List<TextBlock> TextBlocks { get; }
 		}
 
 		#endregion Classes
