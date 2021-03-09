@@ -24,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class DownloadSpawnsetWindow : Window
 	{
-		private const int _pageSize = 40;
+		private const int _pageSize = 30;
 
 		private readonly Dictionary<Grid, List<Label>> _spawnsetGrids = new();
 
@@ -52,7 +52,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				new("Loop spawns", "Spawns", false, s => s.SpawnsetData.LoopSpawnCount),
 			};
 
-			int index = 0;
+			int i = 0;
 			foreach (SpawnsetSorting sorting in sortings)
 			{
 				Button button = new()
@@ -69,21 +69,25 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				button.Click += (_, _) => SortSpawnsetFilesButton_Click(sorting);
 				_spawnsetSortings.Add(sorting, button);
 
-				StackPanel stackPanel = new() { Orientation = Orientation.Horizontal };
+				StackPanel stackPanel = new()
+				{
+					Orientation = Orientation.Horizontal,
+					HorizontalAlignment = i < 2 ? HorizontalAlignment.Left : HorizontalAlignment.Right,
+				};
 				stackPanel.Children.Add(new Label
 				{
 					FontWeight = FontWeights.Bold,
 					Content = sorting.DisplayName,
 				});
 				stackPanel.Children.Add(button);
-				Grid.SetColumn(stackPanel, index++);
+				Grid.SetColumn(stackPanel, i++);
 				SpawnsetHeaders.Children.Add(stackPanel);
 			}
 
 			_activeSpawnsetSorting = _spawnsetSortings.ElementAt(2).Key;
 
 			// Set spawnset GUI grids.
-			for (int i = 0; i < _pageSize; i++)
+			for (i = 0; i < _pageSize; i++)
 			{
 				Grid grid = new();
 				List<Label> labels = new();
@@ -91,7 +95,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				{
 					grid.ColumnDefinitions.Add(new() { Width = new GridLength(j == 0 ? 3 : j < 3 ? 2 : 1, GridUnitType.Star) });
 
-					Label label = new();
+					Label label = new()
+					{
+						HorizontalAlignment = j < 2 ? HorizontalAlignment.Left : HorizontalAlignment.Right,
+					};
 					Grid.SetColumn(label, j);
 
 					labels.Add(label);
@@ -120,7 +127,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				else if (spawnsets is IOrderedEnumerable<SpawnsetFile> orderedSpawnsets)
 					spawnsets = _activeSpawnsetSorting.Ascending ? orderedSpawnsets.ThenBy(sortingFunction) : orderedSpawnsets.ThenByDescending(sortingFunction);
 				else
-					throw new("Could not apply sorting.");
+					throw new($"Could not apply sorting because '{nameof(orderedSpawnsets)}' was not of type '{nameof(IOrderedEnumerable<SpawnsetFile>)}'.");
 				sortIndex++;
 			}
 
@@ -166,8 +173,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.Value[0].Content = nameHyperlink;
 				grid.Value[1].Content = spawnsetFile.AuthorName;
 				grid.Value[2].Content = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
-				grid.Value[3].Content = spawnsetFile.SpawnsetData.Hand.ToString() ?? "N/A";
-				grid.Value[4].Content = spawnsetFile.SpawnsetData.AdditionalGems.ToString() ?? "N/A";
+				grid.Value[3].Content = spawnsetFile.SpawnsetData.Hand?.ToString() ?? "N/A";
+				grid.Value[4].Content = spawnsetFile.SpawnsetData.AdditionalGems?.ToString() ?? "N/A";
 				grid.Value[5].Content = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
 				grid.Value[6].Content = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
 				grid.Value[7].Content = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture);

@@ -39,15 +39,15 @@
 					<CheckBox Name="CustomLeaderboardCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Custom leaderboard</CheckBox>
 					<CheckBox Name="PracticeCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Practice</CheckBox>
 				</StackPanel>
-				<StackPanel Grid.Column="1">
+				<StackPanel Grid.Column="1" Background="#282828">
 					<Grid HorizontalAlignment="Stretch">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="10*" />
 							<ColumnDefinition Width="2*" />
 							<ColumnDefinition Width="2*" />
 						</Grid.ColumnDefinitions>
-						<Label Grid.Column="1" FontWeight="Bold">Non-loop</Label>
-						<Label Grid.Column="2" FontWeight="Bold">Loop</Label>
+						<Label Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center">Non-loop</Label>
+						<Label Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center">Loop</Label>
 					</Grid>
 					<Grid Name="SpawnsetHeaders" HorizontalAlignment="Stretch">
 						<Grid.ColumnDefinitions>
@@ -63,7 +63,7 @@
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 					</Grid>
-					<StackPanel Height="623" Name="SpawnsetsStackPanel" />
+					<StackPanel Height="673" Name="SpawnsetsStackPanel" />
 				</StackPanel>
 			</Grid>
 		</StackPanel>
