@@ -107,30 +107,30 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				seconds += kvp.Value.Delay;
 				totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
 
+				SpawnUserControl spawnControl;
 				if (kvp.Key >= startIndex && kvp.Key < startIndex + newSpawns.Length)
 				{
-					SpawnUserControl spawnControl = new();
+					spawnControl = new();
 					spawnControl.SetId(kvp.Key + 1);
 					spawnControl.SetSeconds(seconds);
 					spawnControl.SetTotalGems(totalGems);
 					spawnControl.SetSpawn(newSpawns[kvp.Key - startIndex]);
-					spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex);
 					_spawnControls.Insert(kvp.Key, spawnControl);
 					ListBoxSpawns.Items.Insert(kvp.Key, spawnControl);
 				}
 				else if (kvp.Key >= startIndex + Amount)
 				{
-					SpawnUserControl spawnControl = _spawnControls[kvp.Key];
+					spawnControl = _spawnControls[kvp.Key];
 					spawnControl.SetId(kvp.Key + 1);
 					spawnControl.SetSeconds(seconds);
 					spawnControl.SetTotalGems(totalGems);
-					spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex);
 				}
 				else
 				{
-					SpawnUserControl spawnControl = _spawnControls[kvp.Key];
-					spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex);
+					spawnControl = _spawnControls[kvp.Key];
 				}
+
+				spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex);
 			}
 
 			EndLoopPreview.Update(seconds, totalGems);
@@ -140,9 +140,32 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void EditSpawnAt(int startIndex, Spawn spawn)
 		{
 			SpawnsetHandler.Instance.Spawnset.Spawns[startIndex] = spawn;
-			_spawnControls[startIndex].SetSpawn(spawn);
 
-			EndLoopPreview.Update();
+			int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
+			double seconds = 0;
+			int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
+			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+			{
+				seconds += kvp.Value.Delay;
+				totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
+
+				SpawnUserControl spawnControl = _spawnControls[kvp.Key];
+				if (kvp.Key == startIndex)
+				{
+					spawnControl.SetSeconds(seconds);
+					spawnControl.SetTotalGems(totalGems);
+					spawnControl.SetSpawn(spawn);
+				}
+				else if (kvp.Key > startIndex)
+				{
+					spawnControl.SetSeconds(seconds);
+					spawnControl.SetTotalGems(totalGems);
+				}
+
+				spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex);
+			}
+
+			EndLoopPreview.Update(seconds, totalGems);
 			UpdateEndLoopWarning();
 		}
 
