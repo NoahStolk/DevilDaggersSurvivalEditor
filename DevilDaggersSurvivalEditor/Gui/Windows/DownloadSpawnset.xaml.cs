@@ -156,12 +156,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.Value[0].Content = nameHyperlink;
 				grid.Value[1].Content = spawnsetFile.AuthorName;
 				grid.Value[2].Content = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
-				grid.Value[3].Content = !spawnsetFile.SpawnsetData.Hand.HasValue ? "N/A" : spawnsetFile.SpawnsetData.Hand;
-				grid.Value[4].Content = !spawnsetFile.SpawnsetData.AdditionalGems.HasValue ? "N/A" : spawnsetFile.SpawnsetData.AdditionalGems;
-				grid.Value[5].Content = !spawnsetFile.SpawnsetData.TimerStart.HasValue ? "N/A" : spawnsetFile.SpawnsetData.TimerStart.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
-				grid.Value[6].Content = !spawnsetFile.SpawnsetData.NonLoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+				grid.Value[3].Content = spawnsetFile.SpawnsetData.Hand.ToString() ?? "N/A";
+				grid.Value[4].Content = spawnsetFile.SpawnsetData.AdditionalGems.ToString() ?? "N/A";
+				grid.Value[5].Content = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
+				grid.Value[6].Content = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
 				grid.Value[7].Content = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture);
-				grid.Value[8].Content = !spawnsetFile.SpawnsetData.LoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.LoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+				grid.Value[8].Content = spawnsetFile.SpawnsetData.LoopLength?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
 				grid.Value[9].Content = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture);
 			}
 		}
