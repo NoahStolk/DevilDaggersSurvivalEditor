@@ -44,8 +44,8 @@
 	<Style TargetType="TextBlock" x:Key="WarningTextBlock">
 		<Style.Setters>
 			<Setter Property="FontWeight" Value="Bold" />
-			<Setter Property="Foreground" Value="#ff2222" />
-			<Setter Property="Background" Value="#bbb" />
+			<Setter Property="Foreground" Value="#f00" />
+			<Setter Property="Background" Value="#111" />
 			<Setter Property="Margin" Value="4" />
 			<Setter Property="FontSize" Value="14" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
