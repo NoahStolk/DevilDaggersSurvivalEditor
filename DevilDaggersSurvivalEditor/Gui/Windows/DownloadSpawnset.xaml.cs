@@ -26,12 +26,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 	{
 		private const int _pageSize = 30;
 
-		private readonly Dictionary<Grid, List<Label>> _spawnsetGrids = new();
-
 		private int _pageIndex;
+
+		private int _total;
 
 		private SpawnsetSorting _activeSpawnsetSorting;
 		private readonly Dictionary<SpawnsetSorting, Button> _spawnsetSortings = new();
+
+		private readonly Dictionary<Grid, List<Label>> _spawnsetGrids = new();
 
 		public DownloadSpawnsetWindow()
 		{
@@ -141,6 +143,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				spawnsets = spawnsets.Where(sf => sf.HasCustomLeaderboard);
 			if (PracticeCheckBox.IsChecked())
 				spawnsets = spawnsets.Where(sf => sf.IsPractice);
+
+			_total = spawnsets.Count();
 
 			// Paging
 			spawnsets = spawnsets.Skip(_pageIndex * _pageSize).Take(_pageSize);
@@ -268,6 +272,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			UpdateSpawnsets();
+			UpdatePageLabel();
 		}
 
 		private void ClearAuthorSearchButton_Click(object sender, RoutedEventArgs e)
@@ -283,6 +288,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void FilterCheckBox_Changed(object sender, RoutedEventArgs e)
 		{
 			UpdateSpawnsets();
+			UpdatePageLabel();
 		}
 
 		private void SortSpawnsetFilesButton_Click(SpawnsetSorting spawnsetSorting)
@@ -295,14 +301,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void LastPage_Click(object sender, RoutedEventArgs e)
 		{
-			_pageIndex = NetworkHandler.Instance.Spawnsets.Count / _pageSize;
+			_pageIndex = _total / _pageSize;
 			UpdateSpawnsets();
 			UpdatePageLabel();
 		}
 
 		private void NextPage_Click(object sender, RoutedEventArgs e)
 		{
-			_pageIndex = Math.Min(NetworkHandler.Instance.Spawnsets.Count / _pageSize, _pageIndex + 1);
+			_pageIndex = Math.Min(_total / _pageSize, _pageIndex + 1);
 			UpdateSpawnsets();
 			UpdatePageLabel();
 		}
@@ -323,9 +329,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void UpdatePageLabel()
 		{
-			int total = NetworkHandler.Instance.Spawnsets.Count;
-
-			PageLabel.Content = $"Page {_pageIndex + 1} of {total / _pageSize + 1}\nShowing {_pageIndex * _pageSize + 1} - {Math.Min(total, (_pageIndex + 1) * _pageSize)} of {total} results";
+			PageLabel.Content = $"Page {_pageIndex + 1} of {_total / _pageSize + 1}\nShowing {_pageIndex * _pageSize + 1} - {Math.Min(_total, (_pageIndex + 1) * _pageSize)} of {_total} results";
 		}
 
 		#endregion Events

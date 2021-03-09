@@ -6,7 +6,7 @@
 		mc:Ignorable="d"
         Title="Download spawnset" WindowStartupLocation="CenterScreen">
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-		<StackPanel Height="768" Width="1366" Style="{StaticResource PaddingStackPanel}" Background="{StaticResource Gray3}">
+		<StackPanel Height="696" Width="1366" Background="{StaticResource Gray3}">
 			<Label Style="{StaticResource TitleLabel}">Spawnsets from DevilDaggers.info</Label>
 			<Grid Margin="8">
 				<Grid.ColumnDefinitions>
@@ -16,9 +16,7 @@
 				<StackPanel>
 					<Button Name="ReloadButton" Click="ReloadButton_Click" Width="128" HorizontalAlignment="Left">Reload all</Button>
 
-					<Grid Style="{StaticResource SpawnsetHeader}">
-						<Label Style="{StaticResource BoldLabel}">Filters</Label>
-					</Grid>
+					<Label Style="{StaticResource BoldLabel}">Filters</Label>
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
@@ -42,9 +40,7 @@
 					<CheckBox Name="CustomLeaderboardCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Custom leaderboard</CheckBox>
 					<CheckBox Name="PracticeCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Practice</CheckBox>
 
-					<Grid Style="{StaticResource SpawnsetHeader}">
-						<Label Style="{StaticResource BoldLabel}">Paging</Label>
-					</Grid>
+					<Label Style="{StaticResource BoldLabel}">Paging</Label>
 					<Label Name="PageLabel" />
 					<StackPanel Orientation="Horizontal">
 						<Button Width="32" Click="FirstPage_Click" ToolTip="First page">&lt;&lt;</Button>
@@ -77,7 +73,7 @@
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 					</Grid>
-					<StackPanel Height="673" Name="SpawnsetsStackPanel" />
+					<StackPanel Height="600" Name="SpawnsetsStackPanel" />
 				</StackPanel>
 			</Grid>
 		</StackPanel>
