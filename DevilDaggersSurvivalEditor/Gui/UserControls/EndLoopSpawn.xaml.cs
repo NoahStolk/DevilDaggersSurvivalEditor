@@ -31,35 +31,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SolidColorBrush background = new(enemyColor);
 			SolidColorBrush foreground = ColorUtils.GetPerceivedBrightness(enemyColor) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
 
-			if (gigaBecomesGhost)
+			EnemyControl.Content = new TextBlock
 			{
-				StackPanel stackPanel = new()
-				{
-					Orientation = Orientation.Horizontal,
-					Background = background,
-				};
-				stackPanel.Children.Add(new Label
-				{
-					Content = enemy?.Name ?? "EMPTY",
-					Foreground = foreground,
-				});
-				stackPanel.Children.Add(new Label
-				{
-					Content = "(?)",
-					FontWeight = FontWeights.Bold,
-					ToolTip = "Every third wave of the end loop, all Gigapedes are changed into Ghostpedes. This is hardcoded within the game and cannot be changed.",
-				});
-				EnemyControl.Content = stackPanel;
-			}
-			else
-			{
-				EnemyControl.Content = new Label
-				{
-					Content = enemy?.Name ?? "EMPTY",
-					Background = background,
-					Foreground = foreground,
-				};
-			}
+				Text = enemy?.Name ?? "EMPTY",
+				Background = background,
+				Foreground = foreground,
+				FontWeight = gigaBecomesGhost ? FontWeights.Bold : default,
+				ToolTip = gigaBecomesGhost ? "Every third wave of the end loop, all Gigapedes are changed into Ghostpedes. This is hardcoded within the game and cannot be changed." : null,
+				TextDecorations = gigaBecomesGhost ? TextDecorations.Underline : null,
+			};
 
 			LabelNoFarmGems.Content = enemy?.NoFarmGems ?? 0;
 		}
