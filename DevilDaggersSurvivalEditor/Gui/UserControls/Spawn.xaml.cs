@@ -2,7 +2,6 @@
 using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.Utils;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -23,7 +22,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		public void SetId(int id)
 		{
 			Id = id;
-			TextBlockId.Text = id.ToString(CultureInfo.InvariantCulture);
+			TextBlockId.Text = id.ToString();
 		}
 
 		public void SetSeconds(double seconds)
@@ -35,7 +34,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		public void SetTotalGems(int totalGems)
 		{
 			TotalGems = totalGems;
-			TextBlockTotalGems.Text = totalGems.ToString(CultureInfo.InvariantCulture);
+			TextBlockTotalGems.Text = totalGems.ToString();
 		}
 
 		public void SetSpawn(Spawn spawn)
@@ -43,7 +42,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			Spawn = spawn;
 
 			TextBlockEnemy.Text = spawn.Enemy?.Name ?? "EMPTY";
-			TextBlockDelay.Text = spawn.Delay.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+			TextBlockDelay.Text = spawn.Delay.ToString(SpawnUtils.Format);
 			TextBlockNoFarmGems.Text = (spawn.Enemy?.NoFarmGems ?? 0).ToString();
 
 			Color color = spawn.Enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.Enemy.ColorCode}");

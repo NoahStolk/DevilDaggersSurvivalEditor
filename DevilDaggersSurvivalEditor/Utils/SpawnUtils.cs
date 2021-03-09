@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace DevilDaggersSurvivalEditor.Utils
 {
@@ -13,6 +12,6 @@ namespace DevilDaggersSurvivalEditor.Utils
 			=> Math.Ceiling(gameTimeInSeconds * 60) / 60;
 
 		public static string ToFramedGameTimeString(double gameTimeInSeconds)
-			=> ToFramedGameTime(gameTimeInSeconds).ToString(Format, CultureInfo.InvariantCulture);
+			=> ToFramedGameTime(gameTimeInSeconds).ToString(Format);
 	}
 }

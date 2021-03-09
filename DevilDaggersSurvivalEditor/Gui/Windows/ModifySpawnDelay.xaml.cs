@@ -1,7 +1,6 @@
 ﻿using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Enumerators;
 using DevilDaggersSurvivalEditor.Utils;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,7 +16,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			Data.DataContext = this;
 
-			TextBoxValue.Text = Value.ToString(CultureInfo.InvariantCulture);
+			TextBoxValue.Text = Value.ToString();
 			TextBoxValue.Focus();
 			TextBoxValue.SelectAll();
 		}
@@ -40,7 +39,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			bool isValid = IsValueValid();
 
 			if (isValid)
-				Value = float.Parse(TextBoxValue.Text, CultureInfo.InvariantCulture);
+				Value = float.Parse(TextBoxValue.Text);
 
 			TextBoxValue.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 

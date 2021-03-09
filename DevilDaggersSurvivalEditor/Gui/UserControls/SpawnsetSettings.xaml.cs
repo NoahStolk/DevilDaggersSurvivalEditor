@@ -1,7 +1,6 @@
 ﻿using DevilDaggersSurvivalEditor.Extensions;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using System;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -57,7 +56,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					_ => 9,
 				};
 
-				SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text, CultureInfo.InvariantCulture), 0, max);
+				SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
@@ -68,7 +67,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (TextBoxTimerStart.ValidatePositiveFloatTextBox())
 			{
-				SpawnsetHandler.Instance.Spawnset.TimerStart = float.Parse(TextBoxTimerStart.Text, CultureInfo.InvariantCulture);
+				SpawnsetHandler.Instance.Spawnset.TimerStart = float.Parse(TextBoxTimerStart.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlSeconds();
@@ -85,8 +84,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
 			ComboBoxVersion.SelectedIndex = SpawnsetHandler.Instance.Spawnset.WorldVersion == 8 ? 0 : SpawnsetHandler.Instance.Spawnset.SpawnVersion == 4 ? 1 : 2;
 			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
-			TextBoxAdditionalGems.Text = SpawnsetHandler.Instance.Spawnset.AdditionalGems.ToString(CultureInfo.InvariantCulture);
-			TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString(CultureInfo.InvariantCulture);
+			TextBoxAdditionalGems.Text = SpawnsetHandler.Instance.Spawnset.AdditionalGems.ToString();
+			TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString();
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
 		}

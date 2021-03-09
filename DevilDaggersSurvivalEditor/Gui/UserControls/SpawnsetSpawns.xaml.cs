@@ -7,7 +7,6 @@ using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			InitializeComponent();
 
-			DelayTextBox.Text = Delay.ToString(CultureInfo.InvariantCulture);
+			DelayTextBox.Text = Delay.ToString();
 			AmountTextBox.DataContext = this;
 
 			Data.DataContext = this;
@@ -321,7 +320,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			bool isValid = IsDelayValid();
 
 			if (isValid)
-				Delay = float.Parse(DelayTextBox.Text, CultureInfo.InvariantCulture);
+				Delay = float.Parse(DelayTextBox.Text);
 
 			DelayTextBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 

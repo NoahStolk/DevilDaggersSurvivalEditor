@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Text;
+﻿using System.Text;
 
 namespace DevilDaggersSurvivalEditor.Extensions
 {
@@ -12,7 +11,7 @@ namespace DevilDaggersSurvivalEditor.Extensions
 			foreach (char c in input.ToString() ?? string.Empty)
 			{
 				if (char.IsUpper(c) && !first)
-					sb.Append(' ').Append(c.ToString().ToLower(CultureInfo.InvariantCulture));
+					sb.Append(' ').Append(char.ToLower(c));
 				else
 					sb.Append(c);
 				first = false;

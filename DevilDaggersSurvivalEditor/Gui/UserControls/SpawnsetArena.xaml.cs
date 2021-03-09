@@ -10,7 +10,6 @@ using DevilDaggersSurvivalEditor.User;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -103,7 +102,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					{
 						Margin = default,
 						Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)),
-						ToolTip = height.ToString("0.##", CultureInfo.InvariantCulture),
+						ToolTip = height.ToString("0.##"),
 						Tag = height,
 						Style = _toggleRadioButtonStyle,
 					};
@@ -119,7 +118,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					}
 
 					_tileAction = TileAction.Height;
-					_heightSelectorValue = float.Parse(r.Tag?.ToString() ?? "0", CultureInfo.InvariantCulture);
+					_heightSelectorValue = float.Parse(r.Tag?.ToString() ?? "0");
 				};
 
 				Grid.SetRow(heightRadioButton, 0);
@@ -134,7 +133,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				for (int j = 0; j < 9; j++)
 				{
 					float height = i * 9 + j + 1;
-					RadioButton heightRadioButton = new() { Margin = default, Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString(CultureInfo.InvariantCulture), Tag = height, Style = _toggleRadioButtonStyle };
+					RadioButton heightRadioButton = new() { Margin = default, Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString(), Tag = height, Style = _toggleRadioButtonStyle };
 					heightRadioButton.Checked += (sender, e) =>
 					{
 						if (sender is not RadioButton r)
@@ -144,7 +143,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 							rb.IsChecked = false;
 
 						_tileAction = TileAction.Height;
-						_heightSelectorValue = float.Parse(r.Tag?.ToString() ?? "0", CultureInfo.InvariantCulture);
+						_heightSelectorValue = float.Parse(r.Tag?.ToString() ?? "0");
 					};
 
 					Grid.SetRow(heightRadioButton, i + 1);
@@ -252,10 +251,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void SetSettingTextBoxes()
 		{
-			TextBoxShrinkStart.Text = SpawnsetHandler.Instance.Spawnset.ShrinkStart.ToString(CultureInfo.InvariantCulture);
-			TextBoxShrinkEnd.Text = SpawnsetHandler.Instance.Spawnset.ShrinkEnd.ToString(CultureInfo.InvariantCulture);
-			TextBoxShrinkRate.Text = SpawnsetHandler.Instance.Spawnset.ShrinkRate.ToString(CultureInfo.InvariantCulture);
-			TextBoxBrightness.Text = SpawnsetHandler.Instance.Spawnset.Brightness.ToString(CultureInfo.InvariantCulture);
+			TextBoxShrinkStart.Text = SpawnsetHandler.Instance.Spawnset.ShrinkStart.ToString();
+			TextBoxShrinkEnd.Text = SpawnsetHandler.Instance.Spawnset.ShrinkEnd.ToString();
+			TextBoxShrinkRate.Text = SpawnsetHandler.Instance.Spawnset.ShrinkRate.ToString();
+			TextBoxBrightness.Text = SpawnsetHandler.Instance.Spawnset.Brightness.ToString();
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
 		}
@@ -264,7 +263,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (TextBoxShrinkStart.ValidatePositiveFloatTextBox())
 			{
-				SpawnsetHandler.Instance.Spawnset.ShrinkStart = float.Parse(TextBoxShrinkStart.Text, CultureInfo.InvariantCulture);
+				SpawnsetHandler.Instance.Spawnset.ShrinkStart = float.Parse(TextBoxShrinkStart.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				UpdateShrinkStart();
@@ -286,7 +285,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (TextBoxShrinkEnd.ValidatePositiveFloatTextBox())
 			{
-				SpawnsetHandler.Instance.Spawnset.ShrinkEnd = float.Parse(TextBoxShrinkEnd.Text, CultureInfo.InvariantCulture);
+				SpawnsetHandler.Instance.Spawnset.ShrinkEnd = float.Parse(TextBoxShrinkEnd.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				UpdateShrinkEnd();
@@ -308,7 +307,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (TextBoxShrinkRate.ValidatePositiveFloatTextBox())
 			{
-				SpawnsetHandler.Instance.Spawnset.ShrinkRate = float.Parse(TextBoxShrinkRate.Text, CultureInfo.InvariantCulture);
+				SpawnsetHandler.Instance.Spawnset.ShrinkRate = float.Parse(TextBoxShrinkRate.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				UpdateShrinkCurrent();
@@ -320,7 +319,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (TextBoxBrightness.ValidatePositiveFloatTextBox())
 			{
-				SpawnsetHandler.Instance.Spawnset.Brightness = float.Parse(TextBoxBrightness.Text, CultureInfo.InvariantCulture);
+				SpawnsetHandler.Instance.Spawnset.Brightness = float.Parse(TextBoxBrightness.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 			}
 		}
@@ -447,7 +446,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			bool voidTile = height < TileUtils.TileMin;
 
 			TileHeightLabel.FontWeight = voidTile ? FontWeights.Bold : FontWeights.Normal;
-			TileHeightLabel.Content = voidTile ? "Void" : height.ToString("0.00", CultureInfo.InvariantCulture);
+			TileHeightLabel.Content = voidTile ? "Void" : height.ToString("0.00");
 		}
 
 		private void ExecuteTileAction(ArenaCoord tile)

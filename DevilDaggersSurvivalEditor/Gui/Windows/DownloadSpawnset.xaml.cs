@@ -11,7 +11,6 @@ using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -196,14 +195,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.Hyperlink.Click += newEvent;
 
 				grid.TextBlocks[0].Text = spawnsetFile.AuthorName;
-				grid.TextBlocks[1].Text = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
+				grid.TextBlocks[1].Text = spawnsetFile.LastUpdated.ToString("dd MMM yyyy");
 				grid.TextBlocks[2].Text = spawnsetFile.SpawnsetData.Hand?.ToString() ?? "N/A";
 				grid.TextBlocks[3].Text = spawnsetFile.SpawnsetData.AdditionalGems?.ToString() ?? "N/A";
-				grid.TextBlocks[4].Text = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
-				grid.TextBlocks[5].Text = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
-				grid.TextBlocks[6].Text = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture);
-				grid.TextBlocks[7].Text = spawnsetFile.SpawnsetData.LoopLength?.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture) ?? "N/A";
-				grid.TextBlocks[8].Text = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture);
+				grid.TextBlocks[4].Text = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format) ?? "N/A";
+				grid.TextBlocks[5].Text = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format) ?? "N/A";
+				grid.TextBlocks[6].Text = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString();
+				grid.TextBlocks[7].Text = spawnsetFile.SpawnsetData.LoopLength?.ToString(SpawnUtils.Format) ?? "N/A";
+				grid.TextBlocks[8].Text = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString();
 			}
 		}
 
