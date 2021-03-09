@@ -28,11 +28,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			Splash.Source = new BitmapImage(ContentUtils.MakeUri(Path.Combine("Content", "Images", "SplashScreens", $"{RandomUtils.RandomInt(37)}.png")));
 
-			VersionLabel.Content = $"Version {App.LocalVersion}";
+			TextBlockVersion.Text = $"Version {App.LocalVersion}";
 
 #if DEBUG
-			VersionLabel.Background = ColorUtils.ThemeColors["SuccessText"];
-			VersionLabel.Content += " DEBUG";
+			TextBlockVersion.Background = ColorUtils.ThemeColors["SuccessText"];
+			TextBlockVersion.Text += " DEBUG";
 #endif
 
 			Loaded += RunThreads;
@@ -73,9 +73,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						}
 					}
 
-					TaskResultsStackPanel.Children.Add(new Label
+					TaskResultsStackPanel.Children.Add(new TextBlock
 					{
-						Content = message,
+						Text = message,
 						Foreground = color,
 						FontWeight = FontWeights.Bold,
 					});
@@ -108,9 +108,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			{
 				Dispatcher.Invoke(() =>
 				{
-					TaskResultsStackPanel.Children.Add(new Label
+					TaskResultsStackPanel.Children.Add(new TextBlock
 					{
-						Content = readUserSettingsSuccess ? userSettingsFileExists ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
+						Text = readUserSettingsSuccess ? userSettingsFileExists ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
 						Foreground = readUserSettingsSuccess ? ColorUtils.ThemeColors["SuccessText"] : ColorUtils.ThemeColors["ErrorText"],
 						FontWeight = FontWeights.Bold,
 					});
@@ -131,9 +131,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			{
 				Dispatcher.Invoke(() =>
 				{
-					TaskResultsStackPanel.Children.Add(new Label
+					TaskResultsStackPanel.Children.Add(new TextBlock
 					{
-						Content = retrieveSpawnsetsSuccess ? "OK" : "Error",
+						Text = retrieveSpawnsetsSuccess ? "OK" : "Error",
 						Foreground = retrieveSpawnsetsSuccess ? ColorUtils.ThemeColors["SuccessText"] : ColorUtils.ThemeColors["ErrorText"],
 						FontWeight = FontWeights.Bold,
 					});
@@ -175,9 +175,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void RunThread(BackgroundWorker worker)
 		{
-			TasksStackPanel.Children.Add(new Label
+			TasksStackPanel.Children.Add(new TextBlock
 			{
-				Content = _threadMessages[_threadsComplete],
+				Text = _threadMessages[_threadsComplete],
 			});
 
 			worker.RunWorkerAsync();
