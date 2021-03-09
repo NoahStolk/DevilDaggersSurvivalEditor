@@ -85,7 +85,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			};
 
 			bool readUserSettingsSuccess = false;
-			bool userSettingsFileExists = File.Exists(UserSettings.FileName);
+			bool userSettingsFileExists = File.Exists(UserSettings.FilePath);
 			using BackgroundWorker readUserSettingsThread = new();
 			readUserSettingsThread.DoWork += (sender, e) =>
 			{
@@ -93,7 +93,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				{
 					if (userSettingsFileExists)
 					{
-						using StreamReader sr = new(File.OpenRead(UserSettings.FileName));
+						using StreamReader sr = new(File.OpenRead(UserSettings.FilePath));
 						UserHandler.Instance.Settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
 					}
 

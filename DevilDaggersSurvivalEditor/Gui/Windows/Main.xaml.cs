@@ -216,7 +216,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			SettingsWindow settingsWindow = new();
 			if (settingsWindow.ShowDialog() == true)
 			{
-				using (StreamWriter sw = new(File.Create(UserSettings.FileName)))
+				if (!Directory.Exists(UserSettings.FileDirectory))
+					Directory.CreateDirectory(UserSettings.FileDirectory);
+
+				using (StreamWriter sw = new(File.Create(UserSettings.FilePath)))
 					sw.Write(JsonConvert.SerializeObject(UserHandler.Instance.Settings, Formatting.Indented));
 
 				if (App.Instance.MainWindow != null)

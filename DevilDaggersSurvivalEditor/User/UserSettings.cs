@@ -1,5 +1,6 @@
 ﻿using DevilDaggersSurvivalEditor.Enumerators;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 
 namespace DevilDaggersSurvivalEditor.User
@@ -7,7 +8,10 @@ namespace DevilDaggersSurvivalEditor.User
 	[JsonObject(MemberSerialization.OptIn)]
 	public class UserSettings
 	{
-		public const string FileName = "user.json";
+		private const string _fileName = "settings.json";
+
+		public static string FileDirectory => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DevilDaggersSurvivalEditor");
+		public static string FilePath => Path.Combine(FileDirectory, _fileName);
 
 		[JsonProperty]
 		public string DevilDaggersRootFolder { get; set; } = @"C:\Program Files (x86)\Steam\steamapps\common\devildaggers";
