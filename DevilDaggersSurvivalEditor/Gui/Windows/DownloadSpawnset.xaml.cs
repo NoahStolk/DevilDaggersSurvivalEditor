@@ -182,6 +182,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void Download_Click(string fileName)
 		{
+			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
+				return;
+
 			Close();
 
 			Spawnset? downloadedSpawnset = null;

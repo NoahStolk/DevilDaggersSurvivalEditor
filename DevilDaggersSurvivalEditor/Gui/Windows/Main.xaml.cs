@@ -144,9 +144,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void OpenWeb_Executed(object sender, RoutedEventArgs e)
 		{
-			if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
-				return;
-
 			DownloadSpawnsetWindow window = new();
 			window.ShowDialog();
 		}
