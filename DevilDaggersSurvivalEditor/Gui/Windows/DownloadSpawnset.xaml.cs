@@ -110,6 +110,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			}
 
 			UpdateSpawnsets();
+			UpdatePageLabel();
 		}
 
 		#region GUI
@@ -290,6 +291,41 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			_activeSpawnsetSorting.Ascending = !_activeSpawnsetSorting.Ascending;
 
 			UpdateSpawnsets();
+		}
+
+		private void LastPage_Click(object sender, RoutedEventArgs e)
+		{
+			_pageIndex = NetworkHandler.Instance.Spawnsets.Count / _pageSize;
+			UpdateSpawnsets();
+			UpdatePageLabel();
+		}
+
+		private void NextPage_Click(object sender, RoutedEventArgs e)
+		{
+			_pageIndex = Math.Min(NetworkHandler.Instance.Spawnsets.Count / _pageSize, _pageIndex + 1);
+			UpdateSpawnsets();
+			UpdatePageLabel();
+		}
+
+		private void PreviousPage_Click(object sender, RoutedEventArgs e)
+		{
+			_pageIndex = Math.Max(0, _pageIndex - 1);
+			UpdateSpawnsets();
+			UpdatePageLabel();
+		}
+
+		private void FirstPage_Click(object sender, RoutedEventArgs e)
+		{
+			_pageIndex = 0;
+			UpdateSpawnsets();
+			UpdatePageLabel();
+		}
+
+		private void UpdatePageLabel()
+		{
+			int total = NetworkHandler.Instance.Spawnsets.Count;
+
+			PageLabel.Content = $"Page {_pageIndex + 1} of {total / _pageSize + 1}\nShowing {_pageIndex * _pageSize + 1} - {Math.Min(total, (_pageIndex + 1) * _pageSize)} of {total} results";
 		}
 
 		#endregion Events

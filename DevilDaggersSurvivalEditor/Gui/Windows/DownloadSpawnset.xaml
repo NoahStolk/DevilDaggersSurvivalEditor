@@ -15,29 +15,43 @@
 				</Grid.ColumnDefinitions>
 				<StackPanel>
 					<Button Name="ReloadButton" Click="ReloadButton_Click" Width="128" HorizontalAlignment="Left">Reload all</Button>
-					<Label FontWeight="Bold">Filters</Label>
+
+					<Grid Style="{StaticResource SpawnsetHeader}">
+						<Label Style="{StaticResource BoldLabel}">Filters</Label>
+					</Grid>
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition />
-							<ColumnDefinition Width="20" />
+							<ColumnDefinition Width="24" />
 						</Grid.ColumnDefinitions>
 						<Label>Spawnset name</Label>
 						<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="FilterTextBox_TextChanged" />
-						<Button Grid.Column="2" Name="ClearSpawnsetSearchButton" Content="X" Click="ClearSpawnsetSearchButton_Click" ToolTip="Clear spawnset search" />
+						<Button Grid.Column="2" Name="ClearSpawnsetSearchButton" Content="X" Click="ClearSpawnsetSearchButton_Click" ToolTip="Clear spawnset filter" />
 					</Grid>
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition />
-							<ColumnDefinition Width="20" />
+							<ColumnDefinition Width="24" />
 						</Grid.ColumnDefinitions>
 						<Label>Author name</Label>
 						<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="FilterTextBox_TextChanged" />
-						<Button Grid.Column="2" Name="ClearAuthorSearchButton" Content="X" Click="ClearAuthorSearchButton_Click" ToolTip="Clear author search" />
+						<Button Grid.Column="2" Name="ClearAuthorSearchButton" Content="X" Click="ClearAuthorSearchButton_Click" ToolTip="Clear author filter" />
 					</Grid>
 					<CheckBox Name="CustomLeaderboardCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Custom leaderboard</CheckBox>
 					<CheckBox Name="PracticeCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Practice</CheckBox>
+
+					<Grid Style="{StaticResource SpawnsetHeader}">
+						<Label Style="{StaticResource BoldLabel}">Paging</Label>
+					</Grid>
+					<Label Name="PageLabel" />
+					<StackPanel Orientation="Horizontal">
+						<Button Width="32" Click="FirstPage_Click" ToolTip="First page">&lt;&lt;</Button>
+						<Button Width="32" Click="PreviousPage_Click" ToolTip="Previous page">&lt;</Button>
+						<Button Width="32" Click="NextPage_Click" ToolTip="Next page">&gt;</Button>
+						<Button Width="32" Click="LastPage_Click" ToolTip="Last page">&gt;&gt;</Button>
+					</StackPanel>
 				</StackPanel>
 				<StackPanel Grid.Column="1" Background="#282828">
 					<Grid HorizontalAlignment="Stretch">
