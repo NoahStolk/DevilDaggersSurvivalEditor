@@ -1,5 +1,4 @@
 ﻿using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Clients;
 using DevilDaggersSurvivalEditor.Enumerators;
@@ -11,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,70 +23,132 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class DownloadSpawnsetWindow : Window
 	{
-		private readonly List<Image> _authorSortingImages = new();
-		private readonly List<Image> _spawnsetSortingImages = new();
+		private const int _pageSize = 40;
 
-		private AuthorListEntry? _authorSelection;
+		private readonly Dictionary<Grid, List<Label>> _spawnsetGrids = new();
+
+		private int _pageIndex;
+		private string _authorSearch = string.Empty;
+		private string _spawnsetSearch = string.Empty;
+
+		private SpawnsetSorting _activeSpawnsetSorting;
+		private readonly Dictionary<SpawnsetSorting, Button> _spawnsetSortings = new();
 
 		public DownloadSpawnsetWindow()
 		{
 			InitializeComponent();
 
+			// TODO: Cache.
+			AuthorSearchTextBox.Text = _authorSearch;
+			SpawnsetSearchTextBox.Text = _spawnsetSearch;
+
+			// Set sorting values and GUI header.
+			List<SpawnsetSorting> sortings = new()
+			{
+				new("Name", "Name", s => s.Name, true),
+				new("Author", "Author", s => s.AuthorName, true),
+				new("Last updated", "Last updated", s => s.LastUpdated, false),
+				new("Non-loop length", "Length", s => s.SpawnsetData.NonLoopLength ?? 0, false),
+				new("Non-loop spawns", "Spawns", s => s.SpawnsetData.NonLoopSpawnCount, false),
+				new("Loop length", "Length", s => s.SpawnsetData.LoopLength ?? 0, false),
+				new("Loop spawns", "Spawns", s => s.SpawnsetData.LoopSpawnCount, false),
+			};
+
 			int index = 0;
-			foreach (SpawnsetListSorting<AuthorListEntry> sorting in SpawnsetListHandler.Instance.AuthorSortings)
-				AuthorHeaders.Children.Add(CreateHeaderStackPanel(index++, _authorSortingImages, sorting, SpawnsetListHandler.Instance.ActiveAuthorSorting, SortAuthorsButton_Click));
+			foreach (SpawnsetSorting sorting in sortings)
+			{
+				Button button = new()
+				{
+					ToolTip = $"Sort by \"{sorting.FullName}\"",
+					Width = 18,
+					Content = new Image
+					{
+						Source = new BitmapImage(ContentUtils.MakeUri(Path.Combine("Content", "Images", "Buttons", "Sort.png"))),
+						Stretch = Stretch.None,
+					},
+					Tag = sorting,
+				};
+				button.Click += (_, _) => SortSpawnsetFilesButton_Click(sorting);
+				_spawnsetSortings.Add(sorting, button);
 
-			index = 0;
-			foreach (SpawnsetListSorting<SpawnsetFile> sorting in SpawnsetListHandler.Instance.SpawnsetSortings)
-				SpawnsetHeaders.Children.Add(CreateHeaderStackPanel(index++, _spawnsetSortingImages, sorting, SpawnsetListHandler.Instance.ActiveSpawnsetSorting, SortSpawnsetFilesButton_Click));
+				StackPanel stackPanel = new() { Orientation = Orientation.Horizontal };
+				stackPanel.Children.Add(new Label
+				{
+					FontWeight = FontWeights.Bold,
+					Content = sorting.DisplayName,
+				});
+				stackPanel.Children.Add(button);
+				Grid.SetColumn(stackPanel, index++);
+				SpawnsetHeaders.Children.Add(stackPanel);
+			}
 
-			PopulateAuthorsListBox();
-			PopulateSpawnsetsStackPanel();
+			_activeSpawnsetSorting = _spawnsetSortings.ElementAt(2).Key;
 
-			SortAuthorsListBox(SpawnsetListHandler.Instance.ActiveAuthorSorting);
-			SortSpawnsetsStackPanel(SpawnsetListHandler.Instance.ActiveSpawnsetSorting);
+			// Set spawnset GUI grids.
+			for (int i = 0; i < _pageSize; i++)
+			{
+				Grid grid = new();
+				List<Label> labels = new();
+				for (int j = 0; j < 7; j++)
+				{
+					grid.ColumnDefinitions.Add(new() { Width = new GridLength(j == 0 ? 3 : j < 3 ? 2 : 1, GridUnitType.Star) });
 
-			AuthorSearchTextBox.Text = SpawnsetListHandler.Instance.AuthorSearch;
-			SpawnsetSearchTextBox.Text = SpawnsetListHandler.Instance.SpawnsetSearch;
+					Label label = new();
+					Grid.SetColumn(label, j);
 
-			FilterAuthorsListBox();
-			FilterSpawnsetsStackPanel();
+					labels.Add(label);
+					grid.Children.Add(label);
+				}
+
+				_spawnsetGrids.Add(grid, labels);
+				SpawnsetsStackPanel.Children.Add(grid);
+			}
+
+			UpdateSpawnsets();
 		}
 
-		private static StackPanel CreateHeaderStackPanel<TListEntry>(int index, List<Image> sortingImages, SpawnsetListSorting<TListEntry> sorting, SpawnsetListSorting<TListEntry> activeSorting, Action<object, RoutedEventArgs> buttonClick)
+		private void UpdateSpawnsets()
 		{
-			Label label = new()
-			{
-				FontWeight = FontWeights.Bold,
-				Content = sorting.DisplayName,
-			};
+			IEnumerable<SpawnsetFile> spawnsets = NetworkHandler.Instance.Spawnsets;
+			spawnsets = _activeSpawnsetSorting.Ascending ? spawnsets.OrderBy(_activeSpawnsetSorting.SortingFunction) : spawnsets.OrderByDescending(_activeSpawnsetSorting.SortingFunction);
+			if (!string.IsNullOrWhiteSpace(_spawnsetSearch))
+				spawnsets = spawnsets.Where(s => s.Name.Contains(_spawnsetSearch, StringComparison.InvariantCultureIgnoreCase));
+			if (!string.IsNullOrWhiteSpace(_authorSearch))
+				spawnsets = spawnsets.Where(s => s.AuthorName.Contains(_authorSearch, StringComparison.InvariantCultureIgnoreCase));
 
-			Image image = new()
-			{
-				Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", sorting == activeSorting ? "SpawnsetSortActive.png" : "SpawnsetSort.png"))),
-				Stretch = Stretch.None,
-				RenderTransformOrigin = new(0.5, 0.5),
-				RenderTransform = new ScaleTransform
-				{
-					ScaleY = sorting.IsAscendingDefault ? sorting.Ascending ? 1 : -1 : sorting.Ascending ? -1 : 1,
-				},
-			};
-			sortingImages.Add(image);
+			spawnsets = spawnsets.Skip(_pageIndex * _pageSize).Take(_pageSize);
 
-			Button button = new()
-			{
-				ToolTip = $"Sort by \"{sorting.FullName}\"",
-				Width = 18,
-				Content = image,
-				Tag = sorting,
-			};
-			button.Click += (sender, e) => buttonClick(sender, e);
+			List<SpawnsetFile> spawnsetsFinal = spawnsets.ToList();
+			for (int i = 0; i < _pageSize; i++)
+				FillSpawnsetGrid(i, i < spawnsetsFinal.Count ? spawnsetsFinal[i] : null);
+		}
 
-			StackPanel stackPanel = new() { Orientation = Orientation.Horizontal };
-			stackPanel.Children.Add(label);
-			stackPanel.Children.Add(button);
-			Grid.SetColumn(stackPanel, index);
-			return stackPanel;
+		private void FillSpawnsetGrid(int index, SpawnsetFile? spawnsetFile)
+		{
+			KeyValuePair<Grid, List<Label>> grid = _spawnsetGrids.ElementAt(index);
+			if (spawnsetFile == null)
+			{
+				grid.Value[0].Content = string.Empty;
+				grid.Value[1].Content = string.Empty;
+				grid.Value[2].Content = string.Empty;
+				grid.Value[3].Content = string.Empty;
+				grid.Value[4].Content = string.Empty;
+				grid.Value[5].Content = string.Empty;
+				grid.Value[6].Content = string.Empty;
+			}
+			else
+			{
+				Hyperlink nameHyperlink = new(new Run(spawnsetFile.Name));
+				nameHyperlink.Click += (sender, e) => Download_Click(spawnsetFile.Name);
+
+				grid.Value[0].Content = nameHyperlink;
+				grid.Value[1].Content = spawnsetFile.AuthorName;
+				grid.Value[2].Content = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
+				grid.Value[3].Content = !spawnsetFile.SpawnsetData.NonLoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+				grid.Value[4].Content = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture);
+				grid.Value[5].Content = !spawnsetFile.SpawnsetData.LoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.LoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+				grid.Value[6].Content = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture);
+			}
 		}
 
 		private void Download_Click(string fileName)
@@ -141,14 +203,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void ReloadButton_Click(object sender, RoutedEventArgs e)
 		{
-			AuthorsListBox.Items.Clear();
-			SpawnsetsStackPanel.Children.Clear();
-
 			AuthorSearchTextBox.Text = string.Empty;
-			SpawnsetListHandler.Instance.AuthorSearch = string.Empty;
+			_authorSearch = string.Empty;
 
 			SpawnsetSearchTextBox.Text = string.Empty;
-			SpawnsetListHandler.Instance.SpawnsetSearch = string.Empty;
+			_spawnsetSearch = string.Empty;
 
 			ReloadButton.IsEnabled = false;
 			ReloadButton.Content = "Loading...";
@@ -161,11 +220,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			};
 			thread.RunWorkerCompleted += (senderRunWorkerCompleted, eRunWorkerCompleted) =>
 			{
-				PopulateAuthorsListBox();
-				PopulateSpawnsetsStackPanel();
-
-				SortAuthorsListBox(SpawnsetListHandler.Instance.ActiveAuthorSorting);
-				SortSpawnsetsStackPanel(SpawnsetListHandler.Instance.ActiveSpawnsetSorting);
+				UpdateSpawnsets();
 
 				ReloadButton.IsEnabled = true;
 				ReloadButton.Content = "Reload";
@@ -174,260 +229,54 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			thread.RunWorkerAsync();
 		}
 
-		private void PopulateAuthorsListBox()
-		{
-			foreach (AuthorListEntry author in NetworkHandler.Instance.Authors)
-			{
-				AuthorsListBox.Items.Add(new ListBoxItem
-				{
-					Content = CreateAuthorGrid(author),
-					Tag = author,
-				});
-			}
-		}
-
-		private void PopulateSpawnsetsStackPanel()
-		{
-			foreach (SpawnsetFile sf in NetworkHandler.Instance.Spawnsets)
-			{
-				Grid grid = CreateSpawnsetGrid(sf);
-				SpawnsetsStackPanel.Children.Add(grid);
-			}
-
-			SetSpawnsetsStackPanelBackgroundColors();
-		}
-
-		private static Grid CreateAuthorGrid(AuthorListEntry author)
-		{
-			Label authorLabel = new() { Content = author.Name };
-			Grid.SetColumn(authorLabel, 0);
-
-			Label spawnsetCountLabel = new() { Content = author.SpawnsetCount, HorizontalAlignment = HorizontalAlignment.Right };
-			Grid.SetColumn(spawnsetCountLabel, 1);
-
-			Grid grid = new() { Tag = author };
-			grid.ColumnDefinitions.Add(new());
-			grid.ColumnDefinitions.Add(new());
-			grid.Children.Add(authorLabel);
-			grid.Children.Add(spawnsetCountLabel);
-
-			return grid;
-		}
-
-		private Grid CreateSpawnsetGrid(SpawnsetFile spawnsetFile)
-		{
-			Grid grid = new() { Tag = spawnsetFile };
-			grid.ColumnDefinitions.Add(new() { Width = new(3, GridUnitType.Star) });
-			grid.ColumnDefinitions.Add(new() { Width = new(2, GridUnitType.Star) });
-			grid.ColumnDefinitions.Add(new() { Width = new(2, GridUnitType.Star) });
-			for (int i = 0; i < 4; i++)
-				grid.ColumnDefinitions.Add(new());
-
-			Hyperlink nameHyperlink = new(new Run(spawnsetFile.Name.Replace("_", "__", StringComparison.InvariantCulture)));
-			nameHyperlink.Click += (sender, e) => Download_Click(spawnsetFile.Name);
-
-			List<UIElement> elements = new()
-			{
-				new Label { Content = nameHyperlink },
-				new Label { Content = spawnsetFile.AuthorName.Replace("_", "__", StringComparison.InvariantCulture) },
-				new Label { Content = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) },
-				new Label { Content = !spawnsetFile.SpawnsetData.NonLoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = !spawnsetFile.SpawnsetData.LoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.LoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-				new Label { Content = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Right },
-			};
-
-			for (int i = 0; i < elements.Count; i++)
-			{
-				Grid.SetColumn(elements[i], i);
-				grid.Children.Add(elements[i]);
-			}
-
-			return grid;
-		}
-
-		private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (AuthorsListBox.SelectedItem is not ListBoxItem listBoxItem || listBoxItem.Tag is not AuthorListEntry authorListEntry)
-				return;
-
-			_authorSelection = authorListEntry;
-
-			if (_authorSelection.Name == SpawnsetListHandler.AllAuthors)
-			{
-				foreach (Grid? grid in SpawnsetsStackPanel.Children)
-				{
-					if (grid == null)
-						continue;
-					grid.Visibility = Visibility.Visible;
-				}
-			}
-			else
-			{
-				foreach (Grid? grid in SpawnsetsStackPanel.Children)
-				{
-					if (grid == null)
-						continue;
-					if (grid.Tag is not SpawnsetFile spawnsetFile)
-						throw new($"Grid tag was not of type {nameof(SpawnsetFile)}.");
-					grid.Visibility = spawnsetFile.AuthorName == _authorSelection.Name ? Visibility.Visible : Visibility.Collapsed;
-				}
-			}
-
-			SetSpawnsetsStackPanelBackgroundColors();
-		}
-
 		private void AuthorSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			SpawnsetListHandler.Instance.AuthorSearch = AuthorSearchTextBox.Text;
-			FilterAuthorsListBox();
+			_authorSearch = AuthorSearchTextBox.Text;
+			UpdateSpawnsets();
 		}
 
 		private void SpawnsetSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			SpawnsetListHandler.Instance.SpawnsetSearch = SpawnsetSearchTextBox.Text;
-			FilterSpawnsetsStackPanel();
+			_spawnsetSearch = SpawnsetSearchTextBox.Text;
+			UpdateSpawnsets();
 		}
 
-		private void FilterAuthorsListBox()
+		private void SortSpawnsetFilesButton_Click(SpawnsetSorting spawnsetSorting)
 		{
-			foreach (ListBoxItem? lbi in AuthorsListBox.Items)
-			{
-				if (lbi == null || lbi?.Tag is not AuthorListEntry authorListEntry)
-					continue;
+			_activeSpawnsetSorting = spawnsetSorting;
+			_activeSpawnsetSorting.Ascending = !_activeSpawnsetSorting.Ascending;
 
-				lbi.Visibility = authorListEntry.Name.ToLower(CultureInfo.InvariantCulture).Contains(SpawnsetListHandler.Instance.AuthorSearch.ToLower(CultureInfo.InvariantCulture), StringComparison.InvariantCulture) ? Visibility.Visible : Visibility.Collapsed;
-			}
-		}
-
-		private void FilterSpawnsetsStackPanel()
-		{
-			foreach (Grid? grid in SpawnsetsStackPanel.Children)
-			{
-				if (grid == null || grid.Tag is not SpawnsetFile spawnsetFile)
-					continue;
-
-				grid.Visibility = spawnsetFile.Name.ToLower(CultureInfo.InvariantCulture).Contains(SpawnsetListHandler.Instance.SpawnsetSearch.ToLower(CultureInfo.InvariantCulture), StringComparison.InvariantCulture) ? Visibility.Visible : Visibility.Collapsed;
-			}
-
-			SetSpawnsetsStackPanelBackgroundColors();
-		}
-
-		private void SortAuthorsListBox(SpawnsetListSorting<AuthorListEntry> sorting)
-		{
-			List<AuthorListEntry> sorted = sorting.Ascending ? NetworkHandler.Instance.Authors.OrderBy(sorting.SortingFunction).ToList() : NetworkHandler.Instance.Authors.OrderByDescending(sorting.SortingFunction).ToList();
-
-			for (int i = 0; i < AuthorsListBox.Items.Count; i++)
-			{
-				ListBoxItem lbi = AuthorsListBox.Items.OfType<ListBoxItem>().First(g => (g.Content as Grid)?.Tag as AuthorListEntry == sorted[i]);
-				AuthorsListBox.Items.Remove(lbi);
-				AuthorsListBox.Items.Insert(i, lbi);
-
-				if (AuthorsListBox.Items[i] is not ListBoxItem listBoxItem)
-					throw new($"{nameof(listBoxItem)} was not of type {nameof(ListBoxItem)}.");
-				listBoxItem.IsSelected = sorted[i] == _authorSelection;
-			}
-		}
-
-		private void SortSpawnsetsStackPanel(SpawnsetListSorting<SpawnsetFile> sorting)
-		{
-			List<SpawnsetFile> sorted = sorting.Ascending ? NetworkHandler.Instance.Spawnsets.OrderBy(sorting.SortingFunction).ToList() : NetworkHandler.Instance.Spawnsets.OrderByDescending(sorting.SortingFunction).ToList();
-
-			for (int i = 0; i < SpawnsetsStackPanel.Children.Count; i++)
-			{
-				Grid grid = SpawnsetsStackPanel.Children.OfType<Grid>().First(g => g.Tag as SpawnsetFile == sorted[i]);
-				SpawnsetsStackPanel.Children.Remove(grid);
-				SpawnsetsStackPanel.Children.Insert(i, grid);
-			}
-
-			SetSpawnsetsStackPanelBackgroundColors();
-		}
-
-		private void SetSpawnsetsStackPanelBackgroundColors()
-		{
-			List<Grid> grids = SpawnsetsStackPanel.Children.OfType<Grid>().Where(c => c.Visibility == Visibility.Visible).ToList();
-			foreach (Grid grid in grids)
-				grid.Background = grids.IndexOf(grid) % 2 == 0 ? ColorUtils.ThemeColors["Gray3"] : ColorUtils.ThemeColors["Gray2"];
-		}
-
-		private void SortAuthorsButton_Click(object sender, RoutedEventArgs e)
-		{
-			Button? button = sender as Button;
-
-			foreach (Image image in _authorSortingImages)
-			{
-				if (image == null)
-					continue;
-
-				if (image == button?.Content as Image)
-				{
-					if (image.RenderTransform is not ScaleTransform scaleTransform)
-						throw new($"{nameof(image.RenderTransform)} was not of type {nameof(ScaleTransform)}.");
-
-					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));
-					image.RenderTransform = new ScaleTransform
-					{
-						ScaleY = -scaleTransform.ScaleY,
-					};
-				}
-				else
-				{
-					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSort.png")));
-				}
-			}
-
-			if (button?.Tag is not SpawnsetListSorting<AuthorListEntry> sorting)
-				throw new($"Button tag was not of type {nameof(SpawnsetListSorting<AuthorListEntry>)}.");
-
-			SpawnsetListHandler.Instance.ActiveAuthorSorting = sorting;
-			SpawnsetListHandler.Instance.ActiveAuthorSorting.Ascending = !SpawnsetListHandler.Instance.ActiveAuthorSorting.Ascending;
-
-			SortAuthorsListBox(sorting);
-		}
-
-		private void SortSpawnsetFilesButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (sender is not Button button)
-				throw new($"Button was not of type {nameof(Button)}.");
-
-			foreach (Image image in _spawnsetSortingImages)
-			{
-				if (image == button.Content as Image)
-				{
-					if (image.RenderTransform is not ScaleTransform scaleTransform)
-						throw new($"{nameof(image.RenderTransform)} was not of type {nameof(ScaleTransform)}.");
-
-					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSortActive.png")));
-					image.RenderTransform = new ScaleTransform
-					{
-						ScaleY = -scaleTransform.ScaleY,
-					};
-				}
-				else
-				{
-					image.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Buttons", "SpawnsetSort.png")));
-				}
-			}
-
-			if (button?.Tag is not SpawnsetListSorting<SpawnsetFile> sorting)
-				throw new($"Button tag was not of type {nameof(SpawnsetListSorting<SpawnsetFile>)}.");
-
-			SpawnsetListHandler.Instance.ActiveSpawnsetSorting = sorting;
-			SpawnsetListHandler.Instance.ActiveSpawnsetSorting.Ascending = !SpawnsetListHandler.Instance.ActiveSpawnsetSorting.Ascending;
-
-			SortSpawnsetsStackPanel(sorting);
+			UpdateSpawnsets();
 		}
 
 		private void ClearAuthorSearchButton_Click(object sender, RoutedEventArgs e)
 		{
 			AuthorSearchTextBox.Text = string.Empty;
-			SpawnsetListHandler.Instance.AuthorSearch = string.Empty;
+			_authorSearch = string.Empty;
 		}
 
 		private void ClearSpawnsetSearchButton_Click(object sender, RoutedEventArgs e)
 		{
 			SpawnsetSearchTextBox.Text = string.Empty;
-			SpawnsetListHandler.Instance.SpawnsetSearch = string.Empty;
+			_spawnsetSearch = string.Empty;
+		}
+
+		private class SpawnsetSorting
+		{
+			public SpawnsetSorting(string fullName, string displayName, Func<SpawnsetFile, object> sortingFunction, bool isAscendingDefault)
+			{
+				FullName = fullName;
+				DisplayName = displayName;
+				SortingFunction = sortingFunction;
+				IsAscendingDefault = isAscendingDefault;
+			}
+
+			public string FullName { get; }
+			public string DisplayName { get; }
+			public Func<SpawnsetFile, object> SortingFunction { get; }
+			public bool IsAscendingDefault { get; }
+
+			public bool Ascending { get; set; }
 		}
 	}
 }

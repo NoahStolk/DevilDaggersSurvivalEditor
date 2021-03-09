@@ -48,7 +48,6 @@
     <Resource Include="Content\Images\SplashScreens\8.png" />
     <Resource Include="Content\Images\SplashScreens\9.png" />
     <Resource Include="Content\Images\Icon\Icon.png" />
-    <Resource Include="Content\Images\Buttons\SpawnsetSort.png" />
     <Resource Include="Content\Images\Buttons\ArenaFlipHorizontally.png" />
     <Resource Include="Content\Images\Buttons\ArenaFlipVertically.png" />
     <Resource Include="Content\Images\Buttons\ArenaRotateClockwise.png" />
@@ -60,7 +59,7 @@
     <Resource Include="Content\Images\Buttons\ArenaTilesSelectionRectangle.png" />
     <Resource Include="Content\Images\Buttons\ArenaTilesDeselectAll.png" />
     <Resource Include="Content\Images\Buttons\ArenaTilesSelectAll.png" />
-    <Resource Include="Content\Images\Buttons\SpawnsetSortActive.png" />
+    <Resource Include="Content\Images\Buttons\Sort.png" />
     <Resource Include="Content\Shaders\Selection.ps">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

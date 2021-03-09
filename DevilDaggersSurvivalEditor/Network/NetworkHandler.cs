@@ -1,10 +1,8 @@
 ﻿using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Clients;
-using DevilDaggersSurvivalEditor.Spawnsets;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DevilDaggersSurvivalEditor.Network
@@ -30,8 +28,6 @@ namespace DevilDaggersSurvivalEditor.Network
 
 		public Tool? Tool { get; private set; }
 
-		public List<AuthorListEntry> Authors { get; } = new();
-
 		public List<SpawnsetFile> Spawnsets { get; } = new();
 
 		public bool GetOnlineTool()
@@ -55,19 +51,7 @@ namespace DevilDaggersSurvivalEditor.Network
 			try
 			{
 				Spawnsets.Clear();
-				Authors.Clear();
-
-				List<SpawnsetFile> spawnsetFiles = await ApiClient.Spawnsets_GetSpawnsetsAsync();
-
-				Authors.Add(new AuthorListEntry(SpawnsetListHandler.AllAuthors, spawnsetFiles.Count));
-				foreach (SpawnsetFile sf in spawnsetFiles)
-				{
-					AuthorListEntry author = new AuthorListEntry(sf.AuthorName, spawnsetFiles.Count(s => s.AuthorName == sf.AuthorName));
-					if (!Authors.Any(a => a.Name == author.Name))
-						Authors.Add(author);
-				}
-
-				Spawnsets.AddRange(spawnsetFiles);
+				Spawnsets.AddRange(await ApiClient.Spawnsets_GetSpawnsetsAsync());
 
 				return true;
 			}
@@ -83,7 +67,7 @@ namespace DevilDaggersSurvivalEditor.Network
 			try
 			{
 				using FileResponse fileResponse = await ApiClient.Spawnsets_GetSpawnsetFileAsync(fileName);
-				using MemoryStream memoryStream = new MemoryStream();
+				using MemoryStream memoryStream = new();
 				fileResponse.Stream.CopyTo(memoryStream);
 				byte[] bytes = memoryStream.ToArray();
 				if (!Spawnset.TryParse(bytes, out Spawnset spawnset))

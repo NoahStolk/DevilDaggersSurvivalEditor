@@ -8,74 +8,58 @@
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 		<StackPanel Height="768" Width="1366" Style="{StaticResource PaddingStackPanel}" Background="{StaticResource Gray3}">
 			<Label Style="{StaticResource TitleLabel}">Spawnsets from DevilDaggers.info</Label>
-			<Button Name="ReloadButton" Click="ReloadButton_Click" Width="128" HorizontalAlignment="Left">Reload all</Button>
-			<Grid x:Name="Data">
+			<Grid Margin="8">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
-					<ColumnDefinition Width="4*" />
+					<ColumnDefinition Width="5*" />
 				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition Height="10*" />
-				</Grid.RowDefinitions>
-
-				<Label Grid.Column="0" Grid.Row="0" FontWeight="Bold">Authors</Label>
-				<Grid Grid.Column="0" Grid.Row="1">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="80" />
-						<ColumnDefinition Width="100" />
-						<ColumnDefinition Width="24" />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Search</Label>
-					<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="AuthorSearchTextBox_TextChanged" />
-					<Button Grid.Column="2" Name="ClearAuthorSearchButton" Content="X" Click="ClearAuthorSearchButton_Click" ToolTip="Clear author search" />
-				</Grid>
-				<Grid Grid.Column="0" Grid.Row="3" Name="AuthorHeaders" HorizontalAlignment="Stretch" Margin="0,0,20,0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-				</Grid>
-				<ListBox Grid.Column="0" Grid.Row="4" Height="623" Name="AuthorsListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="AuthorsListBox_SelectionChanged" SelectedIndex="0" HorizontalContentAlignment="Stretch" BorderBrush="Transparent" Background="{StaticResource Gray2}" />
-
-				<Label Grid.Column="1" Grid.Row="0" FontWeight="Bold">Spawnsets</Label>
-				<Grid Grid.Column="1" Grid.Row="1">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="80" />
-						<ColumnDefinition Width="100" />
-						<ColumnDefinition Width="24" />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="0">Search</Label>
-					<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="SpawnsetSearchTextBox_TextChanged" />
-					<Button Grid.Column="2" Name="ClearSpawnsetSearchButton" Content="X" Click="ClearSpawnsetSearchButton_Click" ToolTip="Clear spawnset search" />
-				</Grid>
-				<Grid Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0,0,20,0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="7*" />
-						<ColumnDefinition Width="2*" />
-						<ColumnDefinition Width="2*" />
-					</Grid.ColumnDefinitions>
-					<Label Grid.Column="1" FontWeight="Bold">Non-loop</Label>
-					<Label Grid.Column="2" FontWeight="Bold">Loop</Label>
-				</Grid>
-				<Grid Grid.Column="1" Grid.Row="3" Name="SpawnsetHeaders" HorizontalAlignment="Stretch" Margin="0,0,20,0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="3*" />
-						<ColumnDefinition Width="2*" />
-						<ColumnDefinition Width="2*" />
-						<ColumnDefinition />
-						<ColumnDefinition />
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-				</Grid>
-				<ScrollViewer Grid.Column="1" Grid.Row="4" Height="623" VerticalScrollBarVisibility="Visible" Margin="0,1,0,0" Padding="0,1,0,0">
-					<StackPanel Name="SpawnsetsStackPanel" />
-				</ScrollViewer>
+				<StackPanel>
+					<Button Name="ReloadButton" Click="ReloadButton_Click" Width="128" HorizontalAlignment="Left">Reload all</Button>
+					<Label FontWeight="Bold">Filters</Label>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition Width="20" />
+						</Grid.ColumnDefinitions>
+						<Label>Spawnset name</Label>
+						<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="SpawnsetSearchTextBox_TextChanged" />
+						<Button Grid.Column="2" Name="ClearSpawnsetSearchButton" Content="X" Click="ClearSpawnsetSearchButton_Click" ToolTip="Clear spawnset search" />
+					</Grid>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition Width="20" />
+						</Grid.ColumnDefinitions>
+						<Label>Author name</Label>
+						<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="AuthorSearchTextBox_TextChanged" />
+						<Button Grid.Column="2" Name="ClearAuthorSearchButton" Content="X" Click="ClearAuthorSearchButton_Click" ToolTip="Clear author search" />
+					</Grid>
+				</StackPanel>
+				<StackPanel Grid.Column="1">
+					<Grid HorizontalAlignment="Stretch">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="7*" />
+							<ColumnDefinition Width="2*" />
+							<ColumnDefinition Width="2*" />
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="1" FontWeight="Bold">Non-loop</Label>
+						<Label Grid.Column="2" FontWeight="Bold">Loop</Label>
+					</Grid>
+					<Grid Name="SpawnsetHeaders" HorizontalAlignment="Stretch">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="3*" />
+							<ColumnDefinition Width="2*" />
+							<ColumnDefinition Width="2*" />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+					</Grid>
+					<StackPanel Height="623" Name="SpawnsetsStackPanel" />
+				</StackPanel>
 			</Grid>
 		</StackPanel>
 	</ScrollViewer>
