@@ -14,11 +14,11 @@
 			<ColumnDefinition Width="2*" />
 			<ColumnDefinition Width="2*" />
 		</Grid.ColumnDefinitions>
-		<Label Grid.Column="0" Name="LabelId" Style="{StaticResource NumericSpawnLabel}" />
-		<Label Grid.Column="1" Name="LabelSeconds" Style="{StaticResource NumericSpawnLabel}" />
-		<ContentControl Grid.Column="2" Name="EnemyControl" />
-		<Label Grid.Column="3" Name="LabelDelay" Style="{StaticResource NumericSpawnLabel}" />
-		<Label Grid.Column="4" Name="LabelNoFarmGems" Style="{StaticResource NumericSpawnLabel}" />
-		<Label Grid.Column="5" Name="LabelTotalGems" Style="{StaticResource NumericSpawnLabel}" />
+		<TextBlock Grid.Column="0" Name="TextBlockId" Style="{StaticResource SpawnTextBlock}" HorizontalAlignment="Right" />
+		<TextBlock Grid.Column="1" Name="TextBlockSeconds" Style="{StaticResource SpawnTextBlock}" HorizontalAlignment="Right" />
+		<TextBlock Grid.Column="2" Name="TextBlockEnemy" Style="{StaticResource SpawnTextBlock}" />
+		<TextBlock Grid.Column="3" Name="TextBlockDelay" Style="{StaticResource SpawnTextBlock}" HorizontalAlignment="Right" />
+		<TextBlock Grid.Column="4" Name="TextBlockNoFarmGems" Style="{StaticResource SpawnTextBlock}" HorizontalAlignment="Right" />
+		<TextBlock Grid.Column="5" Name="TextBlockTotalGems" Style="{StaticResource SpawnTextBlock}" HorizontalAlignment="Right" />
 	</Grid>
 </UserControl>

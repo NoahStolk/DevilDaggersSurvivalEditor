@@ -23,32 +23,32 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		public void SetId(int id)
 		{
 			Id = id;
-			LabelId.Content = id.ToString(CultureInfo.InvariantCulture);
+			TextBlockId.Text = id.ToString(CultureInfo.InvariantCulture);
 		}
 
 		public void SetSeconds(double seconds)
 		{
 			Seconds = seconds;
-			LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
+			TextBlockSeconds.Text = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
 		}
 
 		public void SetTotalGems(int totalGems)
 		{
 			TotalGems = totalGems;
-			LabelTotalGems.Content = totalGems.ToString(CultureInfo.InvariantCulture);
+			TextBlockTotalGems.Text = totalGems.ToString(CultureInfo.InvariantCulture);
 		}
 
 		public void SetSpawn(Spawn spawn)
 		{
 			Spawn = spawn;
 
-			LabelEnemy.Content = spawn.Enemy?.Name ?? "EMPTY";
-			LabelDelay.Content = spawn.Delay.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
-			LabelNoFarmGems.Content = spawn.Enemy?.NoFarmGems ?? 0;
+			TextBlockEnemy.Text = spawn.Enemy?.Name ?? "EMPTY";
+			TextBlockDelay.Text = spawn.Delay.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+			TextBlockNoFarmGems.Text = (spawn.Enemy?.NoFarmGems ?? 0).ToString();
 
 			Color color = spawn.Enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.Enemy.ColorCode}");
-			LabelEnemy.Background = new SolidColorBrush(color);
-			LabelEnemy.Foreground = ColorUtils.GetPerceivedBrightness(color) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
+			TextBlockEnemy.Background = new SolidColorBrush(color);
+			TextBlockEnemy.Foreground = ColorUtils.GetPerceivedBrightness(color) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
 		}
 
 		public void SetIsInLoop(bool isInLoop)

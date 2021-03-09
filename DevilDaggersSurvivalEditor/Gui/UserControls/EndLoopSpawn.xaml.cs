@@ -14,16 +14,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			=> InitializeComponent();
 
 		public void SetId(int id)
-			=> LabelId.Content = id;
+			=> TextBlockId.Text = id.ToString();
 
 		public void SetSeconds(double seconds)
-			=> LabelSeconds.Content = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
+			=> TextBlockSeconds.Text = SpawnUtils.ToFramedGameTimeString(seconds + SpawnsetHandler.Instance.Spawnset.TimerStart);
 
 		public void SetDelay(double delay)
-			=> LabelDelay.Content = SpawnUtils.ToFramedGameTimeString(delay);
+			=> TextBlockDelay.Text = SpawnUtils.ToFramedGameTimeString(delay);
 
 		public void SetTotalGems(int totalGems)
-			=> LabelTotalGems.Content = totalGems;
+			=> TextBlockTotalGems.Text = totalGems.ToString();
 
 		public void SetEnemy(Enemy? enemy, bool gigaBecomesGhost)
 		{
@@ -31,17 +31,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SolidColorBrush background = new(enemyColor);
 			SolidColorBrush foreground = ColorUtils.GetPerceivedBrightness(enemyColor) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
 
-			EnemyControl.Content = new TextBlock
-			{
-				Text = enemy?.Name ?? "EMPTY",
-				Background = background,
-				Foreground = foreground,
-				FontWeight = gigaBecomesGhost ? FontWeights.Bold : default,
-				ToolTip = gigaBecomesGhost ? "Every third wave of the end loop, all Gigapedes are changed into Ghostpedes. This is hardcoded within the game and cannot be changed." : null,
-				TextDecorations = gigaBecomesGhost ? TextDecorations.Underline : null,
-			};
+			TextBlockEnemy.Text = enemy?.Name ?? "EMPTY";
+			TextBlockEnemy.Background = background;
+			TextBlockEnemy.Foreground = foreground;
+			TextBlockEnemy.FontWeight = gigaBecomesGhost ? FontWeights.Bold : default;
+			TextBlockEnemy.ToolTip = gigaBecomesGhost ? "Every third wave of the end loop, all Gigapedes are changed into Ghostpedes. This is hardcoded within the game and cannot be changed." : null;
+			TextBlockEnemy.TextDecorations = gigaBecomesGhost ? TextDecorations.Underline : null;
 
-			LabelNoFarmGems.Content = enemy?.NoFarmGems ?? 0;
+			TextBlockNoFarmGems.Text = (enemy?.NoFarmGems ?? 0).ToString();
 		}
 	}
 }
