@@ -43,6 +43,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				new("Name", "Name", s => s.Name, true),
 				new("Author", "Author", s => s.AuthorName, true),
 				new("Last updated", "Last updated", s => s.LastUpdated, false),
+				new("Hand", "Hand", s => s.SpawnsetData.Hand, false),
+				new("Additional gems", "Gems", s => s.SpawnsetData.AdditionalGems, false),
+				new("Timer start", "Timer", s => s.SpawnsetData.TimerStart, false),
 				new("Non-loop length", "Length", s => s.SpawnsetData.NonLoopLength ?? 0, false),
 				new("Non-loop spawns", "Spawns", s => s.SpawnsetData.NonLoopSpawnCount, false),
 				new("Loop length", "Length", s => s.SpawnsetData.LoopLength ?? 0, false),
@@ -84,7 +87,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			{
 				Grid grid = new();
 				List<Label> labels = new();
-				for (int j = 0; j < 7; j++)
+				for (int j = 0; j < 10; j++)
 				{
 					grid.ColumnDefinitions.Add(new() { Width = new GridLength(j == 0 ? 3 : j < 3 ? 2 : 1, GridUnitType.Star) });
 
@@ -141,6 +144,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.Value[4].Content = string.Empty;
 				grid.Value[5].Content = string.Empty;
 				grid.Value[6].Content = string.Empty;
+				grid.Value[7].Content = string.Empty;
+				grid.Value[8].Content = string.Empty;
+				grid.Value[9].Content = string.Empty;
 			}
 			else
 			{
@@ -150,10 +156,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.Value[0].Content = nameHyperlink;
 				grid.Value[1].Content = spawnsetFile.AuthorName;
 				grid.Value[2].Content = spawnsetFile.LastUpdated.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
-				grid.Value[3].Content = !spawnsetFile.SpawnsetData.NonLoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
-				grid.Value[4].Content = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture);
-				grid.Value[5].Content = !spawnsetFile.SpawnsetData.LoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.LoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
-				grid.Value[6].Content = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture);
+				grid.Value[3].Content = spawnsetFile.SpawnsetData.Hand;
+				grid.Value[4].Content = spawnsetFile.SpawnsetData.AdditionalGems;
+				grid.Value[5].Content = spawnsetFile.SpawnsetData.TimerStart.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+				grid.Value[6].Content = !spawnsetFile.SpawnsetData.NonLoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.NonLoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+				grid.Value[7].Content = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString(CultureInfo.InvariantCulture);
+				grid.Value[8].Content = !spawnsetFile.SpawnsetData.LoopLength.HasValue ? "N/A" : spawnsetFile.SpawnsetData.LoopLength.Value.ToString(SpawnUtils.Format, CultureInfo.InvariantCulture);
+				grid.Value[9].Content = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture);
 			}
 		}
 
@@ -269,7 +278,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private class SpawnsetSorting
 		{
-			public SpawnsetSorting(string fullName, string displayName, Func<SpawnsetFile, object> sortingFunction, bool isAscendingDefault)
+			public SpawnsetSorting(string fullName, string displayName, Func<SpawnsetFile, object?> sortingFunction, bool isAscendingDefault)
 			{
 				FullName = fullName;
 				DisplayName = displayName;
@@ -279,7 +288,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			public string FullName { get; }
 			public string DisplayName { get; }
-			public Func<SpawnsetFile, object> SortingFunction { get; }
+			public Func<SpawnsetFile, object?> SortingFunction { get; }
 			public bool IsAscendingDefault { get; }
 
 			public bool Ascending { get; set; }

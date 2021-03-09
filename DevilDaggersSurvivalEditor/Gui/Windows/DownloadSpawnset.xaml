@@ -42,7 +42,7 @@
 				<StackPanel Grid.Column="1">
 					<Grid HorizontalAlignment="Stretch">
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="7*" />
+							<ColumnDefinition Width="10*" />
 							<ColumnDefinition Width="2*" />
 							<ColumnDefinition Width="2*" />
 						</Grid.ColumnDefinitions>
@@ -54,6 +54,9 @@
 							<ColumnDefinition Width="3*" />
 							<ColumnDefinition Width="2*" />
 							<ColumnDefinition Width="2*" />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
 							<ColumnDefinition />
 							<ColumnDefinition />
 							<ColumnDefinition />
