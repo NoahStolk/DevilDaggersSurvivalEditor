@@ -23,7 +23,7 @@
 							<ColumnDefinition Width="20" />
 						</Grid.ColumnDefinitions>
 						<Label>Spawnset name</Label>
-						<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="SpawnsetSearchTextBox_TextChanged" />
+						<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="FilterTextBox_TextChanged" />
 						<Button Grid.Column="2" Name="ClearSpawnsetSearchButton" Content="X" Click="ClearSpawnsetSearchButton_Click" ToolTip="Clear spawnset search" />
 					</Grid>
 					<Grid>
@@ -33,9 +33,11 @@
 							<ColumnDefinition Width="20" />
 						</Grid.ColumnDefinitions>
 						<Label>Author name</Label>
-						<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="AuthorSearchTextBox_TextChanged" />
+						<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="FilterTextBox_TextChanged" />
 						<Button Grid.Column="2" Name="ClearAuthorSearchButton" Content="X" Click="ClearAuthorSearchButton_Click" ToolTip="Clear author search" />
 					</Grid>
+					<CheckBox Name="CustomLeaderboardCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Custom leaderboard</CheckBox>
+					<CheckBox Name="PracticeCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Practice</CheckBox>
 				</StackPanel>
 				<StackPanel Grid.Column="1">
 					<Grid HorizontalAlignment="Stretch">

@@ -1,4 +1,5 @@
 ﻿using DevilDaggersCore.Spawnsets;
+using DevilDaggersCore.Wpf.Extensions;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Clients;
 using DevilDaggersSurvivalEditor.Enumerators;
@@ -28,8 +29,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private readonly Dictionary<Grid, List<Label>> _spawnsetGrids = new();
 
 		private int _pageIndex;
-		private string _authorSearch = string.Empty;
-		private string _spawnsetSearch = string.Empty;
 
 		private SpawnsetSorting _activeSpawnsetSorting;
 		private readonly Dictionary<SpawnsetSorting, Button> _spawnsetSortings = new();
@@ -37,10 +36,6 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		public DownloadSpawnsetWindow()
 		{
 			InitializeComponent();
-
-			// TODO: Cache.
-			AuthorSearchTextBox.Text = _authorSearch;
-			SpawnsetSearchTextBox.Text = _spawnsetSearch;
 
 			// Set sorting values and GUI header.
 			List<SpawnsetSorting> sortings = new()
@@ -107,15 +102,26 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			UpdateSpawnsets();
 		}
 
+		#region GUI
+
 		private void UpdateSpawnsets()
 		{
 			IEnumerable<SpawnsetFile> spawnsets = NetworkHandler.Instance.Spawnsets;
-			spawnsets = _activeSpawnsetSorting.Ascending ? spawnsets.OrderBy(_activeSpawnsetSorting.SortingFunction) : spawnsets.OrderByDescending(_activeSpawnsetSorting.SortingFunction);
-			if (!string.IsNullOrWhiteSpace(_spawnsetSearch))
-				spawnsets = spawnsets.Where(s => s.Name.Contains(_spawnsetSearch, StringComparison.InvariantCultureIgnoreCase));
-			if (!string.IsNullOrWhiteSpace(_authorSearch))
-				spawnsets = spawnsets.Where(s => s.AuthorName.Contains(_authorSearch, StringComparison.InvariantCultureIgnoreCase));
 
+			// Sorting
+			spawnsets = _activeSpawnsetSorting.Ascending ? spawnsets.OrderBy(_activeSpawnsetSorting.SortingFunction) : spawnsets.OrderByDescending(_activeSpawnsetSorting.SortingFunction);
+
+			// Filtering
+			if (!string.IsNullOrWhiteSpace(SpawnsetSearchTextBox.Text))
+				spawnsets = spawnsets.Where(sf => sf.Name.Contains(SpawnsetSearchTextBox.Text, StringComparison.InvariantCultureIgnoreCase));
+			if (!string.IsNullOrWhiteSpace(AuthorSearchTextBox.Text))
+				spawnsets = spawnsets.Where(sf => sf.AuthorName.Contains(AuthorSearchTextBox.Text, StringComparison.InvariantCultureIgnoreCase));
+			if (CustomLeaderboardCheckBox.IsChecked())
+				spawnsets = spawnsets.Where(sf => sf.HasCustomLeaderboard);
+			if (PracticeCheckBox.IsChecked())
+				spawnsets = spawnsets.Where(sf => sf.IsPractice);
+
+			// Paging
 			spawnsets = spawnsets.Skip(_pageIndex * _pageSize).Take(_pageSize);
 
 			List<SpawnsetFile> spawnsetsFinal = spawnsets.ToList();
@@ -150,6 +156,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.Value[6].Content = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString(CultureInfo.InvariantCulture);
 			}
 		}
+
+		#endregion GUI
+
+		#region Events
 
 		private void Download_Click(string fileName)
 		{
@@ -204,11 +214,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void ReloadButton_Click(object sender, RoutedEventArgs e)
 		{
 			AuthorSearchTextBox.Text = string.Empty;
-			_authorSearch = string.Empty;
-
 			SpawnsetSearchTextBox.Text = string.Empty;
-			_spawnsetSearch = string.Empty;
-
 			ReloadButton.IsEnabled = false;
 			ReloadButton.Content = "Loading...";
 
@@ -229,15 +235,23 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			thread.RunWorkerAsync();
 		}
 
-		private void AuthorSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			_authorSearch = AuthorSearchTextBox.Text;
 			UpdateSpawnsets();
 		}
 
-		private void SpawnsetSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		private void ClearAuthorSearchButton_Click(object sender, RoutedEventArgs e)
 		{
-			_spawnsetSearch = SpawnsetSearchTextBox.Text;
+			AuthorSearchTextBox.Text = string.Empty;
+		}
+
+		private void ClearSpawnsetSearchButton_Click(object sender, RoutedEventArgs e)
+		{
+			SpawnsetSearchTextBox.Text = string.Empty;
+		}
+
+		private void FilterCheckBox_Changed(object sender, RoutedEventArgs e)
+		{
 			UpdateSpawnsets();
 		}
 
@@ -249,17 +263,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			UpdateSpawnsets();
 		}
 
-		private void ClearAuthorSearchButton_Click(object sender, RoutedEventArgs e)
-		{
-			AuthorSearchTextBox.Text = string.Empty;
-			_authorSearch = string.Empty;
-		}
+		#endregion Events
 
-		private void ClearSpawnsetSearchButton_Click(object sender, RoutedEventArgs e)
-		{
-			SpawnsetSearchTextBox.Text = string.Empty;
-			_spawnsetSearch = string.Empty;
-		}
+		#region Classes
 
 		private class SpawnsetSorting
 		{
@@ -278,5 +284,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			public bool Ascending { get; set; }
 		}
+
+		#endregion Classes
 	}
 }
