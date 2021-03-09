@@ -34,10 +34,16 @@
 		</Style.Setters>
 	</Style>
 
+	<Style TargetType="TextBlock">
+		<Style.Setters>
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
+		</Style.Setters>
+	</Style>
+
 	<Style TargetType="TextBlock" x:Key="SpawnTextBlock">
 		<Style.Setters>
 			<Setter Property="Padding" Value="2" />
-			<Setter Property="Foreground" Value="#ddd" />
+			<Setter Property="Foreground" Value="{StaticResource Text}" />
 		</Style.Setters>
 	</Style>
 

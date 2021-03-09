@@ -103,7 +103,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				}
 
 				if (i == Wave - 1)
-					EndWaveHeaderLabel.Content = $"Wave {i + 1}";
+					TextBlockEndWaveHeader.Text = $"Wave {i + 1}";
 			}
 		}
 
