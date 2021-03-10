@@ -228,7 +228,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 					{
 						App.Instance.MainWindow.UpdateWarningDevilDaggersRootFolder();
 						App.Instance.MainWindow.SpawnsetArena.UpdateTile(TileUtils.SpawnTile);
-						App.Instance.MainWindow.SpawnsetSpawns.EndLoopPreview.Visibility = UserHandler.Instance.Settings.EnableEndLoopPreview ? Visibility.Visible : Visibility.Collapsed;
+						App.Instance.MainWindow.SpawnsetSpawns.EndLoopPreview.Update();
 					});
 				}
 			}
