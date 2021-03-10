@@ -2234,6 +2234,9 @@ namespace DevilDaggersSurvivalEditor.Clients
         [Newtonsoft.Json.JsonProperty("homingDaggers", Required = Newtonsoft.Json.Required.Always)]
         public int HomingDaggers { get; set; }= default!;
     
+        [Newtonsoft.Json.JsonProperty("homingDaggersEaten", Required = Newtonsoft.Json.Required.Always)]
+        public int HomingDaggersEaten { get; set; }= default!;
+    
         [Newtonsoft.Json.JsonProperty("gemsDespawned", Required = Newtonsoft.Json.Required.Always)]
         public int GemsDespawned { get; set; }= default!;
     
