@@ -92,7 +92,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					? new()
 					{
 						Margin = default,
-						Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)),
+						Background = new SolidColorBrush(GuiUtils.ColorBlack),
 						ToolTip = new TextBlock { Text = "Void", FontWeight = FontWeights.Bold },
 						Tag = height,
 						IsChecked = true,

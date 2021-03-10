@@ -27,7 +27,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public void SetEnemy(Enemy? enemy, bool gigaBecomesGhost)
 		{
-			Color enemyColor = enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{enemy.ColorCode}");
+			byte spawnsetType = enemy?.SpawnsetType ?? 0xFF;
+			Color enemyColor = GuiUtils.EnemyColors.ContainsKey(spawnsetType) ? GuiUtils.EnemyColors[spawnsetType] : GuiUtils.ColorBlack;
 			SolidColorBrush background = new(enemyColor);
 			SolidColorBrush foreground = ColorUtils.GetPerceivedBrightness(enemyColor) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
 

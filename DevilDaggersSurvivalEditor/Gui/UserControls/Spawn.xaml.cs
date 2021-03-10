@@ -45,9 +45,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			TextBlockDelay.Text = spawn.Delay.ToString(SpawnUtils.Format);
 			TextBlockNoFarmGems.Text = (spawn.Enemy?.NoFarmGems ?? 0).ToString();
 
-			Color color = spawn.Enemy == null ? Color.FromRgb(0, 0, 0) : (Color)ColorConverter.ConvertFromString($"#{spawn.Enemy.ColorCode}");
-			TextBlockEnemy.Background = new SolidColorBrush(color);
-			TextBlockEnemy.Foreground = ColorUtils.GetPerceivedBrightness(color) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
+			byte spawnsetType = spawn.Enemy?.SpawnsetType ?? 0xFF;
+			Color enemyColor = GuiUtils.EnemyColors.ContainsKey(spawnsetType) ? GuiUtils.EnemyColors[spawnsetType] : GuiUtils.ColorBlack;
+			TextBlockEnemy.Background = new SolidColorBrush(enemyColor);
+			TextBlockEnemy.Foreground = ColorUtils.GetPerceivedBrightness(enemyColor) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
 		}
 
 		public void SetIsInLoop(bool isInLoop)
@@ -55,7 +56,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			IsInLoop = isInLoop;
 
 			FontWeight = isInLoop ? FontWeights.Bold : FontWeights.Normal;
-			Background = new SolidColorBrush(isInLoop ? Color.FromArgb(127, 127, 63, 63) : Color.FromArgb(0, 0, 0, 0));
+			Background = new SolidColorBrush(isInLoop ? Color.FromArgb(127, 127, 63, 63) : GuiUtils.ColorInvisible);
 		}
 	}
 }
