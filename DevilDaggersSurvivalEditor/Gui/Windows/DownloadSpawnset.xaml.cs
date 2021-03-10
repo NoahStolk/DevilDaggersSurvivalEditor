@@ -158,6 +158,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				spawnsets = spawnsets.Where(sf => sf.IsPractice);
 
 			_total = spawnsets.Count();
+			_pageIndex = Math.Min(_total / _pageSize, _pageIndex);
 
 			// Paging
 			spawnsets = spawnsets.Skip(_pageIndex * _pageSize).Take(_pageSize);
