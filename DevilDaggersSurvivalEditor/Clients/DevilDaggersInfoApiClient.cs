@@ -2345,6 +2345,9 @@ namespace DevilDaggersSurvivalEditor.Clients
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Validation { get; set; }= default!;
     
+        [Newtonsoft.Json.JsonProperty("isReplay", Required = Newtonsoft.Json.Required.Always)]
+        public bool IsReplay { get; set; }= default!;
+    
         [Newtonsoft.Json.JsonProperty("gameStates", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.List<GameState> GameStates { get; set; } = new System.Collections.Generic.List<GameState>();
