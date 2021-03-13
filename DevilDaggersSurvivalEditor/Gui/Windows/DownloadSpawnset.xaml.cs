@@ -27,8 +27,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private const int _pageSize = 40;
 
 		private int _pageIndex;
-
-		private int _total;
+		private int _totalSpawnsets;
 
 		private SpawnsetSorting _activeSpawnsetSorting;
 		private readonly Dictionary<SpawnsetSorting, Button> _spawnsetSortings = new();
@@ -157,8 +156,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			if (PracticeCheckBox.IsChecked())
 				spawnsets = spawnsets.Where(sf => sf.IsPractice);
 
-			_total = spawnsets.Count();
-			_pageIndex = Math.Min(_total / _pageSize, _pageIndex);
+			_totalSpawnsets = spawnsets.Count();
+			_pageIndex = Math.Min(_totalSpawnsets / _pageSize, _pageIndex);
 
 			// Paging
 			spawnsets = spawnsets.Skip(_pageIndex * _pageSize).Take(_pageSize);
@@ -320,14 +319,14 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void LastPage_Click(object sender, RoutedEventArgs e)
 		{
-			_pageIndex = _total / _pageSize;
+			_pageIndex = _totalSpawnsets / _pageSize;
 			UpdateSpawnsets();
 			UpdatePageLabel();
 		}
 
 		private void NextPage_Click(object sender, RoutedEventArgs e)
 		{
-			_pageIndex = Math.Min(_total / _pageSize, _pageIndex + 1);
+			_pageIndex = Math.Min(_totalSpawnsets / _pageSize, _pageIndex + 1);
 			UpdateSpawnsets();
 			UpdatePageLabel();
 		}
@@ -347,9 +346,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		}
 
 		private void UpdatePageLabel()
-		{
-			PageLabel.Content = $"Page {_pageIndex + 1} of {_total / _pageSize + 1}\nShowing {_pageIndex * _pageSize + 1} - {Math.Min(_total, (_pageIndex + 1) * _pageSize)} of {_total} results";
-		}
+			=> PageLabel.Content = $"Page {_pageIndex + 1} of {_totalSpawnsets / _pageSize + 1}\nShowing {_pageIndex * _pageSize + 1} - {Math.Min(_totalSpawnsets, (_pageIndex + 1) * _pageSize)} of {_totalSpawnsets} results";
 
 		#endregion Events
 
