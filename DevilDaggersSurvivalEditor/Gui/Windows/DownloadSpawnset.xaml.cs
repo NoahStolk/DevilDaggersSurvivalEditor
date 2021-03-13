@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -25,6 +26,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 	public partial class DownloadSpawnsetWindow : Window
 	{
 		private const int _pageSize = 40;
+
+		public static readonly RoutedUICommand FirstPageCommand = new("FirstPage", nameof(FirstPageCommand), typeof(DownloadSpawnsetWindow), new() { new KeyGesture(Key.OemComma, ModifierKeys.Control) });
+		public static readonly RoutedUICommand PreviousPageCommand = new("PreviousPage", nameof(PreviousPageCommand), typeof(DownloadSpawnsetWindow), new() { new KeyGesture(Key.OemComma) });
+		public static readonly RoutedUICommand NextPageCommand = new("NextPage", nameof(NextPageCommand), typeof(DownloadSpawnsetWindow), new() { new KeyGesture(Key.OemPeriod) });
+		public static readonly RoutedUICommand LastPageCommand = new("LastPage", nameof(LastPageCommand), typeof(DownloadSpawnsetWindow), new() { new KeyGesture(Key.OemPeriod, ModifierKeys.Control) });
 
 		private int _pageIndex;
 		private int _totalSpawnsets;
@@ -141,6 +147,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			UpdateSpawnsets();
 			UpdatePageLabel();
 		}
+
+		private void CanExecute(object sender, CanExecuteRoutedEventArgs e)
+			=> e.CanExecute = true;
 
 		#region GUI
 
@@ -332,30 +341,54 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			UpdateSpawnsets();
 		}
 
-		private void LastPage_Click(object sender, RoutedEventArgs e)
-		{
-			_pageIndex = _totalSpawnsets / _pageSize;
-			UpdateSpawnsets();
-			UpdatePageLabel();
-		}
-
-		private void NextPage_Click(object sender, RoutedEventArgs e)
-		{
-			_pageIndex = Math.Min(_totalSpawnsets / _pageSize, _pageIndex + 1);
-			UpdateSpawnsets();
-			UpdatePageLabel();
-		}
+		private void FirstPage_Click(object sender, RoutedEventArgs e)
+			=> FirstPage();
 
 		private void PreviousPage_Click(object sender, RoutedEventArgs e)
+			=> PreviousPage();
+
+		private void NextPage_Click(object sender, RoutedEventArgs e)
+			=> NextPage();
+
+		private void LastPage_Click(object sender, RoutedEventArgs e)
+			=> LastPage();
+
+		private void FirstPage_Executed(object sender, RoutedEventArgs e)
+			=> FirstPage();
+
+		private void PreviousPage_Executed(object sender, RoutedEventArgs e)
+			=> PreviousPage();
+
+		private void NextPage_Executed(object sender, RoutedEventArgs e)
+			=> NextPage();
+
+		private void LastPage_Executed(object sender, RoutedEventArgs e)
+			=> LastPage();
+
+		private void FirstPage()
+		{
+			_pageIndex = 0;
+			UpdateSpawnsets();
+			UpdatePageLabel();
+		}
+
+		private void PreviousPage()
 		{
 			_pageIndex = Math.Max(0, _pageIndex - 1);
 			UpdateSpawnsets();
 			UpdatePageLabel();
 		}
 
-		private void FirstPage_Click(object sender, RoutedEventArgs e)
+		private void NextPage()
 		{
-			_pageIndex = 0;
+			_pageIndex = Math.Min(_totalSpawnsets / _pageSize, _pageIndex + 1);
+			UpdateSpawnsets();
+			UpdatePageLabel();
+		}
+
+		private void LastPage()
+		{
+			_pageIndex = _totalSpawnsets / _pageSize;
 			UpdateSpawnsets();
 			UpdatePageLabel();
 		}

@@ -168,7 +168,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			UpdateEndLoopWarning();
 		}
 
-		public void Delete()
+		private void Delete()
 		{
 			List<int> selections = GetSpawnSelectionIndices();
 			selections.Sort();

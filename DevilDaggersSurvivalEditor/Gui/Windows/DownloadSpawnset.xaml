@@ -3,8 +3,15 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:windows="clr-namespace:DevilDaggersSurvivalEditor.Gui.Windows"
 		mc:Ignorable="d"
         Title="Download spawnset" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+	<Window.CommandBindings>
+		<CommandBinding Command="windows:DownloadSpawnsetWindow.FirstPageCommand" CanExecute="CanExecute" Executed="FirstPage_Executed" />
+		<CommandBinding Command="windows:DownloadSpawnsetWindow.PreviousPageCommand" CanExecute="CanExecute" Executed="PreviousPage_Executed" />
+		<CommandBinding Command="windows:DownloadSpawnsetWindow.NextPageCommand" CanExecute="CanExecute" Executed="NextPage_Executed" />
+		<CommandBinding Command="windows:DownloadSpawnsetWindow.LastPageCommand" CanExecute="CanExecute" Executed="LastPage_Executed" />
+	</Window.CommandBindings>
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 		<StackPanel Height="714" Width="1366" Background="{StaticResource Gray3}">
 			<TextBlock Style="{StaticResource TitleTextBlock}">Spawnsets from DevilDaggers.info</TextBlock>
@@ -25,7 +32,7 @@
 						</Grid.ColumnDefinitions>
 						<Label>Spawnset name</Label>
 						<TextBox Grid.Column="1" Name="SpawnsetSearchTextBox" TextChanged="FilterTextBox_TextChanged" />
-						<Button Grid.Column="2" Name="ClearSpawnsetSearchButton" Content="X" Click="ClearSpawnsetSearchButton_Click" ToolTip="Clear spawnset filter" />
+						<Button Grid.Column="2" Name="ClearSpawnsetSearchButton" Content="✕" Click="ClearSpawnsetSearchButton_Click" ToolTip="Clear spawnset filter" />
 					</Grid>
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -35,7 +42,7 @@
 						</Grid.ColumnDefinitions>
 						<Label>Author name</Label>
 						<TextBox Grid.Column="1" Name="AuthorSearchTextBox" TextChanged="FilterTextBox_TextChanged" />
-						<Button Grid.Column="2" Name="ClearAuthorSearchButton" Content="X" Click="ClearAuthorSearchButton_Click" ToolTip="Clear author filter" />
+						<Button Grid.Column="2" Name="ClearAuthorSearchButton" Content="✕" Click="ClearAuthorSearchButton_Click" ToolTip="Clear author filter" />
 					</Grid>
 					<CheckBox Name="CustomLeaderboardCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Custom leaderboard</CheckBox>
 					<CheckBox Name="PracticeCheckBox" Checked="FilterCheckBox_Changed" Unchecked="FilterCheckBox_Changed">Practice</CheckBox>
