@@ -8,7 +8,6 @@ using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;
 using DevilDaggersSurvivalEditor.Utils;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -216,11 +215,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			SettingsWindow settingsWindow = new();
 			if (settingsWindow.ShowDialog() == true)
 			{
-				if (!Directory.Exists(UserSettings.FileDirectory))
-					Directory.CreateDirectory(UserSettings.FileDirectory);
-
-				using (StreamWriter sw = new(File.Create(UserSettings.FilePath)))
-					sw.Write(JsonConvert.SerializeObject(UserHandler.Instance.Settings, Formatting.Indented));
+				UserHandler.Instance.SaveSettings();
 
 				if (App.Instance.MainWindow != null)
 				{

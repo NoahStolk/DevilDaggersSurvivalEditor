@@ -3,7 +3,6 @@ using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Network;
 using DevilDaggersSurvivalEditor.User;
 using DevilDaggersSurvivalEditor.Utils;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -85,18 +84,12 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			};
 
 			bool readUserSettingsSuccess = false;
-			bool userSettingsFileExists = File.Exists(UserSettings.FilePath);
 			using BackgroundWorker readUserSettingsThread = new();
 			readUserSettingsThread.DoWork += (sender, e) =>
 			{
 				try
 				{
-					if (userSettingsFileExists)
-					{
-						using StreamReader sr = new(File.OpenRead(UserSettings.FilePath));
-						UserHandler.Instance.Settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
-					}
-
+					UserHandler.Instance.ReadSettings();
 					readUserSettingsSuccess = true;
 				}
 				catch (Exception ex)
@@ -110,8 +103,37 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				{
 					TaskResultsStackPanel.Children.Add(new TextBlock
 					{
-						Text = readUserSettingsSuccess ? userSettingsFileExists ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
+						Text = readUserSettingsSuccess ? File.Exists(UserSettings.FilePath) ? "OK (found user settings)" : "OK (created new user settings)" : "Error",
 						Foreground = readUserSettingsSuccess ? ColorUtils.ThemeColors["SuccessText"] : ColorUtils.ThemeColors["ErrorText"],
+						FontWeight = FontWeights.Bold,
+					});
+				});
+
+				ThreadComplete();
+			};
+
+			bool readUserCacheSuccess = false;
+			using BackgroundWorker readUserCacheThread = new();
+			readUserCacheThread.DoWork += (sender, e) =>
+			{
+				try
+				{
+					UserHandler.Instance.ReadCache();
+					readUserCacheSuccess = true;
+				}
+				catch (Exception ex)
+				{
+					App.Instance.ShowError("Error", "Error while trying to read user cache.", ex);
+				}
+			};
+			readUserCacheThread.RunWorkerCompleted += (sender, e) =>
+			{
+				Dispatcher.Invoke(() =>
+				{
+					TaskResultsStackPanel.Children.Add(new TextBlock
+					{
+						Text = readUserCacheSuccess ? File.Exists(UserCache.FilePath) ? "OK (found user cache)" : "OK (created new user cache)" : "Error",
+						Foreground = readUserCacheSuccess ? ColorUtils.ThemeColors["SuccessText"] : ColorUtils.ThemeColors["ErrorText"],
 						FontWeight = FontWeights.Bold,
 					});
 				});
@@ -155,11 +177,13 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			_threads.Add(checkVersionThread);
 			_threads.Add(readUserSettingsThread);
+			_threads.Add(readUserCacheThread);
 			_threads.Add(retrieveSpawnsetsThread);
 			_threads.Add(mainInitThread);
 
 			_threadMessages.Add("Checking for updates...");
 			_threadMessages.Add("Reading user settings...");
+			_threadMessages.Add("Reading user cache...");
 			_threadMessages.Add("Retrieving spawnsets...");
 			_threadMessages.Add("Initializing application...");
 

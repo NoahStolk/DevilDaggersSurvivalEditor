@@ -1,6 +1,7 @@
 ﻿using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using DevilDaggersSurvivalEditor.Spawnsets;
+using DevilDaggersSurvivalEditor.User;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
@@ -88,6 +89,11 @@ namespace DevilDaggersSurvivalEditor
 				MessageWindow messageWindow = new(title, message);
 				messageWindow.ShowDialog();
 			});
+		}
+
+		private void Application_Exit(object sender, ExitEventArgs e)
+		{
+			UserHandler.Instance.SaveCache();
 		}
 	}
 }

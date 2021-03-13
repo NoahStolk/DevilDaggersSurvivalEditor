@@ -30,7 +30,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private int _totalSpawnsets;
 
 		private SpawnsetSorting _activeSpawnsetSorting;
-		private readonly Dictionary<SpawnsetSorting, Button> _spawnsetSortings = new();
+		private readonly List<SpawnsetSorting> _spawnsetSortings = new();
 
 		private readonly List<SpawnsetGrid> _spawnsetGrids = new();
 
@@ -39,19 +39,24 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			InitializeComponent();
 
 			// Set sorting values and GUI header.
+			int sortingIndex = 0;
+			List<bool> cachedDirections = UserHandler.Instance.Cache.DownloadSortingDirections;
 			List<SpawnsetSorting> sortings = new()
 			{
-				new("Name", "Name", true, s => s.Name),
-				new("Author", "Author", true, s => s.AuthorName, s => s.Name),
-				new("Last updated", "Last updated", false, s => s.LastUpdated, s => s.Name),
-				new("Hand", "Hand", false, s => s.SpawnsetData.Hand, s => s.SpawnsetData.AdditionalGems),
-				new("Additional gems", "Gems", false, s => s.SpawnsetData.AdditionalGems, s => s.SpawnsetData.Hand),
-				new("Timer start", "Timer", false, s => s.SpawnsetData.TimerStart, s => s.Name),
-				new("Non-loop length", "Length", false, s => s.SpawnsetData.NonLoopLength ?? 0, s => s.SpawnsetData.NonLoopSpawnCount),
-				new("Non-loop spawns", "Spawns", false, s => s.SpawnsetData.NonLoopSpawnCount),
-				new("Loop length", "Length", false, s => s.SpawnsetData.LoopLength ?? 0, s => s.SpawnsetData.LoopSpawnCount),
-				new("Loop spawns", "Spawns", false, s => s.SpawnsetData.LoopSpawnCount),
+				new(sortingIndex, "Name", "Name", GetCachedDirection(sortingIndex++, true), s => s.Name),
+				new(sortingIndex, "Author", "Author", GetCachedDirection(sortingIndex++, true), s => s.AuthorName, s => s.Name),
+				new(sortingIndex, "Last updated", "Last updated", GetCachedDirection(sortingIndex++, false), s => s.LastUpdated, s => s.Name),
+				new(sortingIndex, "Hand", "Hand", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.Hand, s => s.SpawnsetData.AdditionalGems),
+				new(sortingIndex, "Additional gems", "Gems", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.AdditionalGems, s => s.SpawnsetData.Hand),
+				new(sortingIndex, "Timer start", "Timer", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.TimerStart, s => s.Name),
+				new(sortingIndex, "Non-loop length", "Length", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.NonLoopLength ?? 0, s => s.SpawnsetData.NonLoopSpawnCount),
+				new(sortingIndex, "Non-loop spawns", "Spawns", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.NonLoopSpawnCount),
+				new(sortingIndex, "Loop length", "Length", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.LoopLength ?? 0, s => s.SpawnsetData.LoopSpawnCount),
+				new(sortingIndex, "Loop spawns", "Spawns", GetCachedDirection(sortingIndex, false), s => s.SpawnsetData.LoopSpawnCount),
 			};
+
+			bool GetCachedDirection(int index, bool def)
+				=> cachedDirections.Count > index ? cachedDirections[index] : def;
 
 			int i = 0;
 			Uri sortImageUri = ContentUtils.MakeUri(Path.Combine("Content", "Images", "Buttons", "Sort.png"));
@@ -66,10 +71,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						Source = new BitmapImage(sortImageUri),
 						Stretch = Stretch.None,
 					},
-					Tag = sorting,
 				};
 				button.Click += (_, _) => SortSpawnsetFilesButton_Click(sorting);
-				_spawnsetSortings.Add(sorting, button);
+				sorting.Button = button;
+
+				_spawnsetSortings.Add(sorting);
 
 				StackPanel stackPanel = new()
 				{
@@ -86,7 +92,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				SpawnsetHeaders.Children.Add(stackPanel);
 			}
 
-			_activeSpawnsetSorting = _spawnsetSortings.ElementAt(2).Key;
+			int? index = UserHandler.Instance.Cache.DownloadSortingIndex;
+			if (!index.HasValue || index < 0 || index > _spawnsetSortings.Count - 1)
+				index = 2;
+
+			_activeSpawnsetSorting = _spawnsetSortings[index.Value];
 
 			// Set spawnset GUI grids.
 			for (i = 0; i < _pageSize; i++)
@@ -122,6 +132,11 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				_spawnsetGrids.Add(new(grid, hyperlink, textBlocks));
 				SpawnsetsStackPanel.Children.Add(grid);
 			}
+
+			AuthorSearchTextBox.Text = UserHandler.Instance.Cache.DownloadAuthorFilter ?? string.Empty;
+			SpawnsetSearchTextBox.Text = UserHandler.Instance.Cache.DownloadSpawnsetFilter ?? string.Empty;
+			CustomLeaderboardCheckBox.IsChecked = UserHandler.Instance.Cache.DownloadCustomLeaderboardFilter;
+			PracticeCheckBox.IsChecked = UserHandler.Instance.Cache.DownloadPracticeFilter;
 
 			UpdateSpawnsets();
 			UpdatePageLabel();
@@ -348,25 +363,38 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		private void UpdatePageLabel()
 			=> PageLabel.Content = $"Page {_pageIndex + 1} of {_totalSpawnsets / _pageSize + 1}\nShowing {_pageIndex * _pageSize + 1} - {Math.Min(_totalSpawnsets, (_pageIndex + 1) * _pageSize)} of {_totalSpawnsets} results";
 
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			UserHandler.Instance.Cache.DownloadAuthorFilter = AuthorSearchTextBox.Text;
+			UserHandler.Instance.Cache.DownloadSpawnsetFilter = SpawnsetSearchTextBox.Text;
+			UserHandler.Instance.Cache.DownloadCustomLeaderboardFilter = CustomLeaderboardCheckBox.IsChecked();
+			UserHandler.Instance.Cache.DownloadPracticeFilter = PracticeCheckBox.IsChecked();
+			UserHandler.Instance.Cache.DownloadSortingIndex = _activeSpawnsetSorting.Index;
+			UserHandler.Instance.Cache.DownloadSortingDirections = _spawnsetSortings.ConvertAll(s => s.Ascending);
+		}
+
 		#endregion Events
 
 		#region Classes
 
 		private class SpawnsetSorting
 		{
-			public SpawnsetSorting(string fullName, string displayName, bool isAscendingDefault, params Func<SpawnsetFile, object?>[] sortingFunctions)
+			public SpawnsetSorting(int index, string fullName, string displayName, bool ascending, params Func<SpawnsetFile, object?>[] sortingFunctions)
 			{
+				Index = index;
 				FullName = fullName;
 				DisplayName = displayName;
-				IsAscendingDefault = isAscendingDefault;
 				SortingFunctions = sortingFunctions;
+
+				Ascending = ascending;
 			}
 
+			public int Index { get; }
 			public string FullName { get; }
 			public string DisplayName { get; }
-			public bool IsAscendingDefault { get; }
 			public Func<SpawnsetFile, object?>[] SortingFunctions { get; }
 
+			public Button? Button { get; set; }
 			public bool Ascending { get; set; }
 		}
 

@@ -4,7 +4,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
-        Title="Download spawnset" WindowStartupLocation="CenterScreen">
+        Title="Download spawnset" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 		<StackPanel Height="714" Width="1366" Background="{StaticResource Gray3}">
 			<TextBlock Style="{StaticResource TitleTextBlock}">Spawnsets from DevilDaggers.info</TextBlock>

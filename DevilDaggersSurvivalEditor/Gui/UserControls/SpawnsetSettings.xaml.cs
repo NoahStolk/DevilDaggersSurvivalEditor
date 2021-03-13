@@ -40,8 +40,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
-
-			// TODO: Update spawn controls.
 		}
 
 		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)
