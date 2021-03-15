@@ -46,7 +46,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 			// Set sorting values and GUI header.
 			int sortingIndex = 0;
-			List<bool> cachedDirections = UserHandler.Instance.Cache.DownloadSortingDirections;
+			List<bool> cachedDirections = UserHandler.Instance.Cache.DownloadSortingDirections ?? new();
 			List<SpawnsetSorting> sortings = new()
 			{
 				new(sortingIndex, "Name", "Name", GetCachedDirection(sortingIndex++, true), s => s.Name),
@@ -318,14 +318,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		}
 
 		private void ClearAuthorSearchButton_Click(object sender, RoutedEventArgs e)
-		{
-			AuthorSearchTextBox.Text = string.Empty;
-		}
+			=> AuthorSearchTextBox.Text = string.Empty;
 
 		private void ClearSpawnsetSearchButton_Click(object sender, RoutedEventArgs e)
-		{
-			SpawnsetSearchTextBox.Text = string.Empty;
-		}
+			=> SpawnsetSearchTextBox.Text = string.Empty;
 
 		private void FilterCheckBox_Changed(object sender, RoutedEventArgs e)
 		{

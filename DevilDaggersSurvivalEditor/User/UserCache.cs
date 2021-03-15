@@ -24,6 +24,6 @@ namespace DevilDaggersSurvivalEditor.User
 		[JsonProperty]
 		public int? DownloadSortingIndex { get; set; }
 		[JsonProperty]
-		public List<bool> DownloadSortingDirections { get; set; } = new();
+		public List<bool>? DownloadSortingDirections { get; set; }
 	}
 }
