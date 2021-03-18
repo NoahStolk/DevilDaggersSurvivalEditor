@@ -22,8 +22,7 @@ namespace DevilDaggersSurvivalEditor.User
 			if (!File.Exists(UserCache.FilePath))
 				return;
 
-			using StreamReader sr = new(File.OpenRead(UserCache.FilePath));
-			Cache = JsonConvert.DeserializeObject<UserCache>(sr.ReadToEnd());
+			Cache = JsonConvert.DeserializeObject<UserCache?>(File.ReadAllText(UserCache.FilePath)) ?? new();
 		}
 
 		public void ReadSettings()
@@ -31,8 +30,7 @@ namespace DevilDaggersSurvivalEditor.User
 			if (!File.Exists(UserSettings.FilePath))
 				return;
 
-			using StreamReader sr = new(File.OpenRead(UserSettings.FilePath));
-			Settings = JsonConvert.DeserializeObject<UserSettings>(sr.ReadToEnd());
+			Settings = JsonConvert.DeserializeObject<UserSettings?>(File.ReadAllText(UserSettings.FilePath)) ?? new();
 		}
 
 		public void SaveCache()
