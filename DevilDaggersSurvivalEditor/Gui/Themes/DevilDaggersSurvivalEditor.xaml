@@ -4,7 +4,6 @@
 	<Style TargetType="{x:Type windows:AboutWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:ArenaPresetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:DownloadSpawnsetWindow}" BasedOn="{StaticResource {x:Type Window}}" />
-	<Style TargetType="{x:Type windows:HelpWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:LoadingWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:MainWindow}" BasedOn="{StaticResource {x:Type Window}}" />
 	<Style TargetType="{x:Type windows:ModifySpawnDelayWindow}" BasedOn="{StaticResource {x:Type Window}}" />
