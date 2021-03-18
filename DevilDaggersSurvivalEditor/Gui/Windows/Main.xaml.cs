@@ -236,10 +236,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			=> ProcessUtils.OpenUrl(UrlUtils.DiscordInviteLink);
 
 		private void Help_Click(object sender, RoutedEventArgs e)
-		{
-			HelpWindow helpWindow = new();
-			helpWindow.ShowDialog();
-		}
+			=> ProcessUtils.OpenUrl("https://devildaggers.info/Wiki/Guides/SurvivalEditor");
 
 		private void About_Click(object sender, RoutedEventArgs e)
 		{
