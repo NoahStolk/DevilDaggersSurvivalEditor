@@ -10,8 +10,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		{
 			InitializeComponent();
 
-			TitleLabel.Content = App.ApplicationDisplayName;
-			VersionLabel.Content = $"Version {App.LocalVersion}";
+			TextBlockTitle.Text = App.ApplicationDisplayName;
+			TextBlockVersion.Text = $"Version {App.LocalVersion}";
 		}
 
 		private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
