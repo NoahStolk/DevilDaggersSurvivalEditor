@@ -50,10 +50,10 @@
 					<Label Style="{StaticResource BoldLabel}" Background="{StaticResource Gray28}" Margin="0,10,0,0">Paging</Label>
 					<Label Name="PageLabel" />
 					<StackPanel Orientation="Horizontal">
-						<Button Width="32" Click="FirstPage_Click" ToolTip="First page">&lt;&lt;</Button>
+						<Button Width="32" Click="FirstPage_Click" ToolTip="First page">|&lt;</Button>
 						<Button Width="32" Click="PreviousPage_Click" ToolTip="Previous page">&lt;</Button>
 						<Button Width="32" Click="NextPage_Click" ToolTip="Next page">&gt;</Button>
-						<Button Width="32" Click="LastPage_Click" ToolTip="Last page">&gt;&gt;</Button>
+						<Button Width="32" Click="LastPage_Click" ToolTip="Last page">&gt;|</Button>
 					</StackPanel>
 				</StackPanel>
 				<StackPanel Grid.Column="1" Background="{StaticResource Gray28}">
