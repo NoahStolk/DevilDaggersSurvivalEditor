@@ -89,11 +89,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void SetGui()
 		{
+			CheckBoxDisableGemCollection.IsChecked = SpawnsetHandler.Instance.Spawnset.AdditionalGems == int.MinValue;
+
 			ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
 			ComboBoxVersion.SelectedIndex = SpawnsetHandler.Instance.Spawnset.WorldVersion == 8 ? 0 : SpawnsetHandler.Instance.Spawnset.SpawnVersion == 4 ? 1 : 2;
 			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
 			TextBoxAdditionalGems.Text = Math.Clamp(SpawnsetHandler.Instance.Spawnset.AdditionalGems, 0, 1000000).ToString();
-			CheckBoxDisableGemCollection.IsChecked = SpawnsetHandler.Instance.Spawnset.AdditionalGems == int.MinValue;
 			TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString();
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
