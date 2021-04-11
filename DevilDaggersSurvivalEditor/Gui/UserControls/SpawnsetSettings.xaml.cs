@@ -64,7 +64,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					_ => 9,
 				};
 
-				SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
+				SpawnsetHandler.Instance.Spawnset.AdditionalGems = CheckBoxDisableGemCollection?.IsChecked() == true ? int.MinValue : Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
@@ -84,18 +84,44 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public void UpdateSpawnset()
 		{
-			Dispatcher.Invoke(() => SetTextBoxes());
+			Dispatcher.Invoke(() => SetGui());
 		}
 
-		private void SetTextBoxes()
+		private void SetGui()
 		{
 			ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
 			ComboBoxVersion.SelectedIndex = SpawnsetHandler.Instance.Spawnset.WorldVersion == 8 ? 0 : SpawnsetHandler.Instance.Spawnset.SpawnVersion == 4 ? 1 : 2;
 			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
-			TextBoxAdditionalGems.Text = SpawnsetHandler.Instance.Spawnset.AdditionalGems.ToString();
+			TextBoxAdditionalGems.Text = Math.Clamp(SpawnsetHandler.Instance.Spawnset.AdditionalGems, 0, 1000000).ToString();
+			CheckBoxDisableGemCollection.IsChecked = SpawnsetHandler.Instance.Spawnset.AdditionalGems == int.MinValue;
 			TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString();
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
+		}
+
+		private void TextBoxDisableGemCollection_Changed(object sender, RoutedEventArgs e)
+		{
+			if (CheckBoxDisableGemCollection.IsChecked())
+			{
+				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.MinValue;
+
+				TextBoxAdditionalGems.IsEnabled = false;
+			}
+			else
+			{
+				int max = SpawnsetHandler.Instance.Spawnset.Hand switch
+				{
+					2 => 59,
+					3 => 149,
+					4 => 1000000,
+					_ => 9,
+				};
+				SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
+
+				TextBoxAdditionalGems.IsEnabled = true;
+			}
+
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 		}
 	}
 }
