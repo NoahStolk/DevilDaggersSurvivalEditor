@@ -1,4 +1,5 @@
-﻿using DevilDaggersSurvivalEditor.Extensions;
+﻿using DevilDaggersCore.Wpf.Extensions;
+using DevilDaggersSurvivalEditor.Extensions;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using System;
 using System.Windows;
@@ -25,6 +26,15 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void UpdateHand(object sender, SelectionChangedEventArgs e)
 		{
 			SpawnsetHandler.Instance.Spawnset.Hand = (byte)(ComboBoxHand.SelectedIndex + 1);
+			int max = SpawnsetHandler.Instance.Spawnset.Hand switch
+			{
+				2 => 59,
+				3 => 149,
+				4 => 1000000,
+				_ => 9,
+			};
+			SpawnsetHandler.Instance.Spawnset.AdditionalGems = CheckBoxDisableGemCollection?.IsChecked() == true ? int.MinValue : Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
+
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
