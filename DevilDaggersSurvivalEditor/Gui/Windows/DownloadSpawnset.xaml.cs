@@ -221,7 +221,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.TextBlocks[0].Text = spawnsetFile.AuthorName;
 				grid.TextBlocks[1].Text = spawnsetFile.LastUpdated.ToString("dd MMM yyyy");
 				grid.TextBlocks[2].Text = spawnsetFile.SpawnsetData.Hand?.ToString() ?? "N/A";
-				grid.TextBlocks[3].Text = spawnsetFile.SpawnsetData.AdditionalGems?.ToString() ?? "N/A";
+				grid.TextBlocks[3].Text = spawnsetFile.SpawnsetData.AdditionalGems.HasValue ? spawnsetFile.SpawnsetData.AdditionalGems == int.MinValue ? "Disabled" : spawnsetFile.SpawnsetData.AdditionalGems.ToString() : "N/A";
 				grid.TextBlocks[4].Text = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format) ?? "N/A";
 				grid.TextBlocks[5].Text = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format) ?? "N/A";
 				grid.TextBlocks[6].Text = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString();
