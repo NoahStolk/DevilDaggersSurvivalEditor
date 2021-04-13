@@ -27,9 +27,9 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		public static readonly RoutedUICommand OpenDefaultCommand = new("Open default (V3)", nameof(OpenDefaultCommand), typeof(MainWindow), new() { new KeyGesture(Key.D, ModifierKeys.Control | ModifierKeys.Shift) });
 		public static readonly RoutedUICommand SaveCommand = new("Save", nameof(SaveCommand), typeof(MainWindow), new() { new KeyGesture(Key.S, ModifierKeys.Control) });
 		public static readonly RoutedUICommand SaveAsCommand = new("Save as", nameof(SaveAsCommand), typeof(MainWindow), new() { new KeyGesture(Key.S, ModifierKeys.Control | ModifierKeys.Shift) });
-		public static readonly RoutedUICommand OpenModCommand = new("Open modded 'survival' file", nameof(OpenModCommand), typeof(MainWindow), new() { new KeyGesture(Key.O, ModifierKeys.Control | ModifierKeys.Shift) });
-		public static readonly RoutedUICommand ReplaceCommand = new("Replace modded 'survival' file", nameof(ReplaceCommand), typeof(MainWindow), new() { new KeyGesture(Key.R, ModifierKeys.Control) });
-		public static readonly RoutedUICommand DeleteCommand = new("Delete modded 'survival' file", nameof(DeleteCommand), typeof(MainWindow), new() { new KeyGesture(Key.D, ModifierKeys.Control) });
+		public static readonly RoutedUICommand OpenModCommand = new("Open 'survival' file", nameof(OpenModCommand), typeof(MainWindow), new() { new KeyGesture(Key.O, ModifierKeys.Control | ModifierKeys.Shift) });
+		public static readonly RoutedUICommand ReplaceCommand = new("Replace 'survival' file", nameof(ReplaceCommand), typeof(MainWindow), new() { new KeyGesture(Key.R, ModifierKeys.Control) });
+		public static readonly RoutedUICommand DeleteCommand = new("Delete 'survival' file", nameof(DeleteCommand), typeof(MainWindow), new() { new KeyGesture(Key.D, ModifierKeys.Control) });
 		public static readonly RoutedUICommand ExitCommand = new("Exit", nameof(ExitCommand), typeof(MainWindow), new() { new KeyGesture(Key.F4, ModifierKeys.Alt) });
 
 		public MainWindow()
