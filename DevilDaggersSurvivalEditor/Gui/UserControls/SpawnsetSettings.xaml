@@ -22,7 +22,7 @@
 				<ComboBox Name="ComboBoxHand" SelectionChanged="UpdateHand" />
 				<Label>Additional gems</Label>
 				<TextBox Name="TextBoxAdditionalGems" TextChanged="UpdateAdditionalGems" LostFocus="TextBoxAdditionalGems_LostFocus">0</TextBox>
-				<CheckBox Name="CheckBoxDisableGemCollection" Checked="TextBoxDisableGemCollection_Changed" Unchecked="TextBoxDisableGemCollection_Changed">Disable gem collection</CheckBox>
+				<CheckBox Name="CheckBoxDisableGemCollection" Checked="CheckBoxDisableGemCollection_Changed" Unchecked="CheckBoxDisableGemCollection_Changed">Disable gem collection</CheckBox>
 			</StackPanel>
 			<Grid Style="{StaticResource SpawnsetHeader}">
 				<Label Style="{StaticResource BoldLabel}">Timer settings</Label>

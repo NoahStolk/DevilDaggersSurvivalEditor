@@ -38,6 +38,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
 			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
+
+			App.Instance.MainWindow?.UpdateWarningDisabledLevel2(CheckBoxDisableGemCollection?.IsChecked() == true && SpawnsetHandler.Instance.Spawnset.Hand == 2);
 		}
 
 		private void UpdateVersion(object sender, SelectionChangedEventArgs e)
@@ -96,9 +98,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
 		}
 
-		private void TextBoxDisableGemCollection_Changed(object sender, RoutedEventArgs e)
+		private void CheckBoxDisableGemCollection_Changed(object sender, RoutedEventArgs e)
 		{
-			if (CheckBoxDisableGemCollection.IsChecked())
+			bool isChecked = CheckBoxDisableGemCollection.IsChecked();
+			if (isChecked)
 			{
 				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.MinValue;
 
@@ -119,6 +122,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
+
+			App.Instance.MainWindow?.UpdateWarningDisabledLevel2(isChecked && SpawnsetHandler.Instance.Spawnset.Hand == 2);
 		}
 
 		private void TextBoxAdditionalGems_LostFocus(object sender, RoutedEventArgs e)

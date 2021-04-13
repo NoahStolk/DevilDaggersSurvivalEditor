@@ -82,6 +82,7 @@
 					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningDevilDaggersRootFolder" Visibility="Collapsed" />
 					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningVoidSpawn" Visibility="Collapsed" />
 					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningEndLoopLength" Visibility="Collapsed" />
+					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningDisabledLevel2" Visibility="Collapsed" />
 				</StackPanel>
 			</StackPanel>
 		</ScrollViewer>

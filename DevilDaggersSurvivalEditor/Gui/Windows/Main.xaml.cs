@@ -42,6 +42,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Closed += (sender, e) => Application.Current.Shutdown();
 
 			WarningVoidSpawn.Text = $"The tile at coordinate {TileUtils.SpawnTile} (player spawn) is void, meaning the player will die instantly. You can prevent this from happening in the Options > Settings menu.";
+			WarningDisabledLevel2.Text = "Disabling gem collection for Level 2 hand will reset the hand to Level 1.";
 
 			UpdateWarningDevilDaggersRootFolder();
 
@@ -323,9 +324,20 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			UpdateWarningStackPanel();
 		}
 
+		public void UpdateWarningDisabledLevel2(bool visible)
+		{
+			WarningDisabledLevel2.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+
+			UpdateWarningStackPanel();
+		}
+
 		private void UpdateWarningStackPanel()
 		{
-			bool visible = WarningDevilDaggersRootFolder.Visibility == Visibility.Visible || WarningEndLoopLength.Visibility == Visibility.Visible || WarningVoidSpawn.Visibility == Visibility.Visible;
+			bool visible =
+				WarningDevilDaggersRootFolder.Visibility == Visibility.Visible ||
+				WarningEndLoopLength.Visibility == Visibility.Visible ||
+				WarningVoidSpawn.Visibility == Visibility.Visible ||
+				WarningDisabledLevel2.Visibility == Visibility.Visible;
 			WarningStackPanel.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
 		}
 
