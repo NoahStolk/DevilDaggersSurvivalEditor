@@ -66,8 +66,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				SpawnsetHandler.Instance.Spawnset.AdditionalGems = CheckBoxDisableGemCollection?.IsChecked() == true ? int.MinValue : Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
-
-				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
 			}
 		}
 
@@ -77,8 +75,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				SpawnsetHandler.Instance.Spawnset.TimerStart = float.Parse(TextBoxTimerStart.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
-
-				App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlSeconds();
 			}
 		}
 
@@ -123,6 +119,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
+		}
+
+		private void TextBoxAdditionalGems_LostFocus(object sender, RoutedEventArgs e)
+		{
+			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
+		}
+
+		private void TextBoxTimerStart_LostFocus(object sender, RoutedEventArgs e)
+		{
+			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlSeconds();
 		}
 	}
 }
