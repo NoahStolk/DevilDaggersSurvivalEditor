@@ -9,6 +9,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 {
 	public partial class SpawnsetSettingsUserControl : UserControl
 	{
+		private bool _updateInternal = true;
+
 		public SpawnsetSettingsUserControl()
 		{
 			InitializeComponent();
@@ -25,21 +27,25 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateHand(object sender, SelectionChangedEventArgs e)
 		{
-			SpawnsetHandler.Instance.Spawnset.Hand = (byte)(ComboBoxHand.SelectedIndex + 1);
-			int max = SpawnsetHandler.Instance.Spawnset.Hand switch
-			{
-				2 => 59,
-				3 => 149,
-				4 => 1000000,
-				_ => 9,
-			};
-			SpawnsetHandler.Instance.Spawnset.AdditionalGems = CheckBoxDisableGemCollection?.IsChecked() == true ? int.MinValue : Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
+			bool disableGemCollection = SpawnsetHandler.Instance.Spawnset.AdditionalGems == int.MinValue;
 
-			SpawnsetHandler.Instance.HasUnsavedChanges = true;
+			if (_updateInternal)
+			{
+				SpawnsetHandler.Instance.Spawnset.Hand = (byte)(ComboBoxHand.SelectedIndex + 1);
+				int max = SpawnsetHandler.Instance.Spawnset.Hand switch
+				{
+					2 => 59,
+					3 => 149,
+					4 => 1000000,
+					_ => 9,
+				};
+				SpawnsetHandler.Instance.Spawnset.AdditionalGems = disableGemCollection ? int.MinValue : Math.Clamp(SpawnsetHandler.Instance.Spawnset.AdditionalGems, 0, max);
+
+				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+			}
 
 			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
-
-			App.Instance.MainWindow?.UpdateWarningDisabledLevel2(CheckBoxDisableGemCollection?.IsChecked() == true && SpawnsetHandler.Instance.Spawnset.Hand == 2);
+			App.Instance.MainWindow?.UpdateWarningDisabledLevel2(disableGemCollection && SpawnsetHandler.Instance.Spawnset.Hand == 2);
 		}
 
 		private void UpdateVersion(object sender, SelectionChangedEventArgs e)
@@ -47,16 +53,20 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			// Pre-release / V1: 8 - 4
 			// V2 / V3:          9 - 4
 			// V3.1:             9 - 6
-			SpawnsetHandler.Instance.Spawnset.WorldVersion = ComboBoxVersion.SelectedIndex == 0 ? 8 : 9;
-			SpawnsetHandler.Instance.Spawnset.SpawnVersion = ComboBoxVersion.SelectedIndex == 2 ? 6 : 4;
-			SpawnsetHandler.Instance.HasUnsavedChanges = true;
+			if (_updateInternal)
+			{
+				SpawnsetHandler.Instance.Spawnset.WorldVersion = ComboBoxVersion.SelectedIndex == 0 ? 8 : 9;
+				SpawnsetHandler.Instance.Spawnset.SpawnVersion = ComboBoxVersion.SelectedIndex == 2 ? 6 : 4;
+
+				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+			}
 
 			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)
 		{
-			if (TextBoxAdditionalGems.ValidatePositiveIntTextBox())
+			if (TextBoxAdditionalGems.ValidatePositiveIntTextBox() && _updateInternal)
 			{
 				int max = SpawnsetHandler.Instance.Spawnset.Hand switch
 				{
@@ -73,7 +83,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateTimerStart(object sender, TextChangedEventArgs e)
 		{
-			if (TextBoxTimerStart.ValidatePositiveFloatTextBox())
+			if (TextBoxTimerStart.ValidatePositiveFloatTextBox() && _updateInternal)
 			{
 				SpawnsetHandler.Instance.Spawnset.TimerStart = float.Parse(TextBoxTimerStart.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -81,12 +91,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		public void UpdateSpawnset()
-		{
-			Dispatcher.Invoke(() => SetGui());
-		}
+			=> Dispatcher.Invoke(() => SetGui());
 
 		private void SetGui()
 		{
+			_updateInternal = false;
+
 			CheckBoxDisableGemCollection.IsChecked = SpawnsetHandler.Instance.Spawnset.AdditionalGems == int.MinValue;
 
 			ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
@@ -95,45 +105,43 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			TextBoxAdditionalGems.Text = Math.Clamp(SpawnsetHandler.Instance.Spawnset.AdditionalGems, 0, 1000000).ToString();
 			TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString();
 
-			SpawnsetHandler.Instance.HasUnsavedChanges = false; // Undo this. The TextBoxes have been changed because of loading a new spawnset and will set the boolean to true, but we don't want this.
+			_updateInternal = true;
 		}
 
 		private void CheckBoxDisableGemCollection_Changed(object sender, RoutedEventArgs e)
 		{
 			bool isChecked = CheckBoxDisableGemCollection.IsChecked();
-			if (isChecked)
-			{
-				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.MinValue;
 
-				TextBoxAdditionalGems.IsEnabled = false;
-			}
-			else
+			if (_updateInternal)
 			{
-				int max = SpawnsetHandler.Instance.Spawnset.Hand switch
+				if (isChecked)
 				{
-					2 => 59,
-					3 => 149,
-					4 => 1000000,
-					_ => 9,
-				};
-				SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
+					SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.MinValue;
+				}
+				else
+				{
+					int max = SpawnsetHandler.Instance.Spawnset.Hand switch
+					{
+						2 => 59,
+						3 => 149,
+						4 => 1000000,
+						_ => 9,
+					};
+					SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
+				}
 
-				TextBoxAdditionalGems.IsEnabled = true;
+				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 			}
 
-			SpawnsetHandler.Instance.HasUnsavedChanges = true;
+			TextBoxAdditionalGems.IsEnabled = !isChecked;
 
 			App.Instance.MainWindow?.UpdateWarningDisabledLevel2(isChecked && SpawnsetHandler.Instance.Spawnset.Hand == 2);
 		}
 
 		private void TextBoxAdditionalGems_LostFocus(object sender, RoutedEventArgs e)
-		{
-			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
-		}
+			=> App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
 
 		private void TextBoxTimerStart_LostFocus(object sender, RoutedEventArgs e)
-		{
-			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlSeconds();
-		}
+			=> App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlSeconds();
 	}
 }
