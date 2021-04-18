@@ -303,6 +303,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			thread.RunWorkerCompleted += (senderRunWorkerCompleted, eRunWorkerCompleted) =>
 			{
 				UpdateSpawnsets();
+				UpdatePageLabel();
 
 				ReloadButton.IsEnabled = true;
 				ReloadButton.Content = "Reload";
