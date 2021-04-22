@@ -115,7 +115,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				Hyperlink hyperlink = new();
 				List<TextBlock> textBlocks = new();
 
-				for (int j = 0; j < 10; j++)
+				for (int j = 0; j < sortings.Count; j++)
 				{
 					grid.ColumnDefinitions.Add(new() { Width = new GridLength(j == 0 ? 3 : j < 3 ? 2 : 1, GridUnitType.Star) });
 
