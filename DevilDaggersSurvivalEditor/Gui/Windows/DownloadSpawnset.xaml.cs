@@ -61,8 +61,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				new(sortingIndex, "Loop spawns", "Spawns", GetCachedDirection(sortingIndex, false), s => s.SpawnsetData.LoopSpawnCount),
 			};
 
-			bool GetCachedDirection(int index, bool def)
-				=> cachedDirections.Count > index ? cachedDirections[index] : def;
+			bool GetCachedDirection(int index, bool defaultDirection)
+				=> cachedDirections.Count > index ? cachedDirections[index] : defaultDirection;
 
 			int i = 0;
 			Uri sortImageUri = ContentUtils.MakeUri(Path.Combine("Content", "Images", "Buttons", "Sort.png"));
