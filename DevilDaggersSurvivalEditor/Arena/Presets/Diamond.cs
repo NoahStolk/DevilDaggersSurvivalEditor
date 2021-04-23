@@ -13,13 +13,13 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 		public int DiamondHalfWidth
 		{
 			get => _diamondHalfWidth;
-			set => _diamondHalfWidth = Math.Clamp(value, -Spawnset.ArenaWidth / 2, Spawnset.ArenaWidth / 2);
+			set => _diamondHalfWidth = Math.Clamp(value, 1, Spawnset.ArenaWidth / 2);
 		}
 
 		public int DiamondHalfHeight
 		{
 			get => _diamondHalfHeight;
-			set => _diamondHalfHeight = Math.Clamp(value, -Spawnset.ArenaHeight / 2, Spawnset.ArenaHeight / 2);
+			set => _diamondHalfHeight = Math.Clamp(value, 1, Spawnset.ArenaHeight / 2);
 		}
 
 		public float Height
