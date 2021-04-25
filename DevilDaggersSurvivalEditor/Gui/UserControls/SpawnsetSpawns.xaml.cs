@@ -217,21 +217,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateEndLoopWarning()
 		{
-			double loopLength = 0;
-			int endLoopSpawns = 0;
-			for (int i = SpawnsetHandler.Instance.Spawnset.Spawns.Count - 1; i >= 0; i--)
-			{
-				loopLength += SpawnsetHandler.Instance.Spawnset.Spawns[i].Delay;
-				if (SpawnsetHandler.Instance.Spawnset.Spawns[i].Enemy == null || i == 0)
-					break;
-
-				endLoopSpawns++;
-			}
-
-			if (!SpawnsetHandler.Instance.Spawnset.Spawns.Any(s => s.Value.Enemy == null) && SpawnsetHandler.Instance.Spawnset.Spawns.Count > 0)
-				endLoopSpawns++;
-
-			Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(endLoopSpawns > 0 && loopLength < 0.5, loopLength));
+			(double loopLength, double endLoopSpawns) = SpawnsetHandler.Instance.GetEndLoopData();
+			Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default && endLoopSpawns > 0 && loopLength < 0.5, loopLength));
 		}
 
 		public void UpdateSpawnControlSeconds()

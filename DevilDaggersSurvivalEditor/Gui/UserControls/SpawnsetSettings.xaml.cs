@@ -54,6 +54,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 			}
+
+			(double loopLength, double endLoopSpawns) = SpawnsetHandler.Instance.GetEndLoopData();
+			Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default && endLoopSpawns > 0 && loopLength < 0.5, loopLength));
 		}
 
 		private void UpdateHand(object sender, SelectionChangedEventArgs e)
@@ -120,6 +123,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
 			TextBoxAdditionalGems.Text = Math.Clamp(SpawnsetHandler.Instance.Spawnset.AdditionalGems, 0, 1000000).ToString();
 			TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString();
+
+			(double loopLength, double endLoopSpawns) = SpawnsetHandler.Instance.GetEndLoopData();
+			Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default && endLoopSpawns > 0 && loopLength < 0.5, loopLength));
 
 			_updateInternal = true;
 		}
