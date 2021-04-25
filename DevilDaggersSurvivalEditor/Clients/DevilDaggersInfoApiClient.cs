@@ -2189,8 +2189,8 @@ namespace DevilDaggersSurvivalEditor.Clients
         [System.Runtime.Serialization.EnumMember(Value = @"Default")]
         Default = 1,
     
-        [System.Runtime.Serialization.EnumMember(Value = @"Challenge")]
-        Challenge = 2,
+        [System.Runtime.Serialization.EnumMember(Value = @"TimeAttack")]
+        TimeAttack = 2,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Speedrun")]
         Speedrun = 3,
@@ -2493,6 +2493,9 @@ namespace DevilDaggersSurvivalEditor.Clients
     
         [Newtonsoft.Json.JsonProperty("isReplay", Required = Newtonsoft.Json.Required.Always)]
         public bool IsReplay { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("prohibitedMods", Required = Newtonsoft.Json.Required.Always)]
+        public bool ProhibitedMods { get; set; }= default!;
     
         [Newtonsoft.Json.JsonProperty("gameStates", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
@@ -3001,6 +3004,11 @@ namespace DevilDaggersSurvivalEditor.Clients
         [Newtonsoft.Json.JsonProperty("loopLength", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public float? LoopLength { get; set; }= default!;
     
+        [Newtonsoft.Json.JsonProperty("gameMode", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public GameMode GameMode { get; set; }= default!;
+    
         [Newtonsoft.Json.JsonProperty("hand", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public byte? Hand { get; set; }= default!;
     
@@ -3010,6 +3018,17 @@ namespace DevilDaggersSurvivalEditor.Clients
         [Newtonsoft.Json.JsonProperty("timerStart", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public float? TimerStart { get; set; }= default!;
     
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum GameMode
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"Default")]
+        Default = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"TimeAttack")]
+        TimeAttack = 1,
     
     }
     
