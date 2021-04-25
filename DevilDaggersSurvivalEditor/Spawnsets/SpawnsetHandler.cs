@@ -6,7 +6,6 @@ using DevilDaggersSurvivalEditor.Utils;
 using Microsoft.Win32;
 using System;
 using System.IO;
-using System.Linq;
 
 namespace DevilDaggersSurvivalEditor.Spawnsets
 {
@@ -139,25 +138,6 @@ namespace DevilDaggersSurvivalEditor.Spawnsets
 				File.Delete(UserHandler.Instance.Settings.SurvivalFileLocation);
 				App.Instance.ShowMessage("Success", "Successfully deleted 'survival' mod file.");
 			}
-		}
-
-		public (double LoopLength, double EndLoopSpawns) GetEndLoopData()
-		{
-			double loopLength = 0;
-			int endLoopSpawns = 0;
-			for (int i = Spawnset.Spawns.Count - 1; i >= 0; i--)
-			{
-				loopLength += Spawnset.Spawns[i].Delay;
-				if (Spawnset.Spawns[i].Enemy == null || i == 0)
-					break;
-
-				endLoopSpawns++;
-			}
-
-			if (!Spawnset.Spawns.Any(s => s.Value.Enemy == null) && Spawnset.Spawns.Count > 0)
-				endLoopSpawns++;
-
-			return (loopLength, endLoopSpawns);
 		}
 	}
 }
