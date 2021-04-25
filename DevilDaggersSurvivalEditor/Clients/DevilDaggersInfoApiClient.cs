@@ -2742,9 +2742,6 @@ namespace DevilDaggersSurvivalEditor.Clients
         [Newtonsoft.Json.JsonProperty("homing4", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public float? Homing4 { get; set; }= default!;
     
-        [Newtonsoft.Json.JsonProperty("registerKill", Required = Newtonsoft.Json.Required.Always)]
-        public bool RegisterKill { get; set; }= default!;
-    
         [Newtonsoft.Json.JsonProperty("spawnedBy", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.List<Enemy> SpawnedBy { get; set; } = new System.Collections.Generic.List<Enemy>();
@@ -2880,6 +2877,9 @@ namespace DevilDaggersSurvivalEditor.Clients
         [Newtonsoft.Json.JsonProperty("containsProhibitedAssets", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool? ContainsProhibitedAssets { get; set; }= default!;
     
+        [Newtonsoft.Json.JsonProperty("modArchive", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ModArchive? ModArchive { get; set; }= default!;
+    
     
     }
     
@@ -2901,6 +2901,54 @@ namespace DevilDaggersSurvivalEditor.Clients
     
         [System.Runtime.Serialization.EnumMember(Value = @"Shader")]
         Shader = 16,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class ModArchive 
+    {
+        [Newtonsoft.Json.JsonProperty("fileSize", Required = Newtonsoft.Json.Required.Always)]
+        public long FileSize { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("fileSizeExtracted", Required = Newtonsoft.Json.Required.Always)]
+        public long FileSizeExtracted { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("binaries", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.List<ModBinary> Binaries { get; set; } = new System.Collections.Generic.List<ModBinary>();
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class ModBinary 
+    {
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Name { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("size", Required = Newtonsoft.Json.Required.Always)]
+        public long Size { get; set; }= default!;
+    
+        [Newtonsoft.Json.JsonProperty("modBinaryType", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public ModBinaryType ModBinaryType { get; set; }= default!;
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum ModBinaryType
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"Audio")]
+        Audio = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Core")]
+        Core = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Dd")]
+        Dd = 2,
     
     }
     
