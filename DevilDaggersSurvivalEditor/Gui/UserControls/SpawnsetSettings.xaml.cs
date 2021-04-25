@@ -57,6 +57,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			(double loopLength, double endLoopSpawns) = SpawnsetHandler.Instance.GetEndLoopData();
 			Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default && endLoopSpawns > 0 && loopLength < 0.5, loopLength));
+
+			App.Instance.MainWindow?.SpawnsetSpawns.EndLoopPreview.Update();
 		}
 
 		private void UpdateHand(object sender, SelectionChangedEventArgs e)

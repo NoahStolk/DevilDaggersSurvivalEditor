@@ -58,7 +58,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			_spawnControls.Clear();
 			EndLoopSpawns.Items.Clear();
 
-			if (!UserHandler.Instance.Settings.EnableEndLoopPreview)
+			if (!UserHandler.Instance.Settings.EnableEndLoopPreview || SpawnsetHandler.Instance.Spawnset.GameMode != GameMode.Default)
 			{
 				Visibility = Visibility.Collapsed;
 				return;
