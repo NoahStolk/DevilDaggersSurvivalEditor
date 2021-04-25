@@ -13,6 +13,10 @@
 			<Label>Version</Label>
 			<ComboBox Name="ComboBoxVersion" SelectionChanged="UpdateVersion" />
 		</StackPanel>
+		<StackPanel Style="{StaticResource Section}">
+			<Label>Game mode</Label>
+			<ComboBox Name="ComboBoxGameMode" SelectionChanged="UpdateGameMode" />
+		</StackPanel>
 		<StackPanel Name="StackPanelV31">
 			<Grid Style="{StaticResource SpawnsetHeader}">
 				<Label Style="{StaticResource BoldLabel}">Player settings</Label>

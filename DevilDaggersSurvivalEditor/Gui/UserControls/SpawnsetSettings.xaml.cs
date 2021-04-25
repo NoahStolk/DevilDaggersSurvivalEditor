@@ -1,4 +1,5 @@
-﻿using DevilDaggersCore.Wpf.Extensions;
+﻿using DevilDaggersCore.Spawnsets;
+using DevilDaggersCore.Wpf.Extensions;
 using DevilDaggersSurvivalEditor.Extensions;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using System;
@@ -19,10 +20,40 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				ComboBoxHand.Items.Add($"Level {i + 1}");
 			ComboBoxHand.SelectedIndex = 0;
 
+			foreach (GameMode gameMode in (GameMode[])Enum.GetValues(typeof(GameMode)))
+				ComboBoxGameMode.Items.Add(gameMode);
+			ComboBoxGameMode.SelectedIndex = 0;
+
 			ComboBoxVersion.Items.Add("Pre-release / V1");
 			ComboBoxVersion.Items.Add("V2 / V3");
 			ComboBoxVersion.Items.Add("V3.1");
 			ComboBoxVersion.SelectedIndex = 2;
+		}
+
+		private void UpdateVersion(object sender, SelectionChangedEventArgs e)
+		{
+			// Pre-release / V1: 8 - 4
+			// V2 / V3:          9 - 4
+			// V3.1:             9 - 6
+			if (_updateInternal)
+			{
+				SpawnsetHandler.Instance.Spawnset.WorldVersion = ComboBoxVersion.SelectedIndex == 0 ? 8 : 9;
+				SpawnsetHandler.Instance.Spawnset.SpawnVersion = ComboBoxVersion.SelectedIndex == 2 ? 6 : 4;
+
+				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+			}
+
+			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		private void UpdateGameMode(object sender, SelectionChangedEventArgs e)
+		{
+			if (_updateInternal)
+			{
+				SpawnsetHandler.Instance.Spawnset.GameMode = (GameMode)ComboBoxGameMode.SelectedIndex;
+
+				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+			}
 		}
 
 		private void UpdateHand(object sender, SelectionChangedEventArgs e)
@@ -46,22 +77,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
 			App.Instance.MainWindow?.UpdateWarningDisabledLevel2(disableGemCollection && SpawnsetHandler.Instance.Spawnset.Hand == 2);
-		}
-
-		private void UpdateVersion(object sender, SelectionChangedEventArgs e)
-		{
-			// Pre-release / V1: 8 - 4
-			// V2 / V3:          9 - 4
-			// V3.1:             9 - 6
-			if (_updateInternal)
-			{
-				SpawnsetHandler.Instance.Spawnset.WorldVersion = ComboBoxVersion.SelectedIndex == 0 ? 8 : 9;
-				SpawnsetHandler.Instance.Spawnset.SpawnVersion = ComboBoxVersion.SelectedIndex == 2 ? 6 : 4;
-
-				SpawnsetHandler.Instance.HasUnsavedChanges = true;
-			}
-
-			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)
@@ -101,6 +116,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
 			ComboBoxVersion.SelectedIndex = SpawnsetHandler.Instance.Spawnset.WorldVersion == 8 ? 0 : SpawnsetHandler.Instance.Spawnset.SpawnVersion == 4 ? 1 : 2;
+			ComboBoxGameMode.SelectedIndex = (int)SpawnsetHandler.Instance.Spawnset.GameMode;
 			StackPanelV31.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
 			TextBoxAdditionalGems.Text = Math.Clamp(SpawnsetHandler.Instance.Spawnset.AdditionalGems, 0, 1000000).ToString();
 			TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString();
