@@ -75,7 +75,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					spawnControl.SetSeconds(seconds);
 					spawnControl.SetTotalGems(totalGems);
 					spawnControl.SetSpawn(kvp.Value);
-					spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex);
+					spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
 
 					_spawnControls.Add(spawnControl);
 					ListBoxSpawns.Items.Add(spawnControl);
@@ -129,7 +129,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					spawnControl = _spawnControls[kvp.Key];
 				}
 
-				spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex);
+				spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
 			}
 
 			EndLoopPreview.Update(seconds, totalGems);
@@ -161,7 +161,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 					spawnControl.SetTotalGems(totalGems);
 				}
 
-				spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex);
+				spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
 			}
 
 			EndLoopPreview.Update(seconds, totalGems);
@@ -193,7 +193,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
 
 				SpawnUserControl spawnControl = _spawnControls[kvp.Key];
-				spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex);
+				spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
 
 				if (kvp.Key < minSelection)
 					continue;
@@ -253,6 +253,19 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				}
 
 				EndLoopPreview.UpdateGems(totalGems);
+			});
+		}
+
+		public void UpdateSpawnControlIsInLoop()
+		{
+			Dispatcher.Invoke(() =>
+			{
+				int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
+				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+				{
+					SpawnUserControl spawnControl = _spawnControls[kvp.Key];
+					spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
+				}
 			});
 		}
 
