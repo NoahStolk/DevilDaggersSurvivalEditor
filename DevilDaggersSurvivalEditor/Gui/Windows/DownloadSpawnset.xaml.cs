@@ -52,6 +52,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				new(sortingIndex, "Name", "Name", GetCachedDirection(sortingIndex++, true), s => s.Name),
 				new(sortingIndex, "Author", "Author", GetCachedDirection(sortingIndex++, true), s => s.AuthorName, s => s.Name),
 				new(sortingIndex, "Last updated", "Last updated", GetCachedDirection(sortingIndex++, false), s => s.LastUpdated, s => s.Name),
+				new(sortingIndex, "Game version", "GV", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.WorldVersion + s.SpawnsetData.SpawnVersion, s => s.Name),
+				new(sortingIndex, "Game mode", "GM", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.GameMode, s => s.Name),
 				new(sortingIndex, "Hand", "Hand", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.Hand, s => s.SpawnsetData.AdditionalGems),
 				new(sortingIndex, "Additional gems", "Gems", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.AdditionalGems, s => s.SpawnsetData.Hand),
 				new(sortingIndex, "Timer start", "Timer", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.TimerStart, s => s.Name),
@@ -86,7 +88,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				StackPanel stackPanel = new()
 				{
 					Orientation = Orientation.Horizontal,
-					HorizontalAlignment = i < 2 ? HorizontalAlignment.Left : HorizontalAlignment.Right,
+					HorizontalAlignment = GetAlignment(i),
 				};
 				stackPanel.Children.Add(new TextBlock
 				{
@@ -117,7 +119,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				for (int j = 0; j < sortings.Count; j++)
 				{
-					grid.ColumnDefinitions.Add(new() { Width = new GridLength(j == 0 ? 3 : j < 3 ? 2 : 1, GridUnitType.Star) });
+					grid.ColumnDefinitions.Add(new() { Width = new GridLength(GetWidth(j), GridUnitType.Star) });
 
 					// First element is hyperlink.
 					if (j == 0)
@@ -128,7 +130,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						continue;
 					}
 
-					TextBlock textBlock = new() { HorizontalAlignment = j < 2 ? HorizontalAlignment.Left : HorizontalAlignment.Right };
+					TextBlock textBlock = new() { HorizontalAlignment = GetAlignment(j) };
 					Grid.SetColumn(textBlock, j);
 
 					textBlocks.Add(textBlock);
@@ -149,6 +151,19 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 		}
 
 		public int LastPageIndex => (_totalSpawnsets - 1) / _pageSize;
+
+		private static HorizontalAlignment GetAlignment(int i) => i switch
+		{
+			< 5 => HorizontalAlignment.Left,
+			_ => HorizontalAlignment.Right,
+		};
+
+		private static int GetWidth(int i) => i switch
+		{
+			0 => 6,
+			1 or 2 => 3,
+			_ => 2,
+		};
 
 		private void CanExecute(object sender, CanExecuteRoutedEventArgs e)
 			=> e.CanExecute = true;
@@ -208,6 +223,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.TextBlocks[6].Text = string.Empty;
 				grid.TextBlocks[7].Text = string.Empty;
 				grid.TextBlocks[8].Text = string.Empty;
+				grid.TextBlocks[9].Text = string.Empty;
+				grid.TextBlocks[10].Text = string.Empty;
 			}
 			else
 			{
@@ -222,13 +239,15 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 				grid.TextBlocks[0].Text = spawnsetFile.AuthorName;
 				grid.TextBlocks[1].Text = spawnsetFile.LastUpdated.ToString("dd MMM yyyy");
-				grid.TextBlocks[2].Text = spawnsetFile.SpawnsetData.Hand?.ToString() ?? "N/A";
-				grid.TextBlocks[3].Text = spawnsetFile.SpawnsetData.AdditionalGems.HasValue ? spawnsetFile.SpawnsetData.AdditionalGems == int.MinValue ? "Disabled" : spawnsetFile.SpawnsetData.AdditionalGems.ToString() : "N/A";
-				grid.TextBlocks[4].Text = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format) ?? "N/A";
-				grid.TextBlocks[5].Text = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format) ?? "N/A";
-				grid.TextBlocks[6].Text = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString();
-				grid.TextBlocks[7].Text = spawnsetFile.SpawnsetData.LoopLength?.ToString(SpawnUtils.Format) ?? "N/A";
-				grid.TextBlocks[8].Text = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString();
+				grid.TextBlocks[2].Text = Spawnset.GetGameVersionString(spawnsetFile.SpawnsetData.WorldVersion, spawnsetFile.SpawnsetData.SpawnVersion);
+				grid.TextBlocks[3].Text = spawnsetFile.SpawnsetData.GameMode.ToString();
+				grid.TextBlocks[4].Text = spawnsetFile.SpawnsetData.Hand?.ToString() ?? "N/A";
+				grid.TextBlocks[5].Text = spawnsetFile.SpawnsetData.AdditionalGems.HasValue ? spawnsetFile.SpawnsetData.AdditionalGems == int.MinValue ? "Disabled" : spawnsetFile.SpawnsetData.AdditionalGems.ToString() : "N/A";
+				grid.TextBlocks[6].Text = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format) ?? "N/A";
+				grid.TextBlocks[7].Text = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format) ?? "N/A";
+				grid.TextBlocks[8].Text = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString();
+				grid.TextBlocks[9].Text = spawnsetFile.SpawnsetData.LoopLength?.ToString(SpawnUtils.Format) ?? "N/A";
+				grid.TextBlocks[10].Text = spawnsetFile.SpawnsetData.LoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.LoopSpawnCount.ToString();
 			}
 		}
 
