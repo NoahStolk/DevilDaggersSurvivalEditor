@@ -40,6 +40,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			set => _wave = Math.Clamp(value, 2, _maxWaves);
 		}
 
+		public bool IsActive => UserHandler.Instance.Settings.EnableEndLoopPreview && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default;
+
 		public void Update()
 		{
 			double seconds = 0;
@@ -58,7 +60,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			_spawnControls.Clear();
 			EndLoopSpawns.Items.Clear();
 
-			if (!UserHandler.Instance.Settings.EnableEndLoopPreview || SpawnsetHandler.Instance.Spawnset.GameMode != GameMode.Default)
+			if (!IsActive)
 			{
 				Visibility = Visibility.Collapsed;
 				return;
@@ -109,6 +111,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public void UpdateSeconds(double seconds)
 		{
+			if (!IsActive)
+			{
+				Visibility = Visibility.Collapsed;
+				return;
+			}
+
 			List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex()).ToList();
 			int endLoopSpawns = endLoop.Count(s => s.Enemy != null);
 			if (endLoopSpawns == 0)
@@ -135,6 +143,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public void UpdateGems(int totalGems)
 		{
+			if (!IsActive)
+			{
+				Visibility = Visibility.Collapsed;
+				return;
+			}
+
 			List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex()).ToList();
 			int endLoopSpawns = endLoop.Count(s => s.Enemy != null);
 			if (endLoopSpawns == 0)
