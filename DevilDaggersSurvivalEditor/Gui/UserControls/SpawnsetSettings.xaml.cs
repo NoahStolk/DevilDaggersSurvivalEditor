@@ -24,9 +24,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				ComboBoxGameMode.Items.Add(gameMode);
 			ComboBoxGameMode.SelectedIndex = 0;
 
-			ComboBoxVersion.Items.Add("Pre-release / V1");
-			ComboBoxVersion.Items.Add("V2 / V3");
-			ComboBoxVersion.Items.Add("V3.1");
+			ComboBoxVersion.Items.Add(Spawnset.GetGameVersionString(8, 4));
+			ComboBoxVersion.Items.Add(Spawnset.GetGameVersionString(9, 4));
+			ComboBoxVersion.Items.Add(Spawnset.GetGameVersionString(9, 6));
 			ComboBoxVersion.SelectedIndex = 2;
 		}
 
