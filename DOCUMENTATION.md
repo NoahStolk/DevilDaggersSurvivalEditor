@@ -48,13 +48,13 @@ The header buffer for the default spawnset looks like this:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `04000000` | 32-bit signed integer | Spawn version | 4 |
-| `09000000` | 32-bit signed integer | World version | 9 |
+| `04000000` | 32-bit integer | Spawn version | 4 |
+| `09000000` | 32-bit integer | World version | 9 |
 | `0000A041` | 32-bit floating point | Shrink end radius | 20 |
 | `01004842` | 32-bit floating point | Shrink start radius | 50 |
 | `CDCCCC3C` | 32-bit floating point | Shrink rate | 0.025 |
 | `00007042` | 32-bit floating point | Brightness | 60 |
-| `00000000` | ? | ? | ? |
+| `00000000` | 32-bit integer | Game mode | 0 |
 | `33000000` | ? | ? | ? |
 | `01000000` | ? | ? | ? |
 
@@ -74,22 +74,22 @@ The spawns header buffer for the default spawnset looks like this:
 | `00000000` | ? | ? | ? |
 | `00000000` | ? | ? | ? |
 | `01000000` | ? | ? | ? |
-| `F4010000` | ? | ? | ? |
-| `FA000000` | ? | ? | ? |
-| `78000000` | ? | ? | ? |
-| `3C000000` | ? | ? | ? |
+| `F4010000` | 32-bit integer | Devil dagger unlock time | 500 |
+| `FA000000` | 32-bit integer | Golden dagger unlock time | 250 |
+| `78000000` | 32-bit integer | Silver dagger unlock time | 120 |
+| `3C000000` | 32-bit integer | Bronze dagger unlock time | 60 |
 | `00000000` | ? | ? | ? |
-| `76000000` | 32-bit unsigned integer | Spawn count | 118 |
+| `76000000` | 32-bit integer | Spawn count | 118 |
 
 ### Spawns buffer
 
-This is the only part of the file with a variable length. It represents the list of spawns. Each spawn buffer consists of 28 bytes that include the enemy type as a 32-bit signed integer and the delay value as a 32-bit floating point number. The other bytes in each of the spawn buffers seem to be the same for all of them and appear to have no meaning.
+This is the only part of the file with a variable length. It represents the list of spawns. Each spawn buffer consists of 28 bytes that include the enemy type as a 32-bit integer and the delay value as a 32-bit floating point number. The other bytes in each of the spawn buffers seem to be the same for all of them and appear to have no meaning.
 
 These are the first 3 spawns in the original game:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit signed integer | Enemy type | 0 |
+| `00000000` | 32-bit integer | Enemy type | 0 |
 | `00004040` | 32-bit floating point | Spawn delay | 3 |
 | `00000000` | ? | ? | ? |
 | `03000000` | ? | ? | ? |
@@ -99,7 +99,7 @@ These are the first 3 spawns in the original game:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `FFFFFFFF` | 32-bit signed integer | Enemy type | -1 |
+| `FFFFFFFF` | 32-bit integer | Enemy type | -1 |
 | `0000C040` | 32-bit floating point | Spawn delay | 6 |
 | `00000000` | ? | ? | ? |
 | `03000000` | ? | ? | ? |
@@ -109,7 +109,7 @@ These are the first 3 spawns in the original game:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit signed integer | Enemy type | 0 |
+| `00000000` | 32-bit integer | Enemy type | 0 |
 | `0000A040` | 32-bit floating point | Spawn delay | 5 |
 | `00000000` | ? | ? | ? |
 | `03000000` | ? | ? | ? |
@@ -125,44 +125,44 @@ Here's the list of enemy types that the survival file defines:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit signed integer | Squid I | 0 |
-| `01000000` | 32-bit signed integer | Squid II | 1 |
-| `02000000` | 32-bit signed integer | Centipede | 2 |
-| `03000000` | 32-bit signed integer | Spider I | 3 |
-| `04000000` | 32-bit signed integer | Leviathan | 4 |
-| `05000000` | 32-bit signed integer | Gigapede | 5 |
-| `06000000` | 32-bit signed integer | Squid III | 6 |
-| `07000000` | 32-bit signed integer | Thorn | 7 |
-| `08000000` | 32-bit signed integer | Spider II | 8 |
-| `09000000` | 32-bit signed integer | Ghostpede | 9 |
-| `FFFFFFFF` | 32-bit signed integer | Empty | -1 |
+| `00000000` | 32-bit integer | Squid I | 0 |
+| `01000000` | 32-bit integer | Squid II | 1 |
+| `02000000` | 32-bit integer | Centipede | 2 |
+| `03000000` | 32-bit integer | Spider I | 3 |
+| `04000000` | 32-bit integer | Leviathan | 4 |
+| `05000000` | 32-bit integer | Gigapede | 5 |
+| `06000000` | 32-bit integer | Squid III | 6 |
+| `07000000` | 32-bit integer | Thorn | 7 |
+| `08000000` | 32-bit integer | Spider II | 8 |
+| `09000000` | 32-bit integer | Ghostpede | 9 |
+| `FFFFFFFF` | 32-bit integer | Empty | -1 |
 
 #### V2
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit signed integer | Squid I | 0 |
-| `01000000` | 32-bit signed integer | Squid II | 1 |
-| `02000000` | 32-bit signed integer | Centipede | 2 |
-| `03000000` | 32-bit signed integer | Spider I | 3 |
-| `04000000` | 32-bit signed integer | Leviathan | 4 |
-| `05000000` | 32-bit signed integer | Gigapede | 5 |
-| `06000000` | 32-bit signed integer | Squid III | 6 |
-| `07000000` | 32-bit signed integer | Andras | 7 |
-| `08000000` | 32-bit signed integer | Spider II | 8 |
-| `FFFFFFFF` | 32-bit signed integer | Empty | -1 |
+| `00000000` | 32-bit integer | Squid I | 0 |
+| `01000000` | 32-bit integer | Squid II | 1 |
+| `02000000` | 32-bit integer | Centipede | 2 |
+| `03000000` | 32-bit integer | Spider I | 3 |
+| `04000000` | 32-bit integer | Leviathan | 4 |
+| `05000000` | 32-bit integer | Gigapede | 5 |
+| `06000000` | 32-bit integer | Squid III | 6 |
+| `07000000` | 32-bit integer | Andras | 7 |
+| `08000000` | 32-bit integer | Spider II | 8 |
+| `FFFFFFFF` | 32-bit integer | Empty | -1 |
 
 #### V1
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit signed integer | Squid I | 0 |
-| `01000000` | 32-bit signed integer | Squid II | 1 |
-| `02000000` | 32-bit signed integer | Centipede | 2 |
-| `03000000` | 32-bit signed integer | Spider I | 3 |
-| `04000000` | 32-bit signed integer | Leviathan | 4 |
-| `05000000` | 32-bit signed integer | Gigapede | 5 |
-| `FFFFFFFF` | 32-bit signed integer | Empty | -1 |
+| `00000000` | 32-bit integer | Squid I | 0 |
+| `01000000` | 32-bit integer | Squid II | 1 |
+| `02000000` | 32-bit integer | Centipede | 2 |
+| `03000000` | 32-bit integer | Spider I | 3 |
+| `04000000` | 32-bit integer | Leviathan | 4 |
+| `05000000` | 32-bit integer | Gigapede | 5 |
+| `FFFFFFFF` | 32-bit integer | Empty | -1 |
 
 ### Settings buffer
 
@@ -171,5 +171,5 @@ Fixed-length buffer of 9 bytes. It was added to the game's V3.1 update which rel
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
 | `04` | Byte | Initial hand upgrade | 4 |
-| `05000000` | 32-bit signed integer | Additional gems | 5 |
+| `05000000` | 32-bit integer | Additional gems | 5 |
 | `0000A041` | 32-bit floating point | Timer start | 20 |
