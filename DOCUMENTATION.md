@@ -23,22 +23,24 @@ The internal structure of spawnset binaries consists of 5 parts:
 ### Overview of known values
 
 - Header buffer
-    - Versions
-    - Shrinking controls
-    - Brightness
+	- Versions
+	- Shrinking controls
+	- Brightness
+	- Game mode
 - Arena buffer
-    - For every tile:
-        - Tile height
+	- For every tile:
+		- Tile height
 - Spawns header buffer
-    - Spawn count
+	- Dagger unlock times
+	- Spawn count
 - Spawns buffer
-    - For every spawn:
-        - Spawn enemy type
-        - Spawn delay
+	- For every spawn:
+		- Spawn enemy type
+		- Spawn delay
 - Settings buffer
-    - Initial hand
-    - Additional gems
-    - Timer start
+	- Initial hand
+	- Additional gems
+	- Timer start
 
 ### Header buffer
 
