@@ -360,7 +360,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void PasteAdd()
 		{
-			InsertSpawnsAt(SpawnsetHandler.Instance.Spawnset.Spawns.Count, _clipboard.Select(s => s.Copy()).ToArray());
+			InsertSpawnsAt(SpawnsetHandler.Instance.Spawnset.Spawns.Count, _clipboard.Select(s => s with { }).ToArray());
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
@@ -369,7 +369,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void PasteInsertSpawnButton_Click(object sender, RoutedEventArgs e)
 		{
-			InsertSpawnsAt(ListBoxSpawns.SelectedIndex, _clipboard.Select(s => s.Copy()).ToArray());
+			InsertSpawnsAt(ListBoxSpawns.SelectedIndex, _clipboard.Select(s => s with { }).ToArray());
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 		}
