@@ -34,8 +34,7 @@ namespace DevilDaggersSurvivalEditor.Network
 		{
 			try
 			{
-				List<Tool> tools = ApiClient.Tools_GetToolsAsync(App.ApplicationName).Result;
-				Tool = tools[0];
+				Tool = ApiClient.Tools_GetToolAsync(App.ApplicationName).Result;
 
 				return true;
 			}
