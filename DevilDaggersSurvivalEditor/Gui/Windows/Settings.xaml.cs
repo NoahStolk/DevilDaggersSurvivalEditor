@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Utils;
+using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.User;
 using Ookii.Dialogs.Wpf;
 using System.Diagnostics;

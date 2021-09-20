@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Spawnsets;
+using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 

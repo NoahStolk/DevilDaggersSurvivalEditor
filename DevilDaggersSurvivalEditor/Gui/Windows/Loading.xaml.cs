@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Utils;
+using DevilDaggersCore.Utils;
 using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Network;
 using DevilDaggersSurvivalEditor.User;

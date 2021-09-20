@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Game;
+using DevilDaggersCore.Game;
 using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Enumerators;

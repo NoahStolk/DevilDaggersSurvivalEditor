@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Utils;
+using DevilDaggersSurvivalEditor.Utils;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets
 {

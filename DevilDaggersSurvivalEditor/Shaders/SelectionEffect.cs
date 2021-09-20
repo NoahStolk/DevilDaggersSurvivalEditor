@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Utils;
+using DevilDaggersSurvivalEditor.Utils;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;

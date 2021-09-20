@@ -1,4 +1,4 @@
-﻿namespace DevilDaggersSurvivalEditor.Enumerators
+namespace DevilDaggersSurvivalEditor.Enumerators
 {
 	public enum ReplaceSurvivalAction
 	{

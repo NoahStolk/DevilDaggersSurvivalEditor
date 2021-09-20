@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Wpf.Windows;
+using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;

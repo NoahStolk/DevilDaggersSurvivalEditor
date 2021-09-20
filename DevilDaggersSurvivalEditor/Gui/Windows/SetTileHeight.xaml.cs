@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Arena;
+using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Windows;

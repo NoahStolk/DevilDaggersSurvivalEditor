@@ -1,4 +1,4 @@
-﻿using DevilDaggersSurvivalEditor.Arena.Presets;
+using DevilDaggersSurvivalEditor.Arena.Presets;
 using System;
 using System.Collections.Generic;
 using System.Linq;

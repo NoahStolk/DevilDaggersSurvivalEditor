@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Game;
+using DevilDaggersCore.Game;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

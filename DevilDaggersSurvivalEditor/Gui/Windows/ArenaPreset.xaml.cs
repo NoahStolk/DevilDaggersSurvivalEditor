@@ -1,4 +1,4 @@
-﻿using DevilDaggersCore.Wpf.Utils;
+using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Extensions;
 using System;
