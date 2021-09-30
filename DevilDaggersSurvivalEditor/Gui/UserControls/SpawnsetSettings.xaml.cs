@@ -1,5 +1,4 @@
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Wpf.Extensions;
 using DevilDaggersSurvivalEditor.Extensions;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using System;
@@ -71,7 +70,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
-			App.Instance.MainWindow?.UpdateWarningDisabledLevel2(disableGemCollection && SpawnsetHandler.Instance.Spawnset.Hand == 2);
 		}
 
 		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)

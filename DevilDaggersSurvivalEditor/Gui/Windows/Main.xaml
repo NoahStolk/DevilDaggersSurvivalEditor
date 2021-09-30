@@ -1,4 +1,4 @@
-﻿<Window x:Class="DevilDaggersSurvivalEditor.Gui.Windows.MainWindow"
+<Window x:Class="DevilDaggersSurvivalEditor.Gui.Windows.MainWindow"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -82,7 +82,6 @@
 					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningDevilDaggersRootFolder" Visibility="Collapsed" />
 					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningVoidSpawn" Visibility="Collapsed" />
 					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningEndLoopLength" Visibility="Collapsed" />
-					<TextBlock Style="{StaticResource WarningTextBlock}" Name="WarningDisabledLevel2" Visibility="Collapsed" />
 				</StackPanel>
 			</StackPanel>
 		</ScrollViewer>
