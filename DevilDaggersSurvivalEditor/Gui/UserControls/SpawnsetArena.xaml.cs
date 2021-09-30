@@ -1,5 +1,4 @@
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Enumerators;
@@ -335,9 +334,12 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			// Calculate the half size of the largest square that fits inside the shrink end circle.
 			double shrinkEndContainedSquareHalfSize = Math.Sqrt(shrinkEndRadius * shrinkEndRadius * 2) / 2;
 
-			for (int i = _arenaCenter - shrinkStartRadius; i < _arenaCenter + shrinkStartRadius; i++)
+			int start = Math.Max(0, _arenaCenter - shrinkStartRadius);
+			int end = Math.Min(Spawnset.ArenaWidth /*or height*/, _arenaCenter + shrinkStartRadius);
+
+			for (int i = start; i < end; i++)
 			{
-				for (int j = _arenaCenter - shrinkStartRadius; j < _arenaCenter + shrinkStartRadius; j++)
+				for (int j = start; j < end; j++)
 				{
 					if (i < _arenaCenter - shrinkEndContainedSquareHalfSize || i > _arenaCenter + shrinkEndContainedSquareHalfSize || j < _arenaCenter - shrinkEndContainedSquareHalfSize || j > _arenaCenter + shrinkEndContainedSquareHalfSize)
 						UpdateTile(new(i, j));
