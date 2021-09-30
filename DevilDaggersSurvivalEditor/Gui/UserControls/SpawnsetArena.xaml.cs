@@ -274,8 +274,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void UpdateShrinkStart()
 		{
 			_shrinkStartRadius = SpawnsetHandler.Instance.Spawnset.ShrinkStart * 0.25;
-			ShrinkStart.Width = _shrinkStartRadius * TileUtils.TileSize * 2;
-			ShrinkStart.Height = _shrinkStartRadius * TileUtils.TileSize * 2;
+			ShrinkStart.Width = Math.Min(25, _shrinkStartRadius) * TileUtils.TileSize * 2;
+			ShrinkStart.Height = Math.Min(25, _shrinkStartRadius) * TileUtils.TileSize * 2;
 			Canvas.SetLeft(ShrinkStart, _arenaCanvasCenter - ShrinkStart.Width * 0.5);
 			Canvas.SetTop(ShrinkStart, _arenaCanvasCenter - ShrinkStart.Height * 0.5);
 		}
@@ -296,8 +296,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void UpdateShrinkEnd()
 		{
 			_shrinkEndRadius = SpawnsetHandler.Instance.Spawnset.ShrinkEnd * 0.25;
-			ShrinkEnd.Width = _shrinkEndRadius * TileUtils.TileSize * 2;
-			ShrinkEnd.Height = _shrinkEndRadius * TileUtils.TileSize * 2;
+			ShrinkEnd.Width = Math.Min(25, _shrinkEndRadius) * TileUtils.TileSize * 2;
+			ShrinkEnd.Height = Math.Min(25, _shrinkEndRadius) * TileUtils.TileSize * 2;
 			Canvas.SetLeft(ShrinkEnd, _arenaCanvasCenter - ShrinkEnd.Width * 0.5);
 			Canvas.SetTop(ShrinkEnd, _arenaCanvasCenter - ShrinkEnd.Height * 0.5);
 		}
@@ -362,8 +362,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			}
 
 			_shrinkCurrentRadius = _shrinkStartRadius - ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (_shrinkStartRadius - _shrinkEndRadius);
-			ShrinkCurrent.Width = _shrinkCurrentRadius * TileUtils.TileSize * 2;
-			ShrinkCurrent.Height = _shrinkCurrentRadius * TileUtils.TileSize * 2;
+			ShrinkCurrent.Width = Math.Min(25, _shrinkCurrentRadius) * TileUtils.TileSize * 2;
+			ShrinkCurrent.Height = Math.Min(25, _shrinkCurrentRadius) * TileUtils.TileSize * 2;
 			Canvas.SetLeft(ShrinkCurrent, _arenaCanvasCenter - ShrinkCurrent.Width * 0.5);
 			Canvas.SetTop(ShrinkCurrent, _arenaCanvasCenter - ShrinkCurrent.Height * 0.5);
 		}
