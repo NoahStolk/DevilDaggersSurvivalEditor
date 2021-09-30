@@ -64,20 +64,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateHand(object sender, SelectionChangedEventArgs e)
 		{
-			bool disableGemCollection = SpawnsetHandler.Instance.Spawnset.AdditionalGems == int.MinValue;
-
 			if (_updateInternal)
 			{
 				SpawnsetHandler.Instance.Spawnset.Hand = (byte)(ComboBoxHand.SelectedIndex + 1);
-				int max = SpawnsetHandler.Instance.Spawnset.Hand switch
-				{
-					2 => 59,
-					3 => 149,
-					4 => 1000000,
-					_ => 9,
-				};
-				SpawnsetHandler.Instance.Spawnset.AdditionalGems = disableGemCollection ? int.MinValue : Math.Clamp(SpawnsetHandler.Instance.Spawnset.AdditionalGems, 0, max);
-
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 			}
 
@@ -89,15 +78,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			if (TextBoxAdditionalGems.ValidatePositiveIntTextBox() && _updateInternal)
 			{
-				int max = SpawnsetHandler.Instance.Spawnset.Hand switch
-				{
-					2 => 59,
-					3 => 149,
-					4 => 1000000,
-					_ => 9,
-				};
-
-				SpawnsetHandler.Instance.Spawnset.AdditionalGems = CheckBoxDisableGemCollection?.IsChecked() == true ? int.MinValue : Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
+				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.Parse(TextBoxAdditionalGems.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 			}
 		}
@@ -118,8 +99,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			_updateInternal = false;
 
-			CheckBoxDisableGemCollection.IsChecked = SpawnsetHandler.Instance.Spawnset.AdditionalGems == int.MinValue;
-
 			ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
 			ComboBoxVersion.SelectedIndex = SpawnsetHandler.Instance.Spawnset.WorldVersion == 8 ? 0 : SpawnsetHandler.Instance.Spawnset.SpawnVersion == 4 ? 1 : 2;
 			ComboBoxGameMode.SelectedIndex = (int)SpawnsetHandler.Instance.Spawnset.GameMode;
@@ -131,36 +110,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default && endLoopSpawns > 0 && loopLength < 0.5, loopLength));
 
 			_updateInternal = true;
-		}
-
-		private void CheckBoxDisableGemCollection_Changed(object sender, RoutedEventArgs e)
-		{
-			bool isChecked = CheckBoxDisableGemCollection.IsChecked();
-
-			if (_updateInternal)
-			{
-				if (isChecked)
-				{
-					SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.MinValue;
-				}
-				else
-				{
-					int max = SpawnsetHandler.Instance.Spawnset.Hand switch
-					{
-						2 => 59,
-						3 => 149,
-						4 => 1000000,
-						_ => 9,
-					};
-					SpawnsetHandler.Instance.Spawnset.AdditionalGems = Math.Clamp(int.Parse(TextBoxAdditionalGems.Text), 0, max);
-				}
-
-				SpawnsetHandler.Instance.HasUnsavedChanges = true;
-			}
-
-			TextBoxAdditionalGems.IsEnabled = !isChecked;
-
-			App.Instance.MainWindow?.UpdateWarningDisabledLevel2(isChecked && SpawnsetHandler.Instance.Spawnset.Hand == 2);
 		}
 
 		private void TextBoxAdditionalGems_LostFocus(object sender, RoutedEventArgs e)

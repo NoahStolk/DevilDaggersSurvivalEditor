@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="DevilDaggersSurvivalEditor.Gui.UserControls.SpawnsetSettingsUserControl"
+<UserControl x:Class="DevilDaggersSurvivalEditor.Gui.UserControls.SpawnsetSettingsUserControl"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -26,7 +26,6 @@
 				<ComboBox Name="ComboBoxHand" SelectionChanged="UpdateHand" />
 				<Label>Additional gems</Label>
 				<TextBox Name="TextBoxAdditionalGems" TextChanged="UpdateAdditionalGems" LostFocus="TextBoxAdditionalGems_LostFocus">0</TextBox>
-				<CheckBox Name="CheckBoxDisableGemCollection" Checked="CheckBoxDisableGemCollection_Changed" Unchecked="CheckBoxDisableGemCollection_Changed">Disable gem collection</CheckBox>
 			</StackPanel>
 			<Grid Style="{StaticResource SpawnsetHeader}">
 				<Label Style="{StaticResource BoldLabel}">Timer settings</Label>
