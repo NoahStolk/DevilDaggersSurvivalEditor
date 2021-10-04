@@ -8,6 +8,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="Content\Images\SplashScreens\0.png" />
