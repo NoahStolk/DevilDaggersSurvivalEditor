@@ -50,7 +50,7 @@ namespace DevilDaggersSurvivalEditor.Network
 			try
 			{
 				Spawnsets.Clear();
-				Spawnsets.AddRange(await ApiClient.Spawnsets_GetSpawnsetsAsync());
+				Spawnsets.AddRange(await ApiClient.Spawnsets_GetSpawnsetsForDdseAsync());
 
 				return true;
 			}
