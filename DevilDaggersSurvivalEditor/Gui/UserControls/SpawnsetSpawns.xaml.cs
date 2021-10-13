@@ -261,10 +261,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			Dispatcher.Invoke(() =>
 			{
 				int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
-				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+				foreach (int key in SpawnsetHandler.Instance.Spawnset.Spawns.Keys)
 				{
-					SpawnUserControl spawnControl = _spawnControls[kvp.Key];
-					spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
+					SpawnUserControl spawnControl = _spawnControls[key];
+					spawnControl.SetIsInLoop(key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
 				}
 			});
 		}
