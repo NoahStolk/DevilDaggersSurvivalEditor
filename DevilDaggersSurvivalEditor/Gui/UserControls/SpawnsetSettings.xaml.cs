@@ -74,7 +74,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateAdditionalGems(object sender, TextChangedEventArgs e)
 		{
-			if (TextBoxAdditionalGems.ValidatePositiveIntTextBox() && _updateInternal)
+			if (TextBoxAdditionalGems.ValidateIntTextBox() && _updateInternal)
 			{
 				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.Parse(TextBoxAdditionalGems.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;

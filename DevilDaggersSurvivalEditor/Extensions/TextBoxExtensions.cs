@@ -18,5 +18,12 @@ namespace DevilDaggersSurvivalEditor.Extensions
 			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
 			return isValid;
 		}
+
+		public static bool ValidateIntTextBox(this TextBox textBox)
+		{
+			bool isValid = int.TryParse(textBox.Text, out _);
+			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
+			return isValid;
+		}
 	}
 }
