@@ -67,6 +67,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				SpawnsetHandler.Instance.Spawnset.Hand = (byte)(ComboBoxHand.SelectedIndex + 1);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+
+				UpdateEffectivePlayerSettings(SpawnsetHandler.Instance.Spawnset.Hand, SpawnsetHandler.Instance.Spawnset.AdditionalGems);
 			}
 
 			App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlGems();
@@ -78,6 +80,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			{
 				SpawnsetHandler.Instance.Spawnset.AdditionalGems = int.Parse(TextBoxAdditionalGems.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
+
+				UpdateEffectivePlayerSettings(SpawnsetHandler.Instance.Spawnset.Hand, SpawnsetHandler.Instance.Spawnset.AdditionalGems);
 			}
 		}
 
@@ -88,6 +92,51 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				SpawnsetHandler.Instance.Spawnset.TimerStart = float.Parse(TextBoxTimerStart.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
 			}
+		}
+
+		private void UpdateEffectivePlayerSettings(byte hand, int additionalGems)
+		{
+			if (EffectivePlayerSettings == null)
+				return;
+
+			(byte effectiveHand, int effectiveGemsOrHoming, byte handModel) = GetEffectivePlayerSettings(hand, additionalGems);
+			string unit = effectiveHand > 2 ? "homing" : "gems";
+			string modelText = effectiveHand != handModel ? $"\n(Level {handModel} hand model)" : string.Empty;
+			string negativeValues = effectiveGemsOrHoming < 0 ? "\n(Negative values show up as 0 in game)" : string.Empty;
+			EffectivePlayerSettings.Content = $"Level {effectiveHand} with {effectiveGemsOrHoming} {unit}{modelText}{negativeValues}";
+		}
+
+		private static (byte EffectiveHand, int EffectiveGemsOrHoming, byte HandModel) GetEffectivePlayerSettings(byte hand, int additionalGems)
+		{
+			if (hand <= 1)
+			{
+				if (additionalGems < 10)
+					return (1, additionalGems, 1);
+
+				if (additionalGems < 70)
+					return (2, additionalGems, 2);
+
+				if (additionalGems == 70)
+					return (3, 0, 3);
+
+				if (additionalGems == 71)
+					return (4, 0, 4);
+
+				return (4, 0, 3);
+			}
+
+			if (hand == 2)
+			{
+				if (additionalGems < 0)
+					return (1, additionalGems + 10, 1);
+
+				return (2, Math.Min(69, additionalGems + 10), 2);
+			}
+
+			if (hand == 3)
+				return (3, Math.Min(149, additionalGems), 3);
+
+			return (4, additionalGems, 4);
 		}
 
 		public void UpdateSpawnset()
@@ -115,5 +164,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void TextBoxTimerStart_LostFocus(object sender, RoutedEventArgs e)
 			=> App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlSeconds();
+
+		private void UserControl_Loaded(object sender, RoutedEventArgs e)
+			=> UpdateEffectivePlayerSettings(SpawnsetHandler.Instance.Spawnset.Hand, SpawnsetHandler.Instance.Spawnset.AdditionalGems);
 	}
 }
