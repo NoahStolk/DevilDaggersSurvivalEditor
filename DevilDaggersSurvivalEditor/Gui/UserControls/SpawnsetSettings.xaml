@@ -27,7 +27,7 @@
 				<Label>Additional gems</Label>
 				<TextBox Name="TextBoxAdditionalGems" TextChanged="UpdateAdditionalGems" LostFocus="TextBoxAdditionalGems_LostFocus">0</TextBox>
 				<Label>Effective player settings</Label>
-				<Label Name="EffectivePlayerSettings" />
+				<TextBlock Background="{StaticResource Gray1}" Padding="2" Name="EffectivePlayerSettings" />
 			</StackPanel>
 			<Grid Style="{StaticResource SpawnsetHeader}">
 				<Label Style="{StaticResource BoldLabel}">Timer settings</Label>

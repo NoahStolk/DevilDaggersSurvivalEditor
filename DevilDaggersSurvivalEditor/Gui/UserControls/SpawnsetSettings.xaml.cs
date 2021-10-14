@@ -103,7 +103,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			string unit = effectiveHand > 2 ? "homing" : "gems";
 			string modelText = effectiveHand != handModel ? $"\n(Level {handModel} hand model)" : string.Empty;
 			string negativeValues = effectiveGemsOrHoming < 0 ? "\n(Negative values show up as 0 in game)" : string.Empty;
-			EffectivePlayerSettings.Content = $"Level {effectiveHand} with {effectiveGemsOrHoming} {unit}{modelText}{negativeValues}";
+			EffectivePlayerSettings.Text = $"Level {effectiveHand} with {effectiveGemsOrHoming} {unit}{modelText}{negativeValues}";
 		}
 
 		private static (byte EffectiveHand, int EffectiveGemsOrHoming, byte HandModel) GetEffectivePlayerSettings(byte hand, int additionalGems)
