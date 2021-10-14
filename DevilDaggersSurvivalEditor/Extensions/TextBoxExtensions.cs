@@ -10,6 +10,8 @@ namespace DevilDaggersSurvivalEditor.Extensions
 
 		public static bool ValidatePositiveIntTextBox(this TextBox textBox) => Validate(textBox, (tb) => int.TryParse(tb.Text, out int result) && result >= 0);
 
+		public static bool ValidateFloatTextBox(this TextBox textBox) => Validate(textBox, (tb) => float.TryParse(tb.Text, out _));
+
 		public static bool ValidateIntTextBox(this TextBox textBox) => Validate(textBox, (tb) => int.TryParse(tb.Text, out _));
 
 		private static bool Validate(this TextBox textBox, Func<TextBox, bool> validator)

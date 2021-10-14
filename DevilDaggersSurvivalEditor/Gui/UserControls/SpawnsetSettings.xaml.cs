@@ -83,7 +83,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateTimerStart(object sender, TextChangedEventArgs e)
 		{
-			if (TextBoxTimerStart.ValidatePositiveFloatTextBox() && _updateInternal)
+			if (TextBoxTimerStart.ValidateFloatTextBox() && _updateInternal)
 			{
 				SpawnsetHandler.Instance.Spawnset.TimerStart = float.Parse(TextBoxTimerStart.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
