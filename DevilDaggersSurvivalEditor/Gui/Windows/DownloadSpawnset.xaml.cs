@@ -130,7 +130,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						continue;
 					}
 
-					TextBlock textBlock = new() { HorizontalAlignment = GetAlignment(j) };
+					TextBlock textBlock = new() { HorizontalAlignment = GetAlignment(j), MaxHeight = 16 };
 					Grid.SetColumn(textBlock, j);
 
 					textBlocks.Add(textBlock);
