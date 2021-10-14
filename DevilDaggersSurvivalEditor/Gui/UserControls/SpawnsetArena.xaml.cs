@@ -359,7 +359,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				ShrinkCurrentSlider.IsEnabled = false;
 			}
 
-			_shrinkCurrentRadius = _shrinkStartRadius - ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (_shrinkStartRadius - _shrinkEndRadius);
+			if (_shrinkStartRadius > _shrinkEndRadius)
+				_shrinkCurrentRadius = _shrinkStartRadius - ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (_shrinkStartRadius - _shrinkEndRadius);
+			else
+				_shrinkCurrentRadius = _shrinkEndRadius;
 			ShrinkCurrent.Width = Math.Min(25, _shrinkCurrentRadius) * TileUtils.TileSize * 2;
 			ShrinkCurrent.Height = Math.Min(25, _shrinkCurrentRadius) * TileUtils.TileSize * 2;
 			Canvas.SetLeft(ShrinkCurrent, _arenaCanvasCenter - ShrinkCurrent.Width * 0.5);
