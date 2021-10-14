@@ -1,4 +1,3 @@
-using DevilDaggersCore.Utils;
 using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Network;
 using DevilDaggersSurvivalEditor.User;
@@ -53,23 +52,20 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 						message = "Error";
 						color = ColorUtils.ThemeColors["ErrorText"];
 					}
+					else if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumberRequired))
+					{
+						message = "Warning (update required)";
+						color = ColorUtils.ThemeColors["WarningText"];
+					}
+					else if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
+					{
+						message = "Warning (update recommended)";
+						color = ColorUtils.ThemeColors["SuggestionText"];
+					}
 					else
 					{
-						if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumberRequired))
-						{
-							message = "Warning (update required)";
-							color = ColorUtils.ThemeColors["WarningText"];
-						}
-						else if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
-						{
-							message = "Warning (update recommended)";
-							color = ColorUtils.ThemeColors["SuggestionText"];
-						}
-						else
-						{
-							message = "OK (up to date)";
-							color = ColorUtils.ThemeColors["SuccessText"];
-						}
+						message = "OK (up to date)";
+						color = ColorUtils.ThemeColors["SuccessText"];
 					}
 
 					TaskResultsStackPanel.Children.Add(new TextBlock
