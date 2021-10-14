@@ -114,9 +114,9 @@ csharp_style_var_when_type_is_apparent                                   = false
 
 # Expression-bodied members
 csharp_style_expression_bodied_accessors                                 = true : silent
-csharp_style_expression_bodied_constructors                              = false : silent
+csharp_style_expression_bodied_constructors                              = when_on_single_line
 csharp_style_expression_bodied_indexers                                  = true : silent
-csharp_style_expression_bodied_methods                                   = false : silent
+csharp_style_expression_bodied_methods                                   = when_on_single_line
 csharp_style_expression_bodied_operators                                 = false : silent
 csharp_style_expression_bodied_properties                                = true : silent
 
@@ -132,7 +132,7 @@ csharp_style_throw_expression                                            = true 
 csharp_preferred_modifier_order                                          = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async : suggestion
 
 # Expression-level preferences
-csharp_prefer_braces                                                     = true : silent
+csharp_prefer_braces                                                     = when_multiline
 csharp_prefer_simple_default_expression                                  = true : suggestion
 csharp_style_deconstructed_variable_declaration                          = true : warning
 csharp_style_inlined_variable_declaration                                = true : suggestion
@@ -268,3 +268,11 @@ dotnet_diagnostic.S3903.severity                                         = none
 
 dotnet_diagnostic.RCS1090.severity                                       = none
 dotnet_diagnostic.RCS1123.severity                                       = none
+
+# Default severity for analyzer diagnostics with category 'Globalization'
+dotnet_analyzer_diagnostic.category-Globalization.severity               = none
+# RCS1238: Avoid nested ?: operators.
+dotnet_diagnostic.RCS1238.severity                                       = none
+
+# RCS1141: Add 'param' element to documentation comment.
+dotnet_diagnostic.RCS1141.severity                                       = none
