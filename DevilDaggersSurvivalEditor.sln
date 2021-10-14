@@ -4,6 +4,11 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevilDaggersSurvivalEditor", "DevilDaggersSurvivalEditor\DevilDaggersSurvivalEditor.csproj", "{1F1E41AC-3DB2-4C00-B68D-692421DAE241}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99F422C3-19FB-4F7D-867E-33BDB074D31D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
