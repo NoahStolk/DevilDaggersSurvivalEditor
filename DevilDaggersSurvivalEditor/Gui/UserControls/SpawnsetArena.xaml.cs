@@ -195,10 +195,8 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				TileSelectionsStackPanel.Children.Add(radioButton);
 			}
 
-			foreach (Type type in ArenaPresetHandler.Instance.PresetTypes)
+			foreach (string typeName in ArenaPresetHandler.Instance.PresetTypes.Select(t => t.Name))
 			{
-				string typeName = type.Name;
-
 				ComboBoxItem item = new()
 				{
 					Content = typeName.ToUserFriendlyString(),

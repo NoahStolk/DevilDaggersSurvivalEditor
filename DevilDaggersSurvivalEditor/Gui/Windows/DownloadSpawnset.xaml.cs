@@ -428,7 +428,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		#region Classes
 
-		private class SpawnsetSorting
+		private sealed class SpawnsetSorting
 		{
 			public SpawnsetSorting(int index, string fullName, string displayName, bool ascending, params Func<SpawnsetFile, object?>[] sortingFunctions)
 			{
@@ -449,7 +449,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			public bool Ascending { get; set; }
 		}
 
-		private class SpawnsetGrid
+		private sealed class SpawnsetGrid
 		{
 			public SpawnsetGrid(Grid grid, Hyperlink hyperlink, List<TextBlock> textBlocks)
 			{

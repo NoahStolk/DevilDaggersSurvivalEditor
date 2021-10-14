@@ -46,10 +46,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			double seconds = 0;
 			int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
-			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+			foreach (Spawn spawn in SpawnsetHandler.Instance.Spawnset.Spawns.Values)
 			{
-				seconds += kvp.Value.Delay;
-				totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
+				seconds += spawn.Delay;
+				totalGems += spawn.Enemy?.NoFarmGems ?? 0;
 			}
 
 			Update(seconds, totalGems);
