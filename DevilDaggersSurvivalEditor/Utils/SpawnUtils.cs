@@ -12,6 +12,11 @@ namespace DevilDaggersSurvivalEditor.Utils
 			=> Math.Ceiling(gameTimeInSeconds * 60) / 60;
 
 		public static string ToFramedGameTimeString(double gameTimeInSeconds)
-			=> ToFramedGameTime(gameTimeInSeconds).ToString(Format);
+		{
+			if (gameTimeInSeconds < -1_000_000 || gameTimeInSeconds > 1_000_000)
+				return "A lot of digits";
+
+			return ToFramedGameTime(gameTimeInSeconds).ToString(Format);
+		}
 	}
 }
