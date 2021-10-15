@@ -86,25 +86,24 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			for (int i = 0; i < 9; i++)
 			{
-				float height = i == 0 ? TileUtils.VoidDefault : -1.25f + i * 0.25f;
-				RadioButton heightRadioButton = height == TileUtils.VoidDefault
-					? new()
-					{
-						Margin = default,
-						Background = new SolidColorBrush(GuiUtils.ColorBlack),
-						ToolTip = new TextBlock { Text = "Void", FontWeight = FontWeights.Bold },
-						Tag = height,
-						IsChecked = true,
-						Style = _toggleRadioButtonStyle,
-					}
-					: new()
-					{
-						Margin = default,
-						Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)),
-						ToolTip = height.ToString("0.##"),
-						Tag = height,
-						Style = _toggleRadioButtonStyle,
-					};
+				float height = i switch
+				{
+					0 => TileUtils.VoidDefault,
+					1 => TileUtils.InstantShrinkDefault,
+					2 => TileUtils.TileMin,
+					3 => -0.67f,
+					4 => -0.33f,
+					_ => -1.25f + i * 0.25f,
+				};
+				RadioButton heightRadioButton = new()
+				{
+					Margin = default,
+					Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)),
+					ToolTip = TileUtils.GetStringFromHeight(height),
+					Tag = height,
+					IsChecked = i == 0,
+					Style = _toggleRadioButtonStyle,
+				};
 				heightRadioButton.Checked += (sender, e) =>
 				{
 					if (sender is not RadioButton r)
@@ -449,12 +448,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		}
 
 		private void SetHeightText(float height)
-		{
-			bool voidTile = height < TileUtils.TileMin;
-
-			TileHeightLabel.FontWeight = voidTile ? FontWeights.Bold : FontWeights.Normal;
-			TileHeightLabel.Content = voidTile ? "Void" : height.ToString("0.00");
-		}
+			=> TileHeightLabel.Content = TileUtils.GetStringFromHeight(height);
 
 		private void ExecuteTileAction(ArenaCoord tile)
 		{
