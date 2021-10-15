@@ -54,8 +54,8 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				new(sortingIndex, "Last updated", "Last updated", GetCachedDirection(sortingIndex++, false), s => s.LastUpdated, s => s.Name),
 				new(sortingIndex, "Game version", "GV", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.WorldVersion + s.SpawnsetData.SpawnVersion, s => s.Name),
 				new(sortingIndex, "Game mode", "GM", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.GameMode, s => s.Name),
-				new(sortingIndex, "Hand", "Hand", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.Hand, s => s.SpawnsetData.AdditionalGems),
-				new(sortingIndex, "Additional gems", "Gems", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.AdditionalGems, s => s.SpawnsetData.Hand),
+				new(sortingIndex, "Effective hand", "Hand", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.Hand, s => s.SpawnsetData.AdditionalGems),
+				new(sortingIndex, "Effective gems", "Gems", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.AdditionalGems, s => s.SpawnsetData.Hand),
 				new(sortingIndex, "Timer start", "Timer", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.TimerStart, s => s.Name),
 				new(sortingIndex, "Non-loop length", "Length", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.NonLoopLength ?? 0, s => s.SpawnsetData.NonLoopSpawnCount),
 				new(sortingIndex, "Non-loop spawns", "Spawns", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.NonLoopSpawnCount),
@@ -237,12 +237,18 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				grid.Hyperlink.Tag = newEvent;
 				grid.Hyperlink.Click += newEvent;
 
+				byte effectiveHand = 0;
+				int effectiveGemsOrHoming = 0;
+				byte handModel = 0;
+				if (spawnsetFile.SpawnsetData.Hand.HasValue && spawnsetFile.SpawnsetData.AdditionalGems.HasValue)
+					(effectiveHand, effectiveGemsOrHoming, handModel) = Spawnset.GetEffectivePlayerSettings(spawnsetFile.SpawnsetData.Hand.Value, spawnsetFile.SpawnsetData.AdditionalGems.Value);
+
 				grid.TextBlocks[0].Text = spawnsetFile.AuthorName;
 				grid.TextBlocks[1].Text = spawnsetFile.LastUpdated.ToString("dd MMM yyyy");
 				grid.TextBlocks[2].Text = Spawnset.GetGameVersionString(spawnsetFile.SpawnsetData.WorldVersion, spawnsetFile.SpawnsetData.SpawnVersion);
 				grid.TextBlocks[3].Text = spawnsetFile.SpawnsetData.GameMode.ToString();
-				grid.TextBlocks[4].Text = spawnsetFile.SpawnsetData.Hand?.ToString() ?? "N/A";
-				grid.TextBlocks[5].Text = spawnsetFile.SpawnsetData.AdditionalGems.HasValue ? spawnsetFile.SpawnsetData.AdditionalGems.ToString() : "N/A";
+				grid.TextBlocks[4].Text = spawnsetFile.SpawnsetData.Hand.HasValue ? effectiveHand.ToString() : "N/A";
+				grid.TextBlocks[5].Text = spawnsetFile.SpawnsetData.AdditionalGems.HasValue ? effectiveGemsOrHoming.ToString() : "N/A";
 				grid.TextBlocks[6].Text = spawnsetFile.SpawnsetData.TimerStart?.ToString(SpawnUtils.Format) ?? "N/A";
 				grid.TextBlocks[7].Text = spawnsetFile.SpawnsetData.NonLoopLength?.ToString(SpawnUtils.Format) ?? "N/A";
 				grid.TextBlocks[8].Text = spawnsetFile.SpawnsetData.NonLoopSpawnCount == 0 ? "N/A" : spawnsetFile.SpawnsetData.NonLoopSpawnCount.ToString();
