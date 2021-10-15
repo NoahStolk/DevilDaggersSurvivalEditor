@@ -45,7 +45,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		public void Update()
 		{
 			double seconds = 0;
-			int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
+			int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
 			foreach (Spawn spawn in SpawnsetHandler.Instance.Spawnset.Spawns.Values)
 			{
 				seconds += spawn.Delay;

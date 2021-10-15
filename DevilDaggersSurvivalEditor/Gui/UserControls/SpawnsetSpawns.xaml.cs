@@ -63,7 +63,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 				int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
 				double seconds = 0;
-				int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
+				int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
 
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 				{
@@ -100,7 +100,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
 			double seconds = 0;
-			int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
+			int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
 			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 			{
 				seconds += kvp.Value.Delay;
@@ -142,7 +142,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
 			double seconds = 0;
-			int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
+			int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
 			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 			{
 				seconds += kvp.Value.Delay;
@@ -185,7 +185,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
 			double seconds = 0;
-			int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
+			int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
 			int minSelection = selections.Min();
 			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 			{
@@ -243,7 +243,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		{
 			Dispatcher.Invoke(() =>
 			{
-				int totalGems = SpawnsetHandler.Instance.Spawnset.GetInitialGems();
+				int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
 				foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 				{
 					totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
