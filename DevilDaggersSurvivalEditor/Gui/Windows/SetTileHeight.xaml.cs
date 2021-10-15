@@ -1,17 +1,13 @@
 using DevilDaggersSurvivalEditor.Arena;
-using DevilDaggersSurvivalEditor.Utils;
-using System;
 using System.Windows;
 
 namespace DevilDaggersSurvivalEditor.Gui.Windows
 {
 	public partial class SetTileHeightWindow : Window
 	{
-		private float _tileHeight;
-
 		public SetTileHeightWindow(float tileHeight, params ArenaCoord[] selections)
 		{
-			_tileHeight = tileHeight; // Avoid clamping in case of a void tile.
+			TileHeight = tileHeight;
 
 			InitializeComponent();
 
@@ -20,11 +16,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 			Data.DataContext = this;
 		}
 
-		public float TileHeight
-		{
-			get => _tileHeight;
-			set => _tileHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float TileHeight { get; set; }
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -34,9 +26,10 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!float.TryParse(TileHeightTextBox.Text, out _tileHeight))
+			if (!float.TryParse(TileHeightTextBox.Text, out float tileHeight))
 				return;
 
+			TileHeight = tileHeight;
 			DialogResult = true;
 		}
 	}
