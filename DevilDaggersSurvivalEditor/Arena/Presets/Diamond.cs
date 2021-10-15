@@ -8,7 +8,6 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 	{
 		private int _diamondHalfWidth = 10;
 		private int _diamondHalfHeight = 10;
-		private float _height;
 
 		public int DiamondHalfWidth
 		{
@@ -22,11 +21,7 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 			set => _diamondHalfHeight = Math.Clamp(value, 1, Spawnset.ArenaHeight / 2);
 		}
 
-		public float Height
-		{
-			get => _height;
-			set => _height = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float Height { get; set; }
 
 		public override bool IsFull => false;
 

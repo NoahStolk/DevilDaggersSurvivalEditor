@@ -1,5 +1,4 @@
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
@@ -8,23 +7,13 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 {
 	public class RandomIslands : AbstractRectangularArena
 	{
-		private float _minHeight;
-		private float _maxHeight = 5;
 		private int _amount = 5;
 		private int _iterations = 2;
 		private float _steepness = 0.1f;
 
-		public float MinHeight
-		{
-			get => _minHeight;
-			set => _minHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float MinHeight { get; set; }
 
-		public float MaxHeight
-		{
-			get => _maxHeight;
-			set => _maxHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float MaxHeight { get; set; } = 5;
 
 		public int Amount
 		{

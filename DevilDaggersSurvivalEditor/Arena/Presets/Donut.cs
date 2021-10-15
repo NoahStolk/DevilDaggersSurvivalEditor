@@ -1,23 +1,17 @@
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersSurvivalEditor.Utils;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets
 {
 	public class Donut : AbstractEllipseArena
 	{
-		private float _height;
 		private int _holeOffsetX;
 		private int _holeOffsetY;
 		private float _holeInnerRadius = 5;
 		private float _holeOuterRadius = 5;
 		private float _holeAngleInDegrees;
 
-		public float Height
-		{
-			get => _height;
-			set => _height = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float Height { get; set; }
 
 		public int HoleOffsetX
 		{

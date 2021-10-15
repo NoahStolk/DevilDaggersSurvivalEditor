@@ -1,18 +1,10 @@
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersSurvivalEditor.Utils;
-using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets
 {
 	public class Ellipse : AbstractEllipseArena
 	{
-		private float _height;
-
-		public float Height
-		{
-			get => _height;
-			set => _height = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float Height { get; set; }
 
 		public override float[,] GetTiles()
 		{

@@ -1,25 +1,13 @@
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersSurvivalEditor.Utils;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets
 {
 	public class Hill : AbstractEllipseArena
 	{
-		private float _startHeight;
-		private float _endHeight = 8;
+		public float StartHeight { get; set; }
 
-		public float StartHeight
-		{
-			get => _startHeight;
-			set => _startHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
-
-		public float EndHeight
-		{
-			get => _endHeight;
-			set => _endHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float EndHeight { get; set; } = 8;
 
 		public override float[,] GetTiles()
 		{
@@ -36,7 +24,7 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 						int deltaX = i - center.X;
 						int deltaY = j - center.Y;
 						float distance = (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
-						tiles[i, j] = Lerp(_startHeight, _endHeight, 1 - distance / OuterRadius);
+						tiles[i, j] = Lerp(StartHeight, EndHeight, 1 - distance / OuterRadius);
 					}
 				}
 			}

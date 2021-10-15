@@ -1,5 +1,4 @@
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 
@@ -7,23 +6,13 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 {
 	public class RandomPillars : AbstractRectangularArena
 	{
-		private float _minHeight = 5;
-		private float _maxHeight = 7;
 		private int _minThickness = 1;
 		private int _maxThickness = 2;
 		private int _count = 5;
 
-		public float MinHeight
-		{
-			get => _minHeight;
-			set => _minHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float MinHeight { get; set; } = 5;
 
-		public float MaxHeight
-		{
-			get => _maxHeight;
-			set => _maxHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float MaxHeight { get; set; } = 7;
 
 		public int MinThickness
 		{
@@ -49,7 +38,7 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 
 			for (int i = 0; i < _count; i++)
 			{
-				float height = RandomUtils.RandomFloat(_minHeight, _maxHeight);
+				float height = RandomUtils.RandomFloat(MinHeight, MaxHeight);
 				int x = RandomUtils.RandomInt(X1, X2);
 				int y = RandomUtils.RandomInt(Y1, Y2);
 

@@ -1,5 +1,4 @@
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersSurvivalEditor.Utils;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets
@@ -8,8 +7,6 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 	{
 		private int _offsetX;
 		private int _offsetY;
-		private float _startheight;
-		private float _endHeight = 6;
 		private int _size = 16;
 
 		public int OffsetX
@@ -24,17 +21,9 @@ namespace DevilDaggersSurvivalEditor.Arena.Presets
 			set => _offsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
 		}
 
-		public float StartHeight
-		{
-			get => _startheight;
-			set => _startheight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float StartHeight { get; set; }
 
-		public float EndHeight
-		{
-			get => _endHeight;
-			set => _endHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float EndHeight { get; set; } = 6;
 
 		public int Size
 		{

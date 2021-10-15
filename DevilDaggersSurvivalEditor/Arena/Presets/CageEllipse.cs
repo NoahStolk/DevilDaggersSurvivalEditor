@@ -1,26 +1,15 @@
 using DevilDaggersCore.Spawnsets;
-using DevilDaggersSurvivalEditor.Utils;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets
 {
 	public class CageEllipse : AbstractEllipseArena
 	{
-		private float _insideHeight;
-		private float _wallHeight = 8;
 		private int _wallThickness = 1;
 
-		public float InsideHeight
-		{
-			get => _insideHeight;
-			set => _insideHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float InsideHeight { get; set; }
 
-		public float WallHeight
-		{
-			get => _wallHeight;
-			set => _wallHeight = Math.Clamp(value, TileUtils.TileMin, TileUtils.TileMax);
-		}
+		public float WallHeight { get; set; } = 8;
 
 		public int WallThickness
 		{
