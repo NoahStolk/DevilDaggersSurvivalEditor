@@ -258,7 +258,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateShrinkStart(object sender, TextChangedEventArgs e)
 		{
-			if (TextBoxShrinkStart.ValidatePositiveFloatTextBox())
+			if (TextBoxShrinkStart.ValidateFloatTextBox())
 			{
 				SpawnsetHandler.Instance.Spawnset.ShrinkStart = float.Parse(TextBoxShrinkStart.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -272,15 +272,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void UpdateShrinkStart()
 		{
 			_shrinkStartRadius = SpawnsetHandler.Instance.Spawnset.ShrinkStart * 0.25;
-			ShrinkStart.Width = Math.Min(25, _shrinkStartRadius) * TileUtils.TileSize * 2;
-			ShrinkStart.Height = Math.Min(25, _shrinkStartRadius) * TileUtils.TileSize * 2;
+			double size = Math.Clamp(_shrinkStartRadius, 0, 25) * TileUtils.TileSize * 2;
+			ShrinkStart.Width = size;
+			ShrinkStart.Height = size;
 			Canvas.SetLeft(ShrinkStart, _arenaCanvasCenter - ShrinkStart.Width * 0.5);
 			Canvas.SetTop(ShrinkStart, _arenaCanvasCenter - ShrinkStart.Height * 0.5);
 		}
 
 		private void UpdateShrinkEnd(object sender, TextChangedEventArgs e)
 		{
-			if (TextBoxShrinkEnd.ValidatePositiveFloatTextBox())
+			if (TextBoxShrinkEnd.ValidateFloatTextBox())
 			{
 				SpawnsetHandler.Instance.Spawnset.ShrinkEnd = float.Parse(TextBoxShrinkEnd.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -294,15 +295,16 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void UpdateShrinkEnd()
 		{
 			_shrinkEndRadius = SpawnsetHandler.Instance.Spawnset.ShrinkEnd * 0.25;
-			ShrinkEnd.Width = Math.Min(25, _shrinkEndRadius) * TileUtils.TileSize * 2;
-			ShrinkEnd.Height = Math.Min(25, _shrinkEndRadius) * TileUtils.TileSize * 2;
+			double size = Math.Clamp(_shrinkEndRadius, 0, 25) * TileUtils.TileSize * 2;
+			ShrinkEnd.Width = size;
+			ShrinkEnd.Height = size;
 			Canvas.SetLeft(ShrinkEnd, _arenaCanvasCenter - ShrinkEnd.Width * 0.5);
 			Canvas.SetTop(ShrinkEnd, _arenaCanvasCenter - ShrinkEnd.Height * 0.5);
 		}
 
 		private void UpdateShrinkRate(object sender, TextChangedEventArgs e)
 		{
-			if (TextBoxShrinkRate.ValidatePositiveFloatTextBox())
+			if (TextBoxShrinkRate.ValidateFloatTextBox())
 			{
 				SpawnsetHandler.Instance.Spawnset.ShrinkRate = float.Parse(TextBoxShrinkRate.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -314,7 +316,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		private void UpdateBrightness(object sender, TextChangedEventArgs e)
 		{
-			if (TextBoxBrightness.ValidatePositiveFloatTextBox())
+			if (TextBoxBrightness.ValidateFloatTextBox())
 			{
 				SpawnsetHandler.Instance.Spawnset.Brightness = float.Parse(TextBoxBrightness.Text);
 				SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -363,8 +365,10 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				_shrinkCurrentRadius = _shrinkStartRadius - ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (_shrinkStartRadius - _shrinkEndRadius);
 			else
 				_shrinkCurrentRadius = _shrinkEndRadius;
-			ShrinkCurrent.Width = Math.Min(25, _shrinkCurrentRadius) * TileUtils.TileSize * 2;
-			ShrinkCurrent.Height = Math.Min(25, _shrinkCurrentRadius) * TileUtils.TileSize * 2;
+
+			double size = Math.Clamp(_shrinkCurrentRadius, 0, 25) * TileUtils.TileSize * 2;
+			ShrinkCurrent.Width = size;
+			ShrinkCurrent.Height = size;
 			Canvas.SetLeft(ShrinkCurrent, _arenaCanvasCenter - ShrinkCurrent.Width * 0.5);
 			Canvas.SetTop(ShrinkCurrent, _arenaCanvasCenter - ShrinkCurrent.Height * 0.5);
 		}
