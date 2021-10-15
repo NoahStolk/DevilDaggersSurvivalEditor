@@ -592,14 +592,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 			if (_selections.Count == 0)
 			{
-				SpawnsetHandler.Instance.Spawnset.ArenaTiles[_focusedTile.X, _focusedTile.Y] = Math.Clamp(SpawnsetHandler.Instance.Spawnset.ArenaTiles[_focusedTile.X, _focusedTile.Y] + change, TileUtils.TileMin, TileUtils.TileMax);
+				SpawnsetHandler.Instance.Spawnset.ArenaTiles[_focusedTile.X, _focusedTile.Y] += change;
 				UpdateTile(_focusedTile);
 			}
 			else
 			{
 				foreach (ArenaCoord selection in _selections)
 				{
-					SpawnsetHandler.Instance.Spawnset.ArenaTiles[selection.X, selection.Y] = Math.Clamp(SpawnsetHandler.Instance.Spawnset.ArenaTiles[selection.X, selection.Y] + change, TileUtils.TileMin, TileUtils.TileMax);
+					SpawnsetHandler.Instance.Spawnset.ArenaTiles[selection.X, selection.Y] += change;
 					UpdateTile(selection);
 				}
 			}
