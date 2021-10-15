@@ -1,5 +1,6 @@
 using DevilDaggersSurvivalEditor.Arena;
 using System;
+using System.Windows;
 using System.Windows.Media;
 
 namespace DevilDaggersSurvivalEditor.Utils
@@ -17,6 +18,25 @@ namespace DevilDaggersSurvivalEditor.Utils
 		public const int TileSizeShrunk = 4;
 
 		public static readonly ArenaCoord SpawnTile = new(25, 25);
+
+		public static Brush GetBrushFromHeight(float height)
+		{
+			SolidColorBrush solidColorBrush = new(GetColorFromHeight(height));
+			if (height < InstantShrinkMin || height >= TileMin)
+				return solidColorBrush;
+
+			return new DrawingBrush
+			{
+				TileMode = TileMode.Tile,
+				Viewport = new Rect(0, 0, 8, 8),
+				ViewportUnits = BrushMappingMode.Absolute,
+				Drawing = new GeometryDrawing
+				{
+					Geometry = Geometry.Parse("M0,0 H1 V1 H2 V2 H1 V1 H0Z"),
+					Brush = solidColorBrush,
+				},
+			};
+		}
 
 		public static Color GetColorFromHeight(float height)
 		{

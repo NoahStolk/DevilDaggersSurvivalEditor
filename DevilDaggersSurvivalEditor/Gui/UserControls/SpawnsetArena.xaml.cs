@@ -98,7 +98,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				RadioButton heightRadioButton = new()
 				{
 					Margin = default,
-					Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)),
+					Background = TileUtils.GetBrushFromHeight(height),
 					ToolTip = TileUtils.GetStringFromHeight(height),
 					Tag = height,
 					IsChecked = i == 0,
@@ -131,7 +131,7 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 				for (int j = 0; j < 9; j++)
 				{
 					float height = i * 9 + j + 1;
-					RadioButton heightRadioButton = new() { Margin = default, Background = new SolidColorBrush(TileUtils.GetColorFromHeight(height)), ToolTip = height.ToString(), Tag = height, Style = _toggleRadioButtonStyle };
+					RadioButton heightRadioButton = new() { Margin = default, Background = TileUtils.GetBrushFromHeight(height), ToolTip = height.ToString(), Tag = height, Style = _toggleRadioButtonStyle };
 					heightRadioButton.Checked += (sender, e) =>
 					{
 						if (sender is not RadioButton r)
@@ -383,7 +383,6 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 
 		public void UpdateTile(ArenaCoord tile)
 		{
-			// Lock special cases if set in settings.
 			if (tile == TileUtils.SpawnTile)
 			{
 				if (UserHandler.Instance.Settings.LockSpawnTile)
@@ -396,16 +395,14 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 			float height = SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y];
 
 			Rectangle rect = _tileElements[tile.X, tile.Y];
-			if (height < TileUtils.TileMin)
+			if (height < TileUtils.InstantShrinkMin)
 			{
 				rect.Visibility = Visibility.Hidden;
 				return;
 			}
 
 			rect.Visibility = Visibility.Visible;
-
-			Color color = TileUtils.GetColorFromHeight(height);
-			rect.Fill = new SolidColorBrush(color);
+			rect.Fill = TileUtils.GetBrushFromHeight(height);
 
 			// Set tile size.
 			double distance = tile.GetDistanceToCanvasPointSquared(_arenaCanvasCenter);
