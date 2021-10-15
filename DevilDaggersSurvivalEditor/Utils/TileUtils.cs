@@ -40,12 +40,15 @@ namespace DevilDaggersSurvivalEditor.Utils
 
 		public static Color GetColorFromHeight(float height)
 		{
+			if (height < InstantShrinkMin)
+				return Color.FromRgb(0, 0, 0);
+
 			if (height > TileMax)
 				return Color.FromRgb(0, 160, 255);
 
 			float colorValue = Math.Max(0, (height - TileMin) * 12 + 64);
 
-			if (height < 0)
+			if (height < TileDefault)
 				return Color.FromRgb((byte)(colorValue * (1 + Math.Abs(height * 0.5f))), (byte)(colorValue / 4), (byte)((height - TileMin) * 8));
 
 			return Color.FromRgb((byte)colorValue, (byte)(colorValue / 2), (byte)((height - TileMin) * 4));
