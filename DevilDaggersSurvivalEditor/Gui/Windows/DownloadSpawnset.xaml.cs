@@ -55,7 +55,7 @@ namespace DevilDaggersSurvivalEditor.Gui.Windows
 				new(sortingIndex, "Game version", "GV", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.WorldVersion + s.SpawnsetData.SpawnVersion, s => s.Name),
 				new(sortingIndex, "Game mode", "GM", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.GameMode, s => s.Name),
 				new(sortingIndex, "Effective hand", "Hand", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.Hand, s => s.SpawnsetData.AdditionalGems),
-				new(sortingIndex, "Effective gems", "Gems", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.AdditionalGems, s => s.SpawnsetData.Hand),
+				new(sortingIndex, "Effective gems / homing", "Gems", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.AdditionalGems, s => s.SpawnsetData.Hand),
 				new(sortingIndex, "Timer start", "Timer", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.TimerStart, s => s.Name),
 				new(sortingIndex, "Non-loop length", "Length", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.NonLoopLength ?? 0, s => s.SpawnsetData.NonLoopSpawnCount),
 				new(sortingIndex, "Non-loop spawns", "Spawns", GetCachedDirection(sortingIndex++, false), s => s.SpawnsetData.NonLoopSpawnCount),
