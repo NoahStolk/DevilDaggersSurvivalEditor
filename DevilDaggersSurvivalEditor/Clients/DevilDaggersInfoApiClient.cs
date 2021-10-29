@@ -3008,6 +3008,9 @@ namespace DevilDaggersSurvivalEditor.Clients
         [System.ComponentModel.DataAnnotations.StringLength(32)]
         public string PlayerName { get; set; }= default!;
     
+        [Newtonsoft.Json.JsonProperty("replayPlayerId", Required = Newtonsoft.Json.Required.Always)]
+        public int ReplayPlayerId { get; set; }= default!;
+    
         [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Always)]
         public int Status { get; set; }= default!;
     
@@ -3091,6 +3094,7 @@ namespace DevilDaggersSurvivalEditor.Clients
         public System.Collections.Generic.List<GameState> GameStates { get; set; } = new System.Collections.Generic.List<GameState>();
     
         [Newtonsoft.Json.JsonProperty("replayData", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [System.ComponentModel.DataAnnotations.StringLength(31457280)]
         public byte[]? ReplayData { get; set; }= default!;
     
     
