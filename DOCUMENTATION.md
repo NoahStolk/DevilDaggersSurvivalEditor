@@ -57,7 +57,7 @@ The header buffer for the default spawnset looks like this:
 | `CDCCCC3C` | 32-bit floating point | Shrink rate | 0.025 |
 | `00007042` | 32-bit floating point | Brightness | 60 |
 | `00000000` | 32-bit integer | Game mode | 0 |
-| `33000000` | ? | ? | ? |
+| `33000000` | 32-bit integer | Arena dimension (needs testing) | 51 |
 | `01000000` | ? | ? | ? |
 
 World version is 8 for V1, and 9 for all later versions.
