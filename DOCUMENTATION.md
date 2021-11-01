@@ -60,13 +60,17 @@ The header buffer for the default spawnset looks like this:
 | `33000000` | ? | ? | ? |
 | `01000000` | ? | ? | ? |
 
+World version is 8 for V1, and 9 for all later versions.
+
+Spawn version is always 4 except when using settings buffer which was added in V3.1. Spawn version 5 adds support for initial hand upgrade and additional gems. Spawn version 6 adds support for timer start.
+
 ### Arena buffer
 
 Fixed-length one-dimensional array of 2601 (51 x 51 = 2601 tiles) 32-bit floating point numbers (2601 x 32 / 8 = 10404 bytes) representing the height of each tile in the arena.
 
 ### Spawns header buffer
 
-Fixed-length buffer of 40 bytes. Contains the amount of spawns, but mainly unknown values.
+Fixed-length buffer of 40 bytes (or 36 when world version is 8). Contains the amount of spawns, but mainly unknown values.
 
 The spawns header buffer for the default spawnset looks like this:
 
@@ -123,7 +127,7 @@ These are the first 3 spawns in the original game:
 
 Here's the list of enemy types that the survival file defines:
 
-#### V3 / V3.1 (current)
+#### V3 / V3.1 / V3.2 (current)
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
@@ -168,10 +172,10 @@ Here's the list of enemy types that the survival file defines:
 
 ### Settings buffer
 
-Fixed-length buffer of 9 bytes. It was added to the game's V3.1 update which released on February 2021, specifically for spawnset and modding purposes, and is not used in the default spawnset. It only works when the header's spawn version is 5 or 6. The last value, TimerStart, only works on spawn version 6.
+Fixed-length buffer of 9 bytes. It was added to the game's V3.1 update which released on February 2021, specifically for spawnset and modding purposes, and is not used in the default spawnset. It only works when the header's spawn version is 5 or 6. The last value, timer start, only works on spawn version 6.
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
 | `04` | Byte | Initial hand upgrade | 4 |
-| `05000000` | 32-bit integer | Additional gems | 5 |
+| `05000000` | 32-bit integer (signed) | Additional gems | 5 |
 | `0000A041` | 32-bit floating point | Timer start | 20 |
