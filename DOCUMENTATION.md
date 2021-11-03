@@ -95,7 +95,7 @@ These are the first 3 spawns in the original game:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit integer | Enemy type | 0 |
+| `00000000` | 32-bit integer (signed) | Enemy type | 0 |
 | `00004040` | 32-bit floating point | Spawn delay | 3 |
 | `00000000` | ? | ? | ? |
 | `03000000` | ? | ? | ? |
@@ -105,7 +105,7 @@ These are the first 3 spawns in the original game:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `FFFFFFFF` | 32-bit integer | Enemy type | -1 |
+| `FFFFFFFF` | 32-bit integer (signed) | Enemy type | -1 |
 | `0000C040` | 32-bit floating point | Spawn delay | 6 |
 | `00000000` | ? | ? | ? |
 | `03000000` | ? | ? | ? |
@@ -115,7 +115,7 @@ These are the first 3 spawns in the original game:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit integer | Enemy type | 0 |
+| `00000000` | 32-bit integer (signed) | Enemy type | 0 |
 | `0000A040` | 32-bit floating point | Spawn delay | 5 |
 | `00000000` | ? | ? | ? |
 | `03000000` | ? | ? | ? |
@@ -131,44 +131,44 @@ Here's the list of enemy types that the survival file defines:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit integer | Squid I | 0 |
-| `01000000` | 32-bit integer | Squid II | 1 |
-| `02000000` | 32-bit integer | Centipede | 2 |
-| `03000000` | 32-bit integer | Spider I | 3 |
-| `04000000` | 32-bit integer | Leviathan | 4 |
-| `05000000` | 32-bit integer | Gigapede | 5 |
-| `06000000` | 32-bit integer | Squid III | 6 |
-| `07000000` | 32-bit integer | Thorn | 7 |
-| `08000000` | 32-bit integer | Spider II | 8 |
-| `09000000` | 32-bit integer | Ghostpede | 9 |
-| `FFFFFFFF` | 32-bit integer | Empty | -1 |
+| `00000000` | 32-bit integer (signed) | Squid I | 0 |
+| `01000000` | 32-bit integer (signed) | Squid II | 1 |
+| `02000000` | 32-bit integer (signed) | Centipede | 2 |
+| `03000000` | 32-bit integer (signed) | Spider I | 3 |
+| `04000000` | 32-bit integer (signed) | Leviathan | 4 |
+| `05000000` | 32-bit integer (signed) | Gigapede | 5 |
+| `06000000` | 32-bit integer (signed) | Squid III | 6 |
+| `07000000` | 32-bit integer (signed) | Thorn | 7 |
+| `08000000` | 32-bit integer (signed) | Spider II | 8 |
+| `09000000` | 32-bit integer (signed) | Ghostpede | 9 |
+| `FFFFFFFF` | 32-bit integer (signed) | Empty | -1 |
 
 #### V2
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit integer | Squid I | 0 |
-| `01000000` | 32-bit integer | Squid II | 1 |
-| `02000000` | 32-bit integer | Centipede | 2 |
-| `03000000` | 32-bit integer | Spider I | 3 |
-| `04000000` | 32-bit integer | Leviathan | 4 |
-| `05000000` | 32-bit integer | Gigapede | 5 |
-| `06000000` | 32-bit integer | Squid III | 6 |
-| `07000000` | 32-bit integer | Andras | 7 |
-| `08000000` | 32-bit integer | Spider II | 8 |
-| `FFFFFFFF` | 32-bit integer | Empty | -1 |
+| `00000000` | 32-bit integer (signed) | Squid I | 0 |
+| `01000000` | 32-bit integer (signed) | Squid II | 1 |
+| `02000000` | 32-bit integer (signed) | Centipede | 2 |
+| `03000000` | 32-bit integer (signed) | Spider I | 3 |
+| `04000000` | 32-bit integer (signed) | Leviathan | 4 |
+| `05000000` | 32-bit integer (signed) | Gigapede | 5 |
+| `06000000` | 32-bit integer (signed) | Squid III | 6 |
+| `07000000` | 32-bit integer (signed) | Andras | 7 |
+| `08000000` | 32-bit integer (signed) | Spider II | 8 |
+| `FFFFFFFF` | 32-bit integer (signed) | Empty | -1 |
 
 #### V1
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | 32-bit integer | Squid I | 0 |
-| `01000000` | 32-bit integer | Squid II | 1 |
-| `02000000` | 32-bit integer | Centipede | 2 |
-| `03000000` | 32-bit integer | Spider I | 3 |
-| `04000000` | 32-bit integer | Leviathan | 4 |
-| `05000000` | 32-bit integer | Gigapede | 5 |
-| `FFFFFFFF` | 32-bit integer | Empty | -1 |
+| `00000000` | 32-bit integer (signed) | Squid I | 0 |
+| `01000000` | 32-bit integer (signed) | Squid II | 1 |
+| `02000000` | 32-bit integer (signed) | Centipede | 2 |
+| `03000000` | 32-bit integer (signed) | Spider I | 3 |
+| `04000000` | 32-bit integer (signed) | Leviathan | 4 |
+| `05000000` | 32-bit integer (signed) | Gigapede | 5 |
+| `FFFFFFFF` | 32-bit integer (signed) | Empty | -1 |
 
 ### Settings buffer
 
