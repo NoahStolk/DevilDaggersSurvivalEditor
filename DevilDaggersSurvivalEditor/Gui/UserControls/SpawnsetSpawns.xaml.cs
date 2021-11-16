@@ -171,6 +171,9 @@ namespace DevilDaggersSurvivalEditor.Gui.UserControls
 		private void Delete()
 		{
 			List<int> selections = GetSpawnSelectionIndices();
+			if (selections.Count == 0)
+				return;
+
 			selections.Sort();
 			selections.Reverse();
 			foreach (int selection in selections)
