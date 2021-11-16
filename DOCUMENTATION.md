@@ -80,10 +80,10 @@ The spawns header buffer for the default spawnset looks like this:
 | `00000000` | ? | ? | ? |
 | `00000000` | ? | ? | ? |
 | `01000000` | ? | ? | ? |
-| `F4010000` | 32-bit integer | Devil dagger unlock time | 500 |
-| `FA000000` | 32-bit integer | Golden dagger unlock time | 250 |
-| `78000000` | 32-bit integer | Silver dagger unlock time | 120 |
-| `3C000000` | 32-bit integer | Bronze dagger unlock time | 60 |
+| `F4010000` | 32-bit integer | Devil dagger unlock time (unused) | 500 |
+| `FA000000` | 32-bit integer | Golden dagger unlock time (unused) | 250 |
+| `78000000` | 32-bit integer | Silver dagger unlock time (unused) | 120 |
+| `3C000000` | 32-bit integer | Bronze dagger unlock time (unused) | 60 |
 | `00000000` | ? | ? | ? |
 | `76000000` | 32-bit integer | Spawn count | 118 |
 
