@@ -7,6 +7,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99F422C3-19FB-4F7D-867E-33BDB074D31D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		.travis.yml = .travis.yml
+		DOCUMENTATION.md = DOCUMENTATION.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
