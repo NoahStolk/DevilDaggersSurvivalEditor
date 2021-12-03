@@ -158,7 +158,9 @@ public partial class EndLoopPreviewUserControl : UserControl
 		for (int i = 1; i < Wave; i++)
 		{
 			int j = 0;
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
 			foreach (Spawn spawn in endLoop)
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 			{
 				Enemy? enemy = spawn.Enemy;
 				bool gigaBecomesGhost = i % 3 == 2 && (enemy == GameInfo.V3Gigapede || enemy == GameInfo.V31Gigapede); // Assumes V3.

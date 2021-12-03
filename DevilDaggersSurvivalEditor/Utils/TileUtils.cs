@@ -57,4 +57,3 @@ public static class TileUtils
 	public static string GetStringFromHeight(float height)
 		=> $"{height:0.##}{(height < InstantShrinkMin ? " (Void)" : height < TileMin ? " (Instant shrink)" : string.Empty)}";
 }
-
