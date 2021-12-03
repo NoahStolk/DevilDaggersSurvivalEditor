@@ -3,54 +3,53 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace DevilDaggersSurvivalEditor.Gui.Windows
+namespace DevilDaggersSurvivalEditor.Gui.Windows;
+
+public partial class SwitchEnemyTypeWindow : Window
 {
-	public partial class SwitchEnemyTypeWindow : Window
+	private readonly List<int> _enemyTypes;
+	private readonly ComboBox[] _comboBoxes;
+
+	public SwitchEnemyTypeWindow(int spawnCount, List<int> enemyTypes)
 	{
-		private readonly List<int> _enemyTypes;
-		private readonly ComboBox[] _comboBoxes;
+		_enemyTypes = enemyTypes;
 
-		public SwitchEnemyTypeWindow(int spawnCount, List<int> enemyTypes)
+		InitializeComponent();
+
+		SpawnsLabel.Content = $"Switch enemy types for {spawnCount} spawn{(spawnCount == 1 ? string.Empty : "s")}";
+
+		_comboBoxes = new ComboBox[enemyTypes.Count];
+
+		int i = 0;
+		foreach (int enemyType in enemyTypes)
 		{
-			_enemyTypes = enemyTypes;
+			Grid grid = new();
+			grid.ColumnDefinitions.Add(new());
+			grid.ColumnDefinitions.Add(new());
 
-			InitializeComponent();
+			Label label = new() { Content = $"Turn {GameInfo.GetEnemyBySpawnsetType(GameVersion.V31, enemyType)?.Name ?? "EMPTY"} into" };
+			Grid.SetColumn(label, 0);
+			grid.Children.Add(label);
 
-			SpawnsLabel.Content = $"Switch enemy types for {spawnCount} spawn{(spawnCount == 1 ? string.Empty : "s")}";
+			ComboBox comboBox = new() { SelectedIndex = enemyType + 1 };
 
-			_comboBoxes = new ComboBox[enemyTypes.Count];
+			for (int j = -1; j < 10; j++)
+				comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEnemyBySpawnsetType(GameVersion.V31, j)?.Name ?? "EMPTY" });
+			Grid.SetColumn(comboBox, 1);
+			grid.Children.Add(comboBox);
+			_comboBoxes[i++] = comboBox;
 
-			int i = 0;
-			foreach (int enemyType in enemyTypes)
-			{
-				Grid grid = new();
-				grid.ColumnDefinitions.Add(new());
-				grid.ColumnDefinitions.Add(new());
-
-				Label label = new() { Content = $"Turn {GameInfo.GetEnemyBySpawnsetType(GameVersion.V31, enemyType)?.Name ?? "EMPTY"} into" };
-				Grid.SetColumn(label, 0);
-				grid.Children.Add(label);
-
-				ComboBox comboBox = new() { SelectedIndex = enemyType + 1 };
-
-				for (int j = -1; j < 10; j++)
-					comboBox.Items.Add(new ComboBoxItem { Content = GameInfo.GetEnemyBySpawnsetType(GameVersion.V31, j)?.Name ?? "EMPTY" });
-				Grid.SetColumn(comboBox, 1);
-				grid.Children.Add(comboBox);
-				_comboBoxes[i++] = comboBox;
-
-				SwitchStackPanel.Children.Add(grid);
-			}
+			SwitchStackPanel.Children.Add(grid);
 		}
+	}
 
-		public Dictionary<int, int> SwitchDictionary { get; } = new();
+	public Dictionary<int, int> SwitchDictionary { get; } = new();
 
-		private void OkButton_Click(object sender, RoutedEventArgs e)
-		{
-			for (int i = 0; i < _enemyTypes.Count; i++)
-				SwitchDictionary[_enemyTypes[i]] = _comboBoxes[i].SelectedIndex - 1;
+	private void OkButton_Click(object sender, RoutedEventArgs e)
+	{
+		for (int i = 0; i < _enemyTypes.Count; i++)
+			SwitchDictionary[_enemyTypes[i]] = _comboBoxes[i].SelectedIndex - 1;
 
-			DialogResult = true;
-		}
+		DialogResult = true;
 	}
 }

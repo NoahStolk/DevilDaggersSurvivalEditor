@@ -2,22 +2,21 @@ using DevilDaggersCore.Utils;
 using System.Windows;
 using System.Windows.Navigation;
 
-namespace DevilDaggersSurvivalEditor.Gui.Windows
+namespace DevilDaggersSurvivalEditor.Gui.Windows;
+
+public partial class AboutWindow : Window
 {
-	public partial class AboutWindow : Window
+	public AboutWindow()
 	{
-		public AboutWindow()
-		{
-			InitializeComponent();
+		InitializeComponent();
 
-			TextBlockTitle.Text = App.ApplicationDisplayName;
-			TextBlockVersion.Text = $"Version {App.LocalVersion}";
-		}
+		TextBlockTitle.Text = App.ApplicationDisplayName;
+		TextBlockVersion.Text = $"Version {App.LocalVersion}";
+	}
 
-		private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-		{
-			ProcessUtils.OpenUrl(e.Uri.AbsoluteUri);
-			e.Handled = true;
-		}
+	private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+	{
+		ProcessUtils.OpenUrl(e.Uri.AbsoluteUri);
+		e.Handled = true;
 	}
 }

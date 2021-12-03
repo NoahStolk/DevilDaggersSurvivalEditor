@@ -1,20 +1,19 @@
-namespace DevilDaggersSurvivalEditor.Arena.Presets
+namespace DevilDaggersSurvivalEditor.Arena.Presets;
+
+public class Rectangular : AbstractRectangularArena
 {
-	public class Rectangular : AbstractRectangularArena
+	public float Height { get; set; }
+
+	public override float[,] GetTiles()
 	{
-		public float Height { get; set; }
+		float[,] tiles = CreateArenaArray();
 
-		public override float[,] GetTiles()
+		for (int i = X1; i < X2; i++)
 		{
-			float[,] tiles = CreateArenaArray();
-
-			for (int i = X1; i < X2; i++)
-			{
-				for (int j = Y1; j < Y2; j++)
-					tiles[i, j] = Height;
-			}
-
-			return tiles;
+			for (int j = Y1; j < Y2; j++)
+				tiles[i, j] = Height;
 		}
+
+		return tiles;
 	}
 }

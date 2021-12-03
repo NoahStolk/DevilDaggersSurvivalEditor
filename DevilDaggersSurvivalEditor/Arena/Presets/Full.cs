@@ -1,18 +1,17 @@
-namespace DevilDaggersSurvivalEditor.Arena.Presets
+namespace DevilDaggersSurvivalEditor.Arena.Presets;
+
+public class Full : AbstractArena
 {
-	public class Full : AbstractArena
+	public float Height { get; set; }
+
+	public override bool IsFull => true;
+
+	public override float[,] GetTiles()
 	{
-		public float Height { get; set; }
+		float[,] tiles = CreateArenaArray();
 
-		public override bool IsFull => true;
+		SetHeightGlobally(tiles, Height);
 
-		public override float[,] GetTiles()
-		{
-			float[,] tiles = CreateArenaArray();
-
-			SetHeightGlobally(tiles, Height);
-
-			return tiles;
-		}
+		return tiles;
 	}
 }

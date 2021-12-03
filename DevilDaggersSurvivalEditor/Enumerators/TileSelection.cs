@@ -1,9 +1,8 @@
-namespace DevilDaggersSurvivalEditor.Enumerators
+namespace DevilDaggersSurvivalEditor.Enumerators;
+
+public enum TileSelection
 {
-	public enum TileSelection
-	{
-		Once,
-		Continuous,
-		Rectangle,
-	}
+	Once,
+	Continuous,
+	Rectangle,
 }

@@ -1,9 +1,8 @@
-namespace DevilDaggersSurvivalEditor.Enumerators
+namespace DevilDaggersSurvivalEditor.Enumerators;
+
+public enum TileAction
 {
-	public enum TileAction
-	{
-		Height,
-		Select,
-		Deselect,
-	}
+	Height,
+	Select,
+	Deselect,
 }

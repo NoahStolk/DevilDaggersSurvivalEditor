@@ -2,43 +2,42 @@ using DevilDaggersCore.Spawnsets;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 
-namespace DevilDaggersSurvivalEditor.Arena.Presets
+namespace DevilDaggersSurvivalEditor.Arena.Presets;
+
+public class Diamond : AbstractArena
 {
-	public class Diamond : AbstractArena
+	private int _diamondHalfWidth = 10;
+	private int _diamondHalfHeight = 10;
+
+	public int DiamondHalfWidth
 	{
-		private int _diamondHalfWidth = 10;
-		private int _diamondHalfHeight = 10;
+		get => _diamondHalfWidth;
+		set => _diamondHalfWidth = Math.Clamp(value, 1, Spawnset.ArenaWidth / 2);
+	}
 
-		public int DiamondHalfWidth
+	public int DiamondHalfHeight
+	{
+		get => _diamondHalfHeight;
+		set => _diamondHalfHeight = Math.Clamp(value, 1, Spawnset.ArenaHeight / 2);
+	}
+
+	public float Height { get; set; }
+
+	public override bool IsFull => false;
+
+	public override float[,] GetTiles()
+	{
+		float[,] tiles = CreateArenaArray();
+
+		for (int i = -_diamondHalfWidth; i <= _diamondHalfWidth; i++)
 		{
-			get => _diamondHalfWidth;
-			set => _diamondHalfWidth = Math.Clamp(value, 1, Spawnset.ArenaWidth / 2);
-		}
-
-		public int DiamondHalfHeight
-		{
-			get => _diamondHalfHeight;
-			set => _diamondHalfHeight = Math.Clamp(value, 1, Spawnset.ArenaHeight / 2);
-		}
-
-		public float Height { get; set; }
-
-		public override bool IsFull => false;
-
-		public override float[,] GetTiles()
-		{
-			float[,] tiles = CreateArenaArray();
-
-			for (int i = -_diamondHalfWidth; i <= _diamondHalfWidth; i++)
+			for (int j = -_diamondHalfHeight; j <= _diamondHalfHeight; j++)
 			{
-				for (int j = -_diamondHalfHeight; j <= _diamondHalfHeight; j++)
-				{
-					int sum = Math.Abs(i) + Math.Abs(j);
-					tiles[i + Spawnset.ArenaWidth / 2, j + Spawnset.ArenaHeight / 2] = sum > Math.Max(_diamondHalfWidth, _diamondHalfHeight) ? TileUtils.VoidDefault : Height;
-				}
+				int sum = Math.Abs(i) + Math.Abs(j);
+				tiles[i + Spawnset.ArenaWidth / 2, j + Spawnset.ArenaHeight / 2] = sum > Math.Max(_diamondHalfWidth, _diamondHalfHeight) ? TileUtils.VoidDefault : Height;
 			}
-
-			return tiles;
 		}
+
+		return tiles;
 	}
 }

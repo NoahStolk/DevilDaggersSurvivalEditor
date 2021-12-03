@@ -8,124 +8,123 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace DevilDaggersSurvivalEditor.Gui.Windows
+namespace DevilDaggersSurvivalEditor.Gui.Windows;
+
+public partial class ArenaPresetWindow : Window
 {
-	public partial class ArenaPresetWindow : Window
+	private readonly IEnumerable<PropertyInfo> _properties;
+
+	public ArenaPresetWindow(string presetName)
 	{
-		private readonly IEnumerable<PropertyInfo> _properties;
+		InitializeComponent();
 
-		public ArenaPresetWindow(string presetName)
+		Title = $"{presetName.ToUserFriendlyString()} arena preset";
+
+		_properties = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Where(p => p.SetMethod != null);
+
+		foreach (PropertyInfo p in _properties)
 		{
-			InitializeComponent();
-
-			Title = $"{presetName.ToUserFriendlyString()} arena preset";
-
-			_properties = ArenaPresetHandler.Instance.ActivePreset.GetType().GetProperties().Where(p => p.SetMethod != null);
-
-			foreach (PropertyInfo p in _properties)
+			Label label = new()
 			{
-				Label label = new()
+				Content = p.Name.ToUserFriendlyString(),
+			};
+
+			Control control;
+			if (p.PropertyType == typeof(bool))
+			{
+				control = new CheckBox
 				{
-					Content = p.Name.ToUserFriendlyString(),
+					Name = p.Name,
+					Tag = p.PropertyType,
 				};
-
-				Control control;
-				if (p.PropertyType == typeof(bool))
-				{
-					control = new CheckBox
-					{
-						Name = p.Name,
-						Tag = p.PropertyType,
-					};
-				}
-				else
-				{
-					TextBox textBox = new()
-					{
-						Name = p.Name,
-						Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset)?.ToString(),
-						Tag = p.PropertyType,
-					};
-					textBox.TextChanged += TextBox_TextChanged;
-
-					control = textBox;
-				}
-
-				Grid.SetColumn(control, 1);
-
-				Grid grid = new();
-				grid.ColumnDefinitions.Add(new());
-				grid.ColumnDefinitions.Add(new());
-
-				grid.Children.Add(label);
-				grid.Children.Add(control);
-
-				Options.Children.Add(grid);
 			}
-		}
-
-		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			if (sender is not TextBox textBox)
-				return;
-
-			Type? type = textBox.Tag as Type;
-
-			bool isValid;
-			if (type == typeof(float))
-				isValid = float.TryParse(textBox.Text, out _);
-			else if (type == typeof(int))
-				isValid = int.TryParse(textBox.Text, out _);
 			else
-				throw new($"Type {type} not supported in ArenaPreset TextBox.");
-
-			textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
-		}
-
-		private void OkButton_Click(object sender, RoutedEventArgs e)
-		{
-			foreach (PropertyInfo p in _properties)
 			{
-				foreach (UIElement? child in Options.Children)
+				TextBox textBox = new()
 				{
-					if (child is Grid grid)
-					{
-						foreach (UIElement? gridChild in grid.Children)
-						{
-							if (gridChild is TextBox textBox)
-							{
-								if (textBox.Name == p.Name)
-								{
-									Type t = p.PropertyType;
+					Name = p.Name,
+					Text = p.GetValue(ArenaPresetHandler.Instance.ActivePreset)?.ToString(),
+					Tag = p.PropertyType,
+				};
+				textBox.TextChanged += TextBox_TextChanged;
 
-									if (t == typeof(float))
-									{
-										if (!float.TryParse(textBox.Text, out float value))
-											return;
-										p.SetValue(ArenaPresetHandler.Instance.ActivePreset, value);
-									}
-									else if (t == typeof(int))
-									{
-										if (!int.TryParse(textBox.Text, out int value))
-											return;
-										p.SetValue(ArenaPresetHandler.Instance.ActivePreset, value);
-									}
-									else
-									{
-										throw new($"Type {t} not supported in ArenaPreset TextBox.");
-									}
+				control = textBox;
+			}
+
+			Grid.SetColumn(control, 1);
+
+			Grid grid = new();
+			grid.ColumnDefinitions.Add(new());
+			grid.ColumnDefinitions.Add(new());
+
+			grid.Children.Add(label);
+			grid.Children.Add(control);
+
+			Options.Children.Add(grid);
+		}
+	}
+
+	private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+	{
+		if (sender is not TextBox textBox)
+			return;
+
+		Type? type = textBox.Tag as Type;
+
+		bool isValid;
+		if (type == typeof(float))
+			isValid = float.TryParse(textBox.Text, out _);
+		else if (type == typeof(int))
+			isValid = int.TryParse(textBox.Text, out _);
+		else
+			throw new($"Type {type} not supported in ArenaPreset TextBox.");
+
+		textBox.Background = isValid ? ColorUtils.ThemeColors["Gray2"] : ColorUtils.ThemeColors["ErrorBackground"];
+	}
+
+	private void OkButton_Click(object sender, RoutedEventArgs e)
+	{
+		foreach (PropertyInfo p in _properties)
+		{
+			foreach (UIElement? child in Options.Children)
+			{
+				if (child is Grid grid)
+				{
+					foreach (UIElement? gridChild in grid.Children)
+					{
+						if (gridChild is TextBox textBox)
+						{
+							if (textBox.Name == p.Name)
+							{
+								Type t = p.PropertyType;
+
+								if (t == typeof(float))
+								{
+									if (!float.TryParse(textBox.Text, out float value))
+										return;
+									p.SetValue(ArenaPresetHandler.Instance.ActivePreset, value);
+								}
+								else if (t == typeof(int))
+								{
+									if (!int.TryParse(textBox.Text, out int value))
+										return;
+									p.SetValue(ArenaPresetHandler.Instance.ActivePreset, value);
+								}
+								else
+								{
+									throw new($"Type {t} not supported in ArenaPreset TextBox.");
 								}
 							}
-							else if (gridChild is CheckBox checkBox && checkBox.Name == p.Name)
-							{
-								p.SetValue(ArenaPresetHandler.Instance.ActivePreset, checkBox.IsChecked);
-							}
+						}
+						else if (gridChild is CheckBox checkBox && checkBox.Name == p.Name)
+						{
+							p.SetValue(ArenaPresetHandler.Instance.ActivePreset, checkBox.IsChecked);
 						}
 					}
 				}
 			}
-
-			DialogResult = true;
 		}
+
+		DialogResult = true;
 	}
 }

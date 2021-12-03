@@ -1,9 +1,8 @@
-namespace DevilDaggersSurvivalEditor.Enumerators
+namespace DevilDaggersSurvivalEditor.Enumerators;
+
+public enum ReplaceSurvivalAction
 {
-	public enum ReplaceSurvivalAction
-	{
-		Never,
-		Ask,
-		Always,
-	}
+	Never,
+	Ask,
+	Always,
 }

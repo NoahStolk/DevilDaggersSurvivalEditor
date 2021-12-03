@@ -1,11 +1,10 @@
-namespace DevilDaggersSurvivalEditor.Enumerators
+namespace DevilDaggersSurvivalEditor.Enumerators;
+
+public enum DelayModificationFunction
 {
-	public enum DelayModificationFunction
-	{
-		Set,
-		Add,
-		Subtract,
-		Multiply,
-		Divide,
-	}
+	Set,
+	Add,
+	Subtract,
+	Multiply,
+	Divide,
 }
