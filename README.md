@@ -4,12 +4,6 @@
 # DevilDaggersSurvivalEditor ([Download](https://devildaggers.info/api/tools/DevilDaggersSurvivalEditor/file))
 DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
-## Framework
-.NET 5.0
-
-## Language
-C# 9.0
-
 ## Main features
 - Spawnset editor
 - Arena editor with the ability to change tile heights
@@ -19,8 +13,7 @@ C# 9.0
 - Downloading and importing spawnsets directly from [DevilDaggers.info](https://devildaggers.info)
 
 ## System requirements
-- Microsoft Windows
-- [.NET 5.0 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/5.0)
+- Microsoft Windows (64-bit)
 
 ## Installation
 1. Download the zip file.
