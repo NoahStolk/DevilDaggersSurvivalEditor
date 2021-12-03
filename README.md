@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/NoahStolk/DevilDaggersSurvivalEditor.svg?branch=master)](https://travis-ci.org/NoahStolk/DevilDaggersSurvivalEditor)
 [![Scc Count Badge](https://sloc.xyz/github/NoahStolk/DevilDaggersSurvivalEditor/)](https://github.com/NoahStolk/DevilDaggersSurvivalEditor/)
 
 # DevilDaggersSurvivalEditor ([Download](https://devildaggers.info/api/tools/DevilDaggersSurvivalEditor/file))
