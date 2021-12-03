@@ -52,7 +52,7 @@ public class Donut : AbstractEllipseArena
 			for (int j = 0; j < Spawnset.ArenaHeight; j++)
 			{
 				if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius, OuterRadius, AngleInDegrees) &&
-				    !IsPointInEllipse(Spawnset.ArenaWidth / 2 + HoleOffsetX, Spawnset.ArenaHeight / 2 + HoleOffsetY, i, j, HoleInnerRadius, HoleOuterRadius, HoleAngleInDegrees))
+					!IsPointInEllipse(Spawnset.ArenaWidth / 2 + HoleOffsetX, Spawnset.ArenaHeight / 2 + HoleOffsetY, i, j, HoleInnerRadius, HoleOuterRadius, HoleAngleInDegrees))
 				{
 					tiles[i, j] = Height;
 				}
