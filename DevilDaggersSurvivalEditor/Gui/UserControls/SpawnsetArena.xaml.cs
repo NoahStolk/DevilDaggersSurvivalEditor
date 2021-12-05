@@ -761,6 +761,31 @@ public partial class SpawnsetArenaUserControl : UserControl
 		SpawnsetHandler.Instance.HasUnsavedChanges = true;
 	}
 
+	private void CleanUpTiles_Click(object sender, RoutedEventArgs e)
+	{
+		bool anyChanges = false;
+
+		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		{
+			for (int j = 0; j < Spawnset.ArenaHeight; j++)
+			{
+				ArenaCoord tile = new(i, j);
+
+				double distance = tile.GetDistanceToCanvasPointSquared(_arenaCanvasCenter);
+				float height = SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y];
+				if (height >= TileUtils.InstantShrinkMin && distance > ShrinkStart.Width * ShrinkStart.Width / 4)
+				{
+					SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
+					UpdateTile(tile);
+					anyChanges = true;
+				}
+			}
+		}
+
+		if (anyChanges)
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
+	}
+
 	private void SelectAll_Click(object sender, RoutedEventArgs e)
 	{
 		for (int i = 0; i < Spawnset.ArenaWidth; i++)

@@ -161,6 +161,7 @@
 				<StackPanel Style="{StaticResource Section}">
 					<Button Name="RoundHeightsButton" Click="RoundHeights_Click" IsEnabled="False">Round heights</Button>
 					<Button Name="RandomizeHeightsButton" Click="RandomizeHeights_Click" IsEnabled="False">Randomize heights</Button>
+					<Button Name="CleanUpTilesButton" Click="CleanUpTiles_Click">Set tiles outside of arena shrink start to void</Button>
 				</StackPanel>
 			</StackPanel>
 		</Grid>
