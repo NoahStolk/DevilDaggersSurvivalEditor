@@ -172,18 +172,18 @@ public partial class DownloadSpawnsetWindow : Window
 
 	private void UpdateSpawnsets()
 	{
-		IEnumerable<SpawnsetFile> spawnsets = NetworkHandler.Instance.Spawnsets;
+		IEnumerable<GetSpawnsetDdse> spawnsets = NetworkHandler.Instance.Spawnsets;
 
 		// Sorting
 		int sortIndex = 0;
-		foreach (Func<SpawnsetFile, object?> sortingFunction in _activeSpawnsetSorting.SortingFunctions)
+		foreach (Func<GetSpawnsetDdse, object?> sortingFunction in _activeSpawnsetSorting.SortingFunctions)
 		{
 			if (sortIndex == 0)
 				spawnsets = _activeSpawnsetSorting.Ascending ? spawnsets.OrderBy(sortingFunction) : spawnsets.OrderByDescending(sortingFunction);
-			else if (spawnsets is IOrderedEnumerable<SpawnsetFile> orderedSpawnsets)
+			else if (spawnsets is IOrderedEnumerable<GetSpawnsetDdse> orderedSpawnsets)
 				spawnsets = _activeSpawnsetSorting.Ascending ? orderedSpawnsets.ThenBy(sortingFunction) : orderedSpawnsets.ThenByDescending(sortingFunction);
 			else
-				throw new($"Could not apply sorting because '{nameof(orderedSpawnsets)}' was not of type '{nameof(IOrderedEnumerable<SpawnsetFile>)}'.");
+				throw new($"Could not apply sorting because '{nameof(orderedSpawnsets)}' was not of type '{nameof(IOrderedEnumerable<GetSpawnsetDdse>)}'.");
 			sortIndex++;
 		}
 
@@ -203,12 +203,12 @@ public partial class DownloadSpawnsetWindow : Window
 		// Paging
 		spawnsets = spawnsets.Skip(_pageIndex * _pageSize).Take(_pageSize);
 
-		List<SpawnsetFile> spawnsetsFinal = spawnsets.ToList();
+		List<GetSpawnsetDdse> spawnsetsFinal = spawnsets.ToList();
 		for (int i = 0; i < _pageSize; i++)
 			FillSpawnsetGrid(i, i < spawnsetsFinal.Count ? spawnsetsFinal[i] : null);
 	}
 
-	private void FillSpawnsetGrid(int index, SpawnsetFile? spawnsetFile)
+	private void FillSpawnsetGrid(int index, GetSpawnsetDdse? spawnsetFile)
 	{
 		SpawnsetGrid grid = _spawnsetGrids[index];
 		grid.Hyperlink.Inlines.Clear();
@@ -436,7 +436,7 @@ public partial class DownloadSpawnsetWindow : Window
 
 	private sealed class SpawnsetSorting
 	{
-		public SpawnsetSorting(int index, string fullName, string displayName, bool ascending, params Func<SpawnsetFile, object?>[] sortingFunctions)
+		public SpawnsetSorting(int index, string fullName, string displayName, bool ascending, params Func<GetSpawnsetDdse, object?>[] sortingFunctions)
 		{
 			Index = index;
 			FullName = fullName;
@@ -449,7 +449,7 @@ public partial class DownloadSpawnsetWindow : Window
 		public int Index { get; }
 		public string FullName { get; }
 		public string DisplayName { get; }
-		public Func<SpawnsetFile, object?>[] SortingFunctions { get; }
+		public Func<GetSpawnsetDdse, object?>[] SortingFunctions { get; }
 
 		public Button? Button { get; set; }
 		public bool Ascending { get; set; }

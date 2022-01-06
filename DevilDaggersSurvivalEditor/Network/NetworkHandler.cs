@@ -26,9 +26,9 @@ public sealed class NetworkHandler
 
 	public DevilDaggersInfoApiClient ApiClient { get; }
 
-	public Tool? Tool { get; private set; }
+	public GetTool? Tool { get; private set; }
 
-	public List<SpawnsetFile> Spawnsets { get; } = new();
+	public List<GetSpawnsetDdse> Spawnsets { get; } = new();
 
 	public bool GetOnlineTool()
 	{
