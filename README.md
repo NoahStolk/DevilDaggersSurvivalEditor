@@ -1,5 +1,3 @@
-[![Scc Count Badge](https://sloc.xyz/github/NoahStolk/DevilDaggersSurvivalEditor/)](https://github.com/NoahStolk/DevilDaggersSurvivalEditor/)
-
 # DevilDaggersSurvivalEditor ([Download](https://devildaggers.info/api/tools/DevilDaggersSurvivalEditor/file))
 DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
@@ -26,14 +24,10 @@ DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survi
 - [Spawnset guide](https://devildaggers.info/guides/survival-editor)
 - [Discord server](https://discord.gg/NF32j8S)
 
-## Credits
-While I've built this application myself, I'd like to thank everyone that has put effort into figuring out how the survival file actually works.
-[This thread](https://steamcommunity.com/sharedfiles/filedetails/?id=797571917) posted by ThePassiveDada has helped me a lot, as well as [these two editors](https://steamcommunity.com/app/422970/discussions/0/1483232961033779525/) created by bowsr and Sojk.
-
 ## License
 MIT License
 
-Copyright (c) 2018-2021 Noah Stolk
+Copyright (c) 2018-2022 Noah Stolk
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
