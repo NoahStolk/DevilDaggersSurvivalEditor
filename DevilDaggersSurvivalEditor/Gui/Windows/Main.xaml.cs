@@ -236,7 +236,7 @@ public partial class MainWindow : Window
 		=> ProcessUtils.OpenUrl(UrlUtils.DiscordInviteLink);
 
 	private void Help_Click(object sender, RoutedEventArgs e)
-		=> ProcessUtils.OpenUrl("https://devildaggers.info/Wiki/Guides/SurvivalEditor");
+		=> ProcessUtils.OpenUrl("https://devildaggers.info/guides/survival-editor");
 
 	private void About_Click(object sender, RoutedEventArgs e)
 	{
