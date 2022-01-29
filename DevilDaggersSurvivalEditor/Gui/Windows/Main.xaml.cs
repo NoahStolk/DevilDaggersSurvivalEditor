@@ -1,8 +1,7 @@
-using DevilDaggersCore.Spawnsets;
-using DevilDaggersCore.Utils;
 using DevilDaggersCore.Wpf.Models;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Arena;
+using DevilDaggersSurvivalEditor.Core;
 using DevilDaggersSurvivalEditor.Network;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;
@@ -236,7 +235,7 @@ public partial class MainWindow : Window
 		=> ProcessUtils.OpenUrl(UrlUtils.DiscordInviteLink);
 
 	private void Help_Click(object sender, RoutedEventArgs e)
-		=> ProcessUtils.OpenUrl("https://devildaggers.info/guides/survival-editor");
+		=> ProcessUtils.OpenUrl(UrlUtils.GuidePage);
 
 	private void About_Click(object sender, RoutedEventArgs e)
 	{
@@ -265,7 +264,7 @@ public partial class MainWindow : Window
 	}
 
 	private void ViewSourceCode_Click(object sender, RoutedEventArgs e)
-		=> ProcessUtils.OpenUrl(UrlUtils.SourceCodeUrl(App.ApplicationName).ToString());
+		=> ProcessUtils.OpenUrl(UrlUtils.SourceCode);
 
 	private void CheckForUpdates_Click(object sender, RoutedEventArgs e)
 	{

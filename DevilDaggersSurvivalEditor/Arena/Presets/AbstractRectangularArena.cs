@@ -1,4 +1,4 @@
-using DevilDaggersCore.Spawnsets;
+using DevilDaggersSurvivalEditor.Core;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets;

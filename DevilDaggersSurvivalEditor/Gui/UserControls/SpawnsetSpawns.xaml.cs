@@ -1,6 +1,5 @@
-using DevilDaggersCore.Game;
-using DevilDaggersCore.Spawnsets;
 using DevilDaggersCore.Wpf.Utils;
+using DevilDaggersSurvivalEditor.Core;
 using DevilDaggersSurvivalEditor.Enumerators;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using DevilDaggersSurvivalEditor.Spawnsets;
@@ -337,7 +336,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 	{
 		Spawn[] newSpawns = new Spawn[Amount];
 		for (int i = 0; i < Amount; i++)
-			newSpawns[i] = new(GameInfo.GetEnemies(GameVersion.V32).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay);
+			newSpawns[i] = new(Enemy.All.Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay);
 		InsertSpawnsAt(SpawnsetHandler.Instance.Spawnset.Spawns.Count, newSpawns);
 
 		SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -349,7 +348,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 	{
 		Spawn[] newSpawns = new Spawn[Amount];
 		for (int i = 0; i < Amount; i++)
-			newSpawns[i] = new(GameInfo.GetEnemies(GameVersion.V32).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay);
+			newSpawns[i] = new(Enemy.All.Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay);
 		InsertSpawnsAt(ListBoxSpawns.SelectedIndex, newSpawns);
 
 		SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -380,7 +379,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 	private void EditSpawnButton_Click(object sender, RoutedEventArgs e)
 	{
 		foreach (int i in GetSpawnSelectionIndices())
-			EditSpawnAt(i, new(GameInfo.GetEnemies(GameVersion.V32).Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
+			EditSpawnAt(i, new(Enemy.All.Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay));
 
 		SpawnsetHandler.Instance.HasUnsavedChanges = true;
 	}
@@ -460,7 +459,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 					}
 				}
 
-				EditSpawnAt(i, new Spawn(GameInfo.GetEnemies(GameVersion.V32).Find(e => e.SpawnsetType == window.SwitchDictionary[current]), SpawnsetHandler.Instance.Spawnset.Spawns[i].Delay));
+				EditSpawnAt(i, new Spawn(Enemy.All.Find(e => e.SpawnsetType == window.SwitchDictionary[current]), SpawnsetHandler.Instance.Spawnset.Spawns[i].Delay));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;

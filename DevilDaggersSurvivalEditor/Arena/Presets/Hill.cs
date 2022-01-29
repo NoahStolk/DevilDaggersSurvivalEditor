@@ -1,4 +1,4 @@
-using DevilDaggersCore.Spawnsets;
+using DevilDaggersSurvivalEditor.Core;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets;
@@ -13,7 +13,7 @@ public class Hill : AbstractEllipseArena
 	{
 		float[,] tiles = CreateArenaArray();
 
-		ArenaCoord center = new ArenaCoord(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY);
+		ArenaCoord center = new(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY);
 
 		for (int i = 0; i < Spawnset.ArenaWidth; i++)
 		{

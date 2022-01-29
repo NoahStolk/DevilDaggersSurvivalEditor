@@ -77,18 +77,19 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevilDaggersCore" Version="2.4.0" />
-    <PackageReference Include="DevilDaggersCore.Wpf" Version="1.4.0" />
+    <PackageReference Include="DevilDaggersCore.Wpf" Version="2.0.0" />
+    <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
-    <PackageReference Include="Roslynator.Analyzers" Version="3.3.0">
+    <PackageReference Include="Roslynator.Analyzers" Version="4.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.33.0.40503">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.34.0.42011">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.376">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
