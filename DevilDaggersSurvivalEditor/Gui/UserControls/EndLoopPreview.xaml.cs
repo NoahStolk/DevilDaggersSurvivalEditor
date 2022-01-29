@@ -81,9 +81,9 @@ public partial class EndLoopPreviewUserControl : UserControl
 			foreach (double spawnSecond in SpawnsetHandler.Instance.Spawnset.GenerateEndWaveTimes(seconds, i))
 			{
 				Enemy? enemy = endLoop[j].Enemy;
-				bool gigaBecomesGhost = i % 3 == 2 && (enemy == GameInfo.V3Gigapede || enemy == GameInfo.V31Gigapede); // Assumes V3.
+				bool gigaBecomesGhost = i % 3 == 2 && (enemy == GameInfo.V3Gigapede || enemy == GameInfo.V31Gigapede || enemy == GameInfo.V32Gigapede); // Assumes V3.
 				if (gigaBecomesGhost)
-					enemy = GameInfo.V31Ghostpede;
+					enemy = GameInfo.V32Ghostpede;
 
 				seconds = spawnSecond;
 				totalGems += enemy?.NoFarmGems ?? 0;
@@ -163,9 +163,9 @@ public partial class EndLoopPreviewUserControl : UserControl
 #pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 			{
 				Enemy? enemy = spawn.Enemy;
-				bool gigaBecomesGhost = i % 3 == 2 && (enemy == GameInfo.V3Gigapede || enemy == GameInfo.V31Gigapede); // Assumes V3.
+				bool gigaBecomesGhost = i % 3 == 2 && (enemy == GameInfo.V3Gigapede || enemy == GameInfo.V31Gigapede || enemy == GameInfo.V32Gigapede); // Assumes V3.
 				if (gigaBecomesGhost)
-					enemy = GameInfo.V31Ghostpede;
+					enemy = GameInfo.V32Ghostpede;
 
 				totalGems += enemy?.NoFarmGems ?? 0;
 
