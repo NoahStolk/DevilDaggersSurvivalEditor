@@ -1,4 +1,4 @@
-using DevilDaggersSurvivalEditor.Enumerators;
+using DevilDaggersSurvivalEditor.Enums;
 using Newtonsoft.Json;
 using System;
 using System.IO;

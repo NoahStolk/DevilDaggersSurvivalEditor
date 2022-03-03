@@ -1,5 +1,5 @@
 using DevilDaggersCore.Wpf.Utils;
-using DevilDaggersSurvivalEditor.Enumerators;
+using DevilDaggersSurvivalEditor.Enums;
 using DevilDaggersSurvivalEditor.Utils;
 using System.Windows;
 using System.Windows.Controls;

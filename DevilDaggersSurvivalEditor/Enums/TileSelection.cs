@@ -1,4 +1,4 @@
-namespace DevilDaggersSurvivalEditor.Enumerators;
+namespace DevilDaggersSurvivalEditor.Enums;
 
 public enum TileSelection
 {

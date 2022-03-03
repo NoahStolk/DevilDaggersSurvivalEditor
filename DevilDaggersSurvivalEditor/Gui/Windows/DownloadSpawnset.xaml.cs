@@ -3,7 +3,7 @@ using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Clients;
 using DevilDaggersSurvivalEditor.Core;
-using DevilDaggersSurvivalEditor.Enumerators;
+using DevilDaggersSurvivalEditor.Enums;
 using DevilDaggersSurvivalEditor.Network;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;

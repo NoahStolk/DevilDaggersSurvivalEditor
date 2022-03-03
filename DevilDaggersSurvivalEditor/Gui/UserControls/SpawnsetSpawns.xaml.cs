@@ -1,6 +1,6 @@
 using DevilDaggersCore.Wpf.Utils;
 using DevilDaggersSurvivalEditor.Core;
-using DevilDaggersSurvivalEditor.Enumerators;
+using DevilDaggersSurvivalEditor.Enums;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.Utils;
