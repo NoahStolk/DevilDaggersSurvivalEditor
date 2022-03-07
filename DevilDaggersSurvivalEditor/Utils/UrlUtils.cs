@@ -14,7 +14,7 @@ public static class UrlUtils
 
 	public static string SpawnsetsPage => $"{BaseUrl}custom/spawnsets";
 
-	public static string GuidePage => $"{BaseUrl}guides/survival-editor";
+	public static string GuidePage => $"{BaseUrl}guides/creating-spawnsets";
 
 	public static string SourceCode => $"https://github.com/NoahStolk/{App.ApplicationName}";
 }
