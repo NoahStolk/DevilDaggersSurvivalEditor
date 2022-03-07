@@ -17,6 +17,12 @@
 			<Label>Game mode</Label>
 			<ComboBox Name="ComboBoxGameMode" SelectionChanged="UpdateGameMode" />
 		</StackPanel>
+		<StackPanel Name="StackPanelRace" Style="{StaticResource Section}">
+			<Label>Race dagger X</Label>
+			<TextBox Name="TextBoxRaceDaggerX" TextChanged="UpdateRaceDaggerX">0</TextBox>
+			<Label>Race dagger Z</Label>
+			<TextBox Name="TextBoxRaceDaggerZ" TextChanged="UpdateRaceDaggerZ">0</TextBox>
+		</StackPanel>
 		<StackPanel Name="StackPanelV3_1">
 			<Grid Style="{StaticResource SpawnsetHeader}">
 				<Label Style="{StaticResource BoldLabel}">Player settings</Label>

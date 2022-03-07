@@ -33,7 +33,7 @@ public partial class SpawnsetSettingsUserControl : UserControl
 	{
 		// Pre-release / V1: 8 - 4
 		// V2 / V3:          9 - 4
-		// V3.1:             9 - 6
+		// V3.1+:            9 - 6
 		if (_updateInternal)
 		{
 			SpawnsetHandler.Instance.Spawnset.WorldVersion = ComboBoxVersion.SelectedIndex == 0 ? 8 : 9;
@@ -59,6 +59,8 @@ public partial class SpawnsetSettingsUserControl : UserControl
 
 		App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlIsInLoop();
 		App.Instance.MainWindow?.SpawnsetSpawns.EndLoopPreview.Update();
+
+		StackPanelRace.Visibility = ComboBoxGameMode.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
 	}
 
 	private void UpdateHand(object sender, SelectionChangedEventArgs e)
@@ -94,6 +96,24 @@ public partial class SpawnsetSettingsUserControl : UserControl
 		}
 	}
 
+	private void UpdateRaceDaggerX(object sender, TextChangedEventArgs e)
+	{
+		if (TextBoxRaceDaggerX.ValidateFloatTextBox() && _updateInternal)
+		{
+			SpawnsetHandler.Instance.Spawnset.RaceDaggerX = float.Parse(TextBoxRaceDaggerX.Text);
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
+		}
+	}
+
+	private void UpdateRaceDaggerZ(object sender, TextChangedEventArgs e)
+	{
+		if (TextBoxRaceDaggerZ.ValidateFloatTextBox() && _updateInternal)
+		{
+			SpawnsetHandler.Instance.Spawnset.RaceDaggerZ = float.Parse(TextBoxRaceDaggerZ.Text);
+			SpawnsetHandler.Instance.HasUnsavedChanges = true;
+		}
+	}
+
 	private void UpdateEffectivePlayerSettings()
 	{
 		if (EffectivePlayerSettings == null)
@@ -117,6 +137,7 @@ public partial class SpawnsetSettingsUserControl : UserControl
 		ComboBoxVersion.SelectedIndex = SpawnsetHandler.Instance.Spawnset.WorldVersion == 8 ? 0 : SpawnsetHandler.Instance.Spawnset.SpawnVersion == 4 ? 1 : 2;
 		ComboBoxGameMode.SelectedIndex = (int)SpawnsetHandler.Instance.Spawnset.GameMode;
 		StackPanelV3_1.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+		StackPanelRace.Visibility = ComboBoxGameMode.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
 		TextBoxAdditionalGems.Text = SpawnsetHandler.Instance.Spawnset.AdditionalGems.ToString();
 		TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString();
 

@@ -52,10 +52,10 @@ The header buffer for the default spawnset looks like this:
 |--------------|-----------|---------|-------|
 | `04000000` | 32-bit integer | Spawn version | 4 |
 | `09000000` | 32-bit integer | World version | 9 |
-| `0000A041` | 32-bit floating point | Shrink end radius | 20 |
-| `01004842` | 32-bit floating point | Shrink start radius | 50 |
-| `CDCCCC3C` | 32-bit floating point | Shrink rate | 0.025 |
-| `00007042` | 32-bit floating point | Brightness | 60 |
+| `0000A041` | 32-bit float | Shrink end radius | 20 |
+| `01004842` | 32-bit float | Shrink start radius | 50 |
+| `CDCCCC3C` | 32-bit float | Shrink rate | 0.025 |
+| `00007042` | 32-bit float | Brightness | 60 |
 | `00000000` | 32-bit integer | Game mode | 0 |
 | `33000000` | 32-bit integer | Arena dimension (needs testing) | 51 |
 | `01000000` | ? | ? | ? |
@@ -66,7 +66,7 @@ Spawn version is always 4 except when using settings buffer which was added in V
 
 ### Arena buffer
 
-Fixed-length one-dimensional array of 2601 (51 x 51 = 2601 tiles) 32-bit floating point numbers (2601 x 32 / 8 = 10404 bytes) representing the height of each tile in the arena.
+Fixed-length one-dimensional array of 2601 (51 x 51 = 2601 tiles) 32-bit floats (2601 x 32 / 8 = 10404 bytes) representing the height of each tile in the arena.
 
 ### Spawns header buffer
 
@@ -76,8 +76,8 @@ The spawns header buffer for the default spawnset looks like this:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
-| `00000000` | ? | ? | ? |
-| `00000000` | ? | ? | ? |
+| `00000000` | 32-bit float | Race game mode dagger position X | 0 |
+| `00000000` | 32-bit float | Race game mode dagger position Z | 0 |
 | `00000000` | ? | ? | ? |
 | `01000000` | ? | ? | ? |
 | `F4010000` | 32-bit integer | Devil dagger unlock time (unused) | 500 |
@@ -89,14 +89,14 @@ The spawns header buffer for the default spawnset looks like this:
 
 ### Spawns buffer
 
-This is the only part of the file with a variable length. It represents the list of spawns. Each spawn buffer consists of 28 bytes that include the enemy type as a 32-bit integer and the delay value as a 32-bit floating point number. The other bytes in each of the spawn buffers seem to be the same for all of them and appear to have no meaning.
+This is the only part of the file with a variable length. It represents the list of spawns. Each spawn buffer consists of 28 bytes that include the enemy type as a 32-bit integer and the delay value as a 32-bit float. The other bytes in each of the spawn buffers seem to be the same for all of them and appear to have no meaning.
 
 These are the first 3 spawns in the original game:
 
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
 | `00000000` | 32-bit integer (signed) | Enemy type | 0 |
-| `00004040` | 32-bit floating point | Spawn delay | 3 |
+| `00004040` | 32-bit float | Spawn delay | 3 |
 | `00000000` | ? | ? | ? |
 | `03000000` | ? | ? | ? |
 | `00000000` | ? | ? | ? |
@@ -106,7 +106,7 @@ These are the first 3 spawns in the original game:
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
 | `FFFFFFFF` | 32-bit integer (signed) | Enemy type | -1 |
-| `0000C040` | 32-bit floating point | Spawn delay | 6 |
+| `0000C040` | 32-bit float | Spawn delay | 6 |
 | `00000000` | ? | ? | ? |
 | `03000000` | ? | ? | ? |
 | `00000000` | ? | ? | ? |
@@ -116,7 +116,7 @@ These are the first 3 spawns in the original game:
 | Binary (hex) | Data type | Meaning | Value |
 |--------------|-----------|---------|-------|
 | `00000000` | 32-bit integer (signed) | Enemy type | 0 |
-| `0000A040` | 32-bit floating point | Spawn delay | 5 |
+| `0000A040` | 32-bit float | Spawn delay | 5 |
 | `00000000` | ? | ? | ? |
 | `03000000` | ? | ? | ? |
 | `00000000` | ? | ? | ? |
@@ -178,4 +178,4 @@ Fixed-length buffer of 9 bytes. It was added to the game's V3.1 update which rel
 |--------------|-----------|---------|-------|
 | `04` | Byte | Initial hand upgrade | 4 |
 | `05000000` | 32-bit integer (signed) | Additional gems | 5 |
-| `0000A041` | 32-bit floating point | Timer start | 20 |
+| `0000A041` | 32-bit float | Timer start | 20 |

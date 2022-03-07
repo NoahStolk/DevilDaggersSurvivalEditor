@@ -17,7 +17,7 @@ public class Spawnset
 	{
 	}
 
-	public Spawnset(int spawnVersion, int worldVersion, SortedDictionary<int, Spawn> spawns, float[,] arenaTiles, float shrinkStart, float shrinkEnd, float shrinkRate, float brightness, GameMode gameMode, byte hand, int additionalGems, float timerStart)
+	public Spawnset(int spawnVersion, int worldVersion, SortedDictionary<int, Spawn> spawns, float[,] arenaTiles, float shrinkStart, float shrinkEnd, float shrinkRate, float brightness, GameMode gameMode, float raceDaggerX, float raceDaggerZ, byte hand, int additionalGems, float timerStart)
 	{
 		SpawnVersion = spawnVersion;
 		WorldVersion = worldVersion;
@@ -28,6 +28,8 @@ public class Spawnset
 		ShrinkRate = shrinkRate;
 		Brightness = brightness;
 		GameMode = gameMode;
+		RaceDaggerX = raceDaggerX;
+		RaceDaggerZ = raceDaggerZ;
 		Hand = hand;
 		AdditionalGems = additionalGems;
 		TimerStart = timerStart;
@@ -45,6 +47,9 @@ public class Spawnset
 
 	public float Brightness { get; set; } = 60;
 	public GameMode GameMode { get; set; }
+
+	public float RaceDaggerX { get; set; }
+	public float RaceDaggerZ { get; set; }
 
 	public byte Hand { get; set; } = 1;
 	public int AdditionalGems { get; set; }
@@ -201,6 +206,8 @@ public class Spawnset
 			int spawnsHeaderBufferSize = GetSpawnsHeaderBufferSize(worldVersion);
 			byte[] spawnsHeaderBuffer = new byte[spawnsHeaderBufferSize];
 			Buffer.BlockCopy(spawnsetFileBytes, HeaderBufferSize + ArenaBufferSize, spawnsHeaderBuffer, 0, spawnsHeaderBufferSize);
+			float raceDaggerX = BitConverter.ToSingle(spawnsHeaderBuffer, 0);
+			float raceDaggerZ = BitConverter.ToSingle(spawnsHeaderBuffer, 4);
 			int spawnCount = BitConverter.ToInt32(spawnsHeaderBuffer, spawnsHeaderBufferSize - sizeof(int));
 
 			// Read spawns.
@@ -234,7 +241,7 @@ public class Spawnset
 					timerStart = BitConverter.ToSingle(practiceBuffer, 5);
 			}
 
-			spawnset = new(spawnVersion, worldVersion, spawns, arenaTiles, shrinkStart, shrinkEnd, shrinkRate, brightness, gameMode, hand, additionalGems, timerStart);
+			spawnset = new(spawnVersion, worldVersion, spawns, arenaTiles, shrinkStart, shrinkEnd, shrinkRate, brightness, gameMode, raceDaggerX, raceDaggerZ, hand, additionalGems, timerStart);
 
 			return true;
 		}
@@ -284,6 +291,8 @@ public class Spawnset
 			// Create spawns header.
 			int spawnsHeaderBufferSize = GetSpawnsHeaderBufferSize(WorldVersion);
 			byte[] spawnsHeaderBuffer = new byte[spawnsHeaderBufferSize];
+			Buffer.BlockCopy(BitConverter.GetBytes(RaceDaggerX), 0, spawnsHeaderBuffer, 0, sizeof(float));
+			Buffer.BlockCopy(BitConverter.GetBytes(RaceDaggerZ), 0, spawnsHeaderBuffer, 4, sizeof(float));
 			spawnsHeaderBuffer[12] = 0x01;
 			spawnsHeaderBuffer[16] = WorldVersion == 8 ? (byte)0x90 : (byte)0xF4;
 			spawnsHeaderBuffer[17] = 0x01;
