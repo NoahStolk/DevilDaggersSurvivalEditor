@@ -31,6 +31,7 @@ The internal structure of spawnset binaries consists of 5 parts:
 	- For every tile:
 		- Tile height
 - Spawns header buffer
+	- Race dagger position
 	- Dagger unlock times
 	- Spawn count
 - Spawns buffer
@@ -70,7 +71,7 @@ Fixed-length one-dimensional array of 2601 (51 x 51 = 2601 tiles) 32-bit floats 
 
 ### Spawns header buffer
 
-Fixed-length buffer of 40 bytes (or 36 when world version is 8). Contains the amount of spawns, but mainly unknown values.
+Fixed-length buffer of 40 bytes (or 36 when world version is 8). Contains the amount of spawns and some other values.
 
 The spawns header buffer for the default spawnset looks like this:
 

@@ -90,7 +90,7 @@ public sealed class SpawnsetHandler
 	{
 		if (UserHandler.Instance.Settings.AskToReplaceSurvivalFile)
 		{
-			ConfirmWindow confirmWindow = new("Replace 'survival' mod file", "Are you sure you want to replace the current 'survival' mod file with this spawnset?", true);
+			ConfirmWindow confirmWindow = new("Replace 'survival' file", "Are you sure you want to replace the current 'survival' file with this spawnset?", true);
 			confirmWindow.ShowDialog();
 
 			if (confirmWindow.IsConfirmed == true)
@@ -109,7 +109,7 @@ public sealed class SpawnsetHandler
 		void Replace()
 		{
 			if (SpawnsetFileUtils.TryWriteSpawnsetToFile(Spawnset, UserHandler.Instance.Settings.SurvivalFileLocation))
-				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' mod file with this spawnset.");
+				App.Instance.ShowMessage("Success", "Successfully replaced 'survival' file with this spawnset.");
 		}
 	}
 
@@ -117,7 +117,7 @@ public sealed class SpawnsetHandler
 	{
 		if (UserHandler.Instance.Settings.AskToDeleteSurvivalFile)
 		{
-			ConfirmWindow confirmWindow = new("Delete 'survival' mod file", "Are you sure you want to delete the current 'survival' mod file? This means the original Devil Daggers V3 spawnset will be re-enabled.", true);
+			ConfirmWindow confirmWindow = new("Delete 'survival' file", "Are you sure you want to delete the current 'survival' file? This means the original Devil Daggers V3 spawnset will be re-enabled.", true);
 			confirmWindow.ShowDialog();
 
 			if (confirmWindow.IsConfirmed == true)
@@ -136,7 +136,7 @@ public sealed class SpawnsetHandler
 		static void Delete()
 		{
 			File.Delete(UserHandler.Instance.Settings.SurvivalFileLocation);
-			App.Instance.ShowMessage("Success", "Successfully deleted 'survival' mod file.");
+			App.Instance.ShowMessage("Success", "Successfully deleted 'survival' file.");
 		}
 	}
 }

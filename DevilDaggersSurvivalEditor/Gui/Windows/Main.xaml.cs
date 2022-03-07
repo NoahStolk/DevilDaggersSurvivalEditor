@@ -42,6 +42,10 @@ public partial class MainWindow : Window
 
 		WarningVoidSpawn.Text = $"The tile at coordinate {TileUtils.SpawnTile} (player spawn) is void, meaning the player will die instantly. You can prevent this from happening in the Options > Settings menu.";
 
+		string survivalPath = Path.Combine(UserHandler.Instance.Settings.DevilDaggersRootFolder, "mods", "survival");
+		while (Directory.Exists(survivalPath))
+			App.Instance.ShowError("Survival folder found in mods folder", $"There should not be a folder named 'survival' in the 'mods' folder ({survivalPath}). Make sure this folder does not exist and then try again.");
+
 		UpdateWarningDevilDaggersRootFolder();
 
 		SpawnsetArena.Initialize();
@@ -181,13 +185,13 @@ public partial class MainWindow : Window
 
 		if (!UserHandler.Instance.Settings.SurvivalFileExists)
 		{
-			App.Instance.ShowMessage("'survival' mod file does not exist", $"Please make sure the 'survival' mod file at {UserHandler.Instance.Settings.SurvivalFileLocation} exists.");
+			App.Instance.ShowMessage("'survival' file does not exist", $"Please make sure the 'survival' file at {UserHandler.Instance.Settings.SurvivalFileLocation} exists.");
 			return;
 		}
 
 		if (!Spawnset.TryParse(File.ReadAllBytes(UserHandler.Instance.Settings.SurvivalFileLocation), out Spawnset spawnset))
 		{
-			App.Instance.ShowError("Could not parse 'survival' mod file", $"Failed to parse the 'survival' mod file at {UserHandler.Instance.Settings.SurvivalFileLocation}.");
+			App.Instance.ShowError("Could not parse 'survival' file", $"Failed to parse the 'survival' file at {UserHandler.Instance.Settings.SurvivalFileLocation}.");
 			return;
 		}
 
