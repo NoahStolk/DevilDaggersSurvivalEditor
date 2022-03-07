@@ -4,7 +4,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:converters="clr-namespace:DevilDaggersSurvivalEditor.Converters"
-		xmlns:enums="clr-namespace:DevilDaggersSurvivalEditor.Enumerators"
+		xmlns:enums="clr-namespace:DevilDaggersSurvivalEditor.Enums"
 		mc:Ignorable="d"
         Title="Settings" Height="512" Width="768" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel x:Name="Data" Style="{StaticResource PaddingStackPanel}">

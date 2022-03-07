@@ -17,7 +17,7 @@
 			<Label>Game mode</Label>
 			<ComboBox Name="ComboBoxGameMode" SelectionChanged="UpdateGameMode" />
 		</StackPanel>
-		<StackPanel Name="StackPanelV31">
+		<StackPanel Name="StackPanelV3_1">
 			<Grid Style="{StaticResource SpawnsetHeader}">
 				<Label Style="{StaticResource BoldLabel}">Player settings</Label>
 			</Grid>

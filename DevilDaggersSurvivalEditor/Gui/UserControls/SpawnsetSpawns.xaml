@@ -4,7 +4,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:converters="clr-namespace:DevilDaggersSurvivalEditor.Converters"
-			 xmlns:enums="clr-namespace:DevilDaggersSurvivalEditor.Enumerators"
+			 xmlns:enums="clr-namespace:DevilDaggersSurvivalEditor.Enums"
 			 xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.Gui.UserControls"
 			 mc:Ignorable="d"
              d:DesignHeight="768" d:DesignWidth="683">
