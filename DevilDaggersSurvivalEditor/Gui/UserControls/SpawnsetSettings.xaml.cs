@@ -170,17 +170,26 @@ public partial class SpawnsetSettingsUserControl : UserControl
 		});
 	}
 
-	private void UpdateRaceDaggerPositionGui()
+	public void UpdateRaceDaggerPositionGui()
 	{
-		if (App.Instance.MainWindow != null)
+		Dispatcher.Invoke(() =>
 		{
-			App.Instance.MainWindow.SpawnsetArena.RaceDaggerImage.Visibility = ComboBoxGameMode.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
-			Canvas.SetLeft(App.Instance.MainWindow.SpawnsetArena.RaceDaggerImage, ToCanvasPosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerX));
-			Canvas.SetTop(App.Instance.MainWindow.SpawnsetArena.RaceDaggerImage, ToCanvasPosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerZ));
-		}
+			if (App.Instance.MainWindow != null)
+			{
+				bool isInRange = SpawnsetHandler.Instance.Spawnset.RaceDaggerX > -100 && SpawnsetHandler.Instance.Spawnset.RaceDaggerX < 100 && SpawnsetHandler.Instance.Spawnset.RaceDaggerZ > -100 && SpawnsetHandler.Instance.Spawnset.RaceDaggerZ < 100;
+				App.Instance.MainWindow.SpawnsetArena.RaceDaggerImage.Visibility = ComboBoxGameMode.SelectedIndex == 2 && isInRange ? Visibility.Visible : Visibility.Collapsed;
+				Canvas.SetLeft(App.Instance.MainWindow.SpawnsetArena.RaceDaggerImage, ToCanvasPosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerX));
+				Canvas.SetTop(App.Instance.MainWindow.SpawnsetArena.RaceDaggerImage, ToCanvasPosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerZ));
+			}
 
-		if (RaceDaggerTile != null)
-			RaceDaggerTile.Text = $"{ToTilePosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerX)}x{ToTilePosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerZ)}";
+			if (RaceDaggerTile != null)
+			{
+				int x = ToTilePosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerX);
+				int z = ToTilePosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerZ);
+				bool isInRange = x >= 0 && x < 51 && z >= 0 && z < 51;
+				RaceDaggerTile.Text = $"Tile: {x}x{z}\nHeight: {(isInRange ? SpawnsetHandler.Instance.Spawnset.ArenaTiles[x, z].ToString("0.00") : "-")}";
+			}
+		});
 
 		static int ToTilePosition(float nativePosition)
 		{
@@ -189,8 +198,12 @@ public partial class SpawnsetSettingsUserControl : UserControl
 
 		static double ToCanvasPosition(float nativePosition)
 		{
-			// Assumes square arena canvas and square dagger image.
-			return App.Instance.MainWindow!.SpawnsetArena.ArenaTiles.Width / 2 + nativePosition * 2 - App.Instance.MainWindow!.SpawnsetArena.RaceDaggerImage.Width / 2;
+			// Method assumes square arena canvas and square dagger image.
+			const int tilePixelSize = 8;
+			const int tileUnit = 4;
+			double canvasPosition = App.Instance.MainWindow!.SpawnsetArena.ArenaTiles.Width / 2 + nativePosition * (tilePixelSize / tileUnit) - App.Instance.MainWindow!.SpawnsetArena.RaceDaggerImage.Width / 2;
+
+			return Math.Clamp(canvasPosition, 0, App.Instance.MainWindow!.SpawnsetArena.ArenaTiles.Width);
 		}
 	}
 

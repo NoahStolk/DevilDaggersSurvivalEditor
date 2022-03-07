@@ -393,6 +393,8 @@ public partial class SpawnsetArenaUserControl : UserControl
 			App.Instance.MainWindow?.UpdateWarningVoidSpawn(SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.TileMin);
 		}
 
+		App.Instance.MainWindow?.SpawnsetSettings.UpdateRaceDaggerPositionGui();
+
 		// Set tile color.
 		float height = SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y];
 
