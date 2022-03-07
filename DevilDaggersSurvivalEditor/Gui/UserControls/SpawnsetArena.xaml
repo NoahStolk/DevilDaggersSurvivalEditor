@@ -44,6 +44,7 @@
 					<Line Name="MultiSelectRectRight" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 					<Line Name="MultiSelectRectTop" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
 					<Line Name="MultiSelectRectBottom" Stroke="Orange" StrokeThickness="1" SnapsToDevicePixels="True" Panel.ZIndex="3" />
+					<Image Name="RaceDaggerImage" Width="16" Height="16" Canvas.Left="204" Canvas.Top="204" Panel.ZIndex="2" />
 				</Canvas>
 				<Grid>
 					<Grid.ColumnDefinitions>

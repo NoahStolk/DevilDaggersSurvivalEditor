@@ -42,7 +42,7 @@ public partial class SpawnsetSettingsUserControl : UserControl
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 		}
 
-		StackPanelV3_1.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+		UpdateVersionGui();
 	}
 
 	private void UpdateGameMode(object sender, SelectionChangedEventArgs e)
@@ -60,7 +60,7 @@ public partial class SpawnsetSettingsUserControl : UserControl
 		App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlIsInLoop();
 		App.Instance.MainWindow?.SpawnsetSpawns.EndLoopPreview.Update();
 
-		StackPanelRace.Visibility = ComboBoxGameMode.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+		UpdateGameModeGui();
 	}
 
 	private void UpdateHand(object sender, SelectionChangedEventArgs e)
@@ -103,6 +103,8 @@ public partial class SpawnsetSettingsUserControl : UserControl
 			SpawnsetHandler.Instance.Spawnset.RaceDaggerX = float.Parse(TextBoxRaceDaggerX.Text);
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 		}
+
+		UpdateRaceDaggerPositionGui();
 	}
 
 	private void UpdateRaceDaggerZ(object sender, TextChangedEventArgs e)
@@ -112,6 +114,8 @@ public partial class SpawnsetSettingsUserControl : UserControl
 			SpawnsetHandler.Instance.Spawnset.RaceDaggerZ = float.Parse(TextBoxRaceDaggerZ.Text);
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
 		}
+
+		UpdateRaceDaggerPositionGui();
 	}
 
 	private void UpdateEffectivePlayerSettings()
@@ -122,7 +126,7 @@ public partial class SpawnsetSettingsUserControl : UserControl
 		(byte effectiveHand, int effectiveGemsOrHoming, byte handModel) = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings();
 		string unit = effectiveHand > 2 ? "homing" : "gems";
 		string modelText = effectiveHand != handModel ? $"\n(Level {handModel} hand model)" : string.Empty;
-		string negativeValues = effectiveGemsOrHoming < 0 ? "\n(Negative values show up as 0 in game)" : string.Empty;
+		string negativeValues = effectiveGemsOrHoming < 0 ? "\n(Negative values show up as 0 in-game)" : string.Empty;
 		EffectivePlayerSettings.Text = $"Level {effectiveHand} with {effectiveGemsOrHoming} {unit}{modelText}{negativeValues}";
 	}
 
@@ -136,10 +140,13 @@ public partial class SpawnsetSettingsUserControl : UserControl
 		ComboBoxHand.SelectedIndex = SpawnsetHandler.Instance.Spawnset.Hand - 1;
 		ComboBoxVersion.SelectedIndex = SpawnsetHandler.Instance.Spawnset.WorldVersion == 8 ? 0 : SpawnsetHandler.Instance.Spawnset.SpawnVersion == 4 ? 1 : 2;
 		ComboBoxGameMode.SelectedIndex = (int)SpawnsetHandler.Instance.Spawnset.GameMode;
-		StackPanelV3_1.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
-		StackPanelRace.Visibility = ComboBoxGameMode.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+		TextBoxRaceDaggerX.Text = SpawnsetHandler.Instance.Spawnset.RaceDaggerX.ToString();
+		TextBoxRaceDaggerZ.Text = SpawnsetHandler.Instance.Spawnset.RaceDaggerZ.ToString();
 		TextBoxAdditionalGems.Text = SpawnsetHandler.Instance.Spawnset.AdditionalGems.ToString();
 		TextBoxTimerStart.Text = SpawnsetHandler.Instance.Spawnset.TimerStart.ToString();
+
+		UpdateVersionGui();
+		UpdateGameModeGui();
 
 		(double loopLength, double endLoopSpawns) = SpawnsetHandler.Instance.Spawnset.GetEndLoopData();
 		Dispatcher.Invoke(() =>
@@ -149,6 +156,42 @@ public partial class SpawnsetSettingsUserControl : UserControl
 		});
 
 		_updateInternal = true;
+	}
+
+	private void UpdateVersionGui() => StackPanelV3_1.Visibility = ComboBoxVersion.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+
+	private void UpdateGameModeGui()
+	{
+		Dispatcher.Invoke(() =>
+		{
+			StackPanelRace.Visibility = ComboBoxGameMode.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+
+			UpdateRaceDaggerPositionGui();
+		});
+	}
+
+	private void UpdateRaceDaggerPositionGui()
+	{
+		if (App.Instance.MainWindow != null)
+		{
+			App.Instance.MainWindow.SpawnsetArena.RaceDaggerImage.Visibility = ComboBoxGameMode.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+			Canvas.SetLeft(App.Instance.MainWindow.SpawnsetArena.RaceDaggerImage, ToCanvasPosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerX));
+			Canvas.SetTop(App.Instance.MainWindow.SpawnsetArena.RaceDaggerImage, ToCanvasPosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerZ));
+		}
+
+		if (RaceDaggerTile != null)
+			RaceDaggerTile.Text = $"{ToTilePosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerX)}x{ToTilePosition(SpawnsetHandler.Instance.Spawnset.RaceDaggerZ)}";
+
+		static int ToTilePosition(float nativePosition)
+		{
+			return (int)MathF.Round(nativePosition / 4) + 25;
+		}
+
+		static double ToCanvasPosition(float nativePosition)
+		{
+			// Assumes square arena canvas and square dagger image.
+			return App.Instance.MainWindow!.SpawnsetArena.ArenaTiles.Width / 2 + nativePosition * 2 - App.Instance.MainWindow!.SpawnsetArena.RaceDaggerImage.Width / 2;
+		}
 	}
 
 	private void TextBoxAdditionalGems_LostFocus(object sender, RoutedEventArgs e)

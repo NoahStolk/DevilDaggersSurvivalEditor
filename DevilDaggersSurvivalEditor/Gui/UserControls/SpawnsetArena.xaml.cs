@@ -72,6 +72,8 @@ public partial class SpawnsetArenaUserControl : UserControl
 				ArenaRelease();
 		};
 		mainLoop.Start();
+
+		RaceDaggerImage.Source = new BitmapImage(ContentUtils.MakeUri(System.IO.Path.Combine("Content", "Images", "Misc", "RaceDagger.png")));
 	}
 
 	private void UpdateSelectionEffectContinuousValues()

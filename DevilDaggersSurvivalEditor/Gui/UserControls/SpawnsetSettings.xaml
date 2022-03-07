@@ -22,6 +22,8 @@
 			<TextBox Name="TextBoxRaceDaggerX" TextChanged="UpdateRaceDaggerX">0</TextBox>
 			<Label>Race dagger Z</Label>
 			<TextBox Name="TextBoxRaceDaggerZ" TextChanged="UpdateRaceDaggerZ">0</TextBox>
+			<Label>Race dagger tile</Label>
+			<TextBlock Background="{StaticResource Gray1}" Padding="2" Name="RaceDaggerTile" />
 		</StackPanel>
 		<StackPanel Name="StackPanelV3_1">
 			<Grid Style="{StaticResource SpawnsetHeader}">
