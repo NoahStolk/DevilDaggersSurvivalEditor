@@ -1,4 +1,3 @@
-using DevilDaggersSurvivalEditor.Core;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets;
@@ -11,18 +10,23 @@ public class Donut : AbstractEllipseArena
 	private float _holeOuterRadius = 5;
 	private float _holeAngleInDegrees;
 
+	public Donut(int dimension)
+		: base(dimension)
+	{
+	}
+
 	public float Height { get; set; }
 
 	public int HoleOffsetX
 	{
 		get => _holeOffsetX;
-		set => _holeOffsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+		set => _holeOffsetX = Math.Clamp(value, -Dimension, Dimension);
 	}
 
 	public int HoleOffsetY
 	{
 		get => _holeOffsetY;
-		set => _holeOffsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+		set => _holeOffsetY = Math.Clamp(value, -Dimension, Dimension);
 	}
 
 	public float HoleInnerRadius
@@ -47,12 +51,12 @@ public class Donut : AbstractEllipseArena
 	{
 		float[,] tiles = CreateArenaArray();
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Dimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
+			for (int j = 0; j < Dimension; j++)
 			{
-				if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius, OuterRadius, AngleInDegrees) &&
-					!IsPointInEllipse(Spawnset.ArenaWidth / 2 + HoleOffsetX, Spawnset.ArenaHeight / 2 + HoleOffsetY, i, j, HoleInnerRadius, HoleOuterRadius, HoleAngleInDegrees))
+				if (IsPointInEllipse(Dimension / 2 + OffsetX, Dimension / 2 + OffsetY, i, j, InnerRadius, OuterRadius, AngleInDegrees) &&
+					!IsPointInEllipse(Dimension / 2 + HoleOffsetX, Dimension / 2 + HoleOffsetY, i, j, HoleInnerRadius, HoleOuterRadius, HoleAngleInDegrees))
 				{
 					tiles[i, j] = Height;
 				}

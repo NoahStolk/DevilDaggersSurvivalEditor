@@ -1,4 +1,3 @@
-using DevilDaggersSurvivalEditor.Core;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,11 @@ public class RandomIslands : AbstractRectangularArena
 	private int _amount = 5;
 	private int _iterations = 2;
 	private float _steepness = 0.1f;
+
+	public RandomIslands(int dimension)
+		: base(dimension)
+	{
+	}
 
 	public float MinHeight { get; set; }
 
@@ -63,7 +67,7 @@ public class RandomIslands : AbstractRectangularArena
 								SetNeighbour(coord, height);
 						}
 
-						if (j < Spawnset.ArenaWidth - 1)
+						if (j < Dimension - 1)
 						{
 							ArenaCoord coord = new(j + 1, k);
 							if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))
@@ -77,7 +81,7 @@ public class RandomIslands : AbstractRectangularArena
 								SetNeighbour(coord, height);
 						}
 
-						if (k < Spawnset.ArenaHeight - 1)
+						if (k < Dimension - 1)
 						{
 							ArenaCoord coord = new(j, k + 1);
 							if (RandomUtils.Chance(50) && !islandTiles.Contains(coord))

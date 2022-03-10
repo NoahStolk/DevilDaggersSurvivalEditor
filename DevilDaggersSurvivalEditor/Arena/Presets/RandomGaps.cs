@@ -1,4 +1,3 @@
-using DevilDaggersSurvivalEditor.Core;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,11 @@ public class RandomGaps : AbstractRectangularArena
 {
 	private int _amount = 5;
 	private int _iterations = 2;
+
+	public RandomGaps(int dimension)
+		: base(dimension)
+	{
+	}
 
 	public float Height { get; set; }
 
@@ -58,7 +62,7 @@ public class RandomGaps : AbstractRectangularArena
 								SetNeighbour(coord);
 						}
 
-						if (j < Spawnset.ArenaWidth - 1)
+						if (j < Dimension - 1)
 						{
 							ArenaCoord coord = new(j + 1, k);
 							if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
@@ -72,7 +76,7 @@ public class RandomGaps : AbstractRectangularArena
 								SetNeighbour(coord);
 						}
 
-						if (k < Spawnset.ArenaHeight - 1)
+						if (k < Dimension - 1)
 						{
 							ArenaCoord coord = new(j, k + 1);
 							if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))

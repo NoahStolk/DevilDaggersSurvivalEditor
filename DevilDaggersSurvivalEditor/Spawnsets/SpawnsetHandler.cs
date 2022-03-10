@@ -1,6 +1,6 @@
 using DevilDaggersCore.Wpf.Windows;
+using DevilDaggersInfo.Core.Spawnset;
 using DevilDaggersSurvivalEditor.Arena;
-using DevilDaggersSurvivalEditor.Core;
 using DevilDaggersSurvivalEditor.User;
 using DevilDaggersSurvivalEditor.Utils;
 using Microsoft.Win32;
@@ -17,12 +17,12 @@ public sealed class SpawnsetHandler
 
 	private SpawnsetHandler()
 	{
-		Spawnset = new() { ArenaTiles = ArenaPresetHandler.Instance.DefaultPreset.GetTiles() };
+		Spawnset = SpawnsetBinary.CreateDefault(51, ArenaPresetHandler.Instance.DefaultPreset.GetTiles());
 	}
 
 	public static SpawnsetHandler Instance => _lazy.Value;
 
-	public Spawnset Spawnset { get; set; }
+	public SpawnsetBinary Spawnset { get; set; }
 
 	public bool HasUnsavedChanges
 	{

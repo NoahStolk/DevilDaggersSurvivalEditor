@@ -1,5 +1,6 @@
 using DevilDaggersCore.Wpf.Utils;
-using DevilDaggersSurvivalEditor.Core;
+using DevilDaggersInfo.Core.Spawnset;
+using DevilDaggersInfo.Core.Spawnset.Extensions;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.Utils;
 using System.Windows;
@@ -41,12 +42,11 @@ public partial class SpawnUserControl : UserControl
 	{
 		Spawn = spawn;
 
-		TextBlockEnemy.Text = spawn.Enemy?.Name ?? "EMPTY";
+		TextBlockEnemy.Text = spawn.EnemyType.ToString();
 		TextBlockDelay.Text = spawn.Delay.ToString(SpawnUtils.Format);
-		TextBlockNoFarmGems.Text = (spawn.Enemy?.NoFarmGems ?? 0).ToString();
+		TextBlockNoFarmGems.Text = spawn.EnemyType.GetNoFarmGems().ToString();
 
-		byte spawnsetType = spawn.Enemy?.SpawnsetType ?? 0xFF;
-		Color enemyColor = GuiUtils.EnemyColors.ContainsKey(spawnsetType) ? GuiUtils.EnemyColors[spawnsetType] : GuiUtils.ColorBlack;
+		Color enemyColor = GuiUtils.EnemyColors.ContainsKey(spawn.EnemyType) ? GuiUtils.EnemyColors[spawn.EnemyType] : GuiUtils.ColorBlack;
 		TextBlockEnemy.Background = new SolidColorBrush(enemyColor);
 		TextBlockEnemy.Foreground = ColorUtils.GetPerceivedBrightness(enemyColor) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
 	}

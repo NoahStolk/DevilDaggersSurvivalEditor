@@ -1,4 +1,4 @@
-using DevilDaggersSurvivalEditor.Core;
+using DevilDaggersInfo.Core.Spawnset;
 using System;
 using System.IO;
 
@@ -6,20 +6,12 @@ namespace DevilDaggersSurvivalEditor.Utils;
 
 public static class SpawnsetFileUtils
 {
-	public static bool TryWriteSpawnsetToFile(Spawnset spawnset, string destinationPath)
+	public static bool TryWriteSpawnsetToFile(SpawnsetBinary spawnset, string destinationPath)
 	{
 		try
 		{
-			if (spawnset.TryGetBytes(out byte[] bytes))
-			{
-				File.WriteAllBytes(destinationPath, bytes);
-				return true;
-			}
-			else
-			{
-				App.Instance.ShowError("Unexpected error", "Error while trying to convert spawnset to binary.");
-				return false;
-			}
+			File.WriteAllBytes(destinationPath, spawnset.ToBytes());
+			return true;
 		}
 		catch (Exception ex)
 		{

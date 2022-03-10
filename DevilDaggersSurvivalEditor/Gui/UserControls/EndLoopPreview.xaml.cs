@@ -1,4 +1,6 @@
-using DevilDaggersSurvivalEditor.Core;
+using DevilDaggersInfo.Core.Spawnset;
+using DevilDaggersInfo.Core.Spawnset.Enums;
+using DevilDaggersInfo.Core.Spawnset.Extensions;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;
 using System;
@@ -39,16 +41,16 @@ public partial class EndLoopPreviewUserControl : UserControl
 		set => _wave = Math.Clamp(value, 2, _maxWaves);
 	}
 
-	public bool IsActive => UserHandler.Instance.Settings.EnableEndLoopPreview && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default;
+	public bool IsActive => UserHandler.Instance.Settings.EnableEndLoopPreview && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Survival;
 
 	public void Update()
 	{
 		double seconds = 0;
-		int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
-		foreach (Spawn spawn in SpawnsetHandler.Instance.Spawnset.Spawns.Values)
+		int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().GemsOrHoming;
+		foreach (Spawn spawn in SpawnsetHandler.Instance.Spawnset.Spawns)
 		{
 			seconds += spawn.Delay;
-			totalGems += spawn.Enemy?.NoFarmGems ?? 0;
+			totalGems += spawn.EnemyType.GetNoFarmGems();
 		}
 
 		Update(seconds, totalGems);
@@ -65,8 +67,8 @@ public partial class EndLoopPreviewUserControl : UserControl
 			return;
 		}
 
-		List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex()).ToList();
-		int endLoopSpawns = endLoop.Count(s => s.Enemy != null);
+		List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Skip(SpawnsetHandler.Instance.Spawnset.GetLoopStartIndex()).ToList();
+		int endLoopSpawns = endLoop.Count(s => s.EnemyType != EnemyType.Empty);
 		Visibility = endLoopSpawns == 0 ? Visibility.Collapsed : Visibility.Visible;
 
 		if (endLoopSpawns == 0)
@@ -79,18 +81,18 @@ public partial class EndLoopPreviewUserControl : UserControl
 			double secondsPrevious = seconds;
 			foreach (double spawnSecond in SpawnsetHandler.Instance.Spawnset.GenerateEndWaveTimes(seconds, i))
 			{
-				Enemy? enemy = endLoop[j].Enemy;
-				bool gigaBecomesGhost = i % 3 == 2 && enemy == Enemy.Gigapede; // Assumes V3.
+				EnemyType enemy = endLoop[j].EnemyType;
+				bool gigaBecomesGhost = i % 3 == 2 && enemy == EnemyType.Gigapede; // Assumes V3.
 				if (gigaBecomesGhost)
-					enemy = Enemy.Ghostpede;
+					enemy = EnemyType.Ghostpede;
 
 				seconds = spawnSecond;
-				totalGems += enemy?.NoFarmGems ?? 0;
+				totalGems += enemy.GetNoFarmGems();
 
 				if (i == Wave - 1)
 				{
 					EndLoopSpawnUserControl spawnControl = new();
-					spawnControl.SetId(SpawnsetHandler.Instance.Spawnset.Spawns.Count + 1 + endLoop.Count * (i - 1) + j);
+					spawnControl.SetId(SpawnsetHandler.Instance.Spawnset.Spawns.Length + 1 + endLoop.Count * (i - 1) + j);
 					spawnControl.SetSeconds(seconds);
 					spawnControl.SetDelay(seconds - secondsPrevious);
 					spawnControl.SetTotalGems(totalGems);
@@ -116,8 +118,8 @@ public partial class EndLoopPreviewUserControl : UserControl
 			return;
 		}
 
-		List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex()).ToList();
-		int endLoopSpawns = endLoop.Count(s => s.Enemy != null);
+		List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Skip(SpawnsetHandler.Instance.Spawnset.GetLoopStartIndex()).ToList();
+		int endLoopSpawns = endLoop.Count(s => s.EnemyType != EnemyType.Empty);
 		if (endLoopSpawns == 0)
 			return;
 
@@ -148,8 +150,8 @@ public partial class EndLoopPreviewUserControl : UserControl
 			return;
 		}
 
-		List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Values.Skip(SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex()).ToList();
-		int endLoopSpawns = endLoop.Count(s => s.Enemy != null);
+		List<Spawn> endLoop = SpawnsetHandler.Instance.Spawnset.Spawns.Skip(SpawnsetHandler.Instance.Spawnset.GetLoopStartIndex()).ToList();
+		int endLoopSpawns = endLoop.Count(s => s.EnemyType != EnemyType.Empty);
 		if (endLoopSpawns == 0)
 			return;
 
@@ -161,12 +163,12 @@ public partial class EndLoopPreviewUserControl : UserControl
 			foreach (Spawn spawn in endLoop)
 #pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 			{
-				Enemy? enemy = spawn.Enemy;
-				bool gigaBecomesGhost = i % 3 == 2 && enemy == Enemy.Gigapede; // Assumes V3.
+				EnemyType enemy = spawn.EnemyType;
+				bool gigaBecomesGhost = i % 3 == 2 && enemy == EnemyType.Gigapede; // Assumes V3.
 				if (gigaBecomesGhost)
-					enemy = Enemy.Ghostpede;
+					enemy = EnemyType.Ghostpede;
 
-				totalGems += enemy?.NoFarmGems ?? 0;
+				totalGems += enemy.GetNoFarmGems();
 
 				if (i == Wave - 1)
 				{

@@ -1,4 +1,6 @@
-using DevilDaggersSurvivalEditor.Core;
+using DevilDaggersInfo.Core.Spawnset.Enums;
+using DevilDaggersInfo.Core.Spawnset.Extensions;
+using DevilDaggersInfo.Core.Wiki;
 using System.Collections.Generic;
 using System.Windows.Media;
 
@@ -8,14 +10,14 @@ public static class GuiUtils
 {
 	static GuiUtils()
 	{
-		for (byte i = 0; i < 10; i++)
+		for (int i = 0; i < 10; i++)
 		{
-			string color = Enemy.GetEnemyBySpawnsetType(i)?.ColorCode ?? throw new($"Enemy with spawnset type {i} does not exist.");
-			EnemyColors[i] = (Color)ColorConverter.ConvertFromString($"#{color}");
+			EnemyType enemyType = (EnemyType)i;
+			EnemyColors[enemyType] = (Color)ColorConverter.ConvertFromString(enemyType.GetColor(GameConstants.CurrentVersion).HexCode);
 		}
 	}
 
-	public static Dictionary<byte, Color> EnemyColors { get; } = new();
+	public static Dictionary<EnemyType, Color> EnemyColors { get; } = new();
 	public static Color ColorBlack { get; } = Color.FromRgb(0, 0, 0);
 	public static Color ColorInvisible { get; } = Color.FromArgb(0, 0, 0, 0);
 }

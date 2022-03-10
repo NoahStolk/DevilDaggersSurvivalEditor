@@ -1,4 +1,3 @@
-using DevilDaggersSurvivalEditor.Core;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets;
@@ -11,16 +10,21 @@ public abstract class AbstractEllipseArena : AbstractArena
 	private float _outerRadius = 10;
 	private float _angleInDegrees;
 
+	protected AbstractEllipseArena(int dimension)
+		: base(dimension)
+	{
+	}
+
 	public int OffsetX
 	{
 		get => _offsetX;
-		set => _offsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+		set => _offsetX = Math.Clamp(value, -Dimension, Dimension);
 	}
 
 	public int OffsetY
 	{
 		get => _offsetY;
-		set => _offsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+		set => _offsetY = Math.Clamp(value, -Dimension, Dimension);
 	}
 
 	public float InnerRadius

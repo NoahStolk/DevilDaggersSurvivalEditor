@@ -1,5 +1,6 @@
 using DevilDaggersCore.Wpf.Utils;
-using DevilDaggersSurvivalEditor.Core;
+using DevilDaggersInfo.Core.Spawnset.Enums;
+using DevilDaggersInfo.Core.Spawnset.Extensions;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.Utils;
 using System.Windows;
@@ -25,20 +26,19 @@ public partial class EndLoopSpawnUserControl : UserControl
 	public void SetTotalGems(int totalGems)
 		=> TextBlockTotalGems.Text = totalGems.ToString();
 
-	public void SetEnemy(Enemy? enemy, bool gigaBecomesGhost)
+	public void SetEnemy(EnemyType enemy, bool gigaBecomesGhost)
 	{
-		byte spawnsetType = enemy?.SpawnsetType ?? 0xFF;
-		Color enemyColor = GuiUtils.EnemyColors.ContainsKey(spawnsetType) ? GuiUtils.EnemyColors[spawnsetType] : GuiUtils.ColorBlack;
+		Color enemyColor = GuiUtils.EnemyColors.ContainsKey(enemy) ? GuiUtils.EnemyColors[enemy] : GuiUtils.ColorBlack;
 		SolidColorBrush background = new(enemyColor);
 		SolidColorBrush foreground = ColorUtils.GetPerceivedBrightness(enemyColor) < 140 ? ColorUtils.ThemeColors["Text"] : ColorUtils.ThemeColors["Gray1"];
 
-		TextBlockEnemy.Text = enemy?.Name ?? "EMPTY";
+		TextBlockEnemy.Text = enemy.ToString();
 		TextBlockEnemy.Background = background;
 		TextBlockEnemy.Foreground = foreground;
 		TextBlockEnemy.FontWeight = gigaBecomesGhost ? FontWeights.Bold : default;
 		TextBlockEnemy.ToolTip = gigaBecomesGhost ? "Every third wave of the end loop, all Gigapedes are changed into Ghostpedes. This is hardcoded within the game and cannot be changed." : null;
 		TextBlockEnemy.TextDecorations = gigaBecomesGhost ? TextDecorations.Underline : null;
 
-		TextBlockNoFarmGems.Text = (enemy?.NoFarmGems ?? 0).ToString();
+		TextBlockNoFarmGems.Text = enemy.GetNoFarmGems().ToString();
 	}
 }

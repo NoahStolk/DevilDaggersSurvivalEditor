@@ -1,4 +1,3 @@
-using DevilDaggersSurvivalEditor.Core;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets;
@@ -8,16 +7,21 @@ public class Qbert : AbstractRectangularArena
 	private int _offsetX;
 	private int _offsetY;
 
+	public Qbert(int dimension)
+		: base(dimension)
+	{
+	}
+
 	public int OffsetX
 	{
 		get => _offsetX;
-		set => _offsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+		set => _offsetX = Math.Clamp(value, -Dimension, Dimension);
 	}
 
 	public int OffsetY
 	{
 		get => _offsetY;
-		set => _offsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+		set => _offsetY = Math.Clamp(value, -Dimension, Dimension);
 	}
 
 	public float StartHeight { get; set; } = -1;
@@ -33,7 +37,7 @@ public class Qbert : AbstractRectangularArena
 		for (int i = X1; i < X2; i++)
 		{
 			for (int j = Y1; j < Y2; j++)
-				tiles[i + OffsetX, j + OffsetY] = EndHeight + (Math.Abs(i - Spawnset.ArenaWidth / 2) * stepX + Math.Abs(j - Spawnset.ArenaHeight / 2) * stepY);
+				tiles[i + OffsetX, j + OffsetY] = EndHeight + (Math.Abs(i - Dimension / 2) * stepX + Math.Abs(j - Dimension / 2) * stepY);
 		}
 
 		return tiles;

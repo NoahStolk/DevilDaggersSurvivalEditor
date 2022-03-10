@@ -1,4 +1,5 @@
-using DevilDaggersSurvivalEditor.Core;
+using DevilDaggersInfo.Core.Spawnset;
+using DevilDaggersInfo.Core.Spawnset.Enums;
 using DevilDaggersSurvivalEditor.Extensions;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using System;
@@ -23,9 +24,9 @@ public partial class SpawnsetSettingsUserControl : UserControl
 			ComboBoxGameMode.Items.Add(gameMode);
 		ComboBoxGameMode.SelectedIndex = 0;
 
-		ComboBoxVersion.Items.Add(Spawnset.GetGameVersionString(8, 4));
-		ComboBoxVersion.Items.Add(Spawnset.GetGameVersionString(9, 4));
-		ComboBoxVersion.Items.Add(Spawnset.GetGameVersionString(9, 6));
+		ComboBoxVersion.Items.Add(SpawnsetBinary.GetGameVersionString(8, 4));
+		ComboBoxVersion.Items.Add(SpawnsetBinary.GetGameVersionString(9, 4));
+		ComboBoxVersion.Items.Add(SpawnsetBinary.GetGameVersionString(9, 6));
 		ComboBoxVersion.SelectedIndex = 2;
 	}
 
@@ -55,7 +56,7 @@ public partial class SpawnsetSettingsUserControl : UserControl
 		}
 
 		(double loopLength, double endLoopSpawns) = SpawnsetHandler.Instance.Spawnset.GetEndLoopData();
-		Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default && endLoopSpawns > 0 && loopLength < 0.5, loopLength));
+		Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Survival && endLoopSpawns > 0 && loopLength < 0.5, loopLength));
 
 		App.Instance.MainWindow?.SpawnsetSpawns.UpdateSpawnControlIsInLoop();
 		App.Instance.MainWindow?.SpawnsetSpawns.EndLoopPreview.Update();
@@ -151,7 +152,7 @@ public partial class SpawnsetSettingsUserControl : UserControl
 		(double loopLength, double endLoopSpawns) = SpawnsetHandler.Instance.Spawnset.GetEndLoopData();
 		Dispatcher.Invoke(() =>
 		{
-			App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default && endLoopSpawns > 0 && loopLength < 0.5, loopLength);
+			App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Survival && endLoopSpawns > 0 && loopLength < 0.5, loopLength);
 			UpdateEffectivePlayerSettings();
 		});
 

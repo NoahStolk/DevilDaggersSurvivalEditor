@@ -1,4 +1,3 @@
-using DevilDaggersSurvivalEditor.Core;
 using System;
 
 namespace DevilDaggersSurvivalEditor.Arena.Presets;
@@ -9,16 +8,21 @@ public class Pyramid : AbstractArena
 	private int _offsetY;
 	private int _size = 16;
 
+	public Pyramid(int dimension)
+		: base(dimension)
+	{
+	}
+
 	public int OffsetX
 	{
 		get => _offsetX;
-		set => _offsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+		set => _offsetX = Math.Clamp(value, -Dimension, Dimension);
 	}
 
 	public int OffsetY
 	{
 		get => _offsetY;
-		set => _offsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+		set => _offsetY = Math.Clamp(value, -Dimension, Dimension);
 	}
 
 	public float StartHeight { get; set; }
@@ -28,7 +32,7 @@ public class Pyramid : AbstractArena
 	public int Size
 	{
 		get => _size;
-		set => _size = Math.Clamp(value, 2, Spawnset.ArenaWidth);
+		set => _size = Math.Clamp(value, 2, Dimension);
 	}
 
 	public override bool IsFull => false;
@@ -40,20 +44,20 @@ public class Pyramid : AbstractArena
 		int halfSize = Size / 2;
 		for (int i = 0; i < halfSize; i++)
 		{
-			int coord = Spawnset.ArenaWidth / 2 - halfSize + i;
+			int coord = Dimension / 2 - halfSize + i;
 
-			for (int j = 0; j <= (Spawnset.ArenaWidth / 2 - coord) * 2; j++)
+			for (int j = 0; j <= (Dimension / 2 - coord) * 2; j++)
 			{
 				float height = StartHeight + i / (float)halfSize * (EndHeight - StartHeight);
 
 				tiles[coord + OffsetX, coord + j + OffsetY] = height;
 				tiles[coord + j + OffsetX, coord + OffsetY] = height;
 
-				tiles[Spawnset.ArenaWidth - 1 - coord + OffsetX, coord + j + OffsetY] = height;
-				tiles[coord + j + OffsetX, Spawnset.ArenaHeight - 1 - coord + OffsetY] = height;
+				tiles[Dimension - 1 - coord + OffsetX, coord + j + OffsetY] = height;
+				tiles[coord + j + OffsetX, Dimension - 1 - coord + OffsetY] = height;
 			}
 
-			tiles[Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY] = EndHeight;
+			tiles[Dimension / 2 + OffsetX, Dimension / 2 + OffsetY] = EndHeight;
 		}
 
 		return tiles;

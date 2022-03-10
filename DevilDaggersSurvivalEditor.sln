@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevilDaggersSurvivalEditor.Tests", "DevilDaggersSurvivalEditor.Tests\DevilDaggersSurvivalEditor.Tests.csproj", "{7EF78662-68F8-4255-98C3-A8399C3003FE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevilDaggersInfo.Core.Spawnset", "..\DevilDaggersInfo\DevilDaggersInfo.Core.Spawnset\DevilDaggersInfo.Core.Spawnset.csproj", "{595E3549-ACED-4600-9358-96F28F39F0A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,14 @@ Global
 		{7EF78662-68F8-4255-98C3-A8399C3003FE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7EF78662-68F8-4255-98C3-A8399C3003FE}.Release|x64.ActiveCfg = Release|Any CPU
 		{7EF78662-68F8-4255-98C3-A8399C3003FE}.Release|x64.Build.0 = Release|Any CPU
+		{595E3549-ACED-4600-9358-96F28F39F0A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{595E3549-ACED-4600-9358-96F28F39F0A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{595E3549-ACED-4600-9358-96F28F39F0A5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{595E3549-ACED-4600-9358-96F28F39F0A5}.Debug|x64.Build.0 = Debug|Any CPU
+		{595E3549-ACED-4600-9358-96F28F39F0A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{595E3549-ACED-4600-9358-96F28F39F0A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{595E3549-ACED-4600-9358-96F28F39F0A5}.Release|x64.ActiveCfg = Release|Any CPU
+		{595E3549-ACED-4600-9358-96F28F39F0A5}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

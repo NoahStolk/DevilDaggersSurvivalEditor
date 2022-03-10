@@ -1,4 +1,3 @@
-using DevilDaggersSurvivalEditor.Core;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 
@@ -11,12 +10,14 @@ namespace DevilDaggersSurvivalEditor.Arena;
 /// </summary>
 public struct ArenaCoord : IEquatable<ArenaCoord>
 {
+	private const int _arenaSize = 51;
+
 	public ArenaCoord(int x, int y)
 	{
-		if (x < 0 || x >= Spawnset.ArenaWidth)
-			throw new ArgumentOutOfRangeException(nameof(x), $"Parameter {nameof(x)} must be positive and not greater than {Spawnset.ArenaWidth - 1}. {nameof(x)} was {x}.");
-		if (y < 0 || y >= Spawnset.ArenaHeight)
-			throw new ArgumentOutOfRangeException(nameof(y), $"Parameter {nameof(y)} must be positive and not greater than {Spawnset.ArenaHeight - 1}. {nameof(y)} was {y}.");
+		if (x < 0 || x >= _arenaSize)
+			throw new ArgumentOutOfRangeException(nameof(x), $"Parameter {nameof(x)} must be positive and not greater than {_arenaSize - 1}. {nameof(x)} was {x}.");
+		if (y < 0 || y >= _arenaSize)
+			throw new ArgumentOutOfRangeException(nameof(y), $"Parameter {nameof(y)} must be positive and not greater than {_arenaSize - 1}. {nameof(y)} was {y}.");
 
 		X = x;
 		Y = y;
@@ -34,12 +35,12 @@ public struct ArenaCoord : IEquatable<ArenaCoord>
 	public double GetDistanceToCanvasPointSquared(int canvasPoint)
 	{
 		int canvasX, canvasY;
-		if (X > Spawnset.ArenaWidth / 2)
+		if (X > _arenaSize / 2)
 			canvasX = X * TileUtils.TileSize + TileUtils.TileSize;
 		else
 			canvasX = X * TileUtils.TileSize;
 
-		if (Y > Spawnset.ArenaHeight / 2)
+		if (Y > _arenaSize / 2)
 			canvasY = Y * TileUtils.TileSize + TileUtils.TileSize;
 		else
 			canvasY = Y * TileUtils.TileSize;

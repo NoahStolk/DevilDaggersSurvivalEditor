@@ -1,4 +1,3 @@
-using DevilDaggersSurvivalEditor.Core;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 
@@ -9,16 +8,21 @@ public class Diamond : AbstractArena
 	private int _diamondHalfWidth = 10;
 	private int _diamondHalfHeight = 10;
 
+	public Diamond(int dimension)
+		: base(dimension)
+	{
+	}
+
 	public int DiamondHalfWidth
 	{
 		get => _diamondHalfWidth;
-		set => _diamondHalfWidth = Math.Clamp(value, 1, Spawnset.ArenaWidth / 2);
+		set => _diamondHalfWidth = Math.Clamp(value, 1, Dimension / 2);
 	}
 
 	public int DiamondHalfHeight
 	{
 		get => _diamondHalfHeight;
-		set => _diamondHalfHeight = Math.Clamp(value, 1, Spawnset.ArenaHeight / 2);
+		set => _diamondHalfHeight = Math.Clamp(value, 1, Dimension / 2);
 	}
 
 	public float Height { get; set; }
@@ -34,7 +38,7 @@ public class Diamond : AbstractArena
 			for (int j = -_diamondHalfHeight; j <= _diamondHalfHeight; j++)
 			{
 				int sum = Math.Abs(i) + Math.Abs(j);
-				tiles[i + Spawnset.ArenaWidth / 2, j + Spawnset.ArenaHeight / 2] = sum > Math.Max(_diamondHalfWidth, _diamondHalfHeight) ? TileUtils.VoidDefault : Height;
+				tiles[i + Dimension / 2, j + Dimension / 2] = sum > Math.Max(_diamondHalfWidth, _diamondHalfHeight) ? TileUtils.VoidDefault : Height;
 			}
 		}
 

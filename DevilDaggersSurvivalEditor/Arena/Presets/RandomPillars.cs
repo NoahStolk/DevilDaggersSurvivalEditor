@@ -1,4 +1,3 @@
-using DevilDaggersSurvivalEditor.Core;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
 
@@ -9,6 +8,11 @@ public class RandomPillars : AbstractRectangularArena
 	private int _minThickness = 1;
 	private int _maxThickness = 2;
 	private int _count = 5;
+
+	public RandomPillars(int dimension)
+		: base(dimension)
+	{
+	}
 
 	public float MinHeight { get; set; } = 5;
 
@@ -49,7 +53,7 @@ public class RandomPillars : AbstractRectangularArena
 			for (int j = min; j < max; j++)
 			{
 				for (int k = min; k < max; k++)
-					tiles[Math.Clamp(x + j, 0, Spawnset.ArenaWidth - 1), Math.Clamp(y + k, 0, Spawnset.ArenaHeight - 1)] = height;
+					tiles[Math.Clamp(x + j, 0, Dimension - 1), Math.Clamp(y + k, 0, Dimension - 1)] = height;
 			}
 		}
 

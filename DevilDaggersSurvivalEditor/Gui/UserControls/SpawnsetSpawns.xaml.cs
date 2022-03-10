@@ -1,5 +1,7 @@
 using DevilDaggersCore.Wpf.Utils;
-using DevilDaggersSurvivalEditor.Core;
+using DevilDaggersInfo.Core.Spawnset;
+using DevilDaggersInfo.Core.Spawnset.Enums;
+using DevilDaggersInfo.Core.Spawnset.Extensions;
 using DevilDaggersSurvivalEditor.Enums;
 using DevilDaggersSurvivalEditor.Gui.Windows;
 using DevilDaggersSurvivalEditor.Spawnsets;
@@ -60,24 +62,27 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 			_spawnControls.Clear();
 			ListBoxSpawns.Items.Clear();
 
-			int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
+			int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetLoopStartIndex();
 			double seconds = 0;
-			int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
+			int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().GemsOrHoming;
 
-			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+			int i = 0;
+			foreach (Spawn kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 			{
-				seconds += kvp.Value.Delay;
-				totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
+				seconds += kvp.Delay;
+				totalGems += kvp.EnemyType.GetNoFarmGems();
 
 				SpawnUserControl spawnControl = new();
-				spawnControl.SetId(kvp.Key + 1);
+				spawnControl.SetId(i + 1);
 				spawnControl.SetSeconds(seconds);
 				spawnControl.SetTotalGems(totalGems);
-				spawnControl.SetSpawn(kvp.Value);
-				spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
+				spawnControl.SetSpawn(kvp);
+				spawnControl.SetIsInLoop(i >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Survival);
 
 				_spawnControls.Add(spawnControl);
 				ListBoxSpawns.Items.Add(spawnControl);
+
+				i++;
 			}
 
 			EndLoopPreview.Update(seconds, totalGems);
@@ -91,44 +96,48 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 	private void InsertSpawnsAt(int startIndex, Spawn[] newSpawns)
 	{
 		// Shift the spawns after the selection.
-		for (int i = SpawnsetHandler.Instance.Spawnset.Spawns.Count - 1; i >= startIndex; i--)
+		for (int i = SpawnsetHandler.Instance.Spawnset.Spawns.Length - 1; i >= startIndex; i--)
 			SpawnsetHandler.Instance.Spawnset.Spawns[i + newSpawns.Length] = SpawnsetHandler.Instance.Spawnset.Spawns[i];
 
 		for (int i = 0; i < newSpawns.Length; i++)
 			SpawnsetHandler.Instance.Spawnset.Spawns[startIndex + i] = newSpawns[i];
 
-		int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
+		int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetLoopStartIndex();
 		double seconds = 0;
-		int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
-		foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+		int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().GemsOrHoming;
+
+		int j = 0;
+		foreach (Spawn kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 		{
-			seconds += kvp.Value.Delay;
-			totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
+			seconds += kvp.Delay;
+			totalGems += kvp.EnemyType.GetNoFarmGems();
 
 			SpawnUserControl spawnControl;
-			if (kvp.Key >= startIndex && kvp.Key < startIndex + newSpawns.Length)
+			if (j >= startIndex && j < startIndex + newSpawns.Length)
 			{
 				spawnControl = new();
-				spawnControl.SetId(kvp.Key + 1);
+				spawnControl.SetId(j + 1);
 				spawnControl.SetSeconds(seconds);
 				spawnControl.SetTotalGems(totalGems);
-				spawnControl.SetSpawn(newSpawns[kvp.Key - startIndex]);
-				_spawnControls.Insert(kvp.Key, spawnControl);
-				ListBoxSpawns.Items.Insert(kvp.Key, spawnControl);
+				spawnControl.SetSpawn(newSpawns[j - startIndex]);
+				_spawnControls.Insert(j, spawnControl);
+				ListBoxSpawns.Items.Insert(j, spawnControl);
 			}
-			else if (kvp.Key >= startIndex + Amount)
+			else if (j >= startIndex + Amount)
 			{
-				spawnControl = _spawnControls[kvp.Key];
-				spawnControl.SetId(kvp.Key + 1);
+				spawnControl = _spawnControls[j];
+				spawnControl.SetId(j + 1);
 				spawnControl.SetSeconds(seconds);
 				spawnControl.SetTotalGems(totalGems);
 			}
 			else
 			{
-				spawnControl = _spawnControls[kvp.Key];
+				spawnControl = _spawnControls[j];
 			}
 
-			spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
+			spawnControl.SetIsInLoop(j >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Survival);
+
+			j++;
 		}
 
 		EndLoopPreview.Update(seconds, totalGems);
@@ -139,28 +148,32 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 	{
 		SpawnsetHandler.Instance.Spawnset.Spawns[startIndex] = spawn;
 
-		int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
+		int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetLoopStartIndex();
 		double seconds = 0;
-		int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
-		foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
-		{
-			seconds += kvp.Value.Delay;
-			totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
+		int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().GemsOrHoming;
 
-			SpawnUserControl spawnControl = _spawnControls[kvp.Key];
-			if (kvp.Key == startIndex)
+		int i = 0;
+		foreach (Spawn kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+		{
+			seconds += kvp.Delay;
+			totalGems += kvp.EnemyType.GetNoFarmGems();
+
+			SpawnUserControl spawnControl = _spawnControls[i];
+			if (i == startIndex)
 			{
 				spawnControl.SetSeconds(seconds);
 				spawnControl.SetTotalGems(totalGems);
 				spawnControl.SetSpawn(spawn);
 			}
-			else if (kvp.Key > startIndex)
+			else if (i > startIndex)
 			{
 				spawnControl.SetSeconds(seconds);
 				spawnControl.SetTotalGems(totalGems);
 			}
 
-			spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
+			spawnControl.SetIsInLoop(i >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Survival);
+
+			i++;
 		}
 
 		EndLoopPreview.Update(seconds, totalGems);
@@ -177,32 +190,36 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 		selections.Reverse();
 		foreach (int selection in selections)
 		{
-			for (int i = selection; i < SpawnsetHandler.Instance.Spawnset.Spawns.Count - 1; i++)
+			for (int i = selection; i < SpawnsetHandler.Instance.Spawnset.Spawns.Length - 1; i++)
 				SpawnsetHandler.Instance.Spawnset.Spawns[i] = SpawnsetHandler.Instance.Spawnset.Spawns[i + 1];
-			SpawnsetHandler.Instance.Spawnset.Spawns.Remove(SpawnsetHandler.Instance.Spawnset.Spawns.Count - 1);
+			SpawnsetHandler.Instance.Spawnset.Spawns.RemoveAt(SpawnsetHandler.Instance.Spawnset.Spawns.Length - 1);
 
 			_spawnControls.RemoveAt(selection);
 			ListBoxSpawns.Items.RemoveAt(selection);
 		}
 
-		int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
+		int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetLoopStartIndex();
 		double seconds = 0;
-		int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
+		int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().GemsOrHoming;
 		int minSelection = selections.Min();
-		foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+
+		int j = 0;
+		foreach (Spawn kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 		{
-			seconds += kvp.Value.Delay;
-			totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
+			seconds += kvp.Delay;
+			totalGems += kvp.EnemyType.GetNoFarmGems();
 
-			SpawnUserControl spawnControl = _spawnControls[kvp.Key];
-			spawnControl.SetIsInLoop(kvp.Key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
+			SpawnUserControl spawnControl = _spawnControls[j];
+			spawnControl.SetIsInLoop(j >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Survival);
 
-			if (kvp.Key < minSelection)
+			if (j < minSelection)
 				continue;
 
-			spawnControl.SetId(kvp.Key + 1);
+			spawnControl.SetId(j + 1);
 			spawnControl.SetSeconds(seconds);
 			spawnControl.SetTotalGems(totalGems);
+
+			j++;
 		}
 
 		SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -220,7 +237,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 	private void UpdateEndLoopWarning()
 	{
 		(double loopLength, double endLoopSpawns) = SpawnsetHandler.Instance.Spawnset.GetEndLoopData();
-		Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default && endLoopSpawns > 0 && loopLength < 0.5, loopLength));
+		Dispatcher.Invoke(() => App.Instance.MainWindow?.UpdateWarningEndLoopLength(SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Survival && endLoopSpawns > 0 && loopLength < 0.5, loopLength));
 	}
 
 	public void UpdateSpawnControlSeconds()
@@ -229,12 +246,15 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 		{
 			double seconds = 0;
 
-			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+			int i = 0;
+			foreach (Spawn kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
 			{
-				seconds += kvp.Value.Delay;
+				seconds += kvp.Delay;
 
-				SpawnUserControl spawnControl = _spawnControls[kvp.Key];
+				SpawnUserControl spawnControl = _spawnControls[i];
 				spawnControl.SetSeconds(seconds);
+
+				i++;
 			}
 
 			EndLoopPreview.UpdateSeconds(seconds);
@@ -245,13 +265,17 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 	{
 		Dispatcher.Invoke(() =>
 		{
-			int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().EffectiveGemsOrHoming;
-			foreach (KeyValuePair<int, Spawn> kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
-			{
-				totalGems += kvp.Value.Enemy?.NoFarmGems ?? 0;
+			int totalGems = SpawnsetHandler.Instance.Spawnset.GetEffectivePlayerSettings().GemsOrHoming;
 
-				SpawnUserControl spawnControl = _spawnControls[kvp.Key];
+			int i = 0;
+			foreach (Spawn kvp in SpawnsetHandler.Instance.Spawnset.Spawns)
+			{
+				totalGems += kvp.EnemyType.GetNoFarmGems();
+
+				SpawnUserControl spawnControl = _spawnControls[i];
 				spawnControl.SetTotalGems(totalGems);
+
+				i++;
 			}
 
 			EndLoopPreview.UpdateGems(totalGems);
@@ -262,11 +286,11 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 	{
 		Dispatcher.Invoke(() =>
 		{
-			int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetEndLoopStartIndex();
-			foreach (int key in SpawnsetHandler.Instance.Spawnset.Spawns.Keys)
+			int endLoopStartIndex = SpawnsetHandler.Instance.Spawnset.GetLoopStartIndex();
+			for (int i = 0; i < SpawnsetHandler.Instance.Spawnset.Spawns.Length; i++)
 			{
-				SpawnUserControl spawnControl = _spawnControls[key];
-				spawnControl.SetIsInLoop(key >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Default);
+				SpawnUserControl spawnControl = _spawnControls[i];
+				spawnControl.SetIsInLoop(i >= endLoopStartIndex && SpawnsetHandler.Instance.Spawnset.GameMode == GameMode.Survival);
 			}
 		});
 	}
@@ -308,7 +332,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 		=> (from object obj in ListBoxSpawns.SelectedItems select ListBoxSpawns.Items.IndexOf(obj)).ToList();
 
 	private void ScrollToEnd()
-		=> ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(SpawnsetHandler.Instance.Spawnset.Spawns.Count - 1));
+		=> ListBoxSpawns.ScrollIntoView(ListBoxSpawns.Items.GetItemAt(SpawnsetHandler.Instance.Spawnset.Spawns.Length - 1));
 
 	#endregion Helpers
 
@@ -337,7 +361,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 		Spawn[] newSpawns = new Spawn[Amount];
 		for (int i = 0; i < Amount; i++)
 			newSpawns[i] = new(Enemy.All.Find(e => e.SpawnsetType == (byte)SelectedEnemy), Delay);
-		InsertSpawnsAt(SpawnsetHandler.Instance.Spawnset.Spawns.Count, newSpawns);
+		InsertSpawnsAt(SpawnsetHandler.Instance.Spawnset.Spawns.Length, newSpawns);
 
 		SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
@@ -362,7 +386,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 
 	private void PasteAdd()
 	{
-		InsertSpawnsAt(SpawnsetHandler.Instance.Spawnset.Spawns.Count, _clipboard.Select(s => s with { }).ToArray());
+		InsertSpawnsAt(SpawnsetHandler.Instance.Spawnset.Spawns.Length, _clipboard.Select(s => s with { }).ToArray());
 
 		SpawnsetHandler.Instance.HasUnsavedChanges = true;
 
@@ -426,7 +450,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 					DelayModificationFunction.Divide => SpawnsetHandler.Instance.Spawnset.Spawns[i].Delay / window.Value,
 					_ => SpawnsetHandler.Instance.Spawnset.Spawns[i].Delay,
 				};
-				EditSpawnAt(i, new Spawn(SpawnsetHandler.Instance.Spawnset.Spawns[i].Enemy, Math.Clamp(delay, 0, SpawnUtils.MaxDelay)));
+				EditSpawnAt(i, new Spawn(SpawnsetHandler.Instance.Spawnset.Spawns[i].EnemyType, Math.Clamp((float)delay, 0, SpawnUtils.MaxDelay)));
 			}
 
 			SpawnsetHandler.Instance.HasUnsavedChanges = true;
@@ -440,7 +464,7 @@ public partial class SpawnsetSpawnsUserControl : UserControl
 
 		List<int> enemyTypes = new();
 		foreach (int selection in selections)
-			enemyTypes.Add(SpawnsetHandler.Instance.Spawnset.Spawns[selection].Enemy?.SpawnsetType ?? -1);
+			enemyTypes.Add(SpawnsetHandler.Instance.Spawnset.Spawns[selection].EnemyType?.SpawnsetType ?? -1);
 		enemyTypes = enemyTypes.Distinct().ToList();
 
 		SwitchEnemyTypeWindow window = new(selections.Count, enemyTypes);
