@@ -337,6 +337,8 @@ public partial class MainWindow : Window
 
 	private void Window_Closing(object sender, CancelEventArgs e)
 	{
+		UserHandler.Instance.SaveSettings();
+
 		e.Cancel = SpawnsetHandler.Instance.ProceedWithUnsavedChanges();
 	}
 }
