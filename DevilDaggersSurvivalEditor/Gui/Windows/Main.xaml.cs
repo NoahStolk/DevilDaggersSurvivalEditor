@@ -304,8 +304,12 @@ public partial class MainWindow : Window
 
 	private static string GetUpdateUrl()
 	{
-		// TODO: Use default for Windows 7.
+#if SELF_CONTAINED
 		const int publishMethod = (int)Clients.ToolPublishMethod.SelfContained;
+#else
+		const int publishMethod = (int)Clients.ToolPublishMethod.Default;
+#endif
+
 		const int buildType = (int)Clients.ToolBuildType.WindowsWpf;
 		return $"{NetworkHandler.BaseUrl}/api/tools/{App.ApplicationName}/file?publishMethod={publishMethod}&buildType={buildType}";
 	}

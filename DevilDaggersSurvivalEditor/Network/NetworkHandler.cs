@@ -38,8 +38,13 @@ public sealed class NetworkHandler
 		{
 			Tool = ApiClient.Tools_GetToolAsync(App.ApplicationName).Result;
 
-			// TODO: Use Default publish method for Windows 7.
-			Distribution = ApiClient.Tools_GetLatestToolDistributionAsync(App.ApplicationName, ToolPublishMethod.SelfContained, ToolBuildType.WindowsWpf).Result;
+#if SELF_CONTAINED
+			const ToolPublishMethod publishMethod = ToolPublishMethod.SelfContained;
+#else
+			const ToolPublishMethod publishMethod = ToolPublishMethod.Default;
+#endif
+
+			Distribution = ApiClient.Tools_GetLatestToolDistributionAsync(App.ApplicationName, publishMethod, ToolBuildType.WindowsWpf).Result;
 
 			return true;
 		}
