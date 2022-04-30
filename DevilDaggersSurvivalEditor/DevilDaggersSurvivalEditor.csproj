@@ -9,7 +9,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <Platforms>x64</Platforms>
-    <PublishSingleFile>true</PublishSingleFile>
+    <PublishSingleFile Condition="'$(Configuration)' == 'Release'">true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
