@@ -28,6 +28,8 @@ public sealed class NetworkHandler
 
 	public GetTool? Tool { get; private set; }
 
+	public GetToolDistribution? Distribution { get; private set; }
+
 	public List<GetSpawnsetDdse> Spawnsets { get; } = new();
 
 	public bool GetOnlineTool()
@@ -35,6 +37,9 @@ public sealed class NetworkHandler
 		try
 		{
 			Tool = ApiClient.Tools_GetToolAsync(App.ApplicationName).Result;
+
+			// TODO: Use Default publish method for Windows 7.
+			Distribution = ApiClient.Tools_GetLatestToolDistributionAsync(App.ApplicationName, ToolPublishMethod.SelfContained, ToolBuildType.WindowsWpf).Result;
 
 			return true;
 		}

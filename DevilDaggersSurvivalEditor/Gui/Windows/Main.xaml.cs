@@ -67,7 +67,7 @@ public partial class MainWindow : Window
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
 		}
 
-		if (NetworkHandler.Instance.Tool != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
+		if (NetworkHandler.Instance.Distribution != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Distribution.VersionNumber))
 		{
 			HelpItem.Header += " (Update available)";
 			HelpItem.FontWeight = FontWeights.Bold;
@@ -275,11 +275,11 @@ public partial class MainWindow : Window
 		CheckingForUpdatesWindow window = new(NetworkHandler.Instance.GetOnlineTool);
 		window.ShowDialog();
 
-		if (NetworkHandler.Instance.Tool != null)
+		if (NetworkHandler.Instance.Distribution != null)
 		{
-			if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
+			if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Distribution.VersionNumber))
 			{
-				UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Tool.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
+				UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Distribution.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
 				updateRecommendedWindow.ShowDialog();
 			}
 			else
@@ -295,9 +295,9 @@ public partial class MainWindow : Window
 
 	private void Window_Loaded(object sender, RoutedEventArgs e)
 	{
-		if (NetworkHandler.Instance.Tool != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
+		if (NetworkHandler.Instance.Distribution != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Distribution.VersionNumber))
 		{
-			UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Tool.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
+			UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Distribution.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
 			updateRecommendedWindow.ShowDialog();
 		}
 	}

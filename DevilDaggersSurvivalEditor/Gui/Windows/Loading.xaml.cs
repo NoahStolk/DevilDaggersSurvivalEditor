@@ -47,7 +47,7 @@ public partial class LoadingWindow : Window
 				string message = string.Empty;
 				SolidColorBrush color;
 
-				if (NetworkHandler.Instance.Tool == null)
+				if (NetworkHandler.Instance.Tool == null || NetworkHandler.Instance.Distribution == null)
 				{
 					message = "Error";
 					color = ColorUtils.ThemeColors["ErrorText"];
@@ -57,7 +57,7 @@ public partial class LoadingWindow : Window
 					message = "Warning (update required)";
 					color = ColorUtils.ThemeColors["WarningText"];
 				}
-				else if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Tool.VersionNumber))
+				else if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Distribution.VersionNumber))
 				{
 					message = "Warning (update recommended)";
 					color = ColorUtils.ThemeColors["SuggestionText"];
