@@ -180,6 +180,7 @@ dotnet_diagnostic.CS1591.severity                                        = none
 
 # StyleCopAnalyzers suppressions
 
+# SA0001: XML comment analysis is disabled due to project configuration.
 # SA1000: The keyword 'new' should be followed by a space. (C# 9)
 # SA1003: Operator should be preceded by whitespace. (C# 9)
 # SA1008: Opening parenthesis should be preceded by a space. (C# 9)
@@ -207,6 +208,7 @@ dotnet_diagnostic.CS1591.severity                                        = none
 # SA1633: The file header is missing or not located at the top of the file.
 # SA1642: Constructor summary documentation should begin with standard text.
 
+dotnet_diagnostic.SA0001.severity                                        = none
 dotnet_diagnostic.SA1000.severity                                        = none
 dotnet_diagnostic.SA1003.severity                                        = none
 dotnet_diagnostic.SA1008.severity                                        = none
