@@ -279,7 +279,7 @@ public partial class MainWindow : Window
 		{
 			if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Distribution.VersionNumber))
 			{
-				UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Distribution.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
+				UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Distribution.VersionNumber, App.LocalVersion.ToString(), GetUpdateUrl(), App.ApplicationDisplayName);
 				updateRecommendedWindow.ShowDialog();
 			}
 			else
@@ -297,9 +297,17 @@ public partial class MainWindow : Window
 	{
 		if (NetworkHandler.Instance.Distribution != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Distribution.VersionNumber))
 		{
-			UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Distribution.VersionNumber, App.LocalVersion.ToString(), App.ApplicationName, App.ApplicationDisplayName);
+			UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Distribution.VersionNumber, App.LocalVersion.ToString(), GetUpdateUrl(), App.ApplicationDisplayName);
 			updateRecommendedWindow.ShowDialog();
 		}
+	}
+
+	private static string GetUpdateUrl()
+	{
+		// TODO: Use default for Windows 7.
+		const int publishMethod = (int)Clients.ToolPublishMethod.SelfContained;
+		const int buildType = (int)Clients.ToolBuildType.WindowsWpf;
+		return $"{NetworkHandler.BaseUrl}/api/tools/{App.ApplicationName}/file?publishMethod={publishMethod}&buildType={buildType}";
 	}
 
 	public void UpdateWarningDevilDaggersRootFolder()
