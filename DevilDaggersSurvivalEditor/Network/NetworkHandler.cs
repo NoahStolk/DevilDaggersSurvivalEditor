@@ -1,5 +1,6 @@
 using DevilDaggersSurvivalEditor.Clients;
 using DevilDaggersSurvivalEditor.Core;
+using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,13 +39,7 @@ public sealed class NetworkHandler
 		{
 			Tool = ApiClient.Tools_GetToolAsync(App.ApplicationName).Result;
 
-#if SELF_CONTAINED
-			const ToolPublishMethod publishMethod = ToolPublishMethod.SelfContained;
-#else
-			const ToolPublishMethod publishMethod = ToolPublishMethod.Default;
-#endif
-
-			Distribution = ApiClient.Tools_GetLatestToolDistributionAsync(App.ApplicationName, publishMethod, ToolBuildType.WindowsWpf).Result;
+			Distribution = ApiClient.Tools_GetLatestToolDistributionAsync(App.ApplicationName, DistributionUtils.GetPublishMethod(), ToolBuildType.WindowsWpf).Result;
 
 			return true;
 		}
