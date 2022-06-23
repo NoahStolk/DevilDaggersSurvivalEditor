@@ -1,7 +1,13 @@
 # DevilDaggersSurvivalEditor ([Download](https://devildaggers.info/api/tools/DevilDaggersSurvivalEditor/file))
+
 DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survival' files (also known as spawnsets) for the game Devil Daggers.
 
+## IMPORTANT
+
+**This version of the program (DDSE 2) is considered legacy and will not receive new features.** Patches may be released until DDSE 2 is fully deprecated and this repository is archived. Visit the [DevilDaggersInfo](https://github.com/NoahStolk/DevilDaggersInfo) repository for future updates.
+
 ## Main features
+
 - Spawnset editor
 - Arena editor with the ability to change tile heights
 - Arena presets
@@ -10,14 +16,17 @@ DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survi
 - Downloading and importing spawnsets directly from [DevilDaggers.info](https://devildaggers.info)
 
 ## System requirements
+
 - Microsoft Windows (64-bit)
 
 ## Installation
+
 1. Download the zip file.
 2. Unzip its contents.
 3. Run DevilDaggersSurvivalEditor.exe inside the folder.
 
 ## Links
+
 - [DevilDaggers.info website](https://devildaggers.info)
 - [Main web page for DevilDaggersSurvivalEditor](https://devildaggers.info/tools/survival-editor)
 - [List of spawnsets](https://devildaggers.info/custom/spawnsets)
@@ -25,6 +34,7 @@ DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survi
 - [Discord server](https://discord.gg/NF32j8S)
 
 ## License
+
 MIT License
 
 Copyright (c) 2018-2022 Noah Stolk
