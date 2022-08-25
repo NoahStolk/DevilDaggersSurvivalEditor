@@ -15,14 +15,14 @@ public static class TileUtils
 	public const float TileMax = 54;
 
 	public const int TileSize = 8;
-	public const int TileSizeShrunk = 4;
+	public const int TileSizeShrunk = 6;
 
 	public static readonly ArenaCoord SpawnTile = new(25, 25);
 
 	public static Brush GetBrushFromHeight(float height)
 	{
 		SolidColorBrush solidColorBrush = new(GetColorFromHeight(height));
-		if (height < InstantShrinkMin || height >= TileMin)
+		if (height is < InstantShrinkMin or >= TileMin)
 			return solidColorBrush;
 
 		return new DrawingBrush
@@ -40,18 +40,35 @@ public static class TileUtils
 
 	public static Color GetColorFromHeight(float height)
 	{
-		if (height < InstantShrinkMin)
-			return Color.FromRgb(0, 0, 0);
+		float h = height * 3 + 12;
+		float s = (height + 1.5f) * 0.25f;
+		float v = (height + 2) * 0.2f;
+		return FromHsv(h, s, v);
+	}
 
-		if (height > TileMax)
-			return Color.FromRgb(0, 160, 255);
+	private static Color FromHsv(float hue, float saturation, float value)
+	{
+		saturation = Math.Clamp(saturation, 0, 1);
+		value = Math.Clamp(value, 0, 1);
 
-		float colorValue = Math.Max(0, (height - TileMin) * 12 + 64);
+		int hi = (int)MathF.Floor(hue / 60) % 6;
+		float f = hue / 60 - MathF.Floor(hue / 60);
 
-		if (height < TileDefault)
-			return Color.FromRgb((byte)(colorValue * (1 + Math.Abs(height * 0.5f))), (byte)(colorValue / 4), (byte)((height - TileMin) * 8));
+		value *= 255;
+		byte v = (byte)value;
+		byte p = (byte)(value * (1 - saturation));
+		byte q = (byte)(value * (1 - f * saturation));
+		byte t = (byte)(value * (1 - (1 - f) * saturation));
 
-		return Color.FromRgb((byte)colorValue, (byte)(colorValue / 2), (byte)((height - TileMin) * 4));
+		return hi switch
+		{
+			0 => Color.FromRgb(v, t, p),
+			1 => Color.FromRgb(q, v, p),
+			2 => Color.FromRgb(p, v, t),
+			3 => Color.FromRgb(p, q, v),
+			4 => Color.FromRgb(t, p, v),
+			_ => Color.FromRgb(v, p, q),
+		};
 	}
 
 	public static string GetStringFromHeight(float height)
