@@ -16,13 +16,13 @@ public class Donut : AbstractEllipseArena
 	public int HoleOffsetX
 	{
 		get => _holeOffsetX;
-		set => _holeOffsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+		set => _holeOffsetX = Math.Clamp(value, -Spawnset.ArenaDimension, Spawnset.ArenaDimension);
 	}
 
 	public int HoleOffsetY
 	{
 		get => _holeOffsetY;
-		set => _holeOffsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+		set => _holeOffsetY = Math.Clamp(value, -Spawnset.ArenaDimension, Spawnset.ArenaDimension);
 	}
 
 	public float HoleInnerRadius
@@ -47,12 +47,12 @@ public class Donut : AbstractEllipseArena
 	{
 		float[,] tiles = CreateArenaArray();
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
 			{
-				if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius, OuterRadius, AngleInDegrees) &&
-					!IsPointInEllipse(Spawnset.ArenaWidth / 2 + HoleOffsetX, Spawnset.ArenaHeight / 2 + HoleOffsetY, i, j, HoleInnerRadius, HoleOuterRadius, HoleAngleInDegrees))
+				if (IsPointInEllipse(Spawnset.ArenaDimension / 2 + OffsetX, Spawnset.ArenaDimension / 2 + OffsetY, i, j, InnerRadius, OuterRadius, AngleInDegrees) &&
+					!IsPointInEllipse(Spawnset.ArenaDimension / 2 + HoleOffsetX, Spawnset.ArenaDimension / 2 + HoleOffsetY, i, j, HoleInnerRadius, HoleOuterRadius, HoleAngleInDegrees))
 				{
 					tiles[i, j] = Height;
 				}

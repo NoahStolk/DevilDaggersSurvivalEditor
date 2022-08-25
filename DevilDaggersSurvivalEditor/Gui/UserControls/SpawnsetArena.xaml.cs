@@ -26,7 +26,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 	private readonly int _arenaCanvasCenter;
 	private readonly int _arenaCenter;
 
-	private readonly Rectangle[,] _tileElements = new Rectangle[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+	private readonly Rectangle[,] _tileElements = new Rectangle[Spawnset.ArenaDimension, Spawnset.ArenaDimension];
 
 	private ArenaCoord _focusedTile;
 	private ArenaCoord _focusedTilePrevious;
@@ -46,7 +46,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 	private double _shrinkEndRadius;
 	private double _shrinkCurrentRadius;
 
-	private readonly WriteableBitmap _normalMap = new(Spawnset.ArenaWidth * TileUtils.TileSize, Spawnset.ArenaHeight * TileUtils.TileSize, 96, 96, PixelFormats.BlackWhite, BitmapPalettes.BlackAndWhite);
+	private readonly WriteableBitmap _normalMap = new(Spawnset.ArenaDimension * TileUtils.TileSize, Spawnset.ArenaDimension * TileUtils.TileSize, 96, 96, PixelFormats.BlackWhite, BitmapPalettes.BlackAndWhite);
 
 	private static readonly Style _toggleRadioButtonStyle = Application.Current.Resources["ToggleRadioButton"] as Style ?? throw new("Could not retrieve style for ToggleRadioButton.");
 
@@ -60,7 +60,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 		imageBrush.ImageSource = _normalMap;
 		_arenaCanvasSize = (int)ArenaTiles.Width;
 		_arenaCanvasCenter = _arenaCanvasSize / 2;
-		_arenaCenter = Spawnset.ArenaWidth / 2;
+		_arenaCenter = Spawnset.ArenaDimension / 2;
 
 		DispatcherTimer mainLoop = new() { Interval = new(0, 0, 0, 0, 16) };
 		mainLoop.Tick += (sender, e) =>
@@ -209,9 +209,9 @@ public partial class SpawnsetArenaUserControl : UserControl
 			ComboBoxArenaPreset.Items.Add(item);
 		}
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
 			{
 				Rectangle tileRectangle = new()
 				{
@@ -336,7 +336,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 		double shrinkEndContainedSquareHalfSize = Math.Sqrt(shrinkEndRadius * shrinkEndRadius * 2) / 2;
 
 		int start = Math.Max(0, _arenaCenter - shrinkStartRadius);
-		int end = Math.Min(Spawnset.ArenaWidth /*or height*/, _arenaCenter + shrinkStartRadius);
+		int end = Math.Min(Spawnset.ArenaDimension, _arenaCenter + shrinkStartRadius);
 
 		for (int i = start; i < end; i++)
 		{
@@ -376,9 +376,9 @@ public partial class SpawnsetArenaUserControl : UserControl
 
 	private void UpdateAllTiles()
 	{
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
 				UpdateTile(new(i, j));
 		}
 	}
@@ -501,7 +501,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 		SelectionEffect.HighlightColor = TileUtils.GetColorFromHeight(_heightSelectorValue).ToPoint4D(0.5f);
 		UpdateSelectionEffectContinuousValues();
 
-		_focusedTile = new(Math.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaWidth - 1), Math.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaHeight - 1));
+		_focusedTile = new(Math.Clamp((int)mousePosition.X / TileUtils.TileSize, 0, Spawnset.ArenaDimension - 1), Math.Clamp((int)mousePosition.Y / TileUtils.TileSize, 0, Spawnset.ArenaDimension - 1));
 		if (_focusedTile == _focusedTilePrevious)
 			return;
 
@@ -681,12 +681,12 @@ public partial class SpawnsetArenaUserControl : UserControl
 
 	private void RotateClockwise_Click(object sender, RoutedEventArgs e)
 	{
-		float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+		float[,] newTiles = new float[Spawnset.ArenaDimension, Spawnset.ArenaDimension];
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
-				newTiles[i, j] = SpawnsetHandler.Instance.Spawnset.ArenaTiles[j, Spawnset.ArenaWidth - 1 - i];
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
+				newTiles[i, j] = SpawnsetHandler.Instance.Spawnset.ArenaTiles[j, Spawnset.ArenaDimension - 1 - i];
 		}
 
 		SpawnsetHandler.Instance.Spawnset.ArenaTiles = newTiles;
@@ -697,12 +697,12 @@ public partial class SpawnsetArenaUserControl : UserControl
 
 	private void RotateCounterClockwise_Click(object sender, RoutedEventArgs e)
 	{
-		float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+		float[,] newTiles = new float[Spawnset.ArenaDimension, Spawnset.ArenaDimension];
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
-				newTiles[i, j] = SpawnsetHandler.Instance.Spawnset.ArenaTiles[Spawnset.ArenaHeight - 1 - j, i];
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
+				newTiles[i, j] = SpawnsetHandler.Instance.Spawnset.ArenaTiles[Spawnset.ArenaDimension - 1 - j, i];
 		}
 
 		SpawnsetHandler.Instance.Spawnset.ArenaTiles = newTiles;
@@ -713,12 +713,12 @@ public partial class SpawnsetArenaUserControl : UserControl
 
 	private void FlipVertical_Click(object sender, RoutedEventArgs e)
 	{
-		float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+		float[,] newTiles = new float[Spawnset.ArenaDimension, Spawnset.ArenaDimension];
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
-				newTiles[i, j] = SpawnsetHandler.Instance.Spawnset.ArenaTiles[i, Spawnset.ArenaHeight - 1 - j];
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
+				newTiles[i, j] = SpawnsetHandler.Instance.Spawnset.ArenaTiles[i, Spawnset.ArenaDimension - 1 - j];
 		}
 
 		SpawnsetHandler.Instance.Spawnset.ArenaTiles = newTiles;
@@ -729,12 +729,12 @@ public partial class SpawnsetArenaUserControl : UserControl
 
 	private void FlipHorizontal_Click(object sender, RoutedEventArgs e)
 	{
-		float[,] newTiles = new float[Spawnset.ArenaWidth, Spawnset.ArenaHeight];
+		float[,] newTiles = new float[Spawnset.ArenaDimension, Spawnset.ArenaDimension];
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
-				newTiles[i, j] = SpawnsetHandler.Instance.Spawnset.ArenaTiles[Spawnset.ArenaWidth - 1 - i, j];
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
+				newTiles[i, j] = SpawnsetHandler.Instance.Spawnset.ArenaTiles[Spawnset.ArenaDimension - 1 - i, j];
 		}
 
 		SpawnsetHandler.Instance.Spawnset.ArenaTiles = newTiles;
@@ -769,9 +769,9 @@ public partial class SpawnsetArenaUserControl : UserControl
 	{
 		bool anyChanges = false;
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
 			{
 				ArenaCoord tile = new(i, j);
 
@@ -792,9 +792,9 @@ public partial class SpawnsetArenaUserControl : UserControl
 
 	private void SelectAll_Click(object sender, RoutedEventArgs e)
 	{
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
 			{
 				ArenaCoord coord = new(i, j);
 				if (!_selections.Contains(coord))
@@ -802,10 +802,10 @@ public partial class SpawnsetArenaUserControl : UserControl
 			}
 		}
 
-		byte[] pixelBytes = new byte[TileUtils.TileSize * TileUtils.TileSize * Spawnset.ArenaWidth * Spawnset.ArenaHeight];
+		byte[] pixelBytes = new byte[TileUtils.TileSize * TileUtils.TileSize * Spawnset.ArenaDimension * Spawnset.ArenaDimension];
 		for (int i = 0; i < pixelBytes.Length; i++)
 			pixelBytes[i] = 0xFF;
-		_normalMap.WritePixels(new(0, 0, TileUtils.TileSize * Spawnset.ArenaWidth, TileUtils.TileSize * Spawnset.ArenaHeight), pixelBytes, TileUtils.TileSize * Spawnset.ArenaWidth, 0);
+		_normalMap.WritePixels(new(0, 0, TileUtils.TileSize * Spawnset.ArenaDimension, TileUtils.TileSize * Spawnset.ArenaDimension), pixelBytes, TileUtils.TileSize * Spawnset.ArenaDimension, 0);
 
 		RandomizeHeightsButton.IsEnabled = true;
 		RoundHeightsButton.IsEnabled = true;
@@ -815,10 +815,10 @@ public partial class SpawnsetArenaUserControl : UserControl
 	{
 		_selections.Clear();
 
-		byte[] pixelBytes = new byte[TileUtils.TileSize * TileUtils.TileSize * Spawnset.ArenaWidth * Spawnset.ArenaHeight];
+		byte[] pixelBytes = new byte[TileUtils.TileSize * TileUtils.TileSize * Spawnset.ArenaDimension * Spawnset.ArenaDimension];
 		for (int i = 0; i < pixelBytes.Length; i++)
 			pixelBytes[i] = 0x00;
-		_normalMap.WritePixels(new(0, 0, TileUtils.TileSize * Spawnset.ArenaWidth, TileUtils.TileSize * Spawnset.ArenaHeight), pixelBytes, TileUtils.TileSize * Spawnset.ArenaWidth, 0);
+		_normalMap.WritePixels(new(0, 0, TileUtils.TileSize * Spawnset.ArenaDimension, TileUtils.TileSize * Spawnset.ArenaDimension), pixelBytes, TileUtils.TileSize * Spawnset.ArenaDimension, 0);
 
 		RandomizeHeightsButton.IsEnabled = false;
 		RoundHeightsButton.IsEnabled = false;

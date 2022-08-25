@@ -58,7 +58,7 @@ public class RandomGaps : AbstractRectangularArena
 								SetNeighbour(coord);
 						}
 
-						if (j < Spawnset.ArenaWidth - 1)
+						if (j < Spawnset.ArenaDimension - 1)
 						{
 							ArenaCoord coord = new(j + 1, k);
 							if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))
@@ -72,7 +72,7 @@ public class RandomGaps : AbstractRectangularArena
 								SetNeighbour(coord);
 						}
 
-						if (k < Spawnset.ArenaHeight - 1)
+						if (k < Spawnset.ArenaDimension - 1)
 						{
 							ArenaCoord coord = new(j, k + 1);
 							if (RandomUtils.Chance(50) && !gapTiles.Contains(coord))

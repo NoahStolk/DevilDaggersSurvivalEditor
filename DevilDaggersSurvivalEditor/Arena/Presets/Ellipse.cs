@@ -10,11 +10,11 @@ public class Ellipse : AbstractEllipseArena
 	{
 		float[,] tiles = CreateArenaArray();
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
 			{
-				if (IsPointInEllipse(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY, i, j, InnerRadius, OuterRadius, AngleInDegrees))
+				if (IsPointInEllipse(Spawnset.ArenaDimension / 2 + OffsetX, Spawnset.ArenaDimension / 2 + OffsetY, i, j, InnerRadius, OuterRadius, AngleInDegrees))
 					tiles[i, j] = Height;
 			}
 		}

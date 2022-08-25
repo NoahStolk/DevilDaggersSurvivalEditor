@@ -10,8 +10,7 @@ public class Spawnset
 	public const int ArenaBufferSize = 10404; // ArenaWidth * ArenaHeight * TileBufferSize (51 * 51 * 4 = 10404)
 	public const int SpawnBufferSize = 28; // The amount of bytes per spawn
 
-	public const int ArenaWidth = 51;
-	public const int ArenaHeight = 51;
+	public const int ArenaDimension = 51;
 
 	public Spawnset()
 	{
@@ -36,7 +35,7 @@ public class Spawnset
 	}
 
 	public SortedDictionary<int, Spawn> Spawns { get; set; } = new();
-	public float[,] ArenaTiles { get; set; } = new float[ArenaWidth, ArenaHeight];
+	public float[,] ArenaTiles { get; set; } = new float[ArenaDimension, ArenaDimension];
 
 	public int SpawnVersion { get; set; } = 6;
 	public int WorldVersion { get; set; } = 9;
@@ -194,11 +193,11 @@ public class Spawnset
 			byte[] arenaBuffer = new byte[ArenaBufferSize];
 			Buffer.BlockCopy(spawnsetFileBytes, HeaderBufferSize, arenaBuffer, 0, ArenaBufferSize);
 
-			float[,] arenaTiles = new float[ArenaWidth, ArenaHeight];
+			float[,] arenaTiles = new float[ArenaDimension, ArenaDimension];
 			for (int i = 0; i < arenaBuffer.Length; i += 4)
 			{
-				int x = i / 4 % ArenaHeight;
-				int y = i / (ArenaWidth * 4);
+				int x = i / 4 % ArenaDimension;
+				int y = i / (ArenaDimension * 4);
 				arenaTiles[x, y] = BitConverter.ToSingle(arenaBuffer, i);
 			}
 
@@ -279,8 +278,8 @@ public class Spawnset
 			byte[] arenaBuffer = new byte[ArenaBufferSize];
 			for (int i = 0; i < arenaBuffer.Length; i += 4)
 			{
-				int x = i / 4 % ArenaHeight;
-				int y = i / (ArenaWidth * 4);
+				int x = i / 4 % ArenaDimension;
+				int y = i / (ArenaDimension * 4);
 
 				byte[] tileBytes = BitConverter.GetBytes(ArenaTiles[x, y]);
 

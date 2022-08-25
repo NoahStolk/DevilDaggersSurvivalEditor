@@ -14,13 +14,13 @@ public abstract class AbstractEllipseArena : AbstractArena
 	public int OffsetX
 	{
 		get => _offsetX;
-		set => _offsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+		set => _offsetX = Math.Clamp(value, -Spawnset.ArenaDimension, Spawnset.ArenaDimension);
 	}
 
 	public int OffsetY
 	{
 		get => _offsetY;
-		set => _offsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+		set => _offsetY = Math.Clamp(value, -Spawnset.ArenaDimension, Spawnset.ArenaDimension);
 	}
 
 	public float InnerRadius

@@ -23,8 +23,8 @@ public class Default : AbstractArena
 
 		for (int i = 0; i < defaultArenaBuffer.Length; i += 4)
 		{
-			int x = i / (Spawnset.ArenaWidth * 4);
-			int y = i / 4 % Spawnset.ArenaHeight;
+			int x = i / (Spawnset.ArenaDimension * 4);
+			int y = i / 4 % Spawnset.ArenaDimension;
 			tiles[x, y] = BitConverter.ToSingle(defaultArenaBuffer, i);
 		}
 

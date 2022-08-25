@@ -13,11 +13,11 @@ public class Hill : AbstractEllipseArena
 	{
 		float[,] tiles = CreateArenaArray();
 
-		ArenaCoord center = new(Spawnset.ArenaWidth / 2 + OffsetX, Spawnset.ArenaHeight / 2 + OffsetY);
+		ArenaCoord center = new(Spawnset.ArenaDimension / 2 + OffsetX, Spawnset.ArenaDimension / 2 + OffsetY);
 
-		for (int i = 0; i < Spawnset.ArenaWidth; i++)
+		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
-			for (int j = 0; j < Spawnset.ArenaHeight; j++)
+			for (int j = 0; j < Spawnset.ArenaDimension; j++)
 			{
 				if (IsPointInEllipse(center.X, center.Y, i, j, InnerRadius, OuterRadius, AngleInDegrees))
 				{

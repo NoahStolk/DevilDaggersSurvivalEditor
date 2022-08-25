@@ -13,10 +13,10 @@ public struct ArenaCoord : IEquatable<ArenaCoord>
 {
 	public ArenaCoord(int x, int y)
 	{
-		if (x < 0 || x >= Spawnset.ArenaWidth)
-			throw new ArgumentOutOfRangeException(nameof(x), $"Parameter {nameof(x)} must be positive and not greater than {Spawnset.ArenaWidth - 1}. {nameof(x)} was {x}.");
-		if (y < 0 || y >= Spawnset.ArenaHeight)
-			throw new ArgumentOutOfRangeException(nameof(y), $"Parameter {nameof(y)} must be positive and not greater than {Spawnset.ArenaHeight - 1}. {nameof(y)} was {y}.");
+		if (x < 0 || x >= Spawnset.ArenaDimension)
+			throw new ArgumentOutOfRangeException(nameof(x), $"Parameter {nameof(x)} must be positive and not greater than {Spawnset.ArenaDimension - 1}. {nameof(x)} was {x}.");
+		if (y < 0 || y >= Spawnset.ArenaDimension)
+			throw new ArgumentOutOfRangeException(nameof(y), $"Parameter {nameof(y)} must be positive and not greater than {Spawnset.ArenaDimension - 1}. {nameof(y)} was {y}.");
 
 		X = x;
 		Y = y;

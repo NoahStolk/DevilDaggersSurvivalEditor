@@ -11,13 +11,13 @@ public class Qbert : AbstractRectangularArena
 	public int OffsetX
 	{
 		get => _offsetX;
-		set => _offsetX = Math.Clamp(value, -Spawnset.ArenaWidth, Spawnset.ArenaWidth);
+		set => _offsetX = Math.Clamp(value, -Spawnset.ArenaDimension, Spawnset.ArenaDimension);
 	}
 
 	public int OffsetY
 	{
 		get => _offsetY;
-		set => _offsetY = Math.Clamp(value, -Spawnset.ArenaHeight, Spawnset.ArenaHeight);
+		set => _offsetY = Math.Clamp(value, -Spawnset.ArenaDimension, Spawnset.ArenaDimension);
 	}
 
 	public float StartHeight { get; set; } = -1;
@@ -33,7 +33,7 @@ public class Qbert : AbstractRectangularArena
 		for (int i = X1; i < X2; i++)
 		{
 			for (int j = Y1; j < Y2; j++)
-				tiles[i + OffsetX, j + OffsetY] = EndHeight + (Math.Abs(i - Spawnset.ArenaWidth / 2) * stepX + Math.Abs(j - Spawnset.ArenaHeight / 2) * stepY);
+				tiles[i + OffsetX, j + OffsetY] = EndHeight + (Math.Abs(i - Spawnset.ArenaDimension / 2) * stepX + Math.Abs(j - Spawnset.ArenaDimension / 2) * stepY);
 		}
 
 		return tiles;

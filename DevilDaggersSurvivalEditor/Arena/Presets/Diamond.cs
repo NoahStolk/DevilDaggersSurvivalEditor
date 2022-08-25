@@ -12,13 +12,13 @@ public class Diamond : AbstractArena
 	public int DiamondHalfWidth
 	{
 		get => _diamondHalfWidth;
-		set => _diamondHalfWidth = Math.Clamp(value, 1, Spawnset.ArenaWidth / 2);
+		set => _diamondHalfWidth = Math.Clamp(value, 1, Spawnset.ArenaDimension / 2);
 	}
 
 	public int DiamondHalfHeight
 	{
 		get => _diamondHalfHeight;
-		set => _diamondHalfHeight = Math.Clamp(value, 1, Spawnset.ArenaHeight / 2);
+		set => _diamondHalfHeight = Math.Clamp(value, 1, Spawnset.ArenaDimension / 2);
 	}
 
 	public float Height { get; set; }
@@ -34,7 +34,7 @@ public class Diamond : AbstractArena
 			for (int j = -_diamondHalfHeight; j <= _diamondHalfHeight; j++)
 			{
 				int sum = Math.Abs(i) + Math.Abs(j);
-				tiles[i + Spawnset.ArenaWidth / 2, j + Spawnset.ArenaHeight / 2] = sum > Math.Max(_diamondHalfWidth, _diamondHalfHeight) ? TileUtils.VoidDefault : Height;
+				tiles[i + Spawnset.ArenaDimension / 2, j + Spawnset.ArenaDimension / 2] = sum > Math.Max(_diamondHalfWidth, _diamondHalfHeight) ? TileUtils.VoidDefault : Height;
 			}
 		}
 
