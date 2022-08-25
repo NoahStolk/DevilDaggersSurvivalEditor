@@ -1,6 +1,7 @@
 using DevilDaggersSurvivalEditor.Core;
 using DevilDaggersSurvivalEditor.Utils;
 using System;
+using System.Numerics;
 
 namespace DevilDaggersSurvivalEditor.Arena;
 
@@ -31,22 +32,9 @@ public struct ArenaCoord : IEquatable<ArenaCoord>
 	public static bool operator !=(ArenaCoord a, ArenaCoord b)
 		=> !(a == b);
 
-	public double GetDistanceToCanvasPointSquared(int canvasPoint)
+	public bool IsOutsideOfRadius(double radius)
 	{
-		int canvasX, canvasY;
-		if (X > Spawnset.ArenaWidth / 2)
-			canvasX = X * TileUtils.TileSize + TileUtils.TileSize;
-		else
-			canvasX = X * TileUtils.TileSize;
-
-		if (Y > Spawnset.ArenaHeight / 2)
-			canvasY = Y * TileUtils.TileSize + TileUtils.TileSize;
-		else
-			canvasY = Y * TileUtils.TileSize;
-
-		int xFromCenter = canvasX - canvasPoint;
-		int yFromCenter = canvasY - canvasPoint;
-		return xFromCenter * xFromCenter + yFromCenter * yFromCenter;
+		return Vector2.Distance(default, new Vector2(X - 25, Y - 25)) > radius;
 	}
 
 	public override string ToString()

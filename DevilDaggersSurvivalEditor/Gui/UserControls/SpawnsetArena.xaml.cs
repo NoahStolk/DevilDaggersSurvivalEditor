@@ -409,8 +409,8 @@ public partial class SpawnsetArenaUserControl : UserControl
 		rect.Fill = TileUtils.GetBrushFromHeight(height);
 
 		// Set tile size.
-		double distance = tile.GetDistanceToCanvasPointSquared(_arenaCanvasCenter);
-		if (distance <= ShrinkCurrent.Width * ShrinkCurrent.Width / 4)
+		double currentShrink = _shrinkStartRadius - ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (_shrinkStartRadius - _shrinkEndRadius);
+		if (!tile.IsOutsideOfRadius(currentShrink))
 		{
 			if (rect.Width == TileUtils.TileSize)
 				return;
@@ -774,15 +774,16 @@ public partial class SpawnsetArenaUserControl : UserControl
 			for (int j = 0; j < Spawnset.ArenaDimension; j++)
 			{
 				ArenaCoord tile = new(i, j);
+				bool outsideShrinkStart = tile.IsOutsideOfRadius(ShrinkStart.Width);
+				if (!outsideShrinkStart)
+					continue;
 
-				double distance = tile.GetDistanceToCanvasPointSquared(_arenaCanvasCenter);
-				float height = SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y];
-				if (height >= TileUtils.InstantShrinkMin && distance > ShrinkStart.Width * ShrinkStart.Width / 4)
-				{
-					SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
-					UpdateTile(tile);
-					anyChanges = true;
-				}
+				if (SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.InstantShrinkMin)
+					continue;
+
+				SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
+				UpdateTile(tile);
+				anyChanges = true;
 			}
 		}
 
