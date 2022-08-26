@@ -769,16 +769,14 @@ public partial class SpawnsetArenaUserControl : UserControl
 	{
 		bool anyChanges = false;
 
+		double currentShrink = _shrinkStartRadius - ShrinkCurrentSlider.Value / ShrinkCurrentSlider.Maximum * (_shrinkStartRadius - _shrinkEndRadius);
 		for (int i = 0; i < Spawnset.ArenaDimension; i++)
 		{
 			for (int j = 0; j < Spawnset.ArenaDimension; j++)
 			{
 				ArenaCoord tile = new(i, j);
-				bool outsideShrinkStart = tile.IsOutsideOfRadius(ShrinkStart.Width);
-				if (!outsideShrinkStart)
-					continue;
-
-				if (SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.InstantShrinkMin)
+				bool outsideShrinkStart = tile.IsOutsideOfRadius(currentShrink);
+				if (!outsideShrinkStart || SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] < TileUtils.InstantShrinkMin)
 					continue;
 
 				SpawnsetHandler.Instance.Spawnset.ArenaTiles[tile.X, tile.Y] = TileUtils.VoidDefault;
