@@ -4,7 +4,7 @@ DevilDaggersSurvivalEditor is a tool that lets you create, view, and edit 'survi
 
 ## IMPORTANT
 
-**This version of the program (DDSE 2) is considered legacy and will not receive new features.** Patches may be released until DDSE 2 is fully deprecated and this repository is archived. Visit the [DevilDaggersInfo](https://github.com/NoahStolk/DevilDaggersInfo) repository for future updates.
+**This version of the program (DDSE 2) is considered legacy and will not receive new features.** Patches may be released until DDSE 2 is fully deprecated. Visit the [ddinfo-tools](https://github.com/NoahStolk/ddinfo-tools) repository for a much improved, cross-platform alternative.
 
 ## Main features
 
