@@ -10,21 +10,21 @@ namespace DevilDaggersSurvivalEditor.Network;
 public sealed class NetworkHandler
 {
 #if TESTING
-	public static readonly string BaseUrl = "https://localhost:44318";
+	private const string _baseUrl = "https://localhost:44318";
 #else
-	public static readonly string BaseUrl = "https://devildaggers.info";
+	private const string _baseUrl = "https://devildaggers.info";
 #endif
 
 	private static readonly Lazy<NetworkHandler> _lazy = new(() => new());
 
+	private readonly DevilDaggersInfoApiClient _apiClient;
+
 	private NetworkHandler()
 	{
-		ApiClient = new(new() { BaseAddress = new(BaseUrl) });
+		_apiClient = new(new() { BaseAddress = new(_baseUrl) });
 	}
 
 	public static NetworkHandler Instance => _lazy.Value;
-
-	public DevilDaggersInfoApiClient ApiClient { get; }
 
 	public List<GetSpawnsetDdse> Spawnsets { get; } = new();
 
@@ -33,7 +33,7 @@ public sealed class NetworkHandler
 		try
 		{
 			Spawnsets.Clear();
-			Spawnsets.AddRange(await ApiClient.Spawnsets_GetSpawnsetsForDdseAsync());
+			Spawnsets.AddRange(await _apiClient.Spawnsets_GetSpawnsetsAsync());
 
 			return true;
 		}
@@ -44,13 +44,13 @@ public sealed class NetworkHandler
 		}
 	}
 
-	public async Task<Spawnset?> DownloadSpawnset(string fileName)
+	public async Task<Spawnset?> DownloadSpawnset(int spawnsetId)
 	{
 		try
 		{
-			using FileResponse fileResponse = await ApiClient.Spawnsets_GetSpawnsetFileAsync(fileName);
-			using MemoryStream memoryStream = new();
-			fileResponse.Stream.CopyTo(memoryStream);
+			using FileResponse fileResponse = await _apiClient.Spawnsets_GetSpawnsetFileAsync(spawnsetId);
+			await using MemoryStream memoryStream = new();
+			await fileResponse.Stream.CopyToAsync(memoryStream);
 			byte[] bytes = memoryStream.ToArray();
 			if (!Spawnset.TryParse(bytes, out Spawnset spawnset))
 				App.Instance.ShowError("Error parsing file", "Could not parse file.");
