@@ -1,6 +1,5 @@
 using DevilDaggersSurvivalEditor.Clients;
 using DevilDaggersSurvivalEditor.Core;
-using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,28 +26,7 @@ public sealed class NetworkHandler
 
 	public DevilDaggersInfoApiClient ApiClient { get; }
 
-	public GetTool? Tool { get; private set; }
-
-	public GetToolDistribution? Distribution { get; private set; }
-
 	public List<GetSpawnsetDdse> Spawnsets { get; } = new();
-
-	public bool GetOnlineTool()
-	{
-		try
-		{
-			Tool = ApiClient.Tools_GetToolAsync(App.ApplicationName).Result;
-
-			Distribution = ApiClient.Tools_GetLatestToolDistributionAsync(App.ApplicationName, DistributionUtils.GetPublishMethod(), ToolBuildType.WindowsWpf).Result;
-
-			return true;
-		}
-		catch (Exception ex)
-		{
-			App.Instance.ShowError("Error retrieving tool information", "An error occurred while attempting to retrieve tool information from the API.", ex);
-			return false;
-		}
-	}
 
 	public async Task<bool> RetrieveSpawnsetList()
 	{

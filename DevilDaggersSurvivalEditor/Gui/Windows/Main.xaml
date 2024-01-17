@@ -6,7 +6,7 @@
 		xmlns:usercontrols="clr-namespace:DevilDaggersSurvivalEditor.Gui.UserControls"
 		xmlns:windows="clr-namespace:DevilDaggersSurvivalEditor.Gui.Windows"
 		mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" Closing="Window_Closing" Loaded="Window_Loaded">
+        WindowStartupLocation="CenterScreen" Closing="Window_Closing">
 	<Window.CommandBindings>
 		<CommandBinding Command="windows:MainWindow.NewCommand" CanExecute="CanExecute" Executed="New_Executed" />
 		<CommandBinding Command="windows:MainWindow.OpenCommand" CanExecute="CanExecute" Executed="Open_Executed" />
@@ -52,7 +52,6 @@
 					<MenuItem Header="About" Click="About_Click" />
 					<MenuItem Header="Changelog" Click="Changelog_Click" />
 					<MenuItem Header="View source code" Click="ViewSourceCode_Click" />
-					<MenuItem Header="Check for updates" Name="UpdateItem" Click="CheckForUpdates_Click" />
 				</MenuItem>
 			</Menu>
 		</DockPanel>
