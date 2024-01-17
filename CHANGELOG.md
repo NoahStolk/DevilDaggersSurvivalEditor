@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.47.0.0] - 2024-01-17
+
+This is an API compatibility update. Older versions will soon stop working.
+
+- The application now uses the latest API endpoints so that it can continue to function.
+- The application no longer checks for updates.
+- The application no longer displays the changelog.
+
 ## [2.46.1.0] - 2022-08-26
 
 - The arena shrink preview is now accurate. This also applies to the 'Set tiles outside of arena shrink start to void` button.
