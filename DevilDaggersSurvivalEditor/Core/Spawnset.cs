@@ -69,9 +69,6 @@ public class Spawnset
 		_ => 0,
 	};
 
-	public bool HasSpawns()
-		=> Spawns.Values.Any(s => s.Enemy != null);
-
 	public int GetEndLoopStartIndex()
 	{
 		for (int i = Spawns.Count - 1; i >= 0; i--)
@@ -100,9 +97,6 @@ public class Spawnset
 			yield return endGameSecond;
 		}
 	}
-
-	public static bool IsEmptySpawn(int enemyType)
-		=> enemyType < 0 || enemyType > 9;
 
 	public (byte EffectiveHand, int EffectiveGemsOrHoming, byte HandModel) GetEffectivePlayerSettings()
 		=> GetEffectivePlayerSettings(Hand, AdditionalGems);
@@ -139,9 +133,6 @@ public class Spawnset
 
 		return (4, additionalGems, 4);
 	}
-
-	public string GetGameVersionString()
-		=> GetGameVersionString(WorldVersion, SpawnVersion);
 
 	public static string GetGameVersionString(int worldVersion, int spawnVersion)
 		=> worldVersion == 8 ? "V0 / V1" : spawnVersion == 4 ? "V2 / V3" : "V3.1 / V3.2";

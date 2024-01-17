@@ -63,7 +63,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 		_arenaCenter = Spawnset.ArenaDimension / 2;
 
 		DispatcherTimer mainLoop = new() { Interval = new(0, 0, 0, 0, 16) };
-		mainLoop.Tick += (sender, e) =>
+		mainLoop.Tick += (_, _) =>
 		{
 			UpdateSelectionEffectContinuousValues();
 
@@ -106,7 +106,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 				IsChecked = i == 0,
 				Style = _toggleRadioButtonStyle,
 			};
-			heightRadioButton.Checked += (sender, e) =>
+			heightRadioButton.Checked += (sender, _) =>
 			{
 				if (sender is not RadioButton r)
 					return;
@@ -134,7 +134,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 			{
 				float height = i * 9 + j + 1;
 				RadioButton heightRadioButton = new() { Margin = default, Background = TileUtils.GetBrushFromHeight(height), ToolTip = height.ToString(), Tag = height, Style = _toggleRadioButtonStyle };
-				heightRadioButton.Checked += (sender, e) =>
+				heightRadioButton.Checked += (sender, _) =>
 				{
 					if (sender is not RadioButton r)
 						return;
@@ -166,7 +166,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 				IsChecked = tileAction == 0,
 				Style = _toggleRadioButtonStyle,
 			};
-			radioButton.Checked += (sender, e) =>
+			radioButton.Checked += (sender, _) =>
 			{
 				if (sender is not RadioButton r)
 					return;
@@ -190,7 +190,7 @@ public partial class SpawnsetArenaUserControl : UserControl
 				IsChecked = tileSelection == 0,
 				Style = _toggleRadioButtonStyle,
 			};
-			radioButton.Checked += (sender, e) => _tileSelection = tileSelection;
+			radioButton.Checked += (_, _) => _tileSelection = tileSelection;
 
 			_tileSelectionRadioButtons.Add(radioButton);
 			TileSelectionsStackPanel.Children.Add(radioButton);

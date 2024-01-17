@@ -33,7 +33,7 @@ public partial class MainWindow : Window
 		App.Instance.MainWindow = this;
 		App.Instance.UpdateMainWindowTitle();
 
-		Closed += (sender, e) => Application.Current.Shutdown();
+		Closed += (_, _) => Application.Current.Shutdown();
 
 		WarningVoidSpawn.Text = $"The tile at coordinate {TileUtils.SpawnTile} (player spawn) is void, meaning the player will die instantly. You can prevent this from happening in the Options > Settings menu.";
 
@@ -64,7 +64,7 @@ public partial class MainWindow : Window
 
 #if DEBUG
 		MenuItem debugItem = new() { Header = "Open debug window" };
-		debugItem.Click += (sender, e) =>
+		debugItem.Click += (_, _) =>
 		{
 			DebugWindow debugWindow = new();
 			debugWindow.ShowDialog();

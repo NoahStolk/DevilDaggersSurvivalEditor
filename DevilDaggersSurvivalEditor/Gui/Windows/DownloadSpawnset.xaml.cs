@@ -239,9 +239,8 @@ public partial class DownloadSpawnsetWindow : Window
 
 			byte effectiveHand = 0;
 			int effectiveGemsOrHoming = 0;
-			byte handModel = 0;
 			if (spawnsetFile.SpawnsetData.Hand.HasValue && spawnsetFile.SpawnsetData.AdditionalGems.HasValue)
-				(effectiveHand, effectiveGemsOrHoming, handModel) = Spawnset.GetEffectivePlayerSettings(spawnsetFile.SpawnsetData.Hand.Value, spawnsetFile.SpawnsetData.AdditionalGems.Value);
+				(effectiveHand, effectiveGemsOrHoming, _) = Spawnset.GetEffectivePlayerSettings(spawnsetFile.SpawnsetData.Hand.Value, spawnsetFile.SpawnsetData.AdditionalGems.Value);
 
 			grid.TextBlocks[0].Text = spawnsetFile.AuthorName;
 			grid.TextBlocks[1].Text = spawnsetFile.LastUpdated.ToString("dd MMM yyyy");
