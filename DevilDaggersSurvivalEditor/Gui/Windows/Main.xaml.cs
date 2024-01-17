@@ -226,12 +226,6 @@ public partial class MainWindow : Window
 		aboutWindow.ShowDialog();
 	}
 
-	private void Changelog_Click(object sender, RoutedEventArgs e)
-	{
-		MessageWindow mw = new("Changelog", "The changelog is available on GitHub.");
-		mw.ShowDialog();
-	}
-
 	private void ViewSourceCode_Click(object sender, RoutedEventArgs e)
 		=> ProcessUtils.OpenUrl(UrlUtils.SourceCode);
 

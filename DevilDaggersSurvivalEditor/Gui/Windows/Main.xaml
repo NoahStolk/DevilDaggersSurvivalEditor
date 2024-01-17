@@ -50,7 +50,6 @@
 				<MenuItem Header="Help" Name="HelpItem">
 					<MenuItem Header="Help" Click="Help_Click" />
 					<MenuItem Header="About" Click="About_Click" />
-					<MenuItem Header="Changelog" Click="Changelog_Click" />
 					<MenuItem Header="View source code" Click="ViewSourceCode_Click" />
 				</MenuItem>
 			</Menu>
