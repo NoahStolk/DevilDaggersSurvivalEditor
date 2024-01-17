@@ -233,15 +233,14 @@ public partial class DownloadSpawnsetWindow : Window
 			if (grid.Hyperlink.Tag is RoutedEventHandler oldEvent)
 				grid.Hyperlink.Click -= oldEvent;
 
-			RoutedEventHandler newEvent = (_, _) => Download_Click(spawnsetFile.Name);
+			RoutedEventHandler newEvent = (_, _) => Download_Click(spawnsetFile.Id, spawnsetFile.Name);
 			grid.Hyperlink.Tag = newEvent;
 			grid.Hyperlink.Click += newEvent;
 
 			byte effectiveHand = 0;
 			int effectiveGemsOrHoming = 0;
-			byte handModel = 0;
 			if (spawnsetFile.SpawnsetData.Hand.HasValue && spawnsetFile.SpawnsetData.AdditionalGems.HasValue)
-				(effectiveHand, effectiveGemsOrHoming, handModel) = Spawnset.GetEffectivePlayerSettings(spawnsetFile.SpawnsetData.Hand.Value, spawnsetFile.SpawnsetData.AdditionalGems.Value);
+				(effectiveHand, effectiveGemsOrHoming, _) = Spawnset.GetEffectivePlayerSettings(spawnsetFile.SpawnsetData.Hand.Value, spawnsetFile.SpawnsetData.AdditionalGems.Value);
 
 			grid.TextBlocks[0].Text = spawnsetFile.AuthorName;
 			grid.TextBlocks[1].Text = spawnsetFile.LastUpdated.ToString("dd MMM yyyy");
@@ -261,7 +260,7 @@ public partial class DownloadSpawnsetWindow : Window
 
 	#region Events
 
-	private void Download_Click(string fileName)
+	private void Download_Click(int spawnsetId, string fileName)
 	{
 		if (SpawnsetHandler.Instance.ProceedWithUnsavedChanges())
 			return;
@@ -271,9 +270,9 @@ public partial class DownloadSpawnsetWindow : Window
 		Spawnset? downloadedSpawnset = null;
 
 		using BackgroundWorker thread = new();
-		thread.DoWork += (senderDoWork, eDoWork) =>
+		thread.DoWork += (_, _) =>
 		{
-			Task<Spawnset?> downloadTask = NetworkHandler.Instance.DownloadSpawnset(fileName);
+			Task<Spawnset?> downloadTask = NetworkHandler.Instance.DownloadSpawnset(spawnsetId);
 			downloadTask.Wait();
 			downloadedSpawnset = downloadTask.Result;
 
@@ -283,7 +282,7 @@ public partial class DownloadSpawnsetWindow : Window
 				SpawnsetHandler.Instance.UpdateSpawnsetState(fileName, string.Empty);
 			}
 		};
-		thread.RunWorkerCompleted += (senderRunWorkerCompleted, eRunWorkerCompleted) =>
+		thread.RunWorkerCompleted += (_, _) =>
 		{
 			if (downloadedSpawnset == null)
 				return;
@@ -322,12 +321,12 @@ public partial class DownloadSpawnsetWindow : Window
 		ReloadButton.Content = "Loading...";
 
 		using BackgroundWorker thread = new();
-		thread.DoWork += (senderDoWork, eDoWork) =>
+		thread.DoWork += (_, _) =>
 		{
 			Task spawnsetsTask = NetworkHandler.Instance.RetrieveSpawnsetList();
 			spawnsetsTask.Wait();
 		};
-		thread.RunWorkerCompleted += (senderRunWorkerCompleted, eRunWorkerCompleted) =>
+		thread.RunWorkerCompleted += (_, _) =>
 		{
 			UpdateSpawnsets();
 			UpdatePageLabel();

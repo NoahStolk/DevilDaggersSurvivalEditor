@@ -1,17 +1,12 @@
-using DevilDaggersCore.Wpf.Models;
 using DevilDaggersCore.Wpf.Windows;
 using DevilDaggersSurvivalEditor.Arena;
 using DevilDaggersSurvivalEditor.Core;
-using DevilDaggersSurvivalEditor.Network;
 using DevilDaggersSurvivalEditor.Spawnsets;
 using DevilDaggersSurvivalEditor.User;
 using DevilDaggersSurvivalEditor.Utils;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -38,7 +33,7 @@ public partial class MainWindow : Window
 		App.Instance.MainWindow = this;
 		App.Instance.UpdateMainWindowTitle();
 
-		Closed += (sender, e) => Application.Current.Shutdown();
+		Closed += (_, _) => Application.Current.Shutdown();
 
 		WarningVoidSpawn.Text = $"The tile at coordinate {TileUtils.SpawnTile} (player spawn) is void, meaning the player will die instantly. You can prevent this from happening in the Options > Settings menu.";
 
@@ -67,25 +62,9 @@ public partial class MainWindow : Window
 			SpawnsetHandler.Instance.UpdateSpawnsetState("(survival)", UserHandler.Instance.Settings.SurvivalFileLocation);
 		}
 
-		if (NetworkHandler.Instance.Distribution != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Distribution.VersionNumber))
-		{
-			HelpItem.Header += " (Update available)";
-			HelpItem.FontWeight = FontWeights.Bold;
-
-			foreach (MenuItem? menuItem in HelpItem.Items)
-			{
-				if (menuItem == null)
-					continue;
-				menuItem.FontWeight = FontWeights.Normal;
-			}
-
-			UpdateItem.Header = "Update available";
-			UpdateItem.FontWeight = FontWeights.Bold;
-		}
-
 #if DEBUG
 		MenuItem debugItem = new() { Header = "Open debug window" };
-		debugItem.Click += (sender, e) =>
+		debugItem.Click += (_, _) =>
 		{
 			DebugWindow debugWindow = new();
 			debugWindow.ShowDialog();
@@ -247,67 +226,8 @@ public partial class MainWindow : Window
 		aboutWindow.ShowDialog();
 	}
 
-	private void Changelog_Click(object sender, RoutedEventArgs e)
-	{
-		if (NetworkHandler.Instance.Tool != null)
-		{
-			List<ChangelogEntry> changes = NetworkHandler.Instance.Tool.Changelog?.ConvertAll(c => new ChangelogEntry(Version.Parse(c.VersionNumber), c.Date, MapToSharedModel(c.Changes)?.ToList() ?? new List<Change>())) ?? new();
-			ChangelogWindow changelogWindow = new(changes, App.LocalVersion);
-			changelogWindow.ShowDialog();
-		}
-		else
-		{
-			App.Instance.ShowError("Changelog not retrieved", "The changelog has not been retrieved from DevilDaggers.info.");
-		}
-
-		static IEnumerable<Change>? MapToSharedModel(List<Clients.GetToolVersionChange>? changes)
-		{
-			foreach (Clients.GetToolVersionChange change in changes ?? new())
-				yield return new(change.Description, MapToSharedModel(change.SubChanges)?.ToList());
-		}
-	}
-
 	private void ViewSourceCode_Click(object sender, RoutedEventArgs e)
 		=> ProcessUtils.OpenUrl(UrlUtils.SourceCode);
-
-	private void CheckForUpdates_Click(object sender, RoutedEventArgs e)
-	{
-		CheckingForUpdatesWindow window = new(NetworkHandler.Instance.GetOnlineTool);
-		window.ShowDialog();
-
-		if (NetworkHandler.Instance.Distribution != null)
-		{
-			if (App.LocalVersion < Version.Parse(NetworkHandler.Instance.Distribution.VersionNumber))
-			{
-				UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Distribution.VersionNumber, App.LocalVersion.ToString(), GetUpdateUrl(), App.ApplicationDisplayName);
-				updateRecommendedWindow.ShowDialog();
-			}
-			else
-			{
-				App.Instance.ShowMessage("Up to date", $"{App.ApplicationDisplayName} {App.LocalVersion} is up to date.");
-			}
-		}
-		else
-		{
-			App.Instance.ShowError("Error retrieving tool information", "An error occurred while attempting to retrieve tool information from the API.");
-		}
-	}
-
-	private void Window_Loaded(object sender, RoutedEventArgs e)
-	{
-		if (NetworkHandler.Instance.Distribution != null && App.LocalVersion < Version.Parse(NetworkHandler.Instance.Distribution.VersionNumber))
-		{
-			UpdateRecommendedWindow updateRecommendedWindow = new(NetworkHandler.Instance.Distribution.VersionNumber, App.LocalVersion.ToString(), GetUpdateUrl(), App.ApplicationDisplayName);
-			updateRecommendedWindow.ShowDialog();
-		}
-	}
-
-	private static string GetUpdateUrl()
-	{
-		int publishMethod = (int)DistributionUtils.GetPublishMethod();
-		const int buildType = (int)Clients.ToolBuildType.WindowsWpf;
-		return $"{NetworkHandler.BaseUrl}/api/tools/{App.ApplicationName}/file?publishMethod={publishMethod}&buildType={buildType}";
-	}
 
 	public void UpdateWarningDevilDaggersRootFolder()
 	{

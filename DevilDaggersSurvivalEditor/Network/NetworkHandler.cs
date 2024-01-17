@@ -1,6 +1,5 @@
 using DevilDaggersSurvivalEditor.Clients;
 using DevilDaggersSurvivalEditor.Core;
-using DevilDaggersSurvivalEditor.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,51 +10,30 @@ namespace DevilDaggersSurvivalEditor.Network;
 public sealed class NetworkHandler
 {
 #if TESTING
-	public static readonly string BaseUrl = "https://localhost:44318";
+	private const string _baseUrl = "https://localhost:44318";
 #else
-	public static readonly string BaseUrl = "https://devildaggers.info";
+	private const string _baseUrl = "https://devildaggers.info";
 #endif
 
 	private static readonly Lazy<NetworkHandler> _lazy = new(() => new());
 
+	private readonly DevilDaggersInfoApiClient _apiClient;
+
 	private NetworkHandler()
 	{
-		ApiClient = new(new() { BaseAddress = new(BaseUrl) });
+		_apiClient = new(new() { BaseAddress = new(_baseUrl) });
 	}
 
 	public static NetworkHandler Instance => _lazy.Value;
 
-	public DevilDaggersInfoApiClient ApiClient { get; }
-
-	public GetTool? Tool { get; private set; }
-
-	public GetToolDistribution? Distribution { get; private set; }
-
 	public List<GetSpawnsetDdse> Spawnsets { get; } = new();
-
-	public bool GetOnlineTool()
-	{
-		try
-		{
-			Tool = ApiClient.Tools_GetToolAsync(App.ApplicationName).Result;
-
-			Distribution = ApiClient.Tools_GetLatestToolDistributionAsync(App.ApplicationName, DistributionUtils.GetPublishMethod(), ToolBuildType.WindowsWpf).Result;
-
-			return true;
-		}
-		catch (Exception ex)
-		{
-			App.Instance.ShowError("Error retrieving tool information", "An error occurred while attempting to retrieve tool information from the API.", ex);
-			return false;
-		}
-	}
 
 	public async Task<bool> RetrieveSpawnsetList()
 	{
 		try
 		{
 			Spawnsets.Clear();
-			Spawnsets.AddRange(await ApiClient.Spawnsets_GetSpawnsetsForDdseAsync());
+			Spawnsets.AddRange(await _apiClient.Spawnsets_GetSpawnsetsAsync());
 
 			return true;
 		}
@@ -66,13 +44,13 @@ public sealed class NetworkHandler
 		}
 	}
 
-	public async Task<Spawnset?> DownloadSpawnset(string fileName)
+	public async Task<Spawnset?> DownloadSpawnset(int spawnsetId)
 	{
 		try
 		{
-			using FileResponse fileResponse = await ApiClient.Spawnsets_GetSpawnsetFileAsync(fileName);
-			using MemoryStream memoryStream = new();
-			fileResponse.Stream.CopyTo(memoryStream);
+			using FileResponse fileResponse = await _apiClient.Spawnsets_GetSpawnsetFileAsync(spawnsetId);
+			await using MemoryStream memoryStream = new();
+			await fileResponse.Stream.CopyToAsync(memoryStream);
 			byte[] bytes = memoryStream.ToArray();
 			if (!Spawnset.TryParse(bytes, out Spawnset spawnset))
 				App.Instance.ShowError("Error parsing file", "Could not parse file.");

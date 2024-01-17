@@ -11,8 +11,6 @@ public static class TileUtils
 	public const float InstantShrinkMin = -1.1f;
 	public const float InstantShrinkDefault = -1.01f;
 	public const float TileMin = -1;
-	public const float TileDefault = 0;
-	public const float TileMax = 54;
 
 	public const int TileSize = 8;
 	public const int TileSizeShrunk = 6;

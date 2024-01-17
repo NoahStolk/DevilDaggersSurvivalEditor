@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "http://devildaggers.info/swagger/v1/swagger.json",
+      "url": "https://devildaggers.info/swagger/DDSE/swagger.json",
       "output": null,
       "newLineBehavior": "Auto"
     }
@@ -13,7 +13,9 @@
       "clientBaseClass": null,
       "configurationClass": null,
       "generateClientClasses": true,
+      "suppressClientClassesOutput": false,
       "generateClientInterfaces": false,
+      "suppressClientInterfacesOutput": false,
       "clientBaseInterface": null,
       "injectHttpClient": true,
       "disposeHttpClient": true,
@@ -31,6 +33,8 @@
       "exposeJsonSerializerSettings": false,
       "clientClassAccessModifier": "public",
       "typeAccessModifier": "public",
+      "propertySetterAccessModifier": "",
+      "generateNativeRecords": false,
       "generateContractsOutput": false,
       "contractsNamespace": null,
       "contractsOutputFilePath": null,
@@ -87,10 +91,6 @@
       "generateOptionalPropertiesAsNullable": false,
       "generateNullableReferenceTypes": true,
       "templateDirectory": null,
-      "typeNameGeneratorType": null,
-      "propertyNameGeneratorType": null,
-      "enumNameGeneratorType": null,
-      "checksumCacheEnabled": false,
       "serviceHost": null,
       "serviceSchemes": null,
       "output": "DevilDaggersInfoApiClient.cs",
